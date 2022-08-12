@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.psp2111" name="psp2111" version="0.0.1" provider-name="psp2111-ADSLGATE">
+    <extension point="xbmc.addon.repository" name="Example Repository">
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/psp2111-ADSLGATE/psp2111.github.io/master/repo/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/psp2111-ADSLGATE/psp2111.github.io/master/repo/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/psp2111-ADSLGATE/psp2111.github.io/master/repo/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>repository.psp2111</summary>
+        <description>Arabic translation for Kodi Addon and skins</description>
+        <disclaimer></disclaimer>
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>
