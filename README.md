@@ -6,7 +6,9 @@
 
 صور للتعريب:
 
-https://i.imgur.com/snqELuC.png
+[
+http://url/to/img.png](https://i.imgur.com/snqELuC.png)![alt text]([
+http://url/to/img.png](https://i.imgur.com/snqELuC.png))
 https://i.imgur.com/rteid9R.png
 https://i.imgur.com/o1Edv2G.png
 https://i.imgur.com/KoK4asf.png
