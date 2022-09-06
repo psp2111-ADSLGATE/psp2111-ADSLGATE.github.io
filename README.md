@@ -1,4 +1,5 @@
 # بسم الله الرحمن الرحيم
+رابط المستودع يضاف الى تطبيق Kodi
 <p align="right">
 https://psp2111-adslgate.github.io/
 </p>
