@@ -1,7 +1,7 @@
-#بسم الله الرحمن الرحيم
-
+# بسم الله الرحمن الرحيم
+<p align="right">
 https://psp2111-adslgate.github.io/
-
+</p>
 
 هذا المستودع هدفه توفير دعم اللغة العربية لكودي بشكل كامل مع افضل الخطوط العربية
 
@@ -13,10 +13,10 @@ https://github.com/psp2111-ADSLGATE/psp2111-ADSLGATE.github.io/discussions
 </p>
 
 أو
-
+<p align="right">
 https://t.me/+sRwFCWMT8y4zMTg0
-
-صور للتعريب:
+</p>
+## صور للتعريب:
 
 ![alt text](https://i.imgur.com/snqELuC.png)
 ![alt text](https://i.imgur.com/rteid9R.png)
@@ -26,7 +26,7 @@ https://t.me/+sRwFCWMT8y4zMTg0
 
 
 
-صور للبيلد:
+## صور للبيلد:
 
 
 ![alt text](https://i.imgur.com/NqlQRIt.png)
