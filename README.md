@@ -17,7 +17,7 @@ https://github.com/psp2111-ADSLGATE/psp2111-ADSLGATE.github.io/discussions
 <p align="right">
 https://t.me/+sRwFCWMT8y4zMTg0
 </p>
-## صور للتعريب:
+## صور للتعريب :
 
 ![alt text](https://i.imgur.com/snqELuC.png)
 ![alt text](https://i.imgur.com/rteid9R.png)
