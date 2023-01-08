@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category id="general" label="General">
+        <setting id="log_level" type="labelenum" label="Logging Level" values="info|debug" default="info" />
+    </category>
+</settings>

@@ -181,6 +181,375 @@
       <icon>icon.png</icon>
     </assets>
   </extension>
+</addon><addon id="script.module.cloudscraper" name="CloudScraper2" version="1.2.66" provider-name="venomous">
+  <requires>
+    
+    <import addon="script.module.requests" />
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.python.pluginsource" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_gb">cloudscraper</summary>
+    <description lang="en_gb">cloudscraper</description>
+    <disclaimer lang="en_gb" />
+    <language />
+    <platform>all</platform>
+    <license />
+    <forum />
+    <website />
+    <email />
+    <source />
+  </extension>
+</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.3.0" provider-name="Unknown">
+    <requires>
+      <import addon="script.module.requests" />
+      <import addon="vfs.libarchive" optional="true" />
+    </requires>
+    <extension point="xbmc.subtitle.module" library="main.py" />
+    <extension point="xbmc.service" library="main_service.py" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">a4kSubtitles - Multi-Source Subtitles Addon</summary>
+        <description>
+Multi-source subtitles addon optimized for Seren and a4kScrapers.
+Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
+        </description>
+        <platform>all</platform>
+        <reuselanguageinvoker>true</reuselanguageinvoker>
+        <license>MIT License</license>
+        <website>https://github.com/newt-sc/a4kSubtitles</website>
+        <source>https://github.com/newt-sc/a4kSubtitles</source>
+        <assets>
+            <icon>icon.png</icon>
+            <screenshot>screenshot-01.png</screenshot>
+            <screenshot>screenshot-02.png</screenshot>
+            <screenshot>screenshot-03.png</screenshot>
+        </assets>
+        <news>
+[v3.3.0]:
+  * Improve Subscene support
+
+[v3.2.0]:
+  * Option to disable subs encoding detection
+
+[v3.1.0]:
+  * Force proper embedded subs selection based on preferred language overriding KODI
+  * Subs encoding fallback to predefined list in case auto detection fails
+
+[v3.0.0]:
+  * Use cf bypass for Subscene
+  * Auto-detect subs encoding and convert to utf-8
+
+[v2.8.0]:
+  * Support tvshows with more than 250 episodes for episode id lookup when tvshow imdb id is provided.
+
+[v2.7.0]:
+  * Support tvshow imdb id, along with season and episode passed from video file url.
+
+[v2.6.0]:
+  * Support imdb id (movie or episode) passed from video file url.
+
+[v2.5.0]:
+  * Add TLS adapter fallback
+
+[v2.4.0]:
+  * Fix some ssl issues
+
+[v2.3.0]:
+  * Add concurrency error handling
+
+[v2.2.0]:
+  * Fix KODI 19 Matrix support
+
+[v2.1.0]:
+  * Fix Persian search in Subscene
+
+[v2.0.0]:
+  * Use IMDb as main source for all meta.
+  * Retry on 503 (Service Unavailable). OpenSubtitles and Subscene seems to return it occasionally.
+
+[v1.8.0]:
+  * Remove SubDb (Site is down)
+  * Make lib vfs optional since there are fallbacks and it is used as last case scenario. Thus making the addon installable on platforms which are not supported by lib vfs.
+
+[v1.7.2]:
+  * Improve results sort based on title match
+
+[v1.7.1]:
+  * Drop python meta as it prevents installations on pre Kodi 19 versions
+
+[v1.7.0]:
+  * Update python meta to enable Kodi 19 installations
+
+[v1.6.0]:
+  * Add option to auto download first subtitle result silently
+
+[v1.5.0]:
+  * Auto open search dialog only on movie and tvshow videos
+
+[v1.4.0]:
+  * Add option to auto open the search dialog when the video does not have subtitles
+
+[v1.3.0]:
+  * Improve tvshow year scraping
+
+[v1.2.0]:
+  * Use internal ZipFile for extraction with a fallback to vfs.libarchive
+
+[v1.1.0]:
+  * Improve imdb id scraping
+
+[v1.0.1]:
+  * Add screenshots
+
+[v1.0.0]:
+  * Invalidate BSPlayer results cache when download links expire
+  * Extraction fallback: zip -&gt; gzip -&gt; raw
+
+[v0.0.30]:
+  * Add service names in ad detection
+  * Removed the option to disable cleaning of ads
+  * Add remote fetching of addic7ed data
+
+[v0.0.29]:
+  * Fix Podnadpisi download of results missing filename meta
+  * Fix last results cache not invalidated on language preferences change
+
+[v0.0.28]:
+  * Attempt scrape of imdb id when missing
+  * Improve filename parsing
+  * Fix SubDB lang code
+  * Fix Podnadpisi not returning release name
+
+[v0.0.27]:
+  * Attempt to auto-fix a garbled cyrillic encoded subtitles
+  * Fix more encoding issues
+  * Ensure progress dialog close even if the addon crashes
+  * Apply color to service name in results and bold tags
+  * Show notification if imdb id is missing
+
+[v0.0.26]:
+  * Support for Addic7ed
+  * Improve cache of the last results
+  * Don't show progress when showing results from cache
+
+[v0.0.25]:
+  * Fix cancellation thread exit
+
+[v0.0.24]:
+  * Show progress dialog only for search
+
+[v0.0.23]:
+  * Add progress dialog
+  * Support cancellation
+
+[v0.0.22]:
+  * Fix meta string conversion issue
+
+[v0.0.21]:
+  * TVShow year scrape from imdb when necessary
+
+[v0.0.20]:
+  * Improve Subscene tvshow matching
+  * Extract first sub file from zips when none is matched
+  * Fix Podnadpisi not working properly for tvshows
+  * Fix non-ascii video file title issues
+  * Add tvshow tests
+
+[v0.0.19]:
+  * Update settings
+  * Fix language code suffix format in the subtitle file name
+  * Support for Subscene
+
+[v0.0.18]:
+  * Support for Podnadpisi.NET
+  * Support for SubDB
+
+[v0.0.17]:
+  * Reuse KODI's Python language invoker
+    * Improves performance on low-end devices when switching subtitles for best match
+  * Url decode subtitle names
+
+[v0.0.16]:
+  * Cache last result
+  * OpenSubtitles always queries:
+    * by imdb id and title
+    * by video file hash
+  * Improve results ordering:
+    * preferred lang
+    * lang
+    * synced
+    * name match
+    * rating
+    * hearing impaired
+    * subtitle service
+  * Fix url with numbers matching in ads detection
+
+[v0.0.15]:
+  * Remove ads by default
+  * Support for BSPlayer
+  * Additional option for OpenSubtitles to use file hash (Limits results to exact matches)
+
+[v0.0.14]:
+  * Fix API and normal usage at the same time
+
+[v0.0.13]:
+  * Exclude development files from release
+
+[v0.0.12]:
+  * Removal of ads (Experimental)
+  * Fix extract issue when file contains unicode symbols
+
+[v0.0.11]:
+  * Changelog in KODI
+
+[v0.0.10]:
+  * Inserted language code in sub filename
+
+[v0.0.9]:
+  * Implemented (orginal, default, none, forced_only) as KODI language setting
+  * Fixed minor bugs in API implementation
+  * Added .idea folder to .gitignore
+
+[v0.0.8]:
+  * opensubtitles should make max 2 requests for separate languages
+  * lint updates
+  * add tests for download
+
+[v0.0.7]:
+  * API class rename
+
+[v0.0.6]:
+  * fix core requiring handle even with API usage
+
+[v0.0.5]:
+  * expose API for usage without KODI
+  * add tests for search
+
+[v0.0.4]:
+  * distribution process:
+    * KODI repository with updates based on github releases
+    * addons.xml and addons.xml.crc auto generation via git hooks
+    * release automation on merge to master via Github Actions
+
+[v0.0.3]:
+  * general settings for configuring requests timeout and results limit
+  * additional ordering of the results depending on the similarity ratio of the video file name and the subtitle file name
+
+[v0.0.2]:
+  * improve archive extraction support
+  * limit the results and add requests timeout
+  * fix OpenSubtitles authentication
+  * handle debug logging detection issues
+
+[v0.0.1]:
+  * initial working version (search and download subtitles)
+  * OpenSubtitles support with optional authentication
+  * results ordering with preferred language ordered first
+        </news>
+    </extension>
+</addon><addon id="service.subtitles.subscene" name="Subscene.com" version="1.9.12" provider-name="wuff, jarmo, CrowleyAJ">
+    <requires>
+        
+    </requires>
+    <extension point="xbmc.subtitle.module" library="service.py" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Get subtitles from Subscene.com</summary>
+        <description lang="en">Subscene.com provides subtitles in more than 50 languages for TV-Series, Movies, and Music videos, phrase by phrase curated and perfected by users.[CR][CR]Note: Needs kodi-vfs-rar and/or kodi-vfs-libarchive addon to extract rar files.</description>
+        <disclaimer lang="en" />
+        <platform>all</platform>
+        <language />
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+        <forum>http://forum.xbmc.org/showthread.php?tid=184854</forum>
+        <website />
+        <email />
+        <source>https://github.com/AnonTester/service.subtitles.subscene</source>
+        <assets>
+            <icon>icon.png</icon>
+        </assets>
+        <news>
+1.9.12 (wuff)
+- add settings option to set debug level (default info)
+- reduced tvshow debug logging slightly
+
+1.9.11 (wuff)
+- add a lot of debug logging for tvshows
+
+1.9.10 (wuff)
+- add trailing slash and zip protocol to linux platform extract (for arm?)
+
+1.9.9 (wuff)
+- adjust http user-agent
+- retry 5 times to download subtitles before giving up gracefully
+        
+1.9.8 (wuff)
+- adjust Android platform check
+
+1.9.7 (wuff)
+- add Android platform check to extraction method
+- add icon to addons.xml            
+
+1.9.6 (wuff)
+- add OS dependent extraction method (Windows fix)
+- add more debug info
+
+1.9.5 (wuff)
+- adjust download function
+- update provider-detail and readme
+
+1.9.4 (wuff)
+- Adjust windows/linux path when extracting on Kodi19
+- replace deprecated HTMLParser.unescape with html.unescape for Kodi19
+
+1.9.3 (backport changes from foreignonly version)
+- Fix extracting archives on Kodi19 (wuff)
+- Remove python requirement for both Kodi 18/19 compatibility (wuff)
+- Replace xbmc.translatePath with xbmcvfs.translatePath for Kodi19 (wuff)
+- Fix unicode issue in language preferences (wuff)
+- Fix filename search by not calling str on tuple (StefanRvO)
+
+1.9.0
+- split Kodi 18/19 release, but version still 1.8.2 (jarmo)
+
+1.8.2
+- Fix python 3 tv show subtitle search (wuff)
+
+1.8.1
+- Kodi 19 / Python 3 compatibility (wuff)
+- Add line break after subtitle title and before subtitle comments (wuff)
+- Change comment colour to silver for improved contrast of selected entries (wuff)
+
+1.8.0
+- fix searching for subtitles (jarmo)
+</news>
+    </extension>
+</addon><addon id="service.subtitles.subsceneplus" name="Subscene Subtitles" version="1.2.9" provider-name="Cih2001">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.requests" version="2.22.0+matrix.1" />
+    <import addon="script.module.html5lib" version="1.0.1+matrix.2" />
+    <import addon="vfs.libarchive" version="2.0.0" />
+    <import addon="script.module.cloudscraper" version="1.2.60" /> 
+  </requires>
+  <extension point="xbmc.subtitle.module" library="service.py" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Subscene.com Subtitles</summary>
+    <description lang="en_GB"> A convenient addon to download subtitles from subscene.com. If you find it useful, please consider giving it a star in github. This is being actively maintained. In case of any problem, feel free to open an issue on github.
+    </description>
+    <platform>all</platform>
+    <license>GPL-2.0-or-later</license>
+    <news>Version 1.2.*
+- New: Subscene domain name can be selected from the settings.
+Version 1.1.*
+- New: Subscene plus now works with TV shows.
+- New: When Movie/TV-show cannot be determined accurately, It allows you to select the correct one from a list.
+- New: Subtitles from archives with multiple items can be selected from a list.
+- Minor bugfixes
+	</news>
+    <source>https://github.com/Cih2001/KodiSubsceneAddon</source>
+    <assets>
+        <icon>logo.png</icon>
+    </assets>
+  </extension>
 </addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.7.11">
     <requires>
         <import addon="xbmc.gui" version="5.15.0" />
