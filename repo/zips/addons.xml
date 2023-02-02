@@ -192,7 +192,7 @@
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="resource.language.ar_sa" version="10.0.1" name="Arabic" provider-name="psp2111">
+</addon><addon id="resource.language.ar_sa" version="10.0.12" name="Arabic" provider-name="psp2111">
   <requires>
     <import addon="kodi.resource" version="1.0.0" />
   </requires>
@@ -605,7 +605,7 @@ Version 1.1.*
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="skin.estuary" version="3.1.5" name="Estuary" provider-name="phil65, Ichabod Fletchman">
+</addon><addon id="skin.estuary" version="3.1.10" name="Estuary" provider-name="phil65, Ichabod Fletchman">
 	<requires>
 		<import addon="xbmc.gui" version="5.15.0" />
 	</requires>

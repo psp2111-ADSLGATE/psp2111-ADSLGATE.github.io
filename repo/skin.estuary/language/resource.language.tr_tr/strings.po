@@ -1,20 +1,33 @@
 # Kodi Media Center language file
 # Addon Name: Estuary
 # Addon id: skin.estuary
-# Addon Provider: phil65, Ichabod Fletchman
+# Addon Provider: Team Kodi
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Kodi Translation Team\n"
-"Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/kodi-main/language/tr_TR/)\n"
+"PO-Revision-Date: 2022-11-19 06:47+0000\n"
+"Last-Translator: queeup <queeup@zoho.com>\n"
+"Language-Team: Turkish <https://kodi.weblate.cloud/projects/kodi-add-ons-skins/skin-estuary/tr_tr/>\n"
+"Language: tr_tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr_TR\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 4.14.2\n"
+
+msgctxt "Addon Summary"
+msgid "Estuary skin by phil65. (Kodi's default skin)"
+msgstr "Estuary dış görünümü. phil65 (Kodi'nin varsayılan dış görünümü)"
+
+msgctxt "Addon Description"
+msgid "Estuary is the default skin for Kodi 17.0 and above. It attempts to be easy for first time Kodi users to understand and use."
+msgstr "Estuary Kodi 17.0 ve yukarısı için varsayılan dış görünümdür. İlk kez Kodi kullananlar için anlaşılması ve kullanımı kolaydır."
+
+msgctxt "Addon Disclaimer"
+msgid "Estuary is the default skin for Kodi, removing it may cause issues"
+msgstr "Estuary Kodi için varsayılan dış görünümdür, kaldırmak sorunlara yol açabilir"
 
 msgctxt "#31000"
 msgid "Now playing"
@@ -76,10 +89,12 @@ msgctxt "#31014"
 msgid "Unplayed albums"
 msgstr "Çalınmamış albümler"
 
+#. home screen recordings widget: recent tv / radio recordings
 msgctxt "#31015"
 msgid "Recent recordings"
 msgstr "En son kayıtlar"
 
+#. home screen channel widget: recently played tv channels. (please note that in some non-english languages #31018 and #31016 might not be equal)
 msgctxt "#31016"
 msgid "Recently played channels"
 msgstr "Son oynatılan kanallar"
@@ -88,6 +103,7 @@ msgctxt "#31017"
 msgid "Rated"
 msgstr "Derecelendirildi"
 
+#. home screen channel widget: recently played radio channels. (please note that in some non-english languages #31018 and #31016 might not be equal)
 msgctxt "#31018"
 msgid "Recently played channels"
 msgstr "Son oynatılan kanallar"
@@ -136,6 +152,7 @@ msgctxt "#31029"
 msgid "Last logged in"
 msgstr "Son oturum açma"
 
+#. Label to show the system memory usage
 msgctxt "#31030"
 msgid "System memory usage"
 msgstr "Sistem bellek kullanımı"
@@ -212,6 +229,14 @@ msgctxt "#31053"
 msgid "Arial based"
 msgstr "Arial tabanlı"
 
+msgctxt "#31054"
+msgid "Press [B]Left[/B] to step back, or [B]Right[/B] to step forward"
+msgstr "Geri atlamak için [B]Sol[/B] tuşuna, ileri atlamak için [B]Sağ[/B] tuşana basın"
+
+msgctxt "#31055"
+msgid "Press [B]Right[/B] to frame advance"
+msgstr "İlerletmek için [B]Sağ[/B] tuşana basın"
+
 msgctxt "#31056"
 msgid "Go to playlist"
 msgstr "Çalma listesine git"
@@ -266,7 +291,7 @@ msgstr "Son Güncelleme"
 
 msgctxt "#31071"
 msgid "by"
-msgstr "yazan:"
+msgstr "yazan"
 
 msgctxt "#31072"
 msgid "Power Options"
@@ -332,18 +357,22 @@ msgctxt "#31098"
 msgid "Select your Kodi user profile[CR]to login and continue"
 msgstr "Oturum açıp devam etmek için[CR]Kodi kullanıcı profilinizi seçin"
 
+#. viewtype name
 msgctxt "#31099"
 msgid "IconWall"
 msgstr "Simge Duvarı"
 
+#. viewtype name
 msgctxt "#31100"
 msgid "Shift"
 msgstr "Kaydır"
 
+#. viewtype name
 msgctxt "#31101"
 msgid "InfoWall"
 msgstr "Bilgi Duvarı"
 
+#. viewtype name
 msgctxt "#31102"
 msgid "Wall"
 msgstr "Duvar"
@@ -358,12 +387,13 @@ msgstr "Kitaplığınız şu anda boş. Kitaplığınızı kişisel medyaların�
 
 msgctxt "#31105"
 msgid "Add video sources and set the appropriate content type in order to populate your video libraries."
-msgstr "Video kitaplığınızı doldurmak için video kaynakları ekleyin ve  uygun içerik türünü ayarlayın."
+msgstr "Video kitaplığınızı doldurmak için video kaynakları ekleyin ve uygun içerik türünü ayarlayın."
 
 msgctxt "#31106"
 msgid "Teletext"
 msgstr "Teleteks"
 
+#. viewtype name
 msgctxt "#31107"
 msgid "WideList"
 msgstr "Geniş Liste"
@@ -387,6 +417,10 @@ msgstr "Yerel kitaplıkta ara"
 msgctxt "#31114"
 msgid "Search YouTube"
 msgstr "YouTube'da ara"
+
+msgctxt "#31115"
+msgid "Toggle subtitle"
+msgstr "Altyazıyı değiştir"
 
 msgctxt "#31116"
 msgid "Remove this main menu item"
@@ -460,29 +494,37 @@ msgctxt "#31134"
 msgid "Remaining"
 msgstr "Kalan"
 
+msgctxt "#31135"
+msgid "Binary"
+msgstr "Binary"
+
 msgctxt "#31136"
 msgid "Click here to see latest changes..."
 msgstr "En son değişiklikleri görmek için tıklayınız..."
 
+#. Label to show PVR info page
 msgctxt "#31137"
-msgid "PVR info"
-msgstr "PVR bilgisi"
+msgid "PVR"
+msgstr "PVR"
 
+#. Label to show player info page
 msgctxt "#31138"
-msgid "Player process info"
-msgstr "Yürütücü işlem bilgisi"
+msgid "Player"
+msgstr "Oynatıcı"
 
+#. Label to show video decoder name
 msgctxt "#31139"
 msgid "Video decoder"
 msgstr "Video kod çözücü"
 
+#. Label to show the video pixel format
 msgctxt "#31140"
 msgid "Pixel format"
 msgstr "Piksel biçimi"
 
 msgctxt "#31141"
 msgid "Changes for version"
-msgstr "Sürümdeki değişiklikler -"
+msgstr "Sürümdeki değişiklikler:"
 
 msgctxt "#31142"
 msgid "Play speed"
@@ -514,7 +556,11 @@ msgstr "Kategoriler"
 
 msgctxt "#31149"
 msgid "Select genre fanart pack"
-msgstr "Tür fanart paketini seçin"
+msgstr "Tarz fanart paketini seçin"
+
+msgctxt "#31150"
+msgid "Origin"
+msgstr "Kaynak"
 
 msgctxt "#31151"
 msgid "Unwatched music videos"
@@ -568,18 +614,136 @@ msgctxt "#31163"
 msgid "Show Fanart background"
 msgstr "Arka plan fanartını göster"
 
+#. Choose profile identifier
 msgctxt "#31164"
 msgid "Choose kind of profile identification"
 msgstr "Profil kimliğini görüntüleme türünü seçin"
 
+#. Label for the kind of profile identification
 msgctxt "#31165"
 msgid "Profile name"
 msgstr "Profil adı"
 
+#. Label for the kind of profile identification
 msgctxt "#31166"
 msgid "Profile avatar"
 msgstr "Profil avatarı"
 
+#. Label of a setting
 msgctxt "#31167"
 msgid "Animate background"
 msgstr "Arka plana animasyon ekle"
+
+#. Label of a setting
+msgctxt "#31168"
+msgid "Show posters instead of thumbs for musicvideos"
+msgstr "Müzik videoları için küçük resimler yerine poster gösterin"
+
+#. Description label for skin settings area
+msgctxt "#31169"
+msgid "Artwork related settings."
+msgstr "Resimle ilgili ayarlar."
+
+#. Label for OSD settings category
+msgctxt "#31170"
+msgid "On screen display"
+msgstr "Ekran menüsü"
+
+#. Helper text for the label of OSD settings category
+msgctxt "#31171"
+msgid "On screen display (OSD) related settings"
+msgstr "Ekran menüsü (OSD) ile ilgili ayarlar"
+
+#. Setting Automatically close video OSD
+msgctxt "#31172"
+msgid "Automatically close video OSD"
+msgstr "Video OSD'sini otomatik olarak kapat"
+
+#. Setting auto close time for video osd
+msgctxt "#31173"
+msgid "Video OSD autoclose time (seconds)"
+msgstr "Video OSD otomatik kapanma süresi (saniye)"
+
+#. Setting to control what happens when clicking a music album on the home screen
+msgctxt "#31174"
+msgid "Default select action for albums on the home screen"
+msgstr "Ana ekrandaki albümler için varsayılan seçme eylemi"
+
+#. Setting to control what happens when clicking a TV show on the home screen
+msgctxt "#31175"
+msgid "Default select action for TV shows on the home screen"
+msgstr "Ana ekrandaki tv programları için varsayılan seçme eylemi"
+
+#. Setting to control what happens when clicking a movie set on the home screen
+msgctxt "#31176"
+msgid "Default select action for movie sets on the home screen"
+msgstr "Ana ekrandaki film kümeleri için varsayılan seçme eylemi"
+
+# empty strings from id 31170 to 31599
+#. Label to show the video codec name
+msgctxt "#31600"
+msgid "Video codec"
+msgstr "Video codec"
+
+#. Label to show the video resolution
+msgctxt "#31601"
+msgid "Video resolution"
+msgstr "Video çözünürlüğü"
+
+#. Label to show the video aspect
+msgctxt "#31602"
+msgid "Video aspect"
+msgstr "Video en boy oranı"
+
+#. Label to show the video bitrate
+msgctxt "#31603"
+msgid "Video bitrate"
+msgstr "Video bit oranı"
+
+#. Label to show the audio codec name
+msgctxt "#31604"
+msgid "Audio codec"
+msgstr "Ses codec"
+
+#. Label to show the number of audio channels
+msgctxt "#31605"
+msgid "Audio channels"
+msgstr "Ses kanalları"
+
+#. Label to show the audio bitrate
+msgctxt "#31606"
+msgid "Audio bitrate"
+msgstr "Ses bit oranı"
+
+#. Label to show the screen resolution
+msgctxt "#31607"
+msgid "Screen resolution"
+msgstr "Ekran çözünürlüğü"
+
+#. Label to show the system rendering speed
+msgctxt "#31608"
+msgid "System rendering speed"
+msgstr "Sistem işleme hızı"
+
+#. Label to show the system CPU usage
+msgctxt "#31609"
+msgid "System CPU usage"
+msgstr "Sistem CPU kullanımı"
+
+#. Label to show the media (metadata) info page
+msgctxt "#31610"
+msgid "Media"
+msgstr "Medya"
+
+#. Label to show the system info page
+msgctxt "#31611"
+msgid "System"
+msgstr "Sistem"
+
+#~ msgctxt "#31137"
+#~ msgid "PVR info"
+#~ msgstr "PVR bilgisi"
+
+#~ msgctxt "#31138"
+#~ msgid "Player process info"
+#~ msgstr "Yürütücü işlem bilgisi"

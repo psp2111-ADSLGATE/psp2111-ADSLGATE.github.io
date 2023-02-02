@@ -1,28 +1,41 @@
 # Kodi Media Center language file
 # Addon Name: Estuary
 # Addon id: skin.estuary
-# Addon Provider: phil65, Ichabod Fletchman
+# Addon Provider: Team Kodi
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Kodi Translation Team\n"
-"Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/kodi-main/language/et_EE/)\n"
+"PO-Revision-Date: 2022-02-26 16:13+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"Language-Team: Estonian <https://kodi.weblate.cloud/projects/kodi-add-ons-skins/skin-estuary/et_ee/>\n"
+"Language: et_ee\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et_EE\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11\n"
+
+msgctxt "Addon Summary"
+msgid "Estuary skin by phil65. (Kodi's default skin)"
+msgstr "Estuary rüü autor on phil65. (Kodi vaikerüü)"
+
+msgctxt "Addon Description"
+msgid "Estuary is the default skin for Kodi 17.0 and above. It attempts to be easy for first time Kodi users to understand and use."
+msgstr "Estuary on Kodi vaikerüü versioonist 17.0. Kodi esmakasutajatel on rüüd kerge mõista ja kasutada."
+
+msgctxt "Addon Disclaimer"
+msgid "Estuary is the default skin for Kodi, removing it may cause issues"
+msgstr "Estuary on Kodi vaikerüü, selle eemaldamine võib põhjustada probleeme"
 
 msgctxt "#31000"
 msgid "Now playing"
-msgstr "Hetkel eetris"
+msgstr "Hetkel mängib"
 
 msgctxt "#31001"
 msgid "Search..."
-msgstr "Otsimine..."
+msgstr "Otsing..."
 
 msgctxt "#31002"
 msgid "Show media fanart as background"
@@ -66,20 +79,22 @@ msgstr "Enim esitatud albumid"
 
 msgctxt "#31012"
 msgid "Random albums"
-msgstr "Juhuslik album"
+msgstr "Juhuslikud albumid"
 
 msgctxt "#31013"
 msgid "Random artists"
-msgstr "Juhuslik esitaja"
+msgstr "Juhuslikud esitajad"
 
 msgctxt "#31014"
 msgid "Unplayed albums"
 msgstr "Esitamata albumid"
 
+#. home screen recordings widget: recent tv / radio recordings
 msgctxt "#31015"
 msgid "Recent recordings"
 msgstr "Viimased salvestused"
 
+#. home screen channel widget: recently played tv channels. (please note that in some non-english languages #31018 and #31016 might not be equal)
 msgctxt "#31016"
 msgid "Recently played channels"
 msgstr "Viimased vaadatud kanalid"
@@ -88,6 +103,7 @@ msgctxt "#31017"
 msgid "Rated"
 msgstr "Vanusepiirang"
 
+#. home screen channel widget: recently played radio channels. (please note that in some non-english languages #31018 and #31016 might not be equal)
 msgctxt "#31018"
 msgid "Recently played channels"
 msgstr "Viimased kuulatud kanalid"
@@ -114,7 +130,7 @@ msgstr "Esitusviis"
 
 msgctxt "#31024"
 msgid "Choose rating to display for media items"
-msgstr "Vali meediaüksuste kuvamiseks hinne"
+msgstr "Valige meediaüksuste kuvatav hinnang"
 
 msgctxt "#31025"
 msgid "No favourites found. You can add any item from media views to this list by using the context menu."
@@ -126,16 +142,17 @@ msgstr "Ajanihe"
 
 msgctxt "#31027"
 msgid "Next aired"
-msgstr "Järgmisena eetris"
+msgstr "Järgmine esitus"
 
 msgctxt "#31028"
 msgid "Show fanart"
-msgstr "Poster"
+msgstr "Kuva fännipildid"
 
 msgctxt "#31029"
 msgid "Last logged in"
 msgstr "Viimati sisse logitud"
 
+#. Label to show the system memory usage
 msgctxt "#31030"
 msgid "System memory usage"
 msgstr "Mälu kasutus"
@@ -216,6 +233,10 @@ msgctxt "#31054"
 msgid "Press [B]Left[/B] to step back, or [B]Right[/B] to step forward"
 msgstr "Tagasihüppeks vajuta [B]vasakut[/B] või edasihüppeks [B]paremat[/B] klahvi"
 
+msgctxt "#31055"
+msgid "Press [B]Right[/B] to frame advance"
+msgstr "Kaaderhaaval liikumiseks vajuta [B]paremat[/B] klahvi"
+
 msgctxt "#31056"
 msgid "Go to playlist"
 msgstr "Mine esitusloendisse"
@@ -246,7 +267,7 @@ msgstr "Vali ilmateate fännipiltide pakk"
 
 msgctxt "#31063"
 msgid "Sections"
-msgstr "Rubriigid"
+msgstr "Jaotised"
 
 msgctxt "#31065"
 msgid "Video playlist"
@@ -334,20 +355,24 @@ msgstr "Kanali suvandid"
 
 msgctxt "#31098"
 msgid "Select your Kodi user profile[CR]to login and continue"
-msgstr "Vali sisse logimiseks Kodi kasutaja profiil[CR]ja jätka"
+msgstr "Sisselogimiseks ja jätkamiseks[CR]vali oma Kodi kasutajaprofiil"
 
+#. viewtype name
 msgctxt "#31099"
 msgid "IconWall"
 msgstr "Ikoonisein"
 
+#. viewtype name
 msgctxt "#31100"
 msgid "Shift"
 msgstr "Riba"
 
+#. viewtype name
 msgctxt "#31101"
 msgid "InfoWall"
 msgstr "Infosein"
 
+#. viewtype name
 msgctxt "#31102"
 msgid "Wall"
 msgstr "Sein"
@@ -358,23 +383,24 @@ msgstr "Sisesta tekst siia..."
 
 msgctxt "#31104"
 msgid "Your library is currently empty. In order to populate it with your personal media, enter \"Files\" section, add a media source and configure it. After the source has been added and indexed you will be able to browse your library."
-msgstr "Teek on praegu tühi. Selleks, et seda täita oma meediaga minge rubriiki \"Failid\", lisage meediaallikas ja seadistage see."
+msgstr "Meediakogu on praegu tühi. Et täita see oma meediaga, ava jaotis \"Failid\", lisa meediaallikas ja seadista see."
 
 msgctxt "#31105"
 msgid "Add video sources and set the appropriate content type in order to populate your video libraries."
-msgstr "Lisa videoallikad ja määra videoteegi täitmiseks sisu liik."
+msgstr "Lisa video allikad ja määra videoteegi täitmiseks sisu liik."
 
 msgctxt "#31106"
 msgid "Teletext"
 msgstr "Teletekst"
 
+#. viewtype name
 msgctxt "#31107"
 msgid "WideList"
-msgstr "Lai nimekiri"
+msgstr "Lai loend"
 
 msgctxt "#31110"
 msgid "Enter files section"
-msgstr "Mine failide rubriiki"
+msgstr "Ava jaotis 'Failid'"
 
 msgctxt "#31111"
 msgid "View your personal pictures or download one of the many image add-ons from the official repository."
@@ -391,6 +417,10 @@ msgstr "Otsi kohalikust teegist"
 msgctxt "#31114"
 msgid "Search YouTube"
 msgstr "Otsi YouTube-ist"
+
+msgctxt "#31115"
+msgid "Toggle subtitle"
+msgstr "Vaheta subtiitrid"
 
 msgctxt "#31116"
 msgid "Remove this main menu item"
@@ -418,7 +448,7 @@ msgstr "Määra ilmateate pakkuja"
 
 msgctxt "#31122"
 msgid "Unwatched TV Shows"
-msgstr "Vaatamata seriaalid"
+msgstr "Vaatamata sarjad"
 
 msgctxt "#31123"
 msgid "Same director"
@@ -438,11 +468,11 @@ msgstr "Kuva ikoonid"
 
 msgctxt "#31128"
 msgid "Contributors"
-msgstr "Osalejad"
+msgstr "Kaasautorid"
 
 msgctxt "#31129"
 msgid "General settings applying to all areas of the skin."
-msgstr "Rüü kõikidele osadele kohalduvad üldseaded"
+msgstr "Rüü kõikidele osadele kohalduvad üldseaded."
 
 msgctxt "#31130"
 msgid "Main menu-related settings: Configure the home screen to your likings."
@@ -464,22 +494,30 @@ msgctxt "#31134"
 msgid "Remaining"
 msgstr "Kestab veel"
 
+msgctxt "#31135"
+msgid "Binary"
+msgstr "Binaar"
+
 msgctxt "#31136"
 msgid "Click here to see latest changes..."
 msgstr "Viimaste muudatuste vaatamiseks kliki siia..."
 
+#. Label to show PVR info page
 msgctxt "#31137"
-msgid "PVR info"
-msgstr "PVR-i info"
+msgid "PVR"
+msgstr "PVR"
 
+#. Label to show player info page
 msgctxt "#31138"
-msgid "Player process info"
-msgstr "Pleieri protsesside teave"
+msgid "Player"
+msgstr "Pleier"
 
+#. Label to show video decoder name
 msgctxt "#31139"
 msgid "Video decoder"
 msgstr "Videodekooder"
 
+#. Label to show the video pixel format
 msgctxt "#31140"
 msgid "Pixel format"
 msgstr "Piksli vorming"
@@ -494,7 +532,7 @@ msgstr "Esitamise kiirus"
 
 msgctxt "#31143"
 msgid "You did not set up PVR yet. In order to use PVR, choose a PVR client addon and configure it. Please visit http://kodi.wiki/view/PVR to learn more."
-msgstr "PVR on seadistamata. PVR-i kasutamiseks vali ja seadista PVR-i klientprogramm. Rohkem infot: http://kodi.wiki/view/PVR "
+msgstr "PVR on seadistamata. PVR-i kasutamiseks vali ja seadista PVR-i klientprogramm. Rohkem infot: http://kodi.wiki/view/PVR."
 
 msgctxt "#31144"
 msgid "Enter add-on browser"
@@ -520,13 +558,17 @@ msgctxt "#31149"
 msgid "Select genre fanart pack"
 msgstr "Vali žanri fännipiltide pakk"
 
+msgctxt "#31150"
+msgid "Origin"
+msgstr "Päritolu"
+
 msgctxt "#31151"
 msgid "Unwatched music videos"
 msgstr "Vaatamata muusikavideod"
 
 msgctxt "#31152"
 msgid "Random music videos"
-msgstr "Juhuslik muusikavideo"
+msgstr "Juhuslikud muusikavideod"
 
 msgctxt "#31153"
 msgid "You do not have any add-ons of this type installed. Enter the add-on browser to download add-ons created by our community."
@@ -538,7 +580,7 @@ msgstr "Asukohtade vahel valimiseks vajuta OK"
 
 msgctxt "#31155"
 msgid "No bookmarks created yet."
-msgstr "Järjehoidjaid ei ole"
+msgstr "Järjehoidjaid ei ole."
 
 msgctxt "#31156"
 msgid "Choose background pattern"
@@ -554,7 +596,7 @@ msgstr "Puutetundlik režiim"
 
 msgctxt "#31159"
 msgid "Artwork"
-msgstr "Joonistus"
+msgstr "Taustapildid"
 
 msgctxt "#31160"
 msgid "Show media flags"
@@ -572,22 +614,136 @@ msgctxt "#31163"
 msgid "Show Fanart background"
 msgstr "Näita fännide loodud pilte"
 
+#. Choose profile identifier
 msgctxt "#31164"
 msgid "Choose kind of profile identification"
 msgstr "Vali profiili tuvastuse liik"
 
+#. Label for the kind of profile identification
 msgctxt "#31165"
 msgid "Profile name"
 msgstr "Profiili nimi"
 
+#. Label for the kind of profile identification
 msgctxt "#31166"
 msgid "Profile avatar"
 msgstr "Profiili avatar"
 
+#. Label of a setting
 msgctxt "#31167"
 msgid "Animate background"
 msgstr "Tausta animeerimine"
 
+#. Label of a setting
 msgctxt "#31168"
 msgid "Show posters instead of thumbs for musicvideos"
 msgstr "Kuva muusikavideote jaoks postereid mitte pisipilte"
+
+#. Description label for skin settings area
+msgctxt "#31169"
+msgid "Artwork related settings."
+msgstr "Taustapiltidega seotud seaded."
+
+#. Label for OSD settings category
+msgctxt "#31170"
+msgid "On screen display"
+msgstr ""
+
+#. Helper text for the label of OSD settings category
+msgctxt "#31171"
+msgid "On screen display (OSD) related settings"
+msgstr ""
+
+#. Setting Automatically close video OSD
+msgctxt "#31172"
+msgid "Automatically close video OSD"
+msgstr ""
+
+#. Setting auto close time for video osd
+msgctxt "#31173"
+msgid "Video OSD autoclose time (seconds)"
+msgstr ""
+
+#. Setting to control what happens when clicking a music album on the home screen
+msgctxt "#31174"
+msgid "Default select action for albums on the home screen"
+msgstr ""
+
+#. Setting to control what happens when clicking a TV show on the home screen
+msgctxt "#31175"
+msgid "Default select action for TV shows on the home screen"
+msgstr ""
+
+#. Setting to control what happens when clicking a movie set on the home screen
+msgctxt "#31176"
+msgid "Default select action for movie sets on the home screen"
+msgstr ""
+
+# empty strings from id 31170 to 31599
+#. Label to show the video codec name
+msgctxt "#31600"
+msgid "Video codec"
+msgstr "Video koodek"
+
+#. Label to show the video resolution
+msgctxt "#31601"
+msgid "Video resolution"
+msgstr "Videolahutus"
+
+#. Label to show the video aspect
+msgctxt "#31602"
+msgid "Video aspect"
+msgstr "Ekraanisuhe"
+
+#. Label to show the video bitrate
+msgctxt "#31603"
+msgid "Video bitrate"
+msgstr "Video bitikiirus"
+
+#. Label to show the audio codec name
+msgctxt "#31604"
+msgid "Audio codec"
+msgstr "Heli koodek"
+
+#. Label to show the number of audio channels
+msgctxt "#31605"
+msgid "Audio channels"
+msgstr "Heli kanalid"
+
+#. Label to show the audio bitrate
+msgctxt "#31606"
+msgid "Audio bitrate"
+msgstr "Heli bitikiirus"
+
+#. Label to show the screen resolution
+msgctxt "#31607"
+msgid "Screen resolution"
+msgstr "Ekraani eraldusvõime:"
+
+#. Label to show the system rendering speed
+msgctxt "#31608"
+msgid "System rendering speed"
+msgstr "Süsteemi renderduskiirus"
+
+#. Label to show the system CPU usage
+msgctxt "#31609"
+msgid "System CPU usage"
+msgstr "Protsessori kasutus"
+
+#. Label to show the media (metadata) info page
+msgctxt "#31610"
+msgid "Media"
+msgstr "Meedia"
+
+#. Label to show the system info page
+msgctxt "#31611"
+msgid "System"
+msgstr "Süsteem"
+
+#~ msgctxt "#31137"
+#~ msgid "PVR info"
+#~ msgstr "PVR-i info"
+
+#~ msgctxt "#31138"
+#~ msgid "Player process info"
+#~ msgstr "Pleieri protsesside teave"
