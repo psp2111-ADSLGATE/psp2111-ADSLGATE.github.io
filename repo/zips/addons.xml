@@ -476,9 +476,9 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="service.subtitles.subscene" name="Subscene.com" version="1.9.12" provider-name="wuff, jarmo, CrowleyAJ">
+</addon><addon id="service.subtitles.subscene" name="Subscene.com" version="1.9.12a" provider-name="wuff, jarmo, CrowleyAJ">
     <requires>
-        
+        <import addon="vfs.libarchive" version="2.0.0" />
     </requires>
     <extension point="xbmc.subtitle.module" library="service.py" />
     <extension point="xbmc.addon.metadata">
