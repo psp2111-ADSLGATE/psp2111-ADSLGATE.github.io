@@ -1,37 +1,24 @@
 # Kodi Media Center language file
 # Addon Name: Estuary
 # Addon id: skin.estuary
-# Addon Provider: Team Kodi
+# Addon Provider: phil65, Ichabod Fletchman
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-11-12 17:13+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
-"Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-add-ons-skins/skin-estuary/da_dk/>\n"
-"Language: da_dk\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/kodi-main/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
-
-msgctxt "Addon Summary"
-msgid "Estuary skin by phil65. (Kodi's default skin)"
-msgstr "Estuary skin af phil65 (Kodis standard brugerflade)"
-
-msgctxt "Addon Description"
-msgid "Estuary is the default skin for Kodi 17.0 and above. It attempts to be easy for first time Kodi users to understand and use."
-msgstr "Estuary er standardbrugerfladen for Kodi 17.0 og højere. Det forenkler førstegangsbrugen af Kodi ved at gøre det nemmere at forstå og bruge."
-
-msgctxt "Addon Disclaimer"
-msgid "Estuary is the default skin for Kodi, removing it may cause issues"
-msgstr "Estuary er standard brugerfladen. Fjernes det kan der opstå problemer."
+"Language: da_DK\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "#31000"
 msgid "Now playing"
-msgstr "Afspiller nu"
+msgstr "Afpiller nu"
 
 msgctxt "#31001"
 msgid "Search..."
@@ -75,11 +62,11 @@ msgstr "Igangværende film"
 
 msgctxt "#31011"
 msgid "Most played albums"
-msgstr "Mest afspillede albummer"
+msgstr "Mest afspillede albums"
 
 msgctxt "#31012"
 msgid "Random albums"
-msgstr "Tilfældige albummer"
+msgstr "Tilfældige albums"
 
 msgctxt "#31013"
 msgid "Random artists"
@@ -87,14 +74,12 @@ msgstr "Tilfældige kunstnere"
 
 msgctxt "#31014"
 msgid "Unplayed albums"
-msgstr "Uafspillede albummer"
+msgstr "Uafspillede albums"
 
-#. home screen recordings widget: recent tv / radio recordings
 msgctxt "#31015"
 msgid "Recent recordings"
 msgstr "Nylige optagelser"
 
-#. home screen channel widget: recently played tv channels. (please note that in some non-english languages #31018 and #31016 might not be equal)
 msgctxt "#31016"
 msgid "Recently played channels"
 msgstr "Nyligt afspillede kanaler"
@@ -103,7 +88,6 @@ msgctxt "#31017"
 msgid "Rated"
 msgstr "Vurderet"
 
-#. home screen channel widget: recently played radio channels. (please note that in some non-english languages #31018 and #31016 might not be equal)
 msgctxt "#31018"
 msgid "Recently played channels"
 msgstr "Nyligt afspillede kanaler"
@@ -140,10 +124,6 @@ msgctxt "#31026"
 msgid "Timeshift"
 msgstr "Tidsforskydning"
 
-msgctxt "#31027"
-msgid "Next aired"
-msgstr "Næste der sendes"
-
 msgctxt "#31028"
 msgid "Show fanart"
 msgstr "Vis fankunst"
@@ -152,10 +132,9 @@ msgctxt "#31029"
 msgid "Last logged in"
 msgstr "Sidst logget ind"
 
-#. Label to show the system memory usage
 msgctxt "#31030"
 msgid "System memory usage"
-msgstr "Systemets hukommelsesforbrug"
+msgstr "System hukommelsesforbrug"
 
 msgctxt "#31031"
 msgid "Version info"
@@ -203,7 +182,7 @@ msgstr "Playlisteindstillinger"
 
 msgctxt "#31043"
 msgid "Set the type and add rules to create a smart playlist. These playlists are dynamic and include all media items from your database which apply to your chosen rules."
-msgstr "Indstil typen og tilføj regler for at oprette en smart playliste. Disse playlister er dynamiske og inkluderer alle medieelementer fra din database, der gælder for dine valgte regler."
+msgstr "Indstil typen og tilføj regler for at oprette en smart playliste. Disse spillelister er dynamiske og inkluderer alle medieelementer fra din database, der gælder for dine valgte regler."
 
 msgctxt "#31044"
 msgid "Add group"
@@ -229,33 +208,17 @@ msgctxt "#31053"
 msgid "Arial based"
 msgstr "Baseret på Arial"
 
-msgctxt "#31054"
-msgid "Press [B]Left[/B] to step back, or [B]Right[/B] to step forward"
-msgstr "Tryk på [B]Venstre[/B] for at gå tilbage, eller [B]Højre[/B] for at gå fremad"
-
-msgctxt "#31055"
-msgid "Press [B]Right[/B] to frame advance"
-msgstr "Tryk på [B]Højre[/B] for at gå frames fremad"
-
 msgctxt "#31056"
 msgid "Go to playlist"
 msgstr "Gå til playliste"
 
 msgctxt "#31057"
 msgid "Show login screen on startup"
-msgstr "Vis loginskærm under opstart"
+msgstr "Vis login under opstart"
 
 msgctxt "#31058"
 msgid "Automatic Login on startup"
 msgstr "Automatisk login ved opstart"
-
-msgctxt "#31059"
-msgid "Select + X"
-msgstr "Select + X"
-
-msgctxt "#31060"
-msgid "Select + Start"
-msgstr "Select + Start"
 
 msgctxt "#31061"
 msgid "Main menu items"
@@ -303,7 +266,7 @@ msgstr "Total længde"
 
 msgctxt "#31074"
 msgid "Total duration"
-msgstr "Samlet varighed"
+msgstr "Total varighed"
 
 msgctxt "#31075"
 msgid "Movie sets"
@@ -339,7 +302,7 @@ msgstr "Videomenu"
 
 msgctxt "#31093"
 msgid "Show weather info in top bar"
-msgstr "Vis vejrinformationer i toplinjen"
+msgstr "Vis vejrinformationer i topbaren"
 
 msgctxt "#31095"
 msgid "Use slide animations"
@@ -347,7 +310,7 @@ msgstr "Anvend glideanimationer"
 
 msgctxt "#31096"
 msgid "Local subtitle available"
-msgstr "Undertekst på lokalt sprog tilgængelig"
+msgstr "Undertekster på lokalt sprog tilgængelig"
 
 msgctxt "#31097"
 msgid "Channel options"
@@ -357,22 +320,18 @@ msgctxt "#31098"
 msgid "Select your Kodi user profile[CR]to login and continue"
 msgstr "Vælg din Kodi brugerprofil[CR]for at logge ind og fortsætte"
 
-#. viewtype name
 msgctxt "#31099"
 msgid "IconWall"
 msgstr "Ikonvæg"
 
-#. viewtype name
 msgctxt "#31100"
 msgid "Shift"
 msgstr "Shift"
 
-#. viewtype name
 msgctxt "#31101"
 msgid "InfoWall"
 msgstr "Infovæg"
 
-#. viewtype name
 msgctxt "#31102"
 msgid "Wall"
 msgstr "Væg"
@@ -387,16 +346,15 @@ msgstr "Dit bibliotek er i øjeblikket tomt. For at benytte dine personlige medi
 
 msgctxt "#31105"
 msgid "Add video sources and set the appropriate content type in order to populate your video libraries."
-msgstr "Tilføj videokilder og indstil den relevante indholdstype for at udfylde dine videobiblioteker."
+msgstr "Tilføj videokilder og indstil korrekt indholdstype for at se det i videobiblioteket."
 
 msgctxt "#31106"
 msgid "Teletext"
 msgstr "Tekst-tv"
 
-#. viewtype name
 msgctxt "#31107"
 msgid "WideList"
-msgstr "Bred liste"
+msgstr "BredListe"
 
 msgctxt "#31110"
 msgid "Enter files section"
@@ -417,10 +375,6 @@ msgstr "Søg i lokalt bibliotek"
 msgctxt "#31114"
 msgid "Search YouTube"
 msgstr "Søg på YouTube"
-
-msgctxt "#31115"
-msgid "Toggle subtitle"
-msgstr "Skift undertekst"
 
 msgctxt "#31116"
 msgid "Remove this main menu item"
@@ -472,7 +426,7 @@ msgstr "Bidragsydere"
 
 msgctxt "#31129"
 msgid "General settings applying to all areas of the skin."
-msgstr "Generelle indstillinger der gælder alle områder af skinnet."
+msgstr "Generelle indstillinger, der gælder alle områder af skinnet."
 
 msgctxt "#31130"
 msgid "Main menu-related settings: Configure the home screen to your likings."
@@ -494,30 +448,22 @@ msgctxt "#31134"
 msgid "Remaining"
 msgstr "Tilbage"
 
-msgctxt "#31135"
-msgid "Binary"
-msgstr "Binær"
-
 msgctxt "#31136"
 msgid "Click here to see latest changes..."
 msgstr "Klik for at se seneste ændringer..."
 
-#. Label to show PVR info page
 msgctxt "#31137"
-msgid "PVR"
-msgstr "PVR"
+msgid "PVR info"
+msgstr "PVR-information"
 
-#. Label to show player info page
 msgctxt "#31138"
-msgid "Player"
-msgstr "Afspiller"
+msgid "Player process info"
+msgstr "Procesinformation for afspilning"
 
-#. Label to show video decoder name
 msgctxt "#31139"
 msgid "Video decoder"
-msgstr "Videoafkoder"
+msgstr "Videodekoder"
 
-#. Label to show the video pixel format
 msgctxt "#31140"
 msgid "Pixel format"
 msgstr "Pixelformat"
@@ -542,14 +488,6 @@ msgctxt "#31145"
 msgid "Search add-ons"
 msgstr "Søg efter add-ons"
 
-msgctxt "#31146"
-msgid "In cinemas"
-msgstr "Vises i biografer nu"
-
-msgctxt "#31147"
-msgid "In cinemas soon"
-msgstr "Vises snart i biografer"
-
 msgctxt "#31148"
 msgid "Categories"
 msgstr "Kategorier"
@@ -557,10 +495,6 @@ msgstr "Kategorier"
 msgctxt "#31149"
 msgid "Select genre fanart pack"
 msgstr "Vælg fankunst genrepakke"
-
-msgctxt "#31150"
-msgid "Origin"
-msgstr "Kilde"
 
 msgctxt "#31151"
 msgid "Unwatched music videos"
@@ -576,7 +510,7 @@ msgstr "Du har ikke installeret nogen add-ons af denne type. Gå til add-on-brow
 
 msgctxt "#31154"
 msgid "Press OK to switch between locations"
-msgstr "Tryk OK for at skifte mellem placering"
+msgstr "Tryk OK for at skifte mellem lokationer"
 
 msgctxt "#31155"
 msgid "No bookmarks created yet."
@@ -612,138 +546,20 @@ msgstr "Spil dine personlige spil eller hent et af de mange spil add-ons fra det
 
 msgctxt "#31163"
 msgid "Show Fanart background"
-msgstr "Vis fankunst-baggrund"
+msgstr "Vis fankunst baggrund"
 
-#. Choose profile identifier
 msgctxt "#31164"
 msgid "Choose kind of profile identification"
 msgstr "Vælg typen af profilidentifikation"
 
-#. Label for the kind of profile identification
 msgctxt "#31165"
 msgid "Profile name"
 msgstr "Profilnavn"
 
-#. Label for the kind of profile identification
 msgctxt "#31166"
 msgid "Profile avatar"
 msgstr "Profilavatar"
 
-#. Label of a setting
 msgctxt "#31167"
 msgid "Animate background"
 msgstr "Animer baggrund"
-
-#. Label of a setting
-msgctxt "#31168"
-msgid "Show posters instead of thumbs for musicvideos"
-msgstr "Vis plakater i stedet for miniaturebilleder for musikvideoer"
-
-#. Description label for skin settings area
-msgctxt "#31169"
-msgid "Artwork related settings."
-msgstr "billedrelaterede indstillinger."
-
-#. Label for OSD settings category
-msgctxt "#31170"
-msgid "On screen display"
-msgstr "Visning på skærmen (OSD)"
-
-#. Helper text for the label of OSD settings category
-msgctxt "#31171"
-msgid "On screen display (OSD) related settings"
-msgstr "Indstillinger for visning på skærmen (OSD)"
-
-#. Setting Automatically close video OSD
-msgctxt "#31172"
-msgid "Automatically close video OSD"
-msgstr "Luk automatisk video-OSD"
-
-#. Setting auto close time for video osd
-msgctxt "#31173"
-msgid "Video OSD autoclose time (seconds)"
-msgstr "Tid før automatisk lukning af video-OSD"
-
-#. Setting to control what happens when clicking a music album on the home screen
-msgctxt "#31174"
-msgid "Default select action for albums on the home screen"
-msgstr "Standardhandling for albums på hovedskærmen"
-
-#. Setting to control what happens when clicking a TV show on the home screen
-msgctxt "#31175"
-msgid "Default select action for TV shows on the home screen"
-msgstr "Standardhandling for tv-serier på hovedskærmen"
-
-#. Setting to control what happens when clicking a movie set on the home screen
-msgctxt "#31176"
-msgid "Default select action for movie sets on the home screen"
-msgstr "Standardhandling for filmsæt på hovedskærmen"
-
-# empty strings from id 31170 to 31599
-#. Label to show the video codec name
-msgctxt "#31600"
-msgid "Video codec"
-msgstr "Video-codec"
-
-#. Label to show the video resolution
-msgctxt "#31601"
-msgid "Video resolution"
-msgstr "Videoopløsning"
-
-#. Label to show the video aspect
-msgctxt "#31602"
-msgid "Video aspect"
-msgstr "Billedeformat"
-
-#. Label to show the video bitrate
-msgctxt "#31603"
-msgid "Video bitrate"
-msgstr "Video-bitrate"
-
-#. Label to show the audio codec name
-msgctxt "#31604"
-msgid "Audio codec"
-msgstr "Lyd-codec"
-
-#. Label to show the number of audio channels
-msgctxt "#31605"
-msgid "Audio channels"
-msgstr "Lydkanaler"
-
-#. Label to show the audio bitrate
-msgctxt "#31606"
-msgid "Audio bitrate"
-msgstr "Lydbitrate"
-
-#. Label to show the screen resolution
-msgctxt "#31607"
-msgid "Screen resolution"
-msgstr "Skærmopløsning"
-
-#. Label to show the system rendering speed
-msgctxt "#31608"
-msgid "System rendering speed"
-msgstr "Systemets renderingshastighed"
-
-#. Label to show the system CPU usage
-msgctxt "#31609"
-msgid "System CPU usage"
-msgstr "Systemets CPU-forbrug"
-
-#. Label to show the media (metadata) info page
-msgctxt "#31610"
-msgid "Media"
-msgstr "Medie"
-
-#. Label to show the system info page
-msgctxt "#31611"
-msgid "System"
-msgstr "System"
-
-#~ msgctxt "#31137"
-#~ msgid "PVR info"
-#~ msgstr "PVR-information"
-
-#~ msgctxt "#31138"
-#~ msgid "Player process info"
-#~ msgstr "Information om afspilningsproces"

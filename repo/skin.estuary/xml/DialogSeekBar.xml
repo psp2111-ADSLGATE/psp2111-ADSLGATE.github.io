@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+	<visible>Player.Seeking | Player.DisplayAfterSeek | [Player.Paused + !Player.Caching] | Player.Forwarding | Player.Rewinding | Player.ShowInfo | Window.IsActive(fullscreeninfo) | Player.ShowTime | Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(playerprocessinfo) | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput)</visible>
+	<visible>![Window.IsActive(sliderdialog) | Window.IsActive(pvrosdchannels) | Window.IsActive(pvrguideinfo) | Window.IsActive(1110)]</visible>
 	<visible>Window.IsActive(fullscreenvideo) | Window.IsActive(visualisation)</visible>
-	<visible>![Window.IsActive(sliderdialog) | Window.IsActive(pvrosdchannels) | Window.IsActive(pvrchannelguide) | Window.IsActive(pvrguideinfo) | Window.IsActive(1110)]</visible>
-	<visible>Player.Seeking | Player.HasPerformedSeek(3) | [Player.Paused + !Player.Caching] | Player.Forwarding | Player.Rewinding | Player.ShowInfo | Window.IsActive(fullscreeninfo) | Player.ShowTime | Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(playerprocessinfo) | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput)</visible>
 	<include>Animation_BottomSlide</include>
 	<depth>DepthOSD</depth>
 	<zorder>0</zorder>
@@ -10,7 +10,7 @@
 		<include>PVRChannelNumberInput</include>
 		<control type="group">
 			<animation effect="slide" start="0,200" end="0,0" time="300" tween="cubic" easing="out">VisibleChange</animation>
-			<visible>Player.ShowInfo | Window.IsActive(fullscreeninfo) | Player.ShowTime | Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(playerprocessinfo) | Window.IsActive(pvrosdchannels) | Window.IsActive(pvrchannelguide) | ![!String.IsEmpty(Player.SeekNumeric) | Player.Seeking | Player.HasPerformedSeek(3) | Player.Forwarding | Player.Rewinding | Player.Paused] | !String.IsEmpty(PVR.ChannelNumberInput)</visible>
+			<visible>Player.ShowInfo | Window.IsActive(fullscreeninfo) | Player.ShowTime | Window.IsActive(videoosd) | Window.IsActive(musicosd) | Window.IsActive(playerprocessinfo) | !String.IsEmpty(PVR.ChannelNumberInput) | Window.IsActive(pvrosdchannels) | Window.IsActive(pvrchannelguide) | ![!String.IsEmpty(Player.SeekNumeric) | Player.Seeking | Player.DisplayAfterSeek | Player.Forwarding | Player.Rewinding | Player.Paused]</visible>
 			<visible>!Player.HasGame</visible>
 			<bottom>0</bottom>
 			<height>190</height>
@@ -57,7 +57,7 @@
 					<align>right</align>
 					<include>Animation_BottomSlide</include>
 					<orientation>horizontal</orientation>
-					<itemgap>5</itemgap>
+					<itemgap>10</itemgap>
 					<visible>[Player.ShowInfo | Window.IsActive(fullscreeninfo)] + !Player.ChannelPreviewActive + Window.IsActive(fullscreenvideo)</visible>
 					<animation effect="fade" start="0" end="100" time="200" delay="1000">Visible</animation>
 					<include content="MediaFlag">
@@ -65,10 +65,6 @@
 					</include>
 					<include content="MediaFlag">
 					<param name="texture" value="$INFO[VideoPlayer.VideoResolution,flags/videoresolution/,.png]" />
-					</include>
-					<include content="MediaFlag">
-						<param name="texture" value="$INFO[VideoPlayer.HdrType,flags/videohdr/,.png]" />
-						<param name="visible" value="!String.IsEmpty(VideoPlayer.HdrType)" />
 					</include>
 					<include content="MediaFlag">
 						<param name="texture" value="$INFO[VideoPlayer.VideoAspect,flags/aspectratio/,.png]" />
@@ -251,25 +247,7 @@
 				<lefttexture>colors/white.png</lefttexture>
 				<midtexture colordiffuse="FFFF0000">colors/white.png</midtexture>
 				<righttexture>colors/white.png</righttexture>
-				<info>Player.Editlist</info>
-			</control>
-			<control type="ranges">
-				<left>0</left>
-				<top>82</top>
-				<width>100%</width>
-				<height>8</height>
-				<texturebg border="3" colordiffuse="00FFFFFF">colors/red50.png</texturebg>
-				<righttexture>colors/red.png</righttexture>
-				<info>Player.Cuts</info>
-			</control>
-			<control type="ranges">
-				<left>0</left>
-				<top>82</top>
-				<width>100%</width>
-				<height>4</height>
-				<texturebg border="3" colordiffuse="00FFFFFF">colors/white50.png</texturebg>
-				<righttexture>colors/white.png</righttexture>
-				<info>Player.SceneMarkers</info>
+				<info>Player.Cutlist</info>
 			</control>
 			<control type="ranges">
 				<left>0</left>
@@ -284,7 +262,7 @@
 		<control type="group">
 			<visible>!Window.IsVisible(playerprocessinfo)</visible>
 			<visible>[Player.ShowInfo | Window.IsActive(fullscreeninfo)] + VideoPlayer.Content(LiveTV)</visible>
-			<visible>Player.ShowInfo | Window.IsActive(fullscreeninfo) | !Player.Seeking | !Player.HasPerformedSeek(3) | !Player.Forwarding | !Player.Rewinding | !Player.Paused</visible>
+			<visible>Player.ShowInfo | Window.IsActive(fullscreeninfo) | !Player.Seeking | !Player.DisplayAfterSeek | !Player.Forwarding | !Player.Rewinding | !Player.Paused</visible>
 			<animation effect="fade" start="0" end="100" time="300" delay="250">Visible</animation>
 			<animation effect="fade" start="100" end="0" time="100">Hidden</animation>
 			<animation effect="slide" end="0,-20" time="150" condition="VideoPlayer.Content(LiveTV)">conditional</animation>
@@ -292,21 +270,14 @@
 			<height>380</height>
 			<control type="label">
 				<left>20</left>
-				<width>80%</width>
-				<top>-200</top>
-				<height>25</height>
-				<label>$INFO[VideoPlayer.ChannelName]</label>
-				<shadowcolor>text_shadow</shadowcolor>
-				<font>font45_title</font>
-			</control>
-			<control type="label">
-				<left>20</left>
-				<width>290</width>
-				<top>-160</top>
+				<width>220</width>
+				<top>-80</top>
 				<height>25</height>
 				<label>$INFO[VideoPlayer.ChannelNumberLabel]</label>
-				<shadowcolor>text_shadow</shadowcolor>
+				<shadowcolor>black</shadowcolor>
+				<align>center</align>
 				<font>WeatherTemp</font>
+				<aligny>center</aligny>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -370,7 +341,7 @@
 		<control type="group">
 			<visible>!Window.IsVisible(playerprocessinfo)</visible>
 			<visible>[Player.ShowInfo | Window.IsActive(fullscreeninfo)] + !VideoPlayer.Content(LiveTV) + Window.IsActive(fullscreenvideo)</visible>
-			<visible>Player.ShowInfo | Window.IsActive(fullscreeninfo) | !Player.Seeking | !Player.HasPerformedSeek(3) | !Player.Forwarding | !Player.Rewinding | !Player.Paused</visible>
+			<visible>Player.ShowInfo | Window.IsActive(fullscreeninfo) | !Player.Seeking | !Player.DisplayAfterSeek | !Player.Forwarding | !Player.Rewinding | !Player.Paused</visible>
 			<animation effect="fade" start="0" end="100" time="300" delay="250">Visible</animation>
 			<animation effect="fade" start="100" end="0" time="100">Hidden</animation>
 			<bottom>0</bottom>
@@ -389,7 +360,7 @@
 				<height>600</height>
 				<aspectratio aligny="bottom">keep</aspectratio>
 				<texture fallback="DefaultVideo.png" background="true">$VAR[NowPlayingPosterVar]</texture>
-				<bordertexture border="21" infill="false">overlays/shadow.png</bordertexture>
+				<bordertexture border="21">overlays/shadow.png</bordertexture>
 				<bordersize>20</bordersize>
 				<include>OpenClose_Left</include>
 			</control>

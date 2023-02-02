@@ -25,8 +25,43 @@
 			</control>
 		</definition>
 	</include>
+	<include name="PVRWidget">
+		<control type="image">
+			<top>80</top>
+			<left>16</left>
+			<width>670</width>
+			<height>225</height>
+			<texture border="21">dialogs/dialog-bg.png</texture>
+		</control>
+		<control type="image">
+			<left>55</left>
+			<top>122</top>
+			<width>140</width>
+			<height>140</height>
+			<aspectratio>keep</aspectratio>
+			<texture background="true" fallback="DefaultVideo.png">$PARAM[icon]</texture>
+		</control>
+		<control type="label">
+			<left>225</left>
+			<top>127</top>
+			<height>25</height>
+			<width>420</width>
+			<label>$PARAM[header]</label>
+			<aligny>center</aligny>
+			<font>font36_title</font>
+			<shadowcolor>black</shadowcolor>
+		</control>
+		<control type="label">
+			<left>225</left>
+			<top>172</top>
+			<height>105</height>
+			<width>420</width>
+			<label>$PARAM[label1][CR]$PARAM[label2]</label>
+			<font>font12</font>
+			<shadowcolor>black</shadowcolor>
+		</control>
+	</include>
 	<include name="WidgetListPoster">
-		<param name="onclick_condition">false</param>
 		<definition>
 			<include content="CategoryLabel">
 				<param name="label">$PARAM[widget_header]</param>
@@ -42,7 +77,6 @@
 				<visible>Integer.IsGreater(Container($PARAM[list_id]).NumItems,0) | Container($PARAM[list_id]).IsUpdating</visible>
 				<right>0</right>
 				<height>503</height>
-				<onclick condition="$PARAM[onclick_condition]">$PARAM[onclick_action]</onclick>
 				<include content="WidgetListCommon">
 					<param name="list_id" value="$PARAM[list_id]"/>
 				</include>
@@ -215,7 +249,6 @@
 		<param name="sortorder">ascending</param>
 		<param name="widget_limit">15</param>
 		<param name="fallback_icon">DefaultAudio.png</param>
-		<param name="onclick_condition">false</param>
 		<definition>
 			<include content="CategoryLabel">
 				<param name="label">$PARAM[widget_header]</param>
@@ -232,7 +265,6 @@
 				<top>120</top>
 				<right>0</right>
 				<height>500</height>
-				<onclick condition="$PARAM[onclick_condition]">$PARAM[onclick_action]</onclick>
 				<include content="WidgetListCommon">
 					<param name="list_id" value="$PARAM[list_id]"/>
 				</include>
@@ -305,7 +337,7 @@
 							<width>316</width>
 							<height>200</height>
 							<texture>dialogs/dialog-bg-nobo.png</texture>
-							<bordertexture border="21" infill="false">overlays/shadow.png</bordertexture>
+							<bordertexture border="21">overlays/shadow.png</bordertexture>
 							<bordersize>20</bordersize>
 						</control>
 						<control type="image">
@@ -343,7 +375,7 @@
 							<width>316</width>
 							<height>200</height>
 							<texture>dialogs/dialog-bg-nobo.png</texture>
-							<bordertexture border="21" infill="false">overlays/shadow.png</bordertexture>
+							<bordertexture border="21">overlays/shadow.png</bordertexture>
 							<bordersize>20</bordersize>
 						</control>
 						<control type="image">
@@ -406,12 +438,12 @@
 			</item>
 		</content>
 	</include>
-	<include name="WidgetListPVR">
+	<include name="WidgetListChannels">
 		<param name="item_treshold">0</param>
+		<param name="item_limit">15</param>
 		<param name="icon">$INFO[ListItem.Icon]</param>
 		<param name="label">$INFO[ListItem.Label]</param>
 		<param name="label2">$INFO[ListItem.Title]</param>
-		<param name="info_update">0</param>
 		<definition>
 			<include content="CategoryLabel">
 				<param name="label">$PARAM[widget_header]</param>
@@ -431,21 +463,21 @@
 					<param name="list_id" value="$PARAM[list_id]"/>
 				</include>
 				<visible>Integer.IsGreater(Container($PARAM[list_id]).NumItems,$PARAM[item_treshold]) | [Container($PARAM[list_id]).IsUpdating + Integer.IsEqual(Container($PARAM[list_id]).NumItems,0)]</visible>
-				<itemlayout width="310" height="500" infoupdate="$PARAM[info_update]">
+				<itemlayout width="310" height="500">
 					<control type="group">
 						<left>70</left>
 						<control type="image">
 							<width>319</width>
 							<height>340</height>
 							<texture>dialogs/dialog-bg-nobo.png</texture>
-							<bordertexture border="21" infill="false">overlays/shadow.png</bordertexture>
+							<bordertexture border="21">overlays/shadow.png</bordertexture>
 							<bordersize>20</bordersize>
 						</control>
 						<control type="image">
 							<top>43</top>
 							<left>38</left>
 							<width>245</width>
-							<height>190</height>
+							<height>200</height>
 							<texture fallback="DefaultTVShows.png">$PARAM[icon]</texture>
 							<aspectratio>keep</aspectratio>
 						</control>
@@ -478,29 +510,9 @@
 							<height>32</height>
 							<texture>$VAR[WallWatchedIconVar]</texture>
 						</control>
-						<control type="progress">
-							<left>20</left>
-							<top>300</top>
-							<width>280</width>
-							<height>1</height>
-							<texturebg></texturebg>
-							<midtexture colordiffuse="button_focus" border="3">progress/texturebg_alt_white.png</midtexture>
-							<info>ListItem.PercentPlayed</info>
-							<visible>!Integer.IsEqual(ListItem.PercentPlayed,0)</visible>
-						</control>
-						<control type="progress">
-							<left>20</left>
-							<top>300</top>
-							<width>280</width>
-							<height>1</height>
-							<texturebg></texturebg>
-							<midtexture colordiffuse="button_focus" border="3">progress/texturebg_alt_white.png</midtexture>
-							<info>ListItem.Progress</info>
-							<visible>!Integer.IsEqual(ListItem.Progress,0)</visible>
-						</control>
 					</control>
 				</itemlayout>
-				<focusedlayout width="310" height="500" infoupdate="$PARAM[info_update]">
+				<focusedlayout width="310" height="500">
 					<control type="group">
 						<depth>DepthContentPopout</depth>
 						<left>70</left>
@@ -514,7 +526,7 @@
 							<width>319</width>
 							<height>340</height>
 							<texture>dialogs/dialog-bg-nobo.png</texture>
-							<bordertexture border="21" infill="false">overlays/shadow.png</bordertexture>
+							<bordertexture border="21">overlays/shadow.png</bordertexture>
 							<bordersize>20</bordersize>
 						</control>
 						<control type="image">
@@ -528,7 +540,7 @@
 							<top>43</top>
 							<left>38</left>
 							<width>245</width>
-							<height>190</height>
+							<height>200</height>
 							<texture fallback="DefaultTVShows.png">$PARAM[icon]</texture>
 							<aspectratio>keep</aspectratio>
 						</control>
@@ -562,26 +574,6 @@
 							<width>32</width>
 							<height>32</height>
 							<texture>$VAR[WallWatchedIconVar]</texture>
-						</control>
-						<control type="progress">
-							<left>20</left>
-							<top>300</top>
-							<width>280</width>
-							<height>1</height>
-							<texturebg></texturebg>
-							<midtexture colordiffuse="button_focus" border="3">progress/texturebg_alt_white.png</midtexture>
-							<info>ListItem.PercentPlayed</info>
-							<visible>!Integer.IsEqual(ListItem.PercentPlayed,0)</visible>
-						</control>
-						<control type="progress">
-							<left>20</left>
-							<top>300</top>
-							<width>280</width>
-							<height>1</height>
-							<texturebg></texturebg>
-							<midtexture colordiffuse="button_focus" border="3">progress/texturebg_alt_white.png</midtexture>
-							<info>ListItem.Progress</info>
-							<visible>!Integer.IsEqual(ListItem.Progress,0)</visible>
 						</control>
 					</control>
 				</focusedlayout>
@@ -615,7 +607,7 @@
 							<width>254</width>
 							<height>280</height>
 							<texture>dialogs/dialog-bg-nobo.png</texture>
-							<bordertexture border="21" infill="false">overlays/shadow.png</bordertexture>
+							<bordertexture border="21">overlays/shadow.png</bordertexture>
 							<bordersize>20</bordersize>
 						</control>
 						<control type="image">
@@ -666,7 +658,7 @@
 							<width>254</width>
 							<height>280</height>
 							<texture>dialogs/dialog-bg-nobo.png</texture>
-							<bordertexture border="21" infill="false">overlays/shadow.png</bordertexture>
+							<bordertexture border="21">overlays/shadow.png</bordertexture>
 							<bordersize>20</bordersize>
 						</control>
 						<control type="image">
@@ -931,7 +923,7 @@
 				<width>1820</width>
 				<height>920</height>
 				<texture>dialogs/dialog-bg-nobo.png</texture>
-				<bordertexture border="21" infill="false">overlays/shadow.png</bordertexture>
+				<bordertexture border="21">overlays/shadow.png</bordertexture>
 				<bordersize>20</bordersize>
 			</control>
 			<control type="image" id="700$PARAM[item_id]2">

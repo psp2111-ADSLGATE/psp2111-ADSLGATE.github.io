@@ -1,33 +1,20 @@
 # Kodi Media Center language file
 # Addon Name: Estuary
 # Addon id: skin.estuary
-# Addon Provider: Team Kodi
+# Addon Provider: phil65, Ichabod Fletchman
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-02-26 16:13+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
-"Language-Team: French (Canada) <https://kodi.weblate.cloud/projects/kodi-add-ons-skins/skin-estuary/fr_ca/>\n"
-"Language: fr_ca\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: French (Canada) (http://www.transifex.com/projects/p/kodi-main/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.11\n"
-
-msgctxt "Addon Summary"
-msgid "Estuary skin by phil65. (Kodi's default skin)"
-msgstr "Habillage Estuary par phil65 et Piers (habillage par défaut de Kodi)."
-
-msgctxt "Addon Description"
-msgid "Estuary is the default skin for Kodi 17.0 and above. It attempts to be easy for first time Kodi users to understand and use."
-msgstr "Estuary est l’habillage par défaut pour Kodi 17.0 et ultérieure. Il s’efforce d’être facile à comprendre et à utiliser pour les utilisateurs débutants de Kodi."
-
-msgctxt "Addon Disclaimer"
-msgid "Estuary is the default skin for Kodi, removing it may cause issues"
-msgstr "Estuary est l’habillage par défaut de Kodi, le supprimer peut créer des problèmes"
+"Language: fr_CA\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgctxt "#31000"
 msgid "Now playing"
@@ -89,12 +76,10 @@ msgctxt "#31014"
 msgid "Unplayed albums"
 msgstr "Albums non lus"
 
-#. home screen recordings widget: recent tv / radio recordings
 msgctxt "#31015"
 msgid "Recent recordings"
 msgstr "Enregistrements récents"
 
-#. home screen channel widget: recently played tv channels. (please note that in some non-english languages #31018 and #31016 might not be equal)
 msgctxt "#31016"
 msgid "Recently played channels"
 msgstr "Chaînes écoutées récemment"
@@ -103,7 +88,6 @@ msgctxt "#31017"
 msgid "Rated"
 msgstr "Evalué"
 
-#. home screen channel widget: recently played radio channels. (please note that in some non-english languages #31018 and #31016 might not be equal)
 msgctxt "#31018"
 msgid "Recently played channels"
 msgstr "Chaînes écoutées récemment"
@@ -122,7 +106,7 @@ msgstr "Options diverses"
 
 msgctxt "#31022"
 msgid "Sort by"
-msgstr "Trier par"
+msgstr "Trier par "
 
 msgctxt "#31023"
 msgid "Viewtype"
@@ -140,10 +124,6 @@ msgctxt "#31026"
 msgid "Timeshift"
 msgstr "Décalage temporel"
 
-msgctxt "#31027"
-msgid "Next aired"
-msgstr "Prochaine diffusion"
-
 msgctxt "#31028"
 msgid "Show fanart"
 msgstr "Afficher le fanart"
@@ -152,7 +132,6 @@ msgctxt "#31029"
 msgid "Last logged in"
 msgstr "Dernière connexion"
 
-#. Label to show the system memory usage
 msgctxt "#31030"
 msgid "System memory usage"
 msgstr "Utilisation de la mémoire "
@@ -180,10 +159,6 @@ msgstr "Pages"
 msgctxt "#31036"
 msgid "items"
 msgstr "éléments"
-
-msgctxt "#31037"
-msgid "Selected track"
-msgstr ""
 
 msgctxt "#31038"
 msgid "Rewind"
@@ -229,14 +204,6 @@ msgctxt "#31053"
 msgid "Arial based"
 msgstr "D’après Arial"
 
-msgctxt "#31054"
-msgid "Press [B]Left[/B] to step back, or [B]Right[/B] to step forward"
-msgstr ""
-
-msgctxt "#31055"
-msgid "Press [B]Right[/B] to frame advance"
-msgstr ""
-
 msgctxt "#31056"
 msgid "Go to playlist"
 msgstr "Aller à la liste de lecture"
@@ -248,14 +215,6 @@ msgstr "Afficher l’écran de connexion au démarrage"
 msgctxt "#31058"
 msgid "Automatic Login on startup"
 msgstr "Connexion automatique au démarrage"
-
-msgctxt "#31059"
-msgid "Select + X"
-msgstr ""
-
-msgctxt "#31060"
-msgid "Select + Start"
-msgstr ""
 
 msgctxt "#31061"
 msgid "Main menu items"
@@ -296,10 +255,6 @@ msgstr "par"
 msgctxt "#31072"
 msgid "Power Options"
 msgstr "Options de fermeture"
-
-msgctxt "#31073"
-msgid "Total length"
-msgstr ""
 
 msgctxt "#31074"
 msgid "Total duration"
@@ -357,22 +312,18 @@ msgctxt "#31098"
 msgid "Select your Kodi user profile[CR]to login and continue"
 msgstr "Choisissez votre profil d’utilisateur Kodi[CR]pour vous connecter et poursuivre"
 
-#. viewtype name
 msgctxt "#31099"
 msgid "IconWall"
 msgstr "Mur d’icônes"
 
-#. viewtype name
 msgctxt "#31100"
 msgid "Shift"
 msgstr "Maj."
 
-#. viewtype name
 msgctxt "#31101"
 msgid "InfoWall"
 msgstr "Mur d’informations"
 
-#. viewtype name
 msgctxt "#31102"
 msgid "Wall"
 msgstr "Mur"
@@ -393,7 +344,6 @@ msgctxt "#31106"
 msgid "Teletext"
 msgstr "Télétexte"
 
-#. viewtype name
 msgctxt "#31107"
 msgid "WideList"
 msgstr "Liste large"
@@ -417,10 +367,6 @@ msgstr "Rechercher dans la médiathèque locale"
 msgctxt "#31114"
 msgid "Search YouTube"
 msgstr "Rechercher sur YouTube"
-
-msgctxt "#31115"
-msgid "Toggle subtitle"
-msgstr "Changer les sous-titres"
 
 msgctxt "#31116"
 msgid "Remove this main menu item"
@@ -494,30 +440,22 @@ msgctxt "#31134"
 msgid "Remaining"
 msgstr "Restant"
 
-msgctxt "#31135"
-msgid "Binary"
-msgstr ""
-
 msgctxt "#31136"
 msgid "Click here to see latest changes..."
 msgstr "Cliquer ici pour visualiser les derniers changements…"
 
-#. Label to show PVR info page
 msgctxt "#31137"
-msgid "PVR"
-msgstr "PVR"
+msgid "PVR info"
+msgstr "Informations des numériscopes"
 
-#. Label to show player info page
 msgctxt "#31138"
-msgid "Player"
-msgstr "Lecteur"
+msgid "Player process info"
+msgstr "Informations du processus Lecteur"
 
-#. Label to show video decoder name
 msgctxt "#31139"
 msgid "Video decoder"
 msgstr "Décodeur vidéo"
 
-#. Label to show the video pixel format
 msgctxt "#31140"
 msgid "Pixel format"
 msgstr "Format de pixel"
@@ -542,14 +480,6 @@ msgctxt "#31145"
 msgid "Search add-ons"
 msgstr "Rechercher des addiciels"
 
-msgctxt "#31146"
-msgid "In cinemas"
-msgstr "Dans les cinémas"
-
-msgctxt "#31147"
-msgid "In cinemas soon"
-msgstr ""
-
 msgctxt "#31148"
 msgid "Categories"
 msgstr "Catégories"
@@ -557,10 +487,6 @@ msgstr "Catégories"
 msgctxt "#31149"
 msgid "Select genre fanart pack"
 msgstr "Sélectionner le paquet de fanart de genre"
-
-msgctxt "#31150"
-msgid "Origin"
-msgstr ""
 
 msgctxt "#31151"
 msgid "Unwatched music videos"
@@ -614,136 +540,18 @@ msgctxt "#31163"
 msgid "Show Fanart background"
 msgstr "Afficher le fanart en arrière-plan"
 
-#. Choose profile identifier
 msgctxt "#31164"
 msgid "Choose kind of profile identification"
 msgstr "Choisir le genre d’identification du profil"
 
-#. Label for the kind of profile identification
 msgctxt "#31165"
 msgid "Profile name"
 msgstr "Nom du profil"
 
-#. Label for the kind of profile identification
 msgctxt "#31166"
 msgid "Profile avatar"
 msgstr "Avatar du profil"
 
-#. Label of a setting
 msgctxt "#31167"
 msgid "Animate background"
 msgstr "Animer l’arrière-plan"
-
-#. Label of a setting
-msgctxt "#31168"
-msgid "Show posters instead of thumbs for musicvideos"
-msgstr ""
-
-#. Description label for skin settings area
-msgctxt "#31169"
-msgid "Artwork related settings."
-msgstr ""
-
-#. Label for OSD settings category
-msgctxt "#31170"
-msgid "On screen display"
-msgstr ""
-
-#. Helper text for the label of OSD settings category
-msgctxt "#31171"
-msgid "On screen display (OSD) related settings"
-msgstr ""
-
-#. Setting Automatically close video OSD
-msgctxt "#31172"
-msgid "Automatically close video OSD"
-msgstr ""
-
-#. Setting auto close time for video osd
-msgctxt "#31173"
-msgid "Video OSD autoclose time (seconds)"
-msgstr ""
-
-#. Setting to control what happens when clicking a music album on the home screen
-msgctxt "#31174"
-msgid "Default select action for albums on the home screen"
-msgstr ""
-
-#. Setting to control what happens when clicking a TV show on the home screen
-msgctxt "#31175"
-msgid "Default select action for TV shows on the home screen"
-msgstr ""
-
-#. Setting to control what happens when clicking a movie set on the home screen
-msgctxt "#31176"
-msgid "Default select action for movie sets on the home screen"
-msgstr ""
-
-# empty strings from id 31170 to 31599
-#. Label to show the video codec name
-msgctxt "#31600"
-msgid "Video codec"
-msgstr "Codec vidéo"
-
-#. Label to show the video resolution
-msgctxt "#31601"
-msgid "Video resolution"
-msgstr "Résolution de la vidéo"
-
-#. Label to show the video aspect
-msgctxt "#31602"
-msgid "Video aspect"
-msgstr "Aspect vidéo"
-
-#. Label to show the video bitrate
-msgctxt "#31603"
-msgid "Video bitrate"
-msgstr ""
-
-#. Label to show the audio codec name
-msgctxt "#31604"
-msgid "Audio codec"
-msgstr "Codec audio"
-
-#. Label to show the number of audio channels
-msgctxt "#31605"
-msgid "Audio channels"
-msgstr "Chaînes audio"
-
-#. Label to show the audio bitrate
-msgctxt "#31606"
-msgid "Audio bitrate"
-msgstr ""
-
-#. Label to show the screen resolution
-msgctxt "#31607"
-msgid "Screen resolution"
-msgstr "Résolution de l’écran"
-
-#. Label to show the system rendering speed
-msgctxt "#31608"
-msgid "System rendering speed"
-msgstr ""
-
-#. Label to show the system CPU usage
-msgctxt "#31609"
-msgid "System CPU usage"
-msgstr "Utilisation de l’UCT"
-
-#. Label to show the media (metadata) info page
-msgctxt "#31610"
-msgid "Media"
-msgstr "Médias"
-
-#. Label to show the system info page
-msgctxt "#31611"
-msgid "System"
-msgstr "Système"
-
-#~ msgctxt "#31137"
-#~ msgid "PVR info"
-#~ msgstr "Informations des numériscopes"
-
-#~ msgctxt "#31138"
-#~ msgid "Player process info"
-#~ msgstr "Informations du processus Lecteur"

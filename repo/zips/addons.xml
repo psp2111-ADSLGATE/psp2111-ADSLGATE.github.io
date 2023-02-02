@@ -605,7 +605,7 @@ Version 1.1.*
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="skin.estuary" version="3.1.10" name="Estuary" provider-name="phil65, Ichabod Fletchman">
+</addon><addon id="skin.estuary" version="3.1.5" name="Estuary" provider-name="phil65, Ichabod Fletchman">
 	<requires>
 		<import addon="xbmc.gui" version="5.15.0" />
 	</requires>
