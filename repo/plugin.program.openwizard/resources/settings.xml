@@ -10,7 +10,7 @@
         <setting id="disableupdate" type="bool" label="Disable Update Notification" default="false"/>
         <setting type="lsep" label="Show Builds:"/>
         <setting id="show19" type="bool" label="Show Matrix (v19.0) Builds" default="true"/>
-        <setting id="separate" type="bool" label="Do not separate based off version" default="false"/>
+        <setting id="separate" type="bool" label="Do not separate based off version" default="true"/>
         
         <!-- Hidden Settings -->
         <setting id="first_install" type="bool" label="First Install" visible="false" default="true" />
