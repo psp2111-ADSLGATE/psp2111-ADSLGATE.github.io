@@ -1,0 +1,189 @@
+# Kodi Media Center language file
+# Addon Name: Unlock Kodi Advanced Settings
+# Addon id: script.unlock.advancedsettings
+# Addon Provider: Alex Bratchik
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru_RU\n"
+
+msgctxt "#30000"
+msgid "Cache"
+msgstr "Буфер данных"
+
+msgctxt "#30002"
+msgid "Buffer all internet filesystems + ftp, webdav"
+msgstr "Буферизовать все интернет протоколы"
+
+msgctxt "#30003"
+msgid "Buffer all filesystems"
+msgstr "Буферизовать все файловые системы"
+
+msgctxt "#30004"
+msgid "Only buffer true internet filesystems"
+msgstr "Буферизовать только интернет"
+
+msgctxt "#30005"
+msgid "No buffer"
+msgstr "Отключить буфер"
+
+msgctxt "#30006"
+msgid "All network filesystems"
+msgstr "Буферизовать все сетевые файловые системы"
+
+msgctxt "#30100"
+msgid "Logging"
+msgstr "Системный журнал"
+
+msgctxt "#30101"
+msgid "Logging Level"
+msgstr "Режим журнализации"
+
+msgctxt "#30102"
+msgid "Normal logging, only logging errors"
+msgstr "Только ошибки"
+
+msgctxt "#30103"
+msgid "Debug logging with freemem, fps and cpu usage"
+msgstr "Полная детализация с freemem, fps и cpu"
+
+msgctxt "#30104"
+msgid "Debug logging with on-screen display"
+msgstr "Полная детализация с выводом на экран"
+
+msgctxt "#30105"
+msgid "Debug logging with smb, no on-screen display"
+msgstr "Полная детализация с SMB"
+
+msgctxt "#30106"
+msgid "No logging"
+msgstr "Отключить"
+
+msgctxt "#30110"
+msgid "Hide 'Enable Debugging' Setting"
+msgstr "Спрятать настройку отладки"
+
+msgctxt "#30200"
+msgid "System"
+msgstr "Система"
+
+msgctxt "#30221"
+msgid "Skip only empty frames (default)"
+msgstr "Пропуск только пустых кадров"
+
+msgctxt "#30222"
+msgid "Skip non-reference frames"
+msgstr "Пропустить нереференсные кадры"
+
+msgctxt "#30223"
+msgid "Skip bi-dir frames"
+msgstr "Пропустить двунаправленные кадры"
+
+msgctxt "#30224"
+msgid "Skip all non-key frames"
+msgstr "Пропустить все неключевые кадры"
+
+msgctxt "#30225"
+msgid "Skip all frames"
+msgstr "Пропустить все ненужные кадры"
+
+msgctxt "#30226"
+msgid "None"
+msgstr "Не пропускать кадры"
+
+msgctxt "#30228"
+msgid "JSON RPC"
+msgstr "JSON RPC"
+
+msgctxt "#30230"
+msgid "EPG"
+msgstr "Телепрограмма EPG"
+
+msgctxt "#30240"
+msgid "PVR"
+msgstr "Настройка PVR"
+
+msgctxt "#30251"
+msgid "Name"
+msgstr "по имени"
+
+msgctxt "#30252"
+msgid "Date"
+msgstr "по дате"
+
+msgctxt "#30253"
+msgid "Size"
+msgstr "по размеру файла"
+
+msgctxt "#30254"
+msgid "File"
+msgstr "по имени файла"
+
+msgctxt "#30255"
+msgid "Sort Order"
+msgstr "Порядок сортировки"
+
+msgctxt "#30256"
+msgid "Ascending"
+msgstr "по возрастанию"
+
+msgctxt "#30257"
+msgid "Descending"
+msgstr "по убыванию"
+
+msgctxt "#30260"
+msgid "Video"
+msgstr "Видео"
+
+msgctxt "#30261"
+msgid "Расширения видеофайлов"
+msgstr "Расширения видеофайлов"
+
+msgctxt "#30262"
+msgid "Расширения файлов дисков"
+msgstr "Расширения файлов дисков"
+
+msgctxt "#30265"
+msgid "Adjust Refresh Rate - Override"
+msgstr "Настройка частоты обновления экрана"
+
+msgctxt "#30270"
+msgid "Adjust Refresh Rate - Fallback"
+msgstr "Настройка частоты обновления экрана - по умолчанию"
+
+msgctxt "#30360"
+msgid "Audio"
+msgstr "Аудио"
+
+msgctxt "#30380"
+msgid "Audio Library"
+msgstr "Аудиоколлекция"
+
+msgctxt "#30400"
+msgid "EDL"
+msgstr "Удаление рекламы"
+
+msgctxt "#30500"
+msgid "Video Library"
+msgstr "Видеоколлекция"
+
+msgctxt "#30600"
+msgid "Network"
+msgstr "Настройки сети"
+
+msgctxt "#30650"
+msgid "Photo"
+msgstr "Фотографии"
+
+msgctxt "#30800"
+msgid "Unable to parse"
+msgstr "Ошибка формата XML в"
+
+msgctxt "#30801"
+msgid "The file 'advancedsettings.xml' will be overwritten, continue?"
+msgstr "Файл 'advancedsettings.xml' будет перезаписан, продолжить?"
+
+msgctxt "#30802"
+msgid "Please restart Kodi for settings to take effect"
+msgstr "Пожалуйста перезапустите Kodi для активации новых настроек"

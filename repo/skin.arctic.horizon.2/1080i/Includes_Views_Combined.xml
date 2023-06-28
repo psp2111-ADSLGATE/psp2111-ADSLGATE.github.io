@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="View_Furniture_Combined_Top">
+        <include content="Object_Control" condition="$EXP[Exp_View_502_Include] | $EXP[Exp_View_512_Include] | $EXP[Exp_View_522_Include] | $EXP[Exp_View_572_Include]">
+            <param name="control" value="group" />
+            <visible>$EXP[Exp_CombinedViews]</visible>
+            <include content="View_Combined_Info" condition="$EXP[Exp_View_502_Include]">
+                <param name="id" value="50" />
+            </include>
+            <include content="View_Combined_Info" condition="$EXP[Exp_View_512_Include]">
+                <param name="id" value="51" />
+            </include>
+            <include content="View_Combined_Info" condition="$EXP[Exp_View_522_Include]">
+                <param name="id" value="52" />
+            </include>
+            <include content="View_Combined_Info" condition="$EXP[Exp_View_572_Include]">
+                <param name="id" value="57" />
+            </include>
+        </include>
+    </include>
+    <include name="View_Furniture_Combined_Bottom">
+        <include content="Object_Control" condition="$EXP[Exp_View_502_Include] | $EXP[Exp_View_512_Include] | $EXP[Exp_View_522_Include] | $EXP[Exp_View_572_Include]">
+            <param name="control" value="group" />
+            <visible>$EXP[Exp_CombinedViews]</visible>
+            <control type="group">
+                <height>40</height>
+                <bottom>view_pad</bottom>
+                <right>view_pad</right>
+                <include>Info_Studio</include>
+            </control>
+            <include condition="$EXP[Exp_View_502_Include]">View_502_Square_Combined</include>
+            <include condition="$EXP[Exp_View_512_Include]">View_512_Landscape_Combined</include>
+            <include condition="$EXP[Exp_View_522_Include]">View_522_Poster_Combined</include>
+            <include condition="$EXP[Exp_View_572_Include]">View_572_BigLandscape_Combined</include>
+        </include>
+    </include>
+
+    <include name="View_Combined_Info">
+        <include content="Info_Panel">
+            <param name="plotheight" value="info_plot_h" />
+            <param name="line_id" value="99$PARAM[id]2" />
+            <top>view_top</top>
+            <width>info_panel_w</width>
+            <left>view_pad</left>
+            <visible>Control.IsVisible($PARAM[id]2)</visible>
+            <visible>!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id]3)</visible>
+        </include>
+        <include content="Info_Panel">
+            <param name="plotheight" value="info_plot_h" />
+            <param name="container" value="Container($PARAM[id]3)." />
+            <param name="line_id" value="99$PARAM[id]3" />
+            <top>view_top</top>
+            <width>info_panel_w</width>
+            <left>view_pad</left>
+            <visible>Control.IsVisible($PARAM[id]2)</visible>
+            <visible>Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id]3)</visible>
+        </include>
+    </include>
+
+    <variable name="View_Combined_SortBy">
+        <value condition="Container.Content(seasons)">episode</value>
+        <value condition="Container.Content(sets) | Container.Content(artists)">year</value>
+    </variable>
+
+    <include name="View_Combined_Row">
+        <include content="$PARAM[include]">
+            <param name="id" value="$PARAM[id]3" />
+            <height>divider_bottom</height>
+            <bottom>40</bottom>
+            <ondown>$PARAM[id]2</ondown>
+            <onup>menu</onup>
+            <visible>Container($PARAM[id]2).ListItem.IsFolder</visible>
+            <onclick condition="Container($PARAM[id]3).ListItem.IsFolder">Container.Update($INFO[Container($PARAM[id]3).ListItem.FolderPath])</onclick>
+            <onclick condition="Container($PARAM[id]3).ListItem.IsFolder">SetFocus(50)</onclick>
+            <onclick condition="!Container($PARAM[id]3).ListItem.IsFolder">PlayMedia($ESCINFO[Container($PARAM[id]3).ListItem.FileNameAndPath],playlist_type_hint=1)</onclick>
+            <content target="$VAR[Path_CollectionNode_Target]" sortby="$VAR[View_Combined_SortBy]" sortorder="ascending">$INFO[Container($PARAM[id]2).ListItem.FolderPath]</content>
+            <visible>Control.IsVisible($PARAM[id]2)</visible>
+            <onback>SetFocus($PARAM[id]2)</onback>
+            <onfocus>SetProperty(TMDbHelper.WidgetContainer,$PARAM[id]3)</onfocus>
+            <animation effect="fade" start="100" end="10" time="200" delay="400" condition="Container($PARAM[id]3).IsUpdating">Conditional</animation>
+        </include>
+        <control type="group">
+            <height>divider_bottom</height>
+            <bottom>120</bottom>
+            <visible>Container($PARAM[id]3).IsUpdating</visible>
+            <animation effect="fade" reversible="false" start="0" end="100" time="200" delay="600">Visible</animation>
+            <include content="Object_BusySpinner">
+                <param name="colordiffuse" value="main_fg" />
+                <param name="label" value="$LOCALIZE[31023]" />
+            </include>
+        </control>
+        <include content="List_Button_Row">
+            <param name="id" value="$PARAM[id]2" />
+            <movement>4</movement>
+            <height>divider_bottom</height>
+            <right>360</right>
+            <bottom>-320</bottom>
+            <onup condition="!Container($PARAM[id]3).IsUpdating">$PARAM[id]3</onup>
+            <onfocus>ClearProperty(TMDbHelper.WidgetContainer)</onfocus>
+            <visible>$EXP[Exp_View_Special]</visible>
+            <visible>$EXP[Exp_View_$PARAM[id]2]</visible>
+            <viewtype label="$PARAM[viewtype_label]">wrap</viewtype>
+            <include>Action_Row_Recommendations_OnDown</include>
+        </include>
+        <control type="image">
+            <texture colordiffuse="main_fg_80">special://skin/extras/icons/angle-right.png</texture>
+            <width>40</width>
+            <height>40</height>
+            <right>320</right>
+            <centerbottom>120</centerbottom>
+            <visible>Container($PARAM[id]2).HasNext</visible>
+        </control>
+    </include>
+
+    <include name="View_502_Square_Combined">
+        <include content="View_Combined_Row">
+            <param name="id" value="50" />
+            <param name="include" value="List_Square_Row" />
+            <param name="viewtype_label" value="$LOCALIZE[31120]" />
+        </include>
+    </include>
+
+    <include name="View_512_Landscape_Combined">
+        <include content="View_Combined_Row">
+            <param name="id" value="51" />
+            <param name="include" value="List_Landscape_Row" />
+            <param name="viewtype_label" value="$LOCALIZE[31119]" />
+        </include>
+    </include>
+
+    <include name="View_522_Poster_Combined">
+        <include content="View_Combined_Row">
+            <param name="id" value="52" />
+            <param name="include" value="List_Poster_Row" />
+            <param name="viewtype_label" value="$LOCALIZE[31118]" />
+        </include>
+    </include>
+
+    <include name="View_572_BigLandscape_Combined">
+        <include content="View_Combined_Row">
+            <param name="id" value="57" />
+            <param name="include" value="List_BigLandscape_Row" />
+            <param name="viewtype_label" value="$LOCALIZE[31148]" />
+        </include>
+    </include>
+
+    <include name="View_552_MediaInfo_Combined">
+        <include content="List_Button_Row">
+            <param name="id">552</param>
+            <param name="orientation">vertical</param>
+            <param name="offset_y">40</param>
+            <param name="item_w">560</param>
+            <param name="itemlayout_w">600</param>
+            <param name="itemlayout_include">Layout_DiscoverButton</param>
+            <height>500</height>
+            <bottom>180</bottom>
+            <preloaditems>0</preloaditems>
+            <focusposition>1</focusposition>
+            <movement>2</movement>
+            <onleft>menu</onleft>
+            <onright condition="!Container(553).IsUpdating + ![String.IsEqual(Container(552).ListItem.DBType,album) | String.IsEmpty(Container(552).ListItem.DBType)]">553</onright>
+            <onright condition="!Container(554).IsUpdating + [String.IsEqual(Container(552).ListItem.DBType,album) | String.IsEmpty(Container(552).ListItem.DBType)]">554</onright>
+            <onfocus>ClearProperty(TMDbHelper.WidgetContainer)</onfocus>
+            <visible>$EXP[Exp_View_Special]</visible>
+            <visible>$EXP[Exp_View_552]</visible>
+            <viewtype label="31342">wrap</viewtype>
+            <include content="Animation_Reposition">
+                <param name="id">552</param>
+                <param name="slide_y">-grid_x12</param>
+            </include>
+        </include>
+        <include content="List_Infolist">
+            <param name="id">553</param>
+            <param name="orientation">vertical</param>
+            <param name="offset_y">40</param>
+            <param name="detailed">true</param>
+            <onleft>552</onleft>
+            <left>600</left>
+            <right>20</right>
+            <height>500</height>
+            <bottom>160</bottom>
+            <focusposition>1</focusposition>
+            <movement>1</movement>
+            <include content="Animation_Reposition">
+                <param name="id">553</param>
+                <param name="slide_y">-grid_x16</param>
+            </include>
+            <onright>menu</onright>
+            <visible>Container(552).ListItem.IsFolder</visible>
+            <onclick condition="Container(553).ListItem.IsFolder">Container.Update($INFO[Container(553).ListItem.FolderPath])</onclick>
+            <onclick condition="Container(553).ListItem.IsFolder">SetFocus(50)</onclick>
+            <onclick condition="!Container(553).ListItem.IsFolder">PlayMedia($ESCINFO[Container(553).ListItem.FileNameAndPath],playlist_type_hint=1)</onclick>
+            <content target="$VAR[Path_CollectionNode_Target]" sortby="$VAR[View_Combined_SortBy]" sortorder="ascending">$INFO[Container(552).ListItem.FolderPath]</content>
+            <visible>Control.IsVisible(552)</visible>
+            <visible>![String.IsEqual(Container(552).ListItem.DBType,album) | String.IsEmpty(Container(552).ListItem.DBType)]</visible>
+            <onback>SetFocus(552)</onback>
+            <onfocus>SetProperty(TMDbHelper.WidgetContainer,553)</onfocus>
+            <animation effect="fade" start="100" end="10" time="200" delay="400" condition="Container(553).IsUpdating">Conditional</animation>
+        </include>
+        <include content="List_PlayList">
+            <param name="id">554</param>
+            <param name="orientation">vertical</param>
+            <param name="offset_y">40</param>
+            <param name="detailed">true</param>
+            <onleft>552</onleft>
+            <left>620</left>
+            <right>0</right>
+            <height>500</height>
+            <bottom>180</bottom>
+            <focusposition>1</focusposition>
+            <movement>1</movement>
+            <onright>menu</onright>
+            <visible>Container(552).ListItem.IsFolder</visible>
+            <onclick condition="Container(554).ListItem.IsFolder">Container.Update($INFO[Container(554).ListItem.FolderPath])</onclick>
+            <onclick condition="Container(554).ListItem.IsFolder">SetFocus(50)</onclick>
+            <onclick condition="!Container(554).ListItem.IsFolder">PlayMedia($ESCINFO[Container(554).ListItem.FileNameAndPath])</onclick>
+            <content target="$VAR[Path_CollectionNode_Target]" sortby="$VAR[View_Combined_SortBy]" sortorder="ascending">$INFO[Container(552).ListItem.FolderPath]</content>
+            <visible>Control.IsVisible(552)</visible>
+            <visible>String.IsEqual(Container(552).ListItem.DBType,album) | String.IsEmpty(Container(552).ListItem.DBType)</visible>
+            <onback>SetFocus(552)</onback>
+            <onfocus>SetProperty(TMDbHelper.WidgetContainer,554)</onfocus>
+            <animation effect="fade" start="100" end="10" time="200" delay="400" condition="Container(554).IsUpdating">Conditional</animation>
+        </include>
+    </include>
+</includes>

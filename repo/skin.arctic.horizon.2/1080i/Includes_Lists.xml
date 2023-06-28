@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="List_Button_Row">
+        <param name="item_h">80</param>
+        <param name="itemlayout_h">120</param>
+        <param name="detailed">false</param>
+        <param name="orientation">horizontal</param>
+        <param name="controltype">fixedlist</param>
+        <param name="item_w">260</param>
+        <param name="itemlayout_w">300</param>
+        <param name="itemlayout_include">Layout_Button</param>
+        <definition>
+            <include content="List_Core">
+                <param name="id">$PARAM[id]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <nested />
+                <movement>5</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Button_Wall">
+        <param name="item_h">80</param>
+        <param name="itemlayout_h">120</param>
+        <param name="detailed">false</param>
+        <param name="orientation">vertical</param>
+        <param name="controltype">panel</param>
+        <param name="item_w">260</param>
+        <param name="itemlayout_w">300</param>
+        <param name="itemlayout_include">Layout_Button</param>
+        <definition>
+            <include content="List_Core">
+                <param name="id">$PARAM[id]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="diffuse">$PARAM[diffuse]</param>
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <nested />
+                <movement>5</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Apps_Row">
+        <param name="movement">5</param>
+        <param name="item_h">140</param>
+        <param name="itemlayout_h">180</param>
+        <param name="item_w">260</param>
+        <param name="itemlayout_w">300</param>
+        <param name="diffuse">diffuse/landscape_w260_h140.png</param>
+        <definition>
+            <include content="List_Core">
+                <param name="id">$PARAM[id]</param>
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Apps</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="diffuse">$PARAM[diffuse]</param>
+                <nested />
+                <movement>$PARAM[movement]</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Reviews_Row">
+        <param name="movement">1</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <param name="item_w">860</param>
+        <param name="itemlayout_w">900</param>
+        <definition>
+            <include content="List_Core">
+                <param name="id">$PARAM[id]</param>
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Reviews</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <nested />
+                <movement>$PARAM[movement]</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Tags_Wall">
+        <param name="controltype">panel</param>
+        <param name="itemlayout_h">160</param>
+        <param name="itemlayout_w">450</param>
+        <param name="item_h">120</param>
+        <param name="item_w">410</param>
+        <param name="orientation">vertical</param>
+        <param name="itemlayout_include">Layout_IconButton</param>
+        <definition>
+            <include content="List_Core">
+                <param name="id">$PARAM[id]</param>
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">40</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <!-- Unfixed -->
+
+    <include name="List_EPGGrid">
+        <param name="channelheight">grid_x08</param>
+        <param name="channelwidth">480</param>
+        <param name="include_channels">Layout_PVRGuide_Channels</param>
+        <param name="include_programs">Layout_PVRGuide_Programs</param>
+        <definition>
+            <control type="epggrid" id="$PARAM[id]">
+                <nested />
+                <scrolltime tween="quadratic">300</scrolltime>
+                <timeblocks>28</timeblocks>
+                <rulerunit>6</rulerunit>
+                <rulerlayout height="grid_x08" width="480">
+                    <control type="label" id="2">
+                        <top>20</top>
+                        <height>grid_x04</height>
+                        <width>480</width>
+                        <align>left</align>
+                        <aligny>top</aligny>
+                        <font>font_tiny</font>
+                        <label>$INFO[ListItem.Label]</label>
+                        <textcolor>main_fg_70</textcolor>
+                    </control>
+                </rulerlayout>
+                <channellayout height="$PARAM[channelheight]" width="$PARAM[channelwidth]">
+                    <include content="$PARAM[include_channels]">
+                        <param name="detailed">$PARAM[detailed]</param>
+                        <param name="item_h">$PARAM[channelheight]</param>
+                    </include>
+                </channellayout>
+                <focusedchannellayout height="$PARAM[channelheight]" width="$PARAM[channelwidth]">
+                    <include content="$PARAM[include_channels]">
+                        <param name="selected">false</param>
+                        <param name="detailed">$PARAM[detailed]</param>
+                        <param name="item_h">$PARAM[channelheight]</param>
+                        <visible>Control.HasFocus(11)</visible>
+                    </include>
+                    <include content="$PARAM[include_channels]">
+                        <param name="selected">true</param>
+                        <param name="detailed">$PARAM[detailed]</param>
+                        <param name="item_h">$PARAM[channelheight]</param>
+                        <visible>!Control.HasFocus(11)</visible>
+                    </include>
+                </focusedchannellayout>
+                <itemlayout height="$PARAM[channelheight]" width="480">
+                    <include content="$PARAM[include_programs]">
+                        <param name="detailed">$PARAM[detailed]</param>
+                    </include>
+                </itemlayout>
+                <focusedlayout height="$PARAM[channelheight]" width="480">
+                    <include content="$PARAM[include_programs]">
+                        <param name="selected">false</param>
+                        <param name="visible">Control.HasFocus(11)</param>
+                        <param name="detailed">$PARAM[detailed]</param>
+                    </include>
+                    <include content="$PARAM[include_programs]">
+                        <param name="selected">true</param>
+                        <param name="visible">!Control.HasFocus(11)</param>
+                        <param name="detailed">$PARAM[detailed]</param>
+                    </include>
+                </focusedlayout>
+            </control>
+        </definition>
+    </include>
+
+    <include name="List_BigPoster">
+        <definition>
+            <include content="List_Poster_Row">
+                <param name="id">$PARAM[id]</param>
+                <param name="focusedlayout_special">true</param>
+                <param name="movement">0</param>
+                <param name="offset_y">380</param>
+                <nested />
+                <preloaditems>0</preloaditems>
+                <focusposition>3</focusposition>
+                <top>0</top>
+                <left>-514.28</left>
+                <focusedlayout width="514.28" height="760">
+                    <control type="image">
+                        <visible>$EXP[Exp_ShowBigPosterInfo]</visible>
+                        <animation effect="fade" start="0" end="100" time="400" delay="400" reversible="false">Visible</animation>
+                        <texture colordiffuse="panel_bg">$VAR[Image_SimpleBackground]</texture>
+                        <left>-1000</left>
+                        <right>-2000</right>
+                        <top>-1000</top>
+                        <bottom>-1000</bottom>
+                    </control>
+                    <control type="group">
+                        <left>80</left>
+                        <top>200</top>
+                        <control type="group">
+                            <height>info_poster_h</height>
+                            <width>info_poster_w</width>
+                            <animation condition="Container($PARAM[id]).OnNext" effect="zoom" start="45.71368,47.0588" end="100" delay="0" time="350" tween="sine" easing="out" center="475,340" reversible="false">Focus</animation>
+                            <animation condition="Container($PARAM[id]).OnNext" effect="zoom" start="100" end="45.71368,47.0588" delay="0" time="250" tween="sine" easing="out" center="0,340" reversible="false">UnFocus</animation>
+                            <animation condition="Container($PARAM[id]).OnPrevious" effect="zoom" start="45.71368,47.0588" end="100" delay="0" time="350" tween="sine" easing="out" center="0,340" reversible="false">Focus</animation>
+                            <animation condition="Container($PARAM[id]).OnPrevious" type="UnFocus" reversible="false">
+                                <effect type="zoom" start="100" end="45.71368,47.0588" delay="0" time="250" tween="sine" easing="out" center="0,340" />
+                                <effect type="slide" start="-257.14" end="0" delay="0" time="250" tween="sine" easing="out" center="0,340" />
+                            </animation>
+                            <include content="Layout_Poster">
+                                <param name="item_h">info_poster_h</param>
+                                <param name="item_w">info_poster_w</param>
+                                <param name="fg_layer">false</param>
+                                <param name="diffuse">diffuse/poster_w475_h680.png</param>
+                            </include>
+                            <control type="group">
+                                <animation effect="zoom" start="0,0,info_poster_w,info_poster_h" end="100" time="250">Focus</animation>
+                                <animation effect="zoom" end="0,0,info_poster_w,info_poster_h" start="100" time="250">UnFocus</animation>
+                                <height>view_poster_item_h</height>
+                                <bottom>0</bottom>
+                                <right>50</right>
+                                <width>217.14</width>
+                                <include content="Layout_Poster">
+                                    <param name="item_h">view_poster_item_h</param>
+                                    <param name="item_w">217.14</param>
+                                    <param name="bg_layer">false</param>
+                                </include>
+                            </control>
+                        </control>
+                    </control>
+                </focusedlayout>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_DialogSelect">
+        <param name="item_height">grid_x08</param>
+        <param name="detailed">false</param>
+        <param name="itemlayout_include">Layout_DialogSelect</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">list</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="altfocus">$PARAM[altfocus]</param>
+                <param name="item_h">$PARAM[item_height]</param>
+                <param name="itemlayout_h">$PARAM[item_height]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <param name="offset_x">0</param>
+                <param name="offset_y">0</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_MediaList">
+        <param name="item_h">grid_x08</param>
+        <param name="itemlayout_h">grid_x08</param>
+        <param name="itemlayout_include">Layout_MediaList</param>
+        <param name="controltype">list</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="altfocus">$PARAM[altfocus]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <param name="offset_x">0</param>
+                <param name="offset_y">20</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_PlayList">
+        <param name="item_h">grid_x12</param>
+        <param name="itemlayout_h">grid_x12</param>
+        <param name="itemlayout_include">Layout_PlayList</param>
+        <param name="controltype">list</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="altfocus">$PARAM[altfocus]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <param name="offset_x">0</param>
+                <param name="offset_y">20</param>
+                <preloaditems>0</preloaditems>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_AddonBrowser">
+        <param name="item_w">240</param>
+        <param name="item_h">300</param>
+        <param name="itemlayout_w">280</param>
+        <param name="itemlayout_h">340</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">panel</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_AddonBrowser</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_AddonCategories">
+        <param name="itemlayout_include">Layout_Iconic</param>
+        <param name="width">440</param>
+        <param name="height">grid_x08</param>
+        <param name="detailed">false</param>
+        <param name="orientation">vertical</param>
+        <param name="controltype">list</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[width]</param>
+                <param name="item_h">$PARAM[height]</param>
+                <param name="itemlayout_w">$PARAM[width]</param>
+                <param name="itemlayout_h">$PARAM[height]</param>
+                <param name="offset_x">0</param>
+                <param name="offset_y">0</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="altfocus">$PARAM[altfocus]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Infolist">
+        <param name="orientation">vertical</param>
+        <param name="controltype">fixedlist</param>
+        <param name="item_h">160</param>
+        <param name="itemlayout_h">160</param>
+        <param name="itemlayout_include">Layout_Episode</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="offset_y">0</param>
+                <param name="offset_x">20</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <nested />
+                <movement>1</movement>
+                <focusposition>1</focusposition>
+            </include>
+        </definition>
+    </include>
+
+
+    <include name="List_PVRRecordings">
+        <param name="orientation">vertical</param>
+        <param name="controltype">list</param>
+        <param name="item_h">120</param>
+        <param name="itemlayout_h">120</param>
+        <param name="itemlayout_include">Layout_PVRRecordings</param>
+        <param name="detailed">true</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">$PARAM[itemlayout_include]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="offset_y">0</param>
+                <param name="offset_x">0</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <nested />
+                <movement>3</movement>
+                <focusposition>2</focusposition>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Banner_Row">
+        <param name="movement">0</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">1760</param>
+                <param name="item_h">view_poster_item_h</param>
+                <param name="itemlayout_w">1800</param>
+                <param name="itemlayout_h">view_poster_itemlayout_h</param>
+                <param name="itemlayout_include">Layout_BigBanner</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <nested />
+                <movement>$PARAM[movement]</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_FeaturePoster_Row">
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">320</param>
+                <param name="item_h">480</param>
+                <param name="itemlayout_w">360</param>
+                <param name="itemlayout_h">520</param>
+                <param name="itemlayout_include">Layout_Poster</param>
+                <param name="focusedlayout_special">$PARAM[focusedlayout_special]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="diffuse">diffuse/poster_w320_h480.png</param>
+                <nested />
+                <movement>4</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_FeatureLandscape_Row">
+        <param name="offset_y">grid_x08</param>
+        <param name="offset_x">grid_x08</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">860</param>
+                <param name="item_h">480</param>
+                <param name="itemlayout_w">900</param>
+                <param name="itemlayout_h">520</param>
+                <param name="itemlayout_include">Layout_BigLandscape</param>
+                <param name="focusedlayout_special">$PARAM[focusedlayout_special]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="diffuse">diffuse/landscape_w860_h480.png</param>
+                <nested />
+                <movement>1</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_FeatureBanner_Row">
+        <param name="offset_y">grid_x08</param>
+        <param name="offset_x">grid_x08</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">1760</param>
+                <param name="item_h">600</param>
+                <param name="itemlayout_w">1800</param>
+                <param name="itemlayout_h">640</param>
+                <param name="itemlayout_include">Layout_FeatureBanner</param>
+                <param name="focusedlayout_special">$PARAM[focusedlayout_special]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <nested />
+                <movement>0</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Poster_Row">
+        <param name="movement">6</param>
+        <param name="focusedlayout_special">false</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">217.14</param>
+                <param name="item_h">view_poster_item_h</param>
+                <param name="itemlayout_w">257.14</param>
+                <param name="itemlayout_h">view_poster_itemlayout_h</param>
+                <param name="itemlayout_include">Layout_Poster</param>
+                <param name="focusedlayout_special">$PARAM[focusedlayout_special]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <nested />
+                <movement>$PARAM[movement]</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Poster_Wall">
+        <param name="offset_y">view_top</param>
+        <param name="item_w">view_poster_item_w</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">view_poster_itemlayout_w</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">panel</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Poster</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_BigLandscape_Row">
+        <param name="movement">2</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">560</param>
+                <param name="item_h">view_poster_item_h</param>
+                <param name="itemlayout_w">600</param>
+                <param name="itemlayout_h">view_poster_itemlayout_h</param>
+                <param name="itemlayout_include">Layout_BigLandscape</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                <nested />
+                <movement>$PARAM[movement]</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_SmallLandscape_Row">
+        <param name="movement">4</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">320</param>
+                <param name="item_h">180</param>
+                <param name="itemlayout_w">360</param>
+                <param name="itemlayout_h">220</param>
+                <param name="itemlayout_include">Layout_BigLandscape</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">500</param>
+                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                <param name="diffuse">diffuse/landscape_w356_h200.png</param>
+                <nested />
+                <movement>$PARAM[movement]</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Landscape_Row">
+        <param name="movement">3</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="controltype">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">410</param>
+                <param name="item_h">view_poster_item_h</param>
+                <param name="itemlayout_w">450</param>
+                <param name="itemlayout_h">view_poster_itemlayout_h</param>
+                <param name="itemlayout_include">Layout_Landscape</param>
+                <param name="icon">$PARAM[icon]</param>
+                <param name="textcolor">$PARAM[textcolor]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                <nested />
+                <movement>$PARAM[movement]</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_BigLandscape_Wall">
+        <param name="offset_y">view_top</param>
+        <param name="item_w">560</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">600</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">panel</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_BigLandscape</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Landscape_Wall">
+        <param name="offset_y">view_top</param>
+        <param name="item_w">410</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">450</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">panel</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Landscape</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="misc">$PARAM[misc]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Square_Row">
+        <param name="movement">5</param>
+        <param name="item_w">260</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">300</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <param name="orientation">horizontal</param>
+        <param name="controltype">fixedlist</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="itemlayout_include">Layout_Square</param>
+                <nested />
+                <movement>$PARAM[movement]</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_BigSquare_Row">
+        <param name="movement">4</param>
+        <param name="item_w">view_poster_item_h</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">view_poster_itemlayout_h</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <param name="orientation">horizontal</param>
+        <param name="controltype">fixedlist</param>
+        <param name="diffuse">diffuse/square_w320_h320.png</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">$PARAM[orientation]</param>
+                <param name="controltype">$PARAM[controltype]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="offset_x">$PARAM[offset_x]</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="itemlayout_include">Layout_Square</param>
+                <param name="variation">true</param>
+                <param name="diffuse">$PARAM[diffuse]</param>
+                <nested />
+                <movement>$PARAM[movement]</movement>
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Square_Wall">
+        <param name="offset_y">view_top</param>
+        <param name="item_w">260</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">300</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">panel</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Square</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_BigSquare_Wall">
+        <param name="offset_y">view_top</param>
+        <param name="item_w">view_poster_item_h</param>
+        <param name="item_h">view_poster_item_h</param>
+        <param name="itemlayout_w">view_poster_itemlayout_h</param>
+        <param name="itemlayout_h">view_poster_itemlayout_h</param>
+        <param name="diffuse">diffuse/square_w320_h320.png</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">panel</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Square</param>
+                <param name="variation">true</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <param name="diffuse">$PARAM[diffuse]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Banner_Wall">
+        <param name="offset_y">view_top</param>
+        <param name="item_w">860</param>
+        <param name="item_h">220</param>
+        <param name="itemlayout_w">900</param>
+        <param name="itemlayout_h">260</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">vertical</param>
+                <param name="controltype">panel</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">$PARAM[item_w]</param>
+                <param name="item_h">$PARAM[item_h]</param>
+                <param name="itemlayout_w">$PARAM[itemlayout_w]</param>
+                <param name="itemlayout_h">$PARAM[itemlayout_h]</param>
+                <param name="itemlayout_include">Layout_Banner</param>
+                <param name="offset_y">$PARAM[offset_y]</param>
+                <param name="detailed">$PARAM[detailed]</param>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="List_Core">
+        <param name="orientation">horizontal</param>
+        <param name="controltype">list</param>
+        <param name="id"></param>
+        <param name="preloaditems">2</param>
+        <param name="tween">quadratic</param>
+        <param name="scrolltime">400</param>
+        <param name="viewtype">list</param>
+        <param name="offset_x">grid_x08</param>
+        <param name="offset_y">grid_x08</param>
+        <param name="itemlayout_w"></param>
+        <param name="itemlayout_h"></param>
+        <param name="item_w"></param>
+        <param name="item_h"></param>
+        <param name="itemlayout_include"></param>
+        <param name="focusedlayout_special">false</param>
+        <param name="altfocus">false</param>
+        <param name="detailed">false</param>
+        <param name="indicator">true</param>
+        <definition>
+            <control type="$PARAM[controltype]" id="$PARAM[id]">
+                <nested />
+                <orientation>$PARAM[orientation]</orientation>
+                <preloaditems>$PARAM[preloaditems]</preloaditems>
+                <scrolltime tween="$PARAM[tween]">$PARAM[scrolltime]</scrolltime>
+                <itemlayout width="$PARAM[itemlayout_w]" height="$PARAM[itemlayout_h]">
+                    <control type="group">
+                        <left>$PARAM[offset_x]</left>
+                        <right>-$PARAM[offset_x]</right>
+                        <top>$PARAM[offset_y]</top>
+                        <bottom>-$PARAM[offset_y]</bottom>
+                        <include content="$PARAM[itemlayout_include]">
+                            <param name="selected">false</param>
+                            <param name="item_w">$PARAM[item_w]</param>
+                            <param name="item_h">$PARAM[item_h]</param>
+                            <param name="misc">$PARAM[misc]</param>
+                            <param name="id">$PARAM[id]</param>
+                            <param name="detailed">$PARAM[detailed]</param>
+                            <param name="indicator">$PARAM[indicator]</param>
+                            <param name="variation">$PARAM[variation]</param>
+                            <param name="diffuse">$PARAM[diffuse]</param>
+                            <param name="icon">$PARAM[icon]</param>
+                            <param name="textcolor">$PARAM[textcolor]</param>
+                            <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                        </include>
+                    </control>
+                </itemlayout>
+                <focusedlayout width="$PARAM[itemlayout_w]" height="$PARAM[itemlayout_h]" condition="!$PARAM[focusedlayout_special]">
+                    <control type="group">
+                        <left>$PARAM[offset_x]</left>
+                        <right>-$PARAM[offset_x]</right>
+                        <top>$PARAM[offset_y]</top>
+                        <bottom>-$PARAM[offset_y]</bottom>
+                        <control type="group">
+                            <visible>!Control.HasFocus($PARAM[id]) + !$PARAM[altfocus]</visible>
+                            <include content="$PARAM[itemlayout_include]">
+                                <param name="selected">false</param>
+                                <param name="item_w">$PARAM[item_w]</param>
+                                <param name="item_h">$PARAM[item_h]</param>
+                                <param name="misc">$PARAM[misc]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="detailed">$PARAM[detailed]</param>
+                                <param name="indicator">$PARAM[indicator]</param>
+                                <param name="variation">$PARAM[variation]</param>
+                                <param name="diffuse">$PARAM[diffuse]</param>
+                                <param name="icon">$PARAM[icon]</param>
+                                <param name="textcolor">$PARAM[textcolor]</param>
+                                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                            </include>
+                        </control>
+                        <control type="group">
+                            <visible>Control.HasFocus($PARAM[id]) | $PARAM[altfocus]</visible>
+                            <include content="$PARAM[itemlayout_include]">
+                                <param name="selected">true</param>
+                                <param name="item_w">$PARAM[item_w]</param>
+                                <param name="item_h">$PARAM[item_h]</param>
+                                <param name="misc">$PARAM[misc]</param>
+                                <param name="id">$PARAM[id]</param>
+                                <param name="detailed">$PARAM[detailed]</param>
+                                <param name="indicator">$PARAM[indicator]</param>
+                                <param name="variation">$PARAM[variation]</param>
+                                <param name="diffuse">$PARAM[diffuse]</param>
+                                <param name="icon">$PARAM[icon]</param>
+                                <param name="textcolor">$PARAM[textcolor]</param>
+                                <param name="shadow_colordiffuse">$PARAM[shadow_colordiffuse]</param>
+                            </include>
+                        </control>
+                    </control>
+                </focusedlayout>
+            </control>
+        </definition>
+    </include>
+</includes>

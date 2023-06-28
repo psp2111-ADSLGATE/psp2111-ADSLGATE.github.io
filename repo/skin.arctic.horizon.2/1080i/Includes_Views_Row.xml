@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="View_Furniture_Row_Top">
+        <control type="group">
+            <visible>$EXP[Exp_RowViews] | $EXP[Exp_ListViews] | Control.IsVisible(540) | Control.IsVisible(54) | Control.IsVisible(552)</visible>
+            <include content="Info_Panel">
+                <param name="plotheight">info_plot_h</param>
+                <param name="details">!$EXP[Exp_ListViews] + !Control.IsVisible(540) + !Control.IsVisible(54) + !Control.IsVisible(552)</param>
+                <top>view_top</top>
+                <width>info_panel_w</width>
+                <left>view_pad</left>
+            </include>
+        </control>
+    </include>
+    <include name="View_Furniture_Row_Bottom">
+        <include content="Object_Control" condition="$EXP[Exp_View_50_Include] | $EXP[Exp_View_51_Include] | $EXP[Exp_View_52_Include] | $EXP[Exp_View_56_Include] | $EXP[Exp_View_57_Include] | $EXP[Exp_View_58_Include]">
+            <param name="control">group</param>
+            <include condition="$EXP[Exp_View_50_Include]">View_050_Square_Row</include>
+            <include condition="$EXP[Exp_View_51_Include]">View_051_Landscape_Row</include>
+            <include condition="$EXP[Exp_View_52_Include]">View_052_Poster_Row</include>
+            <include condition="$EXP[Exp_View_56_Include]">View_056_BigSquare_Row</include>
+            <include condition="$EXP[Exp_View_57_Include]">View_057_BigLandscape_Row</include>
+            <include condition="$EXP[Exp_View_58_Include]">View_058_BigPoster_Row</include>
+        </include>
+    </include>
+
+    <include name="View_Row_WallSwitch">
+        <control type="group">
+            <include>Animation_View_Switch</include>
+            <visible>Control.IsVisible($PARAM[id]4)</visible>
+            <include content="$PARAM[include]">
+                <param name="id">$PARAM[id]4</param>
+                <preloaditems>2</preloaditems>
+                <bottom>1</bottom>
+                <onback>ClearProperty(WallMode)</onback>
+                <onback>Container.SetViewMode($PARAM[id])</onback>
+                <onback>$PARAM[id]5</onback>
+                <visible>String.IsEqual(Window.Property(WallMode),Container.FolderPath)</visible>
+                <visible>$EXP[Exp_View_Special]</visible>
+                <visible>$EXP[Exp_View_$PARAM[id]]</visible>
+            </include>
+        </control>
+        <control type="group">
+            <visible>Control.IsVisible($PARAM[id]4)</visible>
+            <include>Animation_FadeIn_Delay</include>
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[id]5</param>
+                <onfocus>SetFocus($PARAM[id])</onfocus>
+            </include>
+            <include content="Object_Hidden_Button">
+                <param name="id">$PARAM[id]6</param>
+                <onfocus>Container.SetViewMode($PARAM[id]4)</onfocus>
+                <onfocus>Container.SetViewMode($PARAM[id]4)</onfocus>
+                <onfocus>SetFocus($PARAM[id]4)</onfocus>
+            </include>
+            <include content="Object_WallFade">
+                <param name="id">$PARAM[id]4</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="View_050_Square_Row">
+        <include content="View_Row_Include">
+            <param name="id">50</param>
+            <param name="include">List_Square_Row</param>
+            <param name="wall_include">List_Square_Wall</param>
+            <param name="viewtype_label">$LOCALIZE[31113]</param>
+        </include>
+    </include>
+    <include name="View_051_Landscape_Row">
+        <include content="View_Row_Include">
+            <param name="id">51</param>
+            <param name="include">List_Landscape_Row</param>
+            <param name="wall_include">List_Landscape_Wall</param>
+            <param name="viewtype_label">$LOCALIZE[31112]</param>
+        </include>
+    </include>
+    <include name="View_052_Poster_Row">
+        <include content="View_Row_Include">
+            <param name="id">52</param>
+            <param name="include">List_Poster_Row</param>
+            <param name="wall_include">List_Poster_Wall</param>
+            <param name="viewtype_label">$LOCALIZE[31111]</param>
+        </include>
+    </include>
+    <include name="View_056_BigSquare_Row">
+        <include content="View_Row_Include">
+            <param name="id">56</param>
+            <param name="include">List_BigSquare_Row</param>
+            <param name="wall_include">List_BigSquare_Wall</param>
+            <param name="viewtype_label">$LOCALIZE[31351]</param>
+        </include>
+    </include>
+    <include name="View_057_BigLandscape_Row">
+        <include content="View_Row_Include">
+            <param name="id">57</param>
+            <param name="include">List_BigLandscape_Row</param>
+            <param name="wall_include">List_BigLandscape_Wall</param>
+            <param name="viewtype_label">$LOCALIZE[31149]</param>
+        </include>
+    </include>
+    <include name="View_058_BigPoster_Row">
+        <control type="group">
+            <visible>Control.IsVisible(58)</visible>
+
+            <include content="List_BigPoster">
+                <param name="id">58</param>
+                <viewtype label="$LOCALIZE[31172]">wrap</viewtype>
+                <focusposition>2</focusposition>
+                <onup>menu</onup>
+                <include content="Action_Row_OnDown">
+                    <param name="id">58</param>
+                </include>
+                <pagecontrol>60</pagecontrol>
+                <visible>$EXP[Exp_View_Special]</visible>
+                <visible>$EXP[Exp_View_58]</visible>
+            </include>
+
+            <control type="group">
+                <visible>$EXP[Exp_ShowBigPosterInfo]</visible>
+                <animation effect="fade" start="0" end="100" time="400" delay="400" reversible="false">Visible</animation>
+                <top>view_top</top>
+                <width>info_panel_w</width>
+                <left>635</left>
+                <include content="Info_Panel">
+                    <param name="plotheight">info_plot_large_h</param>
+                    <param name="line_id">99058</param>
+                </include>
+                <control type="group">
+                    <top>390</top>
+                    <include>DialogInfo_VideoDetails</include>
+                </control>
+            </control>
+
+        </control>
+    </include>
+
+
+    <include name="View_Row_Include">
+        <control type="group">
+            <visible>!Control.IsVisible($PARAM[id]4)</visible>
+            <include>Animation_View_Switch</include>
+            <control type="group">
+                <visible>Control.IsVisible($PARAM[id])</visible>
+                <animation type="Visible" reversible="false">
+                    <effect type="fade" start="0" end="100" time="0" delay="50" tween="sine" easing="out"/>
+                </animation>
+                <include content="$PARAM[include]">
+                    <param name="id">$PARAM[id]</param>
+                    <height>divider_bottom</height>
+                    <bottom>40</bottom>
+                    <onup>menu</onup>
+                    <pagecontrol>60</pagecontrol>
+                    <include content="Action_Row_OnDown">
+                        <param name="id">$PARAM[id]</param>
+                    </include>
+                    <visible>$EXP[Exp_View_Special]</visible>
+                    <visible>$EXP[Exp_View_$PARAM[id]]</visible>
+                    <viewtype label="$PARAM[viewtype_label]">wrap</viewtype>
+                    <onfocus>ClearProperty(TMDbHelper.WidgetContainer)</onfocus>
+                </include>
+            </control>
+        </control>
+        <include content="View_Row_WallSwitch">
+            <param name="id">$PARAM[id]</param>
+            <param name="include">$PARAM[wall_include]</param>
+        </include>
+    </include>
+</includes>

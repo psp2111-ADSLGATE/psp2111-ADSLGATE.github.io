@@ -1,0 +1,189 @@
+# Kodi Media Center language file
+# Addon Name: Unlock Kodi Advanced Settings
+# Addon id: script.unlock.advancedsettings
+# Addon Provider: Alex Bratchik
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+
+msgctxt "#30000"
+msgid "Cache"
+msgstr "Cache"
+
+msgctxt "#30002"
+msgid "Buffer all internet filesystems + ftp, webdav"
+msgstr "Buffer all internet filesystems + ftp, webdav"
+
+msgctxt "#30003"
+msgid "Buffer all filesystems"
+msgstr "Buffer all filesystems"
+
+msgctxt "#30004"
+msgid "Only buffer true internet filesystems"
+msgstr "Only buffer true internet filesystems"
+
+msgctxt "#30005"
+msgid "No buffer"
+msgstr "No buffer"
+
+msgctxt "#30006"
+msgid "All network filesystems"
+msgstr "All network filesystems"
+
+msgctxt "#30010"
+msgid "Buffer Size (bytes)"
+msgstr "Buffer Size (bytes)"
+
+msgctxt "#30100"
+msgid "Logging"
+msgstr "Logging"
+
+msgctxt "#30101"
+msgid "Logging Level"
+msgstr "Logging Level"
+
+msgctxt "#30102"
+msgid "Normal logging, only logging errors"
+msgstr "Normal logging, only logging errors"
+
+msgctxt "#30103"
+msgid "Debug logging with freemem, fps and cpu usage"
+msgstr "Debug logging with freemem, fps and cpu usage"
+
+msgctxt "#30104"
+msgid "Debug logging with on-screen display"
+msgstr "Debug logging with on-screen display"
+
+msgctxt "#30105"
+msgid "Debug logging with smb, no on-screen display"
+msgstr "Debug logging with smb, no on-screen display"
+
+msgctxt "#30106"
+msgid "No logging"
+msgstr "No logging"
+
+msgctxt "#30110"
+msgid "Hide 'Enable Debugging' Setting"
+msgstr "Hide 'Enable Debugging' Setting"
+
+msgctxt "#30200"
+msgid "System"
+msgstr "System"
+
+msgctxt "#30221"
+msgid "Skip only empty frames (default)"
+msgstr "Skip only empty frames (default)"
+
+msgctxt "#30222"
+msgid "Skip non-reference frames"
+msgstr "Skip non-reference frames"
+
+msgctxt "#30223"
+msgid "Skip bi-dir frames"
+msgstr "Skip bi-dir frames"
+
+msgctxt "#30224"
+msgid "Skip all non-key frames"
+msgstr "Skip all non-key frames"
+
+msgctxt "#30225"
+msgid "Skip all frames"
+msgstr "Skip all frames"
+
+msgctxt "#30226"
+msgid "None"
+msgstr "None"
+
+msgctxt "#30228"
+msgid "JSON RPC"
+msgstr "JSON RPC"
+
+msgctxt "#30230"
+msgid "EPG"
+msgstr "EPG"
+
+msgctxt "#30240"
+msgid "PVR"
+msgstr "PVR"
+
+msgctxt "#30251"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "#30252"
+msgid "Date"
+msgstr "Date"
+
+msgctxt "#30253"
+msgid "Size"
+msgstr "Size"
+
+msgctxt "#30254"
+msgid "File"
+msgstr "File"
+
+msgctxt "#30256"
+msgid "Ascending"
+msgstr "Ascending"
+
+msgctxt "#30257"
+msgid "Descending"
+msgstr "Descending"
+
+msgctxt "#30260"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "#30261"
+msgid "Video Extensions"
+msgstr "Video Extensions"
+
+msgctxt "#30262"
+msgid "Disk Stub Extensions"
+msgstr "Disk Stub Extensions"
+
+msgctxt "#30265"
+msgid "Adjust Refresh Rate - Override"
+msgstr "Adjust Refresh Rate - Override"
+
+msgctxt "#30270"
+msgid "Adjust Refresh Rate - Fallback"
+msgstr "Adjust Refresh Rate - Fallback"
+
+msgctxt "#30360"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "#30380"
+msgid "Audio Library"
+msgstr "Audio Library"
+
+msgctxt "#30400"
+msgid "EDL"
+msgstr "EDL"
+
+msgctxt "#30500"
+msgid "Video Library"
+msgstr "Video Library"
+
+msgctxt "#30600"
+msgid "Network"
+msgstr "Network"
+
+msgctxt "#30650"
+msgid "Photo"
+msgstr "Photo"
+
+msgctxt "#30800"
+msgid "Unable to parse"
+msgstr "Unable to parse"
+
+msgctxt "#30801"
+msgid "The file 'advancedsettings.xml' will be overwritten, continue?"
+msgstr "The file 'advancedsettings.xml' will be overwritten, continue?"
+
+msgctxt "#30802"
+msgid "Please restart Kodi for settings to take effect"
+msgstr "Please restart Kodi for settings to take effect"
