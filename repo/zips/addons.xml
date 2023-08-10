@@ -1342,35 +1342,6 @@
       <icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.module.acctview" name="acctviewer" version="2.0.7" provider-name="Zaxxon709">
-    <extension point="xbmc.python.pluginsource" library="default.py">
-    <extension point="xbmc.addon.metadata">
-    </extension>
-        <summary lang="en">View Accounts</summary>
-        <description lang="en">Account Manager Dependency</description>
-        <platform>all</platform>
-        <reuselanguageinvoker>false</reuselanguageinvoker>
-        <source>https://</source>
-    </extension>
-</addon><addon id="script.module.cloudscraper" name="CloudScraper2" version="1.2.66" provider-name="venomous">
-  <requires>
-    
-    <import addon="script.module.requests" />
-  </requires>
-  <extension point="xbmc.python.module" library="lib" />
-  <extension point="xbmc.python.pluginsource" library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en_gb">cloudscraper</summary>
-    <description lang="en_gb">cloudscraper</description>
-    <disclaimer lang="en_gb" />
-    <language />
-    <platform>all</platform>
-    <license />
-    <forum />
-    <website />
-    <email />
-    <source />
-  </extension>
 </addon><addon id="script.module.cocoscrapers" name="CocoScrapers Module" version="1.0.12" provider-name="CocoJoe">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
@@ -1412,39 +1383,6 @@
       <icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.module.myaccts" version="99.1.1" name="Debrid Manager" provider-name="Zaxxon709, Ezra Hubbard">
-	<requires>
-		<import addon="xbmc.python" version="3.0.0" />
-		<import addon="script.module.requests" version="2.19.1" />
-            <import addon="script.module.myauth" version="99.0.1" />
-	</requires>
-	<extension point="xbmc.service" library="lib/startup.py" start="startup" />
-	<extension point="xbmc.python.script" library="lib/default.py">
-		<provides>executable</provides>
-	</extension>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<reuselanguageinvoker>false</reuselanguageinvoker>
-		<summary lang="en">Accounts Module</summary>
-		<description>Single placeholder for your debrid accounts</description>
-		<platform>all</platform>
-		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
-		<disclaimer lang="en">The author is not responsible for the use of this addon. [CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.png</fanart>
-		</assets>
-	</extension>
-</addon><addon id="script.module.myauth" name="myauthact" version="99.0.1" provider-name="Zaxxon709">
-    <extension point="xbmc.python.pluginsource" library="default.py">
-    <extension point="xbmc.addon.metadata">
-    </extension>
-        <summary lang="en">Authorize Debrid Accounts</summary>
-        <description lang="en">Debrid Accounts Manager</description>
-        <platform>all</platform>
-        <reuselanguageinvoker>false</reuselanguageinvoker>
-        <source>https://</source>
-    </extension>
 </addon><addon id="script.skinshortcuts" name="Skin Shortcuts" version="2.0.3" provider-name="BigNoid, marcelveldt, SiLVO, anxdpanic">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -2055,36 +1993,6 @@ v1.0.1 (2023-07-28)
 
 1.8.0
 - fix searching for subtitles (jarmo)
-</news>
-    </extension>
-</addon><addon id="service.subtitles.subsceneplus" name="Subscene Subtitles" version="1.2.9" provider-name="Cih2001">
-  <requires>
-    <import addon="xbmc.python" version="3.0.0" />
-    <import addon="script.module.requests" version="2.22.0+matrix.1" />
-    <import addon="script.module.html5lib" version="1.0.1+matrix.2" />
-    <import addon="vfs.libarchive" version="2.0.0" />
-    <import addon="script.module.cloudscraper" version="1.2.60" /> 
-  </requires>
-  <extension point="xbmc.subtitle.module" library="service.py" />
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Subscene.com Subtitles</summary>
-    <description lang="en_GB"> A convenient addon to download subtitles from subscene.com. If you find it useful, please consider giving it a star in github. This is being actively maintained. In case of any problem, feel free to open an issue on github.
-    </description>
-    <platform>all</platform>
-    <license>GPL-2.0-or-later</license>
-    <news>Version 1.2.*
-- New: Subscene domain name can be selected from the settings.
-Version 1.1.*
-- New: Subscene plus now works with TV shows.
-- New: When Movie/TV-show cannot be determined accurately, It allows you to select the correct one from a list.
-- New: Subtitles from archives with multiple items can be selected from a list.
-- Minor bugfixes
-	</news>
-    <source>https://github.com/Cih2001/KodiSubsceneAddon</source>
-    <assets>
-        <icon>logo.png</icon>
-    </assets>
-  </extension>
 </addon><addon id="service.upnext" name="UpNext" version="2.0.25+dev.0" provider-name="im85288">
     <requires>
         <import addon="xbmc.python" version="3.0.0" optional="true" />
