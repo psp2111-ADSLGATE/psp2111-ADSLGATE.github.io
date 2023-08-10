@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="MovieWidgets">
+        <include content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.fen/?name=32476&amp;iconImage=player&amp;mode=build_movie_list&amp;action=in_progress_movies"/>
+            <param name="widget_header" value="تكملة المشاهدة"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19011"/>
+        </include>
+        <include content="WidgetListCategoryStacked">
+            <param name="content_path" value="plugin://plugin.video.fen/?name=32028&amp;iconImage=movies&amp;mode=navigator.main&amp;action=MovieList"/>
+            <param name="widget_header" value="الأفلام"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19012"/>
+        </include>
+        <include content="WidgetListBigPosterStacked">
+            <param name="content_path" value="$INFO[Window(Home).Property(fentastic.19012.path)]"/>
+            <param name="widget_header" value="$INFO[Window(Home).Property(fentastic.19012.label)]"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="190121"/>
+        </include>
+        <include content="WidgetListCategoryStacked">
+            <param name="content_path" value="plugin://plugin.video.fen/?name=32480&amp;iconImage=networks&amp;mode=navigator.networks&amp;menu_type=movie"/>
+            <param name="widget_header" value="خدمات البث"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19013"/>
+        </include>
+        <include content="WidgetListBigPosterStacked">
+            <param name="content_path" value="$INFO[Window(Home).Property(fentastic.19013.path)]"/>
+            <param name="widget_header" value="$INFO[Window(Home).Property(fentastic.19013.label)]"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="190131"/>
+        </include>
+        <include content="WidgetListCategoryStacked">
+            <param name="content_path" value="plugin://plugin.video.fen/?name=32470&amp;iconImage=genres&amp;mode=navigator.genres&amp;menu_type=movie"/>
+            <param name="widget_header" value="الأصناف"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19014"/>
+        </include>
+        <include content="WidgetListBigPosterStacked">
+            <param name="content_path" value="$INFO[Window(Home).Property(fentastic.19014.path)]"/>
+            <param name="widget_header" value="$INFO[Window(Home).Property(fentastic.19014.label)]"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="190141"/>
+        </include>
+    </include>
+</includes>

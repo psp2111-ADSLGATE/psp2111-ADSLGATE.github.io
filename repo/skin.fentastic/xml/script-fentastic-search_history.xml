@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="SearchHistory">
+        <item>
+            <label>$NUMBER[iron man]</label>
+            <onclick>RunScript(script.fentastic.helper,mode=re_search)</onclick>
+        </item>
+    </include>
+</includes>
