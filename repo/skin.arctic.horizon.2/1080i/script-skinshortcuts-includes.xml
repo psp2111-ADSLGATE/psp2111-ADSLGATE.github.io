@@ -70,6 +70,7 @@
 			<property name="labelID">24001</property>
 			<property name="defaultID">24001</property>
 			<property name="translatedPath">ActivateWindow(AddonBrowser)</property>
+			<property name="widgetStyle">Landscape</property>
 			<onclick>ActivateWindow(AddonBrowser)</onclick>
 			<property name="path">ActivateWindow(AddonBrowser)</property>
 			<property name="list">AddonBrowser</property>
@@ -688,6 +689,23 @@
 			<property name="group">searchmenu</property>
 			<property name="isSubmenu">True</property>
 			</item>
+		<item id="3">
+			<property name="id">$NUMBER[3]</property>
+			<property name="mainmenuid">6</property>
+			<label>TMDb سلسلة أفلام</label>
+			<label2>الافتراضي</label2>
+			<icon>special://skin/extras/icons/sets.png</icon>
+			<thumb />
+			<property name="labelID">tmdbslsl-flm</property>
+			<property name="defaultID">tmdbsets</property>
+			<property name="translatedPath">DefaultSearch-TMDBSets</property>
+			<onclick>DefaultSearch-TMDBSets</onclick>
+			<property name="path">DefaultSearch-TMDBSets</property>
+			<property name="list">DefaultSearch-TMDBSets</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),searchmenu)</visible>
+			<property name="group">searchmenu</property>
+			<property name="isSubmenu">True</property>
+			</item>
 		</include>
 	<include />
 	<include name="skinshortcuts-submenu-1">
@@ -807,17 +825,17 @@
 			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">1</property>
 			<label>الأصناف</label>
-			<label2>Video Add-On</label2>
+			<label2>عنصر مخصص</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
 			<thumb>thumb</thumb>
 			<property name="labelID">lsnf</property>
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
 			<property name="widgetTarget">videos</property>
-			<property name="widgetAspect">Text</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
-			<property name="list">plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]</property>
+			<property name="widgetAspect">Button</property>
+			<onclick>ActivateWindow(Videos,"library://video/moviesgenres/",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"library://video/moviesgenres/",return)</property>
+			<property name="list">library://video/moviesgenres/</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),movies)</visible>
 			<property name="group">movies.1</property>
 			<property name="isSubmenu">True</property>
@@ -1032,17 +1050,17 @@
 			<property name="id">$NUMBER[10]</property>
 			<property name="mainmenuid">2</property>
 			<label>الأصناف</label>
-			<label2>Video Add-On</label2>
+			<label2>عنصر مخصص</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
 			<thumb>thumb</thumb>
 			<property name="labelID">lsnf</property>
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
 			<property name="widgetTarget">videos</property>
-			<property name="widgetAspect">Text</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
-			<property name="list">plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]</property>
+			<property name="widgetAspect">Button</property>
+			<onclick>ActivateWindow(Videos,"library://video/tvshowgenres/",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"library://video/tvshowgenres/",return)</property>
+			<property name="list">library://video/tvshowgenres/</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),tvshows)</visible>
 			<property name="group">tvshows.1</property>
 			<property name="isSubmenu">True</property>
@@ -1181,16 +1199,18 @@
 			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">3</property>
 			<label>Real Debrid</label>
-			<label2>عنصر مخصص</label2>
+			<label2>إضافات الفيديو</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
-			<thumb>thumb</thumb>
+			<thumb>image://C%3a%5cUsers%5cGaming-PC%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.seren%5c%2fresources%2fimages%2ficons%2freal_debrid.png/</thumb>
 			<property name="labelID">realdebrid</property>
 			<property name="defaultID" />
 			<property name="widgetAspect">Text</property>
 			<property name="widgetTarget">videos</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png",return)</property>
-			<property name="list">plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png</property>
+			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D",return)</property>
+			<property name="widgetSortby">dateadded</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D",return)</property>
+			<property name="list">plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001)</visible>
 			<property name="group">24001.1</property>
 			<property name="isSubmenu">True</property>
@@ -1227,6 +1247,8 @@
 			<property name="labelID">568</property>
 			<property name="defaultID">568</property>
 			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
 			<onclick>ActivateWindow(PVR,pvr://channels/tv/*,return)</onclick>
 			<property name="path">ActivateWindow(PVR,pvr://channels/tv/*,return)</property>
 			<property name="list">pvr://channels/tv/*</property>
@@ -1244,6 +1266,8 @@
 			<property name="labelID">19017</property>
 			<property name="defaultID">19017</property>
 			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
 			<onclick>ActivateWindow(PVR,pvr://recordings/tv/active?view=flat,return)</onclick>
 			<property name="path">ActivateWindow(PVR,pvr://recordings/tv/active?view=flat,return)</property>
 			<property name="list">pvr://recordings/tv/active?view=flat</property>
@@ -1260,6 +1284,10 @@
 			<thumb />
 			<property name="labelID">19173</property>
 			<property name="defaultID">19173</property>
+			<property name="widgetAspect">Square</property>
+			<property name="widgetTarget">tvguide</property>
+			<property name="widgetAspect">Square</property>
+			<property name="widgetTarget">tvguide</property>
 			<property name="widgetAspect">Square</property>
 			<property name="widgetTarget">tvguide</property>
 			<onclick>ActivateWindow(PVR,pvr://channels/tv,return)</onclick>
@@ -1669,17 +1697,17 @@
 			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">1</property>
 			<label>الأصناف</label>
-			<label2>Video Add-On</label2>
+			<label2>عنصر مخصص</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
 			<thumb>thumb</thumb>
 			<property name="labelID">lsnf</property>
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
 			<property name="widgetTarget">videos</property>
-			<property name="widgetAspect">Text</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
-			<property name="list">plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]</property>
+			<property name="widgetAspect">Button</property>
+			<onclick>ActivateWindow(Videos,"library://video/moviesgenres/",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"library://video/moviesgenres/",return)</property>
+			<property name="list">library://video/moviesgenres/</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="group">movies.1</property>
 			<property name="isSubmenu">True</property>
@@ -1839,17 +1867,17 @@
 			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">1</property>
 			<label>الأصناف</label>
-			<label2>Video Add-On</label2>
+			<label2>عنصر مخصص</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
 			<thumb>thumb</thumb>
 			<property name="labelID">lsnf</property>
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
 			<property name="widgetTarget">videos</property>
-			<property name="widgetAspect">Text</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
-			<property name="list">plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]</property>
+			<property name="widgetAspect">Button</property>
+			<onclick>ActivateWindow(Videos,"library://video/moviesgenres/",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"library://video/moviesgenres/",return)</property>
+			<property name="list">library://video/moviesgenres/</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),movies)</visible>
 			<property name="group">movies.1</property>
 			<property name="isSubmenu">True</property>
@@ -2133,6 +2161,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(1601).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,1601,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Plot,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Landscape,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -2198,6 +2228,8 @@
 						<onfocus condition="True + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(1602).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,1602,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Full,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -2263,6 +2295,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(1603).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,1603,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Button,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Button,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -2328,6 +2362,8 @@
 						<onfocus condition="True + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(1604).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,1604,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Full,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Poster,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -2393,6 +2429,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(1605).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,1605,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Apps,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Apps,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -2458,6 +2496,8 @@
 						<onfocus condition="True + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(1606).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,1606,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Full,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -2483,7 +2523,7 @@
 						<param name="infowidget" value="False" />
 						<param name="infowidget_full" value="False" />
 						<param name="busy_visible" value="Integer.IsEqual(Container(1607).NumItems,0) | [False + Container(1607).IsUpdating]" />
-						<param name="detailed">false</param>
+						<param name="detailed">true</param>
 						<param name="oversized">False</param>
 						<include content="Widget_ContentDynamic" condition="!False + !False">
 							<param name="sortby" />
@@ -2492,7 +2532,7 @@
 							<param name="limit" />
 							<param name="autolimit">7</param>
 							<param name="is_autolimit">false</param>
-							<param name="content">plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]</param>
+							<param name="content">library://video/moviesgenres/</param>
 							</include>
 						<include content="Widget_ContentDynamic" condition="!False + False">
 							<param name="sortby" />
@@ -2509,7 +2549,7 @@
 						<include content="Object_ContentItem" condition="Skin.HasSetting(Home.EnableShowMoreWidget) + false + !false + !False">
 							<param name="label">$LOCALIZE[31253]...</param>
 							<param name="icon">fallback/more-items.png</param>
-							<param name="onclick">ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=movie&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)],return)</param>
+							<param name="onclick">ActivateWindow(videos,library://video/moviesgenres/,return)</param>
 							<param name="visible">Integer.IsEqual(Container(1607).NumItems,) | Integer.IsEqual(Container(1607).NumItems,100000)</param>
 							</include>
 						<include content="Object_ContentItem" condition="False + !False">
@@ -2522,7 +2562,9 @@
 						<onfocus condition="False + ![False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,الأصناف,Home)</onfocus>
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(1607).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,1607,Home)</onfocus>
-						<onfocus>SetProperty(Slide.WidgetInfoStyle,,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetInfoStyle,Button,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Button,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -2588,6 +2630,8 @@
 						<onfocus condition="True + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(1608).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,1608,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Full,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Poster,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -2653,6 +2697,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(1609).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,1609,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Submenu,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Button,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -2978,6 +3024,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2601).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2601,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Plot,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Landscape,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3043,6 +3091,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2602).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,2602,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Button,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Button,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3108,6 +3158,8 @@
 						<onfocus condition="True + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2603).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2603,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Full,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3173,6 +3225,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2604).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2604,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Plot,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Square,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3238,6 +3292,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2605).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2605,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Plot,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Landscape,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3303,6 +3359,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2606).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,2606,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Apps,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Apps,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3368,6 +3426,8 @@
 						<onfocus condition="True + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2607).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2607,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Full,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3433,6 +3493,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2608).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2608,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Plot,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Square,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3498,6 +3560,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2609).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2609,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Plot,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Landscape,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3523,7 +3587,7 @@
 						<param name="infowidget" value="False" />
 						<param name="infowidget_full" value="False" />
 						<param name="busy_visible" value="Integer.IsEqual(Container(2610).NumItems,0) | [False + Container(2610).IsUpdating]" />
-						<param name="detailed">false</param>
+						<param name="detailed">true</param>
 						<param name="oversized">False</param>
 						<include content="Widget_ContentDynamic" condition="!False + !False">
 							<param name="sortby" />
@@ -3532,7 +3596,7 @@
 							<param name="limit" />
 							<param name="autolimit">7</param>
 							<param name="is_autolimit">false</param>
-							<param name="content">plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]</param>
+							<param name="content">library://video/tvshowgenres/</param>
 							</include>
 						<include content="Widget_ContentDynamic" condition="!False + False">
 							<param name="sortby" />
@@ -3549,7 +3613,7 @@
 						<include content="Object_ContentItem" condition="Skin.HasSetting(Home.EnableShowMoreWidget) + false + !false + !False">
 							<param name="label">$LOCALIZE[31253]...</param>
 							<param name="icon">fallback/more-items.png</param>
-							<param name="onclick">ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)],return)</param>
+							<param name="onclick">ActivateWindow(videos,library://video/tvshowgenres/,return)</param>
 							<param name="visible">Integer.IsEqual(Container(2610).NumItems,) | Integer.IsEqual(Container(2610).NumItems,100000)</param>
 							</include>
 						<include content="Object_ContentItem" condition="False + !False">
@@ -3562,7 +3626,9 @@
 						<onfocus condition="False + ![False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,الأصناف,Home)</onfocus>
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2610).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,2610,Home)</onfocus>
-						<onfocus>SetProperty(Slide.WidgetInfoStyle,,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetInfoStyle,Button,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Button,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3628,6 +3694,8 @@
 						<onfocus condition="True + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2611).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2611,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Full,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Poster,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3693,6 +3761,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2612).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2612,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Plot,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Square,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3758,6 +3828,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2613).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,2613,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Plot,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Landscape,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3823,6 +3895,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(2614).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,2614,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Submenu,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Button,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -3920,7 +3994,7 @@
 					</include>
 				<visible>String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) | !String.IsEmpty(Window(Home).Property(WidgetWait))</visible>
 				<control type="grouplist" id="3400">
-					<animation effect="slide" end="0,120" condition="Integer.IsEqual(Container(3400).NumItems,1) + False + True">Conditional</animation>
+					<animation effect="slide" end="0,120" condition="Integer.IsEqual(Container(3400).NumItems,1) + False + False">Conditional</animation>
 					<visible>!$EXP[Exp_InfoDialogs]</visible>
 					<visible>!$EXP[Exp_RecommendationDialogs]</visible>
 					<include>Animation_Common</include>
@@ -3935,7 +4009,7 @@
 					<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + ![True]">ClearProperty(330_FocusBounce,Home)</ondown>
 					<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + ![True] + !String.IsEqual(Window.Property(Slide.WidgetInfoStyle),Full)">SetFocus(330)</ondown>
 					<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + ![True] + String.IsEqual(Window.Property(Slide.WidgetInfoStyle),Full)">AlarmClock(330_FocusBounce_Reset,SetProperty(330_FocusBounce,1,Home),00:00,silent)</ondown>
-					<include content="Object_Control" condition="False + True">
+					<include content="Object_Control" condition="False + False">
 						<param name="control">group</param>
 						<param name="id">3500</param>
 						<top>fullscreenwidget_buttongroup_t</top>
@@ -4023,7 +4097,7 @@
 					<control type="group" id="3600">
 						<height>widget_tbump_h</height>
 						</control>
-					<include content="Object_Control" condition="False + ![True]">
+					<include content="Object_Control" condition="False + ![False]">
 						<param name="control">group</param>
 						<param name="id">3597</param>
 						<height>infowidget_main_t</height>
@@ -4051,11 +4125,11 @@
 							<left>view_pad</left>
 							</include>
 						</include>
-					<include content="Widget_Poster" condition="False + ![True]">
+					<include content="Widget_Poster" condition="False + ![False]">
 						<param name="groupid" value="3500" />
 						<param name="id" value="301" />
 						<param name="label" value="$LOCALIZE[31105]" />
-						<param name="include" value="List_Poster_Row" />
+						<param name="include" value="List_Landscape_Row" />
 						<param name="labelvisible">!Skin.HasSetting(Widgets.ExpandedHeader)</param>
 						<param name="visible" value="String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001)" />
 						<param name="busy_visible" value="[Integer.IsEqual(Container(301).NumItems,0) | [Integer.IsEqual(Container(301).NumItems,1) + !String.IsEmpty(Container(301).ListItemAbsolute(0).Property(blankitem))]]" />
@@ -4076,7 +4150,7 @@
 							<param name="sortby" />
 							<param name="sortorder" />
 							<param name="target" />
-							<param name="limit">7</param>
+							<param name="limit">4</param>
 							<param name="content" />
 							</include>
 						<include content="Defs_AutoScroll" condition="False">
@@ -4148,6 +4222,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(3601).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,3601,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Square,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -4213,6 +4289,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(3602).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,3602,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Button,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Button,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -4278,6 +4356,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(3603).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,3603,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Square,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -4306,16 +4386,16 @@
 						<param name="detailed">false</param>
 						<param name="oversized">False</param>
 						<include content="Widget_ContentDynamic" condition="!False + !False">
-							<param name="sortby" />
+							<param name="sortby">dateadded</param>
 							<param name="sortorder" />
 							<param name="target">videos</param>
 							<param name="limit" />
 							<param name="autolimit">7</param>
 							<param name="is_autolimit">false</param>
-							<param name="content">plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png</param>
+							<param name="content">plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D</param>
 							</include>
 						<include content="Widget_ContentDynamic" condition="!False + False">
-							<param name="sortby" />
+							<param name="sortby">dateadded</param>
 							<param name="sortorder" />
 							<param name="target">videos</param>
 							<param name="limit" />
@@ -4329,7 +4409,7 @@
 						<include content="Object_ContentItem" condition="Skin.HasSetting(Home.EnableShowMoreWidget) + false + !false + !False">
 							<param name="label">$LOCALIZE[31253]...</param>
 							<param name="icon">fallback/more-items.png</param>
-							<param name="onclick">ActivateWindow(videos,plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png,return)</param>
+							<param name="onclick">ActivateWindow(videos,plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D,return)</param>
 							<param name="visible">Integer.IsEqual(Container(3604).NumItems,) | Integer.IsEqual(Container(3604).NumItems,100000)</param>
 							</include>
 						<include content="Object_ContentItem" condition="False + !False">
@@ -4343,6 +4423,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(3604).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,3604,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Text,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -4408,6 +4490,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(3605).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="True">SetProperty(Slide.WidgetContainer,3605,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,Plot,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Square,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -4733,6 +4817,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(4601).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,4601,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Landscape,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -4798,6 +4884,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(4602).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,4602,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Landscape,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -4863,6 +4951,8 @@
 						<onfocus condition="False + [False] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container(4603).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
 						<onfocus condition="False">SetProperty(Slide.WidgetContainer,4603,Home)</onfocus>
 						<onfocus>SetProperty(Slide.WidgetInfoStyle,,Home)</onfocus>
+						<onfocus>SetProperty(Slide.WidgetAspect,Square,Home)</onfocus>
+						<onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
 						<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -5424,17 +5514,17 @@
 			<property name="id">$NUMBER[10]</property>
 			<property name="mainmenuid">2</property>
 			<label>الأصناف</label>
-			<label2>Video Add-On</label2>
+			<label2>عنصر مخصص</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
 			<thumb>thumb</thumb>
 			<property name="labelID">lsnf</property>
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
 			<property name="widgetTarget">videos</property>
-			<property name="widgetAspect">Text</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
-			<property name="list">plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]</property>
+			<property name="widgetAspect">Button</property>
+			<onclick>ActivateWindow(Videos,"library://video/tvshowgenres/",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"library://video/tvshowgenres/",return)</property>
+			<property name="list">library://video/tvshowgenres/</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="group">tvshows.1</property>
 			<property name="isSubmenu">True</property>
@@ -5687,17 +5777,17 @@
 			<property name="id">$NUMBER[10]</property>
 			<property name="mainmenuid">2</property>
 			<label>الأصناف</label>
-			<label2>Video Add-On</label2>
+			<label2>عنصر مخصص</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
 			<thumb>thumb</thumb>
 			<property name="labelID">lsnf</property>
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
 			<property name="widgetTarget">videos</property>
-			<property name="widgetAspect">Text</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</property>
-			<property name="list">plugin://plugin.video.themoviedb.helper/?info=dir_tvdb_genres&amp;tmdb_type=tv&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]</property>
+			<property name="widgetAspect">Button</property>
+			<onclick>ActivateWindow(Videos,"library://video/tvshowgenres/",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"library://video/tvshowgenres/",return)</property>
+			<property name="list">library://video/tvshowgenres/</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),tvshows)</visible>
 			<property name="group">tvshows.1</property>
 			<property name="isSubmenu">True</property>
@@ -5996,16 +6086,18 @@
 			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">3</property>
 			<label>Real Debrid</label>
-			<label2>عنصر مخصص</label2>
+			<label2>إضافات الفيديو</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
-			<thumb>thumb</thumb>
+			<thumb>image://C%3a%5cUsers%5cGaming-PC%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.seren%5c%2fresources%2fimages%2ficons%2freal_debrid.png/</thumb>
 			<property name="labelID">realdebrid</property>
 			<property name="defaultID" />
 			<property name="widgetAspect">Text</property>
 			<property name="widgetTarget">videos</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png",return)</property>
-			<property name="list">plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png</property>
+			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D",return)</property>
+			<property name="widgetSortby">dateadded</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D",return)</property>
+			<property name="list">plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="group">24001.1</property>
 			<property name="isSubmenu">True</property>
@@ -6095,16 +6187,18 @@
 			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">3</property>
 			<label>Real Debrid</label>
-			<label2>عنصر مخصص</label2>
+			<label2>إضافات الفيديو</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
-			<thumb>thumb</thumb>
+			<thumb>image://C%3a%5cUsers%5cGaming-PC%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.seren%5c%2fresources%2fimages%2ficons%2freal_debrid.png/</thumb>
 			<property name="labelID">realdebrid</property>
 			<property name="defaultID" />
 			<property name="widgetAspect">Text</property>
 			<property name="widgetTarget">videos</property>
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png",return)</property>
-			<property name="list">plugin://plugin.video.fen/?mode=real_debrid.rd_torrent_cloud&amp;iconImage=https%3A%2F%2Fi.imgur.com%2FDotYAc3.png</property>
+			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D",return)</property>
+			<property name="widgetSortby">dateadded</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D",return)</property>
+			<property name="list">plugin://plugin.video.seren/?action=myFilesFolder&amp;action_args=%7B%22debrid_provider%22%3A+%22real_debrid%22%2C+%22id%22%3A+null%7D</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),num-24001)</visible>
 			<property name="group">24001.1</property>
 			<property name="isSubmenu">True</property>
@@ -6307,6 +6401,8 @@
 			<property name="labelID">568</property>
 			<property name="defaultID">568</property>
 			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
 			<onclick>ActivateWindow(PVR,pvr://channels/tv/*,return)</onclick>
 			<property name="path">ActivateWindow(PVR,pvr://channels/tv/*,return)</property>
 			<property name="list">pvr://channels/tv/*</property>
@@ -6324,6 +6420,8 @@
 			<property name="labelID">19017</property>
 			<property name="defaultID">19017</property>
 			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
 			<onclick>ActivateWindow(PVR,pvr://recordings/tv/active?view=flat,return)</onclick>
 			<property name="path">ActivateWindow(PVR,pvr://recordings/tv/active?view=flat,return)</property>
 			<property name="list">pvr://recordings/tv/active?view=flat</property>
@@ -6340,6 +6438,10 @@
 			<thumb />
 			<property name="labelID">19173</property>
 			<property name="defaultID">19173</property>
+			<property name="widgetAspect">Square</property>
+			<property name="widgetTarget">tvguide</property>
+			<property name="widgetAspect">Square</property>
+			<property name="widgetTarget">tvguide</property>
 			<property name="widgetAspect">Square</property>
 			<property name="widgetTarget">tvguide</property>
 			<onclick>ActivateWindow(PVR,pvr://channels/tv,return)</onclick>
@@ -6361,6 +6463,8 @@
 			<property name="labelID">568</property>
 			<property name="defaultID">568</property>
 			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
 			<onclick>ActivateWindow(PVR,pvr://channels/tv/*,return)</onclick>
 			<property name="path">ActivateWindow(PVR,pvr://channels/tv/*,return)</property>
 			<property name="list">pvr://channels/tv/*</property>
@@ -6378,6 +6482,8 @@
 			<property name="labelID">19017</property>
 			<property name="defaultID">19017</property>
 			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
+			<property name="widgetAspect">Landscape</property>
 			<onclick>ActivateWindow(PVR,pvr://recordings/tv/active?view=flat,return)</onclick>
 			<property name="path">ActivateWindow(PVR,pvr://recordings/tv/active?view=flat,return)</property>
 			<property name="list">pvr://recordings/tv/active?view=flat</property>
@@ -6394,6 +6500,10 @@
 			<thumb />
 			<property name="labelID">19173</property>
 			<property name="defaultID">19173</property>
+			<property name="widgetAspect">Square</property>
+			<property name="widgetTarget">tvguide</property>
+			<property name="widgetAspect">Square</property>
+			<property name="widgetTarget">tvguide</property>
 			<property name="widgetAspect">Square</property>
 			<property name="widgetTarget">tvguide</property>
 			<onclick>ActivateWindow(PVR,pvr://channels/tv,return)</onclick>
@@ -6908,6 +7018,23 @@
 			<property name="group">searchmenu</property>
 			<property name="isSubmenu">True</property>
 			</item>
+		<item id="3">
+			<property name="id">$NUMBER[3]</property>
+			<property name="mainmenuid">6</property>
+			<label>TMDb سلسلة أفلام</label>
+			<label2>الافتراضي</label2>
+			<icon>special://skin/extras/icons/sets.png</icon>
+			<thumb />
+			<property name="labelID">tmdbslsl-flm</property>
+			<property name="defaultID">tmdbsets</property>
+			<property name="translatedPath">DefaultSearch-TMDBSets</property>
+			<onclick>DefaultSearch-TMDBSets</onclick>
+			<property name="path">DefaultSearch-TMDBSets</property>
+			<property name="list">DefaultSearch-TMDBSets</property>
+			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
+			<property name="group">searchmenu</property>
+			<property name="isSubmenu">True</property>
+			</item>
 		</include>
 	<include name="skinshortcuts-group-alt-searchmenu">
 		<item id="1">
@@ -6938,6 +7065,23 @@
 			<onclick>DefaultSearch-TMDBShows</onclick>
 			<property name="path">DefaultSearch-TMDBShows</property>
 			<property name="list">DefaultSearch-TMDBShows</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),searchmenu)</visible>
+			<property name="group">searchmenu</property>
+			<property name="isSubmenu">True</property>
+			</item>
+		<item id="3">
+			<property name="id">$NUMBER[3]</property>
+			<property name="mainmenuid">6</property>
+			<label>TMDb سلسلة أفلام</label>
+			<label2>الافتراضي</label2>
+			<icon>special://skin/extras/icons/sets.png</icon>
+			<thumb />
+			<property name="labelID">tmdbslsl-flm</property>
+			<property name="defaultID">tmdbsets</property>
+			<property name="translatedPath">DefaultSearch-TMDBSets</property>
+			<onclick>DefaultSearch-TMDBSets</onclick>
+			<property name="path">DefaultSearch-TMDBSets</property>
+			<property name="list">DefaultSearch-TMDBSets</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),searchmenu)</visible>
 			<property name="group">searchmenu</property>
 			<property name="isSubmenu">True</property>
@@ -7037,6 +7181,51 @@
 				<param name="visible">Integer.IsEqual(Container(5002).NumItems,) | Integer.IsEqual(Container(5002).NumItems,100000)</param>
 				</include>
 			</include>
+		<include content="Widget_Poster" condition="String.IsEqual(System.ProfileName,Master user)">
+			<param name="spacerid" value="5203" />
+			<param name="groupid" value="5103" />
+			<param name="id" value="5003" />
+			<param name="label" value="TMDb سلسلة أفلام" />
+			<param name="visible" value="!String.IsEmpty(Control.GetLabel(9099).index(1))" />
+			<param name="altvisible" value="[Control.HasFocus(340) | [System.IdleTime(1) + !System.IdleTime(2) + Control.HasFocus(9099) + !String.IsEqual(Window.Property(PreviousSearchTerm),Control.GetLabel(9099).index(1))]]" />
+			<param name="include" value="List_Poster_Row" />
+			<param name="infowidget" value="False" />
+			<param name="infowidget_full" value="False" />
+			<param name="detailed">false</param>
+			<include content="Object_ContentDynamic" condition="!false">
+				<param name="sortby" />
+				<param name="sortorder" />
+				<param name="target">videos</param>
+				<param name="limit" />
+				<param name="content">$INFO[Control.GetLabel(9099).index(1),plugin://plugin.video.themoviedb.helper?info=search&amp;type=collection&amp;query=,&amp;nextpage=false&amp;fanarttv=false&amp;cacheonly=true]</param>
+				</include>
+			<include content="Object_ContentDynamic" condition="false">
+				<param name="sortby" />
+				<param name="sortorder" />
+				<param name="target">videos</param>
+				<param name="limit">7</param>
+				<param name="content">$INFO[Control.GetLabel(9099).index(1),plugin://plugin.video.themoviedb.helper?info=search&amp;type=collection&amp;query=,&amp;nextpage=false&amp;fanarttv=false&amp;cacheonly=true]</param>
+				</include>
+			<onback>SetFocus(5000)</onback>
+			<onfocus>SetProperty(TMDbHelper.WidgetContainer,5003)</onfocus>
+			<onfocus condition="False">SetProperty(Slide.WidgetContainer,5003)</onfocus>
+			<onfocus>SetProperty(Slide.WidgetInfoStyle,)</onfocus>
+			<onunfocus>ClearProperty(Slide.WidgetInfoStyle)</onunfocus>
+			<onunfocus>ClearProperty(Slide.WidgetContainer)</onunfocus>
+			<onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
+			<content>
+				<item>
+					<label>-</label>
+					<visible>String.IsEmpty(Control.GetLabel(9099).index(1))</visible>
+					</item>
+				</content>
+			<include content="Object_ContentItem" condition="Skin.HasSetting(Home.EnableShowMoreWidget) + false + !false">
+				<param name="label">$LOCALIZE[31253]...</param>
+				<param name="icon">fallback/more-items.png</param>
+				<param name="onclick">ActivateWindow(videos,$INFO[Control.GetLabel(9099).index(1),plugin://plugin.video.themoviedb.helper?info=search&amp;type=collection&amp;query=,&amp;nextpage=false&amp;fanarttv=false&amp;cacheonly=true],return)</param>
+				<param name="visible">Integer.IsEqual(Container(5003).NumItems,) | Integer.IsEqual(Container(5003).NumItems,100000)</param>
+				</include>
+			</include>
 		</include>
 	<include name="skinshortcuts-group-searchmenu-1">
 		<description>No items</description>
@@ -7079,7 +7268,7 @@
 		<visible>!Control.HasFocus(2601) | [True + False]</visible>
 		<visible>!Control.HasFocus(2501) + !Control.HasFocus(2503) + !Control.HasFocus(301)</visible>
 		<visible>!String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) | [String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + Container(3400).HasPrevious]</visible>
-		<visible>!Control.HasFocus(3601) | [False + False]</visible>
+		<visible>!Control.HasFocus(3601) | [False + True]</visible>
 		<visible>!Control.HasFocus(3501) + !Control.HasFocus(3503) + !Control.HasFocus(301)</visible>
 		<visible>!String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-31085) | [String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-31085) + Container(4400).HasPrevious]</visible>
 		<visible>!Control.HasFocus(4601) | [False + False]</visible>
@@ -7155,11 +7344,11 @@
 		<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),tvshows) + True + !True">301</ondown>
 		<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),tvshows) + !True">2601</ondown>
 		<onright condition="Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + !Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301) + !String.IsEmpty(Window(Home).Property(TMDBHelper.WidgetContainer))">SetFocus($INFO[Window(Home).Property(TMDBHelper.WidgetContainer)])</onright>
-		<onright condition="Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301) + False + True">3599</onright>
-		<onright condition="Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301) + False + !True">301</onright>
+		<onright condition="Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301) + False + False">3599</onright>
+		<onright condition="Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301) + False + !False">301</onright>
 		<onright condition="Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301) + !False">3601</onright>
-		<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + False + True">3599</ondown>
-		<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + False + !True">301</ondown>
+		<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + False + False">3599</ondown>
+		<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + False + !False">301</ondown>
 		<ondown condition="!Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-24001) + !False">3601</ondown>
 		<onright condition="Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-31085) + !Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301) + !String.IsEmpty(Window(Home).Property(TMDBHelper.WidgetContainer))">SetFocus($INFO[Window(Home).Property(TMDBHelper.WidgetContainer)])</onright>
 		<onright condition="Skin.HasSetting(Home.VerticalMenu) + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),num-31085) + Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301) + False + True">4599</onright>
@@ -7185,7 +7374,7 @@
 			<orientation>horizontal</orientation>
 			<scrolltime tween="quadratic">400</scrolltime>
 			<hitrect x="0" y="0" w="0" h="0" />
-			<include content="Defs_AutoScroll">
+			<include content="Defs_AutoScroll" condition="False">
 				<param name="condition" value="[Control.HasFocus(300) | Control.HasFocus(399)] + !System.ScreenSaverActive + String.IsEmpty(Window(Home).Property(Widgets.BlockAutoscroll))" />
 				</include>
 			<itemlayout width="1920" height="1080" />
@@ -7210,7 +7399,7 @@
 			<orientation>horizontal</orientation>
 			<scrolltime tween="quadratic">400</scrolltime>
 			<hitrect x="0" y="0" w="0" h="0" />
-			<include content="Defs_AutoScroll">
+			<include content="Defs_AutoScroll" condition="False">
 				<param name="condition" value="[Control.HasFocus(300) | Control.HasFocus(399)] + !System.ScreenSaverActive + String.IsEmpty(Window(Home).Property(Widgets.BlockAutoscroll))" />
 				</include>
 			<itemlayout width="1920" height="1080" />

@@ -409,6 +409,9 @@
             <property name="widgetInclude">Widget_Poster</property>
 
             <!-- Details -->
+            <property name="widgetAspect" tag="property" attribute="name|widgetAspect" />
+
+            <!-- Details -->
             <property name="widgetDetailed" tag="property" attribute="name|widgetAspect" value="Button">true</property>
             <property name="widgetDetailed" tag="property" attribute="name|widgetAspect" value="Apps">true</property>
             <property name="widgetDetailed" tag="property" attribute="name|widgetAspect" value="Text">false</property>
@@ -567,6 +570,8 @@
                     <onfocus condition="$SKINSHORTCUTS[isInfoFull] + [$SKINSHORTCUTS[widgetLabelName]] + Skin.HasSetting(Widgets.ExpandedHeader)">SetProperty(Slide.WidgetTitle,[CAPITALIZE]$INFO[Container($PYTHON[int(mainmenuid) * 1000 + 600 + int(id)]).ListItem.Property(widget)][/CAPITALIZE],Home)</onfocus>
                     <onfocus condition="$SKINSHORTCUTS[isInfo]">SetProperty(Slide.WidgetContainer,$PYTHON[int(mainmenuid) * 1000 + 600 + int(id)],Home)</onfocus>
                     <onfocus>SetProperty(Slide.WidgetInfoStyle,$SKINSHORTCUTS[widgetInfo],Home)</onfocus>
+                    <onfocus>SetProperty(Slide.WidgetAspect,$SKINSHORTCUTS[widgetAspect],Home)</onfocus>
+                    <onunfocus>ClearProperty(Slide.WidgetAspect,Home)</onunfocus>
                     <onunfocus>ClearProperty(Slide.WidgetInfoStyle,Home)</onunfocus>
                     <onunfocus>ClearProperty(Slide.WidgetContainer,Home)</onunfocus>
                     <onunfocus>ClearProperty(Slide.WidgetTitle,Home)</onunfocus>
@@ -722,6 +727,9 @@
         <property name="widgetLimit" tag="property" attribute="name|widgetLimit" />
         <property name="submenuVisibility" tag="property" attribute="name|submenuVisibility"/>
 
+        <property name="isFullscreenAutoScroll" tag="property" attribute="name|widgetAutoScroll">True</property>
+        <property name="isFullscreenAutoScroll">False</property>
+
         <property name="includeCondition" tag="property" attribute="name|widgetStyle" value="Poster">False</property>
         <property name="includeCondition" tag="property" attribute="name|widgetStyle" value="Square">False</property>
         <property name="includeCondition" tag="property" attribute="name|widgetStyle" value="Landscape">False</property>
@@ -744,7 +752,7 @@
                 <orientation>horizontal</orientation>
                 <scrolltime tween="quadratic">400</scrolltime>
                 <hitrect x="0" y="0" w="0" h="0" />
-                <include content="Defs_AutoScroll">
+                <include content="Defs_AutoScroll" condition="$SKINSHORTCUTS[isFullscreenAutoScroll]">
                     <param name="condition" value="[Control.HasFocus(300) | Control.HasFocus(399)] + !System.ScreenSaverActive + String.IsEmpty(Window(Home).Property(Widgets.BlockAutoscroll))" />
                 </include>
                 <itemlayout width="1920" height="1080" />
@@ -1023,6 +1031,7 @@
         <controls>
             <include content="Hub_Grouplist" condition="String.IsEqual(Window(Home).Property(submenuVisibility),$SKINSHORTCUTS[submenuVisibility])">
                 <param name="l_window_id">1114</param>
+                <param name="t_window_id">1132</param>
                 <param name="r_window_id">1114</param>
                 <param name="mainwidget_content">$SKINSHORTCUTS[fullscreenPath]</param>
                 <param name="mainwidget_target">$SKINSHORTCUTS[fullscreenTarget]</param>

@@ -1,0 +1,244 @@
+## Releases
+### v2.0.25+dev.0 (2023-06-27)
+- Minor speed improvements to recommendation widgets
+- Fix widget navigation in Chorus/Kore. Unfortunately this breaks the context menu for the widgets in Kodi
+- Minor improvement to detection of scrolling credits
+- Fix for saving invalid detector data
+- Fix for not using correct speed when player tempo is changed
+- Use Player infobools and infolabels rather than xbmc.Player methods
+- Update CI workflow to deal with Python 2 deprecation
+
+### v2.0.24+dev.0 (2023-05-15)
+- Bunch of bug fixes
+
+### v2.0.23+dev.0 (2023-05-09)
+- Fix episodes widgets being displayed as tvshows
+- Add genre details for widget listitems
+- Add setting to ignore/reset resume point after percentage watched
+- Update setting structure
+- Handle (ignore) movie sets without a name
+- Fix getting next video from library failing under some conditions
+
+### v2.0.22+dev.0 (2023-04-17)
+- Lots of additional bug fixes/workarounds for Kodi event order issues
+
+### v2.0.21+dev.0 (2023-04-08)
+- Tidy up code
+- Fix/improve workarounds for bugs with Kodi event order
+
+### v2.0.20+dev.0 (2023-02-25)
+- Fix for blank/duplicate scraped airdate values
+- Prevent widget reload during video playback
+- Update TMDb Helper integration
+- Widget refresh is triggered when settings are changed
+
+### v2.0.19+dev.0 (2023-02-14)
+- Improve handling of resume points
+- Widget refresh is triggered when screensaver is de-activated
+- Add option to refresh all widgets for use with remote Kodi database
+- More bug fixes
+
+### v2.0.18+dev.0 (2023-02-10)
+- Bug fixes
+
+### v2.0.17+dev.0 (2023-02-08)
+- Simplify TMDB Helper player integration
+- Additional thread error handling
+- Add tvshow progress to episode listitems (for skins having these indications)
+- Minor misc bug fixes and tidy ups
+
+### v2.0.16+dev.0 (2023-01-23)
+- Update advanced settings help text
+- Improve TMDB Helper player integration
+  - Add support for queueing playlist of next episodes
+  - Fix crashes caused by concurrent busy dialogs
+  - Make integration more transparent (no selection dialogs) by default
+  - Utilise TMDB Helper for info lookups of episodes played using a plugin
+
+### v2.0.15+dev.0 (2023-01-17)
+- Improve TMDB Helper player integration
+  - Now enabled by default
+  - Requires v5.0.46 of TMDB Helper and properly configured players
+- Add icons to plugin folders and fix issues with hierarchy navigation
+- Add episode numbers and watched progress to tvshow listitem properties
+- Improve recommendation widgets:
+  - Add similarity based on writer and director for movies
+  - Added option to enable/disable similarity based on cast and tags
+  - Added option to enable/disable watched videos from recommendations
+  - Recommendations are sorted by similarity and rating for all matching genres
+  - Significant speed improvements
+- Added fallback to player notification data for (resolved) plugin listitems
+- Improved thread error handling
+
+### v2.0.14+dev.0 (2022-12-29)
+- Fix bug with plugin play_info integration
+- Update settings and help text
+- New setting for number of items to show in widgets
+- Add new combined movie and tvshow widgets:
+  - More like this...
+    - shows movies and tvshows similar to randomly selected watched video
+  - Watched media recommendations
+    - displays recently watched movies and tvshows
+    - opens list of similar movies and tvshows when a watched video is selected
+- Re-organise widgets by media type (movies / tvshows / combined)
+- Minor misc bug fixes and tidy ups
+
+### v2.0.13+dev.0 (2022-12-25)
+- Added experimental support for TMDB Helper players
+- Fix for Kodi Nexus API parameter name changes
+- Speed up similar video widgets
+- Fix for movie widgets not showing all movies without movie set details
+- Workarounds for Jellyfin video database issues
+
+### v2.0.12+dev.0 (2022-12-18)
+- Added additional tvshow widgets:
+  - More like this...
+    - shows tvshows similar to randomly selected watched tvshow
+  - Watched TVShow recommendations
+    - displays recently watched tvshows
+    - opens list of similar tvshows when a watched tvshow is selected
+- Added year to movie and tvshow labels
+- Added option to display firstaired date to episode labels
+- Fix for incorrectly setting missing resume info
+
+### v2.0.11+dev.0 (2022-12-16)
+- Added additional movie widgets:
+  - More like this...
+    - shows movies similar to randomly selected watched movie
+  - Watched Movie recommendations
+    - displays recently watched movies
+    - opens list of similar movies when a watched movie is selected
+- Added localisation support for widgets/plugin listings
+
+### v2.0.10+dev.0 (2022-12-13)
+- Fixes for importable UpNext module:
+  - Additional type conversions for Nexus infotag setters
+  - Fix set details being lost for movie listitems
+  - Fix incorrect artwork being set for movie listitems
+- Fix for multiple movies from same set being shown in widgets
+- Add tests to CI workflow:
+  - Nexus specific code paths
+  - Plugin listings and widgets
+  - Movies
+- Randomise test popups
+
+### v2.0.9+dev.0 (2022-12-12)
+- Updates for Kodi Nexus:
+  - Fix bug in creating listitems
+  - Use new xbmcaddon.Settings class if available
+  - Use new settings style format
+  - Use built-in colour picker control for custom accent colour
+
+### v2.0.8b+dev.0 (2022-12-11)
+- Updated addon.xml and workflows to make releases less work
+
+### v2.0.8+dev.0 (2022-12-11)
+- Fix addon_checker failing
+- Allow specials in widgets and popup, based on episode air date
+- Fix SxE episode labels for videos without season or episode info
+- Fix popup artwork for non-episode videos
+
+### v2.0.7+dev.0 (2022-12-09)
+- Code tidy up
+- Additional updates for Kodi Nexus
+- Fix bug with parsing inconsistent plugin date values
+- Fix bug with not loading old style plugin data
+
+### v2.0.6+dev.0 (2022-12-04)
+- Lots of bug fixes:
+  - Fix marking as watched at end of playback
+  - Fix showing watched episode without next episode in widgets
+  - Fix testing popup display from addon settings
+  - Fix testing service operation
+  - Fix various issues with incorrect playlist position
+  - Fix various issues with pausing/restarting popup and detector
+  - Fix deprecated getFirstAired
+
+### v2.0.5+dev.0 (2022-12-03)
+- Improve speed of widget sources
+- Fix demo mode to use existing addon settings
+- Widget sources now use existing addon settings for enabling/disabling:
+  - unwatched items
+  - next episodes from next season
+  - next movie from movie set
+
+### v2.0.4+dev.0 (2022-11-28)
+- Add support for movie sets
+- Add UpNext combined episode + movie widget source
+
+### v2.0.3+dev.0 (2022-11-18)
+- Add UpNext movie widget source
+- Updates for Kodi v20
+
+### v2.0.2b+dev.0 (2022-11-14)
+- Add tests for non-ASCII titles and filenames
+- Fix potential unicode string errors
+- Re-organise UpNextPopup class
+- Add settings to customise plugin listing labels
+
+### v2.0.1+dev.0 (2022-10-12)
+- Fix release workflow and makefile
+- Improve speed and reliability of detector
+- Fix tvshow artwork of episodes in plugin listing
+- Add PL translation (@notoco)
+
+### v2.0.0+dev.0 (2022-09-01)
+- Initial release
+
+### v1.1.2 (2020-06-22)
+- Small bugfix release (@im85288)
+
+### v1.1.1 (2020-06-21)
+- Avoid conflict with external players (@BrutuZ)
+- Restore "Ignore Playlist" option (@BrutuZ)
+- Fix a known Kodi bug related to displaying hours (@Maven85)
+- Improvements to endtime visualization (@dagwieers)
+- New translations for Hindi and Romanian (@tahirdon, @tmihai20)
+- Translation updates to Hungarian and Spanish (@frodo19, @roliverosc)
+
+### v1.1.0 (2020-01-17)
+- Add notification_offset for Netflix add-on (@CastagnaIT)
+- Fix various runtime exceptions (@thebertster)
+- Implement new settings (@dagwieers)
+- Implement new developer mode (@dagwieers)
+- Show current time and next endtime in notification (@dagwieers)
+- New translations for Brazilian, Czech, Greek, Japanese, Korean (@mediabrasiltv, @svetlemodry, @Twilight0, @Thunderbird2086)
+- New translations for Russian, Slovak, Spanish, Swedish (@vlmaksime, @matejmosko, @sagatxxx, @Sopor)
+- Translation updates to Croatian, French, German, Hungarian, Italian, Polish (@arvvoid, @zecakeh, @tweimer, @frodo19, @EffeF, @notoco)
+
+### v1.0.7 (2019-12-03)
+- Add Up Next in the program add-on section (@dagwieers)
+- Update add-on icon to use black background (@dagwieers)
+- Fix 24-hour format based on Kodi setting (@dagwieers)
+- New translations for Croatian (@arvvoid)
+- Translation updates to French, Hungarian, Italian and Polish (@mediaminister, @frodo19, @EffeF, @notoco)
+
+### v1.0.6 (2019-11-26)
+- Implement base64 encoding to support newer AddonSignals (@dagwieers)
+- Fixes to Python 3.5 support (@anxdpanic)
+- Add SPDX identifier for license (@dagwieers)
+- Translation updates to German (@tweimer)
+
+### v1.0.5 (2019-11-19)
+- Translation fixes (@dagwieers)
+
+### v1.0.4 (2019-11-19)
+- Automatic stop playing as option (@notoco)
+- Fix exception when add-on is exited (@dagwieers)
+- Fix playlist logic (@mediaminister)
+- Add support for Python 3 and Kodi v19 (@mediaminister)
+- Introduce "Close" button when configured in settings (@dagwieers)
+- Add support for a Back-button action to dismiss Up Next pop-up (@dagwieers)
+- Always reset state when playback finishes (@mediaminister)
+- Various code improvements and fixes (@dagwieers, @mediaminister)
+- New translations for Dutch (@dagwieers)
+- Translation updates to German (@semool, @beatmasterRS)
+
+### v1.0.3 (2019-07-30)
+- Disable tracking for non episode (@angelblue05)
+
+### v1.0.2 (2019-07-24)
+- Add JSONRPC method (@angelblue05)
+- Add priority to existing playlist (@angelblue05)
+- Add endtime prop (@angelblue05)
+- Remove enablePlaylist setting (@angelblue05)

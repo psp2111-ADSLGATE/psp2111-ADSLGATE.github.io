@@ -1,0 +1,747 @@
+# Service UpNext language file
+# Addon Name: UpNext
+# Addon id: service.upnext
+# Addon Provider: im85288
+msgid ""
+msgstr ""
+"Project-Id-Version: service.upnext\n"
+"Report-Msgid-Bugs-To: https://github.com/im85288/service.upnext\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-02-26 13:31+0000\n"
+"Last-Translator: im85288\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7\n"
+
+### APPLICATION
+msgctxt "#30006"
+msgid "Watch now"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Up next"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Ends at: $INFO[Window.Property(endtime)]"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Continue watching"
+msgstr ""
+
+msgctxt "#30024"
+msgid "Still there?"
+msgstr ""
+
+msgctxt "#30032"
+msgid ""
+msgstr ""
+
+msgctxt "#30033"
+msgid "Stop"
+msgstr ""
+
+msgctxt "#30034"
+msgid "Close"
+msgstr ""
+
+msgctxt "#30035"
+msgid "Continue watching in [COLOR $INFO[Window.Property(accent_colour)]]$INFO[Window.Property(remaining)][/COLOR] seconds"
+msgstr ""
+
+msgctxt "#30036"
+msgid "Up next in [COLOR $INFO[Window.Property(accent_colour)]]$INFO[Window.Property(remaining)][/COLOR] seconds"
+msgstr ""
+
+msgctxt "#30037"
+msgid "Next video in [COLOR $INFO[Window.Property(accent_colour)]]$INFO[Window.Property(remaining)][/COLOR] seconds"
+msgstr ""
+
+msgctxt "#30038"
+msgid ""
+msgstr ""
+
+msgctxt "#30039"
+msgid ""
+msgstr ""
+
+msgctxt "#30040"
+msgid "Play"
+msgstr ""
+
+msgctxt "#30041"
+msgid "Stop"
+msgstr ""
+
+msgctxt "#30042"
+msgid "None"
+msgstr ""
+
+msgctxt "#30043"
+msgid "Info"
+msgstr ""
+
+msgctxt "#30044"
+msgid "Debug"
+msgstr ""
+
+msgctxt "#30045"
+msgid "Off"
+msgstr ""
+
+msgctxt "#30046"
+msgid "To 15s before end"
+msgstr ""
+
+msgctxt "#30047"
+msgid "To popup start time"
+msgstr ""
+
+msgctxt "#30048"
+msgid "To detector start time"
+msgstr ""
+
+msgctxt "#30049"
+msgid "Next video"
+msgstr ""
+
+msgctxt "#30050"
+msgid "Disabled"
+msgstr ""
+
+msgctxt "#30051"
+msgid "Forced on"
+msgstr ""
+
+msgctxt "#30052"
+msgid "Forced off"
+msgstr ""
+
+
+### Widgets and Plugin listings
+msgctxt "#30100"
+msgid "UpNext"
+msgstr ""
+
+msgctxt "#30101"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30102"
+msgid "Movie widgets"
+msgstr ""
+
+msgctxt "#30103"
+msgid "TVShow widgets"
+msgstr ""
+
+msgctxt "#30104"
+msgid "Combined widgets"
+msgstr ""
+
+msgctxt "#30108"
+msgid "Because you watched \"{0}\""
+msgstr ""
+
+msgctxt "#30110"
+msgid "UpNext Episodes"
+msgstr ""
+
+msgctxt "#30111"
+msgid "Watched TVShow recommendations"
+msgstr ""
+
+msgctxt "#30112"
+msgid "More like this... (Watched TVShows)"
+msgstr ""
+
+msgctxt "#30120"
+msgid "UpNext Movies"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Watched Movie recommendations"
+msgstr ""
+
+msgctxt "#30122"
+msgid "More like this... (Watched Movies)"
+msgstr ""
+
+msgctxt "#30130"
+msgid "UpNext Media"
+msgstr ""
+
+msgctxt "#30131"
+msgid "Watched Media recommendations"
+msgstr ""
+
+msgctxt "#30132"
+msgid "More like this... (Watched Media)"
+msgstr ""
+
+
+### SETTINGS
+msgctxt "#30500"
+msgid "Appearance"
+msgstr ""
+
+msgctxt "#30501"
+msgid "Popup display"
+msgstr ""
+
+msgctxt "#30502"
+msgid "Skin customisation"
+msgstr ""
+
+msgctxt "#30503"
+msgid "Show simple style popup"
+msgstr ""
+
+msgctxt "#30504"
+msgid "Apply Kodi skin to UpNext popup"
+msgstr ""
+
+msgctxt "#30505"
+msgid "Show a \"Stop\" button instead of a \"Close\" button"
+msgstr ""
+
+msgctxt "#30506"
+msgid "Popup vertical position"
+msgstr ""
+
+msgctxt "#30507"
+msgid "Bottom"
+msgstr ""
+
+msgctxt "#30508"
+msgid "Centre"
+msgstr ""
+
+msgctxt "#30509"
+msgid "Top"
+msgstr ""
+
+msgctxt "#30510"
+msgid "Popup accent colour"
+msgstr ""
+
+msgctxt "#30511"
+msgid "Default"
+msgstr ""
+
+msgctxt "#30512"
+msgid "Red"
+msgstr ""
+
+msgctxt "#30513"
+msgid "Green"
+msgstr ""
+
+msgctxt "#30514"
+msgid "Blue"
+msgstr ""
+
+msgctxt "#30515"
+msgid "Custom"
+msgstr ""
+
+msgctxt "#30516"
+msgid "Alpha channel"
+msgstr ""
+
+msgctxt "#30517"
+msgid "Red channel"
+msgstr ""
+
+msgctxt "#30518"
+msgid "Green channel"
+msgstr ""
+
+msgctxt "#30519"
+msgid "Blue channel"
+msgstr ""
+
+msgctxt "#30520"
+msgid "Colour selection"
+msgstr ""
+
+msgctxt "#30530"
+msgid "Requires Kodi skin integration, or selection of default UpNext skin"
+msgstr ""
+
+msgctxt "#30540"
+msgid "Widget and Plugin Listings"
+msgstr ""
+
+msgctxt "#30542"
+msgid "Widget list limit"
+msgstr ""
+
+msgctxt "#30544"
+msgid "Widget refresh period"
+msgstr ""
+
+msgctxt "#30545"
+msgid "Refresh all widgets when using remote database"
+msgstr ""
+
+msgctxt "#30546"
+msgid "Recommendation widgets use cast and crew"
+msgstr ""
+
+msgctxt "#30547"
+msgid "Recommendation widgets use tags"
+msgstr ""
+
+msgctxt "#30548"
+msgid "Querying the Kodi video database for cast or tags will slow down loading of recommendation widgets"
+msgstr ""
+
+msgctxt "#30549"
+msgid "Recommendation widgets include watched videos"
+msgstr ""
+
+msgctxt "#30551"
+msgid "Episode main label - token 1"
+msgstr ""
+
+msgctxt "#30552"
+msgid "Episode main label - token 2"
+msgstr ""
+
+msgctxt "#30553"
+msgid "Episode main label - token 3"
+msgstr ""
+
+msgctxt "#30554"
+msgid "Episode secondary label - token 1"
+msgstr ""
+
+msgctxt "#30555"
+msgid "Episode secondary label - token 2"
+msgstr ""
+
+msgctxt "#30556"
+msgid "Episode secondary label - token 3"
+msgstr ""
+
+msgctxt "#30560"
+msgid "Empty"
+msgstr ""
+
+msgctxt "#30561"
+msgid "Show title"
+msgstr ""
+
+msgctxt "#30562"
+msgid "Season # x Episode #"
+msgstr ""
+
+msgctxt "#30563"
+msgid "Episode title"
+msgstr ""
+
+msgctxt "#30564"
+msgid "Episode first aired"
+msgstr ""
+
+msgctxt "#30600"
+msgid "Behaviour"
+msgstr ""
+
+msgctxt "#30601"
+msgid "Playback"
+msgstr ""
+
+msgctxt "#30603"
+msgid "Default popup action"
+msgstr ""
+
+msgctxt "#30604"
+msgid "Default action is automatically taken when popup closes and no user input is received"
+msgstr ""
+
+msgctxt "#30605"
+msgid ""
+msgstr ""
+
+msgctxt "#30606"
+msgid "Check if still watching"
+msgstr ""
+
+msgctxt "#30607"
+msgid "Stops automatic playback if user input is not received after the configured number of videos are automatically played"
+msgstr ""
+
+msgctxt "#30608"
+msgid "{0:d} videos automatically played"
+msgstr ""
+
+msgctxt "#30609"
+msgid "When credits time is known (e.g. Netflix) or detected"
+msgstr ""
+
+msgctxt "#30611"
+msgid "Delay before default action is taken"
+msgstr ""
+
+msgctxt "#30613"
+msgid "When credits time is unknown (e.g. local media, other)"
+msgstr ""
+
+msgctxt "#30615"
+msgid "Customise popup time by video length"
+msgstr ""
+
+msgctxt "#30617"
+msgid "All videos [COLOR gray]any length[/COLOR]"
+msgstr ""
+
+msgctxt "#30619"
+msgid "Very short videos [COLOR gray]< 10 mins[/COLOR]"
+msgstr ""
+
+msgctxt "#30621"
+msgid "Short videos [COLOR gray]> 10 mins[/COLOR]"
+msgstr ""
+
+msgctxt "#30623"
+msgid "Medium videos [COLOR gray]> 20 mins[/COLOR]"
+msgstr ""
+
+msgctxt "#30625"
+msgid "Long videos [COLOR gray]> 40 mins[/COLOR]"
+msgstr ""
+
+msgctxt "#30627"
+msgid "Very long videos [COLOR gray]> 60 mins[/COLOR]"
+msgstr ""
+
+msgctxt "#30630"
+msgid "Auto-detect end credits"
+msgstr ""
+
+msgctxt "#30631"
+msgid "Detection window"
+msgstr ""
+
+msgctxt "#30632"
+msgid "Detection will start prior to popup appearing, within an adjustable time period from the end of the video, based on video runtime. For example, a setting of 300 sec/hr will start detection 150 seconds (2.5 minutes) from the end of a 0.5 hour long video, 300 seconds (5 minutes) from the end of a 1 hour long video, or 600 seconds (10 minutes) from the end of a 2 hour long video."
+msgstr ""
+
+msgctxt "#30633"
+msgid "{0:d} sec/hr of runtime"
+msgstr ""
+
+msgctxt "#30634"
+msgid "Mark as watched"
+msgstr ""
+
+msgctxt "#30635"
+msgid "Forced on to mark just watched video as watched. Forced off to mark just watched video as unwatched. Disabled to allow Kodi to handle marking as watched"
+msgstr ""
+
+msgctxt "#30636"
+msgid "Auto resume"
+msgstr ""
+
+msgctxt "#30637"
+msgid "Automatically try to resume on next video playback. Disable to play next video from start"
+msgstr ""
+
+msgctxt "#30638"
+msgid "Pause after \"Watch now\""
+msgstr ""
+
+msgctxt "#30639"
+msgid "Pause current video until next video starts playing when \"Watch now\" or \"Continue watching\" is selected from popup"
+msgstr ""
+
+msgctxt "#30640"
+msgid "Next selection"
+msgstr ""
+
+msgctxt "#30642"
+msgid "Previously watched videos"
+msgstr ""
+
+msgctxt "#30644"
+msgid "Next special or season"
+msgstr ""
+
+msgctxt "#30646"
+msgid "Next item in playlist"
+msgstr ""
+
+msgctxt "#30648"
+msgid "Next movie in movie set"
+msgstr ""
+
+msgctxt "#30700"
+msgid "Expert"
+msgstr ""
+
+msgctxt "#30701"
+msgid "Troubleshooting"
+msgstr ""
+
+msgctxt "#30702"
+msgid "Start delay"
+msgstr ""
+
+msgctxt "#30703"
+msgid "Disable UpNext"
+msgstr ""
+
+msgctxt "#30705"
+msgid "Log level"
+msgstr ""
+
+msgctxt "#30706"
+msgid "Kodi JSON-RPC retry attempts"
+msgstr ""
+
+msgctxt "#30707"
+msgid "Enable UpNext queue"
+msgstr ""
+
+msgctxt "#30708"
+msgid "Use internal Kodi playlist to queue and play next video"
+msgstr ""
+
+msgctxt "#30709"
+msgid "Enable TMDbHelper integration"
+msgstr ""
+
+msgctxt "#30710"
+msgid "Use TheMovieDb Helper players for plugin integration fallback"
+msgstr ""
+
+msgctxt "#30711"
+msgid "Exact match only"
+msgstr ""
+
+msgctxt "#30712"
+msgid "Plugin player must search for exact TVShow title, season, and episode number. Inhibits player dialog and manual episode selection."
+msgstr ""
+
+msgctxt "#30713"
+msgid "Queue all next episodes"
+msgstr ""
+
+msgctxt "#30714"
+msgid "Creates a playlist of all remaining episodes in a TVShow, rather than only retrieving the details of the next episode after each current episode finishes."
+msgstr ""
+
+msgctxt "#30715"
+msgid "Max resume point"
+msgstr ""
+
+msgctxt "#30716"
+msgid "Percent from end of a video to ignore/reset existing resume point."
+msgstr ""
+
+msgctxt "#30717"
+msgid "General"
+msgstr ""
+
+msgctxt "#30730"
+msgid "Additional detector settings"
+msgstr ""
+
+msgctxt "#30731"
+msgid "Detector storage location"
+msgstr ""
+
+msgctxt "#30732"
+msgid "Detector thread limit"
+msgstr ""
+
+msgctxt "#30733"
+msgid "Detector data limit"
+msgstr ""
+
+msgctxt "#30734"
+msgid "Detector additional filtering"
+msgstr ""
+
+msgctxt "#30735"
+msgid "Detector resize method"
+msgstr ""
+
+msgctxt "#30736"
+msgid "Nearest (fastest, lowest quality"
+msgstr ""
+
+msgctxt "#30737"
+msgid "Box (fast, low quality)"
+msgstr ""
+
+msgctxt "#30738"
+msgid "Bilinear (slow, low quality)"
+msgstr ""
+
+msgctxt "#30739"
+msgid "Hamming (slow, medium quality)"
+msgstr ""
+
+msgctxt "#30740"
+msgid "Bicubic (slower, high quality)"
+msgstr ""
+
+msgctxt "#30741"
+msgid "Lanczos (slowest, highest quality)"
+msgstr ""
+
+msgctxt "#30742"
+msgid "Detector similarity threshold"
+msgstr ""
+
+msgctxt "#30743"
+msgid "Detector significance limit"
+msgstr ""
+
+msgctxt "#30744"
+msgid "Detector match threshold"
+msgstr ""
+
+msgctxt "#30745"
+msgid "Detector mismatch limit"
+msgstr ""
+
+msgctxt "#30750"
+msgid "Location where detected end credit details are stored for comparison with next videos"
+msgstr ""
+
+msgctxt "#30751"
+msgid "Number of Python threads used to capture and process video data. One thread is used for capturing data, remaining threads are used for processing captured data.[CR][CR]Increasing the number of threads may reduce video disruption playback on slower devices, but will be slower overall."
+msgstr ""
+
+msgctxt "#30752"
+msgid "Limit the amount of data processed per captured video frame by resizing using the selected detector resize method.[CR][CR]Increasing the data limit requires increased processing and can disrupt playback on slower devices."
+msgstr ""
+
+msgctxt "#30753"
+msgid "Enables additional image processing and filtering to significantly improve end credit detection. Can disrupt playback on slower devices."
+msgstr ""
+
+msgctxt "#30754"
+msgid "Resampling method used when resizing captured video frame. Methods are ordered by speed and quality. Increasing the quality does not necessarily improve detection."
+msgstr ""
+
+msgctxt "#30755"
+msgid "End credits will be matched if the percentage similarity of captured image data, compared to previously captured data or typical representations of end credits, exceeds this threshold.[CR][CR]Lowering this value will allow faster moving end credits to be matched, but may result in false-positive matches."
+msgstr ""
+
+msgctxt "#30756"
+msgid "End credits will not be matched if the percentage of the captured image data that is identified as being visually significant exceeds this limit.[CR][CR]Increasing this value will allow more complex end credits (e.g. credits shown over a non-blank or moving background) to be matched, but may result in false-positive matches."
+msgstr ""
+
+msgctxt "#30757"
+msgid "Minimum number of matches required for end credits to be detected"
+msgstr ""
+
+msgctxt "#30758"
+msgid "Maximum number of mismatches before end credit match count is reset"
+msgstr ""
+
+msgctxt "#30800"
+msgid "Developer"
+msgstr ""
+
+msgctxt "#30801"
+msgid "Test how the user interface looks"
+msgstr ""
+
+msgctxt "#30805"
+msgid "Show an UpNext popup…"
+msgstr ""
+
+msgctxt "#30807"
+msgid "Show an UpNextSimple popup…"
+msgstr ""
+
+msgctxt "#30809"
+msgid "Show a StillWatching popup…"
+msgstr ""
+
+msgctxt "#30811"
+msgid "Show a StillWatchingSimple popup…"
+msgstr ""
+
+msgctxt "#30813"
+msgid "Test UpNext operation"
+msgstr ""
+
+msgctxt "#30815"
+msgid "Simulation mode"
+msgstr ""
+
+msgctxt "#30816"
+msgid "Enables configurable simulation of internal Kodi and UpNext operation"
+msgstr ""
+
+msgctxt "#30817"
+msgid "Simulation seek"
+msgstr ""
+
+msgctxt "#30818"
+msgid "Auto seek after playback starts to reduce testing time and avoid having to manually seek to end of video"
+msgstr ""
+
+msgctxt "#30819"
+msgid "Simulation cue"
+msgstr ""
+
+msgctxt "#30820"
+msgid "Force creation of popup cue point that is used when end credit detail are detected or provided by video plugin"
+msgstr ""
+
+msgctxt "#30821"
+msgid "Simulation plugin"
+msgstr ""
+
+msgctxt "#30822"
+msgid "Force use of auto-generated plugin data and playback method when playing Kodi library content"
+msgstr ""
+
+msgctxt "#30823"
+msgid "Additional developer settings"
+msgstr ""
+
+msgctxt "#30824"
+msgid "Detector debug"
+msgstr ""
+
+msgctxt "#30825"
+msgid "Enable detector debug logging and profiling"
+msgstr ""
+
+msgctxt "#30826"
+msgid "Detector image debug"
+msgstr ""
+
+msgctxt "#30827"
+msgid "Enable saving detector debug image output"
+msgstr ""
+
+msgctxt "#30828"
+msgid "Widget debug"
+msgstr ""
+
+msgctxt "#30829"
+msgid "Enable widget debug logging and profiling"
+msgstr ""
+
+msgctxt "#30830"
+msgid "Simulation trigger"
+msgstr ""
+
+msgctxt "#30831"
+msgid "Re-trigger a simulated playback start event on addon start"
+msgstr ""

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="32510" >
+        <setting label="33010" type="text" enable="false"/>
+    	<setting type="lsep"/>
+    	<setting default="32507" subsetting="true" label="32517" id="subtitle_locations" type="labelenum" lvalues="32507|32508|32509" />
+    	<setting type="lsep"/>
+        <setting label="32525" type="bool" subsetting="true" id="dualsub_swap" default="false"/>
+    	<setting type="lsep"/>
+	<setting id="minTime" label="32526" type="number" default="0" subsetting="true"/>
+        <setting label="32527" type="text" enable="false"/>
+        <setting label="32528" type="text" enable="false"/>
+    	<setting type="lsep"/>
+        <setting id="autoShft" label="32520" type="bool" default="true"/>
+	<setting id="autoShftAmt" label="32521" type="number" default="500" subsetting="true" enable="eq(-1,true)"/>
+        <setting label="32522" type="text" enable="false"/>
+    	<setting label="32519" type="lsep"/>
+    	<setting default="Arial" subsetting="true" label="32512" id="bottom_font" type="labelenum" values="Arial|Verdana|DejaVu Sans"/>
+        <setting default="Auto Chardet" subsetting="true" label="32529" id="bottom_characterset" type="select" values="Auto Chardet|Auto Charset_normalizer|Arabic (ISO)|Arabic (Windows)|Baltic (ISO)|Baltic (Windows)|Central Europe (ISO)|Central Europe (Windows)|Chinese Simplified (ISO)|Chinese Traditional (Big5)|Cyrillic (ISO)|Cyrillic (Windows)|Greek (ISO)|Greek (Windows)|Hebrew (ISO)|Hebrew (Windows)|Hong Kong (Big5-HKSCS)|Japanese (Shift-JIS)|Korean|Nordic Languages (ISO)|South Europe (ISO)|Thai (Windows)|Turkish (ISO)|Turkish (Windows)|Vietnamese (Windows)|UTF8|UTF16|UTF32|Western Europe (ISO)|Western Europe (Windows)"/>
+    	<setting default="17" subsetting="true" label="32513" type="slider" id="bottom_fontsize" range="12,1,30" option="int" />
+    	<setting default="true" subsetting="true" label="32514" id="bottom_bold" type="bool" />
+    	<setting default="32532" subsetting="true" label="32515" id="bottom_color" type="labelenum" lvalues="32532|32533" />
+    	<setting default="false" subsetting="true" label="32516" id="bottom_background" type="bool" />
+    	<setting default="0" subsetting="true" label="32523" type="slider" id="bottom_shadow" range="0,1,3" option="int" />
+    	<setting default="1" subsetting="true" label="32524" type="slider" id="bottom_outline" range="0,1,5" option="int" />
+        <setting default="10" label="32518" type="slider" id="bottom_verticalmargin" range="-100,1,100" option="int" />
+        <setting label="32511" type="lsep"/>
+    	<setting default="Arial" subsetting="true" label="32512" id="top_font" type="labelenum" values="Arial|Verdana|DejaVu Sans"/>
+        <setting default="Auto Chardet" subsetting="true" label="32529" id="top_characterset" type="select" values="Auto Chardet|Auto Charset_normalizer|Arabic (ISO)|Arabic (Windows)|Baltic (ISO)|Baltic (Windows)|Central Europe (ISO)|Central Europe (Windows)|Chinese Simplified (ISO)|Chinese Traditional (Big5)|Cyrillic (ISO)|Cyrillic (Windows)|Greek (ISO)|Greek (Windows)|Hebrew (ISO)|Hebrew (Windows)|Hong Kong (Big5-HKSCS)|Japanese (Shift-JIS)|Korean|Nordic Languages (ISO)|South Europe (ISO)|Thai (Windows)|Turkish (ISO)|Turkish (Windows)|Vietnamese (Windows)|UTF8|UTF16|UTF32|Western Europe (ISO)|Western Europe (Windows)"/>
+        <setting default="17" subsetting="true" label="32513" type="slider" id="top_fontsize" range="12,1,30" option="int" />
+    	<setting default="true" subsetting="true" label="32514" id="top_bold" type="bool" />
+    	<setting default="32532" subsetting="true" label="32515" id="top_color" type="labelenum" lvalues="32532|32533" />
+    	<setting default="false" subsetting="true" label="32516" id="top_background" type="bool" />
+    	<setting default="0" subsetting="true" label="32523" type="slider" id="top_shadow" range="0,1,3" option="int" />
+    	<setting default="1" subsetting="true" label="32524" type="slider" id="top_outline" range="0,1,5" option="int" />
+        <setting default="10" label="32518" type="slider" id="top_verticalmargin" range="-100,1,100" option="int" />
+    </category>
+</settings>

@@ -1,0 +1,50 @@
+[COLOR red][B]Version 1.0.12[/B][/COLOR]
+- Removed TorrentAPI
+- Corrected RSLBB address
+- Added Knaben
+
+[COLOR red][B]Version 1.0.11[/B][/COLOR]
+- Changed timeout for Plex Shares
+- Changed Plex Server detection logic.
+- Corrected Error in logging code for using Kodi log.
+- Changed Plex media detection logic to use multiple files from same server if available.
+
+[COLOR red][B]Version 1.0.10[/B][/COLOR]
+- Added timeout for Plex Shares (10 Seconds)
+
+[COLOR red][B]Version 1.0.9[/B][/COLOR]
+- added line in plex module to create database if not found.
+
+[COLOR red][B]Version 1.0.8[/B][/COLOR]
+- Changed to allow for multiple PlexShares to be used..
+
+[COLOR red][B]Version 1.0.7[/B][/COLOR]
+- Changed all instances of ElementTree to use MiniDom.
+
+[COLOR red][B]Version 1.0.6[/B][/COLOR]
+- Updated torrentio
+
+[COLOR red][B]Version 1.0.5[/B][/COLOR]
+- Changes made to cleantitle to allow country codes in parenthesis.
+- Updated bitcq
+- Updated glodls
+- Updated kickass
+- Updated magnetdl
+- Updated torrentgalaxy
+- Updated torrentz
+
+[COLOR red][B]Version 1.0.4[/B][/COLOR]
+- Kodi 19 settings format.
+
+[COLOR red][B]Version 1.0.3[/B][/COLOR]
+- Google Drive Re-Added.
+
+[COLOR red][B]Version 1.0.2[/B][/COLOR]
+- Plexshares Added.
+
+[COLOR red][B]Version 1.0.1[/B][/COLOR]
+- Some fixes to scenerls scraper.
+- Re-added FilePursuit scraper.
+
+[COLOR red][B]Version 1.0.0[/B][/COLOR]
+- Initial release.
