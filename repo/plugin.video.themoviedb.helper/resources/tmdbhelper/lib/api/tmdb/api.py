@@ -49,6 +49,7 @@ class TMDb(RequestAPI):
         self.req_strip += [(self.append_to_response, ''), (self.req_language, f'{self.iso_language}{"_en" if ARTLANG_FALLBACK else ""}')]
         self.genres = self.get_genres()
         self.mapper = ItemMapper(self.language, self.mpaa_prefix, self.genres)
+        self.page_length = get_setting('pagemulti_tmdb', 'int')
         TMDb.api_key = api_key
 
     def get_genres(self):
@@ -75,6 +76,16 @@ class TMDb(RequestAPI):
             return '%2C'
         else:
             return False
+
+    @staticmethod
+    def get_paginated_items(items, limit=None, page=1, total_pages=None):
+        if total_pages and try_int(page) < try_int(total_pages):
+            items.append({'next_page': try_int(page) + 1})
+            return items
+        if limit is not None:
+            paginated_items = PaginatedItems(items, page=page, limit=limit)
+            return paginated_items.items + paginated_items.next_page
+        return items
 
     def _get_tmdb_multisearch_validfy(self, query=None, validfy=True, scrub=True):
         if not validfy or not query:
@@ -415,7 +426,7 @@ class TMDb(RequestAPI):
             for i in request.get('episodes', []))
         return items
 
-    def get_cast_list(self, tmdb_id, tmdb_type, season=None, episode=None, keys=['cast', 'guest_stars'], aggregate=False):
+    def get_cast_list(self, tmdb_id, tmdb_type, season=None, episode=None, keys=['cast', 'guest_stars'], aggregate=False, paginated=True, limit=None, page=None, **kwargs):
         """ Get cast list
         endpoint switch to aggregate_credits for full tv series cast
         """
@@ -462,7 +473,11 @@ class TMDb(RequestAPI):
                     p[k] = f'{p[k]} / {v}'
         for i in items:
             i['label2'] = i['infoproperties'].get('role')
-        return items
+
+        if not paginated:
+            return items
+
+        return self.get_paginated_items(items, limit, page)
 
     def _get_downloaded_list(self, export_list, sorting=None, reverse=False, datestamp=None):
         from tmdbhelper.lib.files.downloader import Downloader
@@ -533,32 +548,46 @@ class TMDb(RequestAPI):
 
     def get_basic_list(
             self, path, tmdb_type, key='results', params=None, base_tmdb_type=None, limit=None, filters={},
-            sort_key=None, stacked=None, paginated=True, **kwargs):
+            sort_key=None, stacked=None, paginated=True, length=None, **kwargs):
 
-        if kwargs.get('page') == 'random':
+        length = length or self.page_length
+
+        def _get_page(page):
+            kwargs['page'] = page
+            return self.get_request_sc(path, **kwargs)
+
+        def _get_random():
             import random
 
-            def _get_random_page(page_end):
-                kwargs['page'] = random.randint(1, page_end)
-                return self.get_request_sc(path, **kwargs)
-
             page_end = int(kwargs.pop('random_page_limit', 10))
-            response = _get_random_page(page_end)
+            response = _get_page(random.randint(1, page_end))
 
-            if response and not response.get(key) and int(response.get('total_pages') or 1) < page_end:
-                response = _get_random_page(int(response['total_pages'] or 1))
+            if not response:
+                return
+            if response.get(key):
+                return response
+            if int(response.get('total_pages') or 1) < page_end:
+                return _get_page(random.randint(1, int(response['total_pages'] or 1)))
 
-        else:
-            response = self.get_request_sc(path, **kwargs)
+        def _get_results(response):
+            try:
+                return response[key] or []
+            except (KeyError, TypeError):
+                return []
 
-        if not response:
-            return []
+        def _get_response(page, length):
+            if page == 'random':
+                response = _get_random()
+                results = _get_results(response)
+                return response, results
+            results = []
+            page = try_int(page, fallback=1)
+            for x in range(try_int(length, fallback=1)):
+                response = _get_page(page + x)
+                results += _get_results(response)
+            return response, results
 
-        try:
-            results = response[key] or []
-        except (KeyError, TypeError):
-            return []
-
+        response, results = _get_response(kwargs.get('page'), length=length)
         results = sorted(results, key=lambda i: i.get(sort_key, 0), reverse=True) if sort_key else results
 
         add_infoproperties = [('total_pages', response.get('total_pages')), ('total_results', response.get('total_results'))]
@@ -566,7 +595,12 @@ class TMDb(RequestAPI):
         item_tmdb_type = None if tmdb_type == 'both' else tmdb_type
 
         items = [
-            self.mapper.get_info(i, item_tmdb_type or i.get('media_type', ''), definition=params, base_tmdb_type=base_tmdb_type, iso_country=self.iso_country, add_infoproperties=add_infoproperties)
+            self.mapper.get_info(
+                i, item_tmdb_type or i.get('media_type', ''),
+                definition=params,
+                base_tmdb_type=base_tmdb_type,
+                iso_country=self.iso_country,
+                add_infoproperties=add_infoproperties)
             for i in results if i]
 
         if filters:
@@ -592,13 +626,7 @@ class TMDb(RequestAPI):
         if not paginated:
             return items
 
-        if try_int(response.get('page', 0)) < try_int(response.get('total_pages', 0)):
-            items.append({'next_page': try_int(response.get('page', 0)) + 1})
-        elif limit is not None:
-            paginated_items = PaginatedItems(items, page=kwargs.get('page', 1), limit=limit)
-            return paginated_items.items + paginated_items.next_page
-
-        return items
+        return self.get_paginated_items(items, limit, kwargs['page'], response.get('total_pages'))
 
     def get_discover_list(self, tmdb_type, **kwargs):
         # TODO: Check what regions etc we need to have

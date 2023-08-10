@@ -4,7 +4,7 @@ from tmdbhelper.lib.items.container import Container
 
 
 class ListBasic(Container):
-    def get_items(self, info, tmdb_type, tmdb_id=None, page=None, limit=None, sort_key=None, **kwargs):
+    def get_items(self, info, tmdb_type, tmdb_id=None, page=None, limit=None, sort_key=None, length=None, **kwargs):
         info_model = TMDB_BASIC_LISTS.get(info)
         info_tmdb_type = info_model.get('tmdb_type') or tmdb_type
         self.tmdb_api.mapper.imagepath_quality = info_model.get('imagepath_quality', 'IMAGEPATH_ORIGINAL')
@@ -22,6 +22,7 @@ class ListBasic(Container):
             params=info_model.get('params'),
             filters=self.filters,
             limit=limit or info_model.get('limit'),
+            length=length or info_model.get('length'),
             page=page)
         if 'tmdb_cache_only' in info_model:
             self.tmdb_cache_only = info_model['tmdb_cache_only']
@@ -187,7 +188,7 @@ class ListAll(Container):
 
 class ListCast(Container):
     def get_items(self, tmdb_id, tmdb_type, season=None, episode=None, aggregate=False, **kwargs):
-        items = self.tmdb_api.get_cast_list(tmdb_id, tmdb_type, season=season, episode=episode, aggregate=aggregate)
+        items = self.tmdb_api.get_cast_list(tmdb_id, tmdb_type, season=season, episode=episode, aggregate=aggregate, **kwargs)
         self.tmdb_cache_only = True
         self.container_content = convert_type('person', 'container')
         return items
@@ -195,7 +196,7 @@ class ListCast(Container):
 
 class ListCrew(Container):
     def get_items(self, tmdb_id, tmdb_type, season=None, episode=None, aggregate=False, **kwargs):
-        items = self.tmdb_api.get_cast_list(tmdb_id, tmdb_type, season=season, episode=episode, keys=['crew'], aggregate=aggregate)
+        items = self.tmdb_api.get_cast_list(tmdb_id, tmdb_type, season=season, episode=episode, keys=['crew'], aggregate=aggregate, **kwargs)
         self.tmdb_cache_only = True
         self.container_content = convert_type('person', 'container')
         return items
