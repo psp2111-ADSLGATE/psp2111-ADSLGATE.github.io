@@ -8,71 +8,71 @@ msgstr ""
 
 msgctxt "#32001"
 msgid "General"
-msgstr "عام"
+msgstr ""
 
 msgctxt "#32002"
 msgid "Choose Audio Properties to Exclude"
-msgstr "اختر ترميزات الصوت المراد استبعادها"
+msgstr ""
 
 msgctxt "#32003"
 msgid "Databases"
-msgstr "قواعد البيانات"
+msgstr ""
 
 msgctxt "#32004"
 msgid "Based On %s"
-msgstr "بناءً على %s"
+msgstr ""
 
 msgctxt "#32005"
 msgid "Show Alert After (%) Playback"
-msgstr "عرض التنبيه بعد مشاهدة (%)"
+msgstr ""
 
 msgctxt "#32006"
 msgid "Scrape with ALL External Scrapers"
-msgstr "البحث باستخدام جميع المصادر"
+msgstr ""
 
 msgctxt "#32007"
 msgid "Download Pack"
-msgstr "تنزيل الحزمة"
+msgstr ""
 
 msgctxt "#32008"
 msgid "Show TV Show Specials When Available"
-msgstr "إظهار قسم \"العروض الخاصة\" للمسلسلات عند توفرها"
+msgstr ""
 
 msgctxt "#32009"
 msgid "Flatten TV Show Seasons"
-msgstr "تسطيح المواسم \"جميع الحلقات في قائمة واحدة\""
+msgstr ""
 
 msgctxt "#32010"
 msgid "Use Season Titles When Available"
-msgstr "استخدم عناوين المواسم عند توفرها"
+msgstr ""
 
 msgctxt "#32011"
 msgid "Priority (Lower Number Equals Higher Priority)"
-msgstr "الأولوية (الرقم الاقل له الأولوية)"
+msgstr ""
 
 msgctxt "#32012"
 msgid "Use as Default Provider (Slow)"
-msgstr "استخدم كمصدر افتراضي (بطيء)"
+msgstr ""
 
 msgctxt "#32013"
 msgid "Never"
-msgstr "أبداً"
+msgstr ""
 
 msgctxt "#32014"
 msgid "Rescrape & Select Source"
-msgstr "إعادة البحث مع إختيار المصدر"
+msgstr ""
 
 msgctxt "#32015"
 msgid "Always"
-msgstr "دائماً"
+msgstr ""
 
 msgctxt "#32016"
 msgid "Add to Cloud"
-msgstr "إضافة الى السحابة"
+msgstr ""
 
 msgctxt "#32017"
 msgid "Auto Start FEN when Kodi Starts"
-msgstr "فتح FEN تلقائياً بعد بدء تشغيل Kodi"
+msgstr "FEN Automatisch Starten Als Kodi Opstart"
 
 msgctxt "#32018"
 msgid "Set"
@@ -80,7 +80,7 @@ msgstr ""
 
 msgctxt "#32019"
 msgid "Paginate Lists When Available"
-msgstr "عدد عناصر الصفحة \"تعمل فقط على بعض القوائم\""
+msgstr ""
 
 msgctxt "#32020"
 msgid "Include Widget Items..."
@@ -96,55 +96,55 @@ msgstr ""
 
 msgctxt "#32023"
 msgid "Maximum Size (MB)"
-msgstr "أعلى حجم (MB)"
+msgstr ""
 
 msgctxt "#32024"
 msgid "Disable"
-msgstr "تعطيل"
+msgstr ""
 
 msgctxt "#32025"
 msgid "Ignore Articles When Sorting Lists"
-msgstr "تجاهل المقالات عند فرز القوائم مثل: The, a , an"
+msgstr ""
 
 msgctxt "#32026"
 msgid "Open Fen Extras When Selecting..."
-msgstr "افتح \"نافذة معلومات FEN\" عند اختيار..."
+msgstr ""
 
 msgctxt "#32027"
 msgid "Off"
-msgstr "معطل"
+msgstr ""
 
 msgctxt "#32028"
 msgid "Movies"
-msgstr "الأفلام"
+msgstr ""
 
 msgctxt "#32029"
 msgid "TV Shows"
-msgstr "المسلسلات"
+msgstr ""
 
 msgctxt "#32030"
 msgid "Both"
-msgstr "الكل"
+msgstr ""
 
 msgctxt "#32031"
 msgid "Choose Files to Download"
-msgstr "اختر الملفات المراد تنزيلها من"
+msgstr ""
 
 msgctxt "#32032"
 msgid "If Only One Season"
-msgstr "إذا كان موسم واحد"
+msgstr ""
 
 msgctxt "#32033"
 msgid "Always"
-msgstr "دائماً"
+msgstr ""
 
 msgctxt "#32034"
 msgid "Watched Indicators"
-msgstr "مؤشرات المشاهدة"
+msgstr ""
 
 msgctxt "#32035"
 msgid "Watched Status Provider"
-msgstr "موفر حالة مؤشرات المشاهدة"
+msgstr ""
 
 msgctxt "#32036"
 msgid "Fen"
@@ -156,11 +156,11 @@ msgstr ""
 
 msgctxt "#32038"
 msgid "AV1 Files Filter"
-msgstr "فلترة ملفات الـAV1"
+msgstr ""
 
 msgctxt "#32039"
 msgid "Authorize Trakt for More options"
-msgstr "قم بفعيل Trakt للمزيد من الخيارات"
+msgstr ""
 
 msgctxt "#32040"
 msgid "Percentage Played"
@@ -176,7 +176,7 @@ msgstr ""
 
 msgctxt "#32043"
 msgid "Most Watched"
-msgstr "الأكثر مشاهدة"
+msgstr ""
 
 msgctxt "#32044"
 msgid "Continue Transfer in Background?"
@@ -188,35 +188,35 @@ msgstr ""
 
 msgctxt "#32046"
 msgid "Enable Content for Extras Lists"
-msgstr "تكوين قوائم \"نافذة المعلومات\""
+msgstr ""
 
 msgctxt "#32047"
 msgid "Attempt to use Skin Fonts in Fen Windows"
-msgstr "استخدام خطوط السكن في نوافذ FEN"
+msgstr ""
 
 msgctxt "#32048"
 msgid "Attempt to Reload Widgets After Refresh"
-msgstr "قم بإعادة تحميل القوائم بعد المزامنة"
+msgstr ""
 
 msgctxt "#32049"
 msgid "Press Context Menu to Download Image..."
-msgstr "اضغط زر الخيارات للتنزيل الصورة..."
+msgstr ""
 
 msgctxt "#32050"
 msgid "Ignore All Filters When No Results Available"
-msgstr "في حال عدم وجود نتائج قم بإجراء اعادة بحث بدون فلترة"
+msgstr ""
 
 msgctxt "#32051"
 msgid "Login"
-msgstr "اسم المستخدم "
+msgstr ""
 
 msgctxt "#32052"
 msgid "Password"
-msgstr "كلمة المرور"
+msgstr ""
 
 msgctxt "#32053"
 msgid "API Key (optional)"
-msgstr "مفتاح الـAPI (اختياري)"
+msgstr ""
 
 msgctxt "#32054"
 msgid "Real Debrid"
@@ -224,27 +224,27 @@ msgstr ""
 
 msgctxt "#32055"
 msgid "Enable"
-msgstr "تفعيل"
+msgstr ""
 
 msgctxt "#32056"
 msgid "Username"
-msgstr "اسم المستخدم"
+msgstr ""
 
 msgctxt "#32057"
 msgid "Authorize"
-msgstr "المصادقة"
+msgstr ""
 
 msgctxt "#32058"
 msgid "Re-Authorize"
-msgstr "إعادة المصادقة"
+msgstr ""
 
 msgctxt "#32059"
 msgid "Revoke Authorization"
-msgstr "إلغاة المصادقة"
+msgstr ""
 
 msgctxt "#32060"
 msgid "Add Resolved Torrents to Cloud"
-msgstr "إضافة اختيارات التورنت الى السحابة"
+msgstr ""
 
 msgctxt "#32061"
 msgid "Premiumize"
@@ -264,15 +264,15 @@ msgstr ""
 
 msgctxt "#32065"
 msgid "User"
-msgstr "-"
+msgstr ""
 
 msgctxt "#32066"
 msgid "Sort Type"
-msgstr "نوع الترتيب"
+msgstr ""
 
 msgctxt "#32067"
 msgid "Sort Order"
-msgstr "طريقة الترتيب"
+msgstr ""
 
 msgctxt "#32068"
 msgid "TMDb"
@@ -288,7 +288,7 @@ msgstr ""
 
 msgctxt "#32071"
 msgid "Autoplay Disabled"
-msgstr "التشغيل التلقائي معطل"
+msgstr ""
 
 msgctxt "#32072"
 msgid "Content and Sorting"
@@ -296,11 +296,11 @@ msgstr ""
 
 msgctxt "#32073"
 msgid "Include Unaired Episodes When Available"
-msgstr "إظهار الحلقات التي لم تبث بعد"
+msgstr ""
 
 msgctxt "#32074"
 msgid "Include Trakt Watchlist/Fen Favorites"
-msgstr "إظهار قائمة المشاهدة لـTrakt/مفضلة FEN"
+msgstr ""
 
 msgctxt "#32075"
 msgid "Later"
@@ -308,19 +308,19 @@ msgstr ""
 
 msgctxt "#32076"
 msgid "Include Airdate in Title"
-msgstr "عرض تاريخ البث في العنوان"
+msgstr ""
 
 msgctxt "#32077"
 msgid "Single Episode Lists Airdate Format"
-msgstr "تنسيق تاريخ البث لقوائم الحلقات"
+msgstr ""
 
 msgctxt "#32078"
 msgid "Show Packs Only"
-msgstr "حزم المسلسلات فقط"
+msgstr ""
 
 msgctxt "#32079"
 msgid "External Scrapers (Powered by Coco Scrapers)"
-msgstr "محرك البحث (بواسطة إضافة Cocoscrapers)"
+msgstr ""
 
 msgctxt "#32080"
 msgid "Unwatched Color"
@@ -328,7 +328,7 @@ msgstr ""
 
 msgctxt "#32081"
 msgid "Trakt Calendar"
-msgstr "التقويم"
+msgstr ""
 
 msgctxt "#32082"
 msgid "Already In List"
@@ -336,15 +336,15 @@ msgstr ""
 
 msgctxt "#32083"
 msgid "Show Previous Days"
-msgstr "إظهار الايام السابقة"
+msgstr ""
 
 msgctxt "#32084"
 msgid "Show Future Days"
-msgstr "إظهار الايام القادمة"
+msgstr ""
 
 msgctxt "#32085"
 msgid "Widgets"
-msgstr "الودجيت"
+msgstr ""
 
 msgctxt "#32086"
 msgid "Max. Items"
@@ -352,19 +352,19 @@ msgstr ""
 
 msgctxt "#32087"
 msgid "Trakt Cache"
-msgstr "التخزين المؤقت لـTrakt"
+msgstr ""
 
 msgctxt "#32088"
 msgid "Show Uncached Torrents"
-msgstr "عرض التورنت الغير مخزن مؤقتاً"
+msgstr ""
 
 msgctxt "#32089"
 msgid "Show"
-msgstr "المسلسلات"
+msgstr ""
 
 msgctxt "#32090"
 msgid "On"
-msgstr "مفعل"
+msgstr ""
 
 msgctxt "#32091"
 msgid "Full"
@@ -372,11 +372,11 @@ msgstr ""
 
 msgctxt "#32092"
 msgid "Keywords"
-msgstr "الكلمات الدالة"
+msgstr ""
 
 msgctxt "#32093"
 msgid "[I]Open Coco Scraper Settings[/I]"
-msgstr "[I]فتح إعدادات Cocoscrapers [/I]"
+msgstr ""
 
 msgctxt "#32094"
 msgid "Details"
@@ -392,51 +392,51 @@ msgstr ""
 
 msgctxt "#32097"
 msgid "PM Cloud"
-msgstr "سحابة PM"
+msgstr ""
 
 msgctxt "#32098"
 msgid "RD Cloud"
-msgstr "سحابة RD"
+msgstr ""
 
 msgctxt "#32099"
 msgid "AD Cloud"
-msgstr "سحابة AD"
+msgstr ""
 
 msgctxt "#32100"
 msgid "Site"
-msgstr "الموقع"
+msgstr ""
 
 msgctxt "#32101"
 msgid "UTC Time Offset"
-msgstr "إزاحة توقيت الـUTC"
+msgstr ""
 
 msgctxt "#32102"
 msgid "Results Display Format"
-msgstr "طريقة عرض النتائج"
+msgstr ""
 
 msgctxt "#32103"
 msgid "Show Results at Top"
-msgstr "عرض نتائجه في أعلى القائمة"
+msgstr ""
 
 msgctxt "#32104"
 msgid "Check Before Full Search"
-msgstr "تفحصه قبل إجراء بحث مصادر كامل"
+msgstr ""
 
 msgctxt "#32105"
 msgid "Quality Limit"
-msgstr "تحديد الجودة"
+msgstr ""
 
 msgctxt "#32106"
 msgid "Hash"
-msgstr "الهاش"
+msgstr "Hash"
 
 msgctxt "#32107"
 msgid "Downloads"
-msgstr "التنزيلات"
+msgstr ""
 
 msgctxt "#32108"
 msgid "Folders 1-5"
-msgstr "المجلدات 1-5"
+msgstr ""
 
 msgctxt "#32109"
 msgid "Choose Folder Scraper"
@@ -444,23 +444,23 @@ msgstr ""
 
 msgctxt "#32110"
 msgid "Folder 1"
-msgstr "مجلد 1"
+msgstr ""
 
 msgctxt "#32111"
 msgid "Folder 2"
-msgstr "مجلد 2"
+msgstr ""
 
 msgctxt "#32112"
 msgid "Folder 3"
-msgstr "مجلد 3"
+msgstr ""
 
 msgctxt "#32113"
 msgid "Folder 4"
-msgstr "مجلد 4"
+msgstr ""
 
 msgctxt "#32114"
 msgid "Folder 5"
-msgstr "مجلد 5"
+msgstr ""
 
 msgctxt "#32115"
 msgid "Display Name"
@@ -468,15 +468,15 @@ msgstr ""
 
 msgctxt "#32116"
 msgid "Movies Directory"
-msgstr "مسار تنزيل الأفلام"
+msgstr ""
 
 msgctxt "#32117"
 msgid "TV Shows Directory"
-msgstr "مسار تنزيل المسلسلات"
+msgstr ""
 
 msgctxt "#32118"
 msgid "External Scrapers"
-msgstr "محرك البحث"
+msgstr ""
 
 msgctxt "#32119"
 msgid "Use Custom Server Location Within Fen"
@@ -484,7 +484,7 @@ msgstr ""
 
 msgctxt "#32120"
 msgid "Stop Search Early if Most Sources Finished"
-msgstr "إيقاف البحث مبكراً إذا أغلب المصادر شارفت على الانتهاء"
+msgstr ""
 
 msgctxt "#32121"
 msgid "Playback Failed"
@@ -492,23 +492,23 @@ msgstr ""
 
 msgctxt "#32122"
 msgid "Playback Utilities"
-msgstr "أدوات التشغيل"
+msgstr ""
 
 msgctxt "#32123"
 msgid "Internet Speed (Mbit/s)"
-msgstr "سرعة الانترنت (Mbit/s)"
+msgstr ""
 
 msgctxt "#32124"
 msgid "Custom Windows Highlight Color"
-msgstr "تخصيص لون نوافذ FEN"
+msgstr ""
 
 msgctxt "#32125"
 msgid "Use Line Speed"
-msgstr "سرعة اتصال مخصصة"
+msgstr ""
 
 msgctxt "#32126"
 msgid "Use Size"
-msgstr "حجم مخصص"
+msgstr ""
 
 msgctxt "#32127"
 msgid "Hosters Color"
@@ -520,7 +520,7 @@ msgstr ""
 
 msgctxt "#32129"
 msgid "All"
-msgstr "جميع"
+msgstr ""
 
 msgctxt "#32130"
 msgid "4K"
@@ -540,35 +540,35 @@ msgstr ""
 
 msgctxt "#32134"
 msgid "Multi File Pack Download Started..."
-msgstr "جارٍ تنزيل حزمة متعددة الملفات..."
+msgstr ""
 
 msgctxt "#32135"
 msgid "Scrape with Custom Values"
-msgstr "بحث مخصص"
+msgstr ""
 
 msgctxt "#32136"
 msgid "Press Context Menu for Playback Options..."
-msgstr "اضغط زر الخيارات لعرض خيارات التشغيل..."
+msgstr ""
 
 msgctxt "#32137"
 msgid "CocoScrapers Default Providers"
-msgstr "المصادر الافتراضية لـCocoScrapers"
+msgstr ""
 
 msgctxt "#32138"
 msgid "Results Color Highlights"
-msgstr "ألوان صفحة النتائج"
+msgstr ""
 
 msgctxt "#32139"
 msgid "Results"
-msgstr "النتائج"
+msgstr ""
 
 msgctxt "#32140"
 msgid "Display"
-msgstr "العرض"
+msgstr ""
 
 msgctxt "#32141"
 msgid "Scraper Timeout"
-msgstr "مهلة محرك البحث"
+msgstr ""
 
 msgctxt "#32142"
 msgid "Include Adult Content"
@@ -584,35 +584,35 @@ msgstr ""
 
 msgctxt "#32145"
 msgid "Metadata Language"
-msgstr "لغة البيانات التعريفية"
+msgstr ""
 
 msgctxt "#32146"
 msgid "Metadata"
-msgstr "البيانات التعريفية"
+msgstr ""
 
 msgctxt "#32147"
 msgid "Extra Art (Powered by Fanart.tv)"
-msgstr "Fanart.tv"
+msgstr ""
 
 msgctxt "#32148"
 msgid "Enable Extra Art"
-msgstr "تفعيل Fanart.tv \"أعمال فنية اكثر\""
+msgstr ""
 
 msgctxt "#32149"
 msgid "TMDb Image Resolution"
-msgstr "وضوح صور TMDb"
+msgstr ""
 
 msgctxt "#32150"
 msgid "Sorting and Filtering"
-msgstr "الفرز و الفلترة"
+msgstr ""
 
 msgctxt "#32151"
 msgid "Results Sorting"
-msgstr "طريقة فرز النتائج"
+msgstr ""
 
 msgctxt "#32152"
 msgid "Filter Results"
-msgstr "فلترة النتائج"
+msgstr ""
 
 msgctxt "#32153"
 msgid "Clear Filter"
@@ -620,71 +620,71 @@ msgstr ""
 
 msgctxt "#32154"
 msgid "Filter by Quality"
-msgstr "فلترة حسب الجودة"
+msgstr ""
 
 msgctxt "#32155"
 msgid "Include Pre-Release Results (CAM/SCR/TELE)"
-msgstr "إظهار النتائج بجودة منخفضة (CAM/SCR/TELE)"
+msgstr ""
 
 msgctxt "#32156"
 msgid "Include 3D Results"
-msgstr "إظهار نتائج الـ3D"
+msgstr ""
 
 msgctxt "#32157"
 msgid "Filter by Provider"
-msgstr "فلترة حسب موفر الخدمة"
+msgstr ""
 
 msgctxt "#32158"
 msgid "HDR Files Filter"
-msgstr "فلترة ملفات الـHDR"
+msgstr ""
 
 msgctxt "#32159"
 msgid "Dolby Vision Files Filter"
-msgstr "فلترة ملفات الـDobly Vision "
+msgstr ""
 
 msgctxt "#32160"
 msgid "Display Uncached Torrents"
-msgstr "عرض التورنت الغير مخزن مؤقتاً"
+msgstr ""
 
 msgctxt "#32161"
 msgid "Filter Results by Size"
-msgstr "فلترة النتائج حسب الحجم"
+msgstr ""
 
 msgctxt "#32162"
 msgid "Include Results With Unknown Size"
-msgstr "إظهار النتائج بحجم غير معروف"
+msgstr ""
 
 msgctxt "#32163"
 msgid "Low"
-msgstr "منخفضة"
+msgstr ""
 
 msgctxt "#32164"
 msgid "Medium"
-msgstr "متوسطة"
+msgstr ""
 
 msgctxt "#32165"
 msgid "High"
-msgstr "عالية"
+msgstr ""
 
 msgctxt "#32166"
 msgid "Original"
-msgstr "الأصلية"
+msgstr ""
 
 msgctxt "#32167"
 msgid "Within Addon Only"
-msgstr "داخل الاضافة فقط"
+msgstr ""
 
 msgctxt "#32168"
 msgid "Widgets Only"
-msgstr "الودجيت فقط"
+msgstr ""
 
 msgctxt "#32169"
 msgid "Filter Extra Info"
-msgstr "فلترة حسب المعلومات"
+msgstr ""
 
 msgctxt "#32170"
 msgid "Resolution"
-msgstr "دقة الوضوح "
+msgstr ""
 
 msgctxt "#32171"
 msgid "Disable Content Lookup Before Playback"
@@ -692,7 +692,7 @@ msgstr ""
 
 msgctxt "#32172"
 msgid "Filter Results by Name"
-msgstr "فلترة النتائج حسب الاسم"
+msgstr ""
 
 msgctxt "#32173"
 msgid "Fanart.tv"
@@ -700,27 +700,27 @@ msgstr ""
 
 msgctxt "#32174"
 msgid "Playback"
-msgstr "تشغيل"
+msgstr ""
 
 msgctxt "#32175"
 msgid "Auto Play"
-msgstr "التشغيل التلقائي"
+msgstr ""
 
 msgctxt "#32176"
 msgid "Limit Quality"
-msgstr "حدود الجودة"
+msgstr ""
 
 msgctxt "#32177"
 msgid "HEVC Files Filter"
-msgstr "فلترة ملفات الـHEVC"
+msgstr ""
 
 msgctxt "#32178"
 msgid "Autoplay Next Episode"
-msgstr "هل تريد مشاهدة الحلقة التالية؟"
+msgstr ""
 
 msgctxt "#32179"
 msgid "Check for Corrupt Databases"
-msgstr "تحقق من وجود قواعد بيانات تالفة"
+msgstr ""
 
 msgctxt "#32180"
 msgid "Become a VIP member at fanart.tv for many benefits"
@@ -728,59 +728,59 @@ msgstr ""
 
 msgctxt "#32181"
 msgid "Automatically Resume Playback"
-msgstr "الاستئناف التلقائي"
+msgstr ""
 
 msgctxt "#32182"
 msgid "Subtitles (Powered by opensubtitles.org)"
-msgstr "الترجمات (بواسطة opensubtitles.org)"
+msgstr ""
 
 msgctxt "#32183"
 msgid "Download Subtitles Action"
-msgstr "طريقة تحميل الترجمة"
+msgstr ""
 
 msgctxt "#32184"
 msgid "Primary Language"
-msgstr "اللغة الأساسية "
+msgstr ""
 
 msgctxt "#32185"
 msgid "Scrape with DEFAULT External Scrapers"
-msgstr "البحث باستخدام المصادر الافتراضية"
+msgstr ""
 
 msgctxt "#32186"
 msgid "Force Enable Local Subs"
-msgstr "تفعيل الترجمة المحلية"
+msgstr ""
 
 msgctxt "#32187"
 msgid "Playback Options"
-msgstr "خيارات التشغيل"
+msgstr ""
 
 msgctxt "#32188"
 msgid "Include"
-msgstr "إضافة"
+msgstr ""
 
 msgctxt "#32189"
 msgid "Exclude"
-msgstr "تجاهل"
+msgstr ""
 
 msgctxt "#32190"
 msgid "Prefer (Autoplay)"
-msgstr "تفضيل (التشغيل التلقائي فقط)"
+msgstr ""
 
 msgctxt "#32191"
 msgid "Autoplay Only"
-msgstr "التشغيل التلقائي فقط"
+msgstr ""
 
 msgctxt "#32192"
 msgid "Auto"
-msgstr "تلقائي"
+msgstr ""
 
 msgctxt "#32193"
 msgid "Select"
-msgstr "إختيار"
+msgstr ""
 
 msgctxt "#32194"
 msgid "Single Episode Lists Title Format"
-msgstr "تنسيق العنوان لقوائم الحلقات"
+msgstr ""
 
 msgctxt "#32195"
 msgid "Directories"
@@ -792,39 +792,39 @@ msgstr ""
 
 msgctxt "#32197"
 msgid "Favorites Manager"
-msgstr "مدير المفضلة"
+msgstr ""
 
 msgctxt "#32198"
 msgid "Trakt Lists Manager"
-msgstr "مدير قوائم Trakt"
+msgstr ""
 
 msgctxt "#32199"
 msgid "Trakt List"
-msgstr "قائمة تراكت"
+msgstr ""
 
 msgctxt "#32200"
 msgid "Recently Watched Episodes"
-msgstr "حلقات تم مشاهدتُها مؤخراً"
+msgstr ""
 
 msgctxt "#32201"
 msgid "TITLE: SxE - EPISODE"
-msgstr "العنوان: SxE - الحلقة"
+msgstr ""
 
 msgctxt "#32202"
 msgid "SxE - EPISODE"
-msgstr "SxE - الحلقة"
+msgstr ""
 
 msgctxt "#32203"
 msgid "EPISODE"
-msgstr "الحلقة"
+msgstr ""
 
 msgctxt "#32204"
 msgid "Highlight Results Based On"
-msgstr "فرز ألوان النتائج حسب"
+msgstr ""
 
 msgctxt "#32205"
 msgid "Trakt Lists"
-msgstr "قوائم تراكت"
+msgstr ""
 
 msgctxt "#32206"
 msgid "Real Debrid Color"
@@ -840,11 +840,11 @@ msgstr ""
 
 msgctxt "#32209"
 msgid "Check Accounts Status on Startup"
-msgstr "تحقق من حالة الحسابات عند بدء التشغيل"
+msgstr ""
 
 msgctxt "#32210"
 msgid "Premium Files Directory"
-msgstr "مسار تنزيل الملفات"
+msgstr ""
 
 msgctxt "#32211"
 msgid "Notifications"
@@ -852,7 +852,7 @@ msgstr ""
 
 msgctxt "#32212"
 msgid "Scrape with an Alias"
-msgstr "البحث باستخدام تسمية أخرى"
+msgstr ""
 
 msgctxt "#32213"
 msgid "[B]Following Databases Rebuilt:[/B]"
@@ -860,7 +860,7 @@ msgstr ""
 
 msgctxt "#32214"
 msgid "Old"
-msgstr "القديم"
+msgstr ""
 
 msgctxt "#32215"
 msgid "List Default"
@@ -876,7 +876,7 @@ msgstr ""
 
 msgctxt "#32218"
 msgid "Popularity"
-msgstr "الشهرة"
+msgstr ""
 
 msgctxt "#32219"
 msgid "Your Rating"
@@ -888,7 +888,7 @@ msgstr ""
 
 msgctxt "#32221"
 msgid "Release Date"
-msgstr "تاريخ الإصدار"
+msgstr ""
 
 msgctxt "#32222"
 msgid "Runtime"
@@ -896,27 +896,27 @@ msgstr ""
 
 msgctxt "#32223"
 msgid "Date Added"
-msgstr "تاريخ الإضافة"
+msgstr ""
 
 msgctxt "#32224"
 msgid "Ascending"
-msgstr "تصاعدي"
+msgstr ""
 
 msgctxt "#32225"
 msgid "Descending"
-msgstr "تنازلي"
+msgstr ""
 
 msgctxt "#32226"
 msgid "Recently Watched"
-msgstr "تم مشاهدتُها مؤخراً"
+msgstr ""
 
 msgctxt "#32227"
 msgid "Airdate"
-msgstr "تاريخ البث"
+msgstr ""
 
 msgctxt "#32228"
 msgid "Title"
-msgstr "العنوان"
+msgstr ""
 
 msgctxt "#32229"
 msgid "Day-Month-Year"
@@ -952,7 +952,7 @@ msgstr ""
 
 msgctxt "#32237"
 msgid "No Corrupt or Missing Databases"
-msgstr "لا توجد قواعد بيانات تالفة أو مفقودة"
+msgstr ""
 
 msgctxt "#32238"
 msgid "Scraper Module"
@@ -964,11 +964,11 @@ msgstr ""
 
 msgctxt "#32240"
 msgid "Scraper Type"
-msgstr "نوع الملف"
+msgstr ""
 
 msgctxt "#32241"
 msgid "Quality"
-msgstr "الجودة"
+msgstr ""
 
 msgctxt "#32242"
 msgid "Hourly Intervals"
@@ -988,79 +988,79 @@ msgstr ""
 
 msgctxt "#32246"
 msgid "Subtitles"
-msgstr "الترجمات "
+msgstr ""
 
 msgctxt "#32247"
 msgid "Settings"
-msgstr "الإعدادات"
+msgstr ""
 
 msgctxt "#32450"
 msgid "Search"
-msgstr "بحث"
+msgstr ""
 
 msgctxt "#32451"
 msgid "Discover"
-msgstr "استكشف"
+msgstr ""
 
 msgctxt "#32452"
 msgid "Popular People"
-msgstr "المشهورين"
+msgstr ""
 
 msgctxt "#32453"
 msgid "Favorites"
-msgstr "المفضلة"
+msgstr ""
 
 msgctxt "#32454"
 msgid "My Lists"
-msgstr "قوائمي"
+msgstr ""
 
 msgctxt "#32455"
 msgid "My Services"
-msgstr "خدماتي"
+msgstr ""
 
 msgctxt "#32456"
 msgid "Tools"
-msgstr "الأدوات"
+msgstr ""
 
 msgctxt "#32457"
 msgid "Root"
-msgstr "الصفحة الرئيسية"
+msgstr ""
 
 msgctxt "#32458"
 msgid "Trending"
-msgstr "الشائعة"
+msgstr ""
 
 msgctxt "#32459"
 msgid "Popular"
-msgstr "المشهورة"
+msgstr ""
 
 msgctxt "#32460"
 msgid "Premieres"
-msgstr "العرض الأول"
+msgstr ""
 
 msgctxt "#32461"
 msgid "Latest Releases"
-msgstr "أحدث الإصدارات"
+msgstr ""
 
 msgctxt "#32462"
 msgid "Top 10 Box Office"
-msgstr "أفضل 10 في شباك التذاكر"
+msgstr ""
 
 msgctxt "#32463"
 msgid "Blockbusters"
-msgstr "الأعلى إيرادات"
+msgstr ""
 
 msgctxt "#32464"
 msgid "In Theaters"
-msgstr "في السينما"
+msgstr ""
 
 msgctxt "#32465"
 msgid "Hide Watched Items in Widgets"
-msgstr "إخفاء ما تم مشاهدته"
+msgstr ""
 
 msgctxt "#32466"
 msgid "Secondary Language"
-msgstr "اللغة الثانوية"
+msgstr ""
 
 msgctxt "#32467"
 msgid "Anticipated"
@@ -1068,67 +1068,67 @@ msgstr ""
 
 msgctxt "#32468"
 msgid "Oscar Winners"
-msgstr "الفائزة بالأوسكار"
+msgstr ""
 
 msgctxt "#32469"
 msgid "Up Coming"
-msgstr "تعرض قريباً"
+msgstr ""
 
 msgctxt "#32470"
 msgid "Genres"
-msgstr "الأصناف"
+msgstr ""
 
 msgctxt "#32471"
 msgid "Languages"
-msgstr "اللغات"
+msgstr ""
 
 msgctxt "#32472"
 msgid "Years"
-msgstr "السنوات"
+msgstr ""
 
 msgctxt "#32473"
 msgid "Certifications"
-msgstr "التقييم العمري"
+msgstr ""
 
 msgctxt "#32474"
 msgid "Because You Watched..."
-msgstr "لأنك شاهدت..."
+msgstr ""
 
 msgctxt "#32475"
 msgid "Watched"
-msgstr "تم مشاهدتُها"
+msgstr ""
 
 msgctxt "#32476"
 msgid "In Progress"
-msgstr "تكملة المشاهدة"
+msgstr ""
 
 msgctxt "#32477"
 msgid "Search"
-msgstr "بحث"
+msgstr ""
 
 msgctxt "#32478"
 msgid "Airing Today"
-msgstr "يٌبث اليوم"
+msgstr ""
 
 msgctxt "#32479"
 msgid "On the Air"
-msgstr "يُبث الآن"
+msgstr ""
 
 msgctxt "#32480"
 msgid "Networks"
-msgstr "الشبكات"
+msgstr ""
 
 msgctxt "#32481"
 msgid "In Progress TV Shows"
-msgstr "مسلسلات لم تنتهي من مشاهدتها"
+msgstr ""
 
 msgctxt "#32482"
 msgid "In Progress Episodes"
-msgstr "حلقات لم تنتهي من مشاهدتها"
+msgstr ""
 
 msgctxt "#32483"
 msgid "Next Episodes"
-msgstr "تكملة المشاهدة (الحلقات)"
+msgstr ""
 
 msgctxt "#32484"
 msgid "[B]%s: [/B]%s"
@@ -1136,15 +1136,15 @@ msgstr ""
 
 msgctxt "#32485"
 msgid "Premium Files"
-msgstr "الملفات"
+msgstr ""
 
 msgctxt "#32486"
 msgid "History"
-msgstr "سجل البحث"
+msgstr ""
 
 msgctxt "#32487"
 msgid "Help"
-msgstr "مساعدة"
+msgstr ""
 
 msgctxt "#32488"
 msgid "Premium"
@@ -1164,7 +1164,7 @@ msgstr ""
 
 msgctxt "#32492"
 msgid "Navigation"
-msgstr "التنقل"
+msgstr ""
 
 msgctxt "#32493"
 msgid "Files"
@@ -1172,7 +1172,7 @@ msgstr ""
 
 msgctxt "#32494"
 msgid "Account Info"
-msgstr "معلومات الحساب"
+msgstr ""
 
 msgctxt "#32495"
 msgid "(Re)Authorize"
@@ -1180,95 +1180,95 @@ msgstr ""
 
 msgctxt "#32496"
 msgid "Cloud Storage"
-msgstr "التخزين السحابي"
+msgstr ""
 
 msgctxt "#32497"
 msgid "Clear %s Cache"
-msgstr "مسح البيانات المؤقتة لـ %s"
+msgstr ""
 
 msgctxt "#32498"
 msgid "Recently Added"
-msgstr "مضافة حديثاً"
+msgstr ""
 
 msgctxt "#32499"
 msgid "Collection"
-msgstr "قائمة التجميعات"
+msgstr ""
 
 msgctxt "#32500"
 msgid "Watchlist"
-msgstr "قائمة المشاهدة"
+msgstr ""
 
 msgctxt "#32501"
 msgid "Lists"
-msgstr "القوائم"
+msgstr ""
 
 msgctxt "#32502"
 msgid "Liked Lists"
-msgstr "قوائم معجب بها"
+msgstr ""
 
 msgctxt "#32503"
 msgid "Recommended"
-msgstr "التوصيات"
+msgstr ""
 
 msgctxt "#32504"
 msgid "Random"
-msgstr "عشوائي"
+msgstr ""
 
 msgctxt "#32505"
 msgid "Recently Aired"
-msgstr "بُثت مؤخراََ"
+msgstr ""
 
 msgctxt "#32506"
 msgid "Episodes"
-msgstr "الحلقات"
+msgstr ""
 
 msgctxt "#32507"
 msgid "People"
-msgstr "الممثلين أو الممثلات"
+msgstr ""
 
 msgctxt "#32508"
 msgid "Changelog"
-msgstr "سجل التغييرات"
+msgstr ""
 
 msgctxt "#32509"
 msgid "Log Viewer"
-msgstr "اسعراض سجل"
+msgstr ""
 
 msgctxt "#32510"
 msgid "Set Views"
-msgstr "تخصيص طرق العرض"
+msgstr ""
 
 msgctxt "#32511"
 msgid "Set Sources Folders (My Services->Sources Folders)"
-msgstr "خصص مصادر محلية (اذهب الى \"خدماتي\" ثم \"مصادر محلية\")"
+msgstr ""
 
 msgctxt "#32512"
 msgid "Clear Databases"
-msgstr "حذف قواعد البيانات"
+msgstr ""
 
 msgctxt "#32513"
 msgid "Manager"
-msgstr "مدير "
+msgstr ""
 
 msgctxt "#32514"
 msgid "Shortcut Folders Manager"
-msgstr "مدير الاختصارات"
+msgstr ""
 
 msgctxt "#32515"
 msgid "Sources Folders"
-msgstr "مصادر محلية"
+msgstr ""
 
 msgctxt "#32516"
 msgid "Options..."
-msgstr "الخيارات..."
+msgstr ""
 
 msgctxt "#32517"
 msgid "Authorize Debrid Services"
-msgstr "مصادقة خدمات الديبرد"
+msgstr ""
 
 msgctxt "#32518"
 msgid "Tips for Fen Use"
-msgstr "نصائح لاستخدام FEN"
+msgstr ""
 
 msgctxt "#32519"
 msgid "Folders 1-5 Color"
@@ -1276,11 +1276,11 @@ msgstr ""
 
 msgctxt "#32520"
 msgid "4K Results Color"
-msgstr "لون نتائج الـ4K"
+msgstr ""
 
 msgctxt "#32521"
 msgid "Prompt"
-msgstr "اسأل"
+msgstr ""
 
 msgctxt "#32522"
 msgid "CocoScrapers"
@@ -1288,23 +1288,23 @@ msgstr ""
 
 msgctxt "#32523"
 msgid "1080P Results Color"
-msgstr "لون نتائج الـ1080P"
+msgstr ""
 
 msgctxt "#32524"
 msgid "Cache"
-msgstr "الكاش"
+msgstr ""
 
 msgctxt "#32525"
 msgid "Include Unaired Media in Trakt Watchlists"
-msgstr "إظهار الوسائط التي لم تبث بعد في قوائم Trakt"
+msgstr ""
 
 msgctxt "#32526"
 msgid "Clean"
-msgstr "تنظيف"
+msgstr ""
 
 msgctxt "#32527"
 msgid "Meta"
-msgstr "البيانات التعريفية"
+msgstr ""
 
 msgctxt "#32528"
 msgid "Bookmark Page Progress"
@@ -1312,15 +1312,15 @@ msgstr ""
 
 msgctxt "#32529"
 msgid "[B]%s[/B] has settings already.[CR]What do you want to do?"
-msgstr "[B]%s[/B] يحتوي على إعدادات بالفعل.[CR]ماذا تريد ان تفعل؟"
+msgstr ""
 
 msgctxt "#32530"
 msgid "Change SOME Info"
-msgstr "تغيير بعض المعلومات"
+msgstr ""
 
 msgctxt "#32531"
 msgid "Clear ALL Info"
-msgstr "حذف جميع المعلومات"
+msgstr ""
 
 msgctxt "#32532"
 msgid "[B]%s[/B] info cleared"
@@ -1328,7 +1328,7 @@ msgstr ""
 
 msgctxt "#32533"
 msgid "Scrapers"
-msgstr "المصادر"
+msgstr ""
 
 msgctxt "#32534"
 msgid "Debrid"
@@ -1336,15 +1336,15 @@ msgstr ""
 
 msgctxt "#32535"
 msgid "Torrent"
-msgstr "التورنت"
+msgstr ""
 
 msgctxt "#32536"
 msgid "Specific"
-msgstr "تخصيص"
+msgstr ""
 
 msgctxt "#32537"
 msgid "Season"
-msgstr "الموسم"
+msgstr ""
 
 msgctxt "#32538"
 msgid "Kodi"
@@ -1352,27 +1352,27 @@ msgstr ""
 
 msgctxt "#32539"
 msgid "Enable Kodi Menu Caching"
-msgstr "تفعيل التخزين المؤقت لقوائم Kodi"
+msgstr ""
 
 msgctxt "#32540"
 msgid "Choose Random Play Type..."
-msgstr "اختر طريقة التشغيل العشوائي"
+msgstr ""
 
 msgctxt "#32541"
 msgid "Single Random Play"
-msgstr "تشغيل عشوائي لمرة واحدة"
+msgstr ""
 
 msgctxt "#32542"
 msgid "Continual Random Play"
-msgstr "تشغيل عشوائي باستمرار"
+msgstr ""
 
 msgctxt "#32543"
 msgid "Year"
-msgstr "السنة"
+msgstr ""
 
 msgctxt "#32544"
 msgid "Browse %s Season %s"
-msgstr "تصفح %s الموسم %s"
+msgstr ""
 
 msgctxt "#32545"
 msgid "Time"
@@ -1388,95 +1388,95 @@ msgstr ""
 
 msgctxt "#32548"
 msgid "Action"
-msgstr "أكشن"
+msgstr ""
 
 msgctxt "#32549"
 msgid "Adventure"
-msgstr "مغامرة"
+msgstr ""
 
 msgctxt "#32550"
 msgid "Animation"
-msgstr "رسوم متحركة"
+msgstr ""
 
 msgctxt "#32551"
 msgid "Comedy"
-msgstr "كوميديا"
+msgstr ""
 
 msgctxt "#32552"
 msgid "Crime"
-msgstr "جريمة"
+msgstr ""
 
 msgctxt "#32553"
 msgid "Documentary"
-msgstr "وثائقي"
+msgstr ""
 
 msgctxt "#32554"
 msgid "Drama"
-msgstr "دراما"
+msgstr ""
 
 msgctxt "#32555"
 msgid "Family"
-msgstr "عائلي"
+msgstr ""
 
 msgctxt "#32556"
 msgid "Kids"
-msgstr "أطفال"
+msgstr ""
 
 msgctxt "#32557"
 msgid "Mystery"
-msgstr "غموض"
+msgstr ""
 
 msgctxt "#32558"
 msgid "Fantasy"
-msgstr "خيال"
+msgstr ""
 
 msgctxt "#32559"
 msgid "History"
-msgstr "تاريخ"
+msgstr ""
 
 msgctxt "#32560"
 msgid "Horror"
-msgstr "رعب"
+msgstr ""
 
 msgctxt "#32561"
 msgid "Music"
-msgstr "موسيقى"
+msgstr ""
 
 msgctxt "#32562"
 msgid "Romance"
-msgstr "رومانسي"
+msgstr ""
 
 msgctxt "#32563"
 msgid "Science Fiction"
-msgstr "خيال علمي"
+msgstr ""
 
 msgctxt "#32564"
 msgid "TV Movie"
-msgstr "فلم تلفازي"
+msgstr ""
 
 msgctxt "#32565"
 msgid "Thriller"
-msgstr "تشويق"
+msgstr ""
 
 msgctxt "#32566"
 msgid "War"
-msgstr "حرب"
+msgstr ""
 
 msgctxt "#32567"
 msgid "Western"
-msgstr "غربي"
+msgstr ""
 
 msgctxt "#32568"
 msgid "News"
-msgstr "الأخبار"
+msgstr ""
 
 msgctxt "#32569"
 msgid "Reality"
-msgstr "واقع"
+msgstr ""
 
 msgctxt "#32570"
 msgid "Soap"
-msgstr "حوار"
+msgstr ""
 
 msgctxt "#32571"
 msgid "Talk"
@@ -1484,7 +1484,7 @@ msgstr ""
 
 msgctxt "#32572"
 msgid "War & Politics"
-msgstr "حرب و سياسة"
+msgstr ""
 
 msgctxt "#32573"
 msgid "Auto [B]Page %d[/B] Selected"
@@ -1500,7 +1500,7 @@ msgstr ""
 
 msgctxt "#32576"
 msgid "Success"
-msgstr "تم بنجاح"
+msgstr ""
 
 msgctxt "#32577"
 msgid "[B]Please Wait..[/B]"
@@ -1512,11 +1512,11 @@ msgstr ""
 
 msgctxt "#32579"
 msgid "API Key"
-msgstr "مفتاح الـAPI"
+msgstr ""
 
 msgctxt "#32580"
 msgid "Are you sure?"
-msgstr "هل أنت متأكد"
+msgstr ""
 
 msgctxt "#32581"
 msgid "Updates Available"
@@ -1524,19 +1524,19 @@ msgstr ""
 
 msgctxt "#32582"
 msgid "Quality, Provider, Size"
-msgstr "الجودة، موفر الخدمة، الحجم"
+msgstr ""
 
 msgctxt "#32583"
 msgid "Provider"
-msgstr "موفر الخدمة"
+msgstr ""
 
 msgctxt "#32584"
 msgid "Size"
-msgstr "الحجم"
+msgstr ""
 
 msgctxt "#32585"
 msgid ""Jump To..." Navigation"
-msgstr "تكوين زر \"القفز إلى...\""
+msgstr ""
 
 msgctxt "#32586"
 msgid "Cloud"
@@ -1568,7 +1568,7 @@ msgstr ""
 
 msgctxt "#32593"
 msgid "Recommended"
-msgstr "التوصيات"
+msgstr ""
 
 msgctxt "#32594"
 msgid "Hours"
@@ -1588,11 +1588,11 @@ msgstr ""
 
 msgctxt "#32598"
 msgid "Currently"
-msgstr "حالياً"
+msgstr ""
 
 msgctxt "#32599"
 msgid "TV Shows Progress Manager"
-msgstr "مدير تكملة المشاهدة"
+msgstr ""
 
 msgctxt "#32600"
 msgid "Basic"
@@ -1604,27 +1604,27 @@ msgstr ""
 
 msgctxt "#32602"
 msgid "Add To"
-msgstr "إضافة إلى"
+msgstr ""
 
 msgctxt "#32603"
 msgid "Remove From"
-msgstr "إزالة من"
+msgstr ""
 
 msgctxt "#32604"
 msgid "RE-CACHE %s INFO"
-msgstr "تحديث معلومات %s"
+msgstr ""
 
 msgctxt "#32605"
 msgid "Extra Info"
-msgstr "معلومات أكثر"
+msgstr ""
 
 msgctxt "#32606"
 msgid "Trailer"
-msgstr "العرض الدعائي"
+msgstr ""
 
 msgctxt "#32607"
 msgid "Reviews"
-msgstr "المراجعات"
+msgstr ""
 
 msgctxt "#32608"
 msgid "Actors Info"
@@ -1640,111 +1640,111 @@ msgstr ""
 
 msgctxt "#32611"
 msgid "Refresh Widgets"
-msgstr "إعادة تحميل الاقسام"
+msgstr ""
 
 msgctxt "#32612"
 msgid "More from"
-msgstr "المزيد من هذه"
+msgstr ""
 
 msgctxt "#32613"
 msgid "Play Random"
-msgstr "تشغيل حلقة عشوائياً"
+msgstr ""
 
 msgctxt "#32614"
 msgid "Close"
-msgstr "إغلاق"
+msgstr ""
 
 msgctxt "#32615"
 msgid "Studio"
-msgstr "الاستوديو"
+msgstr ""
 
 msgctxt "#32616"
 msgid "Poster"
-msgstr "البوستر"
+msgstr ""
 
 msgctxt "#32617"
 msgid "Fanart"
-msgstr "الخلفية"
+msgstr ""
 
 msgctxt "#32618"
 msgid "720P Results Color"
-msgstr "لون نتائج الـ720P"
+msgstr "720P Resultaten Kleur"
 
 msgctxt "#32619"
 msgid "Tagline"
-msgstr "الشعار"
+msgstr ""
 
 msgctxt "#32620"
 msgid "Premiered"
-msgstr "عرض أول مرة"
+msgstr ""
 
 msgctxt "#32621"
 msgid "Rating"
-msgstr "التقييم"
+msgstr ""
 
 msgctxt "#32622"
 msgid "Runtime"
-msgstr "مدة العرض"
+msgstr ""
 
 msgctxt "#32623"
 msgid "Votes"
-msgstr "تصويت"
+msgstr ""
 
 msgctxt "#32624"
 msgid "Genre/s"
-msgstr "الصنف"
+msgstr ""
 
 msgctxt "#32625"
 msgid "Budget"
-msgstr "الميزانية"
+msgstr ""
 
 msgctxt "#32626"
 msgid "Revenue"
-msgstr "الإيرادات"
+msgstr ""
 
 msgctxt "#32627"
 msgid "Director"
-msgstr "المخرج"
+msgstr ""
 
 msgctxt "#32628"
 msgid "Writer/s"
-msgstr "الكتاب"
+msgstr ""
 
 msgctxt "#32629"
 msgid "Homepage"
-msgstr "الصفحة الرئيسية"
+msgstr ""
 
 msgctxt "#32630"
 msgid "Status"
-msgstr "الحالة"
+msgstr ""
 
 msgctxt "#32631"
 msgid "Type"
-msgstr "النوع"
+msgstr ""
 
 msgctxt "#32632"
 msgid "Classification"
-msgstr "التقييم العمري"
+msgstr ""
 
 msgctxt "#32633"
 msgid "Created By"
-msgstr "كتابة"
+msgstr ""
 
 msgctxt "#32634"
 msgid "Last Aired"
-msgstr "اخر بث"
+msgstr ""
 
 msgctxt "#32635"
 msgid "Next Aired"
-msgstr "البث التالي"
+msgstr ""
 
 msgctxt "#32636"
 msgid "Seasons"
-msgstr "المواسم"
+msgstr ""
 
 msgctxt "#32637"
 msgid "Clear Scrapers Cache"
-msgstr "حذف التحزين المؤقت لمحرك البحث"
+msgstr ""
 
 msgctxt "#32638"
 msgid "Results Display"
@@ -1756,19 +1756,19 @@ msgstr ""
 
 msgctxt "#32640"
 msgid "Change Folder Path?"
-msgstr "تغيير مسار المجلد؟"
+msgstr ""
 
 msgctxt "#32641"
 msgid "Open"
-msgstr "فتح"
+msgstr ""
 
 msgctxt "#32642"
 msgid "[B]Mark Watched %s[/B]"
-msgstr "[B]وضع علامة تمت المشاهدة %s[/B]"
+msgstr ""
 
 msgctxt "#32643"
 msgid "[B]Mark Unwatched %s[/B]"
-msgstr "[B]إزالة علامة تمت المشاهدة %s[/B]"
+msgstr ""
 
 msgctxt "#32644"
 msgid "[B]Add/Remove[/B]"
@@ -1776,15 +1776,15 @@ msgstr ""
 
 msgctxt "#32645"
 msgid "[B]Extras...[/B]"
-msgstr "[B]نافذة المعلومات...[/B]"
+msgstr ""
 
 msgctxt "#32646"
 msgid "[B]Options...[/B]"
-msgstr "[B]الخيارات...[/B]"
+msgstr ""
 
 msgctxt "#32647"
 msgid "SD Results Color"
-msgstr "لون نتائج الـSD"
+msgstr "SD Resultaten Kleur"
 
 msgctxt "#32648"
 msgid "[B]Hide from Recommendations[/B]"
@@ -1792,15 +1792,15 @@ msgstr ""
 
 msgctxt "#32649"
 msgid "[B]Exit Movie List[/B]"
-msgstr "[B]الخروج من قائمة الأفلام[/B]"
+msgstr ""
 
 msgctxt "#32650"
 msgid "[B]Exit TV Show List[/B]"
-msgstr "[B]الخروج من قائمة المسلسلات[/B]"
+msgstr ""
 
 msgctxt "#32651"
 msgid "[B]Clear Progress[/B]"
-msgstr "[B]إزالة من تكملة المشاهدة[/B]"
+msgstr ""
 
 msgctxt "#32652"
 msgid "..."
@@ -1812,47 +1812,47 @@ msgstr ""
 
 msgctxt "#32654"
 msgid "Start"
-msgstr "بداية"
+msgstr ""
 
 msgctxt "#32655"
 msgid "End"
-msgstr "نهاية"
+msgstr ""
 
 msgctxt "#32656"
 msgid "Clear All Filters"
-msgstr "إعادة تعيين الكل"
+msgstr ""
 
 msgctxt "#32657"
 msgid "Keywords"
-msgstr "الكلمات الدالة"
+msgstr ""
 
 msgctxt "#32658"
 msgid "Language"
-msgstr "اللغة"
+msgstr ""
 
 msgctxt "#32659"
 msgid "Region"
-msgstr "المنطقة"
+msgstr ""
 
 msgctxt "#32660"
 msgid "Companies"
-msgstr "الشبكات\\الاستوديوهات"
+msgstr ""
 
 msgctxt "#32661"
 msgid "Minimum"
-msgstr "أقل"
+msgstr ""
 
 msgctxt "#32662"
 msgid "Maximum"
-msgstr "أقصى"
+msgstr ""
 
 msgctxt "#32663"
 msgid "Number of Votes"
-msgstr "عدد أصوات"
+msgstr ""
 
 msgctxt "#32664"
 msgid "Cast"
-msgstr "ممثل/ممثلة"
+msgstr ""
 
 msgctxt "#32665"
 msgid "Adult"
@@ -1860,7 +1860,7 @@ msgstr ""
 
 msgctxt "#32666"
 msgid "[B]SAVE & BROWSE RESULTS FOR:[/B]  [I]%s[/I]"
-msgstr "[B]حفظ وتصفح النتائج لـ :[/B]  [I]%s[/I]"
+msgstr ""
 
 msgctxt "#32667"
 msgid "[B]EXPORT SEARCH:[/B]  [I]%s[/I]"
@@ -1868,19 +1868,19 @@ msgstr ""
 
 msgctxt "#32668"
 msgid "Change"
-msgstr "تغيير"
+msgstr ""
 
 msgctxt "#32669"
 msgid "Optional"
-msgstr "إختياري"
+msgstr ""
 
 msgctxt "#32670"
 msgid "Filter"
-msgstr "الفلترة"
+msgstr ""
 
 msgctxt "#32671"
 msgid "Clear"
-msgstr "إزالة"
+msgstr ""
 
 msgctxt "#32672"
 msgid "Similar to"
@@ -1912,7 +1912,7 @@ msgstr ""
 
 msgctxt "#32679"
 msgid "Filter Title"
-msgstr "فلترة حسب العنوان"
+msgstr ""
 
 msgctxt "#32680"
 msgid "[I]Please visit CocoScrapers to change settings[/I]"
@@ -1932,15 +1932,15 @@ msgstr ""
 
 msgctxt "#32684"
 msgid "Meta Accounts"
-msgstr "حسابات البيانات التعريفية"
+msgstr ""
 
 msgctxt "#32685"
 msgid "Provider Accounts"
-msgstr "حسابات موفر الخدمة"
+msgstr ""
 
 msgctxt "#32686"
 msgid "Filters Ignored"
-msgstr "مع تجاهل الفلترة"
+msgstr ""
 
 msgctxt "#32687"
 msgid "Include HDR Results"
@@ -1968,15 +1968,15 @@ msgstr ""
 
 msgctxt "#32693"
 msgid "Content"
-msgstr "المحتوى"
+msgstr ""
 
 msgctxt "#32694"
 msgid "Sorting"
-msgstr "طريقة الفرز"
+msgstr ""
 
 msgctxt "#32695"
 msgid "Press Context Menu for Search..."
-msgstr "اضغط زر الخيارات للبحث..."
+msgstr ""
 
 msgctxt "#32696"
 msgid "Choose Server Location and Port"
@@ -1988,52 +1988,50 @@ msgstr ""
 
 msgctxt "#32698"
 msgid "Remove From History"
-msgstr "إزالة من السجل"
+msgstr ""
 
 msgctxt "#32699"
 msgid "Clear All History"
-msgstr "حذف كل السجل"
+msgstr ""
 
 msgctxt "#32700"
 msgid "Navigate to: [B]%s[/B]"
-msgstr "ادخل الرابط:  [B]%s[/B]"
+msgstr ""
 
 msgctxt "#32701"
 msgid "Enter the following code: [B]%s[/B]"
-msgstr "اكتب الرمز: [B]%s[/B] في المكان المخصص"
+msgstr ""
 
 msgctxt "#32702"
 msgid "Make New Shortcut Folder"
-msgstr "إضافة مجلد اختصارات جديد"
+msgstr ""
 
 msgctxt "#32703"
 msgid "[B]Delete Shortcut Folder[/B]"
-msgstr "[B]حذف مجلد الاختصارات[/B]"
 
 msgctxt "#32704"
 msgid "A folder path needs to be set to use this scraper.[CR]Try again?"
 msgstr ""
-"يجب اختيار مسار للمجلد حتى يستخدم في محرك البحث.[CR]هل تريد إعادة المحاولة؟"
 
 msgctxt "#32705"
 msgid "[B]Edit Menu[/B]"
-msgstr "[B]تعديل القائمة[/B]"
+msgstr ""
 
 msgctxt "#32706"
 msgid "[B]Browse[/B] Removed items"
-msgstr "[B]تصفح[/B] العناصر المحذوفة"
+msgstr ""
 
 msgctxt "#32707"
 msgid "Place [B]%s[/B] below [B]%s[/B]"
-msgstr "تحريك [B]%s[/B] تحت [B]%s[/B]"
+msgstr ""
 
 msgctxt "#32708"
 msgid "Place [B]%s[/B] at Top of List"
-msgstr "تحريك [B]%s[/B] الى أعلى الصفحة"
+msgstr ""
 
 msgctxt "#32709"
 msgid "Top Position"
-msgstr "أعلى الصفحة"
+msgstr ""
 
 msgctxt "#32710"
 msgid "Existing Shortcut Folder"
@@ -2045,15 +2043,15 @@ msgstr ""
 
 msgctxt "#32712"
 msgid "Move"
-msgstr "تحريك"
+msgstr ""
 
 msgctxt "#32713"
 msgid "Remove"
-msgstr "إزالة"
+msgstr ""
 
 msgctxt "#32714"
 msgid "'A folder name needs to be set to use this scraper.[CR]Try again?'"
-msgstr "يجب كتابة اسم للمجلد حتى يستخدم في محرك البحث.[CR]هل تريد إعادة المحاولة؟"
+msgstr ""
 
 msgctxt "#32715"
 msgid "[B]MAKE NEW FOLDER[/B]"
@@ -2061,43 +2059,43 @@ msgstr ""
 
 msgctxt "#32716"
 msgid "Move [B]'%s'[/B] to a different position in the list"
-msgstr "تحريك [B]'%s'[/B] الى مكان أخر في هذه القائمة"
+msgstr ""
 
 msgctxt "#32717"
 msgid "Remove [B]'%s'[/B] from the list"
-msgstr "إزالة [B]'%s'[/B] من القائمة"
+msgstr ""
 
 msgctxt "#32718"
 msgid "Add [B]'%s'[/B] to a different Menu list"
-msgstr "إضافة [B]'%s'[/B] الى قائمة أخرى"
+msgstr ""
 
 msgctxt "#32719"
 msgid "Add [B]'%s'[/B] to a [B]Shortcut Folder[/B]"
-msgstr "إضافة [B]'%s'[/B] الى [B]مجلد الاختصارات[/B]"
+msgstr ""
 
 msgctxt "#32720"
 msgid "Add a Trakt list to [B]'%s'[/B] Menu"
-msgstr "إضافة قائمة من Trakt الى قائمة [B]'%s'[/B]"
+msgstr ""
 
 msgctxt "#32721"
 msgid "Re-add a removed item from [B]'%s'[/B] Menu"
-msgstr "إستعادة العناصر المحذوفة من قائمة [B]'%s'[/B]"
+msgstr ""
 
 msgctxt "#32722"
 msgid "Restore [B]'%s'[/B] Menu to default"
-msgstr "إستعادة قائمة [B]'%s'[/B] الى الوضع الافتراضي"
+msgstr ""
 
 msgctxt "#32723"
 msgid "Check if [B]'%s'[/B] Menu has New Menu items"
-msgstr "تحقق ما إذا كانت قائمة [B]'%s'[/B] تملك عناصر جديدة"
+msgstr ""
 
 msgctxt "#32724"
 msgid "Reload [B]'%s'[/B]"
-msgstr "إعادة تحميل [B]'%s'[/B]"
+msgstr ""
 
 msgctxt "#32725"
 msgid "Add a [B]Shortcut Folder[/B] to [B]'%s'[/B] Menu"
-msgstr "إضافة [B]مجلد الاختصارات[/B] الى قائمة [B]'%s'[/B]"
+msgstr ""
 
 msgctxt "#32726"
 msgid "Choose Menu to add %s Into.."
@@ -2117,11 +2115,11 @@ msgstr ""
 
 msgctxt "#32730"
 msgid "[B]Add to a Menu[/B]"
-msgstr "[B]إضافة إلى القائمة الرئيسية[/B]"
+msgstr ""
 
 msgctxt "#32731"
 msgid "[B]Add to a Shortcut Folder[/B]"
-msgstr "[B]إضافة إلى مجلد اختصارات[/B]"
+msgstr ""
 
 msgctxt "#32732"
 msgid "Saving Torrent to the %s Cloud"
@@ -2141,7 +2139,7 @@ msgstr ""
 
 msgctxt "#32736"
 msgid "Cancelled"
-msgstr "تم الإلغاء"
+msgstr ""
 
 msgctxt "#32737"
 msgid "Converting MAGNET..."
@@ -2165,7 +2163,7 @@ msgstr ""
 
 msgctxt "#32742"
 msgid "folder"
-msgstr "مجلد"
+msgstr ""
 
 msgctxt "#32743"
 msgid "file"
@@ -2173,23 +2171,23 @@ msgstr ""
 
 msgctxt "#32744"
 msgid "Limit Concurrent Threads"
-msgstr "حدود المسارات المتزامنة"
+msgstr ""
 
 msgctxt "#32745"
 msgid "Maximum Active Threads"
-msgstr "الحد الأقصى من المسارات النشطة"
+msgstr ""
 
 msgctxt "#32746"
 msgid "Hide Next Page Item in Widgets"
-msgstr "إخفاء عنصر \"الصفحة التالية\""
+msgstr ""
 
 msgctxt "#32747"
 msgid "Download File"
-msgstr "تنزيل الملف"
+msgstr ""
 
 msgctxt "#32748"
 msgid "Search Cloud Storage"
-msgstr "البحث في التخزين السحابي"
+msgstr ""
 
 msgctxt "#32749"
 msgid "[B]Customer ID:[/B] %s"
@@ -2197,11 +2195,11 @@ msgstr ""
 
 msgctxt "#32750"
 msgid "[B]Expires:[/B] %s"
-msgstr "[B]ينتهي:[/B] %s"
+msgstr ""
 
 msgctxt "#32751"
 msgid "[B]Days Remaining:[/B] %s"
-msgstr "[B]الأيام المتبقية:[/B] %s"
+msgstr ""
 
 msgctxt "#32752"
 msgid "[B]Points Used:[/B] %.f"
@@ -2217,7 +2215,7 @@ msgstr ""
 
 msgctxt "#32755"
 msgid "[B]Username:[/B] %s"
-msgstr "[B]اسم المستخدم:[/B] %s"
+msgstr ""
 
 msgctxt "#32756"
 msgid "[B]Email:[/B] %s"
@@ -2225,19 +2223,19 @@ msgstr ""
 
 msgctxt "#32757"
 msgid "[B]Status:[/B] %s"
-msgstr "[B]الحالة:[/B] %s"
+msgstr ""
 
 msgctxt "#32758"
 msgid "[B]Account:[/B] %s"
-msgstr "[B]الحساب:[/B] %s"
+msgstr ""
 
 msgctxt "#32759"
 msgid "[B]Fidelity Points:[/B] %s"
-msgstr "[B]النقاط المستحقة:[/B] %s"
+msgstr ""
 
 msgctxt "#32760"
 msgid "No Results"
-msgstr "لا يوجد نتائج"
+msgstr ""
 
 msgctxt "#32761"
 msgid "[B]Data Used:[/B] %s"
@@ -2253,7 +2251,7 @@ msgstr ""
 
 msgctxt "#32764"
 msgid "Play"
-msgstr "تشغيل"
+msgstr ""
 
 msgctxt "#32765"
 msgid "All Movies Already in Trakt Collection"
@@ -2305,27 +2303,27 @@ msgstr ""
 
 msgctxt "#32777"
 msgid "Log Utils"
-msgstr "سجل الأخطاء"
+msgstr ""
 
 msgctxt "#32778"
 msgid "[B]PERSONAL:[/B] [I]%s[/I]"
-msgstr "[B]قوائمك:[/B] [I]%s[/I]"
+msgstr ""
 
 msgctxt "#32779"
 msgid "[B]LIKED:[/B] [I]%s[/I]"
-msgstr "[B]قوائم أعجبتك:[/B] [I]%s[/I]"
+msgstr ""
 
 msgctxt "#32780"
 msgid "[B]Make a new Trakt list[/B]"
-msgstr "[B]إدراج قائمة Trakt جديدة[/B]"
+msgstr ""
 
 msgctxt "#32781"
 msgid "[B]Delete list[/B]"
-msgstr "[B]حذف القائمة[/B]"
+msgstr ""
 
 msgctxt "#32782"
 msgid "Size Sort Order"
-msgstr "طريقة الترتيب حسب الحجم"
+msgstr ""
 
 msgctxt "#32783"
 msgid "[B]Unlike List[/B]"
@@ -2337,7 +2335,7 @@ msgstr ""
 
 msgctxt "#32785"
 msgid "Delete"
-msgstr "حذف"
+msgstr ""
 
 msgctxt "#32786"
 msgid "[B]Remove from history[/B]"
@@ -2349,11 +2347,11 @@ msgstr ""
 
 msgctxt "#32788"
 msgid "Open Fen Options Instead of Kodi Context Menu (for Media)"
-msgstr "افتح خيارات Fen بدلاً من قائمة خيارات Kodi (للوسائط)"
+msgstr ""
 
 msgctxt "#32789"
 msgid "Multiselect..."
-msgstr "إختيار متعدد..."
+msgstr ""
 
 msgctxt "#32790"
 msgid "Settings Refreshed"
@@ -2361,15 +2359,15 @@ msgstr ""
 
 msgctxt "#32791"
 msgid "Finish Rewatching"
-msgstr "تنتهي إعادة المشاهدة عند"
+msgstr ""
 
 msgctxt "#32792"
 msgid "Downloaded Subtitles Found"
-msgstr "تم تحميل الترجمة"
+msgstr ""
 
 msgctxt "#32793"
 msgid "No Subtitles Found"
-msgstr "لا توجد ترجمة"
+msgstr ""
 
 msgctxt "#32794"
 msgid "Searching Secondary Language"
@@ -2381,19 +2379,19 @@ msgstr ""
 
 msgctxt "#32796"
 msgid "Directed"
-msgstr "التي أخرجها"
+msgstr ""
 
 msgctxt "#32797"
 msgid "Biography"
-msgstr "السيرة الذاتية"
+msgstr ""
 
 msgctxt "#32798"
 msgid "Images"
-msgstr "الصور"
+msgstr ""
 
 msgctxt "#32799"
 msgid "Next Page (%s) >>"
-msgstr "الصفحة التالية (%s) >>"
+msgstr ""
 
 msgctxt "#32800"
 msgid "Kodi Log Uploader"
@@ -2401,7 +2399,7 @@ msgstr ""
 
 msgctxt "#32801"
 msgid "[B]Next Up:[/B]"
-msgstr "[B]التالي:[/B]"
+msgstr ""
 
 msgctxt "#32802"
 msgid "Still watching?"
@@ -2413,19 +2411,19 @@ msgstr ""
 
 msgctxt "#32804"
 msgid "Hidden"
-msgstr "مخفي"
+msgstr ""
 
 msgctxt "#32806"
 msgid "Select TV Show to Hide/Unhide from Progress:"
-msgstr "اختر المسلسلت المراد اخفاءه في تقدم Trakt"
+msgstr ""
 
 msgctxt "#32807"
 msgid "Scrape With All Filters Ignored"
-msgstr "البحث مع تجاهل جميع أنواع الفلترة"
+msgstr ""
 
 msgctxt "#32808"
 msgid "Disable All Filters for Search?"
-msgstr "تعطيل جميع أنواع الفلترة للبحث"
+msgstr ""
 
 msgctxt "#32809"
 msgid "Clearing Trakt Cache"
@@ -2433,11 +2431,11 @@ msgstr ""
 
 msgctxt "#32810"
 msgid "[B]Exit Results[/B]"
-msgstr "[B]الخروج من قائمة النتائج[/B]"
+msgstr ""
 
 msgctxt "#32811"
 msgid "Next Episode In"
-msgstr "بدء الحلقة التالية بعد"
+msgstr ""
 
 msgctxt "#32812"
 msgid "Cleaned Addon: [B]%s[/B]"
@@ -2469,7 +2467,7 @@ msgstr ""
 
 msgctxt "#32819"
 msgid "Sort Episodes Airing Today to Top"
-msgstr "فرز الحلقات التي يتم بثها اليوم إلى الأعلى"
+msgstr ""
 
 msgctxt "#32820"
 msgid "Choose Data"
@@ -2489,7 +2487,7 @@ msgstr ""
 
 msgctxt "#32824"
 msgid "Yes"
-msgstr "نعم"
+msgstr ""
 
 msgctxt "#32825"
 msgid "BIRTHDAY"
@@ -2505,15 +2503,15 @@ msgstr ""
 
 msgctxt "#32828"
 msgid "No"
-msgstr "لا"
+msgstr ""
 
 msgctxt "#32829"
 msgid "Progress Color Highlights"
-msgstr "ألوان صفحة محرك البحث"
+msgstr ""
 
 msgctxt "#32830"
 msgid "Scrape Display Color"
-msgstr "لون الجودة وشريط التقدم"
+msgstr ""
 
 msgctxt "#32831"
 msgid "Download this Torrent to your [B]%s[/B] Cloud?"
@@ -2521,15 +2519,15 @@ msgstr ""
 
 msgctxt "#32832"
 msgid "Resume"
-msgstr "استئناف"
+msgstr ""
 
 msgctxt "#32833"
 msgid "Start Over"
-msgstr "البدء من جديد"
+msgstr ""
 
 msgctxt "#32834"
 msgid "Limit Auto Play Quality"
-msgstr "حدود الجودة للتشغيل التلقائي"
+msgstr ""
 
 msgctxt "#32835"
 msgid "Filter Languages"
@@ -2541,35 +2539,35 @@ msgstr ""
 
 msgctxt "#32837"
 msgid "Exit"
-msgstr "خروج"
+msgstr ""
 
 msgctxt "#32838"
 msgid "Browse"
-msgstr "تصفح"
+msgstr ""
 
 msgctxt "#32839"
 msgid "OK"
-msgstr "موافق"
+msgstr ""
 
 msgctxt "#32840"
 msgid "Cancel"
-msgstr "إلغاء"
+msgstr ""
 
 msgctxt "#32841"
 msgid "Options"
-msgstr "خيارات"
+msgstr ""
 
 msgctxt "#32842"
 msgid "Plot"
-msgstr "الحبكة"
+msgstr ""
 
 msgctxt "#32843"
 msgid "Male"
-msgstr "ذكر"
+msgstr ""
 
 msgctxt "#32844"
 msgid "Female"
-msgstr "أنثى"
+msgstr ""
 
 msgctxt "#32845"
 msgid "GENDER"
@@ -2577,11 +2575,11 @@ msgstr ""
 
 msgctxt "#32846"
 msgid "Enable Scrollbars for Extras Lists"
-msgstr "تفعيل شريط التمرير لقوائم \"نافذة المعلومات\""
+msgstr ""
 
 msgctxt "#32847"
 msgid "Select Genres to Include in Search"
-msgstr "ًاختر الاصناف التي تريد جمعها معا"
+msgstr ""
 
 msgctxt "#32848"
 msgid "Yesterday"
@@ -2601,11 +2599,11 @@ msgstr ""
 
 msgctxt "#32852"
 msgid "Local Subtitles Found"
-msgstr "تتوفر ترجمة محلية"
+msgstr ""
 
 msgctxt "#32853"
 msgid "Upload Kodi Log to Pastebin"
-msgstr "رفع سجل Kodi إلى Pastebin"
+msgstr ""
 
 msgctxt "#32854"
 msgid "No Debrid Providers Enabled"
@@ -2613,7 +2611,7 @@ msgstr ""
 
 msgctxt "#32855"
 msgid "Show Log Errors Only?"
-msgstr "عرض الأخطاء فقط؟"
+msgstr ""
 
 msgctxt "#32856"
 msgid "Syncing Kodi Library Watched Status"
@@ -2621,7 +2619,7 @@ msgstr ""
 
 msgctxt "#32857"
 msgid "New"
-msgstr "جديد"
+msgstr ""
 
 msgctxt "#32858"
 msgid "Spotlight"
@@ -2629,11 +2627,11 @@ msgstr ""
 
 msgctxt "#32859"
 msgid "True"
-msgstr "مفعل"
+msgstr ""
 
 msgctxt "#32860"
 msgid "False"
-msgstr "غير مفعل"
+msgstr ""
 
 msgctxt "#32861"
 msgid "Arabic"
@@ -3049,11 +3047,11 @@ msgstr ""
 
 msgctxt "#32964"
 msgid "Jump To..."
-msgstr "القفز إلى..."
+msgstr ""
 
 msgctxt "#32965"
 msgid "None"
-msgstr "لا شيء"
+msgstr ""
 
 msgctxt "#32966"
 msgid "Please go to [B]https://trakt.tv/activate[/B] and enter the code"
@@ -3105,7 +3103,7 @@ msgstr ""
 
 msgctxt "#32978"
 msgid "Page No."
-msgstr "رقم الصفحة"
+msgstr ""
 
 msgctxt "#32979"
 msgid "Alphanum"
@@ -3114,11 +3112,10 @@ msgstr ""
 msgctxt "#32980"
 msgid "Open Fen Extras Instead of Kodi Info Dialog (for Media)"
 msgstr ""
-"افتح \"نافذة معلومات FEN\" بدلاً من نافذة معلومات Kodi الافتراضية (للوسائط)"
 
 msgctxt "#32981"
 msgid "Max. HEVC Quality"
-msgstr "أعلى جودة لملفات الـHEVC"
+msgstr ""
 
 msgctxt "#32982"
 msgid "[B]Download Archive[/B]"
@@ -3130,7 +3127,7 @@ msgstr ""
 
 msgctxt "#32984"
 msgid "Trivia"
-msgstr "حقائق"
+msgstr ""
 
 msgctxt "#32985"
 msgid "Contains Spoilers"
@@ -3146,31 +3143,31 @@ msgstr ""
 
 msgctxt "#32988"
 msgid "Max. Autoplay HEVC Quality"
-msgstr "أعلى جودة لملفات الـHEVC (التشغيل التلقائي)"
+msgstr ""
 
 msgctxt "#32989"
 msgid "Parental Guide"
-msgstr "دليل الأسرة"
+msgstr ""
 
 msgctxt "#32990"
 msgid "Sex & Nudity"
-msgstr "الجنس و العُري"
+msgstr ""
 
 msgctxt "#32991"
 msgid "Violence & Gore"
-msgstr "العنف و الدماء"
+msgstr ""
 
 msgctxt "#32992"
 msgid "Profanity"
-msgstr "الشتم و البذاءة"
+msgstr ""
 
 msgctxt "#32993"
 msgid "Alcohol, Drugs & Smoking"
-msgstr "الكحول والمخدرات والتدخين"
+msgstr ""
 
 msgctxt "#32994"
 msgid "Frightening & Intense Scenes"
-msgstr "المشاهد المخيفة"
+msgstr ""
 
 msgctxt "#32995"
 msgid "Current Page"
@@ -3178,15 +3175,15 @@ msgstr ""
 
 msgctxt "#32996"
 msgid "Mild"
-msgstr "خفيف"
+msgstr ""
 
 msgctxt "#32997"
 msgid "Moderate"
-msgstr "متوسط"
+msgstr ""
 
 msgctxt "#32998"
 msgid "Severe"
-msgstr "عالي"
+msgstr ""
 
 msgctxt "#32999"
 msgid "Update Available"
@@ -3206,23 +3203,23 @@ msgstr ""
 
 msgctxt "#33003"
 msgid "Enable Season/Show Pack Search"
-msgstr "تفعيل بحث حزم كاملة للموسم/المسلسل"
+msgstr ""
 
 msgctxt "#33004"
 msgid "Browse Pack"
-msgstr "تصفح الحزمة"
+msgstr ""
 
 msgctxt "#33005"
 msgid "Image Files Directory"
-msgstr "مسار تنزيل الصور"
+msgstr ""
 
 msgctxt "#33006"
 msgid "Check Year Before Search"
-msgstr "تحقق من السنة قبل إجراء البحث"
+msgstr ""
 
 msgctxt "#33007"
 msgid "API Version"
-msgstr "إصدار الـAPI"
+msgstr ""
 
 msgctxt "#33008"
 msgid "Version 2"
@@ -3254,20 +3251,18 @@ msgstr ""
 
 msgctxt "#33015"
 msgid "Use Torrent Services"
-msgstr "استخدم خدمات التورنت"
+msgstr ""
 
 msgctxt "#33016"
 msgid "Use Hoster Services"
-msgstr "استخدم خدمات الروابط المباشرة"
+msgstr ""
 
 msgctxt "#33017"
 msgid "Set Language Invoker (ADVANCED!!)"
 msgstr ""
 
 msgctxt "#33018"
-msgid ""
-"[B]Reuse Langauage Invoker[/B] is currently set to %s.\n"
-"Do you wish to change this setting to %s?"
+msgid "[B]Reuse Langauage Invoker[/B] is currently set to %s.\nDo you wish to change this setting to %s?"
 msgstr ""
 
 msgctxt "#33019"
@@ -3316,15 +3311,15 @@ msgstr ""
 
 msgctxt "#33030"
 msgid "Settings Updated"
-msgstr ""
+msgstr "Instellingen Bijgewerkt"
 
 msgctxt "#33031"
 msgid "Hoster"
-msgstr "النوع"
+msgstr ""
 
 msgctxt "#33032"
 msgid "Videos"
-msgstr "الفيديوهات"
+msgstr ""
 
 msgctxt "#33033"
 msgid "ERROR UPDATING ADDON....Cancelling"
@@ -3344,11 +3339,11 @@ msgstr ""
 
 msgctxt "#33037"
 msgid "[B]EXTRAS:[/B] %s"
-msgstr "[B]نافذة المعلومات:[/B] %s"
+msgstr ""
 
 msgctxt "#33038"
 msgid "Extras"
-msgstr "نافذة المعلومات"
+msgstr ""
 
 msgctxt "#33039"
 msgid "Error. Log Upload Failed"
@@ -3356,27 +3351,27 @@ msgstr ""
 
 msgctxt "#33040"
 msgid "Exclude Non Acting Roles in Person Results"
-msgstr "استبعاد الاشخاض الذين لايمثلون من قائمة المشهورين"
+msgstr ""
 
 msgctxt "#33041"
 msgid "Next Episode"
-msgstr "تكملة المشاهدة"
+msgstr ""
 
 msgctxt "#33042"
 msgid "Ignore Quality and Size Filters"
-msgstr "تجاهل الفرز حسب الجودة والحجم"
+msgstr ""
 
 msgctxt "#33043"
 msgid "Set Artwork"
-msgstr "تخصيص العمل الفني"
+msgstr ""
 
 msgctxt "#33044"
 msgid "Aliases"
-msgstr "تسميات"
+msgstr ""
 
 msgctxt "#33045"
 msgid "Tagged"
-msgstr ""
+msgstr "Getagd"
 
 msgctxt "#33046"
 msgid "%s of %s Watched"
@@ -3396,7 +3391,7 @@ msgstr ""
 
 msgctxt "#33050"
 msgid "Scrape Results Color"
-msgstr "لون النتائج"
+msgstr ""
 
 msgctxt "#33051"
 msgid "Slideshow"
@@ -3424,7 +3419,7 @@ msgstr ""
 
 msgctxt "#33057"
 msgid "Sci-Fi & Fantasy"
-msgstr "الخيال و الخيال العلمي"
+msgstr ""
 
 msgctxt "#33058"
 msgid "No Finish Time"
@@ -3440,11 +3435,11 @@ msgstr ""
 
 msgctxt "#33061"
 msgid "Enable Extra Ratings"
-msgstr "تفعيل إظهار التقييمات"
+msgstr ""
 
 msgctxt "#33062"
 msgid "Finish Watching"
-msgstr "تنتهي المشاهدة عند"
+msgstr ""
 
 msgctxt "#33063"
 msgid "Enter Keyword (Comma Separated for Multiple)"
@@ -3460,11 +3455,11 @@ msgstr ""
 
 msgctxt "#33066"
 msgid "Set Artwork for %s"
-msgstr "تغيير العمل الفني لـ %s"
+msgstr ""
 
 msgctxt "#33067"
 msgid "Trending Recent"
-msgstr "الشائعة مؤخراً"
+msgstr ""
 
 msgctxt "#33068"
 msgid "Clearlogo"
@@ -3473,10 +3468,11 @@ msgstr ""
 msgctxt "#33069"
 msgid "No Extra Artwork Available"
 msgstr ""
+msgstr ""
 
 msgctxt "#33070"
 msgid "No Rank"
-msgstr "لا يوجد"
+msgstr ""
 
 msgctxt "#33071"
 msgid "Preview"
@@ -3484,11 +3480,11 @@ msgstr ""
 
 msgctxt "#33072"
 msgid "Mark Watched After (Playback %)"
-msgstr "وضع علامة تم المشاهدة بعد (%)"
+msgstr ""
 
 msgctxt "#33073"
 msgid "Set Resume Point After (Playback %)"
-msgstr "حدد نقطة الاستئناف بعد مشاهدة (%)"
+msgstr ""
 
 msgctxt "#33074"
 msgid "Linked"
@@ -3499,9 +3495,7 @@ msgid "Clear Link to [B]%s[/B]?"
 msgstr ""
 
 msgctxt "#33076"
-msgid ""
-"This Folder is Already Linked to %s: [CR][B]%s[/B][CR]Do you wish to Link "
-"this Folder to Different Movie/TV Show?"
+msgid "This Folder is Already Linked to %s: [CR][B]%s[/B][CR]Do you wish to Link this Folder to Different Movie/TV Show?"
 msgstr ""
 
 msgctxt "#33077"
@@ -3518,7 +3512,7 @@ msgstr ""
 
 msgctxt "#33080"
 msgid "Movie Sets"
-msgstr "سلسلة أفلام"
+msgstr ""
 
 msgctxt "#33081"
 msgid "[B]Add Set to Trakt Collection[/B]"
@@ -3538,35 +3532,35 @@ msgstr ""
 
 msgctxt "#33085"
 msgid "Decades"
-msgstr "العقود"
+msgstr ""
 
 msgctxt "#33086"
 msgid "Auto Scrape Next Episode"
-msgstr "هل تريد مشاهدة الحلقة التالية"
+msgstr ""
 
 msgctxt "#33087"
 msgid "Notification"
-msgstr "تنبيه"
+msgstr ""
 
 msgctxt "#33088"
 msgid "Next Episode Alert Method"
-msgstr "طريقة العرض"
+msgstr ""
 
 msgctxt "#33089"
 msgid "When No Interaction with Window"
-msgstr "حدد الاجراء الافتراضي في حال لم تتفاعل مع النافذة"
+msgstr ""
 
 msgctxt "#33090"
 msgid "Now"
-msgstr "الآن"
+msgstr ""
 
 msgctxt "#33091"
 msgid "Auto Scrape Sources Ready"
-msgstr "النتائج جاهزة"
+msgstr ""
 
 msgctxt "#33092"
 msgid "No Auto Scrape Sources Found"
-msgstr "لم يتم العثور على نتائج"
+msgstr ""
 
 msgctxt "#33093"
 msgid "Use Contrast Display Style"
@@ -3574,35 +3568,35 @@ msgstr ""
 
 msgctxt "#33094"
 msgid "Window"
-msgstr "نافذة"
+msgstr ""
 
 msgctxt "#33095"
 msgid "Prompt for Year in Search"
-msgstr "السؤال عن السنة عند القيام بعملية بحث"
+msgstr ""
 
 msgctxt "#33096"
 msgid "Choose Media Types for Fen Extras Window..."
-msgstr "اختر أنواع الوسائط لنافذة معلومات FEN"
+msgstr ""
 
 msgctxt "#33097"
 msgid "Open Fen Menu Editor Instead of Kodi Context Menu (for Menus)"
-msgstr "افتح محرر قائمة Fen بدلاً من قائمة خيارات Kodi (للقوائم)"
+msgstr ""
 
 msgctxt "#33098"
 msgid "Custom Actions"
-msgstr "إجراءات مخصصة"
+msgstr ""
 
 msgctxt "#33099"
 msgid "Resync Internal (mins)"
-msgstr "إعادة المزامنة (بالدقائق)"
+msgstr ""
 
 msgctxt "#33100"
 msgid "Avoid Episode Spoilers in Fen Custom Windows"
-msgstr "تجنب الحرق في نوافذ FEN المخصصة"
+msgstr ""
 
 msgctxt "#33101"
 msgid "Include Year in Title"
-msgstr "إظهار السنة في العنوان"
+msgstr ""
 
 msgctxt "#33102"
 msgid "Limit Resolve Attempts to Selected Result Only"
@@ -3610,7 +3604,7 @@ msgstr ""
 
 msgctxt "#33103"
 msgid "Clear Meta Cache for changes to take effect"
-msgstr "في حال تغيير الاعداد يجب حذف كاش البيانات التعريفية حتى تلاحظ النتائج"
+msgstr ""
 
 msgctxt "#33104"
 msgid "Local"
@@ -3626,15 +3620,15 @@ msgstr ""
 
 msgctxt "#33107"
 msgid "Restore Default Highlight Colors"
-msgstr "استعادة ألوان التظليل الافتراضية"
+msgstr ""
 
 msgctxt "#33108"
 msgid "Edit"
-msgstr "تعديل"
+msgstr ""
 
 msgctxt "#33109"
 msgid "Browse Folder or Edit Settings"
-msgstr "تصفح المجلد او تعديله ؟"
+msgstr ""
 
 msgctxt "#33110"
 msgid "Downloading Color Palette"
@@ -3646,11 +3640,11 @@ msgstr ""
 
 msgctxt "#33112"
 msgid "Features"
-msgstr "الميزات"
+msgstr ""
 
 msgctxt "#33113"
 msgid "[I]Enter OMDb key in Metadata Accounts settings for Ratings Options[/I]"
-msgstr "[I]ادخل مفتاح OMDb في قسم حسابات البيانات التعريفية[/I]"
+msgstr ""
 
 msgctxt "#33114"
 msgid "Monitor For Successful Playback"
@@ -3658,7 +3652,7 @@ msgstr ""
 
 msgctxt "#33115"
 msgid "Play Next"
-msgstr "بدء/تكملة المشاهدة"
+msgstr ""
 
 msgctxt "#33116"
 msgid "No Episodes Available"
@@ -3666,23 +3660,23 @@ msgstr ""
 
 msgctxt "#33117"
 msgid "Trakt Manager"
-msgstr "مدير Trakt"
+msgstr ""
 
 msgctxt "#33118"
 msgid "Set Actions for Extras Buttons"
-msgstr "تكوين أزرار \"نافذة المعلومات\""
+msgstr ""
 
 msgctxt "#33119"
 msgid "Restore Extras Buttons to Default Actions"
-msgstr "إستعادة أزرار \"نافذة المعلومات\" الى الوضع الافتراضي"
+msgstr ""
 
 msgctxt "#33120"
 msgid "Choose Media Type to Set Buttons"
-msgstr "اختر موع الوسائط لتخصيص أزراره"
+msgstr ""
 
 msgctxt "#33121"
 msgid "Choose Button to Set"
-msgstr "تخصيص الأزرار"
+msgstr ""
 
 msgctxt "#33122"
 msgid "Choose Action For %s"
@@ -3690,11 +3684,11 @@ msgstr ""
 
 msgctxt "#33123"
 msgid "Choose to Set Back to Default"
-msgstr "اختر المراد إستعادته للوضع الافتراضي"
+msgstr ""
 
 msgctxt "#33124"
 msgid "Use Custom Skin XMLs When Available"
-msgstr "استخدم ثيمات مخصصة للسكن عند توفرها"
+msgstr ""
 
 msgctxt "#33125"
 msgid "Custom skins automatically updated to version [B]%s[/B]"
@@ -3714,31 +3708,31 @@ msgstr ""
 
 msgctxt "#33129"
 msgid "Press Info Button for More Info..."
-msgstr "اضغط زر المعلومات للمزيد..."
+msgstr ""
 
 msgctxt "#33130"
 msgid "Mark Watched"
-msgstr "وضع علامة تمت المشاهدة"
+msgstr ""
 
 msgctxt "#33131"
 msgid "Mark Unwatched"
-msgstr "إزالة علامة تمت المشاهدة"
+msgstr ""
 
 msgctxt "#33132"
 msgid "MPAA Region"
-msgstr "منطقة التقييم العمري MPAA"
+msgstr ""
 
 msgctxt "#33133"
 msgid "MPAA Prefix"
-msgstr "بادئة التقييم العمري MPAA"
+msgstr ""
 
 msgctxt "#33134"
 msgid "Minimum Size (MB)"
-msgstr "اقل حجم (MB)"
+msgstr ""
 
 msgctxt "#33135"
 msgid "Ratings to Display"
-msgstr "التقييمات المفعلة"
+msgstr ""
 
 msgctxt "#33136"
 msgid "You must select at least 1 Ratings Provider"
@@ -3746,91 +3740,79 @@ msgstr ""
 
 msgctxt "#33137"
 msgid "Choose Icon"
-msgstr "اختر أيقونة"
+msgstr ""
 
 msgctxt "#33137"
 msgid "[B]Browse...[/B]"
-msgstr "[B]تصفح...[/B]"
+msgstr ""
 
 msgctxt "#33138"
-msgid ""
-"Press [B][COLOR $INFO[Window(10000).Property(fen.highlight)]]BACK[/COLOR][/B]"
-" to Exit"
+msgid "Press [B][COLOR $INFO[Window().Property(highlight_var)]]BACK[/COLOR][/B] to Exit"
 msgstr ""
-"اضغط [B][COLOR $INFO[Window(10000).Property(fen.highlight)]]رجوع[/COLOR][/B] "
-"للخروج"
 
 msgctxt "#33139"
-msgid ""
-"Press [B][COLOR $INFO[Window(10000).Property(fen.highlight)]]RIGHT[/COLOR]"
-"[/B] to Skip"
+msgid "Press [B][COLOR $INFO[Window().Property(highlight_var)]]RIGHT[/COLOR][/B] to Skip"
 msgstr ""
-"اضغط [B][COLOR $INFO[Window(10000).Property(fen.highlight)]]يمين[/COLOR][/B] "
-"للتخطي"
 
 msgctxt "#33140"
 msgid "Add Content"
-msgstr "إضافة محتوى"
+msgstr ""
 
 msgctxt "#33141"
 msgid "Open Tools Menu"
-msgstr "فتح قائمة الأدوات"
+msgstr ""
 
 msgctxt "#33142"
 msgid "Addon Item Limit"
-msgstr "حد عناصر الاضافة"
+msgstr ""
 
 msgctxt "#33143"
 msgid "Widgets Item Limit"
-msgstr "حد عناصر الودجيت"
+msgstr ""
 
 msgctxt "#33144"
 msgid "Make Fen Work Properly"
-msgstr "إجعل FEN يعمل بشكل صحيح"
+msgstr ""
 
 msgctxt "#33145"
 msgid "Current Kodi Log"
-msgstr "سجل أخطاء Kodi الحالي"
+msgstr ""
 
 msgctxt "#33146"
 msgid "Previous Kodi Log"
-msgstr "سجل أخطاء Kodi القديم"
+msgstr ""
 
 msgctxt "#33147"
 msgid "Choose Which Log File to Upload"
-msgstr "اختر الملف الذي تريد رفعه"
+msgstr ""
 
 msgctxt "#33148"
 msgid "Play Extras Videos in Windowed Mode"
-msgstr "تشغيل فيديوهات \"نافذة المعلومات\" في وضع النافذة"
+msgstr ""
 
 msgctxt "#33149"
 msgid "Select All"
-msgstr "تحديد الكل"
+msgstr ""
 
 msgctxt "#33150"
 msgid "Deselect All"
-msgstr "إلغاء تحديد الكل"
+msgstr ""
 
 msgctxt "#33151"
 msgid "Use Chapter Info For Alert When Available"
-msgstr "استخدم \"الفصول\" كمنبه في حال توفرها"
-
-msgctxt "#33152"
-msgid "Restart Fen Services"
-msgstr "إعادة تشغيل خدمات FEN"
+msgstr ""
 
 msgctxt "#33153"
 msgid "Watched (Still Airing) TV Shows Location"
-msgstr "المسلسلات التي تم مشاهدتها وما زالت تبث تظهر في"
+msgstr ""
 
 msgctxt "#33154"
 msgid "Watched"
-msgstr "نسبة المشاهدة"
+msgstr ""
 
 msgctxt "#33155"
 msgid "In Progress"
-msgstr "لم تنتهي من مشاهدتها"
+msgstr ""
 
 msgctxt "#33156"
 msgid "Enter Value"
@@ -3842,19 +3824,15 @@ msgstr ""
 
 msgctxt "#33158"
 msgid "Comments"
-msgstr "التعليقات"
+msgstr ""
 
 msgctxt "#33159"
 msgid "None (Monochrome)"
-msgstr "بدون (أحادي اللون)"
+msgstr ""
 
 msgctxt "#33160"
 msgid "Auto fix Invoker Mismatch on Update"
-msgstr "قم باصلاح عدم تطابق Language Invoker تلقائياً بعد التحديث"
-
-msgctxt "#34160"
-msgid "Direct"
-msgstr "المباشرة"
+msgstr ""
 
 ###################################################################################################################################
 
