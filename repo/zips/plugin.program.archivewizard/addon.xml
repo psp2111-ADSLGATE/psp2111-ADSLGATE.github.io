@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.archivewizard" name="[COLOR FFFE9900]Archive[/COLOR]Wizard" version="0.0.8" provider-name="drinfernoo, slamious, psp2111">
+<addon id="plugin.program.archivewizard" name="[COLOR FFFE9900]Archive[/COLOR]Wizard" version="0.0.9" provider-name="drinfernoo, slamious, psp2111">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
