@@ -27,6 +27,13 @@ class FileUtils():
     def get_file_path(self, folder, filename, join_addon_data=True, make_dir=True):
         return validate_join(self.get_write_path(folder, join_addon_data, make_dir), filename)
 
+    def dumps_to_file(self, data, folder, filename, indent=2, join_addon_data=True):
+        from json import dump
+        path = self.get_file_path(folder, filename, join_addon_data)
+        with xbmcvfs.File(path, 'w') as file:
+            dump(data, file, indent=indent)
+        return path
+
 
 def json_loads(obj):
     import json
