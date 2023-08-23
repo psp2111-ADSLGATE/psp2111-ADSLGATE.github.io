@@ -3,7 +3,7 @@
     <onload>Dialog.Close(fullscreeninfo,true)</onload>
     <onload>Dialog.Close(videoosd,true)</onload>
 
-	<defaultcontrol always="true">3002</defaultcontrol>
+	<defaultcontrol always="true">3001</defaultcontrol>
 
 	<controls>
 
@@ -123,6 +123,13 @@
 						<font>font12</font>
 						<textcolor>ffffffff</textcolor>
 						<label>$ADDON[plugin.video.seren 30559]</label>
+						<visible>!Integer.IsGreater(Player.TimeRemaining,59)</visible>
+					</control>
+					<control type="label">
+						<height>20</height>
+						<font>font12</font>
+						<textcolor>ffffffff</textcolor>
+						<label>$ADDON[plugin.video.seren 30210]</label>
 						<visible>Integer.IsGreater(Player.TimeRemaining,59)</visible>
 					</control>
 				</control>
@@ -150,7 +157,6 @@
 						<texturefocus border="10" colordiffuse="$INFO[Window.Property(settings.color)]">white.png</texturefocus>
 						<texturenofocus border="10" colordiffuse="99000000">white.png</texturenofocus>
 						<pulseonselect>no</pulseonselect>
-            <visible>false</visible>
 					</control>
 
 					<!-- Stop -->

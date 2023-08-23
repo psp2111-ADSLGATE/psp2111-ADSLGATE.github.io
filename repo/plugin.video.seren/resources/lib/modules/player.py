@@ -16,8 +16,6 @@ from resources.lib.indexers import trakt
 from resources.lib.modules import smartPlay
 from resources.lib.modules.globals import g
 
-from random import randint
-
 
 class SerenPlayer(xbmc.Player):
     """
@@ -49,17 +47,6 @@ class SerenPlayer(xbmc.Player):
         self.trakt_enabled = bool(g.get_setting("trakt.auth", ""))
         self._running_path = None
 
-        self.default_action = g.get_int_setting("smartplay.defaultaction")
-        self.playing_next_dialog_enabled = g.get_bool_setting("smartplay.playingnextdialog")
-        self.still_watching_dialog_enabled = g.get_bool_setting("smartplay.stillwatching")
-        self.intro_dialog_enabled = g.get_bool_setting("skip.intro.dialog")
-        self.intro_dialog_delay = g.get_int_setting("skip.intro.dialog.delay")
-        self.intro_dialog_open_time = g.get_int_setting("skip.intro.open.time")
-        self.skip_intro = g.get_bool_setting("skip.intro")
-        self.skip_intro_from = g.get_int_setting("skip.intro.from")
-        self.skip_intro_to = g.get_int_setting("skip.intro.to")
-        self.force_skip = g.get_bool_setting("skip.intro.force")
-
         # Flags
         self.resumed = False
         self.playback_started = False
@@ -74,13 +61,6 @@ class SerenPlayer(xbmc.Player):
         self.dialogs_triggered = False
         self.pre_scrape_initiated = False
         self.playback_timestamp = 0
-
-        self.default_pause = False
-        self.default_exit = False
-        self.playing_next_dialog_triggered = False
-        self.still_watching_dialog_triggered = False
-        self.intro_dialog_triggered = False
-        self.intro_skipped = False
 
     @cached_property
     def _trakt_api(self):
@@ -320,26 +300,6 @@ class SerenPlayer(xbmc.Player):
         self.playback_timestamp = time.time()
         self._running_path = self.getPlayingFile()
 
-        while self._is_file_playing() and not g.abort_requested():
-            if (
-                int(self.getTime()) == self.skip_intro_from
-                and self.skip_intro
-            ):
-                if (
-                    self.force_skip == 0
-                    and not self.intro_skipped
-                ):
-                    self.seekTime(self.skip_intro_to)
-                    self.intro_skipped = True
-                    break
-                elif (
-                    self.force_skip == 1
-                ):
-                    self.seekTime(self.skip_intro_to)
-                    break
-            else:
-                break
-
         g.close_busy_dialog()
         g.close_all_dialogs()
 
@@ -438,9 +398,7 @@ class SerenPlayer(xbmc.Player):
         g.log(f"IgnoringSecondsAtStart: {self.ignoreSecondsAtStart}", "debug")
         g.log(f"PreScrapeSeconds: {self.min_time_before_scrape}", "debug")
         g.log(f"PlayCountMin: {self.playCountMinimumPercent}", "debug")
-        g.log(f"PlayingNextDialogEnabled: {self.playing_next_dialog_enabled}", "debug")
-        g.log(f"StillWatchingDialogEnabled: {self.still_watching_dialog_enabled}", "debug")
-        g.log(f"SkipIntroDialogEnabled: {self.intro_dialog_enabled}", "debug")
+        g.log(f"DialogsEnabled: {self.dialogs_enabled}", "debug")
         g.log(f"TraktEnabled: {self.trakt_enabled}", "debug")
         g.log(f"DialogSeconds: {self.playing_next_time}", "debug")
         g.log(f"TotalMediaLength: {self.getTotalTime()}", "debug")
@@ -560,34 +518,10 @@ class SerenPlayer(xbmc.Player):
             self.seekTime(self.offset)
             self.resumed = True
 
-        while self._is_file_playing() and not g.abort_requested():
-            if (
-                int(self.getTime()) == self.intro_dialog_delay
-                and self.intro_dialog_enabled
-                and not self.intro_dialog_triggered
-            ):
-                xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=runIntroDialog")')
-                self.intro_dialog_triggered = True
-                break
-            elif (
-                int(self.getTime()) >= self.intro_dialog_delay + self.intro_dialog_open_time
-                or not self.intro_dialog_enabled
-            ):
-                break
-
         self._log_debug_information()
 
         while not g.wait_for_abort(0.5) and self._is_file_playing():  # This order is correct! Wait then check.
             self._update_progress()
-
-            self._default_action()
-
-            if (
-                int(self.getTime()) == self.skip_intro_from
-                and self.skip_intro
-                and self.force_skip == 1
-            ):
-                self.seekTime(self.skip_intro_to)
 
             if not self.scrobble_started:
                 self._trakt_start_watching()
@@ -601,13 +535,9 @@ class SerenPlayer(xbmc.Player):
                 self._handle_bookmark()
                 self._trakt_stop_watching()
 
-            if self.playing_next_dialog_enabled and not self.playing_next_dialog_triggered and time_left <= self.playing_next_time:
-                xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=runPlayingNextDialog")')
-                self.playing_next_dialog_triggered = True
-
-            if self.still_watching_dialog_enabled and not self.still_watching_dialog_triggered and self.watched_percentage == randint(75, self.playCountMinimumPercent):
-                xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=runStillWatchingDialog")')
-                self.still_watching_dialog_triggered = True
+            if self.dialogs_enabled and not self.dialogs_triggered and time_left <= self.playing_next_time:
+                xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=runPlayerDialogs")')
+                self.dialogs_triggered = True
 
         if not self._playback_has_stopped():  # Kodi does not fire the onPlaybackStopped event if early in playback
             self._end_playback()
@@ -649,27 +579,6 @@ class SerenPlayer(xbmc.Player):
 
         return self.isPlayingVideo()
 
-    def _default_action(self):
-        if (
-            int(self.getTotalTime()) - int(self.getTime()) == 1
-            and self._is_file_playing()
-            and not g.abort_requested()
-        ):
-            if (
-                self.default_action == 1
-                and not self.default_pause
-            ):
-                self.pause()
-                self.default_pause = True
-            elif (
-                self.default_action == 2
-                and not self.default_exit
-                and self.smart_playlists
-            ):
-                g.PLAYLIST.clear()
-                self._end_playback()
-                g.cancel_playback()
-                self.default_exit = True
 
 class PlayerDialogs(xbmc.Player):
     """
@@ -681,7 +590,7 @@ class PlayerDialogs(xbmc.Player):
         self._min_time = g.get_int_setting("playingnext.time")
         self.playing_file = None
 
-    def display_playing_next_dialog(self):
+    def display_dialog(self):
         """
         Handles the initiating of dialogs and deciding which dialog to display if required
         :return: None
@@ -692,10 +601,10 @@ class PlayerDialogs(xbmc.Player):
         except RuntimeError:
             g.log("Kodi did not return a playing file, killing playback dialogs", "error")
             return
-        if g.PLAYLIST.size() > 0 and g.PLAYLIST.getposition() != (
-            g.PLAYLIST.size() - 1
-        ):
-            if g.get_bool_setting("smartplay.playingnextdialog"):
+        if g.PLAYLIST.size() > 0 and g.PLAYLIST.getposition() != (g.PLAYLIST.size() - 1):
+            if g.get_bool_setting("smartplay.stillwatching") and self._still_watching_calc():
+                target = self._show_still_watching
+            elif g.get_bool_setting("smartplay.playingnextdialog"):
                 target = self._show_playing_next
             else:
                 return
@@ -710,64 +619,6 @@ class PlayerDialogs(xbmc.Player):
                 return
 
             target()
-
-    def display_still_watching_dialog(self):
-        """
-        Handles the initiating of dialogs and deciding which dialog to display if required
-        :return: None
-        :rtype: None
-        """
-        try:
-            self.playing_file = self.getPlayingFile()
-        except RuntimeError:
-            g.log("Kodi did not return a playing file, killing playback dialogs", "error")
-            return
-        if g.PLAYLIST.size() > 0:
-            if (
-                g.get_bool_setting("smartplay.stillwatching")
-                and self._still_watching_calc()
-            ):
-                target = self._show_still_watching
-            else:
-                return
-
-            if self.playing_file != self.getPlayingFile():
-                return
-
-            if not self.isPlayingVideo():
-                return
-
-            if not self._is_video_window_open():
-                return
-
-            target()
-
-    def display_intro_dialog(self):
-        """
-        Handles the initiating of skip intro dialog
-        :return: None
-        :rtype: None
-        """
-        try:
-            self.playing_file = self.getPlayingFile()
-        except RuntimeError:
-            g.log("Kodi did not return a playing file, killing playback dialogs", "error")
-            return
-        if g.get_bool_setting("skip.intro.dialog"):
-            target = self._show_skip_intro
-        else:
-            return
-
-        if self.playing_file != self.getPlayingFile():
-            return
-
-        if not self.isPlayingVideo():
-            return
-
-        if not self._is_video_window_open():
-            return
-
-        target()
 
     @staticmethod
     def _still_watching_calc():
@@ -795,20 +646,7 @@ class PlayerDialogs(xbmc.Player):
         try:
             window = StillWatching(
                 *SkinManager().confirm_skin_path("still_watching.xml"),
-                item_information=self._get_current_item_item_information(),
-            )
-            window.doModal()
-        finally:
-            del window
-
-    def _show_skip_intro(self):
-        from resources.lib.gui.windows.skip_intro import SkipIntro
-        from resources.lib.database.skinManager import SkinManager
-
-        try:
-            window = SkipIntro(
-                *SkinManager().confirm_skin_path("skip_intro.xml"),
-                item_information=self._get_current_item_item_information(),
+                item_information=self._get_next_item_item_information(),
             )
             window.doModal()
         finally:
@@ -818,13 +656,6 @@ class PlayerDialogs(xbmc.Player):
     def _get_next_item_item_information():
         current_position = g.PLAYLIST.getposition()
         url = g.PLAYLIST[current_position + 1].getPath()  # pylint: disable=unsubscriptable-object
-        params = dict(parse.parse_qsl(parse.unquote(url.split("?")[1])))
-        return tools.get_item_information(tools.deconstruct_action_args(params.get("action_args")))
-
-    @staticmethod
-    def _get_current_item_item_information():
-        current_position = g.PLAYLIST.getposition()
-        url = g.PLAYLIST[current_position].getPath()  # pylint: disable=unsubscriptable-object
         params = dict(parse.parse_qsl(parse.unquote(url.split("?")[1])))
         return tools.get_item_information(tools.deconstruct_action_args(params.get("action_args")))
 

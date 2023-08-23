@@ -395,7 +395,7 @@
             <fanart>fanart.png</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.seren" version="3.0.0-master" name="Seren" provider-name="inb4after">
+</addon><addon id="plugin.video.seren" version="3.0.0.1" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />

@@ -120,7 +120,7 @@
 						<height>20</height>
 						<font>font12</font>
 						<textcolor>ffffffff</textcolor>
-						<label>$ADDON[plugin.video.seren 30553] [COLOR $INFO[Window.Property(settings.color)]]$INFO[Player.TimeRemaining(mm:ss)][/COLOR]</label>
+						<label>$ADDON[plugin.video.seren 30210]</label>
 						<visible>Integer.IsGreater(Player.TimeRemaining,59)</visible>
 					</control>
 				</control>

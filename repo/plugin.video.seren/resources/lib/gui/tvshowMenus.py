@@ -301,7 +301,6 @@ class Menus:
     def my_shows_collection(self):
         no_paging = not g.get_bool_setting("general.paginatecollection")
         sort = "title" if g.get_int_setting("general.sortcollection") == 1 else False
-        sort_direction = g.get_int_setting("general.sortcollection.direction")
         trakt_list = self.shows_database.get_collected_shows(g.PAGE)
         if sort == "title" and not no_paging:
             trakt_list = sorted(
@@ -309,8 +308,6 @@ class Menus:
             )
             offset = (g.PAGE - 1) * self.page_limit
             trakt_list = trakt_list[offset : offset + self.page_limit]
-        if sort == "title" and sort_direction == 1:
-            trakt_list.reverse()
         self.list_builder.show_list_builder(trakt_list, no_paging=no_paging, sort=sort)
 
     @trakt_auth_guard
@@ -330,7 +327,6 @@ class Menus:
     def my_show_progress(self):
         no_paging = not g.get_bool_setting("general.paginatecollection")
         sort = "title" if g.get_int_setting("general.sortcollection") == 1 else False
-        sort_direction = g.get_int_setting("general.sortcollection.direction")
         trakt_list = self.shows_database.get_unfinished_collected_shows(g.PAGE)
         if sort == "title" and not no_paging:
             trakt_list = sorted(
@@ -338,8 +334,6 @@ class Menus:
             )
             offset = (g.PAGE - 1) * self.page_limit
             trakt_list = trakt_list[offset : offset + self.page_limit]
-        if sort == "title" and sort_direction == 1:
-            trakt_list.reverse()
         self.list_builder.show_list_builder(trakt_list, no_paging=no_paging, sort=sort)
 
     @trakt_auth_guard
@@ -369,10 +363,7 @@ class Menus:
         self.list_builder.show_list_builder(self.shows_database.get_recently_watched_shows(), no_paging=True)
 
     def my_next_up(self):
-        episodes = self.shows_database.get_nextup_episodes(
-            g.get_int_setting("nextup.sort"),
-            g.get_int_setting("nextup.sort.direction")
-        )
+        episodes = self.shows_database.get_nextup_episodes(g.get_int_setting("nextup.sort") == 1)
         self.list_builder.mixed_episode_builder(episodes, no_paging=True)
 
     @trakt_auth_guard

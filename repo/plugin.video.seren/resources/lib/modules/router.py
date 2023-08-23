@@ -664,20 +664,14 @@ def dispatch(params):
 
         Menus().flat_episode_list(action_args)
 
-    elif action == "runPlayingNextDialog":
+    elif action == "runPlayerDialogs":
         from resources.lib.modules.player import PlayerDialogs
 
-        PlayerDialogs().display_playing_next_dialog()
-
-    elif action == "runStillWatchingDialog":
-        from resources.lib.modules.player import PlayerDialogs
-
-        PlayerDialogs().display_still_watching_dialog()
-
-    elif action == "runIntroDialog":
-        from resources.lib.modules.player import PlayerDialogs
-
-        PlayerDialogs().display_intro_dialog()
+        try:
+            player_dialogs = PlayerDialogs()
+            player_dialogs.display_dialog()
+        finally:
+            del player_dialogs
 
     elif action == "authAllDebrid":
         from resources.lib.debrid.all_debrid import AllDebrid

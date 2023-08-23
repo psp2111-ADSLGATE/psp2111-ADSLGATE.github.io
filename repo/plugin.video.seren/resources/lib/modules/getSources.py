@@ -109,8 +109,7 @@ class Sources:
         self.preem_adaptive_sources = g.get_bool_setting('preem.adaptiveSources')
         self.preem_direct_sources = g.get_bool_setting('preem.directSources')
         self.preem_type = g.get_int_setting('preem.type')
-        self.preem_movie_limit = g.get_int_setting('preem.movie.limit')
-        self.preem_tv_limit = g.get_int_setting('preem.tv.limit')
+        self.preem_limit = g.get_int_setting('preem.limit')
         self.preem_resolutions = approved_qualities[
             g.get_int_setting("general.maxResolution") : self._get_pre_term_min()
         ]
@@ -126,8 +125,7 @@ class Sources:
             g.log('Starting Scraping', 'debug')
             g.log(f"Timeout: {self.timeout}", 'debug')
             g.log(f"Pre-term-enabled: {self.preem_enabled}", 'debug')
-            g.log(f"Pre-term-movie-limit: {self.preem_movie_limit}", 'debug')
-            g.log(f"Pre-term-tv-limit: {self.preem_tv_limit}", 'debug')
+            g.log(f"Pre-term-limit: {self.preem_limit}", 'debug')
             g.log(f"Pre-term-res: {self.preem_resolutions}", 'debug')
             g.log(f"Pre-term-type: {self.preem_type}", 'debug')
             g.log(f"Pre-term-cloud-files: {self.preem_cloudfiles}", 'debug')
@@ -1013,11 +1011,6 @@ class Sources:
             return True
 
         pre_term_log_string = 'Pre-emptively Terminated'
-        
-        if self.media_type == 'episode':
-            self.preem_limit = g.get_int_setting('preem.tv.limit')
-        else:
-            self.preem_limit = g.get_int_setting('preem.movie.limit')
 
         try:
             if (

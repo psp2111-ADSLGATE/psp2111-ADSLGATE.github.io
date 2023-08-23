@@ -210,14 +210,8 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
         """
         paginate = g.get_bool_setting("general.paginatecollection")
         sort = g.get_int_setting("general.sortcollection")
-        sort_direction = g.get_int_setting("general.sortcollection.direction")
 
-        if sort_direction == 0:
-            sort_direction = "asc"
-        elif sort_direction == 1:
-            sort_direction = "desc"
-
-        order_by = " ORDER BY max(e.collected_at) " + sort_direction if sort == 0 else ""
+        order_by = "ORDER BY max(e.collected_at) DESC" if sort == 0 else ""
         limit = (
             f"LIMIT {self.page_limit} OFFSET {self.page_limit * (page - 1)}"
             if paginate and not force_all and sort != 1
@@ -874,27 +868,18 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
         self._format_seasons(seasons_to_update)
         self._format_episodes(episodes_to_update)
 
-    def get_nextup_episodes(self, sort_by, sort_direction):
+    def get_nextup_episodes(self, sort_by_last_watched=False):
         """
         Fetches a mock trakt response of items that a user should watch next for each show
-        :param sort_by: Optional sorting by param column
-        :type sort_by: int
-        :param sort_direction: Sorting direction
-        :type sort_direction: int
+        :param sort_by_last_watched: Optional sorting by last_watched_at column
+        :type sort_by_last_watched: bool
         :return: List of mixed episode/show pairs
         :rtype: list
         """
-        if sort_by == 0:
-            sort_by = "e.air_date"
-        elif sort_by == 1:
-            sort_by = "inner.last_watched_at"
-
-        if sort_direction == 0:
-            sort_direction = "ASC"
-        elif sort_direction == 1:
-            sort_direction = "DESC"
-
-        order_by = " ORDER BY " + sort_by + " " + sort_direction
+        if sort_by_last_watched:
+            order_by = "ORDER BY inner_episodes.last_watched_at DESC"
+        else:
+            order_by = "ORDER BY e.air_date DESC"
         query = f"""
             SELECT e.trakt_id,
                    e.number  AS episode_x,
@@ -1015,14 +1000,8 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
         """
         paginate = g.get_bool_setting("general.paginatecollection")
         sort = g.get_int_setting("general.sortcollection")
-        sort_direction = g.get_int_setting("general.sortcollection.direction")
 
-        if sort_direction == 0:
-            sort_direction = "asc"
-        elif sort_direction == 1:
-            sort_direction = "desc"
-
-        order_by = " ORDER BY collected_at " + sort_direction if sort == 0 else ""
+        order_by = "ORDER BY collected_at DESC" if sort == 0 else ""
         limit = f" LIMIT {self.page_limit} OFFSET {self.page_limit * (page - 1)}" if paginate and sort != 1 else ""
 
         query = f"""
