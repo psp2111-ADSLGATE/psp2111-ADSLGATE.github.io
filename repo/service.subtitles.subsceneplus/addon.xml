@@ -23,5 +23,8 @@ Other languages with a great number of subtitles are: Danish, French, Swedish, D
         <website/>
         <email/>
         <source>https://github.com/manacker/service.subtitles.subscene</source>
+		<assets>
+            <icon>icon.jpg</icon>
+        </assets>
     </extension>
 </addon>

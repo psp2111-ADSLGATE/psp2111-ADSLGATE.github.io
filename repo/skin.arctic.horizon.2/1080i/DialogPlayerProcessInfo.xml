@@ -3,6 +3,7 @@
     <animation effect="fade" start="0" end="100" time="300">WindowOpen</animation>
     <animation effect="fade" end="0" start="100" time="300">WindowClose</animation>
     <onload>CancelAlarm(osd_timeout,true)</onload>
+<onload>RunScript(script.amlogic.displayinfo)</onload>
     <controls>
         <include content="Object_Control">
             <param name="control" value="image" />
@@ -15,7 +16,7 @@
             <include content="Object_Height" condition="VideoPlayer.Content(livetv)">
                 <param name="height">680</param>
             </include>
-            <height>410</height>
+            <height>650</height>
             <width>1080</width>
             <left>grid_x04</left>
             <bottom>160</bottom>
@@ -108,6 +109,33 @@
                     <label>$INFO[Player.Process(deintmethod),[B]$LOCALIZE[16038][/B][CR]]</label>
                     <visible>!VideoPlayer.Content(livetv)</visible>
                 </control>
+				<!-- Begin CoreELEC change -->
+				   <control type="label">
+                    <height>80</height>
+                    <align>left</align>
+                    <font>font_mini</font>
+                    <textcolor>dialog_fg_70</textcolor>
+                    <label>$INFO[Player.Process(amlogic.displaymode),[B]$LOCALIZE[31216][/B][CR]]$VAR[Label_VideoHWDecoder, (,)]</label>
+                    <visible>!VideoPlayer.Content(livetv)</visible>
+                </control>
+                <control type="label">
+                    <height>80</height>
+                    <align>left</align>
+                    <font>font_mini</font>
+                    <textcolor>dialog_fg_70</textcolor>
+                    <label>$INFO[Player.Process(amlogic.eoft_gamut),[B]$LOCALIZE[31217][/B][CR]]</label>
+                    <visible>!VideoPlayer.Content(livetv)</visible>
+                </control>
+                <control type="label">
+                    <height>80</height>
+                    <align>left</align>
+                    <font>font_mini</font>
+                    <textcolor>dialog_fg_70</textcolor>
+                    <label>$INFO[Player.Process(amlogic.pixformat),[B]$LOCALIZE[16038][/B][CR]]</label>
+                    <visible>!VideoPlayer.Content(livetv)</visible>
+                </control>
+				<!-- End CoreELEC change -->
+				
             </control>
             <control type="grouplist">
                 <top>120</top>

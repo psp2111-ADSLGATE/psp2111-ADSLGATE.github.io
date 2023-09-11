@@ -41,5 +41,8 @@ As extra several extra feastures are added in this case:
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
     <source></source>
+	<assets>
+        <icon>icon.png</icon>
+    </assets>
   </extension>
 </addon>
