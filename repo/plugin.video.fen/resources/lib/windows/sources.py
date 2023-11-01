@@ -14,11 +14,11 @@ info_icons_dict = {'furk': get_icon('provider_furk'), 'easynews': get_icon('prov
 				'rd_cloud': get_icon('provider_realdebrid'), 'pm_cloud': get_icon('provider_premiumize')}
 info_quality_dict = {'4k': get_icon('flag_4k'), '1080p': get_icon('flag_1080p'), '720p': get_icon('flag_720p'), 'sd': get_icon('flag_sd'),
 					'cam': get_icon('flag_sd'), 'tele': get_icon('flag_sd'), 'scr': get_icon('flag_sd')}
-extra_info_choices = (('PACK', 'PACK'), ('DOLBY VISION', 'D/VISION'), ('HIGH DYNAMIC RANGE (HDR)', 'HDR'), ('HYBRID', 'HYBRID'), ('AV1', 'AV1'),
+extra_info_choices = (('حزمة', 'PACK'), ('DOLBY VISION', 'D/VISION'), ('HDR', 'HDR'), ('هايبرد', 'HYBRID'), ('AV1', 'AV1'),
 					('HEVC (X265)', 'HEVC'), ('REMUX', 'REMUX'), ('BLURAY', 'BLURAY'), ('SDR', 'SDR'), ('3D', '3D'), ('DOLBY ATMOS', 'ATMOS'), ('DOLBY TRUEHD', 'TRUEHD'),
 					('DOLBY DIGITAL EX', 'DD-EX'), ('DOLBY DIGITAL PLUS', 'DD+'), ('DOLBY DIGITAL', 'DD'), ('DTS-HD MASTER AUDIO', 'DTS-HD MA'), ('DTS-X', 'DTS-X'),
-					('DTS-HD', 'DTS-HD'), ('DTS', 'DTS'), ('AAC', 'AAC'), ('OPUS', 'OPUS'), ('MP3', 'MP3'), ('8CH AUDIO', '8CH'), ('7CH AUDIO', '7CH'), ('6CH AUDIO', '6CH'),
-					('2CH AUDIO', '2CH'), ('DVD SOURCE', 'DVD'), ('WEB SOURCE', 'WEB'), ('MULTIPLE LANGUAGES', 'MULTI-LANG'), ('SUBTITLES', 'SUBS'))
+					('DTS-HD', 'DTS-HD'), ('DTS', 'DTS'), ('AAC', 'AAC'), ('OPUS', 'OPUS'), ('MP3', 'MP3'), ('8 قنوات صوت', '8CH'), ('7 قنوات صوت', '7CH'), ('6 قنوات صوت', '6CH'),
+					('قناتين صوت', '2CH'), ('مصدر DVD', 'DVD'), ('مصدر WEB', 'WEB'), ('متعدد اللغات', 'MULTI-LANG'), ('الترجمة', 'SUBS'))
 quality_choices = ('4K', '1080P', '720P', 'SD', 'CAM/SCR/TELE')
 prerelease_values, prerelease_key = ('CAM', 'SCR', 'TELE'), 'CAM/SCR/TELE'
 poster_lists, pack_check = ('list', 'medialist'), ('true', 'show', 'season')
@@ -224,10 +224,10 @@ class SourcesResults(BaseDialog):
 		provider_choices = sorted(sort_ranks.keys(), key=sort_ranks.get)
 		provider_choices = [upper(i) for i in provider_choices]
 		providers.sort(key=provider_choices.index)
-		qualities = [('Show [B]%s[/B] Only' % i, 'quality_%s' % i) for i in qualities]
-		providers = [('Show [B]%s[/B] Only' % i, 'provider_%s' % i) for i in providers]
+		qualities = [('عرض نتائج [B]%s[/B] فقط' % i, 'quality_%s' % i) for i in qualities]
+		providers = [('عرض نتائج [B]%s[/B] فقط' % i, 'provider_%s' % i) for i in providers]
 		data = qualities + providers
-		if self.uncached_torrents: data.append(('Show [B]%s[/B] Only' % show_uncached_str, 'special_showuncached'))
+		if self.uncached_torrents: data.append(('عرض نتائج [B]%s[/B] فقط' % show_uncached_str, 'special_showuncached'))
 		data.extend([(filter_title, 'special_title'), (filter_extraInfo, 'special_extraInfo')])
 		self.filter_list = list(builder(data))
 

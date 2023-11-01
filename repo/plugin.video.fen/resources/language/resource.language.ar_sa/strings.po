@@ -356,7 +356,7 @@ msgstr "التخزين المؤقت لـTrakt"
 
 msgctxt "#32088"
 msgid "Uncached"
-msgstr "عرض التورنت الغير مخزن مؤقتاً"
+msgstr "تورنت غير مخزنة"
 
 msgctxt "#32089"
 msgid "Show"
@@ -3915,6 +3915,14 @@ msgstr "تم البث لأول مرة (تصاعدي)"
 msgctxt "#33187"
 msgid "First Aired (desc)"
 msgstr "تم البث لأول مرة (تنازلي)"
+
+msgctxt "#33176"
+msgid "show"
+msgstr "عرض"
+
+msgctxt "#33177"
+msgid "only"
+msgstr "فقط"
 ###################################################################################################################################
 msgid ""
 msgstr ""
