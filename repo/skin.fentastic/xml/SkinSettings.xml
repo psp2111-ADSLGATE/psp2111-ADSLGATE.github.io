@@ -2,7 +2,6 @@
 <window>
 	<defaultcontrol>9000</defaultcontrol>
 	<backgroundcolor>background</backgroundcolor>
-	<onload condition="String.IsEmpty(Skin.String(background_overlay))">Skin.SetString(background_overlay,1)</onload>
 	<controls>
 		<include>DefaultBackground</include>
 		<control type="multiimage">
@@ -32,7 +31,7 @@
 				<ondown>610</ondown>
 				<visible>Container(9000).HasFocus(1)</visible>
 				<control type="button" id="624">
-					<label>Remake menus and widgets</label>
+					<label>إعادة إنشاء القوائم والدجيت</label>
 					<include>DefaultSettingButton</include>
 					<onclick>RunScript(script.fentastic.helper,mode=remake_all_cpaths)</onclick>
 				</control>
@@ -44,24 +43,17 @@
 					<onclick>Skin.ToggleSetting(HomeMenuNoMoviesButton)</onclick>
 				</control>
 				<control type="button" id="6241">
-					<label>   - Set main menu path</label>
+					<label>اختيار مسار للزر...    </label>
 					<include>DefaultSettingButton</include>
 					<onclick>RunScript(script.fentastic.helper,mode=manage_main_menu_path&amp;cpath_setting=movie.main_menu)</onclick>
 					<visible>!Skin.HasSetting(HomeMenuNoMoviesButton)</visible>
 				</control>
 				<control type="button" id="6242">
-					<label>   - Set widgets</label>
+					<label>إنشاء قوائم ودجيت...    </label>
 					<include>DefaultSettingButton</include>
 					<onclick>RunScript(script.fentastic.helper,mode=manage_widgets&amp;cpath_setting=movie.widget)</onclick>
 					<visible>!Skin.HasSetting(HomeMenuNoMoviesButton)</visible>
 				</control>
-				<!-- <control type="radiobutton" id="6243">
-					<label>   - $LOCALIZE[31008]</label>
-					<include>DefaultSettingButton</include>
-					<selected>!Skin.HasSetting(HomeMenuNoMoviesCategories)</selected>
-					<onclick>Skin.ToggleSetting(HomeMenuNoMoviesCategories)</onclick>
-					<visible>!Skin.HasSetting(HomeMenuNoMoviesButton)</visible>
-				</control> -->
 				<!-- TV SHOWS -->
 				<control type="radiobutton" id="625">
 					<label>$INFO[Skin.String(MenuTVShowLabel)]</label>
@@ -70,24 +62,74 @@
 					<onclick>Skin.ToggleSetting(HomeMenuNoTVShowsButton)</onclick>
 				</control>
 				<control type="button" id="6250">
-					<label>   - Set main menu path</label>
+					<label>اختيار مسار للزر...     </label>
 					<include>DefaultSettingButton</include>
 					<onclick>RunScript(script.fentastic.helper,mode=manage_main_menu_path&amp;cpath_setting=tvshow.main_menu)</onclick>
 					<visible>!Skin.HasSetting(HomeMenuNoTVShowsButton)</visible>
 				</control>
 				<control type="button" id="6251">
-					<label>   - Set widgets</label>
+					<label>إنشاء قوائم ودجيت...    </label>
 					<include>DefaultSettingButton</include>
 					<onclick>RunScript(script.fentastic.helper,mode=manage_widgets&amp;cpath_setting=tvshow.widget)</onclick>
 					<visible>!Skin.HasSetting(HomeMenuNoTVShowsButton)</visible>
 				</control>
-				<!-- <control type="radiobutton" id="6252">
-					<label>   - $LOCALIZE[31008]</label>
+				<!-- CUSTOM 1 -->
+				<control type="radiobutton" id="626">
+					<label>$INFO[Skin.String(MenuCustom1Label)]</label>
 					<include>DefaultSettingButton</include>
-					<selected>!Skin.HasSetting(HomeMenuNoTVShowsCategories)</selected>
-					<onclick>Skin.ToggleSetting(HomeMenuNoTVShowsCategories)</onclick>
-					<visible>!Skin.HasSetting(HomeMenuNoTVShowsButton)</visible>
-				</control> -->
+					<selected>!Skin.HasSetting(HomeMenuNoCustom1Button)</selected>
+					<onclick>Skin.ToggleSetting(HomeMenuNoCustom1Button)</onclick>
+				</control>
+				<control type="button" id="6260">
+					<label>اختيار مسار للزر...    </label>
+					<include>DefaultSettingButton</include>
+					<onclick>RunScript(script.fentastic.helper,mode=manage_main_menu_path&amp;cpath_setting=custom1.main_menu)</onclick>
+					<visible>!Skin.HasSetting(HomeMenuNoCustom1Button)</visible>
+				</control>
+				<control type="button" id="6261">
+					<label>إنشاء قوائم ودجيت...    </label>
+					<include>DefaultSettingButton</include>
+					<onclick>RunScript(script.fentastic.helper,mode=manage_widgets&amp;cpath_setting=custom1.widget)</onclick>
+					<visible>!Skin.HasSetting(HomeMenuNoCustom1Button)</visible>
+				</control>
+				<!-- CUSTOM 2 -->
+				<control type="radiobutton" id="627">
+					<label>$INFO[Skin.String(MenuCustom2Label)]</label>
+					<include>DefaultSettingButton</include>
+					<selected>!Skin.HasSetting(HomeMenuNoCustom2Button)</selected>
+					<onclick>Skin.ToggleSetting(HomeMenuNoCustom2Button)</onclick>
+				</control>
+				<control type="button" id="6270">
+					<label>اختيار مسار للزر...    </label>
+					<include>DefaultSettingButton</include>
+					<onclick>RunScript(script.fentastic.helper,mode=manage_main_menu_path&amp;cpath_setting=custom2.main_menu)</onclick>
+					<visible>!Skin.HasSetting(HomeMenuNoCustom2Button)</visible>
+				</control>
+				<control type="button" id="6271">
+					<label>إنشاء قوائم ودجيت...    </label>
+					<include>DefaultSettingButton</include>
+					<onclick>RunScript(script.fentastic.helper,mode=manage_widgets&amp;cpath_setting=custom2.widget)</onclick>
+					<visible>!Skin.HasSetting(HomeMenuNoCustom2Button)</visible>
+				</control>
+				<!-- CUSTOM 3 -->
+				<control type="radiobutton" id="628">
+					<label>$INFO[Skin.String(MenuCustom3Label)]</label>
+					<include>DefaultSettingButton</include>
+					<selected>!Skin.HasSetting(HomeMenuNoCustom3Button)</selected>
+					<onclick>Skin.ToggleSetting(HomeMenuNoCustom3Button)</onclick>
+				</control>
+				<control type="button" id="6280">
+					<label>اختيار مسار للزر...    </label>
+					<include>DefaultSettingButton</include>
+					<onclick>RunScript(script.fentastic.helper,mode=manage_main_menu_path&amp;cpath_setting=custom3.main_menu)</onclick>
+					<visible>!Skin.HasSetting(HomeMenuNoCustom3Button)</visible>
+				</control>
+				<control type="button" id="6281">
+					<label>إنشاء قوائم ودجيت...    </label>
+					<include>DefaultSettingButton</include>
+					<onclick>RunScript(script.fentastic.helper,mode=manage_widgets&amp;cpath_setting=custom3.widget)</onclick>
+					<visible>!Skin.HasSetting(HomeMenuNoCustom3Button)</visible>
+				</control>
 				<!-- MUSIC -->
 				<control type="radiobutton" id="6252">
 					<label>$LOCALIZE[31008]</label>
@@ -95,7 +137,7 @@
 					<selected>!Skin.HasSetting(home_no_categories_widget)</selected>
 					<onclick>Skin.ToggleSetting(home_no_categories_widget)</onclick>
 				</control>
-				<control type="radiobutton" id="627">
+				<control type="radiobutton" id="6272">
 					<label>$LOCALIZE[2]</label>
 					<include>DefaultSettingButton</include>
 					<selected>!Skin.HasSetting(HomeMenuNoMusicButton)</selected>
@@ -109,7 +151,7 @@
 					<onclick>Skin.ToggleSetting(HomeMenuNoMusicVideoButton)</onclick>
 				</control>
 				<!-- PVR -->
-				<control type="radiobutton" id="626">
+				<control type="radiobutton" id="6262">
 					<label>$LOCALIZE[19020]</label>
 					<include>DefaultSettingButton</include>
 					<selected>!Skin.HasSetting(HomeMenuNoTVButton)</selected>
@@ -178,41 +220,85 @@
 				<pagecontrol>60</pagecontrol>
 				<ondown>637</ondown>
 				<visible>Container(9000).HasFocus(2)</visible>
+				<!-- POWER BUTTON BEHAVIOR -->
+				<control type="button" id="63701">
+					<label>Default power button behavior</label>
+					<label2>$VAR[OneClickCloseVar]</label2>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(OneClickClose)</onclick>
+					<selected>Skin.HasSetting(OneClickClose)</selected>
+				</control>
+				<!-- ALTERNATE INFOPANEL -->
+				<control type="radiobutton" id="63702">
+					<label>Enable alternate InfoPanel</label>
+					<include>DefaultSettingButton</include>
+					<selected>Skin.HasSetting(Enable.AlternateInfo)</selected>
+					<onclick>Skin.ToggleSetting(Enable.AlternateInfo)</onclick>
+				</control>
 				<!-- RAINDROP BACKGROUND -->
-				<control type="radiobutton" id="6370">
+				<control type="radiobutton" id="63703">
 					<label>Show raindrop background</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.ToggleSetting(HideRainDrops)</onclick>
 					<selected>Skin.HasSetting(HideRainDrops)</selected>
 				</control>
 				<!-- STACKED WIDGET DELAY -->
-				<control type="button" id="6371">
+				<control type="button" id="63704">
 					<label>Set stacked widget load delay in milliseconds (1000ms = 1 second)</label>
 					<label2>$INFO[Skin.String(category_widget_delay),, milliseconds]</label2>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.SetNumeric(category_widget_delay)</onclick>
 				</control>
 				<!-- COUNTDOWN TIMER -->
-				<control type="radiobutton" id="6372">
+				<control type="radiobutton" id="63705">
 					<label>Show countdown timer for stacked widget load delay</label>
 					<include>DefaultSettingButton</include>
 					<selected>Skin.HasSetting(category_widget_display_delay)</selected>
 					<onclick>Skin.ToggleSetting(category_widget_display_delay)</onclick>
 				</control>
-				<control type="radiobutton" id="6373">
+				<!-- FOCUS ANIMATIONS -->
+				<control type="radiobutton" id="63706">
 					<label>Enable focus animations</label>
 					<include>DefaultSettingButton</include>
 					<selected>!Skin.HasSetting(NoFocusAnimations)</selected>
 					<onclick>Skin.ToggleSetting(NoFocusAnimations)</onclick>
 				</control>
+				<!-- ICON SILHOUETTES -->
+				<control type="radiobutton" id="63707">
+					<label>Enable icon silhouettes for category widgets</label>
+					<include>DefaultSettingButton</include>
+					<selected>!Skin.HasSetting(NoIconSilhouettes)</selected>
+					<onclick>Skin.ToggleSetting(NoIconSilhouettes)</onclick>
+				</control>
+				<!-- STUDIO LOGOS -->
+				<control type="radiobutton" id="63708">
+					<label>Disable color studio logos</label>
+					<include>DefaultSettingButton</include>
+					<onclick condition="!System.HasAddon(resource.images.studios.coloured)">InstallAddon(resource.images.studios.coloured)</onclick>
+					<onclick>Skin.ToggleSetting(Disable.ColorStudio)</onclick>
+					<selected>!Skin.HasSetting(Disable.ColorStudio)</selected>
+				</control>
+			</control>
+
+			<control type="grouplist" id="647">
+				<top>133</top>
+				<left>25</left>
+				<right>0</right>
+				<bottom>140</bottom>
+				<onleft>9000</onleft>
+				<onright>60</onright>
+				<onup>647</onup>
+				<pagecontrol>60</pagecontrol>
+				<ondown>647</ondown>
+				<visible>Container(9000).HasFocus(3)</visible>
 				<!-- SEARCH OPTIONS -->
-				<control type="radiobutton" id="638">
+				<control type="radiobutton" id="6470">
 					<label>Enable search results window</label>
 					<include>DefaultSettingButton</include>
 					<selected>!Skin.HasSetting(NoSearchResultsWindow)</selected>
 					<onclick>Skin.ToggleSetting(NoSearchResultsWindow)</onclick>
 				</control>
-				<control type="button" id="6380">
+				<control type="button" id="6471">
 					<label>Default home screen search icon behavior</label>
 					<label2>$VAR[DefaultSearchWindowBehaviorVar]</label2>
 					<include>DefaultSettingButton</include>
@@ -220,54 +306,149 @@
 					<selected>Skin.HasSetting(DefaultSearchWindowBehavior)</selected>
 					<visible>!Skin.HasSetting(NoSearchResultsWindow)</visible>
 				</control>
-				<control type="radiobutton" id="6381">
+				<control type="radiobutton" id="6472">
 					<label>   - $LOCALIZE[342]</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.ToggleSetting(HideMovieResults)</onclick>
 					<selected>!Skin.HasSetting(HideMovieResults)</selected>
 					<visible>!Skin.HasSetting(NoSearchResultsWindow)</visible>
 				</control>
-				<control type="radiobutton" id="6382">
+				<control type="radiobutton" id="6473">
 					<label>   - $LOCALIZE[20343]</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.ToggleSetting(HideTVShowResults)</onclick>
 					<selected>!Skin.HasSetting(HideTVShowResults)</selected>
 					<visible>!Skin.HasSetting(NoSearchResultsWindow)</visible>
 				</control>
-				<control type="radiobutton" id="6383">
-					<label>   - Collections</label>
+				<control type="radiobutton" id="6474">
+					<label>   - سلسلة أفلام</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.ToggleSetting(HideCollectionsResults)</onclick>
 					<selected>!Skin.HasSetting(HideCollectionsResults)</selected>
 					<visible>!Skin.HasSetting(NoSearchResultsWindow)</visible>
 				</control>
-				<control type="radiobutton" id="6384">
-					<label>   - Actors/Actresses</label>
+				<control type="radiobutton" id="6475">
+					<label>   - الفنانين/الفنانات</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.ToggleSetting(HidePeopleResults)</onclick>
 					<selected>!Skin.HasSetting(HidePeopleResults)</selected>
 					<visible>!Skin.HasSetting(NoSearchResultsWindow)</visible>
 				</control>
-				<control type="radiobutton" id="6385">
-					<label>   - IMDb Keywords (Movies)</label>
+				<control type="radiobutton" id="6476">
+					<label>   - الكلمات الدالة لـIMDb (الأفلام)</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.ToggleSetting(HideMovieKeywordResults)</onclick>
 					<selected>!Skin.HasSetting(HideMovieKeywordResults)</selected>
 					<visible>!Skin.HasSetting(NoSearchResultsWindow)</visible>
 				</control>
-				<control type="radiobutton" id="6386">
-					<label>   - IMDb Keywords (TV Shows)</label>
+				<control type="radiobutton" id="6477">
+					<label>   - الكلمات الدالة لـIMDb (المسلسلات)</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.ToggleSetting(HideTVShowKeywordResults)</onclick>
 					<selected>!Skin.HasSetting(HideTVShowKeywordResults)</selected>
 					<visible>!Skin.HasSetting(NoSearchResultsWindow)</visible>
 				</control>
-				<control type="radiobutton" id="6387">
-					<label>   - TRAKT Lists</label>
+				<control type="radiobutton" id="6478">
+					<label>   - قوائم Trakt</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.ToggleSetting(HideTraktResults)</onclick>
 					<selected>!Skin.HasSetting(HideTraktResults)</selected>
 					<visible>!Skin.HasSetting(NoSearchResultsWindow)</visible>
+				</control>
+			</control>
+
+			<control type="grouplist" id="648">
+				<top>133</top>
+				<left>25</left>
+				<right>0</right>
+				<bottom>140</bottom>
+				<onleft>9000</onleft>
+				<onright>60</onright>
+				<onup>648</onup>
+				<pagecontrol>60</pagecontrol>
+				<ondown>648</ondown>
+				<visible>Container(9000).HasFocus(4)</visible>
+				<!-- RATINGS -->	
+				<control type="button" id="6480">
+					<label>Enter MDbList API Key</label>
+					<label2>$INFO[Skin.String(mdblist_api_key)]</label2>
+					<include>DefaultSettingButton</include>
+					<onclick>RunScript(script.fentastic.helper, mode=set_api_key)</onclick>
+				</control>
+				<control type="radiobutton" id="64801">
+					<label>Enable one-click trailers (long press play/pause button or 't' key on keyboard)</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(Enable.OneClickTrailers)</onclick>
+					<selected>Skin.HasSetting(Enable.OneClickTrailers)</selected>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="radiobutton" id="64802">
+					<label>Enable ratings for homescreen InfoPanel</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(Disable.RatingsINF)</onclick>
+					<selected>!Skin.HasSetting(Disable.RatingsINF)</selected>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="radiobutton" id="64803">
+					<label>Enable ratings for widget labels</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(Disable.WidgetLabelRatings)</onclick>
+					<selected>!Skin.HasSetting(Disable.WidgetLabelRatings)</selected>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="radiobutton" id="64804">
+					<label>    - Metacritic</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(Disable.MetacriticRating)</onclick>
+					<selected>!Skin.HasSetting(Disable.MetacriticRating)</selected>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="radiobutton" id="64805">
+					<label>    - Rotten Tomatoes (Critic)</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(Disable.RTCRating)</onclick>
+					<selected>!Skin.HasSetting(Disable.RTCRating)</selected>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="radiobutton" id="64806">
+					<label>    - Rotten Tomatoes (Audience)</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(Disable.RTARating)</onclick>
+					<selected>!Skin.HasSetting(Disable.RTARating)</selected>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="radiobutton" id="64807">
+					<label>    - IMDb (Main)</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(Disable.IMDbRating)</onclick>
+					<selected>!Skin.HasSetting(Disable.IMDbRating)</selected>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="radiobutton" id="64808">
+					<label>    - IMDb (Popular)</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(Disable.IMDbPopularRating)</onclick>
+					<selected>!Skin.HasSetting(Disable.IMDbPopularRating)</selected>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="radiobutton" id="64809">
+					<label>    - TMDb</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.ToggleSetting(Disable.TMDbRating)</onclick>
+					<selected>!Skin.HasSetting(Disable.TMDbRating)</selected>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="button" id="64810">
+					<label>Clear MDbList API Key</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.SetString(mdblist_api_key,)</onclick>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+				</control>
+				<control type="button" id="64811">
+					<label>Clear ratings cache</label>
+					<include>DefaultSettingButton</include>
+					<onclick>RunScript(script.fentastic.helper,mode=delete_all_ratings)</onclick>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
 				</control>
 			</control>
 
@@ -280,7 +461,7 @@
 				<onright>60</onright>
 				<onup>700</onup>
 				<ondown>700</ondown>
-				<visible>Container(9000).HasFocus(3)</visible>
+				<visible>Container(9000).HasFocus(5)</visible>
 				<control type="radiobutton" id="702">
 					<label>$LOCALIZE[31095]</label>
 					<include>DefaultSettingButton</include>
@@ -312,19 +493,20 @@
 					<onclick>Skin.ToggleSetting(hide_mediaflags)</onclick>
 					<selected>!Skin.HasSetting(hide_mediaflags)</selected>
 				</control>
-				<control type="button" id="707">
+				<control type="button" id="708">
 					<label>$LOCALIZE[31024]</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.SelectBool(31024, 38018|circle_userrating, 563|circle_rating, 16018|circle_none)</onclick>
 					<label2>$VAR[RatingSettingLabel2Var]</label2>
 				</control>
-				<control type="button" id="708">
+				<control type="button" id="709">
 					<label>$LOCALIZE[31164]</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.SelectBool(31164, 31165|show_profilename, 31166|show_profileavatar, 16018|show_none)</onclick>
 					<label2>$VAR[ProfileIdentificationLabel2Var]</label2>
 				</control>
 			</control>
+
 			<control type="grouplist" id="600">
 				<top>133</top>
 				<left>25</left>
@@ -334,25 +516,42 @@
 				<onright>60</onright>
 				<onup>600</onup>
 				<ondown>600</ondown>
-				<visible>Container(9000).HasFocus(4)</visible>
-				<control type="radiobutton" id="605">
+				<visible>Container(9000).HasFocus(6)</visible>
+				<control type="radiobutton" id="603">
 					<label>$LOCALIZE[31002]</label>
 					<include>DefaultSettingButton</include>
 					<onclick>Skin.ToggleSetting(no_fanart)</onclick>
 					<selected>!Skin.HasSetting(no_fanart)</selected>
 				</control>
-				<control type="button" id="607">
-					<label>$LOCALIZE[31156]</label>
-					<label2>$VAR[BackgroundOverlayTypeVar]</label2>
+				<control type="button" id="604">
+					<label>Choose default background</label>
+					<label2>$INFO[Skin.String(CustomBackground)]</label2>
 					<include>DefaultSettingButton</include>
-					<onclick condition="String.IsEqual(Skin.String(background_overlay),7)">Skin.SetString(background_overlay,0)</onclick>
-					<onclick condition="String.IsEqual(Skin.String(background_overlay),6)">Skin.SetString(background_overlay,7)</onclick>
-					<onclick condition="String.IsEqual(Skin.String(background_overlay),5)">Skin.SetString(background_overlay,6)</onclick>
-					<onclick condition="String.IsEqual(Skin.String(background_overlay),4)">Skin.SetString(background_overlay,5)</onclick>
-					<onclick condition="String.IsEqual(Skin.String(background_overlay),3)">Skin.SetString(background_overlay,4)</onclick>
-					<onclick condition="String.IsEqual(Skin.String(background_overlay),2)">Skin.SetString(background_overlay,3)</onclick>
-					<onclick condition="String.IsEqual(Skin.String(background_overlay),1)">Skin.SetString(background_overlay,2)</onclick>
-					<onclick condition="String.IsEqual(Skin.String(background_overlay),0)">Skin.SetString(background_overlay,1)</onclick>
+					<onclick>RunScript(script.fentastic.helper, mode=set_image)</onclick>
+				</control>
+				<control type="button" id="605">
+					<label>   - Restore default background</label>
+					<include>DefaultSettingButton</include>
+					<onclick>Skin.Reset(CustomBackground)</onclick>
+					<visible>!String.IsEmpty(Skin.String(CustomBackground))</visible>
+				</control>
+				<control type="button" id="606">
+					<label>Choose background brightness</label>
+					<label2>$INFO[Skin.String(DefaultBackgroundBrightness)]</label2>
+					<include>DefaultSettingButton</include>
+					<onclick condition="String.IsEqual(Skin.String(DefaultBackgroundBrightness),High)">Skin.SetString(DefaultBackgroundBrightness,Medium)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(DefaultBackgroundBrightness),Medium)">Skin.SetString(DefaultBackgroundBrightness,Low)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(DefaultBackgroundBrightness),Low)">Skin.SetString(DefaultBackgroundBrightness,Highest)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(DefaultBackgroundBrightness),Highest)">Skin.SetString(DefaultBackgroundBrightness,High)</onclick>
+				</control>
+				<control type="button" id="607">
+					<label>Choose fanart brightness</label>
+					<label2>$INFO[Skin.String(DefaultFanartBrightness)]</label2>
+					<include>DefaultSettingButton</include>
+					<onclick condition="String.IsEqual(Skin.String(DefaultFanartBrightness),High)">Skin.SetString(DefaultFanartBrightness,Medium)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(DefaultFanartBrightness),Medium)">Skin.SetString(DefaultFanartBrightness,Low)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(DefaultFanartBrightness),Low)">Skin.SetString(DefaultFanartBrightness,Highest)</onclick>
+					<onclick condition="String.IsEqual(Skin.String(DefaultFanartBrightness),Highest)">Skin.SetString(DefaultFanartBrightness,High)</onclick>
 				</control>
 				<control type="button" id="608">
 					<label>$LOCALIZE[31131]</label>
@@ -398,7 +597,7 @@
 				<onup>622</onup>
 				<pagecontrol>60</pagecontrol>
 				<ondown>622</ondown>
-				<visible>Container(9000).HasFocus(5)</visible>
+				<visible>Container(9000).HasFocus(7)</visible>
 				<control type="radiobutton" id="6220">
 					<label>$LOCALIZE[31172]</label>
 					<include>DefaultSettingButton</include>
@@ -414,8 +613,7 @@
 				</control>
 			</control>
 
-			<!-- BEGINNING OF CHANGELOG -->
-			
+			<!-- EXTRA INFO -->
 			<control type="grouplist" id="623">
 				<top>133</top>
 				<left>25</left>
@@ -426,7 +624,7 @@
 				<onup>623</onup>
 				<pagecontrol>60</pagecontrol>
 				<ondown>623</ondown>
-				<visible>Container(9000).HasFocus(6)</visible>
+				<visible>Container(9000).HasFocus(8)</visible>
 				<control type="button" id="6230">
 					<include>DefaultSettingButton</include>
 					<label>[B]CHANGELOG: $INFO[System.AddonTitle(skin.fentastic)][/B]</label>
@@ -441,16 +639,7 @@
 					<onclick>SetProperty(TextViewerHeader,[B]Setup Guide[/B],Home)</onclick>
 					<onclick>ActivateWindow(1118)</onclick>
 				</control>
-				<control type="button" id="6232">
-					<include>DefaultSettingButton</include>
-					<label>[B]Tip:[/B] Crashes</label>
-					<onclick>SetProperty(Tip-Crashes,True)</onclick>
-					<onclick>SetProperty(TextViewerHeader,[B]Crashes[/B],Home)</onclick>
-					<onclick>ActivateWindow(1120)</onclick>
-				</control>
 			</control>
-
-
 			<control type="image">
 				<description>Dialog Header image</description>
 				<left>25</left>
@@ -492,6 +681,7 @@
 						<width>445</width>
 						<height>85</height>
 						<label>$INFO[ListItem.Label]</label>
+						<textcolor>unfocused_text</textcolor>
 						<font>font37</font>
 						<aligny>center</aligny>
 					</control>
@@ -512,6 +702,7 @@
 						<font>font37</font>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<textcolor>focused_text</textcolor>
 					</control>
 				</focusedlayout>
 				<content>
@@ -519,24 +710,32 @@
 						<label>$LOCALIZE[31061]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="2">
-						<label>Options</label>
-						<onclick>noop</onclick>
-					</item>
-					<item id="3">
+					<item id="5">
 						<label>$LOCALIZE[128]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="4">
-						<label>$LOCALIZE[31159]</label>
+					<item id="2">
+						<label>الخيارات</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="5">
-						<label>$LOCALIZE[31170]</label>
+					<item id="4">
+						<label>التقييمات\الترايلر</label>
+						<onclick>noop</onclick>
+					</item>
+					<item id="3">
+						<label>البحث</label>
 						<onclick>noop</onclick>
 					</item>
 					<item id="6">
-						<label>Extra info</label>
+						<label>العمل الفني</label>
+						<onclick>noop</onclick>
+					</item>
+					<item id="7">
+						<label>$LOCALIZE[31170]</label>
+						<onclick>noop</onclick>
+					</item>
+					<item id="8">
+						<label>معلومات أكثر</label>
 						<onclick>noop</onclick>
 					</item>
 				</content>
@@ -566,7 +765,7 @@
 			</control>
 		</control>
 		<include content="TopBar">
-			<param name="breadcrumbs_label" value="$LOCALIZE[5] » $LOCALIZE[20077]" />
+			<param name="breadcrumbs_label" value="$LOCALIZE[5] [B]»[/B] $LOCALIZE[20077]" />
 		</include>
 		<include>BottomBar</include>
 		<control type="textbox" id="6">
@@ -578,7 +777,7 @@
 			<height>100</height>
 			<font>font12</font>
 			<align>justify</align>
-			<textcolor>button_focus</textcolor>
+			<textcolor>unfocused_text</textcolor>
 			<label>$VAR[SkinSettingsHelpTextVar]</label>
 			<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
 		</control>

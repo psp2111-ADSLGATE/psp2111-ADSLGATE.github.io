@@ -29,6 +29,10 @@ def widget_monitor(list_id):
                 window.getControl(int(stack_id + "666"))
                 or window.getControl(int(stack_id + "667"))
                 or window.getControl(int(stack_id + "668"))
+                or window.getControl(int(stack_id + "669"))
+                or window.getControl(int(stack_id + "670"))
+                or window.getControl(int(stack_id + "671"))
+                or window.getControl(int(stack_id + "672"))
             )
         monitor.waitForAbort(0.25)
         if list_id != str(window.getFocusId()):
@@ -57,7 +61,7 @@ def widget_monitor(list_id):
             widget_label = xbmc.getInfoLabel("ListItem.Label")
             if display_delay:
                 stack_label_control.setLabel(
-                    "Loading [COLOR button_focus][B]{}[/B][/COLOR] in [B]%0.2f[/B] seconds".format(
+                    "Loading [COLOR accent_color][B]{}[/B][/COLOR] in [B]%0.2f[/B] seconds".format(
                         widget_label
                     )
                     % (countdown)

@@ -69,6 +69,7 @@
 						<align>center</align>
 						<aligny>top</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<textcolor>unfocused_text</textcolor>
 					</control>
 					<control type="label">
 						<left>10</left>
@@ -79,6 +80,7 @@
 						<align>center</align>
 						<aligny>top</aligny>
 						<label>$LOCALIZE[31029]:</label>
+						<textcolor>unfocused_text</textcolor>
 						<visible>!String.IsEqual(Listitem.Label,$LOCALIZE[20058])</visible>
 					</control>
 					<control type="label">
@@ -90,13 +92,12 @@
 						<align>center</align>
 						<aligny>top</aligny>
 						<label fallback="13170">$INFO[ListItem.Label2]</label>
+						<textcolor>unfocused_text</textcolor>
 						<visible>!String.Contains(Listitem.Label,$LOCALIZE[20058])</visible>
 					</control>
 				</itemlayout>
 				<focusedlayout height="390" width="354">
 					<control type="group">
-						<!-- <animation effect="zoom" start="100" end="105" time="200" tween="sine" easing="inout" center="160,190">Focus</animation>
-						<animation effect="zoom" start="105" end="100" time="200" tween="sine" easing="inout" center="160,190">UnFocus</animation> -->
 						<control type="image">
 							<top>5</top>
 							<width>320</width>
@@ -130,6 +131,7 @@
 							<align>center</align>
 							<aligny>top</aligny>
 							<label>$INFO[ListItem.Label]</label>
+							<textcolor>focused_text</textcolor>
 						</control>
 						<control type="label">
 							<left>10</left>
@@ -140,6 +142,7 @@
 							<align>center</align>
 							<aligny>top</aligny>
 							<label>$LOCALIZE[31029]:</label>
+							<textcolor>focused_text</textcolor>
 							<visible>!String.Contains(Listitem.Label,$LOCALIZE[20058])</visible>
 						</control>
 						<control type="label">
@@ -151,6 +154,7 @@
 							<align>center</align>
 							<aligny>top</aligny>
 							<label fallback="13170">$INFO[ListItem.Label2]</label>
+							<textcolor>focused_text</textcolor>
 							<visible>!String.Contains(Listitem.Label,$LOCALIZE[20058])</visible>
 						</control>
 					</control>
@@ -199,6 +203,7 @@
 						<right>30</right>
 						<bottom>0</bottom>
 						<label>$INFO[ListItem.Label]</label>
+						<textcolor>unfocused_text</textcolor>
 						<font>font37</font>
 						<aligny>center</aligny>
 					</control>
@@ -215,6 +220,7 @@
 						<right>30</right>
 						<bottom>0</bottom>
 						<label>$INFO[ListItem.Label]</label>
+						<textcolor>focused_text</textcolor>
 						<font>font37</font>
 						<aligny>center</aligny>
 					</control>

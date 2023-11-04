@@ -68,3 +68,33 @@ def routing():
         from modules.search_utils import SPaths
 
         return SPaths().open_search_window()
+
+    if mode == "set_api_key":
+        from modules.MDbList import set_api_key
+
+        return set_api_key()
+
+    if mode == "delete_all_ratings":
+        from modules.MDbList import MDbListAPI
+
+        return MDbListAPI().delete_all_ratings()
+
+    if mode == "set_image":
+        from modules.custom_actions import set_image
+
+        return set_image()
+
+    if mode == "modify_keymap":
+        from modules.custom_actions import modify_keymap
+
+        return modify_keymap()
+
+    if mode == "play_trailer":
+        from modules.MDbList import play_trailer
+
+        return play_trailer()
+
+    if mode == "fix_black_screen":
+        from modules.custom_actions import fix_black_screen
+
+        return fix_black_screen()

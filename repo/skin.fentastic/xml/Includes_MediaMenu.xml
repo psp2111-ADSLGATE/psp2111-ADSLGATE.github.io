@@ -7,6 +7,8 @@
 		<height>80</height>
 		<radioposx>370</radioposx>
 		<aligny>center</aligny>
+		<textcolor>unfocused_text</textcolor>
+		<focusedcolor>focused_text</focusedcolor>
 		<invalidcolor>invalid</invalidcolor>
 		<texturefocus colordiffuse="button_focus">masks/focus.png</texturefocus>
 		<texturenofocus />
@@ -28,10 +30,10 @@
 				<radioposy>0</radioposy>
 				<radiowidth>40</radiowidth>
 				<radioheight>40</radioheight>
-				<textureradioonfocus>$PARAM[icon]</textureradioonfocus>
-				<textureradioonnofocus>$PARAM[icon]</textureradioonnofocus>
-				<textureradioofffocus>$PARAM[icon]</textureradioofffocus>
-				<textureradiooffnofocus>$PARAM[icon]</textureradiooffnofocus>
+				<textureradioonfocus colordiffuse="focused_text">$PARAM[icon]</textureradioonfocus>
+				<textureradioonnofocus colordiffuse="unfocused_text">$PARAM[icon]</textureradioonnofocus>
+				<textureradioofffocus colordiffuse="focused_text">$PARAM[icon]</textureradioofffocus>
+				<textureradiooffnofocus colordiffuse="unfocused_text">$PARAM[icon]</textureradiooffnofocus>
 				<textureradiooffdisabled colordiffuse="button_focus">$PARAM[icon]</textureradiooffdisabled>
 				<onclick condition="String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(TV$PARAM[area])</onclick>
 				<onclick condition="!String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(Radio$PARAM[area])</onclick>
@@ -48,7 +50,7 @@
 			</control>
 			<control type="grouplist" id="9000">
 				<top>50</top>
-				<left>0</left>
+				<left>25</left>
 				<width>470</width>
 				<height>100%</height>
 				<onleft>9000</onleft>
@@ -258,14 +260,14 @@
 		<radioposx>300</radioposx>
 		<font>font25_title</font>
 		<aligny>top</aligny>
-		<textcolor>button_focus</textcolor>
+		<textcolor>accent_color</textcolor>
 	</include>
 	<include name="MediaMenuCommon">
 		<include>OpenClose_Left</include>
 		<depth>DepthSideBlade</depth>
-		<left>-520</left>
+		<left>-770</left>
 		<animation type="Conditional" condition="$EXP[sidebar_visible]" reversible="true">
-			<effect type="slide" start="0" end="520" time="400" tween="cubic" easing="out" />
+			<effect type="slide" start="0" end="770" time="300" tween="cubic" easing="out" />
 		</animation>
 		<control type="image">
 			<width>4000</width>
@@ -278,7 +280,7 @@
 		<control type="image">
 			<left>0</left>
 			<top>0</top>
-			<width>520</width>
+			<width>770</width>
 			<height>100%</height>
 			<texture colordiffuse="button_focus" border="0,0,52,0">lists/contentpanel-fade.png</texture>
 		</control>
@@ -343,7 +345,7 @@
 	</include>
 	<include name="MediaMenuListCommon">
 		<definition>
-			<left>0</left>
+			<left>25</left>
 			<top>100</top>
 			<width>470</width>
 			<height>100%</height>
@@ -364,14 +366,41 @@
 				<visible>Integer.IsGreater(Container.ViewCount,1)</visible>
 				<onclick>Container.NextViewMode</onclick>
 			</control>
+			<control type="button" id="6052">
+				<label>Brightness</label>
+				<label2>[B]$INFO[Skin.String(DefaultBackgroundBrightness)][/B]</label2>
+				<include>MediaMenuItemsCommon</include>
+				<onclick condition="String.IsEqual(Skin.String(DefaultBackgroundBrightness),High)">Skin.SetString(DefaultBackgroundBrightness,Medium)</onclick>
+				<onclick condition="String.IsEqual(Skin.String(DefaultBackgroundBrightness),Medium)">Skin.SetString(DefaultBackgroundBrightness,Low)</onclick>
+				<onclick condition="String.IsEqual(Skin.String(DefaultBackgroundBrightness),Low)">Skin.SetString(DefaultBackgroundBrightness,Highest)</onclick>
+				<onclick condition="String.IsEqual(Skin.String(DefaultBackgroundBrightness),Highest)">Skin.SetString(DefaultBackgroundBrightness,High)</onclick>
+				<visible>![Container.Content(movies) | Container.Content(tvshows) | Container.Content(episodes) | Container.Content(seasons) | String.StartsWith(ListItem.FolderPath, plugin://plugin.video.fen)]</visible>
+			</control>
 			<control type="button" id="6053">
+				<label>Brightness</label>
+				<label2>[B]$INFO[Skin.String(DefaultFanartBrightness)][/B]</label2>
+				<include>MediaMenuItemsCommon</include>
+				<onclick condition="String.IsEqual(Skin.String(DefaultFanartBrightness),High)">Skin.SetString(DefaultFanartBrightness,Medium)</onclick>
+				<onclick condition="String.IsEqual(Skin.String(DefaultFanartBrightness),Medium)">Skin.SetString(DefaultFanartBrightness,Low)</onclick>
+				<onclick condition="String.IsEqual(Skin.String(DefaultFanartBrightness),Low)">Skin.SetString(DefaultFanartBrightness,Highest)</onclick>
+				<onclick condition="String.IsEqual(Skin.String(DefaultFanartBrightness),Highest)">Skin.SetString(DefaultFanartBrightness,High)</onclick>
+				<visible>!Skin.HasSetting(no_fanart) + [Container.Content(movies) | Container.Content(tvshows) | Container.Content(episodes) | Container.Content(seasons) | String.StartsWith(ListItem.FolderPath, plugin://plugin.video.fen)]</visible>
+			</control>
+			<control type="button" id="6054">
+				<include>MediaMenuItemsCommon</include>
+				<label>Artwork</label>
+				<label2>[B]$VAR[LandscapeSwitchVar][/B]</label2>
+				<visible>Control.IsVisible(55) + [Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons)]</visible>
+				<onclick>Skin.ToggleSetting(UseLandscape)</onclick>
+			</control>
+			<control type="button" id="6055">
 				<include>MediaMenuItemsCommon</include>
 				<label>$LOCALIZE[31022]</label>
 				<label2>[B]$INFO[Container.SortMethod][/B]</label2>
 				<visible>Control.IsEnabled(3)</visible>
 				<onclick>SendClick(3)</onclick>
 			</control>
-			<control type="button" id="6052">
+			<control type="button" id="6056">
 				<include>MediaMenuItemsCommon</include>
 				<label>$LOCALIZE[31032]</label>
 				<label2>[B]$INFO[Container.SortOrder][/B]</label2>

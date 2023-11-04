@@ -68,6 +68,51 @@ main_menu_tvshows_xml = '\
 \n    </include>\
 \n</includes>'
 
+main_menu_custom1_xml = '\
+<?xml version="1.0" encoding="UTF-8"?>\
+\n<includes>\
+\n    <include name="Custom1MainMenu">\
+\n        <item>\
+\n            <label>{cpath_header}</label>\
+\n            <onclick>ActivateWindow(Videos,{main_menu_path},return)</onclick>\
+\n            <property name="menu_id">$NUMBER[23000]</property>\
+\n            <thumb>icons/sidemenu/tv.png</thumb>\
+\n            <property name="id">custom1</property>\
+\n            <visible>!Skin.HasSetting(HomeMenuNoCustom1Button)</visible>\
+\n        </item>\
+\n    </include>\
+\n</includes>'
+
+main_menu_custom2_xml = '\
+<?xml version="1.0" encoding="UTF-8"?>\
+\n<includes>\
+\n    <include name="Custom2MainMenu">\
+\n        <item>\
+\n            <label>{cpath_header}</label>\
+\n            <onclick>ActivateWindow(Videos,{main_menu_path},return)</onclick>\
+\n            <property name="menu_id">$NUMBER[24000]</property>\
+\n            <thumb>icons/sidemenu/tv.png</thumb>\
+\n            <property name="id">custom2</property>\
+\n            <visible>!Skin.HasSetting(HomeMenuNoCustom2Button)</visible>\
+\n        </item>\
+\n    </include>\
+\n</includes>'
+
+main_menu_custom3_xml = '\
+<?xml version="1.0" encoding="UTF-8"?>\
+\n<includes>\
+\n    <include name="Custom3MainMenu">\
+\n        <item>\
+\n            <label>{cpath_header}</label>\
+\n            <onclick>ActivateWindow(Videos,{main_menu_path},return)</onclick>\
+\n            <property name="menu_id">$NUMBER[25000]</property>\
+\n            <thumb>icons/sidemenu/tv.png</thumb>\
+\n            <property name="id">custom3</property>\
+\n            <visible>!Skin.HasSetting(HomeMenuNoCustom3Button)</visible>\
+\n        </item>\
+\n    </include>\
+\n</includes>'
+
 search_history_xml = '\
 <?xml version="1.0" encoding="UTF-8"?>\
 \n<includes>\

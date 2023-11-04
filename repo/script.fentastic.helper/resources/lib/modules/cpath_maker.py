@@ -18,27 +18,66 @@ settings_path = xbmcvfs.translatePath(
 database_path = xbmcvfs.translatePath(
     "special://profile/addon_data/script.fentastic.helper/cpath_cache.db"
 )
-movies_widgets_xml, tvshows_widgets_xml = (
+(
+    movies_widgets_xml,
+    tvshows_widgets_xml,
+    custom1_widgets_xml,
+    custom2_widgets_xml,
+    custom3_widgets_xml,
+) = (
     "script-fentastic-widget_movies",
     "script-fentastic-widget_tvshows",
+    "script-fentastic-widget_custom1",
+    "script-fentastic-widget_custom2",
+    "script-fentastic-widget_custom3",
 )
-movies_main_menu_xml, tvshows_main_menu_xml = (
+(
+    movies_main_menu_xml,
+    tvshows_main_menu_xml,
+    custom1_main_menu_xml,
+    custom2_main_menu_xml,
+    custom3_main_menu_xml,
+) = (
     "script-fentastic-main_menu_movies",
     "script-fentastic-main_menu_tvshows",
+    "script-fentastic-main_menu_custom1",
+    "script-fentastic-main_menu_custom2",
+    "script-fentastic-main_menu_custom3",
 )
 default_xmls = {
     "movie.widget": (movies_widgets_xml, xmls.default_widget, "MovieWidgets"),
     "tvshow.widget": (tvshows_widgets_xml, xmls.default_widget, "TVShowWidgets"),
+    "custom1.widget": (custom1_widgets_xml, xmls.default_widget, "Custom1Widgets"),
+    "custom2.widget": (custom2_widgets_xml, xmls.default_widget, "Custom2Widgets"),
+    "custom3.widget": (custom3_widgets_xml, xmls.default_widget, "Custom3Widgets"),
     "movie.main_menu": (movies_main_menu_xml, xmls.default_main_menu, "MoviesMainMenu"),
     "tvshow.main_menu": (
         tvshows_main_menu_xml,
         xmls.default_main_menu,
         "TVShowsMainMenu",
     ),
+    "custom1.main_menu": (
+        custom1_main_menu_xml,
+        xmls.default_main_menu,
+        "Custom1MainMenu",
+    ),
+    "custom2.main_menu": (
+        custom2_main_menu_xml,
+        xmls.default_main_menu,
+        "Custom2MainMenu",
+    ),
+    "custom3.main_menu": (
+        custom3_main_menu_xml,
+        xmls.default_main_menu,
+        "Custom3MainMenu",
+    ),
 }
 main_include_dict = {
     "movie": {"main_menu": None, "widget": "MovieWidgets"},
     "tvshow": {"main_menu": None, "widget": "TVShowWidgets"},
+    "custom1": {"main_menu": None, "widget": "Custom1Widgets"},
+    "custom2": {"main_menu": None, "widget": "Custom2Widgets"},
+    "custom3": {"main_menu": None, "widget": "Custom3Widgets"},
 }
 widget_types = (
     ("Poster", "WidgetListPoster"),
@@ -147,7 +186,9 @@ class CPaths:
         list_items = []
         if file != default_path:
             listitem = Listitem(
-                "Use [B]%s[/B] as path" % label, "Set as path", offscreen=True
+                "Use [COLOR dodgerblue]%s[/COLOR] as path" % label,
+                "Set as path",
+                offscreen=True,
             )
             listitem.setArt({"icon": thumbnail})
             listitem.setProperty(
@@ -156,7 +197,16 @@ class CPaths:
             )
             list_items.append(listitem)
         for i in results:
-            listitem = Listitem("%s »" % i["label"], "Browse path...", offscreen=True)
+            stripped_label = i["label"]
+            stripped_label = stripped_label.replace("[B]", "").replace("[/B]", "")
+            while "[COLOR" in stripped_label:
+                start = stripped_label.find("[COLOR")
+                end = stripped_label.find("]", start) + 1
+                stripped_label = stripped_label[:start] + stripped_label[end:]
+            stripped_label = stripped_label.replace("[/COLOR]", "")
+            listitem = Listitem(
+                "%s »" % stripped_label, "Browse path...", offscreen=True
+            )
             listitem.setArt({"icon": i["thumbnail"]})
             listitem.setProperty(
                 "item",
@@ -183,18 +233,36 @@ class CPaths:
             return
         if not active_cpaths:
             self.make_default_xml()
-        if self.media_type == "movie":
-            menu_xml_file, main_menu_xml, key = (
+        media_types = {
+            "movie": (
                 movies_main_menu_xml,
                 xmls.main_menu_movies_xml,
                 "movie.main_menu",
-            )
-        else:
-            menu_xml_file, main_menu_xml, key = (
+            ),
+            "tvshow": (
                 tvshows_main_menu_xml,
                 xmls.main_menu_tvshows_xml,
                 "tvshow.main_menu",
-            )
+            ),
+            "custom1": (
+                custom1_main_menu_xml,
+                xmls.main_menu_custom1_xml,
+                "custom1.main_menu",
+            ),
+            "custom2": (
+                custom2_main_menu_xml,
+                xmls.main_menu_custom2_xml,
+                "custom2.main_menu",
+            ),
+            "custom3": (
+                custom3_main_menu_xml,
+                xmls.main_menu_custom3_xml,
+                "custom3.main_menu",
+            ),
+        }
+        media_values = media_types.get(self.media_type)
+        if media_values:
+            menu_xml_file, main_menu_xml, key = media_values
         xml_file = "special://skin/xml/%s.xml" % (menu_xml_file)
         final_format = main_menu_xml.format(
             main_menu_path=active_cpaths[key]["cpath_path"],
@@ -210,10 +278,23 @@ class CPaths:
             return
         if not active_cpaths:
             self.make_default_xml()
-        xml_file = "special://skin/xml/%s.xml" % (
-            movies_widgets_xml if self.media_type == "movie" else tvshows_widgets_xml
-        )
-        list_id = 19010 if self.media_type == "movie" else 22010
+        media_type_to_xml = {
+            "movie": movies_widgets_xml,
+            "tvshow": tvshows_widgets_xml,
+            "custom1": custom1_widgets_xml,
+            "custom2": custom2_widgets_xml,
+            "custom3": custom3_widgets_xml,
+        }
+        xml_filename = media_type_to_xml.get(self.media_type)
+        xml_file = "special://skin/xml/%s.xml" % xml_filename
+        media_type_id = {
+            "movie": 19010,
+            "tvshow": 22010,
+            "custom1": 23010,
+            "custom2": 24010,
+            "custom3": 25010,
+        }
+        list_id = media_type_id.get(self.media_type)
         final_format = xmls.media_xml_start.format(main_include=self.main_include)
         for k, v in active_cpaths.items():
             cpath_list_id = list_id + k
@@ -331,10 +412,25 @@ class CPaths:
     def update_skin_strings(self):
         movie_cpath = self.fetch_one_cpath("movie.main_menu")
         tvshow_cpath = self.fetch_one_cpath("tvshow.main_menu")
+        custom1_cpath = self.fetch_one_cpath("custom1.main_menu")
+        custom2_cpath = self.fetch_one_cpath("custom2.main_menu")
+        custom3_cpath = self.fetch_one_cpath("custom3.main_menu")
         movie_cpath_header = movie_cpath.get("cpath_header") if movie_cpath else None
         tvshow_cpath_header = tvshow_cpath.get("cpath_header") if tvshow_cpath else None
+        custom1_cpath_header = (
+            custom1_cpath.get("cpath_header") if custom1_cpath else None
+        )
+        custom2_cpath_header = (
+            custom2_cpath.get("cpath_header") if custom2_cpath else None
+        )
+        custom3_cpath_header = (
+            custom3_cpath.get("cpath_header") if custom3_cpath else None
+        )
         default_movie_string_id = 342
         default_tvshow_string_id = 20343
+        default_custom1_string = "Custom 1"
+        default_custom2_string = "Custom 2"
+        default_custom3_string = "Custom 3"
         default_movie_value = (
             xbmc.getLocalizedString(default_movie_string_id)
             if not movie_cpath_header
@@ -345,8 +441,26 @@ class CPaths:
             if not tvshow_cpath_header
             else tvshow_cpath_header
         )
+        default_custom1_value = (
+            default_custom1_string if not custom1_cpath_header else custom1_cpath_header
+        )
+        default_custom2_value = (
+            default_custom2_string if not custom2_cpath_header else custom2_cpath_header
+        )
+        default_custom3_value = (
+            default_custom3_string if not custom3_cpath_header else custom3_cpath_header
+        )
         xbmc.executebuiltin("Skin.SetString(MenuMovieLabel,%s)" % default_movie_value)
         xbmc.executebuiltin("Skin.SetString(MenuTVShowLabel,%s)" % default_tvshow_value)
+        xbmc.executebuiltin(
+            "Skin.SetString(MenuCustom1Label,%s)" % default_custom1_value
+        )
+        xbmc.executebuiltin(
+            "Skin.SetString(MenuCustom2Label,%s)" % default_custom2_value
+        )
+        xbmc.executebuiltin(
+            "Skin.SetString(MenuCustom3Label,%s)" % default_custom3_value
+        )
 
     def manage_action(self, cpath_setting, context="widget"):
         choices = [
@@ -433,12 +547,16 @@ class CPaths:
             if context == "main_menu":
                 cpath_header = self.main_menu_header(default_header)
                 if not cpath_header or cpath_header.strip() == "":
-                    if cpath_setting == "movie.main_menu":
-                        cpath_header = xbmc.getLocalizedString(342)
-                    elif cpath_setting == "tvshow.main_menu":
-                        cpath_header = xbmc.getLocalizedString(20343)
-                    else:
-                        cpath_header = "Default Main Menu Header"
+                    cpath_map = {
+                        "movie.main_menu": xbmc.getLocalizedString(342),
+                        "tvshow.main_menu": xbmc.getLocalizedString(20343),
+                        "custom1.main_menu": "Custom 1",
+                        "custom2.main_menu": "Custom 2",
+                        "custom3.main_menu": "Custom 3",
+                    }
+                    cpath_header = cpath_map.get(
+                        cpath_setting, "Default main menu label not found"
+                    )
                 self.update_cpath_in_database(
                     cpath_setting, cpath_path, cpath_header, "", ""
                 )
@@ -491,7 +609,7 @@ class CPaths:
         widget_type = self.widget_type()
         if widget_type[0] == "Category" and dialog.yesno(
             "Stacked widget",
-            "Make [COLOR button_focus][B]%s[/B][/COLOR] a stacked widget?"
+            "Make [COLOR accent_color][B]%s[/B][/COLOR] a stacked widget?"
             % cpath_header,
         ):
             widget_type = self.widget_type(label="Choose stacked widget display type")
@@ -577,9 +695,21 @@ def get_jsonrpc(request):
 
 
 def remake_all_cpaths(silent=False):
-    for item in ("movie.widget", "tvshow.widget"):
+    for item in (
+        "movie.widget",
+        "tvshow.widget",
+        "custom1.widget",
+        "custom2.widget",
+        "custom3.widget",
+    ):
         CPaths(item).remake_widgets()
-    for item in ("movie.main_menu", "tvshow.main_menu"):
+    for item in (
+        "movie.main_menu",
+        "tvshow.main_menu",
+        "custom1.main_menu",
+        "custom2.main_menu",
+        "custom3.main_menu",
+    ):
         CPaths(item).remake_main_menus()
     if not silent:
         xbmcgui.Dialog().ok("FENtastic", "Menus and widgets remade")
@@ -588,13 +718,26 @@ def remake_all_cpaths(silent=False):
 def starting_widgets():
     window = xbmcgui.Window(10000)
     window.setProperty("fentastic.starting_widgets", "finished")
-    for item in ("movie.widget", "tvshow.widget"):
+    for item in (
+        "movie.widget",
+        "tvshow.widget",
+        "custom1.widget",
+        "custom2.widget",
+        "custom3.widget",
+    ):
         try:
             active_cpaths = CPaths(item).fetch_current_cpaths()
             if not active_cpaths:
                 continue
             widget_type = item.split(".")[0]
-            base_list_id = 19010 if widget_type == "movie" else 22010
+            widget_type_id = {
+                "movie": 19010,
+                "tvshow": 22010,
+                "custom1": 23010,
+                "custom2": 24010,
+                "custom3": 25010,
+            }
+            base_list_id = widget_type_id.get(widget_type)
             for count in range(1, 11):
                 active_widget = active_cpaths.get(count, {})
                 if not active_widget:

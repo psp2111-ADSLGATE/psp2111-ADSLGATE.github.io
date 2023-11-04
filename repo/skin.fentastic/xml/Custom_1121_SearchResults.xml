@@ -3,20 +3,6 @@
 	<defaultcontrol>2000</defaultcontrol>
 	<backgroundcolor>background</backgroundcolor>
 	<controls>
-		<control type="button" id="20000">
-			<include>HiddenObject</include>
-			<animation effect="fade" time="300" start="100" end="0">Focus</animation>
-			<onfocus>SetFocus(2000)</onfocus>
-			<onclick>noop</onclick>
-			<visible allowhiddenfocus="true">Control.HasFocus(20000)</visible>
-		</control>
-		<control type="button" id="20001">
-			<include>HiddenObject</include>
-			<animation effect="fade" time="300" start="100" end="0">Focus</animation>
-			<onfocus>SetFocus(2000)</onfocus>
-			<onclick>noop</onclick>
-			<visible allowhiddenfocus="true">Control.HasFocus(20001)</visible>
-		</control>
 		<include>DefaultBackground</include>
 		<control type="multiimage">
 			<depth>DepthBackground</depth>
@@ -35,14 +21,6 @@
 			<!-- WIDGETS GROUP -->
 			<control type="group" id="2000">
 				<left>462</left>
-				<animation type="Conditional" condition="Control.IsVisible(20000)" reversible="false">
-					<effect type="slide" end="0,20" time="60" tween="sine" />
-					<effect type="slide" end="0,-20" time="180" tween="sine" delay="80" />
-				</animation>
-				<animation type="Conditional" condition="Control.IsVisible(20001)" reversible="false">
-					<effect type="slide" end="0,-20" time="60" tween="sine" />
-					<effect type="slide" end="0,20" time="180" tween="sine" delay="80" />
-				</animation>
 				<include>OpenClose_Right</include>
 				<!-- SEARCH RESULTS -->
 				<control type="group" id="27000">
@@ -55,15 +33,13 @@
 						<pagecontrol>27099</pagecontrol>
 						<include content="WidgetListBigPoster" condition="!Skin.HasSetting(HideMovieResults)">
               <param name="content_path" value="plugin://plugin.video.fen/?mode=build_movie_list&amp;action=tmdb_movies_search&amp;query=$INFO[Skin.String(SearchInputEncoded)]"/>
-              <param name="widget_header" value="الأفلام"/>
-              <!-- <param name="widget_header" value="$LOCALIZE[342]"/> -->
+              <param name="widget_header" value="$LOCALIZE[342]"/>
               <param name="widget_target" value="videos"/>
               <param name="list_id" value="27011"/>
             </include>
             <include content="WidgetListBigPoster" condition="!Skin.HasSetting(HideTVShowResults)">
               <param name="content_path" value="plugin://plugin.video.fen/?mode=build_tvshow_list&amp;action=tmdb_tv_search&amp;query=$INFO[Skin.String(SearchInputEncoded)]"/>
               <param name="widget_header" value="المسلسلات"/>
-              <!-- <param name="widget_header" value="$LOCALIZE[20343]"/> -->
               <param name="widget_target" value="videos"/>
               <param name="list_id" value="27012"/>
             </include>
@@ -109,12 +85,10 @@
 					</include>
 				</control>
 			</control>
-
 			<include content="TopBar">
 				<param name="breadcrumbs_label" value="" />
 			</include>
 			<include>BottomBar</include>
-			
 			<control type="group">
 				<depth>DepthContentPanel</depth>
 				<include>OpenClose_Left</include>
@@ -134,7 +108,7 @@
 					<animation effect="slide" time="300" start="-492,0" end="0,0" tween="sine" easing="inout">VisibleChange</animation>
 					<visible allowhiddenfocus="true">![String.IsEqual(ListItem.DBtype,movie) | String.IsEqual(ListItem.DBtype,tvshow) | String.IsEqual(ListItem.DBtype,season) | String.IsEqual(ListItem.DBtype,episode)] + String.IsEmpty(Skin.String(DatabaseStatus))</visible>
 					<control type="fixedlist" id="9000">
-						<left>25</left>
+						<left>19</left>
 						<top>230</top>
             <width>492</width>
 						<bottom>-10</bottom>
@@ -147,16 +121,7 @@
 						<scrolltime tween="cubic" easing="out">500</scrolltime>
 						<focusedlayout height="83">
 							<control type="group">
-								<visible>Control.HasFocus(9000)</visible>
 								<animation effect="fade" start="100" end="0" time="0">UnFocus</animation>
-								<control type="image">
-									<left>0</left>
-									<top>0</top>
-									<width>437</width>
-									<height>83</height>
-									<texture colordiffuse="button_focus">masks/focus.png</texture>
-									<animation effect="fade" start="100" end="0" time="0" condition="[!Control.HasFocus(9000) + !ControlGroup(700).HasFocus] | System.HasActiveModalDialog">Conditional</animation>
-								</control>
 							</control>
 							<control type="label">
 								<include>FocusBounce</include>
@@ -167,8 +132,23 @@
 								<aligny>center</aligny>
 								<font>font32</font>
 								<label>$INFO[ListItem.Label]</label>
+								<textcolor>unfocused_text</textcolor>
 								<shadowcolor>text_shadow</shadowcolor>
 								<scroll>$PARAM[focused]</scroll>
+								<visible>ControlGroup(700).HasFocus</visible>
+							</control>
+							<control type="label">
+								<include>FocusBounce</include>
+								<left>45</left>
+								<top>0</top>
+								<height>83</height>
+								<width>355</width>
+								<aligny>center</aligny>
+								<font>font45_title</font>
+								<label>$INFO[ListItem.Label]</label>
+								<shadowcolor>text_shadow</shadowcolor>
+								<scroll>$PARAM[focused]</scroll>
+								<visible>!ControlGroup(700).HasFocus</visible>
 							</control>
 						</focusedlayout>
 						<itemlayout height="83">
@@ -180,6 +160,7 @@
 								<aligny>center</aligny>
 								<font>font32</font>
 								<label>$INFO[ListItem.Label]</label>
+								<textcolor>darkgrey</textcolor>
 								<shadowcolor>text_shadow</shadowcolor>
 							</control>
 						</itemlayout>
@@ -188,13 +169,12 @@
 							<include content="SearchHistory" />
 						</content>
 					</control>
-
 					<control type="grouplist" id="700">
 						<visible>String.IsEmpty(Skin.String(DatabaseStatus))</visible>
 						<orientation>horizontal</orientation>
 						<itemgap>0</itemgap>
-            <left>7</left>
-						<width>480</width>
+            <left>17</left>
+						<width>380</width>
 						<height>110</height>
 						<top>15</top>
 						<onup>SetFocus(9000,99,absolute)</onup>
@@ -228,7 +208,6 @@
 						</include>
 					</control>
 				</control>
-
 				<control type="group">
 					<animation effect="slide" time="300" start="-492,0" end="0,0" tween="sine" easing="inout">VisibleChange</animation>
 					<width>550</width>
@@ -257,9 +236,20 @@
 						<width>410</width>
 						<bottom>60</bottom>
 						<label>$VAR[InfoPanel]</label>
+						<textcolor>unfocused_text</textcolor>
 						<autoscroll delay="10000" time="3000" repeat="10000">Skin.HasSetting(autoscroll)</autoscroll>
+						<visible>Skin.HasSetting(Disable.RatingsINF) | String.IsEmpty(Skin.String(mdblist_api_key))</visible>
 					</control>
-					<control type="textbox">
+					<include condition="![Skin.HasSetting(Disable.RatingsINF) | String.IsEmpty(Skin.String(mdblist_api_key))]" content="RatingsInfoPanel">
+						<param name="left" value="30" />
+						<param name="width" value="410" />
+						<param name="top" value="239" />
+						<param name="ratings_spacing" value="7" />
+						<param name="height_noalt" value="460" />
+						<param name="height_alt_movie" value="330" />
+						<param name="height_alt_tvshow" value="290" />
+					</include>
+					<!-- <control type="textbox">
 						<left>30</left>
 						<top>467</top>
 						<width>530</width>
@@ -270,10 +260,9 @@
 						<textcolor>80FFFFFF</textcolor>
 						<label>$LOCALIZE[19055]</label>
 						<visible>String.IsEmpty(Listitem.Plot) + String.IsEmpty(Listitem.Tagline) + !ListItem.IsCollection + !ListItem.IsParentFolder</visible>
-					</control>
+					</control> -->
 				</control>
 			</control>
-
 			<control type="group">
 				<depth>DepthBars</depth>
 				<bottom>0</bottom>
@@ -301,7 +290,6 @@
 					<animation effect="fade" time="300">VisibleChange</animation>
 				</control>
 			</control>
-
 			<control type="group">
         <animation effect="slide" time="300" start="-492,0" end="0,0" tween="sine" easing="inout">VisibleChange</animation>
 				<include>OpenClose_Left</include>
@@ -319,10 +307,9 @@
 					<aligny>center</aligny>
 					<height>98</height>
 					<font>font36_title</font>
-					<label>سجل البحث</label>
+					<label>Recent searches</label>
 				</control>
 			</control>
-
 			<control type="group">
 				<include>OpenClose_Right</include>
 				<animation effect="slide" time="300" start="-492,0" end="0,0" tween="sine" easing="inout">VisibleChange</animation>
@@ -337,7 +324,8 @@
 					<aligny>center</aligny>
 					<height>98</height>
 					<font>font37</font>
-					<label>نتائج البحث لـ: [COLOR button_focus][B]$INFO[Skin.String(SearchInput)][/B][/COLOR]</label>
+					<textcolor>unfocused_text</textcolor>
+					<label>Search results for: [B]$INFO[Skin.String(SearchInput)][/B]</label>
 				</control>
 				<control type="label">
 				<visible>String.IsEmpty(Skin.String(SearchInput)) + String.IsEmpty(Skin.String(DatabaseStatus))</visible>
@@ -348,8 +336,9 @@
 					<align>center</align>
 					<height>98</height>
 					<font>font14</font>
+					<textcolor>unfocused_text</textcolor>
 					<wrapmultiline>true</wrapmultiline>
-					<label>اختر أيقونة البحث لبدء عملية بحث جديدة أو اختر أيقونة Trakt لفتح قوائم تراكت أو استكشف سجل بحثك.</label>
+					<label>Explore your past searches on the left, delve into TRAKT lists using the TRAKT button, or click the search icon to initiate a new search.</label>
 				</control>
 			</control>
 		</control>

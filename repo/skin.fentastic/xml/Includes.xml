@@ -11,8 +11,14 @@
 	<include file="Includes_PVR.xml" />
 	<include file="script-fentastic-main_menu_movies.xml" />
 	<include file="script-fentastic-main_menu_tvshows.xml" />
+	<include file="script-fentastic-main_menu_custom1.xml" />
+	<include file="script-fentastic-main_menu_custom2.xml" />
+	<include file="script-fentastic-main_menu_custom3.xml" />
 	<include file="script-fentastic-widget_movies.xml" />
 	<include file="script-fentastic-widget_tvshows.xml" />
+	<include file="script-fentastic-widget_custom1.xml" />
+	<include file="script-fentastic-widget_custom2.xml" />
+	<include file="script-fentastic-widget_custom3.xml" />
 	<include file="script-fentastic-search_history.xml" />
 	<include file="View_50_List.xml" />
 	<include file="View_51_Poster.xml" />
@@ -29,7 +35,6 @@
 	<include file="Custom_1117_ExtraInfoContent.xml"/>
 	<include file="Custom_1118_SetupGuideViewer.xml"/>
 	<include file="Custom_1119_ChangelogViewer.xml" />
-	<include file="Custom_1120_Tip-CrashesViewer.xml" />
 	<include file="Custom_1121_SearchResults.xml" />
 	<include file="Variables.xml" />
 	<constant name="DepthDialog">0.50</constant>
@@ -48,7 +53,7 @@
 	<constant name="list_bottom">0</constant>
 	<constant name="list_bottom_offset">70</constant>
 	<constant name="list_top_offset">110</constant>
-	<constant name="list_item_height">75</constant>
+	<constant name="list_item_height">68</constant>
 	<expression name="infodialog_active">Window.IsActive(musicinformation) | Window.IsActive(songinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation) | Window.IsActive(pvrguideinfo) | Window.IsActive(pvrrecordinginfo) | Window.IsActive(pictureinfo) | Window.IsVisible(script-embuary-video.xml) | Window.IsVisible(script-embuary-person.xml) | Window.IsVisible(script-embuary-image.xml)</expression>
 	<expression name="sidebar_visible">ControlGroup(9000).HasFocus | Control.HasFocus(6130) | Control.HasFocus(6131)</expression>
 	<expression name="ProgessBarMovie">String.IsEqual(ListItem.DBtype,movie) + !String.IsEmpty(Container($PARAM[id]).ListItem.Property(WatchedProgress)) + !Integer.IsEqual(Container($PARAM[id]).ListItem.Property(WatchedProgress),0)</expression>
@@ -158,33 +163,12 @@
 		<control type="label">
 			<left>$PARAM[label-left]</left>
 			<top>$PARAM[label-top]</top>
-			<!-- <left>-6</left>
-			<top>22</top> -->
 			<align>right</align>
-			<!-- <aligny>center</aligny> -->
 			<width>44</width>
 			<height>44</height>
 			<font>font20_title</font>
 			<label>$INFO[$PARAM[infolabel]]</label>
 		</control>
-		<!-- <control type="image">
-			<left>3</left>
-			<top>-3</top>
-			<width>44</width>
-			<height>44</height>
-			<aspectratio>keep</aspectratio>
-			<texture colordiffuse="button_focus2">overlays/badge.png</texture>
-		</control>
-		<control type="label">
-			<left>3</left>
-			<top>-3</top>
-			<align>center</align>
-			<aligny>center</aligny>
-			<width>44</width>
-			<height>44</height>
-			<font>font20_title</font>
-			<label>$INFO[$PARAM[infolabel]]</label>
-		</control> -->
 	</include>
 	<include name="InfoList">
 		<param name="item_label">$INFO[ListItem.Year,[COLOR button_focus],[/COLOR]  -  ]$INFO[ListItem.Label]</param>
@@ -301,7 +285,7 @@
 						<align>$PARAM[align]</align>
 						<font>$PARAM[font]</font>
 						<aligny>center</aligny>
-						<textcolor>$PARAM[fontcolor]</textcolor>
+						<textcolor>unfocused_text</textcolor>
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 				</control>
@@ -355,7 +339,8 @@
 						<align>$PARAM[align]</align>
 						<font>$PARAM[font]</font>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<label>[B]$INFO[ListItem.Label][/B]</label>
+						<textcolor>focused_text</textcolor>
 						<scroll>true</scroll>
 					</control>
 				</control>
@@ -395,6 +380,7 @@
 				<aspectratio align="center" aligny="center">keep</aspectratio>
 				<texture>$PARAM[texture]</texture>
 				<visible>$PARAM[visible]</visible>
+				<visible>![Skin.HasSetting(TrailerPlaying) | Window.IsVisible(12003)]</visible>
 			</control>
 		</definition>
 	</include>
@@ -412,34 +398,13 @@
 				<width>1900</width>
 				<usecontrolcoords>true</usecontrolcoords>
 				<control type="group">
-					<width>150</width>
-					<visible>System.AddonIsEnabled(resource.images.studios.white) + !String.IsEmpty($PARAM[infolabel_prefix]ListItem.Studio)</visible>
-					<include content="MediaFlag">
+					<width>140</width>
+					<visible>[System.AddonIsEnabled(resource.images.studios.white) | System.AddonIsEnabled(resource.images.studios.coloured)] + !String.IsEmpty($PARAM[infolabel_prefix]ListItem.Studio)</visible>
+					<include condition="!Skin.HasSetting(Disable.ColorStudio)" content="MediaFlag">
 						<param name="texture" value="$INFO[$PARAM[infolabel_prefix]ListItem.Studio,resource://resource.images.studios.white/,.png]" />
 					</include>
-				</control>
-				<control type="group">
-					<top>10</top>
-					<width>200</width>
-					<visible>!String.IsEmpty($PARAM[infolabel_prefix]ListItem.Premiered)</visible>
-					<include content="InfoFlag">
-						<param name="icon" value="lists/year.png" />
-						<param name="label" value="$INFO[$PARAM[infolabel_prefix]ListItem.Premiered]" />
-					</include>
-				</control>
-				<control type="group">
-					<width>115</width>
-					<visible>!String.IsEmpty($PARAM[infolabel_prefix]ListItem.Duration)</visible>
-					<control type="label">
-						<width>115</width>
-						<height>60</height>
-						<align>center</align>
-						<aligny>center</aligny>
-						<label>$INFO[$PARAM[infolabel_prefix]ListItem.Duration]</label>
-						<font>font_flag</font>
-					</control>
-					<include content="MediaFlag">
-						<param name="texture" value="flags/flag.png" />
+					<include condition="Skin.HasSetting(Disable.ColorStudio)" content="MediaFlag">
+						<param name="texture" value="$INFO[$PARAM[infolabel_prefix]ListItem.Studio,resource://resource.images.studios.coloured/,.png]" />
 					</include>
 				</control>
 				<include content="MediaFlag">
@@ -487,6 +452,7 @@
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$INFO[$PARAM[label]]</label>
+				<textcolor>unfocused_text</textcolor>
 			</control>
 		</control>
 	</include>
@@ -505,6 +471,7 @@
 				<width>160</width>
 				<height>63</height>
 				<font>font27_narrow</font>
+				<textcolor>unfocused_text</textcolor>
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$INFO[$PARAM[label]]</label>
@@ -515,9 +482,9 @@
 		<param name="width"></param>
 		<param name="right"></param>
 		<definition>
-			<control type="fixedlist" id="$PARAM[list_id]">
+			<control type="panel" id="$PARAM[list_id]">
 				<left>0</left>
-				<top>list_top_offset</top>
+				<top>150</top>
 				<bottom>list_bottom_offset</bottom>
 				<right>$PARAM[right]</right>
 				<width>$PARAM[width]</width>
@@ -544,7 +511,7 @@
 						<width>32</width>
 						<bottom>0</bottom>
 						<aspectratio aligny="center">keep</aspectratio>
-						<texture>$VAR[ListWatchedIconVar]</texture>
+						<texture colordiffuse="focused_text">$VAR[ListWatchedIconVar]</texture>
 					</control>
 					<control type="label">
 						<left>90</left>
@@ -553,7 +520,8 @@
 						<right>20</right>
 						<aligny>center</aligny>
 						<scroll>true</scroll>
-						<label>$INFO[ListItem.Label]</label>
+						<label>[B]$INFO[ListItem.Label][/B]</label>
+						<textcolor>focused_text</textcolor>
 						<shadowcolor>text_shadow</shadowcolor>
 					</control>
 					<control type="label">
@@ -575,7 +543,7 @@
 						<width>32</width>
 						<bottom>0</bottom>
 						<aspectratio aligny="center">keep</aspectratio>
-						<texture>$VAR[ListWatchedIconVar]</texture>
+						<texture colordiffuse="unfocused_text">$VAR[ListWatchedIconVar]</texture>
 					</control>
 					<control type="label">
 						<left>90</left>
@@ -584,6 +552,7 @@
 						<right>20</right>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<textcolor>unfocused_text</textcolor>
 						<shadowcolor>text_shadow</shadowcolor>
 					</control>
 					<control type="label">
@@ -635,8 +604,6 @@
 							<control type="group">
 								<include>FocusBounce</include>
 								<top>150</top>
-								<!-- <animation effect="zoom" start="100" end="104" time="200" tween="sine" easing="inout" center="150,320">Focus</animation>
-								<animation effect="zoom" start="104" end="100" time="200" tween="sine" easing="inout" center="150,320">UnFocus</animation> -->
 								<include content="InfoWallMusicLayout">
 									<param name="fallback_image" value="DefaultAddon.png" />
 									<param name="focused" value="true" />
@@ -689,6 +656,7 @@
 					<width>1400</width>
 					<label>$PARAM[main_label]</label>
 					<font>font30_title</font>
+					<textcolor>unfocused_text</textcolor>
 					<shadowcolor>text_shadow</shadowcolor>
 					<height>35</height>
 					<scroll>true</scroll>
@@ -696,6 +664,7 @@
 				</control>
 				<control type="label" id="$PARAM[id]">
 					<label>$PARAM[sub_label]</label>
+					<textcolor>accent_color</textcolor>
 					<font>font12</font>
 					<left>85</left>
 					<shadowcolor>text_shadow</shadowcolor>
@@ -750,8 +719,8 @@
 				<top>$PARAM[down_posy]</top>
 				<width>48</width>
 				<height>24</height>
-				<texturefocus colordiffuse="button_focus">overlays/arrowdown.png</texturefocus>
-				<texturenofocus colordiffuse="button_focus">overlays/arrowdown.png</texturenofocus>
+				<texturefocus colordiffuse="unfocused_text">overlays/arrowdown.png</texturefocus>
+				<texturenofocus colordiffuse="unfocused_text">overlays/arrowdown.png</texturenofocus>
 				<animation effect="zoom" start="100,0" end="100,100" center="auto" time="200" delay="10">VisibleChange</animation>
 				<animation effect="zoom" start="100,0" end="100,100" delay="500" center="auto" time="200">WindowOpen</animation>
 				<animation effect="zoom" start="100,100" end="100,0" center="auto" time="200">WindowClose</animation>
@@ -765,8 +734,8 @@
 				<top>$PARAM[up_posy]</top>
 				<width>48</width>
 				<height>24</height>
-				<texturefocus colordiffuse="button_focus" flipy="true">overlays/arrowdown.png</texturefocus>
-				<texturenofocus colordiffuse="button_focus" flipy="true">overlays/arrowdown.png</texturenofocus>
+				<texturefocus colordiffuse="unfocused_text" flipy="true">overlays/arrowdown.png</texturefocus>
+				<texturenofocus colordiffuse="unfocused_text" flipy="true">overlays/arrowdown.png</texturenofocus>
 				<animation effect="zoom" start="100,0" end="100,100" center="auto" time="200" delay="10">VisibleChange</animation>
 				<animation effect="zoom" start="100,0" end="100,100" delay="500" center="auto" time="200">WindowOpen</animation>
 				<animation effect="zoom" start="100,100" end="100,0" center="auto" time="200">WindowClose</animation>
@@ -788,7 +757,7 @@
 				<top>$PARAM[posy]</top>
 				<width>28</width>
 				<height>28</height>
-				<texture flipx="true" colordiffuse="button_focus">overlays/arrowright.png</texture>
+				<texture flipx="true" colordiffuse="unfocused_text">overlays/arrowright.png</texture>
 				<animation effect="zoom" start="0,100" end="100,100" center="auto" time="200">VisibleChange</animation>
 				<animation effect="zoom" start="0,100" end="100,100" delay="500" center="auto" time="200">WindowOpen</animation>
 				<animation effect="zoom" start="100,100" end="0,100" center="auto" time="200">WindowClose</animation>
@@ -800,7 +769,7 @@
 				<top>$PARAM[posy]</top>
 				<width>28</width>
 				<height>28</height>
-				<texture colordiffuse="button_focus">overlays/arrowright.png</texture>
+				<texture colordiffuse="unfocused_text">overlays/arrowright.png</texture>
 				<animation effect="zoom" start="0,100" end="100,100" center="auto" time="200">VisibleChange</animation>
 				<animation effect="zoom" start="0,100" end="100,100" delay="500" center="auto" time="200">WindowOpen</animation>
 				<animation effect="zoom" start="100,100" end="0,100" center="auto" time="200">WindowClose</animation>
@@ -858,7 +827,7 @@
 				<top>-2</top>
 				<right>-2</right>
         <bottom>-2</bottom>
-				<texture colordiffuse="button_focus">$PARAM[diffusetexture]</texture>
+				<texture colordiffuse="unfocused_text">$PARAM[diffusetexture]</texture>
 			</control>
 			<control type="image">
 				<left>0</left>
@@ -876,19 +845,9 @@
 				<label>$PARAM[header_label]</label>
 				<align>center</align> 
 				<aligny>center</aligny>
-				<textcolor>button_focus</textcolor>
+				<textcolor>unfocused_text</textcolor>
 				<shadowcolor>black</shadowcolor>
 			</control>
-			<!-- <control type="button" id="22002">
-				<description>button overlay to avoid closing in dialog area</description>
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<texturefocus />
-				<texturenofocus />
-				<onclick>noop</onclick>
-			</control> -->
 			<control type="radiobutton">
 				<right>30</right>
 				<top>25</top>
@@ -900,9 +859,9 @@
 				<texturenofocus />
 				<label></label>
 				<textureradioofffocus colordiffuse="EEFFFFFF">dialogs/close.png</textureradioofffocus>
-				<textureradiooffnofocus colordiffuse="button_focus">special://xbmc/media/vendor_icon.png</textureradiooffnofocus>
+				<textureradiooffnofocus colordiffuse="accent_color">special://xbmc/media/vendor_icon.png</textureradiooffnofocus>
 				<textureradioonfocus colordiffuse="EEFFFFFF">dialogs/close.png</textureradioonfocus>
-				<textureradioonnofocus colordiffuse="button_focus">special://xbmc/media/vendor_icon.png</textureradioonnofocus>
+				<textureradioonnofocus colordiffuse="accent_color">special://xbmc/media/vendor_icon.png</textureradioonnofocus>
 				<onclick>Action(close)</onclick>
 				<visible>!Skin.HasSetting(touchmode)</visible>
 			</control>
@@ -974,9 +933,9 @@
 					<right>20</right>
 					<height>200</height>
 					<orientation>horizontal</orientation>
-					<width>900</width>
+					<width>1100</width>
 					<itemgap>10</itemgap>
-					<visible>!Window.IsVisible(extendedprogressdialog) + !Window.IsActive(fullscreenvideo)</visible>
+					<visible>!Window.IsVisible(extendedprogressdialog) + !Window.IsActive(fullscreenvideo) + !Skin.HasSetting(TrailerPlaying)</visible>
 					<animation effect="fade" time="150">VisibleChange</animation>
 					<control type="group">
 						<width>600</width>
@@ -996,10 +955,11 @@
 								<width>32</width>
 								<height>32</height>
 								<aspectratio>keep</aspectratio>
-								<texture colordiffuse="button_focus">$VAR[NowPlayingIconVar]</texture>
+								<texture colordiffuse="accent_color">$VAR[NowPlayingIconVar]</texture>
 							</control>
 							<control type="label">
 								<label>$INFO[Player.Title]</label>
+								<textcolor>unfocused_text</textcolor>
 								<font>font27</font>
 								<shadowcolor>text_shadow</shadowcolor>
 								<height>35</height>
@@ -1042,10 +1002,30 @@
 							<width max="600">auto</width>
 							<animation effect="fade" start="100" end="0" time="300" condition="Window.Next(screencalibration)">WindowClose</animation>
 							<label>$INFO[System.ProfileName]</label>
+							<textcolor>unfocused_text</textcolor>
 						</control>
+					</control>
+					<control type="image">
+						<width>60</width>
+						<height>100</height>
+						<fadetime>300</fadetime>
+						<aspectratio aligny="center" align="left">keep</aspectratio>
+						<texture colordiffuse="unfocused_text">$INFO[Weather.FanartCode,weather/small/,.png]</texture>
+						<visible>Skin.HasSetting(show_weatherinfo) + Weather.IsFetched + ![String.IsEqual(Weather.FanartCode,na)]</visible>
+					</control>
+					<control type="label">
+						<font>font_clock_small</font>
+						<height>100</height>
+						<width>auto</width>
+						<aligny>center</aligny>
+						<align>right</align>
+						<label>$INFO[Window(Weather).Property(Current.Temperature)]$INFO[System.TemperatureUnits] [COLOR accent_color][B] • [/B][/COLOR]</label>
+						<textcolor>unfocused_text</textcolor>
+						<visible>Skin.HasSetting(show_weatherinfo) + Weather.IsFetched + ![String.IsEqual(Weather.FanartCode,na)]</visible>
 					</control>
 					<control type="label">
 						<font>font_clock</font>
+						<textcolor>unfocused_text</textcolor>
 						<shadowcolor>text_shadow</shadowcolor>
 						<height>200</height>
 						<width>auto</width>
@@ -1078,22 +1058,6 @@
 						<aspectratio aligny="center" align="left">keep</aspectratio>
 						<texture>icons/power.png</texture>
 						<visible>System.HasAlarm(shutdowntimer)</visible>
-					</control>
-					<control type="label">
-						<height>50</height>
-						<width>auto</width>
-						<aligny>center</aligny>
-						<label>$INFO[Window(Weather).Property(Current.Temperature)]$INFO[System.TemperatureUnits]</label>
-						<visible>Skin.HasSetting(show_weatherinfo) + Weather.IsFetched + ![String.IsEqual(Weather.FanartCode,na)]</visible>
-					</control>
-					<control type="image">
-						<top>1</top>
-						<width>50</width>
-						<height>50</height>
-						<fadetime>300</fadetime>
-						<aspectratio aligny="center" align="left">keep</aspectratio>
-						<texture>$INFO[Weather.FanartCode,weather/small/,.png]</texture>
-						<visible>Skin.HasSetting(show_weatherinfo) + Weather.IsFetched + ![String.IsEqual(Weather.FanartCode,na)]</visible>
 					</control>
 					<control type="image">
 						<top>8</top>
@@ -1146,19 +1110,13 @@
 			<visible>!String.IsEmpty(Container.ShowTitle) + !String.IsEqual(Container.ShowTitle,Container.FolderName)</visible>
 		</control>
 		<control type="label">
-			<label>$INFO[Container.FolderName, » ]</label>
+			<label>$INFO[Container.FolderName, [B]»[/B] ]</label>
 			<include>BreadcrumbsLabel</include>
 			<visible>![Container.Content()]</visible>
 			<visible>![Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRTimers.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyVideoNav.xml)]</visible>
 		</control>
-		<!-- <control type="label">
-			<label>$INFO[ListItem.FolderName]</label>
-			<include>BreadcrumbsLabel</include>
-			<visible>![Container.Content() + Window.IsActive(videos)]</visible>
-			<visible>![Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRTimers.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml)]</visible>
-		</control> -->
 		<control type="label">
-			<label>$INFO[Container.PluginCategory, » ]</label>
+			<label>$INFO[Container.PluginCategory, [B]»[/B] ]</label>
 			<include>BreadcrumbsLabel</include>
 			<visible>!String.isempty(Container.PluginCategory)</visible>
 		</control>
@@ -1176,6 +1134,7 @@
 	</include>
 	<include name="BreadcrumbsLabel">
 		<font>font45</font>
+		<textcolor>unfocused_text</textcolor>
 		<shadowcolor>text_shadow</shadowcolor>
 		<top>7</top>
 		<height>100</height>
@@ -1183,16 +1142,18 @@
 	</include>
 	<include name="ColoredBackgroundImages">
 		<control type="image">
+			<visible>[Skin.HasSetting(no_fanart) | String.IsEmpty(Listitem.Art(fanart))] + !Player.HasMedia + !Skin.HasSetting(TrailerPlaying)</visible>
 			<depth>DepthBackground</depth>
 			<include>FullScreenDimensions</include>
 			<aspectratio>scale</aspectratio>
-			<texture colordiffuse="primary_background">special://skin/extras/backgrounds/primary.jpg</texture>
+			<texture colordiffuse="$VAR[BackgroundBrightnessVar]" fallback="special://skin/extras/backgrounds/redblur.jpg">$VAR[CustomBackgroundImage]</texture>
 		</control>
 		<control type="image">
+			<visible>Player.HasMedia + !Skin.HasSetting(TrailerPlaying)</visible>
 			<depth>DepthBackground</depth>
 			<include>FullScreenDimensions</include>
 			<aspectratio>scale</aspectratio>
-			<texture colordiffuse="secondary_background" fallback="special://skin/extras/backgrounds/pattern1.jpg">$INFO[Skin.String(background_overlay),special://skin/extras/backgrounds/pattern,.jpg]</texture>
+			<texture colordiffuse="CC141414" fallback="special://skin/extras/backgrounds/redblur.jpg">$VAR[CustomBackgroundImage]</texture>
 		</control>
 	</include>
 	<include name="DefaultBackground">
@@ -1218,7 +1179,7 @@
 					<include>RainDropAnimationBackground</include>
 				</control>
 				<control type="group" id="31111">
-					<visible>!Window.IsActive(Home) + [![Player.HasVideo | [Player.HasAudio + Visualisation.Enabled + !String.IsEmpty(Visualisation.Name)]] | !String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))]</visible>
+					<visible>![Window.IsActive(Home) | Window.IsActive(1121)] + [![Player.HasVideo | [Player.HasAudio + Visualisation.Enabled + !String.IsEmpty(Visualisation.Name)]] | !String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))]</visible>
 					<depth>DepthBackground</depth>
 					<animation effect="fade" start="0" end="100" time="400">WindowOpen</animation>
 					<animation effect="fade" start="100" end="0" time="300">WindowClose</animation>
@@ -1228,7 +1189,7 @@
 						<aspectratio>scale</aspectratio>
 						<fadetime>400</fadetime>
 						<animation effect="fade" time="400">VisibleChange</animation>
-						<texture background="true" colordiffuse="37FFFFFF">$VAR[MediaFanartVar]</texture>
+						<texture background="true" colordiffuse="$VAR[FanartBrightnessVar]">$VAR[MediaFanartVar]</texture>
 						<visible>!Control.IsVisible(502) | $EXP[infodialog_active]</visible>
 					</control>
 					<control type="image">
@@ -1240,7 +1201,7 @@
 						<fadetime>400</fadetime>
 						<include>OpenClose_Left</include>
 						<animation effect="fade" time="400">VisibleChange</animation>
-						<texture background="true" colordiffuse="37FFFFFF">$VAR[PosterVar]</texture>
+						<texture background="true" colordiffuse="$VAR[FanartBrightnessVar]">$VAR[PosterVar]</texture>
 						<visible>!Control.IsVisible(32111)</visible>
 					</control>
 				</control>
@@ -1260,7 +1221,7 @@
 					<left>0</left>
 					<bottom>0</bottom>
 					<width>110%</width>
-					<height>115</height>
+					<height>85</height>
 					<texture flipy="true">frame/InfoBar.png</texture>
 				</control>
 				<control type="group">
@@ -1443,6 +1404,7 @@
 				<right>$PARAM[right]</right>
 				<top>$PARAM[top]</top>
 				<height>$PARAM[height]</height>
+				<visible>[String.IsEqual(ListItem.DBtype,movie) | String.IsEqual(ListItem.DBtype,tvshow) | String.IsEqual(ListItem.DBtype,season) | String.IsEqual(ListItem.DBtype,episode) | VideoPlayer.Content(LiveTV)]</visible>
 			</control>
 		</definition>
 	</include>
@@ -1584,7 +1546,7 @@
 				<top>30</top>
 				<width>240</width>
 				<height>160</height>
-				<texture>$INFO[ListItem.Icon]</texture>
+				<texture colordiffuse="unfocused_text">$INFO[ListItem.Icon]</texture>
 				<align>center</align>
 				<aspectratio>scale</aspectratio>
 			</control>
@@ -1594,18 +1556,13 @@
 				<width>350</width>
 				<height>400</height>
 				<label>$INFO[ListItem.Label]</label>
+				<textcolor>unfocused_text</textcolor>
 				<align>center</align>
 			</control>
 		</itemlayout>
 		<focusedlayout height="230" width="400">
 			<control type="group">
 				<depth>DepthContentPopout</depth>
-				<!-- <animation type="Focus" reversible="false">
-					<effect type="zoom" center="200,140" start="100" end="105" time="250" tween="sine" />
-				</animation>
-				<animation type="UnFocus" reversible="false">
-					<effect type="zoom" center="200,140" start="105" end="100" time="250" tween="sine" />
-				</animation> -->
 				<control type="image">
 					<left>-5</left>
 					<width>410</width>
@@ -1628,7 +1585,7 @@
 					<top>30</top>
 					<width>240</width>
 					<height>160</height>
-					<texture>$INFO[ListItem.Icon]</texture>
+					<texture colordiffuse="focused_text">$INFO[ListItem.Icon]</texture>
 					<align>center</align>
 					<aspectratio>scale</aspectratio>
 				</control>
@@ -1637,7 +1594,8 @@
 					<top>190</top>
 					<width>350</width>
 					<height>400</height>
-					<label>$INFO[ListItem.Label]</label>
+					<label>[B]$INFO[ListItem.Label][/B]</label>
+					<textcolor>focused_text</textcolor>
 					<align>center</align>
 				</control>
 			</control>
@@ -1660,7 +1618,7 @@
 				<top>400</top>
 				<width>128</width>
 				<height>128</height>
-				<texture colordiffuse="button_focus2" background="true">rain-drop.png</texture>
+				<texture colordiffuse="dimgrey" background="true">rain-drop.png</texture>
 				<visible>true</visible>
 				<animation type="conditional" reversible="false" loop="true" condition="true">
 					<effect type="fade" delay="2000" start="0" end="100" time="200"/>
@@ -1674,7 +1632,7 @@
 				<top>200</top>
 				<width>128</width>
 				<height>128</height>
-				<texture colordiffuse="button_focus2" background="true">rain-drop.png</texture>
+				<texture colordiffuse="dimgrey" background="true">rain-drop.png</texture>
 				<visible>true</visible>
 				<animation type="conditional" reversible="false" loop="true" condition="true">
 					<effect type="fade" start="0" end="100" time="200"/>
@@ -1688,7 +1646,7 @@
 				<top>130</top>
 				<width>128</width>
 				<height>128</height>
-				<texture colordiffuse="button_focus2" background="true">rain-drop.png</texture>
+				<texture colordiffuse="dimgrey" background="true">rain-drop.png</texture>
 				<visible>true</visible>
 				<animation type="conditional" reversible="false" loop="true" condition="true">
 					<effect type="fade" delay="400" start="0" end="100" time="200"/>
@@ -1702,7 +1660,7 @@
 				<top>700</top>
 				<width>128</width>
 				<height>128</height>
-				<texture colordiffuse="button_focus2" background="true">rain-drop.png</texture>
+				<texture colordiffuse="dimgrey" background="true">rain-drop.png</texture>
 				<visible>true</visible>
 				<animation type="conditional" reversible="false" loop="true" condition="true">
 					<effect type="fade" delay="800" start="0" end="100" time="200"/>
@@ -1716,7 +1674,7 @@
 				<top>800</top>
 				<width>128</width>
 				<height>128</height>
-				<texture colordiffuse="button_focus2" background="true">rain-drop.png</texture>
+				<texture colordiffuse="dimgrey" background="true">rain-drop.png</texture>
 				<visible>true</visible>
 				<animation type="conditional" reversible="false" loop="true" condition="true">
 					<effect type="fade" delay="1500" start="0" end="100" time="200"/>
@@ -1730,7 +1688,7 @@
 				<top>550</top>
 				<width>128</width>
 				<height>128</height>
-				<texture colordiffuse="button_focus2" background="true">rain-drop.png</texture>
+				<texture colordiffuse="dimgrey" background="true">rain-drop.png</texture>
 				<visible>true</visible>
 				<animation type="conditional" reversible="false" loop="true" condition="true">
 					<effect type="fade" delay="2200" start="0" end="100" time="200"/>
@@ -1744,7 +1702,7 @@
 				<top>100</top>
 				<width>128</width>
 				<height>128</height>
-				<texture colordiffuse="button_focus2" background="true">rain-drop.png</texture>
+				<texture colordiffuse="dimgrey" background="true">rain-drop.png</texture>
 				<visible>true</visible>
 				<animation type="conditional" reversible="false" loop="true" condition="true">
 					<effect type="fade" delay="1500" start="0" end="100" time="200"/>
@@ -1758,7 +1716,7 @@
 				<top>450</top>
 				<width>128</width>
 				<height>128</height>
-				<texture colordiffuse="button_focus2" background="true">rain-drop.png</texture>
+				<texture colordiffuse="dimgrey" background="true">rain-drop.png</texture>
 				<visible>true</visible>
 				<animation type="conditional" reversible="false" loop="true" condition="true">
 					<effect type="fade" delay="1000" start="0" end="100" time="200"/>
@@ -1772,7 +1730,7 @@
 				<top>800</top>
 				<width>128</width>
 				<height>128</height>
-				<texture colordiffuse="button_focus2" background="true">rain-drop.png</texture>
+				<texture colordiffuse="dimgrey" background="true">rain-drop.png</texture>
 				<visible>true</visible>
 				<animation type="conditional" reversible="false" loop="true" condition="true">
 					<effect type="fade" delay="700" start="0" end="100" time="200"/>
@@ -1797,4 +1755,195 @@
 		</control>
 	</include>
 
+	<include name="RatingsInfoPanel">
+		<control type="grouplist">
+			<left>$PARAM[left]</left>
+			<width>$PARAM[width]</width>
+			<top>$PARAM[top]</top>
+			<orientation>vertical</orientation>
+			<itemgap>13</itemgap>
+			<control type="textbox">
+				<height>auto</height>
+				<font>font36_title</font>
+				<label>Season $INFO[ListItem.Season], Episode $INFO[ListItem.Episode]</label>
+				<textcolor>unfocused_text</textcolor>
+				<visible>String.IsEqual(ListItem.DbType,episode)</visible>
+			</control>
+			<control type="textbox">
+				<height>auto</height>
+				<label>$VAR[InfoPanelTop]</label>
+				<textcolor>unfocused_text</textcolor>
+			</control>
+			<control type="grouplist">
+				<height>90</height>
+				<orientation>horizontal</orientation>
+				<itemgap>$PARAM[ratings_spacing]</itemgap>
+				<aligny>center</aligny>
+				<visible>[String.IsEqual(ListItem.DBtype,movie) | String.IsEqual(ListItem.DBtype,tvshow) | String.IsEqual(ListItem.DBtype,season) | String.IsEqual(ListItem.DBtype,episode)] + !String.IsEmpty(ListItem.Genre)</visible>
+				<control type="grouplist">
+					<width>60</width>
+					<orientation>vertical</orientation>
+					<itemgap>5</itemgap>
+					<align>center</align>
+					<visible>![String.IsEmpty(Window.Property(fentastic.metascore)) | Skin.HasSetting(Disable.MetacriticRating)]</visible>
+					<control type="image">
+						<width>60</width>
+						<height>36</height>
+						<aspectratio>keep</aspectratio>
+						<align>center</align>
+						<aligny>center</aligny>
+						<texture>$INFO[Window.Property(fentastic.metascoreImage)]</texture>
+					</control>
+					<control type="label">
+						<width max="60">auto</width>
+						<height>42</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<label>$INFO[Window.Property(fentastic.metascore)]</label>
+						<textcolor>unfocused_text</textcolor>
+					</control>
+				</control>
+				<control type="grouplist">
+					<width>60</width>
+					<orientation>vertical</orientation>
+					<itemgap>5</itemgap>
+					<align>center</align>
+					<visible>![String.IsEmpty(Window.Property(fentastic.tomatoMeter)) | Skin.HasSetting(Disable.RTCRating)]</visible>
+					<control type="image">
+						<width>60</width>
+						<height>36</height>
+						<aspectratio>keep</aspectratio>
+						<align>center</align>
+						<aligny>center</aligny>
+						<texture>$INFO[Window.Property(fentastic.tomatoImage)]</texture>
+					</control>
+					<control type="label">
+						<width max="60">auto</width>
+						<height>42</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<label>$INFO[Window.Property(fentastic.tomatoMeter)]</label>
+						<textcolor>unfocused_text</textcolor>
+					</control>
+				</control>
+				<control type="grouplist">
+					<width>60</width>
+					<orientation>vertical</orientation>
+					<itemgap>5</itemgap>
+					<align>center</align>
+					<visible>![String.IsEmpty(Window.Property(fentastic.tomatoUserMeter)) | Skin.HasSetting(Disable.RTARating)]</visible>
+					<control type="image">
+						<width>60</width>
+						<height>36</height>
+						<aspectratio>keep</aspectratio>
+						<align>center</align>
+						<aligny>center</aligny>
+						<texture>$INFO[Window.Property(fentastic.tomatoUserImage)]</texture>
+					</control>
+					<control type="label">
+						<width max="60">auto</width>
+						<height>42</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<label>$INFO[Window.Property(fentastic.tomatoUserMeter)]</label>
+						<textcolor>unfocused_text</textcolor>
+					</control>
+				</control>
+				<control type="grouplist">
+					<width>60</width>
+					<orientation>vertical</orientation>
+					<itemgap>5</itemgap>
+					<align>center</align>
+					<visible>![String.IsEmpty(Window.Property(fentastic.imdbRating)) | Skin.HasSetting(Disable.IMDbRating)]</visible>
+					<control type="image">
+						<width>60</width>
+						<height>36</height>
+						<aspectratio>keep</aspectratio>
+						<align>center</align>
+						<aligny>center</aligny>
+						<texture>$INFO[Window.Property(fentastic.imdbImage)]</texture>
+					</control>
+					<control type="label">
+						<width max="60">auto</width>
+						<height>42</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<label>$INFO[Window.Property(fentastic.imdbRating)]</label>
+						<textcolor>unfocused_text</textcolor>
+					</control>
+				</control>
+				<control type="grouplist">
+					<width>77</width>
+					<orientation>vertical</orientation>
+					<itemgap>5</itemgap>
+					<align>center</align>
+					<visible>![String.IsEmpty(Window.Property(fentastic.popularRating)) | Skin.HasSetting(Disable.IMDbPopularRating)]</visible>
+					<control type="image">
+						<width>87</width>
+						<height>36</height>
+						<aspectratio>keep</aspectratio>
+						<align>center</align>
+						<aligny>center</aligny>
+						<texture>$INFO[Window.Property(fentastic.popularImage)]</texture>
+					</control>
+					<control type="label">
+						<width max="87">auto</width>
+						<height>42</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<label>$INFO[Window.Property(fentastic.popularRating)]</label>
+						<textcolor>unfocused_text</textcolor>
+					</control>
+				</control>
+				<control type="grouplist">
+					<width>65</width>
+					<orientation>vertical</orientation>
+					<itemgap>8</itemgap>
+					<align>center</align>
+					<visible>![String.IsEmpty(Window.Property(fentastic.tmdbRating)) | Skin.HasSetting(Disable.TMDbRating)]</visible>
+					<control type="image">
+						<width>65</width>
+						<height>33</height>
+						<aspectratio>keep</aspectratio>
+						<align>center</align>
+						<aligny>center</aligny>
+						<texture>$INFO[Window.Property(fentastic.tmdbImage)]</texture>
+					</control>
+					<control type="label">
+						<width max="65">auto</width>
+						<height>42</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<label>$INFO[Window.Property(fentastic.tmdbRating)]</label>
+						<textcolor>unfocused_text</textcolor>
+					</control>
+				</control>
+			</control>
+			<control type="textbox">
+				<height max="$PARAM[height_noalt]">auto</height>
+				<bottom>70</bottom>
+				<label>$VAR[InfoPanelBottom]</label>
+				<textcolor>unfocused_text</textcolor>
+				<autoscroll delay="7000" time="2000" repeat="7000">Skin.HasSetting(autoscroll)</autoscroll>
+				<visible>!Skin.HasSetting(Enable.AlternateInfo)</visible>
+			</control>
+			<control type="textbox">
+				<height max="$PARAM[height_alt_movie]">auto</height>
+				<bottom>70</bottom>
+				<label>$VAR[InfoPanelBottom]</label>
+				<textcolor>unfocused_text</textcolor>
+				<autoscroll delay="5000" time="2000" repeat="5000">Skin.HasSetting(autoscroll)</autoscroll>
+				<visible>Skin.HasSetting(Enable.AlternateInfo) + [String.IsEqual(ListItem.DBtype,movie) | String.IsEqual(ListItem.DBtype,episode) | String.IsEqual(ListItem.DBtype,season)]</visible>
+			</control>
+			<control type="textbox">
+				<height max="$PARAM[height_alt_tvshow]">auto</height>
+				<bottom>70</bottom>
+				<label>$VAR[InfoPanelBottom]</label>
+				<textcolor>unfocused_text</textcolor>
+				<autoscroll delay="5000" time="2000" repeat="5000">Skin.HasSetting(autoscroll)</autoscroll>
+				<visible>Skin.HasSetting(Enable.AlternateInfo) + String.IsEqual(ListItem.DBtype,tvshow)</visible>
+			</control>
+		</control>
+	</include>
+	
 </includes>

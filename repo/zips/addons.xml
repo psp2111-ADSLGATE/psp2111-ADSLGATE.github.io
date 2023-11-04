@@ -1346,11 +1346,13 @@
       <icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.fentastic.helper" name="FENtastic Helper" version="0.6.15" provider-name="Tikipeter, Ivar Brandt">
+</addon><addon id="script.fentastic.helper" name="FENtastic Helper" version="0.6.18" provider-name="Tikipeter, Ivar Brandt">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" version="2.19.1" />
     </requires>
     <extension point="xbmc.python.library" library="resources/lib/default.py" />
+    <extension point="xbmc.service" library="resources/lib/service.py" start="startup" />
     <extension point="xbmc.addon.metadata">
         <news />
         <platform>all</platform>
@@ -2321,7 +2323,7 @@ Många befintliga tillägg integreras redan med den här utanför lådan-tjänst
 		<disclaimer lang="zh_CN">Estuary 是 Kodi 的默认皮肤，删除它可能导致故障。</disclaimer>
 		<disclaimer lang="zh_TW">Estuary 是 Kodi 預設的佈景主題，移除它可能會造成問題</disclaimer>
 	</extension>
-</addon><addon id="skin.fentastic" version="1.0.16" name="FENtastic" provider-name="Ivar Brandt">
+</addon><addon id="skin.fentastic" version="1.0.21" name="FENtastic" provider-name="Ivar Brandt">
 	<requires>
 		<import addon="xbmc.gui" version="5.16.0" />
 		<import addon="script.fentastic.helper" />
@@ -2345,15 +2347,8 @@ Många befintliga tillägg integreras redan med den här utanför lådan-tjänst
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>
 			<screenshot>resources/images/customizable_widgets.jpg</screenshot>
-			<screenshot>resources/images/stacked_widgets.jpg</screenshot>
 			<screenshot>resources/images/infopanel.jpg</screenshot>
-			<screenshot>resources/images/search_window.jpg</screenshot>
 			<screenshot>resources/images/viewtypes1.jpg</screenshot>
-			<screenshot>resources/images/viewtypes4.jpg</screenshot>
-			<screenshot>resources/images/viewtypes.jpg</screenshot>
-			<screenshot>resources/images/color_theme3.jpg</screenshot>
-			<screenshot>resources/images/color_theme4.jpg</screenshot>
-			<screenshot>resources/images/color_theme5.jpg</screenshot>
 		</assets>
 		<summary lang="en_GB">FENtastic skin by Ivar Brandt (Estuary MOD)</summary>
 		<summary lang="en_NZ">FENtastic skin by Ivar Brandt (Estuary MOD)</summary>

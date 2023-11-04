@@ -137,7 +137,7 @@
 			</control>
 		</control>
 		<include content="TopBar">
-			<param name="breadcrumbs_label" value="$LOCALIZE[5]$INFO[Control.GetLabel(2), » ]" />
+			<param name="breadcrumbs_label" value="$LOCALIZE[5]$INFO[Control.GetLabel(2), [B]»[/B] ]" />
 		</include>
 		<include>BottomBar</include>
 		<control type="group">
@@ -162,10 +162,12 @@
 				<onright>5</onright>
 				<onup>3</onup>
 				<ondown>3</ondown>
-				<textureradioonfocus>icons/settings.png</textureradioonfocus>
-				<textureradioonnofocus>icons/settings.png</textureradioonnofocus>
-				<textureradioofffocus>icons/settings.png</textureradioofffocus>
-				<textureradiooffnofocus>icons/settings.png</textureradiooffnofocus>
+				<textcolor>unfocused_text</textcolor>
+				<focusedcolor>focused_text</focusedcolor>
+				<textureradioonfocus colordiffuse="focused_text">icons/settings.png</textureradioonfocus>
+				<textureradioonnofocus colordiffuse="unfocused_text">icons/settings.png</textureradioonnofocus>
+				<textureradioofffocus colordiffuse="focused_text">icons/settings.png</textureradioofffocus>
+				<textureradiooffnofocus colordiffuse="unfocused_text">icons/settings.png</textureradiooffnofocus>
 			</control>
 		</control>
 		<control type="group">

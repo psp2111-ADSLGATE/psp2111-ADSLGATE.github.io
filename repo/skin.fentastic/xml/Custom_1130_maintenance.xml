@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1130">
+	<defaultcontrol always="true">9000</defaultcontrol>
+	<include>Animation_DialogPopupOpenClose</include>
+	<controls>
+		<control type="group">
+			<centerleft>50%</centerleft>
+			<width>600</width>
+			<centertop>60%</centertop>
+			<height>700</height>
+			<include content="DialogBackgroundCommons">
+				<param name="width" value="600" />
+				<param name="height" value="80" />
+				<param name="header_label" value="تنظيف الكاش" />
+				<param name="header_id" value="" />
+			</include>
+			<control type="panel" id="9000">
+				<include>ButtonMenuList</include>
+				<onback>Dialog.Close(1130)</onback>
+				<onback>ActivateWindow(1106)</onback>
+				<content>
+					<item>
+						<label>مسح مخلفات تثبيت الاضافات</label>
+						<onclick>PlayMedia(plugin://plugin.program.openwizard/?mode=clearpackages)</onclick>
+					</item>
+					<item>
+						<label>مسح الصور المؤقتة</label>
+						<onclick>PlayMedia(plugin://plugin.program.openwizard/?mode=clearthumb)</onclick>
+					</item>
+					<item>
+						<label>مسح الكاش لـFEN</label>
+						<onclick>Dialog.Close(all)</onclick>
+						<onclick>PlayMedia(plugin://plugin.video.fen/?mode=clear_all_cache&isFolder=false&iconImage=https%3A%2F%2Fi.imgur.com%2FRDNxy36.png)</onclick>
+					</item>
+				</content>
+			</control>
+		</control>
+	</controls>
+</window>

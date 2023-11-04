@@ -99,28 +99,6 @@
 							<texture colordiffuse="button_focus">masks/focus.png</texture>
 							<animation effect="fade" start="100" end="0" time="0" condition="!Control.HasFocus(9000)">Conditional</animation>
 						</control>
-						<!-- <control type="image">
-							<left>22</left>
-							<top>0</top>
-							<width>95</width>
-							<bottom>0</bottom>
-							<texture colordiffuse="button_focus">$INFO[ListItem.Art(thumb)]</texture>
-							<animation effect="fade" start="0" end="100" time="300" reversible="false">Focus</animation>
-						</control> -->
-						<!-- <control type="image">
-							<left>0</left>
-							<width>95</width>
-							<bottom>0</bottom>
-							<texture colordiffuse="51FFFFFF">colors/black.png</texture>
-							<animation effect="fade" start="100" end="0" time="0" condition="!Control.HasFocus(9000)">Conditional</animation>
-						</control> -->
-						<!-- <control type="image">
-							<left>22</left>
-							<top>0</top>
-							<width>95</width>
-							<bottom>0</bottom>
-							<texture>$INFO[ListItem.Art(thumb)]</texture>
-						</control> -->
 						<control type="label">
 							<include>FocusBounce</include>
 							<left>65</left>
@@ -129,6 +107,7 @@
 							<aligny>center</aligny>
 							<font>font14</font>
 							<label>$INFO[ListItem.Label]</label>
+							<textcolor>focused_text</textcolor>
 							<shadowcolor>text_shadow</shadowcolor>
 						</control>
 					</focusedlayout>
@@ -140,15 +119,9 @@
 							<aligny>center</aligny>
 							<font>font14</font>
 							<label>$INFO[ListItem.Label]</label>
+							<textcolor>unfocused_text</textcolor>
 							<shadowcolor>text_shadow</shadowcolor>
 						</control>
-						<!-- <control type="image">
-							<left>22</left>
-							<top>0</top>
-							<width>95</width>
-							<bottom>0</bottom>
-							<texture colordiffuse="44FFFFFF">$INFO[ListItem.Art(thumb)]</texture>
-						</control> -->
 					</itemlayout>
 					<content>
 						<item id="1">
@@ -247,10 +220,10 @@
 					<radioposy>0</radioposy>
 					<radiowidth>40</radiowidth>
 					<radioheight>40</radioheight>
-					<textureradioonfocus>icons/submenu/add-ons.png</textureradioonfocus>
-					<textureradioonnofocus>icons/submenu/add-ons.png</textureradioonnofocus>
-					<textureradioofffocus>icons/submenu/add-ons.png</textureradioofffocus>
-					<textureradiooffnofocus>icons/submenu/add-ons.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="focused_text">icons/submenu/add-ons.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="unfocused_text">icons/submenu/add-ons.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="focused_text">icons/submenu/add-ons.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="unfocused_text">icons/submenu/add-ons.png</textureradiooffnofocus>
 				</control>
 				<control type="radiobutton" id="802">
 					<include>FocusBounce</include>
@@ -271,10 +244,10 @@
 					<radiowidth>40</radiowidth>
 					<radioheight>40</radioheight>
 					<enable>Integer.IsGreater(Container(8000).NumItems,0)</enable>
-					<textureradioonfocus>icons/submenu/updatelibrary.png</textureradioonfocus>
-					<textureradioonnofocus>icons/submenu/updatelibrary.png</textureradioonnofocus>
-					<textureradioofffocus>icons/submenu/updatelibrary.png</textureradioofffocus>
-					<textureradiooffnofocus>icons/submenu/updatelibrary.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="focused_text">icons/submenu/updatelibrary.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="unfocused_text">icons/submenu/updatelibrary.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="focused_text">icons/submenu/updatelibrary.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="unfocused_text">icons/submenu/updatelibrary.png</textureradiooffnofocus>
 					<textureradioondisabled colordiffuse="disabled">icons/submenu/updatelibrary.png</textureradioondisabled>
 					<textureradiooffdisabled colordiffuse="disabled">icons/submenu/updatelibrary.png</textureradiooffdisabled>
 				</control>
@@ -295,20 +268,21 @@
 					<radioposy>0</radioposy>
 					<radiowidth>40</radiowidth>
 					<radioheight>40</radioheight>
-					<textureradioonfocus>icons/settings.png</textureradioonfocus>
-					<textureradioonnofocus>icons/settings.png</textureradioonnofocus>
-					<textureradioofffocus>icons/settings.png</textureradioofffocus>
-					<textureradiooffnofocus>icons/settings.png</textureradiooffnofocus>
+					<textureradioonfocus colordiffuse="focused_text">icons/settings.png</textureradioonfocus>
+					<textureradioonnofocus colordiffuse="unfocused_text">icons/settings.png</textureradioonnofocus>
+					<textureradioofffocus colordiffuse="focused_text">icons/settings.png</textureradioofffocus>
+					<textureradiooffnofocus colordiffuse="unfocused_text">icons/settings.png</textureradiooffnofocus>
 				</control>
 				<control type="label" id="804">
 					<left>-217</left>
-					<top>22</top>
+					<top>25</top>
 					<height>70</height>
 					<width>100</width>
 					<aligny>center</aligny>
 					<align>center</align>
 					<font>font32_title</font>
 					<label>$VAR[AddonCountLabel]</label>
+					<textcolor>accent_color</textcolor>
 					<shadowcolor>text_shadow</shadowcolor>
 				</control>
 			</control>

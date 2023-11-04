@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+
 	<include name="View_50_List">
 		<control type="group">
 			<include>OpenClose_Right</include>
@@ -17,12 +18,6 @@
 					<right>-20</right>
 					<width>634</width>
 					<!-- right content panel -->
-					<!-- <include content="ContentPanel">
-						<param name="left" value="0" />
-						<param name="top" value="-20" />
-						<param name="width" value="656" />
-						<param name="flipx" value="true" />
-					</include> -->
 					<include content="RightListPanel">
 						<param name="list_id" value="50" />
 					</include>
@@ -40,6 +35,7 @@
 			</control>
 		</control>
 	</include>
+
 	<include name="RightListPanel">
 		<control type="group">
 			<depth>DepthContentPanel</depth>
@@ -132,6 +128,7 @@
 			</control>
 		</control>
 	</include>
+
 	<include name="ListContainer">
 		<param name="left">0</param>
 		<param name="right">0</param>
@@ -141,8 +138,8 @@
 				<right>$PARAM[right]</right>
 				<top>list_top_offset</top>
 				<bottom>list_bottom_offset</bottom>
-				<movement>6</movement>
-				<focusposition>5</focusposition>
+				<movement>7</movement>
+				<focusposition>6</focusposition>
 				<scrolltime tween="cubic" easing="out">500</scrolltime>
 				<orientation>vertical</orientation>
 				<pagecontrol>$PARAM[list_id]600</pagecontrol>
@@ -152,23 +149,16 @@
 				<ondown>$PARAM[list_id]</ondown>
 				<viewtype label="$PARAM[viewtype_label]">list</viewtype>
 				<visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(games) | Window.IsActive(videoplaylist) | Window.IsActive(musicplaylist)</visible>
-				<focusedlayout height="list_item_height">
-					<control type="image">
-						<left>0</left>
-						<right>0</right>
-						<top>0</top>
-						<bottom>0</bottom>
-						<texture colordiffuse="button_focus">masks/focus-long.png</texture>
-						<visible>Control.HasFocus($PARAM[list_id])</visible>
-					</control>
+				<focusedlayout height="85">
 					<control type="label">
 						<left>70</left>
-						<right>70</right>
+						<right>20</right>
 						<top>0</top>
 						<bottom>0</bottom>
 						<aligny>center</aligny>
 						<scroll>true</scroll>
-						<font>font27</font>
+						<scrollspeed>300</scrollspeed>
+						<font>font52_title</font>
 						<label>$VAR[ListLabelVar]</label>
 						<shadowcolor>text_shadow</shadowcolor>
 					</control>
@@ -179,24 +169,24 @@
 						<right>20</right>
 						<align>right</align>
 						<aligny>center</aligny>
-						<font>font12</font>
-						<label>$INFO[ListItem.Property(WatchedEpisodes)]$INFO[ListItem.Property(TotalEpisodes), / ,]</label>
+						<font>font32</font>
+						<label>[B]$INFO[ListItem.Property(WatchedEpisodes)]$INFO[ListItem.Property(TotalEpisodes), / ,][/B]</label>
 						<animation effect="fade" start="70" end="100" time="300" reversible="false">Focus</animation>
 						<shadowcolor>text_shadow</shadowcolor>
 					</control>
 					<control type="image">
-						<left>21</left>
+						<left>15</left>
 						<centertop>50%</centertop>
-						<width>32</width>
-						<height>32</height>
+						<width>37</width>
+						<height>37</height>
 						<texture>$VAR[ListWatchedIconVar]</texture>
 						<animation effect="fade" start="30" end="100" time="300" reversible="false">Focus</animation>
 					</control>
 					<control type="image">
-						<left>21</left>
+						<left>15</left>
 						<centertop>50%</centertop>
-						<width>32</width>
-						<height>32</height>
+						<width>37</width>
+						<height>37</height>
 						<texture colordiffuse="button_focus">$VAR[ListWatchedIconVar]</texture>
 						<animation effect="fade" start="0" end="100" time="300" reversible="false">Focus</animation>
 						<animation effect="fade" time="150">VisibleChange</animation>
@@ -206,11 +196,12 @@
 				<itemlayout height="list_item_height">
 					<control type="label">
 						<left>70</left>
-						<right>70</right>
+						<right>20</right>
 						<top>0</top>
 						<bottom>0</bottom>
 						<aligny>center</aligny>
-						<font>font27</font>
+						<font>font32</font>
+						<textcolor>unfocused_text</textcolor>
 						<label>$VAR[ListLabelVar]</label>
 						<shadowcolor>text_shadow</shadowcolor>
 					</control>
@@ -221,22 +212,23 @@
 						<bottom>0</bottom>
 						<align>right</align>
 						<aligny>center</aligny>
-						<font>font12</font>
+						<font>font27</font>
+						<textcolor>unfocused_text</textcolor>
 						<label>$INFO[ListItem.Property(WatchedEpisodes)]$INFO[ListItem.Property(TotalEpisodes), / ,]</label>
-						<textcolor>grey</textcolor>
 						<shadowcolor>text_shadow</shadowcolor>
 					</control>
 					<control type="image">
-						<left>21</left>
+						<left>15</left>
 						<centertop>50%</centertop>
-						<width>32</width>
-						<height>32</height>
+						<width>37</width>
+						<height>37</height>
 						<texture colordiffuse="grey">$VAR[ListWatchedIconVar]</texture>
 					</control>
 				</itemlayout>
 			</control>
 		</definition>
 	</include>
+
 	<include name="ListThumbInfoPanel">
 		<param name="fallback_image"></param>
 		<param name="flip_bg">false</param>
@@ -244,19 +236,334 @@
 			<control type="group">
 				<depth>DepthContentPanel</depth>
 				<include content="ContentPanel">
-					<param name="width" value="806" />
+					<param name="width" value="1106" />
 					<param name="flipx" value="$PARAM[flip_bg]" />
 				</include>
-				<!-- image control -->
-				<control type="image">
+				<control type="grouplist">
 					<left>30</left>
-					<top>110</top>
 					<width>540</width>
-					<height>470</height>
-					<aspectratio aligny="top">keep</aspectratio>
-					<fadetime>300</fadetime>
-					<texture diffuse="masks/landscape.png" fallback="$PARAM[fallback_image]" background="true">$VAR[IconWallThumbVar]</texture>
-					<visible>!String.IsEqual(ListItem.DbType,episode) + !String.IsEqual(ListItem.DBType,song) + !Container.Content(addons)</visible>
+					<top>105</top>
+					<orientation>vertical</orientation>
+					<itemgap>13</itemgap>
+					<visible>!String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+					<control type="textbox">
+						<aligny>center</aligny>
+						<height>110</height>
+						<font>font36_title</font>
+						<label>$INFO[ListItem.Label]</label>
+						<visible>[String.IsEqual(ListItem.DbType,movie) | String.IsEqual(ListItem.DbType,tvshow) | String.IsEqual(ListItem.DbType,season)] + !String.IsEqual(ListItem.DBType,song) + !Container.Content(addons) + String.IsEmpty(ListItem.Art(clearlogo))</visible>
+					</control>
+					<control type="image">
+						<width>540</width>
+						<height>320</height>
+						<aspectratio aligny="top">keep</aspectratio>
+						<fadetime>300</fadetime>
+						<texture diffuse="masks/landscape.png" fallback="$PARAM[fallback_image]" background="true">$VAR[IconWallThumbVar]</texture>
+						<visible>!String.IsEqual(ListItem.DbType,episode) + !String.IsEqual(ListItem.DBType,song) + !Container.Content(addons) + Skin.HasSetting(UseLandscape) + !String.IsEmpty(ListItem.Art(clearlogo))</visible>
+					</control>
+					<!-- <control type="image">
+						<width>540</width>
+						<height>320</height>
+						<aspectratio aligny="top">keep</aspectratio>
+						<fadetime>300</fadetime>
+						<texture diffuse="masks/addons.png" fallback="$PARAM[fallback_image]" background="true">$VAR[IconWallThumbVar]</texture>
+						<visible>!Skin.HasSetting(UseLandscape) + ![String.IsEqual(ListItem.DbType,movie) | String.IsEqual(ListItem.DbType,tvshow) | String.IsEqual(ListItem.DbType,season) | String.IsEqual(ListItem.DbType,episode)] + !String.IsEmpty(ListItem.Art(clearlogo))</visible>
+					</control> -->
+					<control type="image">
+						<left>30</left>
+						<top>110</top>
+						<width>540</width>
+						<height>470</height>
+						<aspectratio aligny="top">keep</aspectratio>
+						<fadetime>300</fadetime>
+						<texture diffuse="masks/landscape.png" fallback="$PARAM[fallback_image]" background="true">$VAR[IconWallThumbVar]</texture>
+						<visible>!Skin.HasSetting(UseLandscape) + ![String.IsEqual(ListItem.DbType,movie) | String.IsEqual(ListItem.DbType,tvshow) | String.IsEqual(ListItem.DbType,season) | String.IsEqual(ListItem.DbType,episode)]</visible>
+					</control>
+					<control type="image">
+						<width>515</width>
+						<height>200</height>
+						<texture background="true">$VAR[ClearlogoVar]</texture>
+						<aspectratio align="center">keep</aspectratio>
+						<visible>[String.IsEqual(ListItem.DbType,movie) | String.IsEqual(ListItem.DbType,tvshow) | String.IsEqual(ListItem.DbType,season)] + !String.IsEqual(ListItem.DBType,song) + !Container.Content(addons) + !Skin.HasSetting(UseLandscape) + !String.IsEmpty(ListItem.Art(clearlogo))</visible>
+					</control>
+					<control type="image">
+						<width>540</width>
+						<height>303</height>
+						<!-- <aspectratio aligny="top">scale</aspectratio> -->
+						<fadetime>300</fadetime>
+						<texture diffuse="masks/landscape.png">$INFO[ListItem.Icon]</texture>
+						<visible>String.IsEqual(ListItem.DbType,episode)</visible>
+					</control>
+					<control type="textbox">
+						<height>auto</height>
+						<font>font36_title</font>
+						<label>Season $INFO[ListItem.Season], Episode $INFO[ListItem.Episode]</label>
+						<textcolor>unfocused_text</textcolor>
+						<visible>String.IsEqual(ListItem.DbType,episode)</visible>
+					</control>
+					<control type="textbox">
+						<height>auto</height>
+						<label>$VAR[InfoPanelTop]</label>
+						<textcolor>unfocused_text</textcolor>
+					</control>
+					<control type="grouplist">
+						<height>90</height>
+						<orientation>horizontal</orientation>
+						<itemgap>25</itemgap>
+						<aligny>center</aligny>
+						<visible>[String.IsEqual(ListItem.DBtype,movie) | String.IsEqual(ListItem.DBtype,tvshow) | String.IsEqual(ListItem.DBtype,season) | String.IsEqual(ListItem.DBtype,episode)] + !String.IsEmpty(ListItem.Genre)</visible>
+						<control type="grouplist">
+							<width>60</width>
+							<orientation>vertical</orientation>
+							<itemgap>5</itemgap>
+							<align>center</align>
+							<visible>![String.IsEmpty(Window.Property(fentastic.metascore)) | Skin.HasSetting(Disable.MetacriticRating)]</visible>
+							<control type="image">
+								<width>60</width>
+								<height>36</height>
+								<aspectratio>keep</aspectratio>
+								<align>center</align>
+								<aligny>center</aligny>
+								<texture>$INFO[Window.Property(fentastic.metascoreImage)]</texture>
+							</control>
+							<control type="label">
+								<width max="60">auto</width>
+								<height>42</height>
+								<align>center</align>
+								<aligny>center</aligny>
+								<label>$INFO[Window.Property(fentastic.metascore)]</label>
+								<textcolor>unfocused_text</textcolor>
+							</control>
+						</control>
+						<control type="grouplist">
+							<width>60</width>
+							<orientation>vertical</orientation>
+							<itemgap>5</itemgap>
+							<align>center</align>
+							<visible>![String.IsEmpty(Window.Property(fentastic.tomatoMeter)) | Skin.HasSetting(Disable.RTCRating)]</visible>
+							<control type="image">
+								<width>60</width>
+								<height>36</height>
+								<aspectratio>keep</aspectratio>
+								<align>center</align>
+								<aligny>center</aligny>
+								<texture>$INFO[Window.Property(fentastic.tomatoImage)]</texture>
+							</control>
+							<control type="label">
+								<width max="60">auto</width>
+								<height>42</height>
+								<align>center</align>
+								<aligny>center</aligny>
+								<label>$INFO[Window.Property(fentastic.tomatoMeter)]</label>
+								<textcolor>unfocused_text</textcolor>
+							</control>
+						</control>
+						<control type="grouplist">
+							<width>60</width>
+							<orientation>vertical</orientation>
+							<itemgap>5</itemgap>
+							<align>center</align>
+							<visible>![String.IsEmpty(Window.Property(fentastic.tomatoUserMeter)) | Skin.HasSetting(Disable.RTARating)]</visible>
+							<control type="image">
+								<width>60</width>
+								<height>36</height>
+								<aspectratio>keep</aspectratio>
+								<align>center</align>
+								<aligny>center</aligny>
+								<texture>$INFO[Window.Property(fentastic.tomatoUserImage)]</texture>
+							</control>
+							<control type="label">
+								<width max="60">auto</width>
+								<height>42</height>
+								<align>center</align>
+								<aligny>center</aligny>
+								<label>$INFO[Window.Property(fentastic.tomatoUserMeter)]</label>
+								<textcolor>unfocused_text</textcolor>
+							</control>
+						</control>
+						<control type="grouplist">
+							<width>60</width>
+							<orientation>vertical</orientation>
+							<itemgap>5</itemgap>
+							<align>center</align>
+							<visible>![String.IsEmpty(Window.Property(fentastic.imdbRating)) | Skin.HasSetting(Disable.IMDbRating)]</visible>
+							<control type="image">
+								<width>60</width>
+								<height>36</height>
+								<aspectratio>keep</aspectratio>
+								<align>center</align>
+								<aligny>center</aligny>
+								<texture>$INFO[Window.Property(fentastic.imdbImage)]</texture>
+							</control>
+							<control type="label">
+								<width max="60">auto</width>
+								<height>42</height>
+								<align>center</align>
+								<aligny>center</aligny>
+								<label>$INFO[Window.Property(fentastic.imdbRating)]</label>
+								<textcolor>unfocused_text</textcolor>
+							</control>
+						</control>
+						<control type="grouplist">
+							<width>77</width>
+							<orientation>vertical</orientation>
+							<itemgap>5</itemgap>
+							<align>center</align>
+							<visible>![String.IsEmpty(Window.Property(fentastic.popularRating)) | Skin.HasSetting(Disable.IMDbPopularRating)]</visible>
+							<control type="image">
+								<width>87</width>
+								<height>36</height>
+								<aspectratio>keep</aspectratio>
+								<align>center</align>
+								<aligny>center</aligny>
+								<texture>$INFO[Window.Property(fentastic.popularImage)]</texture>
+							</control>
+							<control type="label">
+								<width max="87">auto</width>
+								<height>42</height>
+								<align>center</align>
+								<aligny>center</aligny>
+								<label>$INFO[Window.Property(fentastic.popularRating)]</label>
+								<textcolor>unfocused_text</textcolor>
+							</control>
+						</control>
+						<control type="grouplist">
+							<width>65</width>
+							<orientation>vertical</orientation>
+							<itemgap>8</itemgap>
+							<align>center</align>
+							<visible>![String.IsEmpty(Window.Property(fentastic.tmdbRating)) | Skin.HasSetting(Disable.TMDbRating)]</visible>
+							<control type="image">
+								<width>65</width>
+								<height>33</height>
+								<aspectratio>keep</aspectratio>
+								<align>center</align>
+								<aligny>center</aligny>
+								<texture>$INFO[Window.Property(fentastic.tmdbImage)]</texture>
+							</control>
+							<control type="label">
+								<width max="65">auto</width>
+								<height>42</height>
+								<align>center</align>
+								<aligny>center</aligny>
+								<label>$INFO[Window.Property(fentastic.tmdbRating)]</label>
+								<textcolor>unfocused_text</textcolor>
+							</control>
+						</control>
+					</control>
+					<!-- INFOPANEL PLOT -->
+					<!-- LANDSCAPE -->
+					<control type="textbox">
+						<height max="295">auto</height>
+						<bottom>70</bottom>
+						<label>$VAR[InfoPanelBottom]</label>
+						<textcolor>unfocused_text</textcolor>
+						<autoscroll delay="7000" time="2000" repeat="7000">Skin.HasSetting(autoscroll)</autoscroll>
+						<visible>!Skin.HasSetting(Enable.AlternateInfo) + Skin.HasSetting(UseLandscape) + [Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]</visible>
+					</control>
+					<!-- CLEARLOGO -->
+					<control type="textbox">
+						<height max="415">auto</height>
+						<bottom>70</bottom>
+						<label>$VAR[InfoPanelBottom]</label>
+						<textcolor>unfocused_text</textcolor>
+						<autoscroll delay="7000" time="2000" repeat="7000">Skin.HasSetting(autoscroll)</autoscroll>
+						<visible>!Skin.HasSetting(Enable.AlternateInfo) + !Skin.HasSetting(UseLandscape) + [Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons)]</visible>
+					</control>
+					<control type="textbox">
+						<height max="335">auto</height>
+						<bottom>70</bottom>
+						<label>$VAR[InfoPanelBottom]</label>
+						<textcolor>unfocused_text</textcolor>
+						<autoscroll delay="7000" time="2000" repeat="7000">Skin.HasSetting(autoscroll)</autoscroll>
+						<visible>!Skin.HasSetting(Enable.AlternateInfo) + !Skin.HasSetting(UseLandscape) + Container.Content(episodes)</visible>
+					</control>
+					<!-- ALTERNATE INFOPANEL PLOT -->
+					<!-- LANDSCAPE -->
+					<control type="textbox">
+						<height max="170">auto</height>
+						<bottom>70</bottom>
+						<label>$VAR[InfoPanelBottom]</label>
+						<textcolor>unfocused_text</textcolor>
+						<autoscroll delay="5000" time="2000" repeat="5000">Skin.HasSetting(autoscroll)</autoscroll>
+						<visible>Skin.HasSetting(Enable.AlternateInfo) + Skin.HasSetting(UseLandscape) + [Container.Content(movies) | Container.Content(seasons)]</visible>
+					</control>
+					<control type="textbox">
+						<height max="90">auto</height>
+						<bottom>70</bottom>
+						<label>$VAR[InfoPanelBottom]</label>
+						<textcolor>unfocused_text</textcolor>
+						<autoscroll delay="5000" time="2000" repeat="5000">Skin.HasSetting(autoscroll)</autoscroll>
+						<visible>Skin.HasSetting(Enable.AlternateInfo) + Skin.HasSetting(UseLandscape) + Container.Content(tvshows)</visible>
+					</control>
+					<control type="textbox">
+						<height max="210">auto</height>
+						<bottom>70</bottom>
+						<label>$VAR[InfoPanelBottom]</label>
+						<textcolor>unfocused_text</textcolor>
+						<autoscroll delay="5000" time="2000" repeat="5000">Skin.HasSetting(autoscroll)</autoscroll>
+						<visible>Skin.HasSetting(Enable.AlternateInfo) + Skin.HasSetting(UseLandscape) + Container.Content(episodes)</visible>
+					</control>
+					<!-- CLEARLOGO -->
+					<control type="textbox">
+						<height max="290">auto</height>
+						<bottom>70</bottom>
+						<label>$VAR[InfoPanelBottom]</label>
+						<textcolor>unfocused_text</textcolor>
+						<autoscroll delay="5000" time="2000" repeat="5000">Skin.HasSetting(autoscroll)</autoscroll>
+						<visible>Skin.HasSetting(Enable.AlternateInfo) + !Skin.HasSetting(UseLandscape) + [Container.Content(movies) | Container.Content(seasons)]</visible>
+					</control>
+					<control type="textbox">
+						<height max="210">auto</height>
+						<bottom>70</bottom>
+						<label>$VAR[InfoPanelBottom]</label>
+						<textcolor>unfocused_text</textcolor>
+						<autoscroll delay="5000" time="2000" repeat="5000">Skin.HasSetting(autoscroll)</autoscroll>
+						<visible>Skin.HasSetting(Enable.AlternateInfo) + !Skin.HasSetting(UseLandscape) + [Container.Content(tvshows) | Container.Content(episodes)]</visible>
+					</control>
+				</control>
+				<!-- image control -->
+				<control type="group">
+					<visible>String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+					<control type="image">
+						<left>30</left>
+						<top>110</top>
+						<width>540</width>
+						<height>470</height>
+						<aspectratio aligny="top">keep</aspectratio>
+						<fadetime>300</fadetime>
+						<texture diffuse="masks/landscape.png" fallback="$PARAM[fallback_image]" background="true">$VAR[IconWallThumbVar]</texture>
+						<visible>!String.IsEqual(ListItem.DbType,episode) + !String.IsEqual(ListItem.DBType,song) + !Container.Content(addons) + Skin.HasSetting(UseLandscape)</visible>
+					</control>
+					<control type="image">
+						<left>30</left>
+						<top>110</top>
+						<width>540</width>
+						<height>470</height>
+						<aspectratio aligny="top">keep</aspectratio>
+						<fadetime>300</fadetime>
+						<texture diffuse="masks/addons.png" fallback="$PARAM[fallback_image]" background="true">$VAR[IconWallThumbVar]</texture>
+						<visible>!Skin.HasSetting(UseLandscape) + ![String.IsEqual(ListItem.DbType,movie) | String.IsEqual(ListItem.DbType,tvshow) | String.IsEqual(ListItem.DbType,season) | String.IsEqual(ListItem.DbType,episode)]</visible>
+					</control>
+					<control type="image">
+						<left>30</left>
+						<top>120</top>
+						<width>515</width>
+						<height>200</height>
+						<texture background="true">$VAR[ClearlogoVar]</texture>
+						<aspectratio align="center">keep</aspectratio>
+						<visible>[String.IsEqual(ListItem.DbType,movie) | String.IsEqual(ListItem.DbType,tvshow) | String.IsEqual(ListItem.DbType,season)] + !String.IsEqual(ListItem.DBType,song) + !Container.Content(addons) + !Skin.HasSetting(UseLandscape)</visible>
+					</control>
+					<control type="textbox">
+						<top>155</top>
+						<left>30</left>
+						<width>550</width>
+						<aligny>center</aligny>
+						<height>110</height>
+						<font>font36_title</font>
+						<label>$INFO[ListItem.Label]</label>
+						<visible>[String.IsEqual(ListItem.DbType,movie) | String.IsEqual(ListItem.DbType,tvshow) | String.IsEqual(ListItem.DbType,season)] + !String.IsEqual(ListItem.DBType,song) + !Container.Content(addons) + !Skin.HasSetting(UseLandscape) + String.IsEmpty(ListItem.Art(clearlogo))</visible>
+					</control>
 				</control>
 				<control type="image">
 					<left>30</left>
@@ -265,37 +572,37 @@
 					<height>470</height>
 					<aspectratio aligny="top">keep</aspectratio>
 					<fadetime>300</fadetime>
-					<texture diffuse="masks/landscapeinfo.png" fallback="$PARAM[fallback_image]" background="true">$VAR[IconWallThumbVar]</texture>
+					<texture diffuse="masks/addons.png" fallback="$PARAM[fallback_image]" background="true">$VAR[IconWallThumbVar]</texture>
 					<visible>Container.Content(addons)</visible>
 				</control>
 				<control type="image">
 					<left>30</left>
-					<top>110</top>
+					<top>105</top>
 					<width>540</width>
 					<height>303</height>
 					<!-- <aspectratio aligny="top">scale</aspectratio> -->
 					<fadetime>300</fadetime>
 					<texture diffuse="masks/landscape.png">$INFO[ListItem.Icon]</texture>
-					<visible>String.IsEqual(ListItem.DbType,episode)</visible>
+					<visible>String.IsEmpty(Skin.String(mdblist_api_key)) + String.IsEqual(ListItem.DbType,episode)</visible>
 				</control>
 				<control type="image">
 					<left>30</left>
 					<top>110</top>
 					<width>540</width>
 					<height>470</height>
-					<aspectratio aligny="bottom">scale</aspectratio>
+					<aspectratio aligny="bottom">keep</aspectratio>
 					<fadetime>300</fadetime>
-					<texture diffuse="masks/landscape.png" fallback="DefaultAudio.png" background="true">$VAR[IconWallThumbVar]</texture>
+					<texture diffuse="masks/addons.png" fallback="DefaultAudio.png" background="true">$VAR[IconWallThumbVar]</texture>
 					<visible>String.IsEqual(ListItem.DBType,song)</visible>
 				</control>
 				<control type="image">
 					<left>30</left>
-					<top>145</top>
+					<top>140</top>
 					<width>540</width>
 					<height>270</height>
 					<texture>overlays/overlayfade.png</texture>
 					<visible>!ListItem.IsParentFolder</visible>
-					<visible>String.IsEqual(ListItem.DbType,episode)</visible>
+					<visible>String.IsEqual(ListItem.DbType,episode) + !String.IsEmpty(ListItem.Art(clearlogo))</visible>
 				</control>
 				<control type="image">
 					<left>50</left>
@@ -306,29 +613,36 @@
 					<aspectratio align="center" aligny="top">keep</aspectratio>
 					<visible>String.IsEqual(ListItem.DbType,episode)</visible>
 				</control>
-				<!-- <control type="group">
-					<left>273</left>
-					<top>394</top>
-					<include condition="Skin.HasSetting(circle_rating) | Skin.HasSetting(circle_userrating)">RatingCircle</include>
-					<animation effect="slide" end="0,-140" time="0" condition="String.IsEqual(ListItem.DbType,episode)">conditional</animation>
-					<visible>!String.IsEqual(ListItem.DbType,episode)</visible>
-				</control> -->
-				<include content="ProgressBar">
+				<include condition="Skin.HasSetting(UseLandscape)" content="ProgressBar">
 					<!-- 30 -->
 					<param name="left" value="65"/>
-					<param name="top" value="390"/>
+					<param name="top" value="385"/>
 					<param name="width" value="460"/>
 				</include>
 				<control type="group">
 					<visible>!Container.Content() | !String.isempty(ListItem.Plot)</visible>
 					<left>30</left>
 					<!-- Plot control -->
-					<control type="textbox">
-						<top>460</top>
-						<width>540</width>
-						<bottom>80</bottom>
-						<label>$VAR[InfoPanel]</label>
-						<autoscroll time="3000" delay="10000" repeat="10000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
+					<control type="group">
+						<visible>String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+						<control type="textbox">
+							<top>460</top>
+							<width>540</width>
+							<bottom>80</bottom>
+							<label>$VAR[InfoPanel]</label>
+							<textcolor>unfocused_text</textcolor>
+							<autoscroll time="3000" delay="10000" repeat="10000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
+							<visible>Skin.HasSetting(UseLandscape)</visible>
+						</control>
+						<control type="textbox">
+							<top>346</top>
+							<width>525</width>
+							<bottom>115</bottom>
+							<label>$VAR[InfoPanel]</label>
+							<textcolor>unfocused_text</textcolor>
+							<autoscroll delay="10000" time="3000" repeat="10000">Skin.HasSetting(autoscroll)</autoscroll>
+							<visible>!Skin.HasSetting(UseLandscape)</visible>
+						</control>
 					</control>
 					<control type="textbox" id="15500">
 						<top>600</top>
@@ -336,25 +650,30 @@
 						<bottom>70</bottom>
 						<autoscroll time="3000" delay="7000" repeat="5000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
 						<label>$VAR[ListBoxInfoVar]</label>
+						<textcolor>unfocused_text</textcolor>
 						<visible>!String.IsEqual(ListItem.DbType,movie) + !String.IsEqual(ListItem.DbType,tvshow) + !String.IsEqual(ListItem.DbType,season) + !String.IsEqual(ListItem.DbType,episode) + !String.IsEqual(ListItem.DBType,song)</visible>
 					</control>
 					<!-- Plot control episodes -->
-					<control type="textbox" id="15501">
-						<top>523</top>
-						<width>540</width>
-						<bottom>100</bottom>
-						<autoscroll time="3000" delay="7000" repeat="5000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
-						<label>$VAR[InfoPanelEpisode]</label>
-					</control>
-					<control type="textbox">
-						<top>418</top>
-						<width>550</width>
-						<aligny>center</aligny>
-						<height>110</height>
-						<bottom>70</bottom>
-						<font>font36_title</font>
-						<label>Season $INFO[ListItem.Season], Episode $INFO[ListItem.Episode]</label>
-						<visible>String.IsEqual(ListItem.DbType,episode)</visible>
+					<control type="group">
+						<visible>String.IsEmpty(Skin.String(mdblist_api_key))</visible>
+						<control type="textbox" id="15501">
+							<top>503</top>
+							<width>540</width>
+							<bottom>80</bottom>
+							<autoscroll time="3000" delay="7000" repeat="5000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
+							<label>$VAR[InfoPanelEpisode]</label>
+							<textcolor>unfocused_text</textcolor>
+						</control>
+						<control type="textbox">
+							<top>398</top>
+							<width>550</width>
+							<aligny>center</aligny>
+							<height>110</height>
+							<font>font36_title</font>
+							<textcolor>unfocused_text</textcolor>
+							<label>Season $INFO[ListItem.Season], Episode $INFO[ListItem.Episode]</label>
+							<visible>String.IsEqual(ListItem.DbType,episode)</visible>
+						</control>
 					</control>
 					<control type="textbox" id="15503">
 						<top>600</top>
@@ -362,6 +681,7 @@
 						<bottom>70</bottom>
 						<autoscroll time="3000" delay="3000" repeat="5000">!System.HasModalDialog + Skin.HasSetting(AutoScroll)</autoscroll>
 						<label>$VAR[ListBoxInfoVar]</label>
+						<textcolor>unfocused_text</textcolor>
 						<visible>String.IsEqual(ListItem.DBType,song)</visible>
 					</control>
 				</control>
@@ -420,4 +740,5 @@
 			</control>
 		</definition>
 	</include>
+	
 </includes>

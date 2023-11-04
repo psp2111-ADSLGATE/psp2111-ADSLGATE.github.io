@@ -35,17 +35,10 @@
 							<top>35</top>
 							<width>160</width>
 							<height>130</height>
-							<texture fallback="DefaultStudios.png">$VAR[IconWallThumbVar]</texture>
+							<texture colordiffuse="unfocused_text" fallback="DefaultStudios.png">$VAR[IconWallThumbVar]</texture>
 							<aspectratio>keep</aspectratio>
 							<align>center</align>
 						</control>
-						<!-- <control type="image">
-							<left>20</left>
-							<top>150</top>
-							<width>356</width>
-							<height>75</height>
-							<texture colordiffuse="border_alpha">colors/black.png</texture>
-						</control> -->
 						<control type="textbox">
 							<left>35</left>
 							<top>148</top>
@@ -53,6 +46,7 @@
 							<height>74</height>
 							<font>font12</font>
 							<label>$INFO[ListItem.Label]</label>
+							<textcolor>unfocused_text</textcolor>
 							<align>center</align>
 							<aligny>center</aligny>
 						</control>
@@ -61,44 +55,31 @@
 				<focusedlayout height="280" width="440" condition="Container.Content() | Container.Content(files) | Container.Content(tags) | Container.Content(playlists) | [Container.Content(studios) + System.AddonIsEnabled(resource.images.studios.white)]">
 					<control type="group">
 						<depth>DepthContentPopout</depth>
-						<!-- <animation type="Focus">
-							<effect type="zoom" start="100" end="112" time="200" tween="sine" easing="inout" center="auto" />
-						</animation>
-						<animation type="Unfocus">
-							<effect type="zoom" start="112" end="100" time="200" tween="sine" easing="inout" center="auto" />
-						</animation> -->
 						<top>150</top>
-						<control type="image">
-							<width>396</width>
-							<height>245</height>
-							<texture colordiffuse="button_focus2">masks/landscape-unfocused.png</texture>
-							<!-- <bordertexture border="21" infill="false">overlays/shadow.png</bordertexture> -->
-							<bordersize>20</bordersize>
-						</control>
 						<control type="image">
 							<include>FocusBounce</include>
 							<width>396</width>
 							<height>245</height>
 							<texture colordiffuse="button_focus">masks/landscape.png</texture>
-							<bordersize>19</bordersize>
+							<bordersize>15</bordersize>
 							<include>Animation_FocusTextureFade</include>
+						</control>
+						<control type="image">
+							<width>396</width>
+							<height>245</height>
+							<texture colordiffuse="dialog_bg">masks/landscape-unfocused.png</texture>
+							<!-- <bordertexture border="21" infill="false">overlays/shadow.png</bordertexture> -->
+							<bordersize>20</bordersize>
 						</control>
 						<control type="image">
 							<left>120</left>
 							<top>35</top>
 							<width>160</width>
 							<height>130</height>
-							<texture fallback="DefaultStudios.png">$VAR[IconWallThumbVar]</texture>
+							<texture colordiffuse="unfocused_text" fallback="DefaultStudios.png">$VAR[IconWallThumbVar]</texture>
 							<aspectratio>keep</aspectratio>
 							<align>center</align>
 						</control>
-						<!-- <control type="image">
-							<left>20</left>
-							<top>150</top>
-							<width>356</width>
-							<height>75</height>
-							<texture colordiffuse="border_alpha">colors/black.png</texture>
-						</control> -->
 						<control type="textbox">
 							<left>35</left>
 							<top>148</top>
@@ -106,6 +87,7 @@
 							<height>74</height>
 							<font>font12</font>
 							<label>$INFO[ListItem.Label]</label>
+							<textcolor>unfocused_text</textcolor>
 							<align>center</align>
 							<aligny>center</aligny>
 						</control>
@@ -136,12 +118,6 @@
 					<control type="group">
 						<depth>DepthContentPopout</depth>
 						<top>120</top>
-						<!-- <animation type="Focus">
-							<effect type="zoom" start="100" end="112" time="200" tween="sine" easing="inout" center="auto" />
-						</animation>
-						<animation type="Unfocus">
-							<effect type="zoom" start="112" end="100" time="200" tween="sine" easing="inout" center="auto" />
-						</animation> -->
 						<control type="image">
 							<width>330</width>
 							<height>140</height>

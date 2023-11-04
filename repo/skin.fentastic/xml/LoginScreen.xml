@@ -60,24 +60,21 @@
 						<top>220</top>
 						<height>80</height>
 						<label>$INFO[ListItem.label]</label>
+						<textcolor>unfocused_text</textcolor>
 						<font>font27</font>
 						<align>center</align>
 						<aligny>center</aligny>
-						<textcolor>99FFFFFF</textcolor>
 					</control>
 				</itemlayout>
 				<focusedlayout width="384" height="300">
 					<control type="image">
 						<include>FocusBounce</include>
 						<left>40</left>
-						<!-- <top>-20</top> -->
 						<right>30</right>
-						<!-- <bottom>-20</bottom> -->
 						<width>300</width>
 						<height>300</height>
 						<texture diffuse="masks/addons.png" colordiffuse="button_focus">masks/addons.png</texture>
 						<visible>Control.HasFocus(52)</visible>
-						<!-- <animation reversible="false" effect="fade" start="20" end="75" time="200">Focus</animation> -->
 					</control>
 					<control type="image">
 						<centerleft>50%</centerleft>
@@ -93,6 +90,7 @@
 						<top>220</top>
 						<height>80</height>
 						<label>[B]$INFO[ListItem.label][/B]</label>
+						<textcolor>focused_text</textcolor>
 						<font>font27</font>
 						<align>center</align>
 						<aligny>center</aligny>
@@ -105,7 +103,7 @@
 				<top>860</top>
 				<height>45</height>
 				<font>font25_narrow</font>
-				<textcolor>80FFFFFF</textcolor>
+				<textcolor>unfocused_text</textcolor>
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.label2]</label>
@@ -117,7 +115,7 @@
 				<width>400</width>
 				<height>100</height>
 				<label>$LOCALIZE[31072]</label>
-				<font>font12</font>
+				<font>font13</font>
 				<align>center</align>
 				<onclick>ActivateWindow(ShutdownMenu)</onclick>
 				<onleft>52</onleft>

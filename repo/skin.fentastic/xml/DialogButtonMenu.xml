@@ -36,12 +36,23 @@
 					<item>
 						<label>$LOCALIZE[13016]</label>
 						<onclick>Powerdown()</onclick>
-						<visible>System.CanPowerDown</visible>
+						<visible>System.PathExist("/dev/system") | System.PathExist("/dev/userdata") | System.PathExist("/dev/super")</visible>
 					</item>
 					<item>
 						<label>إعادة تشغيل النظام</label>
 						<onclick>Reset()</onclick>
-						<visible>System.CanReboot</visible>
+						<visible>System.PathExist("/dev/system") | System.PathExist("/dev/userdata") | System.PathExist("/dev/super")</visible>
+					</item>
+					<item>
+						<label>إعادة تشغيل الى الاندرويد</label>
+						<onclick>System.ExecWait("/usr/sbin/rebootfromnand")</onclick>
+						<onclick>Reset()</onclick>
+						<visible>System.PathExist("/dev/system") | System.PathExist("/dev/userdata") | System.PathExist("/dev/super")</visible>
+					</item>
+					<item>
+						<label>إعادة تشغيل Kodi</label>
+						<onclick>RestartApp()</onclick>
+						<visible>System.PathExist("/dev/system") | System.PathExist("/dev/userdata") | System.PathExist("/dev/super")</visible>
 					</item>
 					<item>
 						<label>خروج</label>

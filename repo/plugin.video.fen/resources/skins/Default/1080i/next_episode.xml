@@ -71,7 +71,7 @@
                             <left>35</left>
                             <aligny>center</aligny>
                             <height>40</height>
-                            <label>[B][COLOR $INFO[Window(10000).Property(fen.main_highlight)]]$ADDON[plugin.video.fen 33086]?[/COLOR][/B]</label>
+                            <label>[B][COLOR $INFO[Window(10000).Property(fen.main_highlight)]]$ADDON[plugin.video.fen 33086]؟[/COLOR][/B]</label>
                             <font>font_midi</font> <!-- FEN_33 -->
                             <textcolor>FFB7B4BB</textcolor>
                         </control>
