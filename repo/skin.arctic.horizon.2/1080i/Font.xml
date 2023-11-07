@@ -459,154 +459,146 @@
     </fontset>
 
 
-    <fontset id="CJK - Chinese / Japanese / Korean" unicode="true">
+    <fontset id="Aljazeera" unicode="true">
 
         <!-- Title fonts -->
         <font>
             <name>font_info_black</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>112</size>
         </font>
         <font>
             <name>font_info_light</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Light.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>lighten</style>
             <size>112</size>
         </font>
         <font>
             <name>font_info_black_doublerow</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>56</size>
-            <linespacing>0.9</linespacing>
         </font>
         <font>
             <name>font_info_light_doublerow</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Light.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>lighten</style>
             <size>56</size>
-            <linespacing>0.9</linespacing>
         </font>
 
         <!-- Black Fonts -->
         <font>
             <name>font_huge_black</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>49</size>
         </font>
         <font>
             <name>font_head_black</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>42</size>
         </font>
         <font>
             <name>font_midi_black</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>37</size>
         </font>
         <font>
             <name>font_main_black</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>32</size>
         </font>
         <font>
             <name>font_mini_black</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>28</size>
         </font>
         <font>
             <name>font_tiny_black</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>24</size>
         </font>
         <font>
             <name>font_hint_black</name>
             <style>uppercase bold</style>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
             <size>18</size>
         </font>
 
         <!-- Bold Fonts -->
         <font>
             <name>font_huge_bold</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>49</size>
         </font>
         <font>
             <name>font_head_bold</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>42</size>
         </font>
         <font>
             <name>font_midi_bold</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>37</size>
         </font>
         <font>
             <name>font_main_bold</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>32</size>
         </font>
         <font>
             <name>font_mini_bold</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>28</size>
         </font>
         <font>
             <name>font_tiny_bold</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>24</size>
         </font>
         <font>
             <name>font_hint_bold</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
             <size>18</size>
         </font>
 
         <!-- Standard Fonts -->
         <font>
             <name>font_midi</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
             <size>35</size>
         </font>
         <font>
             <name>font_main</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
             <size>30</size>
         </font>
         <font>
             <name>font_mini</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
             <size>26</size>
         </font>
         <font>
             <name>font_tiny</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
             <size>22</size>
         </font>
         <font>
             <name>font_hint</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
             <size>16</size>
             <linespacing>1.05</linespacing>
         </font>
@@ -614,30 +606,22 @@
         <!-- Textbox Fonts -->
         <font>
             <name>font_huge_plot</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
-            <linespacing>1.46</linespacing>
+            <filename>AljazeeraFull.ttf</filename>
             <size>47</size>
         </font>
         <font>
             <name>font_midi_plot</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
-            <linespacing>1.46</linespacing>
+            <filename>AljazeeraFull.ttf</filename>
             <size>35</size>
         </font>
         <font>
             <name>font_main_plot</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
-            <linespacing>1.14</linespacing>
+            <filename>AljazeeraFull.ttf</filename>
             <size>30</size>
         </font>
         <font>
             <name>font_mini_plot</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
-            <linespacing>1.24</linespacing>
+            <filename>AljazeeraFull.ttf</filename>
             <size>26</size>
         </font>
 
@@ -651,20 +635,20 @@
         <!-- Music visualisation scrolling text -->
         <font>
             <name>font_musicvis_biggest</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Light.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>lighten</style>
             <size>230</size>
         </font>
         <font>
             <name>font_musicvis_bigger</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Light.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>lighten</style>
             <size>130</size>
         </font>
         <font>
             <name>font_musicvis_big</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Light.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>lighten</style>
             <size>80</size>
         </font>
 
@@ -690,14 +674,506 @@
         <!-- Required for system -->
         <font>
             <name>font13</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Regular.ttf</filename>
+            <filename>AljazeeraFull.ttf</filename>
             <aspect>0.89</aspect>
             <size>30</size>
         </font>
         <font>
             <name>Clock</name>
-            <filename>resource://resource.font.robotocjksc/RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
+            <filename>AljazeeraFull.ttf</filename>
+            <style>bold</style>
+            <size>130</size>
+        </font>
+
+        <!-- Testing Fonts -->
+        <font>
+            <name>font_debug</name>
+            <filename>RobotoMono-Light.ttf</filename>
+            <size>24</size>
+            <aspect>0.8</aspect>
+        </font>
+    </fontset>
+	
+	    <fontset id="Amazon" unicode="true">
+
+        <!-- Title fonts -->
+        <font>
+            <name>font_info_black</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>112</size>
+        </font>
+        <font>
+            <name>font_info_light</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>lighten</style>
+            <size>112</size>
+        </font>
+        <font>
+            <name>font_info_black_doublerow</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>56</size>
+        </font>
+        <font>
+            <name>font_info_light_doublerow</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>lighten</style>
+            <size>56</size>
+        </font>
+
+        <!-- Black Fonts -->
+        <font>
+            <name>font_huge_black</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>49</size>
+        </font>
+        <font>
+            <name>font_head_black</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>42</size>
+        </font>
+        <font>
+            <name>font_midi_black</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>37</size>
+        </font>
+        <font>
+            <name>font_main_black</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>32</size>
+        </font>
+        <font>
+            <name>font_mini_black</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>28</size>
+        </font>
+        <font>
+            <name>font_tiny_black</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>24</size>
+        </font>
+        <font>
+            <name>font_hint_black</name>
+            <style>uppercase bold</style>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+            <size>18</size>
+        </font>
+
+        <!-- Bold Fonts -->
+        <font>
+            <name>font_huge_bold</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>49</size>
+        </font>
+        <font>
+            <name>font_head_bold</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>42</size>
+        </font>
+        <font>
+            <name>font_midi_bold</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>37</size>
+        </font>
+        <font>
+            <name>font_main_bold</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>32</size>
+        </font>
+        <font>
+            <name>font_mini_bold</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>28</size>
+        </font>
+        <font>
+            <name>font_tiny_bold</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>24</size>
+        </font>
+        <font>
+            <name>font_hint_bold</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>18</size>
+        </font>
+
+        <!-- Standard Fonts -->
+        <font>
+            <name>font_midi</name>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+            <size>35</size>
+        </font>
+        <font>
+            <name>font_main</name>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+            <size>30</size>
+        </font>
+        <font>
+            <name>font_mini</name>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+            <size>26</size>
+        </font>
+        <font>
+            <name>font_tiny</name>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+            <size>22</size>
+        </font>
+        <font>
+            <name>font_hint</name>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+            <size>16</size>
+            <linespacing>1.05</linespacing>
+        </font>
+
+        <!-- Textbox Fonts -->
+        <font>
+            <name>font_huge_plot</name>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+            <size>47</size>
+        </font>
+        <font>
+            <name>font_midi_plot</name>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+            <size>35</size>
+        </font>
+        <font>
+            <name>font_main_plot</name>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+			<aspect>0.91</aspect>
+            <size>28</size>
+        </font>
+        <font>
+            <name>font_mini_plot</name>
+            <filename>AmazonFullRegular.ttf</filename>
+			<style>lighten</style>
+            <size>26</size>
+        </font>
+
+        <!-- Font for codec flag -->
+        <font>
+            <name>font_videocodec_bold</name>
+            <filename>Nick-Titling.ttf</filename>
+            <size>22</size>
+        </font>
+
+        <!-- Music visualisation scrolling text -->
+        <font>
+            <name>font_musicvis_biggest</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>lighten</style>
+            <size>230</size>
+        </font>
+        <font>
+            <name>font_musicvis_bigger</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>lighten</style>
+            <size>130</size>
+        </font>
+        <font>
+            <name>font_musicvis_big</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>lighten</style>
+            <size>80</size>
+        </font>
+
+        <!-- Keyboard Symbol Font -->
+        <font>
+            <name>font_main_iconic</name>
+            <filename>iconmonstr-iconic-font.ttf</filename>
+            <size>30</size>
+        </font>
+
+        <!-- Kodi Logo Font -->
+        <font>
+            <name>font_logo</name>
+            <filename>Questrial-Regular.ttf</filename>
+            <size>27</size>
+        </font>
+        <font>
+            <name>font_logo_large</name>
+            <filename>Questrial-Regular.ttf</filename>
+            <size>44</size>
+        </font>
+
+        <!-- Required for system -->
+        <font>
+            <name>font13</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>lighten</style>
+            <size>30</size>
+        </font>
+        <font>
+            <name>Clock</name>
+            <filename>AmazonFullRegular.ttf</filename>
+            <style>bold</style>
+            <size>130</size>
+        </font>
+
+        <!-- Testing Fonts -->
+        <font>
+            <name>font_debug</name>
+            <filename>RobotoMono-Light.ttf</filename>
+            <size>24</size>
+            <aspect>0.8</aspect>
+        </font>
+    </fontset>
+	
+	    <fontset id="Samim Full" unicode="true">
+
+        <!-- Title fonts -->
+        <font>
+            <name>font_info_black</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>112</size>
+        </font>
+        <font>
+            <name>font_info_light</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>lighten</style>
+            <size>112</size>
+        </font>
+        <font>
+            <name>font_info_black_doublerow</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>56</size>
+        </font>
+        <font>
+            <name>font_info_light_doublerow</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>lighten</style>
+            <size>56</size>
+        </font>
+
+        <!-- Black Fonts -->
+        <font>
+            <name>font_huge_black</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>49</size>
+        </font>
+        <font>
+            <name>font_head_black</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>42</size>
+        </font>
+        <font>
+            <name>font_midi_black</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>37</size>
+        </font>
+        <font>
+            <name>font_main_black</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>32</size>
+        </font>
+        <font>
+            <name>font_mini_black</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>28</size>
+        </font>
+        <font>
+            <name>font_tiny_black</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>24</size>
+        </font>
+        <font>
+            <name>font_hint_black</name>
+            <style>uppercase bold</style>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <size>18</size>
+        </font>
+
+        <!-- Bold Fonts -->
+        <font>
+            <name>font_huge_bold</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>49</size>
+        </font>
+        <font>
+            <name>font_head_bold</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>42</size>
+        </font>
+        <font>
+            <name>font_midi_bold</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>37</size>
+        </font>
+        <font>
+            <name>font_main_bold</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>32</size>
+        </font>
+        <font>
+            <name>font_mini_bold</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>28</size>
+        </font>
+        <font>
+            <name>font_tiny_bold</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>24</size>
+        </font>
+        <font>
+            <name>font_hint_bold</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
+            <size>18</size>
+        </font>
+
+        <!-- Standard Fonts -->
+        <font>
+            <name>font_midi</name>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <size>35</size>
+        </font>
+        <font>
+            <name>font_main</name>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <size>30</size>
+        </font>
+        <font>
+            <name>font_mini</name>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <size>26</size>
+        </font>
+        <font>
+            <name>font_tiny</name>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <size>22</size>
+        </font>
+        <font>
+            <name>font_hint</name>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <size>16</size>
+            <linespacing>1.05</linespacing>
+        </font>
+
+        <!-- Textbox Fonts -->
+        <font>
+            <name>font_huge_plot</name>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <size>45</size>
+        </font>
+        <font>
+            <name>font_midi_plot</name>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <size>33</size>
+        </font>
+        <font>
+            <name>font_main_plot</name>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <linespacing>1.1</linespacing>
+            <size>28</size>
+        </font>
+        <font>
+            <name>font_mini_plot</name>
+            <filename>SamimFullBold.ttf</filename>
+			<style>lighten</style>
+            <size>24</size>
+        </font>
+
+        <!-- Font for codec flag -->
+        <font>
+            <name>font_videocodec_bold</name>
+            <filename>Nick-Titling.ttf</filename>
+            <size>22</size>
+        </font>
+
+        <!-- Music visualisation scrolling text -->
+        <font>
+            <name>font_musicvis_biggest</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>lighten</style>
+            <size>230</size>
+        </font>
+        <font>
+            <name>font_musicvis_bigger</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>lighten</style>
+            <size>130</size>
+        </font>
+        <font>
+            <name>font_musicvis_big</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>lighten</style>
+            <size>80</size>
+        </font>
+
+        <!-- Keyboard Symbol Font -->
+        <font>
+            <name>font_main_iconic</name>
+            <filename>iconmonstr-iconic-font.ttf</filename>
+            <size>30</size>
+        </font>
+
+        <!-- Kodi Logo Font -->
+        <font>
+            <name>font_logo</name>
+            <filename>Questrial-Regular.ttf</filename>
+            <size>27</size>
+        </font>
+        <font>
+            <name>font_logo_large</name>
+            <filename>Questrial-Regular.ttf</filename>
+            <size>44</size>
+        </font>
+
+        <!-- Required for system -->
+        <font>
+            <name>font13</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>lighten</style>
+            <size>30</size>
+        </font>
+        <font>
+            <name>Clock</name>
+            <filename>SamimFullBold.ttf</filename>
+            <style>bold</style>
             <size>130</size>
         </font>
 
