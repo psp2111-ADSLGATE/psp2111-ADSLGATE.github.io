@@ -12,16 +12,15 @@ class Container():
     @staticmethod
     def get_list_item(label='', label2='', path='', offscreen=True, is_folder=True):
         from xbmcgui import ListItem
-        return {
-            'url': path,
-            'listitem': ListItem(label=label, label2=label2, path=path, offscreen=offscreen),
-            'isFolder': is_folder
-        }
+        return (
+            path,
+            ListItem(label=label, label2=label2, path=path, offscreen=offscreen),
+            is_folder,
+        )
 
     def add_items(self, items, update_listing=False, plugin_category='', container_content=''):
         import xbmcplugin
-        for i in items:
-            xbmcplugin.addDirectoryItem(handle=self.handle, **i)
+        xbmcplugin.addDirectoryItems(handle=self.handle, items=items)
         xbmcplugin.setPluginCategory(self.handle, plugin_category)  # Container.PluginCategory
         xbmcplugin.setContent(self.handle, container_content)  # Container.Content
         xbmcplugin.endOfDirectory(self.handle, updateListing=update_listing)

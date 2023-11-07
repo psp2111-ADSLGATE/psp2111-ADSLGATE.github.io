@@ -77,12 +77,12 @@ class SimpleCache(object):
         finally:
             self._busy_tasks.remove(task_name)
 
-    def get(self, endpoint):
+    def get(self, endpoint, cur_time=None):
         '''
             get object from cache and return the results
             endpoint: the (unique) name of the cache object as reference
         '''
-        cur_time = set_timestamp(0, True)
+        cur_time = cur_time or set_timestamp(0, True)
         result = self._get_mem_cache(endpoint, cur_time)  # Try from memory first
         return result or self._get_db_cache(endpoint, cur_time)  # Fallback to checking database if not in memory
 

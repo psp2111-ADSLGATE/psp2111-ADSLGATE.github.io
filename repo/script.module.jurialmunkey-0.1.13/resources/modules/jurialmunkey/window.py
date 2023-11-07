@@ -19,7 +19,10 @@ def get_property(name, set_property=None, clear_property=False, window_id=None, 
         name = f'{prefix}.{name}'
     if window_id == 'current':
         window_id = get_current_window()
-    window = xbmcgui.Window(window_id or 10000)  # Fallback to home window id=10000
+    try:
+        window = xbmcgui.Window(window_id or 10000)  # Fallback to home window id=10000
+    except RuntimeError:  # If window id does not exist
+        return
     ret_property = set_property or window.getProperty(name)
     if clear_property:
         window.clearProperty(name)
