@@ -83,7 +83,7 @@
 							<bottom>70</bottom>
 							<font>font36_title</font>
 							<textcolor>unfocused_text</textcolor>
-							<label>Season $INFO[ListItem.Season], Episode $INFO[ListItem.Episode]</label>
+							<label>الموسم $INFO[ListItem.Season], الحلقة $INFO[ListItem.Episode]</label>
 							<visible>String.IsEqual(ListItem.DbType,episode)</visible>
 						</control>
 						<control type="textbox">

@@ -13,9 +13,8 @@ import xbmcvfs
 #import xml.etree.ElementTree as ET
 from threading import Thread
 from xml.dom.minidom import parse as mdParse
-import json
-import requests
-import time
+from urllib.parse import unquote, unquote_plus
+from re import sub as re_sub
 
 # Kodi JSON-RPC API endpoint
 api_url = 'http://localhost:8080/jsonrpc'
@@ -38,7 +37,8 @@ infoWindow = xbmcgui.Window(12003)
 item = xbmcgui.ListItem
 progressDialog = xbmcgui.DialogProgress()
 progressDialogBG = xbmcgui.DialogProgressBG()
-progress_line = '%s[CR]%s[CR]%s'
+progress_line = '%s[CR]%s'
+progress_line2 = '%s[CR]%s[CR]%s'
 
 addItem = xbmcplugin.addDirectoryItem
 content = xbmcplugin.setContent
@@ -91,6 +91,8 @@ traktSyncFile = joinPath(dataPath, 'traktSync.db')
 subsFile = joinPath(dataPath, 'substitute.db')
 fanarttvCacheFile = joinPath(dataPath, 'fanarttv.db')
 metaInternalCacheFile = joinPath(dataPath, 'video_cache.db')
+favouritesFile = joinPath(dataPath, 'favourites.db')
+plexSharesFile = joinPath(dataPath, 'plexshares.db')
 trailer = 'plugin://plugin.video.youtube/play/?video_id=%s'
 
 def getKodiVersion(full=False):
@@ -98,8 +100,16 @@ def getKodiVersion(full=False):
 	else: return int(xbmc.getInfoLabel("System.BuildVersion")[:2])
 
 def setContainerName(value):
-	import sys
-	xbmcplugin.setPluginCategory(int(sys.argv[1]), value)
+	try:
+		if value:
+			value = unquote_plus(value)
+		else:
+			value = ''
+		import sys
+		xbmcplugin.setPluginCategory(int(sys.argv[1]), value)
+	except:
+		from resources.lib.modules import log_utils
+		log_utils.error()
 
 def setHomeWindowProperty(propertyname, property):
 	win = xbmcgui.Window(10000)
@@ -107,11 +117,11 @@ def setHomeWindowProperty(propertyname, property):
 ####################################################
 # --- Custom Dialogs
 ####################################################
-def getProgressWindow(heading='', icon=None, qr=0):
+def getProgressWindow(heading='', icon=None, qr=0, artwork=0):
 	if icon == None:
 		icon = addonIcon()
 	from resources.lib.windows.umbrella_dialogs import ProgressUmbrella
-	window = ProgressUmbrella('progress_umbrella.xml', addonPath(addonId()), heading=heading, icon=icon, qr=qr)
+	window = ProgressUmbrella('progress_umbrella.xml', addonPath(addonId()), heading=heading, icon=icon, qr=qr, artwork=artwork)
 	Thread(target=window.run).start()
 	return window
 
@@ -353,6 +363,9 @@ def closeOk():
 def refresh():
 	return execute('Container.Refresh')
 
+def folderPath():
+    return infoLabel('Container.FolderPath')
+
 def queueItem():
 	return execute('Action(Queue)') # seems broken in 19 for show and season level, works fine in 18
 
@@ -415,54 +428,29 @@ def autoTraktSubscription(tvshowtitle, year, imdb, tvdb): #---start adding TMDb 
 	from resources.lib.modules import library
 	library.libtvshows().add(tvshowtitle, year, imdb, tvdb)
 
-# def getColor(n):
-# 	colorChart = ('blue', 'red', 'yellow', 'deeppink', 'cyan', 'lawngreen', 'gold', 'magenta', 'yellowgreen',
-# 						'skyblue', 'lime', 'limegreen', 'deepskyblue', 'white', 'whitesmoke', 'nocolor', 'black')
-# 	if not n: n = '8'
-# 	color = colorChart[int(n)]
-# 	return color
-
-def getBackgroundColor(n):
-	colorChart = ('black','white', 'lightgray', 'gray', 'FFFFF0DB', 'darkgoldenrod', 'gold', 'yellow', 'peru', 'orangered',
-						'pink','deeppink','fuchsia','lightcoral', 'FFD10000', 'FF750000', 'blueviolet', 'darkorchid', 'purple', 'indigo', 'darkslateblue', 'slateblue','navy', 'blue', 'deepskyblue', 'dodgerblue','skyblue', 'powderblue', 'turquoise', 'cyan', 'aqua','aquamarine','greenyellow','mediumspringgreen','green', 'lime','red')
-	if not n: n = '0'
-	color = colorChart[int(n)]
-	return color 
-
-def getColor(n):
-	if getKodiVersion()>=20:
-		return n
-	else:
-		colorChart = ('ff000000','ffffffff', 'ffd3d3d3', 'ff808080', 'FFFFF0DB', 'ffb8860b', 'ffffd700', 'ffffff00', 'ffcd853f', 'ffff4500',
-							'ffffc0cb','ffff1493','ffff00ff','fff08080', 'FFD10000', 'FF750000', 'ff8a2be2', 'ff9932cc', 'ff800080', 'ff4b0082', 'ff483d8b', 'ff6a5acd','ff000080', 'ff0000ff', 'ff00bfff', 'ff1e90ff','ff87ceeb', 'ffb0e0e6', 'ff40e0d0', 'ff00ffff', 'ff00ffff','ff7fffd4','ffadff2f','ff00fa9a','ff008000', 'ff00ff00', 'ffff0000')
-		if not n: n = '0'
-		color = colorChart[int(n)]
-		return color
-
-def getHighlightColor():
-	if getKodiVersion() >= 20:
-		return (setting('highlight.color'))
-	else:
-		return getColor(setting('highlight.color'))
-
-def getSourceHighlightColor():
-	if getKodiVersion() >= 20:
-		return (setting('sources.highlight.color'))
-	else:
-		return getColor(setting('sources.highlight.color'))
 
 def getProviderHighlightColor(sourcename):
     #Real-Debrid
     #Premiumize.me
 	sourcename = str(sourcename).lower()
 	source = 'sources.'+sourcename+'.color'
-	return getColor(setting(source))
+	colorString = setting(source)
+	return colorString
 
-def getPlayNextBackgroundColor():
-	if getKodiVersion() >= 20:
-		return (setting('playnext.background.color'))
-	else:
-		return getBackgroundColor(setting('playnext.background.color'))
+def getColorPicker(params):
+	#will need to open a window here.
+	from resources.lib.windows.colorpick import ColorPick
+	window = ColorPick('colorpick.xml', addonPath(addonId()), current_setting=params.get('current_setting'), current_value=params.get('current_value'))
+	colorPick = window.run()
+	del window
+	return colorPick
+
+def showColorPicker(current_setting):
+	current_value = setting(current_setting)
+	chosen_color = getColorPicker({'current_setting': current_setting, 'current_value': current_value})
+	if chosen_color:
+		setSetting(current_setting+'.display', str('[COLOR=%s]%s[/COLOR]' % (chosen_color, chosen_color)))
+		setSetting(current_setting, str('%s' % (chosen_color)))
 
 def getMenuEnabled(menu_title):
 	is_enabled = setting(menu_title).strip()
@@ -478,10 +466,9 @@ def trigger_widget_refresh():
 	execute('UpdateLibrary(video,/fake/path/to/force/refresh/on/home)') # make sure this is ok coupled with above
 
 def refresh_playAction(): # for umbrella global CM play actions
-	xbmc.log('refresh playAction', 1)
-	autoPlayTV = 'true' if setting('play.mode.tv') == '1' else ''
+	autoPlayTV = 'true' if setting('play.mode.tv') == '1' else '0'
 	homeWindow.setProperty('umbrella.autoPlaytv.enabled', autoPlayTV)
-	autoPlayMovie = 'true' if setting('play.mode.movie') == '1' else ''
+	autoPlayMovie = 'true' if setting('play.mode.movie') == '1' else '0'
 	homeWindow.setProperty('umbrella.autoPlayMovie.enabled', autoPlayMovie)
 
 def refresh_libPath(): # for umbrella global CM library actions
@@ -502,8 +489,7 @@ def metadataClean(metadata):
 					'album', 'artist', 'votes', 'path', 'trailer', 'dateadded', 'mediatype', 'dbid')
 	return {k: v for k, v in iter(metadata.items()) if k in allowed}
 
-def set_info(item, meta, setUniqueIDs=None, resumetime=''):
-	
+def set_info(item, meta, setUniqueIDs=None, resumetime='', fileNameandPath=None):
 	if getKodiVersion() >= 20:
 		try:
 			meta_get = meta.get
@@ -511,24 +497,30 @@ def set_info(item, meta, setUniqueIDs=None, resumetime=''):
 			info_tag.setMediaType(meta_get('mediatype'))
 			if setUniqueIDs:
 				info_tag.setUniqueIDs(setUniqueIDs)
-			info_tag.setPath(meta_get('path'))
-			info_tag.setFilenameAndPath(meta_get('filenameandpath'))
+			#log('unique id title:%s imdb:%s filenameandpath: %s'%(meta_get('title'), setUniqueIDs.get('imdb'), fileNameandPath), 1)
+			if fileNameandPath:
+				info_tag.setPath(unquote(fileNameandPath))
+			if fileNameandPath:
+				info_tag.setFilenameAndPath(unquote(fileNameandPath))
 			if meta_get('title') == None:
 				info_title = item.getLabel()
 			else:
 				info_title = meta_get('title')
 			info_tag.setTitle(info_title)
 			info_tag.setSortTitle(meta_get('sorttitle'))
+			#info_tag.setSortEpisode(meta_get('sortepisode'))
+			#info_tag.setSortSeason(meta_get('sortseason'))
 			info_tag.setOriginalTitle(meta_get('originaltitle'))
 			info_tag.setPlot(meta_get('plot'))
-			info_tag.setPlotOutline(meta_get('plotoutline'))
+			info_tag.setPlotOutline(meta_get('plot'))
 			info_tag.setDateAdded(meta_get('dateadded'))
 			info_tag.setPremiered(meta_get('premiered'))
 			info_tag.setYear(convert_type(int, meta_get('year', 0)))
 			info_tag.setRating(convert_type(float, meta_get('rating', 0.0)))
 			info_tag.setMpaa(meta_get('mpaa'))
-			info_tag.setDuration(meta_get('duration', 0))
-			info_tag.setPlaycount(convert_type(int , meta_get('playcount', 0)))
+			if meta_get('duration') != '':
+				info_tag.setDuration(meta_get('duration', 0))
+			info_tag.setPlaycount(convert_type(int, meta_get('playcount', 0)))
 			if isinstance(meta_get('votes'), str): 
 				meta_votes = str(meta_get('votes')).replace(",","")
 			else:
@@ -545,7 +537,8 @@ def set_info(item, meta, setUniqueIDs=None, resumetime=''):
 			info_tag.setStudios(to_list(meta_get('studio', [])))
 			info_tag.setWriters(to_list(meta_get('writer', [])))
 			info_tag.setDirectors(to_list(meta_get('director', [])))
-			info_tag.setIMDBNumber(meta_get('imdb_id'))
+			if setUniqueIDs:
+				info_tag.setIMDBNumber(setUniqueIDs.get('imdb'))
 			if resumetime: info_tag.setResumePoint(float(resumetime))
 			if meta_get('mediatype') in ['tvshow', 'season']:
 				info_tag.setTvShowTitle(meta_get('tvshowtitle'))
@@ -610,8 +603,19 @@ def disable_enable_addon():
     jsonrpc('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": {"addonid": "plugin.video.umbrella", "enabled": true }}')
     xbmc.log('[ plugin.video.umbrella ] umbrella re-enabled', 1)
 
+def addonEnabled(addon_id):
+	return condVisibility('System.AddonIsEnabled(%s)' % addon_id)
+
 def update_local_addon():
     execute('UpdateLocalAddons')
+
+def jsonrpc_get_addons():
+	try:
+		results = jsonrpc('{"jsonrpc": "2.0", "id":1, "method": "Addons.GetAddons", "params": {"type": "xbmc.python.module", "properties": ["thumbnail", "name"] }}')
+		results = jsloads(results)['result']['addons']
+	except:
+		results = []
+	return results
     
 def jsondate_to_datetime(jsondate_object, resformat, remove_time=False):
 	import _strptime  # fix bug in python import
@@ -627,37 +631,55 @@ def jsondate_to_datetime(jsondate_object, resformat, remove_time=False):
 
 def syncAccounts():
 	try:
-		setSetting('easynews.user', addon('script.module.cocoscrapers').getSetting('easynews.user'))
-		setSetting('easynews.password', addon('script.module.cocoscrapers').getSetting('easynews.password'))
-		setSetting('filepursuit.api', addon('script.module.cocoscrapers').getSetting('filepursuit.api'))
-		setSetting('plex.token', addon('script.module.cocoscrapers').getSetting('plex.token'))
-		setSetting('plex.client_id', addon('script.module.cocoscrapers').getSetting('plex.client_id'))
-		setSetting('plex.device_id', addon('script.module.cocoscrapers').getSetting('plex.device_id'))
-		setSetting('gdrive.cloudflare_url', addon('script.module.cocoscrapers').getSetting('gdrive.cloudflare_url'))
-		if getKodiVersion() >= 20:
-			if setting('umbrella.colorbuttonset') == 'false':
-				setSetting('highlight.color', 'FFFEFE22')
-				setSetting('movie.unaired.identify', 'FF76FF7A')
-				setSetting('dialogs.customcolor', 'FF1CA9C9')
-				setSetting('dialogs.titlebar.color', 'FF1CA9C9')
-				setSetting('dialogs.button.color', 'FF1CA9C9')
-				setSetting('unaired.identify', 'FF76FF7A')
-				setSetting('playnext.background.color', 'FF000000')
-				setSetting('scraper.dialog.color', 'FFCEFF1D')
-				setSetting('sources.highlight.color', 'FF1FCECB')
-				setSetting('sources.real-debrid.color', 'FFEE204D')
-				setSetting('sources.alldebrid.color', 'FFFFCF48')
-				setSetting('sources.premiumize.me.color', 'FF6699CC')
-				setSetting('sources.easynews.color', 'FFFFAE42')
-				setSetting('sources.plexshare.color', 'FF7442C8')
-				setSetting('sources.gdrive.color', 'FFFF48D0')
-				setSetting('sources.filepursuit.color', 'FF3BB08F')
-				setSetting('umbrella.colorbuttonset', 'true')
+		if setting('external_provider.module','') == '':
+			pass
+		else:
+			modulename = setting('external_provider.module')
+
+		if setting('umbrella.colorSecond') == 'false':
+			setSetting('highlight.color', 'FFFFFF33')
+			setSetting('highlight.color.display', '[COLOR=FFFFFF33]FFFFFF33[/COLOR]')
+			setSetting('movie.unaired.identify', 'FF5CFF34')
+			setSetting('movie.unaired.identify.display', '[COLOR=FF5CFF34]FF5CFF34[/COLOR]')
+			setSetting('dialogs.customcolor', 'FF00B8E6')
+			setSetting('dialogs.customcolor.display', '[COLOR=FF00B8E6]FF00B8E6[/COLOR]')
+			setSetting('dialogs.titlebar.color', 'FF00B8E6')
+			setSetting('dialogs.titlebar.color.display', '[COLOR=FF00B8E6]FF00B8E6[/COLOR]')
+			setSetting('dialogs.button.color', 'FF00B8E6')
+			setSetting('dialogs.button.color.display', '[COLOR=FF00B8E6]FF00B8E6[/COLOR]')
+			setSetting('unaired.identify', 'FF34FF33')
+			setSetting('unaired.identify.display', '[COLOR=FF34FF33]FF34FF33[/COLOR]')
+			setSetting('playnext.background.color', 'FF000000')
+			setSetting('playnext.background.color.display', '[COLOR=FF000000]FF000000[/COLOR]')
+			setSetting('scraper.dialog.color', 'FFFFFF33')
+			setSetting('scraper.dialog.color.display', '[COLOR=FFFFFF33]FFFFFF33[/COLOR]')
+			setSetting('sources.highlight.color', 'FF4DFFFF')
+			setSetting('sources.highlight.color.display', '[COLOR=FF4DFFFF]FF4DFFFF[/COLOR]')
+			setSetting('sources.real-debrid.color', 'FFFF3334')
+			setSetting('sources.real-debrid.color.display', '[COLOR=FFFF3334]FFFF3334[/COLOR]')
+			setSetting('sources.alldebrid.color', 'FFFFB84E')
+			setSetting('sources.alldebrid.color.display', '[COLOR=FFFFB84E]FFFFB84E[/COLOR]')
+			setSetting('sources.premiumize.me.color', 'FF4700B4')
+			setSetting('sources.premiumize.me.color.display', '[COLOR=FF4700B4]FF4700B4[/COLOR]')
+			setSetting('sources.easynews.color', 'FF24B301')
+			setSetting('sources.easynews.color.display', '[COLOR=FF24B301]FF24B301[/COLOR]')
+			setSetting('sources.plexshare.color', 'FFAD34FF')
+			setSetting('sources.plexshare.color.display', '[COLOR=FFAD34FF]FFAD34FF[/COLOR]')
+			setSetting('sources.gdrive.color', 'FFFF4DFF')
+			setSetting('sources.gdrive.color.display', '[COLOR=FFFF4DFF]FFFF4DFF[/COLOR]')
+			setSetting('sources.filepursuit.color', 'FF00CC29')
+			setSetting('sources.filepursuit.color.display', '[COLOR=FF00CC29]FF00CC29[/COLOR]')
+			setSetting('umbrella.colorSecond', 'true')
+			notification('Umbrella', 'Reloading addon due to new settings added.')
+		if setting('umbrella.externalWarning') != 'true':
+			setSetting('umbrella.externalWarning', 'true')
+			from resources.help import help
+			help.get('externalProviders')
 		if setting('context.useUmbrellaContext') == 'true':
-			homeWindow.setProperty('context.umbrella.showUmbrella', '[B][COLOR '+getHighlightColor()+']Umbrella[/COLOR][/B] - ')
+			homeWindow.setProperty('context.umbrella.showUmbrella', '[B][COLOR '+setting('highlight.color')+']Umbrella[/COLOR][/B] - ')
 		else:
 			homeWindow.setProperty('context.umbrella.showUmbrella', '')
-		homeWindow.setProperty('context.umbrella.highlightcolor', getHighlightColor())
+		homeWindow.setProperty('context.umbrella.highlightcolor', setting('highlight.color'))
 	except:
 		from resources.lib.modules import log_utils
 		log_utils.error()
@@ -696,7 +718,38 @@ def removeCorruptSettings():
 def setContextColors():
 	#tell me i cannot do some shit again.
 	try:
-		homeWindow.setProperty('context.umbrella.highlightcolor', getColor(setting('highlight.color')))
+		homeWindow.setProperty('context.umbrella.highlightcolor', setting('highlight.color'))
 	except:
 		from resources.lib.modules import log_utils
 		log_utils.error()
+
+def checkModules():
+	if setting('provider.external.enabled') == 'false':
+		setSetting('external_provider.name', '')
+		setSetting('external_provider.module', '')
+
+def backToMain(folder):
+	if folder == 'movies':
+		url = 'plugin://plugin.video.umbrella/?action=movieNavigator&folderName=Discover%20Movies'
+	elif folder =='tvshows':
+		url = 'plugin://plugin.video.umbrella/?action=tvNavigator&folderName=Discover%20TV%20Shows'
+	else:
+		url = None
+	if url: execute('Container.Refresh(%s)'% url)
+
+def timeFunction(function, *args):
+	from timeit import default_timer as timer
+	from datetime import timedelta
+	start = timer()
+	try:
+		exeFunction = function(*args)
+	except:
+		from resources.lib.modules import log_utils
+		log_utils.error()
+	stop = timer()
+	from resources.lib.modules import log_utils
+	log_utils.log('Function Timer: %s Time: %s' %(_get_function_name(function), timedelta(seconds=stop-start)),1)
+	return exeFunction
+
+def _get_function_name(function_instance):
+	return re_sub(r'.+\smethod\s|.+function\s|\sat\s.+|\sof\s.+', '', repr(function_instance))

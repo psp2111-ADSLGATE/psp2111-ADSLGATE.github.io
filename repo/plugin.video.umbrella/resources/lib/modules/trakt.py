@@ -25,7 +25,7 @@ REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 session = requests.Session()
 retries = Retry(total=4, backoff_factor=0.3, status_forcelist=[429, 500, 502, 503, 504, 520, 521, 522, 524, 530])
 session.mount('https://api.trakt.tv', HTTPAdapter(max_retries=retries, pool_maxsize=100))
-highlight_color = control.getHighlightColor()
+highlight_color = getSetting('highlight.color')
 server_notification = getSetting('trakt.server.notifications') == 'true'
 service_syncInterval = int(getSetting('trakt.service.syncInterval')) if getSetting('trakt.service.syncInterval') else 15
 trakt_icon = control.joinPath(control.artPath(), 'trakt.png')
@@ -49,7 +49,7 @@ def getTrakt(url, post=None, extended=False, silent=False):
 			else: return response
 		elif status_code == '401': # Re-Auth token
 			if response.headers.get('x-private-user') == 'true':
-				log_utils.log('URL:%s Has a Private User Header:Ignoring' % url, level=log_utils.LOGWARNING)
+				#log_utils.log('URL:%s Has a Private User Header:Ignoring' % url, level=log_utils.LOGWARNING)
 				return None
 			success = re_auth(headers)
 			if success: return getTrakt(url, extended=extended, silent=silent)
@@ -190,21 +190,16 @@ def getTraktDeviceToken(traktDeviceCode):
 				"client_secret": traktClientSecret()}
 		start = time.time()
 		expires_in = traktDeviceCode['expires_in']
-		verification_url = control.lang(32513) % (control.getHighlightColor(), str(traktDeviceCode['verification_url']))
-		user_code = control.lang(32514) % (control.getHighlightColor(), str(traktDeviceCode['user_code']))
+		verification_url = control.lang(32513) % (highlight_color, str(traktDeviceCode['verification_url']))
+		user_code = control.lang(32514) % (highlight_color, str(traktDeviceCode['user_code']))
 		line = '%s\n%s\n%s'
-		try:
-			from resources.lib.modules.source_utils import copy2clip
-			copy2clip(traktDeviceCode['user_code'])
-		except:
-			log_utils.error()
 		if control.setting('dialogs.useumbrelladialog') == 'true':
 			progressDialog = control.getProgressWindow(getLS(32073), trakt_qr, 1)
 			progressDialog.set_controls()
-			progressDialog.update(0, control.progress_line % (verification_url, user_code, getLS(40390)))
+			progressDialog.update(0, control.progress_line % (verification_url, user_code))
 		else:
 			progressDialog = control.progressDialog
-			progressDialog.create(control.lang(32073), control.progress_line % (verification_url, user_code, getLS(40390)))
+			progressDialog.create(control.lang(32073), control.progress_line % (verification_url, user_code))
 		try:
 			time_passed = 0
 			while not progressDialog.iscanceled() and time_passed < expires_in:
@@ -215,7 +210,7 @@ def getTraktDeviceToken(traktDeviceCode):
 					if response.status_code == 400:
 						time_passed = time.time() - start
 						progress = int(100)-int(100 * time_passed / expires_in)
-						progressDialog.update(progress, control.progress_line % (verification_url, user_code, getLS(40390)))
+						progressDialog.update(progress, control.progress_line % (verification_url, user_code))
 						control.sleep(max(traktDeviceCode['interval'], 1)*1000)
 				except requests.HTTPError as e:
 					log_utils.log('Request Error: %s' % str(e), __name__, log_utils.LOGDEBUG)
@@ -947,7 +942,6 @@ def cachesyncTV(imdb, tvdb): # sync full watched shows then sync imdb_id "season
 	except: log_utils.error()
 
 def cachesyncTVShows(timeout=0):
-
 	try:
 		indicators = traktsync.get(syncTVShows, timeout)
 		#if getSetting('sync.watched.library') == 'true':
@@ -964,47 +958,49 @@ def syncTVShows(): # sync all watched shows ex. [({'imdb': 'tt12571834', 'tvdb':
 		if not indicators: return None
 # /shows/ID/progress/watched  endpoint only accepts imdb or trakt ID so write all ID's
 		indicators = [({'imdb': i['show']['ids']['imdb'], 'tvdb': str(i['show']['ids']['tvdb']), 'tmdb': str(i['show']['ids']['tmdb']), 'trakt': str(i['show']['ids']['trakt'])}, \
-							i['show']['aired_episodes'], sum([[(s['number'], e['number']) for e in s['episodes']] for s in i['seasons']], [])) for i in indicators]
+											i['show']['aired_episodes'], sum([[(s['number'], e['number']) for e in s['episodes'] if i['reset_at'] is None or e['last_watched_at'] > i['reset_at']] for s in i['seasons']], [])) for i in indicators]
+		# indicators = [({'imdb': i['show']['ids']['imdb'], 'tvdb': str(i['show']['ids']['tvdb']), 'tmdb': str(i['show']['ids']['tmdb']), 'trakt': str(i['show']['ids']['trakt'])}, \
+		# 									i['show']['aired_episodes'], sum([[(s['number'], e['number']) for e in s['episodes']] for s in i['seasons']], [])) for i in indicators]
 		indicators = [(i[0], int(i[1]), i[2]) for i in indicators]
 		return indicators
 	except: log_utils.error()
 
-def syncTVShowsLibrary(indicators):
-	if indicators:
-		try:
-			libShows = control.jsonrpc('{"jsonrpc": "2.0","method":"VideoLibrary.GetTVShows","params":{"properties": ["title", "year", "lastplayed", "playcount", "uniqueid"],"sort": {"order": "ascending", "method": "title"}},"id":1}')
-			libShows = jsloads(libShows).get('result').get('tvshows')
-		except:
-			libShows = []
-		episodesMarked = []
-		removeBatch2 = []
-		for show in libShows:
-			if str(show.get('uniqueid').get('imdb')) not in str(indicators):
-				eps = control.jsonrpc('{"jsonrpc":"2.0","id":1,"method":"VideoLibrary.GetEpisodes","params":{"tvshowid":%s, "properties": ["season", "episode", "playcount"]}}' % show.get('tvshowid'))
-				eps = jsloads(eps).get('result').get('episodes')
-				for episodes in eps:
+# def syncTVShowsLibrary(indicators):
+# 	if indicators:
+# 		try:
+# 			libShows = control.jsonrpc('{"jsonrpc": "2.0","method":"VideoLibrary.GetTVShows","params":{"properties": ["title", "year", "lastplayed", "playcount", "uniqueid"],"sort": {"order": "ascending", "method": "title"}},"id":1}')
+# 			libShows = jsloads(libShows).get('result').get('tvshows')
+# 		except:
+# 			libShows = []
+# 		episodesMarked = []
+# 		removeBatch2 = []
+# 		for show in libShows:
+# 			if str(show.get('uniqueid').get('imdb')) not in str(indicators):
+# 				eps = control.jsonrpc('{"jsonrpc":"2.0","id":1,"method":"VideoLibrary.GetEpisodes","params":{"tvshowid":%s, "properties": ["season", "episode", "playcount"]}}' % show.get('tvshowid'))
+# 				eps = jsloads(eps).get('result').get('episodes')
+# 				for episodes in eps:
 				
-					if episodes.get('playcount') == 1:
-						removeBatch2.append(jsloads(('{"jsonrpc":"2.0","method":"VideoLibrary.SetEpisodeDetails","params":{"episodeid":%s, "playcount":0}, "id":3}' % episodes.get('episodeid'))))
-						log_utils.log('Show Marked for Playcount Removal. Show: %s' % show.get('label'),level=log_utils.LOGDEBUG)
-			for indicator in indicators:
-				if str(show.get('uniqueid').get('imdb')) == str(indicator[0]['imdb']): #compare imdb ids in library with imdb ids in indicators
-					epsWatched = indicator[2]
-					eps = control.jsonrpc('{"jsonrpc":"2.0","id":1,"method":"VideoLibrary.GetEpisodes","params":{"tvshowid":%s, "properties": ["season", "episode", "playcount"]}}' % show.get('tvshowid'))
-					eps = jsloads(eps).get('result').get('episodes')
-					for epis in eps:
-						if (epis.get('season'), epis.get('episode')) not in epsWatched:
-							if epis.get('playcount') == 1:
-								removeBatch2.append(jsloads(('{"jsonrpc":"2.0","method":"VideoLibrary.SetEpisodeDetails","params":{"episodeid":%s, "playcount":0}, "id":3}' % epis.get('episodeid'))))
-								log_utils.log('Marked for playcount removal show: %s season: %s episode: %s' % (show.get('label'), epis.get('season'),epis.get('episode')),level=log_utils.LOGDEBUG)
-						for ep in epsWatched:
-							if ep[0] == epis.get('season') and ep[1] == epis.get('episode'):
-								if epis.get('playcount') == 0:
-									episodesMarked.append(jsloads(('{"jsonrpc":"2.0","method":"VideoLibrary.SetEpisodeDetails","params":{"episodeid":%s, "playcount":1}, "id":2}' % epis.get('episodeid'))))
-									log_utils.log('Marked show: %s season: %s episode: %s' % (show.get('label'), epis.get('season'),epis.get('episode')),level=log_utils.LOGDEBUG)
-		if len(episodesMarked) > 0 or len(removeBatch2) > 0:
-			episodesMarked.extend(removeBatch2)
-			control.jsonrpc(jsdumps(episodesMarked))
+# 					if episodes.get('playcount') == 1:
+# 						removeBatch2.append(jsloads(('{"jsonrpc":"2.0","method":"VideoLibrary.SetEpisodeDetails","params":{"episodeid":%s, "playcount":0}, "id":3}' % episodes.get('episodeid'))))
+# 						log_utils.log('Show Marked for Playcount Removal. Show: %s' % show.get('label'),level=log_utils.LOGDEBUG)
+# 			for indicator in indicators:
+# 				if str(show.get('uniqueid').get('imdb')) == str(indicator[0]['imdb']): #compare imdb ids in library with imdb ids in indicators
+# 					epsWatched = indicator[2]
+# 					eps = control.jsonrpc('{"jsonrpc":"2.0","id":1,"method":"VideoLibrary.GetEpisodes","params":{"tvshowid":%s, "properties": ["season", "episode", "playcount"]}}' % show.get('tvshowid'))
+# 					eps = jsloads(eps).get('result').get('episodes')
+# 					for epis in eps:
+# 						if (epis.get('season'), epis.get('episode')) not in epsWatched:
+# 							if epis.get('playcount') == 1:
+# 								removeBatch2.append(jsloads(('{"jsonrpc":"2.0","method":"VideoLibrary.SetEpisodeDetails","params":{"episodeid":%s, "playcount":0}, "id":3}' % epis.get('episodeid'))))
+# 								log_utils.log('Marked for playcount removal show: %s season: %s episode: %s' % (show.get('label'), epis.get('season'),epis.get('episode')),level=log_utils.LOGDEBUG)
+# 						for ep in epsWatched:
+# 							if ep[0] == epis.get('season') and ep[1] == epis.get('episode'):
+# 								if epis.get('playcount') == 0:
+# 									episodesMarked.append(jsloads(('{"jsonrpc":"2.0","method":"VideoLibrary.SetEpisodeDetails","params":{"episodeid":%s, "playcount":1}, "id":2}' % epis.get('episodeid'))))
+# 									log_utils.log('Marked show: %s season: %s episode: %s' % (show.get('label'), epis.get('season'),epis.get('episode')),level=log_utils.LOGDEBUG)
+# 		if len(episodesMarked) > 0 or len(removeBatch2) > 0:
+# 			episodesMarked.extend(removeBatch2)
+# 			control.jsonrpc(jsdumps(episodesMarked))
 
 def cachesyncSeasons(imdb, tvdb, trakt=None, timeout=0):
 	try:
@@ -1033,8 +1029,25 @@ def syncSeasons(imdb, tvdb, trakt=None): # season indicators and counts for watc
 		else:
 			results = getTraktAsJson('/shows/%s/progress/watched?specials=false&hidden=false' % id, silent=True)
 		if not results: return
-		seasons = results['seasons']
 
+		seasons = [{'reset_at': results['reset_at']}, results['seasons']]
+		reset_at = seasons[0].get('reset_at','')
+		if reset_at:           #added to cover trakt reset watching
+			for x in seasons[1]:
+				episodesComplete = 0
+				for y in x['episodes']:
+					last_watched = y.get('last_watched_at', '')
+					if last_watched:
+						if last_watched < reset_at:
+							y['completed'] = False
+						else:
+							episodesComplete = episodesComplete + 1
+					else:
+						if last_watched:
+							episodesComplete = episodesComplete + 1
+				x['completed'] = episodesComplete
+
+		seasons = seasons[1]
 ###--- future-need tmdb_id passed now ---###
 		# next_episode = results['next_episode']
 		# # log_utils.log('next_episode=%s' % next_episode)
@@ -1044,7 +1057,8 @@ def syncSeasons(imdb, tvdb, trakt=None): # season indicators and counts for watc
 		# trakt = str(ids[0].get('trakt', '')) if ids[0].get('trakt') else ''
 		# traktsync.insert_nextEpisode(imdb, tvdb, tmdb, trakt, next_episode)
 #######
-
+		#indicators = [({'imdb': i['show']['ids']['imdb'], 'tvdb': str(i['show']['ids']['tvdb']), 'tmdb': str(i['show']['ids']['tmdb']), 'trakt': str(i['show']['ids']['trakt'])}, \
+											#i['show']['aired_episodes'], sum([[(s['number'], e['number']) for e in s['episodes'] if i['reset_at'] is None or e['last_watched_at'] > i['reset_at']] for s in i['seasons']], [])) for i in indicators]
 		indicators = [(i['number'], [x['completed'] for x in i['episodes']]) for i in seasons]
 		indicators = ['%01d' % int(i[0]) for i in indicators if False not in i[1]]
 		indicators_and_counts.append(indicators)
@@ -1097,10 +1111,13 @@ def service_syncSeasons(): # season indicators and counts for watched shows ex. 
 	except: log_utils.error()
 
 def markMovieAsWatched(imdb):
-	log_utils.log('Umbrella marking movie as watched',level=log_utils.LOGDEBUG)
 	try:
 		result = getTraktAsJson('/sync/history', {"movies": [{"ids": {"imdb": imdb}}]})
-		return result['added']['movies'] != 0
+		result = result['added']['movies'] != 0
+		if getSetting('debug.level') == '1':
+			from resources.lib.modules import log_utils
+			log_utils.log('Trakt markMovieAsWatched IMDB: %s Result: %s' % (imdb, result), level=log_utils.LOGDEBUG)
+		return result
 	except: log_utils.error()
 
 def markMovieAsNotWatched(imdb):
@@ -1159,12 +1176,18 @@ def markEpisodeAsWatched(imdb, tvdb, season, episode):
 	try:
 		season, episode = int('%01d' % int(season)), int('%01d' % int(episode)) #same
 		result = getTraktAsJson('/sync/history', {"shows": [{"seasons": [{"episodes": [{"number": episode}], "number": season}], "ids": {"imdb": imdb, "tvdb": tvdb}}]})
-		if not result: return False
+		if not result: result = False
 		if result['added']['episodes'] == 0 and tvdb:
 			control.sleep(1000)
 			result = getTraktAsJson('/sync/history', {"shows": [{"seasons": [{"episodes": [{"number": episode}], "number": season}], "ids": {"imdb": tvdb}}]})
-			if not result: return False
-		return result['added']['episodes'] !=0
+			if not result: result = False
+			result = result['added']['episodes'] !=0
+		else:
+			result = result['added']['episodes'] !=0
+		if getSetting('debug.level') == '1':
+			from resources.lib.modules import log_utils
+			log_utils.log('Trakt markEpisodeAsWatched IMDB: %s TVDB: %s Season: %s Episode: %s Result: %s' % (imdb, tvdb, season, episode, result), level=log_utils.LOGDEBUG)
+		return result
 	except: log_utils.error()
 
 def markEpisodeAsNotWatched(imdb, tvdb, season, episode):
@@ -1344,6 +1367,7 @@ def scrobbleMovie(imdb, tmdb, watched_percent):
 		if not imdb.startswith('tt'): imdb = 'tt' + imdb
 		success = getTrakt('/scrobble/pause', {"movie": {"ids": {"imdb": imdb}}, "progress": watched_percent})
 		if success:
+			log_utils.log('Trakt Scrobble Movie Success: imdb: %s s' % (imdb), level=log_utils.LOGDEBUG)
 			if getSetting('trakt.scrobble.notify') == 'true': control.notification(message=32088)
 			control.sleep(1000)
 			sync_playbackProgress(forced=True)
@@ -1352,11 +1376,12 @@ def scrobbleMovie(imdb, tmdb, watched_percent):
 	except: log_utils.error()
 
 def scrobbleEpisode(imdb, tmdb, tvdb, season, episode, watched_percent):
-	log_utils.log('Trakt Scrobble Episode Called. Received: imdb: %s tmdb: %s season: %s episode: %s watched_percent: %s' % (imdb, tmdb, season, episode, watched_percent), level=log_utils.LOGDEBUG)
+	#log_utils.log('Trakt Scrobble Episode Called. Received: imdb: %s tmdb: %s season: %s episode: %s watched_percent: %s' % (imdb, tmdb, season, episode, watched_percent), level=log_utils.LOGDEBUG)
 	try:
 		season, episode = int('%01d' % int(season)), int('%01d' % int(episode))
 		success = getTrakt('/scrobble/pause', {"show": {"ids": {"tvdb": tvdb}}, "episode": {"season": season, "number": episode}, "progress": watched_percent})
 		if success:
+			log_utils.log('Trakt Scrobble Episode Success: imdb: %s s' % (imdb), level=log_utils.LOGDEBUG)
 			if getSetting('trakt.scrobble.notify') == 'true': control.notification(message=32088)
 			control.sleep(1000)
 			sync_playbackProgress(forced=True)
@@ -1371,9 +1396,9 @@ def scrobbleReset(imdb, tmdb=None, tvdb=None, season=None, episode=None, refresh
 	try:
 		content_type = 'movie' if not episode else 'episode'
 		resume_info = traktsync.fetch_bookmarks(imdb, tmdb, tvdb, season, episode, ret_type='resume_info')
-		#log_utils.log('Trakt ScrobbleReset imdb: %s imdb type: %s tmdb: %s tmdb type: %s tvdb: %s tvdb type: %s season: %s season type: %s episode: %s episode type: %s resume info: %s' % (imdb, type(imdb), tmdb, type(tmdb), tvdb, type(tvdb), season, type(season), episode, type(episode), str(resume_info)), level=log_utils.LOGDEBUG)
 		if resume_info == '0': return control.hide() # returns string "0" if no data in db 
 		headers['Authorization'] = 'Bearer %s' % getSetting('trakt.user.token')
+		if headers['trakt-api-key'] == '': headers['trakt-api-key']=traktClientID()
 		success = session.delete('https://api.trakt.tv/sync/playback/%s' % resume_info[1], headers=headers).status_code == 204
 		if content_type == 'movie':
 			items = [{'type': 'movie', 'movie': {'ids': {'imdb': imdb}}}]
@@ -1503,6 +1528,7 @@ def force_traktSync():
 	control.notification(message='Forced Trakt Sync Complete')
 
 def sync_playbackProgress(activities=None, forced=False):
+	#log_utils.log('Trakt Sync Playback Called Forced: %s' % (str(forced)), level=log_utils.LOGDEBUG)
 	try:
 		link = '/sync/playback/?extended=full'
 		if forced:
@@ -1511,6 +1537,7 @@ def sync_playbackProgress(activities=None, forced=False):
 		else:
 			db_last_paused = traktsync.last_sync('last_paused_at')
 			activity = getPausedActivity(activities)
+			#log_utils.log('Trakt Sync Playback db_last_paused: %s  activity: %s difference: %s' % (db_last_paused, activity,(activity - db_last_paused)),log_utils.LOGDEBUG)
 			if activity - db_last_paused >= 120: # do not sync unless 2 min difference or more
 				items = getTraktAsJson(link, silent=True)
 				if items: traktsync.insert_bookmarks(items)
@@ -1528,7 +1555,8 @@ def sync_watchedProgress(activities=None, forced=False):
 		if forced or (progressActivity > local_listCache):
 			cache.get(episodes.Episodes().trakt_progress_list, 0, url, trakt_user, lang, direct)
 			if forced: log_utils.log('Forced - Trakt Progress List Sync Complete', __name__, log_utils.LOGDEBUG)
-			else: log_utils.log('Trakt Progress List Sync Update...(local db latest "list_cached_at" = %s, trakt api latest "progress_activity" = %s)' % \
+			else:
+				log_utils.log('Trakt Progress List Sync Update...(local db latest "list_cached_at" = %s, trakt api latest "progress_activity" = %s)' % \
 									(str(local_listCache), str(progressActivity)), __name__, log_utils.LOGDEBUG)
 	except: log_utils.error()
 
@@ -1536,11 +1564,11 @@ def sync_watched(activities=None, forced=False): # writes to traktsync.db as of 
 	try:
 		if forced:
 			cachesyncMovies()
-			log_utils.log('Forced - Trakt Watched Movie Sync Complete', __name__, log_utils.LOGDEBUG)
+			#log_utils.log('Forced - Trakt Watched Movie Sync Complete', __name__, log_utils.LOGDEBUG)
 			cachesyncTVShows()
 			control.sleep(5000)
 			service_syncSeasons() # syncs all watched shows season indicators and counts
-			log_utils.log('Forced - Trakt Watched Shows Sync Complete', __name__, log_utils.LOGDEBUG)
+			#log_utils.log('Forced - Trakt Watched Shows Sync Complete', __name__, log_utils.LOGDEBUG)
 			traktsync.insert_syncSeasons_at()
 		else:
 			moviesWatchedActivity = getMoviesWatchedActivity(activities)
@@ -1611,7 +1639,8 @@ def sync_liked_lists(activities=None, forced=False):
 		db_last_liked = traktsync.last_sync('last_liked_at')
 		listActivity = getListActivity(activities)
 		if (listActivity > db_last_liked) or forced:
-			if not forced: log_utils.log('Trakt Liked Lists Sync Update...(local db latest "liked_at" = %s, trakt api latest "liked_at" = %s)' % \
+			if not forced: 
+					log_utils.log('Trakt Liked Lists Sync Update...(local db latest "liked_at" = %s, trakt api latest "liked_at" = %s)' % \
 								(str(db_last_liked), str(listActivity)), __name__, log_utils.LOGDEBUG)
 			clr_traktSync = {'bookmarks': False, 'hiddenProgress': False, 'liked_lists': True, 'movies_collection': False, 'movies_watchlist': False,
 							'public_lists': False, 'shows_collection': False, 'shows_watchlist': False, 'user_lists': False, 'watched': False}
@@ -1623,7 +1652,7 @@ def sync_liked_lists(activities=None, forced=False):
 				list_item = i.get('list', {})
 				if any(list_item.get('privacy', '') == value for value in ('private', 'friends')): return
 				if list_item.get('user',{}).get('private') is True:
-					log_utils.log('(%s) has marked their list private in Trakt(Liked Lists) and is now causing you errors. Skipping this list' % list_item.get('user',{}).get('username'))
+					#log_utils.log('(%s) has marked their list private in Trakt(Liked Lists) and is now causing you errors. Skipping this list' % list_item.get('user',{}).get('username'))
 					return
 				i['list']['content_type'] = ''
 				list_owner_slug = list_item.get('user', {}).get('ids', {}).get('slug', '')
@@ -1669,7 +1698,7 @@ def sync_collection(activities=None, forced=False):
 			traktsync.insert_collection(items, 'movies_collection')
 			items = getTraktAsJson(link % 'shows', silent=True)
 			traktsync.insert_collection(items, 'shows_collection')
-			log_utils.log('Forced - Trakt Collection Sync Complete', __name__, log_utils.LOGDEBUG)
+			#log_utils.log('Forced - Trakt Collection Sync Complete', __name__, log_utils.LOGDEBUG)
 		else:
 			db_last_collected = traktsync.last_sync('last_collected_at')
 			collectedActivity = getCollectedActivity(activities)
@@ -1695,7 +1724,7 @@ def sync_watch_list(activities=None, forced=False):
 			traktsync.insert_watch_list(items, 'movies_watchlist')
 			items = getTraktAsJson(link % 'shows', silent=True)
 			traktsync.insert_watch_list(items, 'shows_watchlist')
-			log_utils.log('Forced - Trakt Watch List Sync Complete', __name__, log_utils.LOGDEBUG)
+			#log_utils.log('Forced - Trakt Watch List Sync Complete', __name__, log_utils.LOGDEBUG)
 		else:
 			db_last_watchList = traktsync.last_sync('last_watchlisted_at')
 			watchListActivity = getWatchListedActivity(activities)
@@ -1811,12 +1840,12 @@ def sync_trending_lists(forced=False):
 	except: log_utils.error()
 
 def traktClientID():
-	traktId = '4a479b95c8224999eef8d418cfe6c7a4389e2837441672c48c9c8168ea42a407'
+	traktId = '87e3f055fc4d8fcfd96e61a47463327ca877c51e8597b448e132611c5a677b13'
 	if (getSetting('trakt.clientid') != '' and getSetting('trakt.clientid') is not None) and getSetting('traktuserkey.customenabled') == 'true':
 		traktId = getSetting('trakt.clientid')
 	return traktId
 def traktClientSecret():
-	traktSecret = '89d8f8f71b312985a9e1f91e9eb426e23050102734bb1fa36ec76cdc74452ab6'
+	traktSecret = '4a1957a52d5feb98fafde53193e51f692fa9bdcd0cc13cf44a5e39975539edf0'
 	if (getSetting('trakt.clientsecret') != '' and getSetting('trakt.clientsecret') is not None) and getSetting('traktuserkey.customenabled') == 'true':
 		traktSecret = getSetting('trakt.clientsecret')
 	return traktSecret

@@ -138,7 +138,7 @@
 					<left>275</left>
 					<top>680</top>
 					<width>180</width>
-					<label>$INFO[ListItem.Property(WatchedProgress)]% watched</label>
+					<label>$INFO[ListItem.Property(WatchedProgress)]% تم مشاهدتها</label>
 					<font>font20_title</font>
 					<shadowcolor>text_shadow</shadowcolor>
 					<align>right</align>

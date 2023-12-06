@@ -20,7 +20,8 @@ from resources.lib.modules import log_utils
 from resources.lib.modules import string_tools
 from resources.lib.modules.source_utils import supported_video_extensions, getFileType, aliases_check
 from resources.lib.cloud_scrapers import cloudSources
-from cocoscrapers import sources as fs_sources
+from resources.lib.internal_scrapers import internalSources
+#from cocoscrapers import sources as fs_sources
 import xbmc
 import xbmcgui
 
@@ -33,7 +34,7 @@ single_expiry = timedelta(hours=6)
 season_expiry = timedelta(hours=48)
 show_expiry = timedelta(hours=48)
 video_extensions = supported_video_extensions()
-
+internal_scrapers_clouds_list = [('realdebrid', 'rd_cloud', 'rd'), ('premiumize', 'pm_cloud', 'pm'), ('alldebrid', 'ad_cloud', 'ad')]
 
 class Sources:
 	def __init__(self, all_providers=False, custom_query=False, filterless_scrape=False, rescrapeAll=False):
@@ -58,8 +59,8 @@ class Sources:
 		self.dev_disable_show_packs = getSetting('dev.disable.show.packs') == 'true'
 		self.dev_disable_show_filter = getSetting('dev.disable.show.filter') == 'true'
 		self.uncached_nopopup = getSetting('sources.nocachepopup') == 'true'
-		self.highlight_color = control.getHighlightColor()
-		self.sourceHighlightColor = control.getSourceHighlightColor()
+		self.highlight_color = getSetting('highlight.color')
+		self.sourceHighlightColor = getSetting('sources.highlight.color')
 		self.realdebridHighlightColor = control.getProviderHighlightColor('real-debrid')
 		self.alldebridHighlightColor = control.getProviderHighlightColor('alldebrid')
 		self.premiumizeHighlightColor = control.getProviderHighlightColor('premiumize.me')
@@ -72,37 +73,17 @@ class Sources:
 		self.providercache_hours = int(getSetting('cache.providers'))
 		self.debuglog = control.setting('debug.level') == '1'
 		self.retryallsources = getSetting('sources.retryall') == 'true'
-		self.info_tv = getSetting('playback.info_tv') == 'true'
-		self.info_movies = getSetting('playback.info_movies') == 'true'
+		self.external_module = getSetting('external_provider.module')
 
 	def play(self, title, year, imdb, tmdb, tvdb, season, episode, tvshowtitle, premiered, meta, select, rescrape=None):
-		# control.log('info_tv: %s tvshowtitle: %s' % (self.info_tv, tvshowtitle),1)
-		# control.log('info_movies: %s tvshowtitle: %s' % (self.info_movies, tvshowtitle),1)
-		# if (self.info_tv and tvshowtitle) or (self.info_movies and tvshowtitle == None):
-		# 	control.log('window property umbrella.info_loaded: %s' % (homeWindow.getProperty('umbrella.info_loaded')),1)
-		# 	if not homeWindow.getProperty('umbrella.info_loaded') == 'true':
-		# 		from sys import argv
-		# 		homeWindow.setProperty('umbrella.info_loaded', 'true')
-		# 		control.playlist.clear()
-		# 		item = control.item(label='', offscreen=True)
-		# 		control.resolve(int(argv[1]), False, item)
-		# 		#Monitor the information dialog
-		# 		#control.monitor_info_dialog()
-		# 		return control.monitor_info_dialog()
-		# 	else:
-		# 		homeWindow.clearProperty('umbrella.info_loaded')
-		# else:
-		# 	homeWindow.clearProperty('umbrella.info_loaded')
-		# if str(xbmc.getInfoLabel("Window.Property(xmlfile)")) != 'DialogVideoInfo.xml':
-		# 	return xbmc.executebuiltin('Action(Info)')
-		# else:
 		self.premiered = premiered
 		if not self.prem_providers:
 			control.sleep(200) ; control.hide()
 			return control.notification(message=33034)
 		try:
 			control.sleep(200)
-			if control.playlist.getposition() == 0 or control.playlist.size() == 1: playerWindow.clearProperty('umbrella.preResolved_nextUrl')
+			if control.playlist.getposition() == 0 or control.playlist.size() <= 1 or rescrape == 'true': 
+				playerWindow.clearProperty('umbrella.preResolved_nextUrl')
 			preResolved_nextUrl = playerWindow.getProperty('umbrella.preResolved_nextUrl')
 			if preResolved_nextUrl != '':
 				control.sleep(500)
@@ -436,7 +417,7 @@ class Sources:
 			header = homeWindow.getProperty(self.labelProperty) + ': Resolving...'
 			if getSetting('progress.dialog') == '0':
 				if getSetting('dialogs.useumbrelladialog') == 'true':
-					progressDialog = control.getProgressWindow(header, resolvePoster, 1)
+					progressDialog = control.getProgressWindow(header, resolvePoster, 0,1)
 					progressDialog.set_controls()
 				else:
 					progressDialog = control.progressDialog
@@ -452,7 +433,15 @@ class Sources:
 				try:
 					resolve_index = items.index(resolve_items[i])+1
 					src_provider = resolve_items[i]['debrid'] if resolve_items[i].get('debrid') else ('%s - %s' % (resolve_items[i]['source'], resolve_items[i]['provider']))
-					label = '[COLOR %s]%s[CR]%02d - %s[CR]%s[/COLOR]' % (self.highlight_color, src_provider.upper(), resolve_index, resolve_items[i]['name'], str(round(resolve_items[i]['size'], 2)) + ' GB') # using "[CR]" has some weird delay with progressDialog.update() at times
+					if getSetting('progress.dialog') == '0':
+						if getSetting('dialogs.useumbrelladialog') == 'true':
+							label = '[COLOR %s]%s[CR]%s[CR]%s[/COLOR]' % (self.highlight_color, src_provider.upper(), resolve_items[i]['provider'].upper(), resolve_items[i]['info'])
+						else:
+							label = '[COLOR %s]%s[CR]%02d - %s[CR]%s[/COLOR]' % (self.highlight_color, src_provider.upper(), resolve_index, resolve_items[i]['name'], str(round(resolve_items[i]['size'], 2)) + ' GB') # using "[CR]" has some weird delay with progressDialog.update() at times
+					elif getSetting('progress.dialog') == '2':
+						label = '[COLOR %s]%s[CR]%s[CR]%s[/COLOR]' % (self.highlight_color, src_provider.upper(), resolve_items[i]['provider'].upper(), resolve_items[i]['info'])
+					else:
+						label = '[COLOR %s]%s[CR]%02d - %s[CR]%s[/COLOR]' % (self.highlight_color, src_provider.upper(), resolve_index, resolve_items[i]['name'], str(round(resolve_items[i]['size'], 2)) + ' GB') # using "[CR]" has some weird delay with progressDialog.update() at times
 					control.sleep(100)
 					try:
 						if progressDialog.iscanceled(): break
@@ -594,7 +583,7 @@ class Sources:
 			header = homeWindow.getProperty(self.labelProperty) + ': Scraping...'
 			if getSetting('progress.dialog') == '0':
 				if getSetting('dialogs.useumbrelladialog') == 'true':
-					progressDialog = control.getProgressWindow(header, None, 0)
+					progressDialog = control.getProgressWindow(header, None, 0, 0)
 					progressDialog.set_controls()
 				else:
 					progressDialog = control.progressDialog
@@ -652,7 +641,7 @@ class Sources:
 					elif pack == 'show': name = '%s (show pack)' % name
 					threads_append(Thread(target=self.getEpisodeSource, args=(imdb, season, episode, data, i[0], i[1], pack), name=name))
 			[i.start() for i in threads]
-			sdc = control.getColor(getSetting('scraper.dialog.color'))
+			sdc = getSetting('scraper.dialog.color')
 			string1 = getLS(32404) % (self.highlight_color, sdc, '%s') # msgid "[COLOR %s]Time elapsed:[/COLOR]  [COLOR %s]%s seconds[/COLOR]"
 			string3 = getLS(32406) % (self.highlight_color, sdc, '%s') # msgid "[COLOR %s]Remaining providers:[/COLOR] [COLOR %s]%s[/COLOR]"
 			string4 = getLS(32407) % (self.highlight_color, sdc, '%s') # msgid "[COLOR %s]Unfiltered Total: [/COLOR]  [COLOR %s]%s[/COLOR]"
@@ -1052,7 +1041,7 @@ class Sources:
 		if getSetting('easynews.enable') == 'true':
 			easynewsList = [i for i in direct if i['provider'] == 'easynews']
 			directstart.extend(easynewsList)
-		if getSetting('plex.enable') == 'true':
+		if getSetting('plexshare.enable') == 'true':
 			plexList = [i for i in direct if i['provider'] == 'plexshare']
 			directstart.extend(plexList)
 		if getSetting('gdrive.enable') == 'true':
@@ -1218,7 +1207,7 @@ class Sources:
 		try:
 			if getSetting('progress.dialog') == '0':
 				if getSetting('dialogs.useumbrelladialog') == 'true':
-					progressDialog = control.getProgressWindow(header, resolvePoster, 1)
+					progressDialog = control.getProgressWindow(header, resolvePoster, 0,1)
 					progressDialog.set_controls()
 				else:
 					progressDialog = control.progressDialog
@@ -1233,11 +1222,11 @@ class Sources:
 		except: pass
 		for i in range(len(items)):
 			try:
-				
 				src_provider = items[i]['debrid'] if items[i].get('debrid') else ('%s - %s' % (items[i]['source'], items[i]['provider']))
 				if progressDialog != control.progressDialog and progressDialog != control.progressDialogBG:
-					sdc = control.getColor(getSetting('scraper.dialog.color'))
-					label = '[B][COLOR %s]%s[CR]%02d.)%s[CR]%s[/COLOR][/B]' % (sdc, src_provider.upper(), i+1, items[i]['name'], str(round(items[i]['size'], 2)) + ' GB') # using "[CR]" has some weird delay with progressDialog.update() at times
+					sdc = getSetting('scraper.dialog.color')
+					#label = '[B][COLOR %s]%s[CR]%02d.)%s[CR]%s[/COLOR][/B]' % (sdc, src_provider.upper(), i+1, items[i]['name'], str(round(items[i]['size'], 2)) + ' GB') # using "[CR]" has some weird delay with progressDialog.update() at times
+					label = '[COLOR %s]%s[CR]%s[CR]%s[/COLOR]' % (self.highlight_color, src_provider.upper(), items[i]['provider'].upper() ,items[i]['info'])
 				else:
 					label = '[COLOR %s]%s[CR]%02d.)%s[CR]%s[/COLOR]' % (self.highlight_color, src_provider.upper(), i+1, items[i]['name'], str(round(items[i]['size'], 2)) + ' GB') # using "[CR]" has some weird delay with progressDialog.update() at times
 					
@@ -1522,22 +1511,40 @@ class Sources:
 		self.tmdbProperty = 'plugin.video.umbrella.container.tmdb'
 		self.tvdbProperty = 'plugin.video.umbrella.container.tvdb'
 		self.labelProperty = 'plugin.video.umbrella.container.label'
-
-		if self.all_providers == 'true':
-			self.sourceDict = fs_sources(ret_all=True)
+		if getSetting('provider.external.enabled') == 'true':
+			if getSetting('external_provider.module', '') == '':
+				#no external_provider_module
+				control.notification(message=control.lang(40447))
+				self.sourceDict = internalSources()
+				self.sourceDict.extend = cloudSources()
+			else:
+				try:
+					from sys import path
+					path.append(control.transPath('special://home/addons/%s/lib' % getSetting('external_provider.module', '')))
+					from importlib import import_module
+					fs_sources = getattr(import_module(getSetting('external_provider.name')), 'sources')
+					if self.all_providers == 'true':
+						self.sourceDict = fs_sources(ret_all=True)
+						self.sourceDict.extend(internalSources())
+					else:
+						self.sourceDict = fs_sources()
+						self.sourceDict.extend(cloudSources())
+						self.sourceDict.extend(internalSources())
+				except:
+					control.notification(message=control.lang(40448))
+					self.sourceDict = internalSources()
+					self.sourceDict.extend(cloudSources())
 		else:
-			self.sourceDict = fs_sources()
+			self.sourceDict = internalSources()
 			self.sourceDict.extend(cloudSources())
-
 		from resources.lib.debrid import premium_hosters
 		self.debrid_resolvers = debrid.debrid_resolvers()
-
 		self.prem_providers = [] # for sorting by debrid and direct source links priority
 		if control.setting('easynews.user'): self.prem_providers += [('easynews', int(getSetting('easynews.priority')))]
-		if control.setting('filepursuit.api'): self.prem_providers += [('filepursuit', int(getSetting('filepursuit.priority')))]
+		if control.setting('filepursuittoken'): self.prem_providers += [('filepursuit', int(getSetting('filepursuit.priority')))]
 		#if control.setting('furk.user_name'): self.prem_providers += [('furk', int(getSetting('furk.priority')))]
-		if control.setting('gdrive.cloudflare_url'): self.prem_providers += [('gdrive', int(getSetting('gdrive.priority')))]
-		if control.setting('plex.token'): self.prem_providers += [('plexshare', int(getSetting('plexshare.priority')))]
+		if control.setting('gdrivetoken'): self.prem_providers += [('gdrive', int(getSetting('gdrive.priority')))]
+		if control.setting('plexsharetoken'): self.prem_providers += [('plexshare', int(getSetting('plexshare.priority')))]
 		self.prem_providers += [(d.name, int(d.sort_priority)) for d in self.debrid_resolvers]
 
 		def cache_prDict():
@@ -1785,3 +1792,29 @@ class Sources:
 		#control.execute('Action(Info)')
 		#li = xbmcgui.Window().getControl(xbmcgui.getCurrentWindowId()).getSelectedItem()
 		pass
+
+	def get_internal_scrapers(self):
+		settings = ['provider.external', 'provider.plex', 'provider.gdrive']
+		#rd_cloud.enabled
+		#pm_cloud.enabled
+		#ad_cloud.enabled
+		#internal_scrapers_clouds_list = [('realdebrid', 'rd_cloud', 'rd'), ('premiumize', 'pm_cloud', 'pm'), ('alldebrid', 'ad_cloud', 'ad')]
+		settings_append = settings.append
+		for item in internal_scrapers_clouds_list:
+			if self.enabled_debrid_check(item[0], item[2]): settings_append(item[1])
+		active = [i.split('.')[1] for i in settings if getSetting('%s.enabled' % i) == 'true']
+		return active
+
+	def enabled_debrid_check(self, debrid_service, short_name):
+		#premiumize.enable
+		#realdebrid.enable
+		#alldebrid.enable
+		if not getSetting('%s.enable' % debrid_service) == 'true': return False
+		return self.has_debrid_token(short_name)
+
+	def has_debrid_token(self, debrid_service):
+		if debrid_service == 'rd':
+			if getSetting('realdebridtoken') in (None, ''): return False
+		else:
+			if getSetting('%s.token' % debrid_service) in (None, ''): return False
+		return True

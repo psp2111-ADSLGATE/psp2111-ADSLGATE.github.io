@@ -1549,6 +1549,13 @@
             <selected>Skin.HasSetting(Indicator.Ratings)</selected>
             <label>$LOCALIZE[31202]</label>
         </include>
+		<include content="Dialog_Settings_Button">
+            <param name="id" value="8009" />
+            <param name="control" value="radiobutton" />
+            <onclick>Skin.ToggleSetting(Indicator.ProgressPercent)</onclick>
+            <selected>Skin.HasSetting(Indicator.ProgressPercent)</selected>
+            <label>نسبة المشاهدة</label>
+        </include>
     </include>
 
     <include name="Items_Settings_Ratings">

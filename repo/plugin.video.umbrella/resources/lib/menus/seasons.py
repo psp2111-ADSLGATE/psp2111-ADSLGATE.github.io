@@ -32,7 +32,7 @@ class Seasons:
 		self.trakt_user = getSetting('trakt.user.name').strip()
 		self.traktCredentials = trakt.getTraktCredentialsInfo()
 		self.showunaired = getSetting('showunaired') == 'true'
-		self.unairedcolor = control.getColor(getSetting('unaired.identify'))
+		self.unairedcolor = getSetting('unaired.identify')
 		self.showspecials = getSetting('tv.specials') == 'true'
 		self.tmdblist_hours = int(getSetting('cache.tmdblist'))
 		self.hide_watched_in_widget = getSetting('enable.umbrellahidewatched') == 'true'
@@ -74,6 +74,7 @@ class Seasons:
 		showSeasons = tmdb_indexer().get_showSeasons_meta(tmdb)
 		if not showSeasons: return
 		if not showSeasons.get('imdb'): showSeasons['imdb'] = imdb # use value passed from tvshows super_info() due to extensive ID lookups
+		if showSeasons.get('imdb','') != imdb: showSeasons['imdb'] = imdb
 		if not showSeasons.get('tvdb'): showSeasons['tvdb'] = tvdb
 		if art: art = jsloads(art) # prob better off leaving this as it's own dict so seasonDirectory list builder can just pull that out and pass to .setArt()
 		for item in showSeasons['seasons']: # seasons not parsed in tmdb module so ['seasons'] here is direct json response

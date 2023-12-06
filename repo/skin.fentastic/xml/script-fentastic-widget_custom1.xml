@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom1Widgets">
+        <include content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.fen/?mode=navigator.build_shortcut_folder_list&amp;name=Movies+Trakt+Manager&amp;iconImage=folder&amp;shortcut_folder=True&amp;external_list_item=True"/>
+            <param name="widget_header" value="أفلامي"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23011"/>
+        </include>
+        <include content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.fen/?name=32476&amp;iconImage=player&amp;mode=build_movie_list&amp;action=in_progress_movies"/>
+            <param name="widget_header" value="تكملة مشاهدة الأفلام"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23012"/>
+        </include>
+        <include content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.fen/?mode=navigator.build_shortcut_folder_list&amp;name=TV+Show+Trakt+Manager&amp;iconImage=folder&amp;shortcut_folder=True&amp;external_list_item=True"/>
+            <param name="widget_header" value="مسلسلاتي"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23013"/>
+        </include>
+        <include content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.fen/?name=32483&amp;iconImage=next_episodes&amp;mode=build_next_episode"/>
+            <param name="widget_header" value="تكملة مشاهدة الحلقات"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23014"/>
+        </include>
+        <include content="WidgetListPoster">
+            <param name="content_path" value="plugin://plugin.video.fen/?name=32481&amp;action=in_progress_tvshows&amp;iconImage=in_progress_tvshow&amp;mode=build_tvshow_list"/>
+            <param name="widget_header" value="مسلسلات شاهدتها مؤخراً"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23015"/>
+        </include>
+    </include>
+</includes>

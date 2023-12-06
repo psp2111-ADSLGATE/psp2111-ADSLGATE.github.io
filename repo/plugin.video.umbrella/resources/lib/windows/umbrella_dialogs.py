@@ -1,10 +1,8 @@
 """
 	Umbrella Add-on (Yay for new custom dialogs. thanks Peter for the help)
 """
-from resources.lib.modules.control import addonIcon, getLangString as getLS, getHighlightColor, setting as getSetting, getColor, darkColor
+from resources.lib.modules.control import addonIcon, getLangString as getLS, setting as getSetting, darkColor
 from resources.lib.windows.base import BaseDialog
-
-highLightColor = getHighlightColor()
 
 class OK(BaseDialog):
     def __init__(self, *args, **kwargs):
@@ -14,11 +12,11 @@ class OK(BaseDialog):
         self.heading = kwargs.get('heading', getLS(40414))
         self.icon = kwargs.get('icon', addonIcon())
         self.lightordark = getSetting('dialogs.lightordarkmode')
-        self.buttonColor = getColor(getSetting('dialogs.button.color'))
-        self.customBackgroundColor = getColor(getSetting('dialogs.customcolor'))
+        self.buttonColor = getSetting('dialogs.button.color')
+        self.customBackgroundColor = getSetting('dialogs.customcolor', 'FF000000')
         self.dark_text_background = darkColor(self.customBackgroundColor)
         self.useCustomTitleColor = getSetting('dialogs.usecolortitle') == 'true'
-        self.customTitleColor = getColor(getSetting('dialogs.titlebar.color'))
+        self.customTitleColor = getSetting('dialogs.titlebar.color')
         self.set_properties()
 
     def run(self):
@@ -96,11 +94,11 @@ class Confirm(BaseDialog):
         self.icon = kwargs.get('icon', addonIcon())
         self.default_control = kwargs.get('default_control')
         self.lightordark = getSetting('dialogs.lightordarkmode')
-        self.buttonColor = getColor(getSetting('dialogs.button.color'))
-        self.customBackgroundColor = getColor(getSetting('dialogs.customcolor'))
-        self.dark_text_background = darkColor(self.customBackgroundColor)
+        self.buttonColor = getSetting('dialogs.button.color')
+        self.customBackgroundColor = getSetting('dialogs.customcolor')
+        self.customBackgroundColor = getSetting('dialogs.customcolor', 'FF000000')
         self.useCustomTitleColor = getSetting('dialogs.usecolortitle') == 'true'
-        self.customTitleColor = getColor(getSetting('dialogs.titlebar.color'))
+        self.customTitleColor =getSetting('dialogs.titlebar.color')
         self.selected = None
         self.set_properties()
 
@@ -180,12 +178,13 @@ class ProgressUmbrella(BaseDialog):
         self.icon = kwargs.get('icon', addonIcon())
         self.heading = kwargs.get('heading', getLS(40414))
         self.qr = kwargs.get('qr')
+        self.artwork = kwargs.get('artwork')
         self.lightordark = getSetting('dialogs.lightordarkmode')
-        self.buttonColor = getColor(getSetting('dialogs.button.color'))
-        self.customBackgroundColor = getColor(getSetting('dialogs.customcolor'))
+        self.buttonColor = getSetting('dialogs.button.color')
+        self.customBackgroundColor = getSetting('dialogs.customcolor', 'FF000000')
         self.dark_text_background = darkColor(self.customBackgroundColor)
         self.useCustomTitleColor = getSetting('dialogs.usecolortitle') == 'true'
-        self.customTitleColor = getColor(getSetting('dialogs.titlebar.color'))
+        self.customTitleColor = getSetting('dialogs.titlebar.color')
 
     def run(self):
         self.doModal()
@@ -209,6 +208,12 @@ class ProgressUmbrella(BaseDialog):
             self.setProperty('umbrella.qr','1')
         else:
             self.setProperty('umbrella.qr','0')
+        if self.artwork == 1:
+            self.setProperty('umbrella.qr','0')
+            self.setProperty('umbrella.artwork', '1')
+            self.getControl(201).setImage(self.icon)
+        else:
+            self.setProperty('umbrella.artwork', '0')
         self.setProperty('umbrella.buttonColor', self.buttonColor)
         if self.useCustomTitleColor:
             #need to use a custom titlebar color
@@ -261,5 +266,9 @@ class ProgressUmbrella(BaseDialog):
             self.setProperty('percent', str(percent))
             self.getControl(2001).setText(content)
             self.getControl(5000).setPercent(percent)
-            if icon: self.getControl(200).setImage(icon)
+            if icon:
+                if self.artwork == '1':
+                    self.getControl(201).setImage(icon)
+                else:
+                    self.geControl(200).setImage(icon)
         except: pass

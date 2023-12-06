@@ -4,6 +4,7 @@
 """
 
 from datetime import datetime, timedelta
+import time
 from json import dumps as jsdumps
 import re
 import xbmc
@@ -25,19 +26,21 @@ from resources.lib.modules import tools
 getLS = control.lang
 getSetting = control.setting
 LOGINFO = log_utils.LOGINFO
+homeWindow = control.homeWindow
 
 class TVshows:
 	def __init__(self, notifications=True):
 		self.list = []
 		self.page_limit = getSetting('page.item.limit')
+		self.genre_limit = getSetting('limit.imdb.genres')
 		self.search_page_limit = getSetting('search.page.limit')
 		self.lang = control.apiLanguage()['tmdb']
 		self.notifications = notifications
 		self.enable_fanarttv = getSetting('enable.fanarttv') == 'true'
 		self.prefer_tmdbArt = getSetting('prefer.tmdbArt') == 'true'
-		self.unairedcolor = control.getColor(getSetting('unaired.identify'))
+		self.unairedcolor = getSetting('unaired.identify')
 		self.showunaired = getSetting('showunaired') == 'true'
-		self.highlight_color = control.getHighlightColor()
+		self.highlight_color = control.setting('highlight.color')
 		self.date_time = datetime.now()
 		self.today_date = (self.date_time).strftime('%Y-%m-%d')
 		self.imdb_user = getSetting('imdbuser').replace('ur', '')
@@ -54,24 +57,24 @@ class TVshows:
 		self.imdb_link = 'https://www.imdb.com'
 		self.persons_link = 'https://www.imdb.com/search/name/?count=100&name='
 		self.personlist_link = 'https://www.imdb.com/search/name/?count=100&gender=male,female'
-		self.popular_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=100,&release_date=,date[0]&sort=moviemeter,asc&count=%s&start=1' % self.page_limit
-		self.airing_link = 'https://www.imdb.com/search/title/?title_type=tv_episode&release_date=date[1],date[0]&sort=moviemeter,asc&count=%s&start=1' % self.page_limit
-		self.active_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=10,&production_status=active&sort=moviemeter,asc&count=%s&start=1' % self.page_limit
-		self.premiere_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&languages=en&num_votes=10,&release_date=date[60],date[0]&sort=release_date,desc&count=%s&start=1' % self.page_limit
-		self.rating_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=5000,&release_date=,date[0]&sort=user_rating,desc&count=%s&start=1' % self.page_limit
-		self.views_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=100,&release_date=,date[0]&sort=num_votes,desc&count=%s&start=1' % self.page_limit
-		self.person_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&release_date=,date[0]&role=%s&sort=year,desc&count=%s&start=1' % ('%s', self.page_limit)
-		self.genre_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=3000,&release_date=,date[0]&genres=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbshows'), self.page_limit)
-		self.keyword_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&release_date=,date[0]&keywords=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbshows'), self.page_limit)
-		self.language_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=100,&production_status=released&primary_language=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbshows'), self.page_limit)
-		self.certification_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&release_date=,date[0]&certificates=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbshows'), self.page_limit)
-		self.year_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=100,&production_status=released&year=%s,%s&sort=moviemeter,asc&count=%s&start=1' % ('%s', '%s', self.page_limit)
+		self.popular_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=100,&release_date=,date[0]&sort=moviemeter,asc&count=%s&start=1' % self.genre_limit
+		self.airing_link = 'https://www.imdb.com/search/title/?title_type=tv_episode&release_date=date[1],date[0]&sort=moviemeter,asc&count=%s&start=1' % self.genre_limit
+		self.active_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=10,&production_status=active&sort=moviemeter,asc&count=%s&start=1' % self.genre_limit
+		self.premiere_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&languages=en&num_votes=10,&release_date=date[60],date[0]&sort=release_date,desc&count=%s&start=1' % self.genre_limit
+		self.rating_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=5000,&release_date=,date[0]&sort=user_rating,desc&count=%s&start=1' % self.genre_limit
+		self.views_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=100,&release_date=,date[0]&sort=num_votes,desc&count=%s&start=1' % self.genre_limit
+		self.person_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&release_date=,date[0]&role=%s&sort=year,desc&count=%s&start=1' % ('%s', self.genre_limit)
+		self.genre_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=3000,&release_date=,date[0]&genres=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbshows'), self.genre_limit)
+		self.keyword_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&release_date=,date[0]&keywords=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbshows'),self.genre_limit)
+		self.language_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=100,&production_status=released&primary_language=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbshows'), self.genre_limit)
+		self.certification_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&release_date=,date[0]&certificates=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbshows'), self.genre_limit)
+		self.year_link = 'https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=100,&production_status=released&year=%s,%s&sort=moviemeter,asc&count=%s&start=1' % ('%s', '%s', self.genre_limit)
 		self.imdbwatchlist_link = 'https://www.imdb.com/user/ur%s/watchlist?sort=date_added,desc' % self.imdb_user # only used to get users watchlist ID
 		self.imdbwatchlist2_link = 'https://www.imdb.com/list/%s/?view=detail&sort=%s&title_type=tvSeries&start=1' % ('%s', self.imdb_sort(type='shows.watchlist'))
 		self.imdblists_link = 'https://www.imdb.com/user/ur%s/lists?tab=all&sort=mdfd&order=desc&filter=titles' % self.imdb_user
 		self.imdblist_link = 'https://www.imdb.com/list/%s/?view=detail&sort=%s&title_type=tvSeries,tvMiniSeries&start=1' % ('%s', self.imdb_sort())
 		self.imdbratings_link = 'https://www.imdb.com/user/ur%s/ratings?sort=your_rating,desc&mode=detail&start=1' % self.imdb_user # IMDb ratings does not take title_type so filter in imdb_list() function
-		self.anime_link = 'https://www.imdb.com/search/keyword/?keywords=anime&title_type=tvSeries,miniSeries&release_date=,date[0]&sort=moviemeter,asc&count=%s&start=1' % self.page_limit
+		self.anime_link = 'https://www.imdb.com/search/keyword/?keywords=anime&title_type=tvSeries,miniSeries&release_date=,date[0]&sort=moviemeter,asc&count=%s&start=1' % self.genre_limit
 
 		self.trakt_user = getSetting('trakt.user.name').strip()
 		self.traktCredentials = trakt.getTraktCredentialsInfo()
@@ -84,6 +87,11 @@ class TVshows:
 		self.traktlist_link = 'https://api.trakt.tv/users/%s/lists/%s/items/shows?limit=%s&page=1' % ('%s', '%s', self.page_limit) # local pagination, limit and page used to advance, pulled from request
 		self.progress_link = 'https://api.trakt.tv/sync/watched/shows?extended=noseasons'
 		self.progresstv_link = 'https://api.trakt.tv/users/me/watched/shows'
+		self.trakt_genres = 'https://api.trakt.tv/genres/shows/'
+		self.traktanticipated_link = 'https://api.trakt.tv/shows/anticipated?limit=%s&page=1' % self.page_limit 
+		self.trakttrending_link = 'https://api.trakt.tv/shows/trending?limit=%s&page=1' % self.page_limit
+		self.traktmostplayed_link = 'https://api.trakt.tv/shows/played/weekly?limit=%s&page=1' % self.page_limit
+		self.traktmostwatched_link = 'https://api.trakt.tv/shows/watched/weekly?limit=%s&page=1' % self.page_limit
 		self.trakttrending_link = 'https://api.trakt.tv/shows/trending?page=1&limit=%s' % self.page_limit
 		self.showspecials = getSetting('tv.specials') == 'true'
 		
@@ -129,80 +137,85 @@ class TVshows:
 		# self.tmdb_certification_link = 'https://api.themoviedb.org/3/discover/tv?api_key=%s&language=en-US&certification_country=US&certification=%s&sort_by=%s&page=1' % ('%s', '%s', self.tmdb_DiscoverSort())
 		self.hide_watched_in_widget = getSetting('enable.umbrellahidewatched') == 'true'
 		self.useFullContext = getSetting('enable.umbrellawidgetcontext') == 'true'
+		self.showCounts = getSetting('tvshows.episodecount') == 'true'
+		self.useContainerTitles = getSetting('enable.containerTitles') == 'true'
+		self.is_widget = 'plugin' not in control.infoLabel('Container.PluginName')
 
-	def get(self, url, idx=True, create_directory=True):
+	def get(self, url, idx=True, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			try: url = getattr(self, url + '_link')
 			except: pass
 			try: u = urlparse(url).netloc.lower()
 			except: pass
+			if url == 'favourites_tvshows':
+				return self.favouriteTVShows(folderName=folderName)
 			if url == 'traktbasedonrecent':
-				return self.trakt_based_on_recent()
-			if url == 'traktbasedonsimilar':
-				return self.trakt_based_on_similar()
-			if url == 'tmdbrecentday':
-				return self.tmdb_trending_recentday()
-			if url == 'tmdbrecentweek':
-				return self.tmdb_trending_recentweek()
-			elif u in self.search_tmdb_link and url != 'tmdbrecentday' and url != 'tmdbrecentweek':
-				return self.getTMDb(url)
-			elif u in self.simkltrendingweek_link or u in self.simkltrendingmonth_link or u in self.simkltrendingtoday_link:
-				return self.getSimkl(url)
+				return self.trakt_based_on_recent(folderName=folderName)
+			elif url == 'traktbasedonsimilar':
+				return self.trakt_based_on_similar(folderName=folderName)
+			elif url == 'tmdbrecentday':
+				return self.tmdb_trending_recentday(folderName=folderName)
+			elif url == 'tmdbrecentweek':
+				return self.tmdb_trending_recentweek(folderName=folderName)
+			elif u in self.search_tmdb_link and url != 'tmdbrecentday' and url != 'tmdbrecentweek' and url != 'favourites_tvshows':
+				return self.getTMDb(url, folderName=folderName)
+			elif u in (self.simkltrendingweek_link or u in self.simkltrendingmonth_link or u in self.simkltrendingtoday_link) and url != 'favourites_tvshows':
+				return self.getSimkl(url, folderName=folderName)
 			if u in self.trakt_link and '/users/' in url:
 				try:
 					if '/users/me/' not in url: raise Exception()
-					if '/collection/' in url: return self.traktCollection(url)
-					if '/watchlist/' in url: return self.traktWatchlist(url)
-					if trakt.getActivity() > cache.timeout(self.trakt_list, url, self.trakt_user):
-						self.list = cache.get(self.trakt_list, 0, url, self.trakt_user)
-					else: self.list = cache.get(self.trakt_list, 720, url, self.trakt_user)
-				except: self.list = self.trakt_userList(url)
+					if '/collection/' in url: return self.traktCollection(url, folderName=folderName)
+					if '/watchlist/' in url: return self.traktWatchlist(url, folderName=folderName)
+					if trakt.getActivity() > cache.timeout(self.trakt_list, url, self.trakt_user, folderName):
+						self.list = cache.get(self.trakt_list, 0, url, self.trakt_user, folderName)
+					else: self.list = cache.get(self.trakt_list, 720, url, self.trakt_user, folderName)
+				except: self.list = self.trakt_userList(url, create_directory=False)
 				if idx: self.worker()
 				self.sort()
 			elif u in self.trakt_link and self.search_link in url:
-				self.list = cache.get(self.trakt_list, 0, url, self.trakt_user)
+				self.list = cache.get(self.trakt_list, 0, url, self.trakt_user, folderName)
 				if idx: self.worker()
 			elif u in self.trakt_link and 'trending' in url:
 				from resources.lib.modules import log_utils
-				self.list = cache.get(self.trakt_list, self.trakttrending_hours, url, self.trakt_user) #trakt trending
+				self.list = cache.get(self.trakt_list, self.trakttrending_hours, url, self.trakt_user, folderName) #trakt trending
 				if idx: self.worker()
 			elif u in self.trakt_link:
 				from resources.lib.modules import log_utils
-				self.list = cache.get(self.trakt_list, self.trakt_hours, url, self.trakt_user) #trakt other
+				self.list = cache.get(self.trakt_list, self.trakt_hours, url, self.trakt_user, folderName) #trakt other
 				if idx: self.worker()
 			elif u in self.imdb_link and ('/user/' in url or '/list/' in url):
 				isRatinglink=True if self.imdbratings_link in url else False
-				self.list = cache.get(self.imdb_list, 0, url, isRatinglink)
+				self.list = cache.get(self.imdb_list, 0, url, isRatinglink, folderName)
 				if idx: self.worker()
 				# self.sort() # switched to request sorting for imdb
 			elif u in self.imdb_link:
-				self.list = cache.get(self.imdb_list, self.imdblist_hours, url)
+				self.list = cache.get(self.imdb_genre_list, self.imdblist_hours, url, folderName)
 				if idx: self.worker()
 			elif u in self.mbdlist_list_items:
-				self.list = self.mdb_list_items(url)
+				self.list = self.mdb_list_items(url, create_directory=False)
 				if idx: self.worker()
 			if self.list is None: self.list = []
-			if create_directory: self.tvshowDirectory(self.list)
+			if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 			if not self.list:
 				control.hide()
-				if self.notifications: control.notification(title=32002, message=33049)
-	def getMBDTopLists(self, create_directory=True):
+				if self.notifications and self.is_widget != True: control.notification(title=32002, message=33049)
+	def getMBDTopLists(self, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			self.list = cache.get(self.mbd_top_lists, 6)
 			#self.list = self.mbd_top_lists()
 			if self.list is None: self.list = []
-			if create_directory: self.addDirectory(self.list)
+			if create_directory: self.addDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
-	def getTMDb(self, url, create_directory=True):
+	def getTMDb(self, url, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			try: url = getattr(self, url + '_link')
@@ -214,16 +227,16 @@ class TVshows:
 			elif u in self.tmdb_link and not '/list/' in url:
 				self.list = tmdb_indexer().tmdb_list(url) # caching handled in list indexer
 			if self.list is None: self.list = []
-			if create_directory: self.tvshowDirectory(self.list)
+			if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 			if not self.list:
 				control.hide()
-				if self.notifications: control.notification(title=32002, message=33049)
+				if self.notifications and self.is_widget != True: control.notification(title=32002, message=33049)
     
-	def getSimkl(self, url, create_directory=True):
+	def getSimkl(self, url, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			try: url = getattr(self, url + '_link')
@@ -236,16 +249,16 @@ class TVshows:
 			next = ''
 			for i in range(len(self.list)): self.list[i]['next'] = next
 			self.worker()
-			if create_directory: self.tvshowDirectory(self.list)
+			if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 			if not self.list:
 				control.hide()
-				if self.notifications: control.notification(title=32002, message=33049)
+				if self.notifications and self.is_widget != True: control.notification(title=32002, message=33049)
 
-	def getTVmaze(self, url, idx=True):
+	def getTVmaze(self, url, idx=True, folderName=''):
 		from resources.lib.indexers import tvmaze
 		self.list = []
 		try:
@@ -254,7 +267,7 @@ class TVshows:
 			self.list = cache.get(tvmaze.TVshows().tvmaze_list, 168, url)
 			# if idx: self.worker() ## TVMaze has it's own full list builder.
 			if self.list is None: self.list = []
-			if idx: self.tvshowDirectory(self.list)
+			if idx: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
@@ -263,7 +276,7 @@ class TVshows:
 				control.hide()
 				if self.notifications: control.notification(title=32002, message=33049)
 
-	def getTraktPublicLists(self, url, create_directory=True):
+	def getTraktPublicLists(self, url, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			try: url = getattr(self, url + '_link')
@@ -277,17 +290,17 @@ class TVshows:
 			else:
 				self.list = cache.get(self.trakt_public_list, self.trakt_hours, url) #trakt other
 			if self.list is None: self.list = []
-			if create_directory: self.addDirectory(self.list)
+			if create_directory: self.addDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 	
-	def trakt_based_on_recent(self, create_directory=True):
+	def trakt_based_on_recent(self, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			historyurl = 'https://api.trakt.tv/users/me/history/shows?limit=20&page=1'
-			randomItems = self.trakt_list(historyurl, self.trakt_user)
+			randomItems = self.trakt_list(historyurl, self.trakt_user, folderName)
 			if not randomItems: return
 			import random
 			item = randomItems[random.randint(0, len(randomItems) - 1)]
@@ -295,25 +308,25 @@ class TVshows:
 			self.list = tmdb_indexer().tmdb_list(url)
 			if self.useContainerTitles:
 				try: 
-					control.setContainerName(getLS(40257)+' '+item.get('title'))
+					folderName=getLS(40257)+' '+item.get('title')
 					control.setHomeWindowProperty('umbrella.tvrecent', str(getLS(40257)+' '+item.get('title')))
 				except: pass
 			next = ''
 			for i in range(len(self.list)): self.list[i]['next'] = next
 			self.worker()
 			if self.list is None: self.list = []
-			if create_directory: self.tvshowDirectory(self.list)
+			if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 			return
 
-	def trakt_based_on_similar(self, create_directory=True):
+	def trakt_based_on_similar(self, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			historyurl = 'https://api.trakt.tv/users/me/history/shows?limit=20&page=1'
-			randomItems = self.trakt_list(historyurl, self.trakt_user)
+			randomItems = self.trakt_list(historyurl, self.trakt_user, folderName)
 			if not randomItems: return
 			import random
 			item = randomItems[random.randint(0, len(randomItems) - 1)]
@@ -321,21 +334,21 @@ class TVshows:
 			self.list = tmdb_indexer().tmdb_list(url)
 			if self.useContainerTitles:
 				try: 
-					control.setContainerName(getLS(40259)+' '+item.get('title'))
+					folderName=getLS(40259)+' '+item.get('title')
 					control.setHomeWindowProperty('umbrella.tvsimilar', str(getLS(40257)+' '+item.get('title')))
 				except: pass
 			next = ''
 			for i in range(len(self.list)): self.list[i]['next'] = next
 			self.worker()
 			if self.list is None: self.list = []
-			if create_directory: self.tvshowDirectory(self.list)
+			if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 			return self.list
 
-	def tmdb_trending_recentday(self, create_directory=True):
+	def tmdb_trending_recentday(self, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			url = self.tmdb_recentday
@@ -345,14 +358,14 @@ class TVshows:
 			for i in range(len(self.list)): self.list[i]['next'] = next
 			self.worker()
 			if self.list is None: self.list = []
-			if create_directory: self.tvshowDirectory(self.list)
+			if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 			return
 
-	def tmdb_trending_recentweek(self, create_directory=True):
+	def tmdb_trending_recentweek(self, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			url = self.tmdb_recentweek
@@ -362,7 +375,7 @@ class TVshows:
 			for i in range(len(self.list)): self.list[i]['next'] = next
 			self.worker()
 			if self.list is None: self.list = []
-			if create_directory: self.tvshowDirectory(self.list)
+			if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
@@ -472,10 +485,15 @@ class TVshows:
 						if 'added' not in self.list[i]: self.list[i]['added'] = ''
 					self.list = sorted(self.list, key=lambda k: k['added'], reverse=reverse)
 				elif attribute == 6:
+					nolastPlayed = []
 					for i in range(len(self.list)):
-						if 'lastplayed' not in self.list[i]: self.list[i]['lastplayed'] = ''
+						if 'lastplayed' not in self.list[i]: 
+							self.list[i]['lastplayed'] = ''
+							from resources.lib.modules import log_utils
+							log_utils.log('TVShow Last Played Blank Title: %' % self.list[i]['title'], 1)
 					#self.list = sorted(self.list, key=lambda k: k['lastplayed'], reverse=reverse)
-					self.list = sorted(self.list, key=lambda k: datetime.strptime(k['lastplayed'], "%Y-%m-%dT%H:%M:%S.%fZ"), reverse=reverse)
+					if self.list:
+						self.list = sorted(self.list, key=lambda k: time.strptime(k['lastplayed'], "%Y-%m-%dT%H:%M:%S.%fZ"), reverse=reverse)
 			elif reverse:
 				self.list = list(reversed(self.list))
 		except:
@@ -506,9 +524,10 @@ class TVshows:
 		if sort == 2: sort_string = sort_string + '&vote_count.gte=500'
 		return sort_string
 
-	def search(self):
+	def search(self, folderName=''):
 		from resources.lib.menus import navigator
 		navigator.Navigator().addDirectoryItem(getLS(32603) % self.highlight_color, 'tvSearchnew', 'search.png', 'DefaultAddonsSearch.png', isFolder=False)
+		if self.useContainerTitles: control.setContainerName(folderName)
 		from sqlite3 import dbapi2 as database
 		try:
 			if not control.existsPath(control.dataPath): control.makeFile(control.dataPath)
@@ -559,16 +578,19 @@ class TVshows:
 		control.execute('ActivateWindow(Videos,plugin://plugin.video.umbrella/?action=tvshows&url=%s,return)' % (quote_plus(url)))
 
 	def search_term(self, name):
-		if self.traktCredentials:
-			if getSetting('searchtv.indexer')== '1':
-				url = self.search_link + quote_plus(name)
+		if name:
+			if self.traktCredentials:
+				if getSetting('searchtv.indexer')== '1':
+					url = self.search_link + quote_plus(name)
+				else:
+					url = self.search_tmdb_link % ('%s', quote_plus(name))
 			else:
 				url = self.search_tmdb_link % ('%s', quote_plus(name))
+			self.get(url)
 		else:
-			url = self.search_tmdb_link % ('%s', quote_plus(name))
-		self.get(url)
+			return
 
-	def person(self):
+	def person(self, folderName=''):
 		k = control.keyboard('', getLS(32010))
 		k.doModal()
 		q = k.getText().strip() if k.isConfirmed() else None
@@ -577,16 +599,16 @@ class TVshows:
 		control.closeAll()
 		control.execute('ActivateWindow(Videos,plugin://plugin.video.umbrella/?action=tvPersons&url=%s,return)' % (quote_plus(url)))
 
-	def persons(self, url):
+	def persons(self, url, folderName=''):
 		if url is None: self.list = cache.get(self.imdb_person_list, 24, self.personlist_link)
 		else: self.list = cache.get(self.imdb_person_list, 1, url)
 		if self.list is None: self.list = []
 		if self.list:
-			for i in range(0, len(self.list)): self.list[i].update({'content': 'actors', 'icon': 'DefaultActor.png', 'action': 'tvshows'})
-		self.addDirectory(self.list)
+			for i in range(0, len(self.list)): self.list[i].update({'content': 'actors', 'icon': 'DefaultActor.png', 'action': 'tvshows&folderName=%s' % quote_plus(self.list[i]['name'])})
+		self.addDirectory(self.list, folderName=folderName)
 		return self.list
 
-	def genres(self, url):
+	def genres(self, url, folderName=''):
 		try: url = getattr(self, url + '_link')
 		except: pass
 		genres = [
@@ -594,42 +616,122 @@ class TVshows:
 			('Biography', 'biography', True), ('Comedy', 'comedy', True, '35'), ('Crime', 'crime', True, '80'), ('Drama', 'drama', True, '18'),
 			('Family', 'family', True, '10751'), ('Fantasy', 'fantasy', True), ('Game-Show', 'game_show', True), ('History', 'history', True),
 			('Horror', 'horror', True), ('Music', 'music', True), ('Musical', 'musical', True), ('Mystery', 'mystery', True, '9648'),
-			('News', 'news', True, '10763'), ('Reality', 'reality_tv', True, '10764'), ('Romance', 'romance', True), ('Science Fiction', 'sci_fi', True, '10765'),
+			('News', 'news', True, '10763'), ('Romance', 'romance', True), ('Science Fiction', 'sci_fi', True, '10765'),
 			('Sport', 'sport', True), ('Talk-Show', 'talk_show', True, '10767'), ('Thriller', 'thriller', True), ('War', 'war', True, '10768'), ('Western', 'western', True, '37')]
-		for i in genres:
-			if self.imdb_link in url: self.list.append({'content': 'genres', 'name': cleangenre.lang(i[0], self.lang), 'url': url % i[1] if i[2] else self.keyword_link % i[1], 'image': i[0] + '.jpg', 'icon': i[0] + '.png', 'action': 'tvshows'})
-			if self.tmdb_link in url:
-				try: self.list.append({'content': 'genres', 'name': cleangenre.lang(i[0], self.lang), 'url': url % ('%s', i[3]), 'image': i[0] + '.jpg', 'icon': i[0] + '.png', 'action': 'tmdbTvshows'})
-				except: pass
-		self.addDirectory(self.list)
+		if 'trakt_tvshow_genre' in url:
+				titems = trakt.getTraktAsJson(self.trakt_genres)
+				for l in titems:
+					if l.get('name') != 'None':
+						self.list.append({'content': 'genres', 'name': l.get('name'), 'url':l.get('slug'), 'image': l.get('name') + '.jpg', 'icon': l.get('name') + '.png', 'action': 'trakt_tvshow_genre&mediatype=TVShows&genre=%s&folderName=%s' % (l.get('name'),cleangenre.lang(l.get('name'), self.lang))})
+		else:	
+			for i in genres:
+				if self.imdb_link in url: self.list.append({'content': 'genres', 'name': cleangenre.lang(i[0], self.lang), 'url': url % i[1] if i[2] else self.keyword_link % i[1], 'image': i[0] + '.jpg', 'icon': i[0] + '.png', 'action': 'tvshows&folderName=%s' % cleangenre.lang(i[0], self.lang)})
+				if self.tmdb_link in url:
+					try: self.list.append({'content': 'genres', 'name': cleangenre.lang(i[0], self.lang), 'url': url % ('%s', i[3]), 'image': i[0] + '.jpg', 'icon': i[0] + '.png', 'action': 'tmdbTvshows&folderName=%s' % cleangenre.lang(i[0], self.lang)})
+					except: pass
+		self.addDirectory(self.list, folderName=folderName)
 		return self.list
 
-	def networks(self):
+	def trakt_genre_list(self, listType='', genre='', url='', folderName=''):
+		if self.lang == 'en':
+			filterLang = 'en'
+		else:
+			filterLang = self.lang+',en'
+		genreslug = url
+		if listType == 'trending':
+			url = self.trakttrending_link +'&genres=%s&language=%s'% (genreslug, filterLang)
+			self.list = cache.get(self.trakt_list,self.trakt_hours, url, self.trakt_user, folderName) #trakt trending with genre
+		if listType == 'popular':
+			url = self.traktpopular_link +'&genres=%s&language=%s'% (genreslug, filterLang)
+			self.list = cache.get(self.trakt_list,self.trakt_hours, url, self.trakt_user, folderName) #trakt popular with genre.
+		if listType =='mostplayed':
+			url =self.traktmostplayed_link +'&genres=%s&language=%s'% (genreslug, filterLang)
+			self.list = cache.get(self.trakt_list,self.trakt_hours, url, self.trakt_user, folderName) #trakt mostplayed with genre.
+		if listType == 'mostwatched':
+			url = self.traktmostwatched_link +'&genres=%s&language=%s'% (genreslug, filterLang)
+			self.list = cache.get(self.trakt_list,self.trakt_hours, url, self.trakt_user, folderName) #trakt mostwatched with genre.
+		if listType == 'anticipated':
+			url = self.traktanticipated_link +'&genres=%s&language=%s'% (genreslug, filterLang)
+			self.list = cache.get(self.trakt_list,self.trakt_hours, url, self.trakt_user, folderName) #trakt most anticipated with genre.
+		if listType == 'decades':
+			from resources.lib.menus import navigator
+			navigator.Navigator().trakt_decades(genre=genre, mediatype='TVShows',url=url, folderName=folderName)
+		if self.list: self.worker()
+		if self.list: self.tvshowDirectory(self.list, folderName=folderName)
+		if self.list is None: self.list = []
+		return self.list
+
+	def trakt_genre_list_decade(self, decade='', listType='', genre='', url='', folderName=''):
+		if self.lang == 'en':
+			filterLang = 'en'
+		else:
+			filterLang = self.lang+',en'
+		genreslug = url
+		decade = decade
+		folderName = folderName + ' ('+decade+')'
+		if decade == '1930-1939':
+			decades = '1930-1939'
+		elif decade == '1940-1949':
+			decades = '1940-1949'
+		elif decade == '1950-1959':
+			decades = '1950-1959'
+		elif decade == '1960-1969':
+			decades = '1960-1969'
+		elif decade == '1970-1979':
+			decades = '1970-1979'
+		elif decade == '1980-1989':
+			decades = '1980-1989'
+		elif decade == '1990-1999':
+			decades = '1990-1999'
+		elif decade == '2000-2009':
+			decades = '2000-2009'
+		elif decade == '2010-2019':
+			decades = '2010-2019'
+		elif decade == '2020-2029':
+			decades = '2020-2024'
+		if listType == 'trending':
+			url = self.trakttrending_link +'&genres=%s&years=%s&languages=%s'% (genreslug, decades, filterLang)
+			self.list = cache.get(self.trakt_list,self.trakt_hours, url, self.trakt_user, folderName) #trakt trending with genre
+		if listType == 'popular':
+			url = self.traktpopular_link+'&genres=%s&years=%s&languages=%s'% (genreslug, decades, filterLang)
+			self.list = cache.get(self.trakt_list,self.trakt_hours, url, self.trakt_user, folderName) #trakt popular with genre.
+		if listType =='mostplayed':
+			url =self.traktmostplayed_link+'&genres=%s&years=%s&languages=%s'% (genreslug, decades, filterLang)
+			self.list = cache.get(self.trakt_list,self.trakt_hours, url, self.trakt_user, folderName) #trakt mostplayed with genre.
+		if listType == 'mostwatched':
+			url = self.traktmostwatched_link+'&genres=%s&years=%s&languages=%s'% (genreslug, decades, filterLang)
+			self.list = cache.get(self.trakt_list,self.trakt_hours, url, self.trakt_user, folderName) #trakt mostwatched with genre.
+		if self.list: self.worker()
+		if self.list: self.tvshowDirectory(self.list, folderName=folderName)
+		if self.list is None: self.list = []
+		return self.list
+
+	def networks(self, folderName=''):
 		networks = tmdb_indexer().get_networks()
 		for i in networks:
-			self.list.append({'content': 'studios', 'name': i[0], 'url': self.tmdb_networks_link % ('%s', i[1]), 'image': i[2], 'icon': i[2], 'action': 'tmdbTvshows'})
-		self.addDirectory(self.list)
+			self.list.append({'content': 'studios', 'name': i[0], 'url': self.tmdb_networks_link % ('%s', i[1]), 'image': i[2], 'icon': i[2], 'action': 'tmdbTvshows&folderName=%s' % quote_plus(i[0])})
+		self.addDirectory(self.list, folderName=folderName)
 		return self.list
 
-	def originals(self):
+	def originals(self, folderName=''):
 		originals = tmdb_indexer().get_originals()
 		for i in originals:
-			self.list.append({'content': 'studios', 'name': i[0], 'url': self.tmdb_networks_link % ('%s', i[1]), 'image': i[2], 'icon': i[2], 'action': 'tmdbTvshows'})
-		self.addDirectory(self.list)
+			self.list.append({'content': 'studios', 'name': i[0], 'url': self.tmdb_networks_link % ('%s', i[1]), 'image': i[2], 'icon': i[2], 'action': 'tmdbTvshows&folderName=%s' % quote_plus(i[0])})
+		self.addDirectory(self.list, folderName=folderName)
 		return self.list
 
-	def languages(self):
+	def languages(self, folderName=''):
 		languages = [
 			('Arabic', 'ar'), ('Bosnian', 'bs'), ('Bulgarian', 'bg'), ('Chinese', 'zh'), ('Croatian', 'hr'), ('Dutch', 'nl'), ('English', 'en'), ('Finnish', 'fi'),
 			('French', 'fr'), ('German', 'de'), ('Greek', 'el'), ('Hebrew', 'he'), ('Hindi ', 'hi'), ('Hungarian', 'hu'), ('Icelandic', 'is'), ('Italian', 'it'),
 			('Japanese', 'ja'), ('Korean', 'ko'), ('Norwegian', 'no'), ('Persian', 'fa'), ('Polish', 'pl'), ('Portuguese', 'pt'), ('Punjabi', 'pa'),
 			('Romanian', 'ro'), ('Russian', 'ru'), ('Serbian', 'sr'), ('Spanish', 'es'), ('Swedish', 'sv'), ('Turkish', 'tr'), ('Ukrainian', 'uk')]
 		for i in languages:
-			self.list.append({'content': 'countries', 'name': str(i[0]), 'url': self.language_link % i[1], 'image': 'languages.png', 'icon': 'DefaultAddonLanguage.png', 'action': 'tvshows'})
-		self.addDirectory(self.list)
+			self.list.append({'content': 'countries', 'name': str(i[0]), 'url': self.language_link % i[1], 'image': 'languages.png', 'icon': 'DefaultAddonLanguage.png', 'action': 'tvshows&folderName=%s' % quote_plus(str(i[0]))})
+		self.addDirectory(self.list, folderName=folderName)
 		return self.list
 
-	def certifications(self):
+	def certifications(self, folderName=''):
 		certificates = [
 			('Child Audience (TV-Y)', 'US%3ATV-Y'),
 			('Young Audience (TV-Y7)', 'US%3ATV-Y7'),
@@ -638,18 +740,18 @@ class TVshows:
 			('Youth Audience (TV-14)', 'US%3ATV-14'),
 			('Mature Audience (TV-MA)', 'US%3ATV-MA')]
 		for i in certificates:
-			self.list.append({'content': 'tags', 'name': str(i[0]), 'url': self.certification_link % i[1], 'image': 'certificates.png', 'icon': 'certificates.png', 'action': 'tvshows'})
-		self.addDirectory(self.list)
+			self.list.append({'content': 'tags', 'name': str(i[0]), 'url': self.certification_link % i[1], 'image': 'certificates.png', 'icon': 'certificates.png', 'action': 'tvshows&folderName=%s' % quote_plus(str(i[0]))})
+		self.addDirectory(self.list, folderName=folderName)
 		return self.list
 
-	def years(self, url):
+	def years(self, url, folderName=''):
 		try: url = getattr(self, url + '_link')
 		except: pass
 		year = (self.date_time.strftime('%Y'))
 		for i in range(int(year)-0, 1900, -1):
-			if self.imdb_link in url: self.list.append({'content': 'years', 'name': str(i), 'url': url % (str(i), str(i)), 'image': 'years.png', 'icon': 'DefaultYear.png', 'action': 'tvshows'})
-			if self.tmdb_link in url: self.list.append({'content': 'years', 'name': str(i), 'url': url % ('%s', str(i)), 'image': 'years.png', 'icon': 'DefaultYear.png', 'action': 'tmdbTvshows'})
-		self.addDirectory(self.list)
+			if self.imdb_link in url: self.list.append({'content': 'years', 'name': str(i), 'url': url % (str(i), str(i)), 'image': 'years.png', 'icon': 'DefaultYear.png', 'action': 'tvshows&folderName=%s' % quote_plus(str(i))})
+			if self.tmdb_link in url: self.list.append({'content': 'years', 'name': str(i), 'url': url % ('%s', str(i)), 'image': 'years.png', 'icon': 'DefaultYear.png', 'action': 'tmdbTvshows&folderName=%s' % quote_plus(str(i))})
+		self.addDirectory(self.list, folderName=folderName)
 		return self.list
 
 	def tvshowsListToLibrary(self, url):
@@ -677,7 +779,7 @@ class TVshows:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 
-	def userlists(self):
+	def userlists(self, create_directory=False, folderName=''):
 		userlists = []
 		try:
 			if not self.traktCredentials: raise Exception()
@@ -719,13 +821,13 @@ class TVshows:
 			url = self.tmdb_link + '/3/account/{account_id}/watchlist/tv?api_key=%s&session_id=%s&sort_by=created_at.asc&page=1' % ('%s', self.tmdb_session_id)
 			self.list.insert(0, {'name': getLS(32033), 'url': url, 'image': 'tmdb.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'tmdbTvshows'})
 		if self.imdb_user != '': # imdb Watchlist
-			self.list.insert(0, {'name': getLS(32033), 'url': self.imdbwatchlist_link, 'image': 'imdb.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'tvshows'})
+			self.list.insert(0, {'name': getLS(32033), 'url': self.imdbwatchlist_link, 'image': 'imdb.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'tvshows&folderName=%s' % quote_plus(getLS(32033))})
 		if self.imdb_user != '': # imdb My Ratings
-			self.list.insert(0, {'name': getLS(32025), 'url': self.imdbratings_link, 'image': 'imdb.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'tvshows'})
-		self.addDirectory(self.list)
+			self.list.insert(0, {'name': getLS(32025), 'url': self.imdbratings_link, 'image': 'imdb.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'tvshows&folderName=%s' % quote_plus(getLS(32025))})
+		if create_directory: self.addDirectory(self.list, folderName=folderName)
 		return self.list
 
-	def traktCollection(self, url, create_directory=True):
+	def traktCollection(self, url, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			try:
@@ -744,17 +846,18 @@ class TVshows:
 				q.update({'page': str(int(q['page']) + 1)})
 				q = (urlencode(q)).replace('%2C', ',')
 				next = url.replace('?' + urlparse(url).query, '') + '?' + q
+				next = next + '&folderName=%s' % quote_plus(folderName)
 			except: next = ''
 			for i in range(len(self.list)): self.list[i]['next'] = next
 			self.worker()
 			if self.list is None: self.list = []
-			if create_directory: self.tvshowDirectory(self.list)
+			if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 
-	def traktWatchlist(self, url, create_directory=True):
+	def traktWatchlist(self, url, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			try:
@@ -773,42 +876,46 @@ class TVshows:
 				q.update({'page': str(int(q['page']) + 1)})
 				q = (urlencode(q)).replace('%2C', ',')
 				next = url.replace('?' + urlparse(url).query, '') + '?' + q
+				next = next + '&folderName=%s' % quote_plus(folderName)
 			except: next = ''
 			for i in range(len(self.list)): self.list[i]['next'] = next
 			self.worker()
 			if self.list is None: self.list = []
-			if create_directory: self.tvshowDirectory(self.list)
+			if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 
-	def traktLlikedlists(self, create_directory=True):
+	def traktLlikedlists(self, create_directory=True, folderName=''):
 		items = traktsync.fetch_liked_list('', True)
+		showOwnerShow = getSetting('trakt.lists.showowner') == 'true'
 		for item in items:
 			try:
 				if item['content_type'] == 'movies': continue
 				if item['content_type'] == 'mixed': continue
 				list_name = item['list_name']
+				listAction = 'tvshows'
+				listAction = listAction+'&folderName=%s' % quote_plus(list_name)
 				list_owner = item['list_owner']
 				list_owner_slug = item['list_owner_slug']
 				list_id = item['trakt_id']
 				list_url = self.traktlist_link % (list_owner_slug, list_id)
 				list_count = item['item_count']
 				next = ''
-				if getSetting('trakt.lists.showowner') == 'true':
+				if showOwnerShow:
 					label = '%s - [COLOR %s]%s[/COLOR]' % (list_name, self.highlight_color, list_owner)
 				else:
 					label = '%s' % (list_name)
-				self.list.append({'name': label, 'list_type': 'traktPulicList', 'url': list_url, 'list_owner': list_owner, 'list_owner_slug': list_owner_slug, 'list_name': list_name, 'list_id': list_id, 'context': list_url, 'next': next, 'list_count': list_count, 'image': 'trakt.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'tvshows'})
+				self.list.append({'name': label, 'list_type': 'traktPulicList', 'url': list_url, 'list_owner': list_owner, 'list_owner_slug': list_owner_slug, 'list_name': list_name, 'list_id': list_id, 'context': list_url, 'next': next, 'list_count': list_count, 'image': 'trakt.png', 'icon': 'DefaultVideoPlaylists.png', 'action': listAction})
 			except:
 				from resources.lib.modules import log_utils
 				log_utils.error()
 		self.list = sorted(self.list, key=lambda k: re.sub(r'(^the |^a |^an )', '', k['name'].lower()))
-		if create_directory: self.addDirectory(self.list, queue=True)
+		if create_directory: self.addDirectory(self.list, queue=True, folderName=folderName)
 		return self.list
 
-	def trakt_list(self, url, user):
+	def trakt_list(self, url, user, folderName):
 		self.list = []
 		if ',return' in url: url = url.split(',return')[0]
 		items = trakt.getTraktAsJson(url)
@@ -819,6 +926,7 @@ class TVshows:
 			q.update({'page': str(int(q['page']) + 1)})
 			q = (urlencode(q)).replace('%2C', ',')
 			next = url.replace('?' + urlparse(url).query, '') + '?' + q
+			next = next + '&folderName=%s' % quote_plus(folderName)
 		except: next = ''
 		for item in items: # rating and votes via TMDb, or I must use `extended=full and it slows down
 			try:
@@ -846,7 +954,36 @@ class TVshows:
 				log_utils.error()
 		return self.list
 
-	def trakt_userList(self, url, create_directory=True):
+	def favouriteTVShows(self, create_directory=True, folderName=''):
+			self.list = []
+			try:
+				from resources.lib.modules import favourites
+				results = favourites.getFavourites('tvshows')
+				if results:
+					for item in results:
+						try:
+							values = {}
+							values['title'] = item[1].get('title','')
+							values['premiered'] = item[1].get('year','')
+							values['year'] = item[1].get('year','')
+							values['imdb'] = item[1].get('imdb','')
+							values['tmdb'] = item[1].get('tmdb','')
+							self.list.append(values)
+						except:
+							from resources.lib.modules import log_utils
+							log_utils.error()
+				next = ''
+				for i in range(len(self.list)): self.list[i]['next'] = next
+				self.worker()
+				self.sort(type="shows.favourite")
+				if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
+				return self.list
+			except:
+				from resources.lib.modules import log_utils
+				log_utils.error()
+				return []
+
+	def trakt_userList(self, url, create_directory=True, folderName=''):
 		self.list = []
 		q = dict(parse_qsl(urlsplit(url).query))
 		index = int(q['page']) - 1
@@ -905,11 +1042,12 @@ class TVshows:
 			q.update({'page': str(int(q['page']) + 1)})
 			q = (urlencode(q)).replace('%2C', ',')
 			next = url.replace('?' + urlparse(url).query, '') + '?' + q
+			next = next + '&folderName=%s' % quote_plus(folderName)
 		except: next = ''
 		for i in range(len(self.list)): self.list[i]['next'] = next
 		self.worker()
 		if self.list is None: self.list = []
-		if create_directory: self.tvshowDirectory(self.list)
+		if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 		return self.list
 
 	def trakt_user_lists(self, url, user):
@@ -921,6 +1059,7 @@ class TVshows:
 				if item['content_type'] == 'mixed':
 					listAction = 'mixed'
 				list_name = item['list_name']
+				listAction = listAction+'&folderName=%s' % quote_plus(list_name)
 				list_owner = item['list_owner']
 				list_owner_slug = item['list_owner_slug']
 				list_id = item['trakt_id']
@@ -975,7 +1114,7 @@ class TVshows:
 					label = '%s - [COLOR %s]%s[/COLOR]' % (list_name, self.highlight_color, list_owner)
 				else:
 					label = '%s' % (list_name)
-				self.list.append({'name': label, 'list_type': 'traktPulicList', 'url': list_url, 'list_owner': list_owner, 'list_name': list_name, 'list_id': list_id, 'context': list_url, 'next': next, 'image': 'trakt.png', 'icon': 'trakt.png', 'action': 'tvshows'})
+				self.list.append({'name': label, 'list_type': 'traktPulicList', 'url': list_url, 'list_owner': list_owner, 'list_name': list_name, 'list_id': list_id, 'context': list_url, 'next': next, 'image': 'trakt.png', 'icon': 'trakt.png', 'action': 'tvshows&folderName=%s' % quote_plus(list_name)})
 			except:
 				from resources.lib.modules import log_utils
 				log_utils.error()
@@ -996,12 +1135,12 @@ class TVshows:
 				list_count = item.get('params', {}).get('list_count', '')
 				list_url = self.mbdlist_list_items % (list_id)
 				label = '%s - %s shows' % (list_name, list_count)
-				self.list.append({'name': label, 'url': list_url, 'list_owner': list_owner, 'list_name': list_name, 'list_id': list_id, 'context': list_url, 'next': next, 'image': 'mdblist.png', 'icon': 'mdblist.png', 'action': 'tvshows'})
+				self.list.append({'name': label, 'url': list_url, 'list_owner': list_owner, 'list_name': list_name, 'list_id': list_id, 'context': list_url, 'next': next, 'image': 'mdblist.png', 'icon': 'mdblist.png', 'action': 'tvshows&folderName=%s' % quote_plus(list_name)})
 			except:
 				from resources.lib.modules import log_utils
 				log_utils.error()
 		return self.list
-	def mdb_list_items(self, url, create_directory=True):
+	def mdb_list_items(self, url, create_directory=True, folderName=''):
 		self.list = []
 		q = dict(parse_qsl(urlsplit(url).query))
 		index = int(q['page']) - 1
@@ -1037,20 +1176,21 @@ class TVshows:
 			q.update({'page': str(int(q['page']) + 1)})
 			q = (urlencode(q)).replace('%2C', ',')
 			next = url.replace('?' + urlparse(url).query, '') + '?' + q
+			next = next + '&folderName=%s' % quote_plus(folderName)
 		except: next = ''
 		for i in range(len(self.list)): self.list[i]['next'] = next
 		self.worker()
 		if self.list is None: self.list = []
-		if create_directory: self.tvshowDirectory(self.list)
+		if create_directory: self.tvshowDirectory(self.list, folderName=folderName)
 		return self.list
-	def getMDBUserList(self, create_directory=True): 
+	def getMDBUserList(self, create_directory=True, folderName=''): 
 		self.list = []
 		try:
 			#self.list = cache.get(self.mbd_top_lists, 0)
 			self.list = cache.get(self.mbd_user_lists, self.mdblist_hours)
 			#self.list = self.mbd_user_lists()
 			if self.list is None: self.list = []
-			if create_directory: self.addDirectory(self.list)
+			if create_directory: self.addDirectory(self.list, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
@@ -1077,7 +1217,7 @@ class TVshows:
 				log_utils.error()
 		return self.list
 
-	def imdb_list(self, url, isRatinglink=False):
+	def imdb_list(self, url, isRatinglink=False, folderName=''):
 		list = [] ; items = [] ; dupes = []
 		try:
 			for i in re.findall(r'date\[(\d+)\]', url):
@@ -1105,6 +1245,7 @@ class TVshows:
 				next = [i[0] for i in next if 'Next' in i[1]]
 			next = url.replace(urlparse(url).query, urlparse(next[0]).query)
 			next = client.replaceHTMLCodes(next)
+			next = next + '&folderName=%s' % quote_plus(folderName)
 		except: next = ''
 		for item in items:
 			try:
@@ -1141,6 +1282,42 @@ class TVshows:
 				from resources.lib.modules import log_utils
 				log_utils.error()
 		return list
+
+	def imdb_genre_list(self, url, isRatinglink=False, folderName=''):
+			list = [] ; items = [] ; dupes = []
+			try:
+				for i in re.findall(r'date\[(\d+)\]', url):
+					url = url.replace('date[%s]' % i, (self.date_time - timedelta(days=int(i))).strftime('%Y-%m-%d'))
+				def imdb_watchlist_id(url):
+					return client.parseDOM(client.request(url), 'meta', ret='content', attrs = {'property': 'pageId'})[0]
+				if url == self.imdbwatchlist_link:
+					url = cache.get(imdb_watchlist_id, 8640, url)
+					url = self.imdbwatchlist2_link % url
+				result = client.request(url)
+				result = result.replace('\n', ' ')
+				items = client.parseDOM(result, 'div', attrs = {'class': 'ipc-metadata-list-summary-item__tc'})
+			except:
+				from resources.lib.modules import log_utils
+				log_utils.error()
+				return
+			next= ''
+			for item in items:
+				try:
+					main_title = client.parseDOM(item, 'h3', attrs = {'class': 'ipc-title__text'})
+					title = main_title[0].split('. ')[1]
+					year = client.parseDOM(item, 'span', attrs = {'class': '.*?dli-title-metadata-item'})[0]
+					year = year[:4]
+					if int(year) > int((self.date_time).strftime('%Y')): raise Exception()
+					imdb = client.parseDOM(item, 'a', ret='href')[0]
+					imdb = re.findall(r'(tt\d*)', imdb)[0]
+					if imdb in dupes: raise Exception()
+					dupes.append(imdb)
+					rating = votes = ''
+					list.append({'title': title, 'tvshowtitle': title, 'originaltitle': title, 'year': year, 'imdb': imdb, 'tmdb': '', 'tvdb': '', 'rating': rating, 'votes': votes, 'next': next})
+				except:
+					from resources.lib.modules import log_utils
+					log_utils.error()
+			return list
 
 	def imdb_person_list(self, url):
 		list = []
@@ -1180,34 +1357,34 @@ class TVshows:
 				url = url.split('/list/', 1)[-1].strip('/')
 				url = self.imdblist_link % url
 				url = client.replaceHTMLCodes(url)
-				list.append({'name': name, 'url': url, 'context': url, 'image': 'imdb.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'tvshows'})
+				list.append({'name': name, 'url': url, 'context': url, 'image': 'imdb.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'tvshows&folderName=%s' % quote_plus(name)})
 			except:
 				from resources.lib.modules import log_utils
 				log_utils.error()
 		list = sorted(list, key=lambda k: re.sub(r'(^the |^a |^an )', '', k['name'].lower()))
 		return list
 
-	def tvshow_progress(self, url):
+	def tvshow_progress(self, url, folderName=''):
 		self.list = []
 		try:
-			cache.get(self.trakt_tvshow_progress, 0)
+			cache.get(self.trakt_tvshow_progress, 0, folderName)
 			self.sort(type='progress')
 			if self.list is None: self.list = []
 			hasNext = False
-			self.tvshowDirectory(self.list, next=hasNext, isProgress=True)
+			self.tvshowDirectory(self.list, next=hasNext, isProgress=True, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 			if not self.list:
 				control.hide()
-				if self.notifications: control.notification(title=32326, message=33049)
+				if self.notifications and self.is_widget != True: control.notification(title=32326, message=33049)
 
-	def trakt_tvshow_progress(self, create_directory=True):
+	def trakt_tvshow_progress(self, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			historyurl = 'https://api.trakt.tv/users/me/watched/shows'
-			self.list = self.trakt_list(historyurl, self.trakt_user)
+			self.list = self.trakt_list(historyurl, self.trakt_user, folderName)
 			next = ''
 			for i in range(len(self.list)): self.list[i]['next'] = next
 			self.worker()
@@ -1218,7 +1395,7 @@ class TVshows:
 				self.list = [i for i in self.list if i['tvdb'] not in hidden] # removes hidden progress items
 				prior_week = int(re.sub(r'[^0-9]', '', (self.date_time - timedelta(days=7)).strftime('%Y-%m-%d')))
 				sorted_list = []
-				top_items = [i for i in self.list if i['episode'] == 1 and i['premiered'] and (int(re.sub(r'[^0-9]', '', str(i['premiered']))) >= prior_week)]
+				top_items = [i for i in self.list if i['premiered'] and (int(re.sub(r'[^0-9]', '', str(i['premiered']))) >= prior_week)]
 				sorted_list.extend(top_items)
 				sorted_list.extend([i for i in self.list if i not in top_items])
 				self.list = sorted_list
@@ -1231,27 +1408,27 @@ class TVshows:
 			log_utils.error()
 		return self.list
 
-	def tvshow_watched(self, url):
+	def tvshow_watched(self, url, folderName=''):
 		self.list = []
 		try:
-			cache.get(self.trakt_tvshow_watched, 0)
+			cache.get(self.trakt_tvshow_watched, 0, folderName)
 			self.sort(type='watched')
 			if self.list is None: self.list = []
 			hasNext = False
-			self.tvshowDirectory(self.list, next=hasNext, isProgress=False, isWatched=True)
+			self.tvshowDirectory(self.list, next=hasNext, isProgress=False, isWatched=True, folderName=folderName)
 			return self.list
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 			if not self.list:
 				control.hide()
-				if self.notifications: control.notification(title=32326, message=33049)
+				if self.notifications and self.is_widget != True: control.notification(title=32326, message=33049)
 
-	def trakt_tvshow_watched(self, create_directory=True):
+	def trakt_tvshow_watched(self, create_directory=True, folderName=''):
 		self.list = []
 		try:
 			historyurl = 'https://api.trakt.tv/users/me/watched/shows'
-			self.list = self.trakt_list(historyurl, self.trakt_user)
+			self.list = self.trakt_list(historyurl, self.trakt_user, folderName)
 			next = ''
 			for i in range(len(self.list)): self.list[i]['next'] = next
 			self.worker()
@@ -1342,6 +1519,8 @@ class TVshows:
 				extended_art = fanarttv_cache.get(FanartTv().get_tvshow_art, 336, tvdb)
 				if extended_art: values.update(extended_art)
 			values = dict((k, v) for k, v in iter(values.items()) if v is not None and v != '') # remove empty keys so .update() doesn't over-write good meta with empty values.
+			if values.get('imdb') != imdb:
+				values['imdb'] = imdb
 			self.list[i].update(values)
 			meta = {'imdb': imdb, 'tmdb': tmdb, 'tvdb': tvdb, 'lang': self.lang, 'user': self.user, 'item': values}
 			self.meta.append(meta)
@@ -1349,14 +1528,19 @@ class TVshows:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 
-	def tvshowDirectory(self, items, next=True, isProgress=False, isWatched=False):
+	def tvshowDirectory(self, items, next=True, isProgress=False, isWatched=False, folderName='Umbrella'):
 		from sys import argv # some functions like ActivateWindow() throw invalid handle less this is imported here.
+		if self.useContainerTitles: control.setContainerName(folderName)
+		returnHome = control.folderPath()
+		control.setHomeWindowProperty('umbrella.returnhome', returnHome)
 		if getSetting('trakt.directProgress.scrape') == 'true' and getSetting('enable.playnext') == 'true':
 			pass
 		else:
 			control.playlist.clear()
 		if not items: # with reuselanguageinvoker on an empty directory must be loaded, do not use sys.exit()
-			control.hide() ; control.notification(title=32002, message=33049)
+			control.hide()
+			if self.is_widget != True:
+				control.notification(title=32002, message=33049)
 		sysaddon, syshandle = 'plugin://plugin.video.umbrella/', int(argv[1])
 		is_widget = 'plugin' not in control.infoLabel('Container.PluginName')
 		settingFanart = getSetting('fanart') == 'true'
@@ -1366,8 +1550,19 @@ class TVshows:
 		else: watchedMenu, unwatchedMenu = getLS(32066), getLS(32067)
 		traktManagerMenu, queueMenu = getLS(32070), getLS(32065)
 		showPlaylistMenu, clearPlaylistMenu = getLS(35517), getLS(35516)
-		playRandom, addToLibrary = getLS(32535), getLS(32551)
+		playRandom, addToLibrary, addToFavourites, removeFromFavourites = getLS(32535), getLS(32551), getLS(40463), getLS(40468)
 		nextMenu, findSimilarMenu, trailerMenu = getLS(32053), getLS(32184), getLS(40431)
+		from resources.lib.modules import favourites
+		favoriteItems = favourites.getFavourites(content='tvshows')
+		favoriteItems = [x[1].get('tmdb') for x in favoriteItems]
+		try:
+			nexturl = items[0]['next']
+			url_params = dict(parse_qsl(urlsplit(nexturl).query))
+			if 'imdb.com' in nexturl and 'start' in url_params: page = int(((int(url_params.get('start')) - 1) / int(self.page_limit)) + 1)
+			elif 'www.imdb.com/movies-coming-soon/' in nexturl: page = int(re.search(r'(\d{4}-\d{2})', nexturl).group(1))
+			else: page = int(url_params.get('page'))
+		except:
+			page = 1
 		for i in items:
 			try:
 				imdb, tmdb, tvdb, year, trailer = i.get('imdb', ''), i.get('tmdb', ''), i.get('tvdb', ''), i.get('year', ''), i.get('trailer', '')
@@ -1431,6 +1626,15 @@ class TVshows:
 				# cm.append((showPlaylistMenu, 'RunPlugin(%s?action=playlist_Show)' % sysaddon))
 				# cm.append((clearPlaylistMenu, 'RunPlugin(%s?action=playlist_Clear)' % sysaddon))
 				cm.append((addToLibrary, 'RunPlugin(%s?action=library_tvshowToLibrary&tvshowtitle=%s&year=%s&imdb=%s&tmdb=%s&tvdb=%s)' % (sysaddon, systitle, year, imdb, tmdb, tvdb)))
+				if favoriteItems:
+					if tmdb in favoriteItems:
+						cm.append((removeFromFavourites, 'RunPlugin(%s?action=remove_favorite&meta=%s&content=%s)' % (sysaddon, sysmeta, 'tvshows')))
+					else:
+						cm.append((addToFavourites, 'RunPlugin(%s?action=add_favorite&meta=%s&content=%s)' % (sysaddon, sysmeta, 'tvshows')))
+				else:
+					cm.append((addToFavourites, 'RunPlugin(%s?action=add_favorite&meta=%s&content=%s)' % (sysaddon, sysmeta, 'tvshows')))
+				if not is_widget and page > 2:
+					cm.append((getLS(40477), 'RunPlugin(%s?action=return_home&folder=%s)' % (sysaddon, 'tvshows')))
 				cm.append(('[COLOR red]Umbrella Settings[/COLOR]', 'RunPlugin(%s?action=tools_openSettings)' % sysaddon))
 ####################################
 				if trailer: meta.update({'trailer': trailer}) # removed temp so it's not passed to CM items, only skin
@@ -1441,19 +1645,40 @@ class TVshows:
 				item.setArt(art)
 				try: 
 					count = getShowCount(indicators[1], imdb, tvdb) if indicators else None # if indicators and no matching imdb_id in watched items then it returns None and we use TMDb meta to avoid Trakt request
-					if count:
-						if int(count['watched']) > 0:
-							item.setProperties({'WatchedEpisodes': str(count['watched']), 'UnWatchedEpisodes': str(count['unwatched'])})
+					if self.showCounts:
+						if count:
+							if int(count['watched']) > 0 and (str(count['watched']) != str(count['total'])): #watched but not 100%
+								item.setProperties({'WatchedEpisodes': str(count['watched']), 'UnWatchedEpisodes': str(count['unwatched'])})
+								item.setProperty('WatchedProgress', str(int(float(count['watched']) / float(count['total']) * 100)))
+							elif int(count['watched']) > 0 and (str(count['watched']) == str(count['total'])): #watched 100%
+								item.setProperties({'WatchedEpisodes': str(count['watched']), 'UnWatchedEpisodes': str(count['unwatched'])})
+								item.setProperty('WatchedProgress', str(int(float(count['watched']) / float(count['total']) * 100)))
+							else:
+								item.setProperties({'UnWatchedEpisodes': str(count['unwatched'])})
+								item.setProperty('WatchedProgress', 0)
+							item.setProperties({'TotalSeasons': str(meta.get('total_seasons', '')), 'TotalEpisodes': str(count['total'])})
+							
 						else:
-							item.setProperties({'UnWatchedEpisodes': str(count['unwatched'])})
-						item.setProperties({'TotalSeasons': str(meta.get('total_seasons', '')), 'TotalEpisodes': str(count['total'])})
-						item.setProperty('WatchedProgress', str(int(float(count['watched']) / float(count['total']) * 100)))
+							if control.getKodiVersion() >= 20:
+								item.setProperties({'UnWatchedEpisodes': ''}) # for shows never watched
+								pass #do not set watched status on shows that have nothing watched.
+							else:
+								item.setProperties({'WatchedEpisodes': '0', 'UnWatchedEpisodes': str(meta.get('total_aired_episodes', ''))}) # for shows never watched
+							item.setProperties({'TotalSeasons': str(meta.get('total_seasons', '')), 'TotalEpisodes': str(meta.get('total_aired_episodes', ''))})
 					else:
-						if control.getKodiVersion() >= 20:
-							item.setProperties({'UnWatchedEpisodes': str(meta.get('total_aired_episodes', ''))}) # for shows never watched
+						if count:
+							if int(count['watched']) > 0:
+								item.setProperties({'WatchedEpisodes': str(count['watched']), 'UnWatchedEpisodes': str(count['unwatched'])})
+							else:
+								item.setProperties({'UnWatchedEpisodes': str(count['unwatched'])})
+							item.setProperties({'TotalSeasons': str(meta.get('total_seasons', '')), 'TotalEpisodes': str(count['total'])})
+							item.setProperty('WatchedProgress', str(int(float(count['watched']) / float(count['total']) * 100)))
 						else:
-							item.setProperties({'WatchedEpisodes': '0', 'UnWatchedEpisodes': str(meta.get('total_aired_episodes', ''))}) # for shows never watched
-						item.setProperties({'TotalSeasons': str(meta.get('total_seasons', '')), 'TotalEpisodes': str(meta.get('total_aired_episodes', ''))})
+							if control.getKodiVersion() >= 20:
+								item.setProperties({'UnWatchedEpisodes': str(meta.get('total_aired_episodes', ''))}) # for shows never watched
+							else:
+								item.setProperties({'WatchedEpisodes': '0', 'UnWatchedEpisodes': str(meta.get('total_aired_episodes', ''))}) # for shows never watched
+							item.setProperties({'TotalSeasons': str(meta.get('total_seasons', '')), 'TotalEpisodes': str(meta.get('total_aired_episodes', ''))})
 				except: pass
 				item.setProperty('tmdb_id', str(tmdb))
 				if is_widget: 
@@ -1494,13 +1719,13 @@ class TVshows:
 				nextMenu = '[COLOR skyblue]' + nextMenu + page + '[/COLOR]'
 				u = urlparse(url).netloc.lower()
 				if u in self.imdb_link or u in self.trakt_link:
-					url = '%s?action=tvshowPage&url=%s' % (sysaddon, quote_plus(url))
+					url = '%s?action=tvshowPage&url=%s&folderName=%s' % (sysaddon, quote_plus(url), quote_plus(folderName))
 				elif u in self.tmdb_link:
-					url = '%s?action=tmdbTvshowPage&url=%s' % (sysaddon, quote_plus(url))
+					url = '%s?action=tmdbTvshowPage&url=%s&folderName=%s' % (sysaddon, quote_plus(url), quote_plus(folderName))
 				elif u in self.tvmaze_link:
-					url = '%s?action=tvmazeTvshowPage&url=%s' % (sysaddon, quote_plus(url))
+					url = '%s?action=tvmazeTvshowPage&url=%s&folderName=%s' % (sysaddon, quote_plus(url), quote_plus(folderName))
 				elif u in self.mbdlist_list_items:
-					url = '%s?action=tvshowPage&url=%s' % (sysaddon, quote_plus(url))
+					url = '%s?action=tvshowPage&url=%s&folderName=%s' % (sysaddon, quote_plus(url), quote_plus(folderName))
 				item = control.item(label=nextMenu, offscreen=True)
 				icon = control.addonNext()
 				item.setArt({'icon': icon, 'thumb': icon, 'poster': icon, 'banner': icon})
@@ -1513,15 +1738,18 @@ class TVshows:
 		control.directory(syshandle, cacheToDisc=False) # disable cacheToDisc so unwatched counts loads fresh data counts if changes made
 		views.setView('tvshows', {'skin.estuary': 55, 'skin.confluence': 500})
 
-	def addDirectory(self, items, queue=False):
+	def addDirectory(self, items, queue=False, folderName='Umbrella'):
 		from sys import argv # some functions like ActivateWindow() throw invalid handle less this is imported here.
 		control.playlist.clear()
 		if not items: # with reuselanguageinvoker on an empty directory must be loaded, do not use sys.exit()
-			content = '' ; control.hide() ; control.notification(title=32002, message=33049)
+			content = ''
+			control.hide()
+			if self.is_widget != True: control.notification(title=32002, message=33049)
+		if self.useContainerTitles: control.setContainerName(folderName)
 		sysaddon, syshandle = 'plugin://plugin.video.umbrella/', int(argv[1])
 		addonThumb = control.addonThumb()
 		artPath = control.artPath()
-		queueMenu, playRandom, addToLibrary = getLS(32065), getLS(32535), getLS(32551)
+		queueMenu, playRandom, addToLibrary, addToFavourites = getLS(32065), getLS(32535), getLS(32551), getLS(40463)
 		likeMenu, unlikeMenu = getLS(32186), getLS(32187)
 		for i in items:
 			try:

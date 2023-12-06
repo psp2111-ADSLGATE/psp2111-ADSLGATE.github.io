@@ -1,6 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fonts>
-	<fontset id="Aljazeera" idloc="15109">
+	<fontset id="Default" idloc="15109">
+		<!-- Normal Fonts -->
+		<font>
+			<name>font10</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>23</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font12</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>25</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font12a</name>
+			<filename>AljazeeraFull.ttf</filename>
+			<size>20</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font13</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>30</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font14</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>33</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font23_narrow</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>23</size>
+			<style>lighten</style>
+			<linespacing>0.8</linespacing>
+		</font>
+		<font>
+			<name>font25_narrow</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>25</size>
+			<style>lighten</style>
+			<linespacing>0.8</linespacing>
+		</font>
+		<font>
+			<name>font27</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>27</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font27_narrow</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>27</size>
+			<style>lighten</style>
+			<linespacing>0.8</linespacing>
+		</font>
+		<font>
+			<name>font32</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>32</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font37</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>37</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font45</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>45</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font60</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>60</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font_clock</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>70</size>
+		</font>
+		<font>
+			<name>font_clock_small</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>40</size>
+		</font>
+		<!-- Title Fonts -->
+		<font>
+			<name>font_flag</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>18</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font20_title</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>20</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font25_title</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>25</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font30_title</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>30</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font32_title</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>32</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font36_title</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>36</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font40_title</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>40</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font45_title</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>45</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font52_title</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>52</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font_MainMenu</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>60</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>WeatherTemp</name>
+			<aspect>0.85</aspect>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>120</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>Mono26</name>
+			<filename>AmazonFullRegular.ttf</filename>
+			<size>26</size>
+		</font>
+	</fontset>
+	<fontset id="Aljazeera">
 		<!-- Normal Fonts -->
 		<font>
 			<name>font10</name>
@@ -10,6 +177,12 @@
 		</font>
 		<font>
 			<name>font12</name>
+			<filename>AljazeeraFull.ttf</filename>
+			<size>30</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font12a</name>
 			<filename>AljazeeraFull.ttf</filename>
 			<size>25</size>
 			<style>lighten</style>
@@ -161,167 +334,7 @@
 			<size>26</size>
 		</font>
 	</fontset>
-	<fontset id="Amazon">
-		<!-- Normal Fonts -->
-		<font>
-			<name>font10</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>23</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>font12</name>
-			<filename>AljazeeraFull.ttf</filename>
-			<size>20</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>font13</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>font14</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>font23_narrow</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>23</size>
-			<style>lighten</style>
-			<linespacing>0.8</linespacing>
-		</font>
-		<font>
-			<name>font25_narrow</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-			<linespacing>0.8</linespacing>
-		</font>
-		<font>
-			<name>font27</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>27</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>font27_narrow</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>27</size>
-			<style>lighten</style>
-			<linespacing>0.8</linespacing>
-		</font>
-		<font>
-			<name>font32</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>32</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>font37</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>37</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>font45</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>font60</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>60</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>font_clock</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>70</size>
-		</font>
-		<font>
-			<name>font_clock_small</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>40</size>
-		</font>
-		<!-- Title Fonts -->
-		<font>
-			<name>font_flag</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>18</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font20_title</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>20</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font25_title</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>25</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font30_title</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>30</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font32_title</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>32</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font36_title</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>36</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font40_title</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>40</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font45_title</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>45</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font52_title</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>52</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font_MainMenu</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>60</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>WeatherTemp</name>
-			<aspect>0.85</aspect>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>120</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>Mono26</name>
-			<filename>AmazonFullRegular.ttf</filename>
-			<size>26</size>
-		</font>
-	</fontset><fontset id="Samim">
+    <fontset id="Samim">
 		<!-- Normal Fonts -->
 		<font>
 			<name>font10</name>
@@ -331,6 +344,12 @@
 		</font>
 		<font>
 			<name>font12</name>
+			<filename>SamimFullBold.ttf</filename>
+			<size>25</size>
+			<style>lighten</style>
+		</font>
+		<font>
+			<name>font12a</name>
 			<filename>AljazeeraFull.ttf</filename>
 			<size>20</size>
 			<style>lighten</style>

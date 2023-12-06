@@ -18,6 +18,7 @@ LOGDEBUG = log_utils.LOGDEBUG
 properties = [
 	'context.umbrella.settings',
 	'context.umbrella.addtoLibrary',
+	'context.umbrella.addtoFavourite',
 	'context.umbrella.playTrailer',
 	'context.umbrella.traktManager',
 	'context.umbrella.clearProviders',
@@ -54,7 +55,7 @@ class SettingsMonitor(control.monitor_class):
 		control.monitor_class.__init__(self)
 		control.refresh_playAction()
 		control.refresh_libPath()
-		window.setProperty('umbrella.debug.reversed', control.setting('debug.reversed'))
+		window.setProperty('umbrella.debug.reversed', str(control.setting('debug.reversed')))
 		for id in properties:
 			if control.setting(id) == 'true':
 				xbmc.executebuiltin('SetProperty({0},true,home)'.format(id))
@@ -66,19 +67,35 @@ class SettingsMonitor(control.monitor_class):
 			window.clearProperty('umbrella_settings') # Kodi callback when the addon settings are changed
 		except:
 			control.log('[ plugin.video.umbrella ]  Exception clearing settings property...', LOGDEBUG)
-		control.sleep(50)
-		refreshed = control.make_settings_dict()
-		control.log('[ plugin.video.umbrella ]  onSettings Change Refreshed', LOGINFO)
-		control.refresh_playAction()
-		control.log('[ plugin.video.umbrella ]  onSettings Change PlayAction', LOGINFO)
-		control.refresh_libPath()
-		control.log('[ plugin.video.umbrella ]  onSettings Change libPath', LOGINFO)
-		control.checkPlayNextEpisodes()
-		control.log('[ plugin.video.umbrella ]  onSettings checkPlaynext', LOGINFO)
-		control.refresh_debugReversed()
-		control.log('[ plugin.video.umbrella ]  onSettings refresh_debugReversed', LOGINFO)
-		control.setContextColors()
-		control.log('[ plugin.video.umbrella ]  onSettings Change setContextColors', LOGINFO)
+		try:
+			control.sleep(50)
+			refreshed = control.make_settings_dict()
+		except:
+			control.log('[ plugin.video.umbrella ]  Exception making settings dict...', LOGDEBUG)
+		try:
+			control.refresh_playAction()
+		except:
+			control.log('[ plugin.video.umbrella ]  Exception making refreshing playAction...', LOGDEBUG)
+		try:
+			control.refresh_libPath()
+		except:
+			control.log('[ plugin.video.umbrella ]  Exception refreshing libpath...', LOGDEBUG)
+		try:
+			control.checkPlayNextEpisodes()
+		except:
+			control.log('[ plugin.video.umbrella ]  Exception checking playnext episodes...', LOGDEBUG)
+		try:
+			control.refresh_debugReversed()
+		except:
+			control.log('[ plugin.video.umbrella ]  Exception checking debug reversed', LOGDEBUG)
+		try:
+			control.setContextColors()
+		except:
+			control.log('[ plugin.video.umbrella ]  Exception setting context colors...', LOGDEBUG)
+		try:
+			control.checkModules()
+		except:
+			control.log('[ plugin.video.umbrella ]  Exception checking modules...', LOGDEBUG)
 		try:
 			for id in properties:
 				if control.setting(id) == 'true':
@@ -263,7 +280,7 @@ try:
 			repoVersion = 'unknown'
 			repoName = 'Unknown Repo'
 		
-	fsVersion = control.addon('script.module.cocoscrapers').getAddonInfo('version')
+	#fsVersion = control.addon('script.module.cocoscrapers').getAddonInfo('version')
 	#maVersion = control.addon('script.module.myaccounts').getAddonInfo('version')
 	log_utils.log('########   CURRENT Umbrella VERSIONS REPORT   ########', level=LOGINFO)
 	if testUmbrella == True:
@@ -273,7 +290,7 @@ try:
 	log_utils.log('##   python Version: %s' % pythonVersion, level=LOGINFO)
 	log_utils.log('##   plugin.video.umbrella Version: %s' % str(addonVersion), level=LOGINFO)
 	log_utils.log('##   %s Version: %s' % (str(repoName), str(repoVersion)), level=LOGINFO)
-	log_utils.log('##   script.module.cocoscrapers Version: %s' % str(fsVersion), level=LOGINFO)
+	#log_utils.log('##   script.module.cocoscrapers Version: %s' % str(fsVersion), level=LOGINFO)
 	log_utils.log('######   UMBRELLA SERVICE ENTERING KEEP ALIVE   #####', level=LOGINFO)
 except:
 	log_utils.log('## ERROR GETTING Umbrella VERSION - Missing Repo or failed Install ', level=LOGINFO)
@@ -294,7 +311,12 @@ class PremAccntNotification:
 		control.log('[ plugin.video.umbrella ] Debrid Account Expiry Notification Service Starting...', LOGINFO)
 		self.duration = [(15, 10), (11, 7), (8, 4), (5, 2), (3, 0)]
 		if control.setting('alldebridusername') != '' and control.setting('alldebridexpirynotice') == 'true':
-			account_info = alldebrid.AllDebrid().account_info()['user']
+			try:
+				account_info = alldebrid.AllDebrid().account_info()['user']
+			except:
+				account_info = None
+				from resources.lib.modules import log_utils
+				log_utils.error()
 			if account_info:
 				if not account_info['isSubscribed']:
 					# log_utils.log('AD account_info = %s' % account_info, log_utils.LOGINFO)

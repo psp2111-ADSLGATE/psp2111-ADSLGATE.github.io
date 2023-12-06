@@ -297,7 +297,7 @@
 					<control type="textbox">
 						<height>auto</height>
 						<font>font36_title</font>
-						<label>Season $INFO[ListItem.Season], Episode $INFO[ListItem.Episode]</label>
+						<label>الموسم $INFO[ListItem.Season], الحلقة $INFO[ListItem.Episode]</label>
 						<textcolor>unfocused_text</textcolor>
 						<visible>String.IsEqual(ListItem.DbType,episode)</visible>
 					</control>
@@ -671,7 +671,7 @@
 							<height>110</height>
 							<font>font36_title</font>
 							<textcolor>unfocused_text</textcolor>
-							<label>Season $INFO[ListItem.Season], Episode $INFO[ListItem.Episode]</label>
+							<label>الموسم $INFO[ListItem.Season], الحلقة $INFO[ListItem.Episode]</label>
 							<visible>String.IsEqual(ListItem.DbType,episode)</visible>
 						</control>
 					</control>

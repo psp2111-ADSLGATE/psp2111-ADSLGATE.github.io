@@ -29,7 +29,7 @@ class EasyNews:
 		self.auth = self._get_auth()
 		self.account_link = 'https://account.easynews.com/editinfo.php'
 		self.usage_link = 'https://account.easynews.com/usageview.php'
-		self.highlight_color = control.getHighlightColor()
+		self.highlight_color = control.setting('highlight.color')
 
 	def _get(self, url, params={}):
 		try:
@@ -45,8 +45,8 @@ class EasyNews:
 	def _get_auth(self):
 		auth = None
 		try:
-			username = control.addon('script.module.cocoscrapers').getSetting('easynews.user')
-			password = control.addon('script.module.cocoscrapers').getSetting('easynews.password')
+			username = getSetting('easynews.user')
+			password = getSetting('easynews.password')
 			if username == '' or password == '': return auth
 			user_info = '%s:%s' % (username, password)
 			user_info = user_info.encode('utf-8')

@@ -1405,6 +1405,10 @@
                         <param name="affix">$PARAM[affix]</param>
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
+					<include content="Object_ProgressPercent" condition="Skin.HasSetting(Indicator.ProgressPercent)">
+                        <param name="affix">$PARAM[affix]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                    </include>
                     <include content="Object_SelectBox" condition="$PARAM[fg_layer] + $PARAM[selected]">
                         <param name="indicator">$PARAM[indicator]</param>
                         <param name="focusbounce">true</param>
@@ -2111,6 +2115,10 @@
                     <param name="control">image</param>
                     <texture colordiffuse="overlay_line" border="12">common/box-outline.png</texture>
                 </include>
+				<include content="Object_ProgressPercent" condition="Skin.HasSetting(Indicator.ProgressPercent)">
+                        <param name="affix">$PARAM[affix]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                </include>
                 <include content="Object_SelectBox" condition="$PARAM[selected]">
                     <param name="indicator">false</param>
                     <param name="focusbounce">true</param>
@@ -2197,6 +2205,10 @@
                     <include content="Object_Control" condition="!$PARAM[selected] + Skin.HasSetting(Glass.BorderOutline)">
                         <param name="control">image</param>
                         <texture colordiffuse="overlay_line" border="12">common/box-outline.png</texture>
+                    </include>
+					<include content="Object_ProgressPercent" condition="Skin.HasSetting(Indicator.ProgressPercent)">
+                        <param name="affix">$PARAM[affix]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
                     </include>
                     <include content="Object_SelectBox" condition="$PARAM[selected]">
                         <param name="indicator">false</param>
