@@ -8,7 +8,7 @@ from modules import kodi_utils, settings
 from modules.metadata import movie_meta, movie_meta_external_id, tvshow_meta_external_id
 from modules.utils import sort_list, sort_for_article, make_thread_list, get_datetime, timedelta, replace_html_codes, copy2clip, title_key, jsondate_to_datetime as js2date
 
-CLIENT_ID, CLIENT_SECRET = '4a479b95c8224999eef8d418cfe6c7a4389e2837441672c48c9c8168ea42a407', '89d8f8f71b312985a9e1f91e9eb426e23050102734bb1fa36ec76cdc74452ab6'
+CLIENT_ID, CLIENT_SECRET = '645b0f46df29d27e63c4a8d5fff158edd0bef0a6a5d32fc12c1b82388be351af', '422a282ef5fe4b5c47bc60425c009ac3047ebd10a7f6af790303875419f18f98'
 ls, json, monitor, sleep, get_setting, set_setting = kodi_utils.local_string, kodi_utils.json, kodi_utils.monitor, kodi_utils.sleep, kodi_utils.get_setting, kodi_utils.set_setting
 logger, notification, player, confirm_dialog, get_property = kodi_utils.logger, kodi_utils.notification, kodi_utils.player, kodi_utils.confirm_dialog, kodi_utils.get_property
 dialog, unquote, addon_installed, addon_enabled, addon = kodi_utils.dialog, kodi_utils.unquote, kodi_utils.addon_installed, kodi_utils.addon_enabled, kodi_utils.addon

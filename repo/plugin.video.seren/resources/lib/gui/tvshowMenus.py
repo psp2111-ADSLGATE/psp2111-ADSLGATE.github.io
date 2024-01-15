@@ -211,9 +211,9 @@ class Menus:
     def my_shows():
         g.add_directory_item(
             g.get_language_string(30043),
-            action="onDeckShows",
-            description=g.get_language_string(30433),
-            menu_item=g.create_icon_dict("shows_progress", g.ICONS_PATH),
+            action="showsNextUp",
+            description=g.get_language_string(30436),
+            menu_item=g.create_icon_dict("shows_nextup", g.ICONS_PATH),
         )
         g.add_directory_item(
             g.get_language_string(30014),
@@ -235,9 +235,9 @@ class Menus:
         )
         g.add_directory_item(
             g.get_language_string(30210),
-            action="showsNextUp",
-            description=g.get_language_string(30436),
-            menu_item=g.create_icon_dict("shows_nextup", g.ICONS_PATH),
+            action="onDeckShows",
+            description=g.get_language_string(30433),
+            menu_item=g.create_icon_dict("shows_progress", g.ICONS_PATH),
         )
         g.add_directory_item(
             g.get_language_string(30211),

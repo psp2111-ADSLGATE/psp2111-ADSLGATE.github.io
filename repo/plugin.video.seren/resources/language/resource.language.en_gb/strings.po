@@ -3655,6 +3655,14 @@ msgctxt "#30641"
 msgid "Sorry, {} type sources are not available for downloading"
 msgstr "Sorry, {} type sources are not available for downloading"
 
+msgctxt "#30645"
+msgid "Quality"
+msgstr "Quality"
+
+msgctxt "#30646"
+msgid "Local Downloads"
+msgstr "Local Downloads"
+
 #: /resources/skins/Default/1080i/manual_caching.xml:125
 #: /resources/skins/Default/1080i/manual_caching.xml:238
 #: /resources/skins/Default/1080i/manual_caching.xml:387

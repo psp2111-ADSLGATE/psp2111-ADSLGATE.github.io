@@ -19,7 +19,7 @@ class Menus:
             self.providers['premiumize'] = ('Premiumize', PremiumizeWalker)
         if g.real_debrid_enabled():
             self.providers['real_debrid'] = ('Real Debrid', RealDebridWalker)
-        self.providers['local_downloads'] = ('Local Downloads', LocalFileWalker)
+        self.providers['local_downloads'] = (g.get_language_string(30646), LocalFileWalker)
 
     def home(self):
         for key, value in sorted(self.providers.items()):

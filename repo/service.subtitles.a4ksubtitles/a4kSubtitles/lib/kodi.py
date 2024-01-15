@@ -58,12 +58,19 @@ def json_rpc(method, params, log_error=True):  # pragma: no cover
         if 'error' in result and log_error:
             from . import logger
             logger.error(result)
-        return json.loads(result)['result']['value']
+        result = json.loads(result)['result']
+        try:
+            return result['value']
+        except:
+            return result
     except KeyError:
         return None
 
 def get_kodi_setting(setting, log_error=True):  # pragma: no cover
     return json_rpc('Settings.GetSettingValue', {"setting": setting}, log_error)
+
+def get_kodi_player_subtitles(log_error=True):  # pragma: no cover
+    return json_rpc('Player.GetProperties', {"playerid": 1, "properties": ["subtitleenabled", "currentsubtitle", "subtitles"]}, log_error)
 
 def notification(text, time=3000):  # pragma: no cover
     xbmc.executebuiltin('Notification(%s, %s, %d, %s)' % (addon_name, text, time, addon_icon))
@@ -124,9 +131,6 @@ def parse_language(language):  # pragma: no cover
         return language
 
 def create_listitem(item):  # pragma: no cover
-    if item['lang'] == 'Brazilian':
-        item['lang'] = 'Portuguese (Brazil)'
-
     (item_name, item_ext) = os.path.splitext(item['name'])
     item_name = item_name.replace('.', ' ')
     item_ext = item_ext.upper()[1:]

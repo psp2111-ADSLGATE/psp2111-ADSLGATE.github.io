@@ -152,7 +152,7 @@ class Menus:
             menu_item=g.create_icon_dict("trakt", g.ICONS_PATH),
         )
         g.add_directory_item(
-            'Download Manager',
+            g.get_language_string(30563),
             action='downloadManagerView',
             is_folder=False,
             description='View Current Downloads',

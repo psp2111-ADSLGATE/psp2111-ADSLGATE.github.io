@@ -806,7 +806,7 @@
 						<align>center</align>
 						<width>120</width>
 						<textcolor>FFDDDDDD</textcolor>
-						<label>Quality</label>
+						<label>$ADDON[plugin.video.seren 30645]</label>
 					</control>
 
 					<control type="label">
