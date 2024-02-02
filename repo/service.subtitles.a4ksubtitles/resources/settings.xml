@@ -9,7 +9,7 @@
         <setting id="general.use_chardet"    label="33105" type="bool"   default="false"  />
         <setting id="general.auto_select"    label="33106" type="bool"   default="false"  />
         <setting id="general.prefer_sdh"     label="33107" type="bool"   default="false" enable="eq(-1,true)" />
-        <setting id="general.prefer_forced"  label="33108" type="bool"   default="false"  enable="eq(-1,false)+eq(-2,true)" />
+        <setting id="general.prefer_forced"  label="33108" type="bool"   default="true"  enable="eq(-1,false)+eq(-2,true)" />
     </category>
     <!-- Services -->
     <category label="33002">

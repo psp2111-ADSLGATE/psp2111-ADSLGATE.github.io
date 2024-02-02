@@ -1,3 +1,21 @@
+[B]Update - v6.6.45 - February 1st, 2024[/B]
+--[Enhancement] Added episode type label.
+--[Fix] Changed scrobble on pause to only happen if before marking watched percentage.
+
+[B]Update - v6.6.44 - January 25th, 2024[/B]
+--[Enhancement] Added setting for local resume point notification.
+--[Enhancement] Added code to enable Trakt scrobble when Trakt authorized.
+--[Enhancement] Added code to scrobble on Pause.
+--[Fix] Changed some error logging in marking watched.
+
+[B]Update - v6.6.43 - January 19th, 2024[/B]
+--[Fix] Added code to check for youtube addon setup with api keys.
+--[Fix] Removed code checking for playnext setup correct in settings change detection.
+--[Fix] Fixed Search Movies by Actor / Search TV Shows by Actor. Thanks Venom123
+--[Enhancement] Added new context menu item for Play Trailer (Select). Venom123 request.
+--[Enhancement] Added code to pause settings monitor in situations of multiple settings being set.
+--[Omega] Made a change for auto detect of MyVideos.db file.
+
 [B]Update - v6.6.42 - Decemeber 22nd, 2023[/B]
 --[Fix] Fixed issue hiding shows from progress.
 --[Fix] Fixed issue causing hidden items manager to not show.
