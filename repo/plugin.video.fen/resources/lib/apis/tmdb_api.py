@@ -146,7 +146,7 @@ def tmdb_movies_decade(decade, page_no):
 def tmdb_movies_networks(network, page_no):
 	sort_type = generic_list_sorting('movies.networks')
 	string = 'tmdb_movies_networks_%s_%s_%s' % (network, sort_type, page_no)
-	url = '%s/discover/movie/?api_key=%s&watch_region=US&with_watch_providers=%s&sort_by=%s&vote_count.gte=100&page=%s' % (base_url, tmdb_api_key(), network, sort_type, page_no)
+	url = '%s/discover/movie?api_key=%s&watch_region=US&with_watch_providers=%s&sort_by=%s&vote_count.gte=100&page=%s' % (base_url, tmdb_api_key(), network, sort_type, page_no)
 	return cache_object(get_data, string, url, json=False, expiration=EXPIRY_2_DAYS)
 
 def tmdb_movies_recommendations(tmdb_id, page_no):
