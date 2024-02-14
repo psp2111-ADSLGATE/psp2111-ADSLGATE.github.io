@@ -1,0 +1,312 @@
+<settings version="2">
+    <setting id="general.titlelanguage" default="true">40371</setting>
+    <setting id="general.searchhistory" default="true">Yes</setting>
+    <setting id="general.showchangelog" default="true">Yes</setting>
+    <setting id="changelog.clean_cache">true</setting>
+    <setting id="general.smartscroll" default="true">false</setting>
+    <setting id="general.smartscroll.wait.time">500</setting>
+    <setting id="general.spoilers" default="true">false</setting>
+    <setting id="general.unaired.episodes" default="true">false</setting>
+    <setting id="sep" default="true" />
+    <setting id="divflavors.bool" default="true">false</setting>
+    <setting id="divflavors.menu" default="true">Sub</setting>
+    <setting id="contentyear.bool" default="true">false</setting>
+    <setting id="contentyear.menu" default="true">0</setting>
+    <setting id="contentseason.bool" default="true">false</setting>
+    <setting id="contentseason.menu" default="true">0</setting>
+    <setting id="contentformat.bool" default="true">false</setting>
+    <setting id="contentformat.menu" default="true">0</setting>
+    <setting id="licensedBy.bool" default="true">false</setting>
+    <setting id="licensedBy.menu" default="true">Crunchyroll</setting>
+    <setting id="contentorigin.bool" default="true">false</setting>
+    <setting id="contentorigin.menu" default="true">0</setting>
+    <setting id="perpage.bool" default="true">false</setting>
+    <setting id="perpage.menu">20</setting>
+    <setting id="context.delete.from.database" default="true">false</setting>
+    <setting id="context.marked.watched">true</setting>
+    <setting id="general.icons">4</setting>
+    <setting id="general.dialog" default="true">0</setting>
+    <setting id="scraping.fanart" default="true">false</setting>
+    <setting id="scraping.clearlogo" default="true">false</setting>
+    <setting id="provider.nyaa">true</setting>
+    <setting id="provider.nyaaalt" default="true">false</setting>
+    <setting id="provider.animetosho">true</setting>
+    <setting id="provider.aniwatch">true</setting>
+    <setting id="provider.animix">true</setting>
+    <setting id="provider.animepahe">true</setting>
+    <setting id="provider.gogo">true</setting>
+    <setting id="provider.nineanime">true</setting>
+    <setting id="provider.animess">true</setting>
+    <setting id="provider.animelatino">true</setting>
+    <setting id="general.playstyle.movie" default="true">0</setting>
+    <setting id="general.playstyle.episode" default="true">0</setting>
+    <setting id="general.autotrynext">true</setting>
+    <setting id="general.timeout">10</setting>
+    <setting id="general.terminate.oncloud">true</setting>
+    <setting id="general.kodi_language" default="true">false</setting>
+    <setting id="general.audio" default="true">0</setting>
+    <setting id="general.subtitles">1</setting>
+    <setting id="general.source" default="true">Sub</setting>
+    <setting id="general.sourcesort" default="true">Random</setting>
+    <setting id="general.playlist_length">30</setting>
+    <setting id="general.dubsubtitles" default="true">false</setting>
+    <setting id="smartplay.playingnextdialog">true</setting>
+    <setting id="skipoutro.aniskip.enable" default="true">false</setting>
+    <setting id="skipoutro.aniskip.auto" default="true">false</setting>
+    <setting id="skipoutro.aniskip.offset">-3</setting>
+    <setting id="playingnext.time">90</setting>
+    <setting id="playingnext.defaultaction" default="true">0</setting>
+    <setting id="smartplay.skipintrodialog">true</setting>
+    <setting id="skipintro.aniskip.enable" default="true">false</setting>
+    <setting id="skipintro.aniskip.auto" default="true">false</setting>
+    <setting id="skipintro.aniskip.offset">-3</setting>
+    <setting id="skipintro.time">86</setting>
+    <setting id="skipintro.delay">2</setting>
+    <setting id="skipintro.duration" default="true">0</setting>
+    <setting id="general.maxResolution" default="true">0</setting>
+    <setting id="torrent.disable265" default="true">false</setting>
+    <setting id="torrent.batch" default="true">false</setting>
+    <setting id="general.fileFilter" default="true">0</setting>
+    <setting id="general.webspeed">20</setting>
+    <setting id="general.movie.maxGB">10</setting>
+    <setting id="general.movie.minGB" default="true">0</setting>
+    <setting id="general.episode.maxGB">10</setting>
+    <setting id="general.episode.minGB" default="true">0</setting>
+    <setting id="general.manual.select" default="true">false</setting>
+    <setting id="general.sortsources" default="true">0</setting>
+    <setting id="general.prioritize_dualaudio" default="true">false</setting>
+    <setting id="general.prioritize_multisubs" default="true">false</setting>
+    <setting id="general.prioritize_batches" default="true">false</setting>
+    <setting id="general.prioritize_season" default="true">false</setting>
+    <setting id="menu.prioritize_season">1</setting>
+    <setting id="general.prioritize_part" default="true">false</setting>
+    <setting id="menu.prioritize_part">1</setting>
+    <setting id="search.adult" default="true">false</setting>
+    <setting id="alldebrid.enabled" default="true">false</setting>
+    <setting id="alldebrid.username" default="true" />
+    <setting id="alldebrid.auth_start" default="true" />
+    <setting id="alldebrid.priority">10</setting>
+    <setting id="dl.enabled" default="true">false</setting>
+    <setting id="dl.username" default="true" />
+    <setting id="dl.auth_start" default="true" />
+    <setting id="dl.priority">10</setting>
+    <setting id="premiumize.enabled" default="true">false</setting>
+    <setting id="premiumize.username" default="true" />
+    <setting id="premiumize.auth_start" default="true" />
+    <setting id="premiumize.priority">10</setting>
+    <setting id="premiumize.cloudInspection" default="true">false</setting>
+    <setting id="realdebrid.enabled" default="true">false</setting>
+    <setting id="rd.username" default="true" />
+    <setting id="rd.auth_start" default="true" />
+    <setting id="rd.priority">10</setting>
+    <setting id="rd.cloudInspection" default="true">false</setting>
+    <setting id="watchlist.update.enabled" default="true">false</setting>
+    <setting id="watchlist.update.flavor" default="true">MAL</setting>
+    <setting id="watchlist.update.percent">80</setting>
+    <setting id="label0" default="true" />
+    <setting id="anilist.enabled" default="true">false</setting>
+    <setting id="anilist.username" default="true" />
+    <setting id="anilist.token" default="true" />
+    <setting id="anilist.login" default="true" />
+    <setting id="anilist.listsettings" default="true" />
+    <setting id="anilist.sort" default="true">Last Updated</setting>
+    <setting id="kitsu.enabled" default="true">false</setting>
+    <setting id="kitsu.username" default="true" />
+    <setting id="kitsu.authvar" default="true" />
+    <setting id="kitsu.password" default="true" />
+    <setting id="kitsu.login" default="true" />
+    <setting id="kitsu.listsettings" default="true" />
+    <setting id="kitsu.sort" default="true">Date Updated</setting>
+    <setting id="kitsu.titles" default="true">Canonical</setting>
+    <setting id="mal.enabled" default="true">false</setting>
+    <setting id="mal.username" default="true" />
+    <setting id="mal.login" default="true" />
+    <setting id="mal.listsettings" default="true" />
+    <setting id="mal.sort" default="true">Last Updated</setting>
+    <setting id="mal.userid" default="true" />
+    <setting id="mal.authvar" default="true" />
+    <setting id="mal.token" default="true" />
+    <setting id="mal.refresh" default="true" />
+    <setting id="mal.password" default="true" />
+    <setting id="mal.titles" default="true" />
+    <setting id="simkl.enabled" default="true">false</setting>
+    <setting id="simkl.username" default="true" />
+    <setting id="simkl.login" default="true" />
+    <setting id="simkl.sort" default="true">Last Updated</setting>
+    <setting id="anilist_airing_calendar">true</setting>
+    <setting id="anilist_airing_anime">true</setting>
+    <setting id="movies">true</setting>
+    <setting id="tv_shows">true</setting>
+    <setting id="trending">true</setting>
+    <setting id="popular">true</setting>
+    <setting id="voted">true</setting>
+    <setting id="completed">true</setting>
+    <setting id="upcoming">true</setting>
+    <setting id="anilist_top_100_anime">true</setting>
+    <setting id="genres">true</setting>
+    <setting id="anilist_search">true</setting>
+    <setting id="tools">true</setting>
+    <setting id="anilist_airing_calendar_movie">true</setting>
+    <setting id="anilist_airing_anime_movie">true</setting>
+    <setting id="trending_movie">true</setting>
+    <setting id="popular_movie">true</setting>
+    <setting id="voted_movie">true</setting>
+    <setting id="completed_movie">true</setting>
+    <setting id="upcoming_movie">true</setting>
+    <setting id="anilist_top_100_anime_movie">true</setting>
+    <setting id="genres_movie">true</setting>
+    <setting id="search_history_movie">true</setting>
+    <setting id="anilist_airing_calendar_tv">true</setting>
+    <setting id="anilist_airing_anime_tv">true</setting>
+    <setting id="trending_tv">true</setting>
+    <setting id="popular_tv">true</setting>
+    <setting id="voted_tv">true</setting>
+    <setting id="completed_tv">true</setting>
+    <setting id="upcoming_tv">true</setting>
+    <setting id="anilist_top_100_anime_tv">true</setting>
+    <setting id="genres_tv">true</setting>
+    <setting id="search_history_tv">true</setting>
+    <setting id="anilist_trending_last_year_trending">true</setting>
+    <setting id="anilist_trending_this_year_trending">true</setting>
+    <setting id="anilist_trending_last_season_trending">true</setting>
+    <setting id="anilist_trending_this_season_trending">true</setting>
+    <setting id="anilist_all_time_trending_trending">true</setting>
+    <setting id="anilist_popular_last_year_popular">true</setting>
+    <setting id="anilist_popular_this_year_popular">true</setting>
+    <setting id="anilist_popular_last_season_popular">true</setting>
+    <setting id="anilist_popular_this_season_popular">true</setting>
+    <setting id="anilist_all_time_popular_popular">true</setting>
+    <setting id="anilist_voted_last_year_voted">true</setting>
+    <setting id="anilist_voted_this_year_voted">true</setting>
+    <setting id="anilist_voted_last_season_voted">true</setting>
+    <setting id="anilist_voted_this_season_voted">true</setting>
+    <setting id="anilist_all_time_voted_voted">true</setting>
+    <setting id="anilist_completed_last_year_completed">true</setting>
+    <setting id="anilist_completed_this_year_completed">true</setting>
+    <setting id="anilist_completed_last_season_completed">true</setting>
+    <setting id="anilist_completed_this_season_completed">true</setting>
+    <setting id="anilist_upcoming_last_year_upcoming">true</setting>
+    <setting id="anilist_upcoming_this_year_upcoming">true</setting>
+    <setting id="anilist_upcoming_next_year_upcoming">true</setting>
+    <setting id="anilist_upcoming_last_season_upcoming">true</setting>
+    <setting id="anilist_upcoming_this_season_upcoming">true</setting>
+    <setting id="anilist_upcoming_next_season_upcoming">true</setting>
+    <setting id="anilist_trending_last_year_trending_movie">true</setting>
+    <setting id="anilist_trending_this_year_trending_movie">true</setting>
+    <setting id="anilist_trending_last_season_trending_movie">true</setting>
+    <setting id="anilist_trending_this_season_trending_movie">true</setting>
+    <setting id="anilist_all_time_trending_trending_movie">true</setting>
+    <setting id="anilist_popular_last_year_popular_movie">true</setting>
+    <setting id="anilist_popular_this_year_popular_movie">true</setting>
+    <setting id="anilist_popular_last_season_popular_movie">true</setting>
+    <setting id="anilist_popular_this_season_popular_movie">true</setting>
+    <setting id="anilist_all_time_popular_popular_movie">true</setting>
+    <setting id="anilist_voted_last_year_voted_movie">true</setting>
+    <setting id="anilist_voted_this_year_voted_movie">true</setting>
+    <setting id="anilist_voted_last_season_voted_movie">true</setting>
+    <setting id="anilist_voted_this_season_voted_movie">true</setting>
+    <setting id="anilist_all_time_voted_voted_movie">true</setting>
+    <setting id="anilist_completed_last_year_completed_movie">true</setting>
+    <setting id="anilist_completed_this_year_completed_movie">true</setting>
+    <setting id="anilist_completed_last_season_completed_movie">true</setting>
+    <setting id="anilist_completed_this_season_completed_movie">true</setting>
+    <setting id="anilist_upcoming_last_year_upcoming_movie">true</setting>
+    <setting id="anilist_upcoming_this_year_upcoming_movie">true</setting>
+    <setting id="anilist_upcoming_next_year_upcoming_movie">true</setting>
+    <setting id="anilist_upcoming_last_season_upcoming_movie">true</setting>
+    <setting id="anilist_upcoming_this_season_upcoming_movie">true</setting>
+    <setting id="anilist_upcoming_next_season_upcoming_movie">true</setting>
+    <setting id="anilist_trending_last_year_trending_tv">true</setting>
+    <setting id="anilist_trending_this_year_trending_tv">true</setting>
+    <setting id="anilist_trending_last_season_trending_tv">true</setting>
+    <setting id="anilist_trending_this_season_trending_tv">true</setting>
+    <setting id="anilist_all_time_trending_trending_tv">true</setting>
+    <setting id="anilist_popular_last_year_popular_tv">true</setting>
+    <setting id="anilist_popular_this_year_popular_tv">true</setting>
+    <setting id="anilist_popular_last_season_popular_tv">true</setting>
+    <setting id="anilist_popular_this_season_popular_tv">true</setting>
+    <setting id="anilist_all_time_popular_popular_tv">true</setting>
+    <setting id="anilist_voted_last_year_voted_tv">true</setting>
+    <setting id="anilist_voted_this_year_voted_tv">true</setting>
+    <setting id="anilist_voted_last_season_voted_tv">true</setting>
+    <setting id="anilist_voted_this_season_voted_tv">true</setting>
+    <setting id="anilist_all_time_voted_voted_tv">true</setting>
+    <setting id="anilist_completed_last_year_completed_tv">true</setting>
+    <setting id="anilist_completed_this_year_completed_tv">true</setting>
+    <setting id="anilist_completed_last_season_completed_tv">true</setting>
+    <setting id="anilist_completed_this_season_completed_tv">true</setting>
+    <setting id="anilist_upcoming_last_year_upcoming_tv">true</setting>
+    <setting id="anilist_upcoming_this_year_upcoming_tv">true</setting>
+    <setting id="anilist_upcoming_next_year_upcoming_tv">true</setting>
+    <setting id="anilist_upcoming_last_season_upcoming_tv">true</setting>
+    <setting id="anilist_upcoming_this_season_upcoming_tv">true</setting>
+    <setting id="anilist_upcoming_next_season_upcoming_tv">true</setting>
+    <setting id="anilist_genres">true</setting>
+    <setting id="anilist_genre_action">true</setting>
+    <setting id="anilist_genre_adventure">true</setting>
+    <setting id="anilist_genre_comedy">true</setting>
+    <setting id="anilist_genre_drama">true</setting>
+    <setting id="anilist_genre_ecchi">true</setting>
+    <setting id="anilist_genre_fantasy">true</setting>
+    <setting id="anilist_genre_hentai" default="true">false</setting>
+    <setting id="anilist_genre_horror">true</setting>
+    <setting id="anilist_genre_shoujo">true</setting>
+    <setting id="anilist_genre_mecha">true</setting>
+    <setting id="anilist_genre_music">true</setting>
+    <setting id="anilist_genre_mystery">true</setting>
+    <setting id="anilist_genre_psychological">true</setting>
+    <setting id="anilist_genre_romance">true</setting>
+    <setting id="anilist_genre_sci_fi">true</setting>
+    <setting id="anilist_genre_slice_of_life">true</setting>
+    <setting id="anilist_genre_sports">true</setting>
+    <setting id="anilist_genre_supernatural">true</setting>
+    <setting id="anilist_genre_thriller">true</setting>
+    <setting id="anilist_genres_movie">true</setting>
+    <setting id="anilist_genre_action_movie">true</setting>
+    <setting id="anilist_genre_adventure_movie">true</setting>
+    <setting id="anilist_genre_comedy_movie">true</setting>
+    <setting id="anilist_genre_drama_movie">true</setting>
+    <setting id="anilist_genre_ecchi_movie">true</setting>
+    <setting id="anilist_genre_fantasy_movie">true</setting>
+    <setting id="anilist_genre_hentai_movie" default="true">false</setting>
+    <setting id="anilist_genre_horror_movie">true</setting>
+    <setting id="anilist_genre_shoujo_movie">true</setting>
+    <setting id="anilist_genre_mecha_movie">true</setting>
+    <setting id="anilist_genre_music_movie">true</setting>
+    <setting id="anilist_genre_mystery_movie">true</setting>
+    <setting id="anilist_genre_psychological_movie">true</setting>
+    <setting id="anilist_genre_romance_movie">true</setting>
+    <setting id="anilist_genre_sci_fi_movie">true</setting>
+    <setting id="anilist_genre_slice_of_life_movie">true</setting>
+    <setting id="anilist_genre_sports_movie">true</setting>
+    <setting id="anilist_genre_supernatural_movie">true</setting>
+    <setting id="anilist_genre_thriller_movie">true</setting>
+    <setting id="anilist_genres_tv">true</setting>
+    <setting id="anilist_genre_action_tv">true</setting>
+    <setting id="anilist_genre_adventure_tv">true</setting>
+    <setting id="anilist_genre_comedy_tv">true</setting>
+    <setting id="anilist_genre_drama_tv">true</setting>
+    <setting id="anilist_genre_ecchi_tv">true</setting>
+    <setting id="anilist_genre_fantasy_tv">true</setting>
+    <setting id="anilist_genre_hentai_tv" default="true">false</setting>
+    <setting id="anilist_genre_horror_tv">true</setting>
+    <setting id="anilist_genre_shoujo_tv">true</setting>
+    <setting id="anilist_genre_mecha_tv">true</setting>
+    <setting id="anilist_genre_music_tv">true</setting>
+    <setting id="anilist_genre_mystery_tv">true</setting>
+    <setting id="anilist_genre_psychological_tv">true</setting>
+    <setting id="anilist_genre_romance_tv">true</setting>
+    <setting id="anilist_genre_sci_fi_tv">true</setting>
+    <setting id="anilist_genre_slice_of_life_tv">true</setting>
+    <setting id="anilist_genre_sports_tv">true</setting>
+    <setting id="anilist_genre_supernatural_tv">true</setting>
+    <setting id="anilist_genre_thriller_tv">true</setting>
+    <setting id="change_log" default="true" />
+    <setting id="clear_cache" default="true" />
+    <setting id="clear_torrent_cache" default="true" />
+    <setting id="clear_history" default="true" />
+    <setting id="rebuild_database" default="true" />
+    <setting id="wipe_addon_data" default="true" />
+    <setting id="reuselanguageinvoker.status" default="true">Disabled</setting>
+    <setting id="reuselanguageinvoker.toggle" default="true" />
+</settings>

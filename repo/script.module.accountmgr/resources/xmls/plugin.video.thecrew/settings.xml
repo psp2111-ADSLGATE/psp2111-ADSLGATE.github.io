@@ -1,0 +1,173 @@
+<settings version="2">
+    <setting id="appearance.alt" default="true">-</setting>
+    <setting id="appearance.1" default="true">thecrew</setting>
+    <setting id="indicators.alt">1</setting>
+    <setting id="indicators" default="true">0</setting>
+    <setting id="api.language" default="true">AUTO</setting>
+    <setting id="providers.lang" default="true">English</setting>
+    <setting id="fanart">true</setting>
+    <setting id="fanart.quality">2</setting>
+    <setting id="fanart.quality.action" default="true" />
+    <setting id="page.item.limit">25</setting>
+    <setting id="flatten.tvshows" default="true">false</setting>
+    <setting id="showunaired">true</setting>
+    <setting id="unaired.identify">1</setting>
+    <setting id="tv.specials">true</setting>
+    <setting id="tv.widget.alt">2</setting>
+    <setting id="tv.widget">1</setting>
+    <setting id="movie.widget">1</setting>
+    <setting id="silent.boot">true</setting>
+    <setting id="silent.boot.warning" default="true" />
+    <setting id="navi.personal.list" default="true">false</setting>
+    <setting id="personal.list" default="true">https://</setting>
+    <setting id="adult_pw" default="true">Enter Here!</setting>
+    <setting id="navi.movies">true</setting>
+    <setting id="navi.tvshows">true</setting>
+    <setting id="navi.sports">true</setting>
+    <setting id="navi.iptv">true</setting>
+    <setting id="navi.kidsgrey">true</setting>
+    <setting id="navi.1clicks">true</setting>
+    <setting id="navi.purplehat">true</setting>
+    <setting id="navi.standup">true</setting>
+    <setting id="navi.247movies">true</setting>
+    <setting id="navi.collections">true</setting>
+    <setting id="navi.traktlist">true</setting>
+    <setting id="navi.imdblist">true</setting>
+    <setting id="navi.moviegenre">true</setting>
+    <setting id="navi.movieyears">true</setting>
+    <setting id="navi.moviepersons">true</setting>
+    <setting id="navi.movielanguages">true</setting>
+    <setting id="navi.moviecerts">true</setting>
+    <setting id="navi.movietrending">true</setting>
+    <setting id="navi.moviepopular">true</setting>
+    <setting id="navi.disneym">true</setting>
+    <setting id="navi.movieviews">true</setting>
+    <setting id="navi.movieboxoffice">true</setting>
+    <setting id="navi.movieoscars">true</setting>
+    <setting id="navi.movietheaters">true</setting>
+    <setting id="navi.moviewidget">true</setting>
+    <setting id="navi.tvGenres">true</setting>
+    <setting id="navi.tvNetworks">true</setting>
+    <setting id="navi.tvLanguages">true</setting>
+    <setting id="navi.tvCertificates">true</setting>
+    <setting id="navi.tvTrending">true</setting>
+    <setting id="navi.tvPopular">true</setting>
+    <setting id="navi.disney">true</setting>
+    <setting id="navi.netflix">true</setting>
+    <setting id="navi.applet">true</setting>
+    <setting id="navi.tvRating">true</setting>
+    <setting id="navi.tvViews">true</setting>
+    <setting id="navi.tvAiring">true</setting>
+    <setting id="navi.tvActive">true</setting>
+    <setting id="navi.tvPremier">true</setting>
+    <setting id="navi.tvTmdb">true</setting>
+    <setting id="navi.tvAdded">true</setting>
+    <setting id="navi.tvCalendar">true</setting>
+    <setting id="progress.dialog" default="true">0</setting>
+    <setting id="hosts.mode">1</setting>
+    <setting id="hosts.quality" default="true">0</setting>
+    <setting id="hosts.screener">true</setting>
+    <setting id="scrapers.timeout.1">30</setting>
+    <setting id="returned.sources">100</setting>
+    <setting id="sourcelist.multiline" default="true">false</setting>
+    <setting id="sources.extrainfo">true</setting>
+    <setting id="hosts.captcha">true</setting>
+    <setting id="debrid.only" default="true">false</setting>
+    <setting id="prem.identify">3</setting>
+    <setting id="preemptive.termination" default="true">false</setting>
+    <setting id="preemptive.limit">10</setting>
+    <setting id="remove.dups">true</setting>
+    <setting id="HEVC">true</setting>
+    <setting id="hosts.sort.provider" default="true">false</setting>
+    <setting id="autoplay.sd" default="true">false</setting>
+    <setting id="torrent.enabled">true</setting>
+    <setting id="torrent.identify">7</setting>
+    <setting id="torrent.min.seeders">10</setting>
+    <setting id="torrent.sort.the.crew">true</setting>
+    <setting id="torrent.resolveurl" default="true" />
+    <setting id="check.torr.cache" default="true">false</setting>
+    <setting id="remove.uncached" default="true">false</setting>
+    <setting id="bookmarks">true</setting>
+    <setting id="bookmarks.auto" default="true">false</setting>
+    <setting id="bookmarks.trakt" default="true">false</setting>
+    <setting id="lists.widget">1</setting>
+    <setting id="prgr.sortorder">1</setting>
+    <setting id="autoTraktOnStart" default="true">false</setting>
+    <setting id="schedTraktTime" default="true">0</setting>
+    <setting id="trakt.scrobble">true</setting>
+    <setting id="trakt.scrobble.warning" default="true" />
+    <setting id="trakt.scrobble.warning.2" default="true" />
+    <setting id="trakt.auth" default="true" />
+    <setting id="trakt.user" default="true" />
+    <setting id="trakt.token" default="true" />
+    <setting id="trakt.refresh" default="true" />
+    <setting id="provider.123movies">true</setting>
+    <setting id="provider.allmoviesforyou">true</setting>
+    <setting id="provider.anymovies">true</setting>
+    <setting id="provider.cmovieshd">true</setting>
+    <setting id="provider.databasegdriveplayer">true</setting>
+    <setting id="provider.dbgo">true</setting>
+    <setting id="provider.easynews">true</setting>
+    <setting id="provider.filmxy">true</setting>
+    <setting id="provider.furk">true</setting>
+    <setting id="provider.gowatchseries">true</setting>
+    <setting id="provider.ororo">true</setting>
+    <setting id="provider.watchepisodes">true</setting>
+    <setting id="provider.myvideolinks">true</setting>
+    <setting id="provider.rapidmoviez">true</setting>
+    <setting id="provider.rlsbb">true</setting>
+    <setting id="provider.scenerls">true</setting>
+    <setting id="provider.1337x">true</setting>
+    <setting id="provider.bitlord">true</setting>
+    <setting id="provider.eztv">true</setting>
+    <setting id="provider.glodls">true</setting>
+    <setting id="provider.isohunt2">true</setting>
+    <setting id="provider.kickass2">true</setting>
+    <setting id="provider.limetorrents">true</setting>
+    <setting id="provider.magnetdl">true</setting>
+    <setting id="provider.piratebay">true</setting>
+    <setting id="provider.tordl">true</setting>
+    <setting id="provider.torrentdownloads">true</setting>
+    <setting id="provider.torrentgalaxy">true</setting>
+    <setting id="provider.torrentquest">true</setting>
+    <setting id="provider.yify">true</setting>
+    <setting id="provider.yourbittorrent">true</setting>
+    <setting id="fanart.tv.user" default="true" />
+    <setting id="tm.user" default="true">0049795edb57568b95240bc9e61a9dfc</setting>
+    <setting id="imdb.user" default="true" />
+    <setting id="tvdb.user" default="true">27bef29779bbffe947232dc310a91f0c</setting>
+    <setting id="easynews.user" default="true" />
+    <setting id="easynews.password" default="true" />
+    <setting id="furk.user_name" default="true" />
+    <setting id="furk.user_pass" default="true" />
+    <setting id="furk.api" default="true" />
+    <setting id="furk.limit">25</setting>
+    <setting id="library.movie" default="true">special://userdata/addon_data/plugin.video.thecrew/Movies</setting>
+    <setting id="library.tv" default="true">special://userdata/addon_data/plugin.video.thecrew/TVShows</setting>
+    <setting id="library.service.update">true</setting>
+    <setting id="library.service.notification">true</setting>
+    <setting id="library.service.warning" default="true" />
+    <setting id="library.update">true</setting>
+    <setting id="library.check">true</setting>
+    <setting id="library.importdelay" default="true">false</setting>
+    <setting id="library.check_movie" default="true">false</setting>
+    <setting id="library.check_episode" default="true">false</setting>
+    <setting id="library.include_unknown">true</setting>
+    <setting id="downloads" default="true">false</setting>
+    <setting id="movie.download.path" default="true" />
+    <setting id="tv.download.path" default="true" />
+    <setting id="download.warning.1" default="true" />
+    <setting id="download.warning.2" default="true" />
+    <setting id="subtitles" default="true">false</setting>
+    <setting id="subtitles.utf" default="true">false</setting>
+    <setting id="subtitles.lang.1" default="true">English</setting>
+    <setting id="subtitles.lang.2" default="true">English</setting>
+    <setting id="OSuser" default="true" />
+    <setting id="OSpass" default="true" />
+    <setting id="addon_debug" default="true">false</setting>
+    <setting id="debug.location">1</setting>
+    <setting id="dev_pw" default="true" />
+    <setting id="dev_color">true</setting>
+    <setting id="debug.warning" default="true" />
+    <setting id="module_base">2.1.0</setting>
+</settings>

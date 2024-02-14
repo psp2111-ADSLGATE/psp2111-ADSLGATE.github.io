@@ -1,0 +1,42 @@
+<settings version="2">
+    <setting id="trakt.token" default="true" />
+    <setting id="trakt.username" default="true" />
+    <setting id="trakt.refresh" default="true" />
+    <setting id="trakt.expires" default="true" />
+    <setting id="alldebrid.token" default="true" />
+    <setting id="alldebrid.username" default="true" />
+    <setting id="alldebrid.expiry.notice">true</setting>
+    <setting id="premiumize.token" default="true" />
+    <setting id="premiumize.username" default="true" />
+    <setting id="premiumize.expiry.notice">true</setting>
+    <setting id="realdebrid.token" default="true" />
+    <setting id="realdebrid.username" default="true" />
+    <setting id="realdebrid.expiry.notice">true</setting>
+    <setting id="realdebrid.client_id" default="true" />
+    <setting id="realdebrid.refresh" default="true" />
+    <setting id="realdebrid.secret" default="true" />
+    <setting id="alldebrid.notification.range" default="true" />
+    <setting id="premiumize.notification.range" default="true" />
+    <setting id="realdebrid.notification.range" default="true" />
+    <setting id="fanart.tv.api.key" default="true" />
+    <setting id="tmdb.api.key" default="true" />
+    <setting id="tmdb.username" default="true" />
+    <setting id="tmdb.password" default="true" />
+    <setting id="tmdb.session_id" default="true" />
+    <setting id="tvdb.api.key" default="true">0</setting>
+    <setting id="tvdb.jw" default="true" />
+    <setting id="imdb.user" default="true" />
+    <setting id="filepursuit.api.key" default="true" />
+    <setting id="furk.username" default="true" />
+    <setting id="furk.password" default="true" />
+    <setting id="furk.api.key" default="true" />
+    <setting id="easynews.username" default="true" />
+    <setting id="easynews.password" default="true" />
+    <setting id="gdrive.cloudflare_url" default="true" />
+    <setting id="ororo.email" default="true" />
+    <setting id="ororo.password" default="true" />
+    <setting id="checkAddonUpdates" default="true">false</setting>
+    <setting id="debug.enabled" default="true">false</setting>
+    <setting id="debug.location">1</setting>
+    <setting id="debug.reversed" default="true">false</setting>
+</settings>

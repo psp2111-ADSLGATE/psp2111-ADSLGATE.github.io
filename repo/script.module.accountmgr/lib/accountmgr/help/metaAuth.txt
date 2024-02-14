@@ -1,0 +1,5 @@
+
+How To Sync Your Data:
+
+1. Add your data into the appropriate field(s).
+2. Choose 'Sync Add-ons' to sync your data with installed Add-ons.

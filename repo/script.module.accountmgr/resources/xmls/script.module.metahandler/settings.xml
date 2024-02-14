@@ -1,0 +1,20 @@
+<settings version="2">
+    <setting id="meta_folder_location" default="true">special://profile/addon_data/script.module.metahandler/</setting>
+    <setting id="use_remote_db" default="true">false</setting>
+    <setting id="db_address" default="true" />
+    <setting id="db_port" default="true" />
+    <setting id="db_user" default="true" />
+    <setting id="db_pass" default="true" />
+    <setting id="db_name" default="true">video_cache</setting>
+    <setting id="tmdb_language" default="true">English (en)</setting>
+    <setting id="tmdb_poster_size" default="true">w342</setting>
+    <setting id="tmdb_backdrop_size" default="true">original</setting>
+    <setting id="override_tmdb_key" default="true">false</setting>
+    <setting id="tmdb_api_key" default="true" />
+    <setting id="omdbapi_fallback" default="true">false</setting>
+    <setting id="override_omdb_key" default="true">false</setting>
+    <setting id="omdb_api_key" default="true" />
+    <setting id="tvdb_language" default="true">English (en)</setting>
+    <setting id="override_tvdb_key" default="true">false</setting>
+    <setting id="tvdb_api_key" default="true" />
+</settings>

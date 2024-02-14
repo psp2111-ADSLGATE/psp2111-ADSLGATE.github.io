@@ -1,0 +1,9 @@
+<settings version="2">
+    <setting id="premiumize.authorization" default="true" />
+    <setting id="first.start">true</setting>
+    <setting id="first.setup" default="true">false</setting>
+    <setting id="popup.date" default="true">0</setting>
+    <setting id="status.label" default="true">false</setting>
+    <setting id="downloads" default="true">false</setting>
+    <setting id="download.path" default="true" />
+</settings>

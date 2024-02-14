@@ -1,0 +1,116 @@
+<settings version="2">
+    <setting id="appearance.alt" default="true">-</setting>
+    <setting id="appearance.1" default="true">homelander</setting>
+    <setting id="trakt.authed" default="true" />
+    <setting id="indicators.alt">1</setting>
+    <setting id="indicators" default="true">0</setting>
+    <setting id="api.language" default="true">AUTO</setting>
+    <setting id="providers.lang" default="true">English</setting>
+    <setting id="fanart">true</setting>
+    <setting id="hq.artwork" default="true">false</setting>
+    <setting id="hq.art.text" default="true" />
+    <setting id="items.per.page">20</setting>
+    <setting id="trailer.source">2</setting>
+    <setting id="trailer.select">1</setting>
+    <setting id="movie.widget">1</setting>
+    <setting id="channels" default="true">0</setting>
+    <setting id="lists.widget">1</setting>
+    <setting id="imdb.sort.order" default="true">0</setting>
+    <setting id="flatten.tvshows" default="true">false</setting>
+    <setting id="showunaired">true</setting>
+    <setting id="tv.specials">true</setting>
+    <setting id="tv.widget.alt">2</setting>
+    <setting id="tv.widget">1</setting>
+    <setting id="prgr.sortorder">1</setting>
+    <setting id="write.settings" default="true" />
+    <setting id="hosts.mode">1</setting>
+    <setting id="progress.dialog" default="true">0</setting>
+    <setting id="scrapers.timeout.1">15</setting>
+    <setting id="preemptive.termination" default="true">false</setting>
+    <setting id="preemptive.limit">10</setting>
+    <setting id="linesplit">1</setting>
+    <setting id="official.identify">15</setting>
+    <setting id="prem.identify">4</setting>
+    <setting id="sec.identify">17</setting>
+    <setting id="sources.name" default="true">0</setting>
+    <setting id="source.list.meta" default="true">false</setting>
+    <setting id="bookmarks">true</setting>
+    <setting id="bookmarks.auto" default="true">false</setting>
+    <setting id="crefresh" default="true">false</setting>
+    <setting id="hosts.quality" default="true">0</setting>
+    <setting id="min.quality">3</setting>
+    <setting id="remove.cam">true</setting>
+    <setting id="size.filters" default="true">false</setting>
+    <setting id="min.size.gb" default="true">0</setting>
+    <setting id="max.size.gb">80</setting>
+    <setting id="debrid.only" default="true">false</setting>
+    <setting id="remove.hevc" default="true">false</setting>
+    <setting id="remove.dv" default="true">false</setting>
+    <setting id="remove.captcha" default="true">false</setting>
+    <setting id="remove.dups">true</setting>
+    <setting id="check.torr.cache">true</setting>
+    <setting id="remove.uncached">true</setting>
+    <setting id="debrid.text" default="true" />
+    <setting id="main.sort">1</setting>
+    <setting id="torr.sort.size">true</setting>
+    <setting id="hosts.sort.provider">true</setting>
+    <setting id="provider.library">true</setting>
+    <setting id="provider.official">true</setting>
+    <setting id="official.text" default="true" />
+    <setting id="official.country" default="true">US</setting>
+    <setting id="prime">true</setting>
+    <setting id="iplayer">true</setting>
+    <setting id="crackle">true</setting>
+    <setting id="curstream">true</setting>
+    <setting id="disney.plus">true</setting>
+    <setting id="hbo.max">true</setting>
+    <setting id="hulu">true</setting>
+    <setting id="netflix">true</setting>
+    <setting id="paramount">true</setting>
+    <setting id="external.providers">true</setting>
+    <setting id="open.Osettings" default="true" />
+    <setting id="trakt.user" default="true" />
+    <setting id="trakt.token" default="true" />
+    <setting id="trakt.refresh" default="true" />
+    <setting id="trakt.client_id" default="true" />
+    <setting id="trakt.client_secret" default="true" />
+    <setting id="trakt.scrobble" default="true">false</setting>
+    <setting id="scrobble.text" default="true" />
+    <setting id="trakt.scrobble.notify" default="true">false</setting>
+    <setting id="rersume.source" default="true">0</setting>
+    <setting id="autoTraktOnStart" default="true">false</setting>
+    <setting id="schedTraktTime" default="true">0</setting>
+    <setting id="sched.text" default="true" />
+    <setting id="fanart.tv.user" default="true">c3469c1cc9465b9f1a1a862feea8b76b</setting>
+    <setting id="tm.user" default="true">fb981e5ab89415bba616409d5eb5f05e</setting>
+    <setting id="imdb.user" default="true" />
+    <setting id="os.user" default="true" />
+    <setting id="os.pass" default="true" />
+    <setting id="open_smu_settings" default="true" />
+    <setting id="furk.user_name" default="true" />
+    <setting id="furk.user_pass" default="true" />
+    <setting id="furk.api" default="true" />
+    <setting id="furk.limit">25</setting>
+    <setting id="library.movie" default="true">special://userdata/addon_data/plugin.video.homelander/Movies</setting>
+    <setting id="library.tv" default="true">special://userdata/addon_data/plugin.video.homelander/TVShows</setting>
+    <setting id="library.service.update">true</setting>
+    <setting id="library.service.notification">true</setting>
+    <setting id="library.update">true</setting>
+    <setting id="library.check">true</setting>
+    <setting id="library.importdelay" default="true">false</setting>
+    <setting id="library.include_unknown">true</setting>
+    <setting id="library.include_special">true</setting>
+    <setting id="downloads" default="true">false</setting>
+    <setting id="movie.download.path" default="true" />
+    <setting id="tv.download.path" default="true" />
+    <setting id="dl.text1" default="true" />
+    <setting id="dl.text2" default="true" />
+    <setting id="subtitles" default="true">false</setting>
+    <setting id="subtitles.lang.1" default="true">English</setting>
+    <setting id="subtitles.lang.2" default="true">English</setting>
+    <setting id="subtitles.utf">true</setting>
+    <setting id="subtitles.notify">true</setting>
+    <setting id="subs.text" default="true" />
+    <setting id="addon.debug" default="true">false</setting>
+    <setting id="debug.text" default="true" />
+</settings>

@@ -1,0 +1,219 @@
+<settings version="2">
+    <setting id="theme" default="true">0</setting>
+    <setting id="num_p">1</setting>
+    <setting id="order_networks" default="true">0</setting>
+    <setting id="dp">true</setting>
+    <setting id="size_limit">40</setting>
+    <setting id="save_time">72</setting>
+    <setting id="better_look">true</setting>
+    <setting id="show_collection">true</setting>
+    <setting id="display_lock" default="true">false</setting>
+    <setting id="adults">true</setting>
+    <setting id="rd.auth" default="true" />
+    <setting id="rd.refresh" default="true" />
+    <setting id="rd.client_id" default="true" />
+    <setting id="rd.expiry" default="true">0</setting>
+    <setting id="rd.secret" default="true" />
+    <setting id="ghaddr" default="true" />
+    <setting id="premiumize.token" default="true" />
+    <setting id="alldebrid.token" default="true" />
+    <setting id="alldebrid.username" default="true" />
+    <setting id="s_traker_style" default="true">false</setting>
+    <setting id="show_over" default="true">false</setting>
+    <setting id="time_to_save">75</setting>
+    <setting id="trakt_access_token" default="true" />
+    <setting id="trakt_refresh_token" default="true" />
+    <setting id="trakt_expires_at" default="true" />
+    <setting id="garbage" default="true" />
+    <setting id="max_q">2</setting>
+    <setting id="min_q" default="true">0</setting>
+    <setting id="encoding_filter" default="true">false</setting>
+    <setting id="3d" default="true">false</setting>
+    <setting id="hdvc">true</setting>
+    <setting id="low_q" default="true">false</setting>
+    <setting id="garbage2" default="true" />
+    <setting id="max_q_tv">2</setting>
+    <setting id="min_q_tv" default="true">0</setting>
+    <setting id="encoding_filter_tv" default="true">false</setting>
+    <setting id="3d_tv" default="true">false</setting>
+    <setting id="hdvc_tv">true</setting>
+    <setting id="low_q_tv" default="true">false</setting>
+    <setting id="filter_non_e">true</setting>
+    <setting id="debrid_use">true</setting>
+    <setting id="debrid_select" default="true">0</setting>
+    <setting id="premiumize.addToCloud" default="true">false</setting>
+    <setting id="premiumize.transcoded" default="true">false</setting>
+    <setting id="nextup_episode">true</setting>
+    <setting id="play_nextup_wait" default="true">false</setting>
+    <setting id="window">30</setting>
+    <setting id="before_end2">3</setting>
+    <setting id="nextup_movie">true</setting>
+    <setting id="movie_window">300</setting>
+    <setting id="cast">true</setting>
+    <setting id="s3d_scrape">true</setting>
+    <setting id="play_trailer">true</setting>
+    <setting id="settings_content">true</setting>
+    <setting id="queue_item">true</setting>
+    <setting id="trakt_manager">true</setting>
+    <setting id="trakt_watched">true</setting>
+    <setting id="trakt_unwatched">true</setting>
+    <setting id="openinfo">true</setting>
+    <setting id="remove_resume_time">true</setting>
+    <setting id="browse_series">true</setting>
+    <setting id="remove_resume_point">true</setting>
+    <setting id="clear_Cache">true</setting>
+    <setting id="set_view_type">true</setting>
+    <setting id="Release_Date_item">true</setting>
+    <setting id="one_click" default="true">false</setting>
+    <setting id="max_quality">3</setting>
+    <setting id="min_quality">2</setting>
+    <setting id="one_click_tv" default="true">false</setting>
+    <setting id="max_quality_tv">3</setting>
+    <setting id="min_quality_tv">2</setting>
+    <setting id="time_s">10</setting>
+    <setting id="fav_movie" default="true" />
+    <setting id="1337x">true</setting>
+    <setting id="api">true</setting>
+    <setting id="bay">true</setting>
+    <setting id="bitcq">true</setting>
+    <setting id="bitlord">true</setting>
+    <setting id="bitsearch">true</setting>
+    <setting id="btscene">true</setting>
+    <setting id="corn">true</setting>
+    <setting id="dl">true</setting>
+    <setting id="easynews">true</setting>
+    <setting id="extra">true</setting>
+    <setting id="ez">true</setting>
+    <setting id="ezio">true</setting>
+    <setting id="furk">true</setting>
+    <setting id="glorls">true</setting>
+    <setting id="goo">true</setting>
+    <setting id="kass">true</setting>
+    <setting id="magno">true</setting>
+    <setting id="mags">true</setting>
+    <setting id="monk">true</setting>
+    <setting id="para">true</setting>
+    <setting id="pirp">true</setting>
+    <setting id="qaz">true</setting>
+    <setting id="shrss">true</setting>
+    <setting id="sky">true</setting>
+    <setting id="snow">true</setting>
+    <setting id="sol">true</setting>
+    <setting id="solid">true</setting>
+    <setting id="stbay">true</setting>
+    <setting id="thd">true</setting>
+    <setting id="torio">true</setting>
+    <setting id="torrz">true</setting>
+    <setting id="trpar">true</setting>
+    <setting id="tsdl">true</setting>
+    <setting id="tse">true</setting>
+    <setting id="wshd">true</setting>
+    <setting id="yts">true</setting>
+    <setting id="zg">true</setting>
+    <setting id="fav_tv" default="true" />
+    <setting id="1337x_tv">true</setting>
+    <setting id="api_tv">true</setting>
+    <setting id="bay_tv">true</setting>
+    <setting id="bitcq_tv">true</setting>
+    <setting id="bitlord_tv">true</setting>
+    <setting id="btscene_tv">true</setting>
+    <setting id="corn_tv">true</setting>
+    <setting id="dl_tv">true</setting>
+    <setting id="easynews_tv">true</setting>
+    <setting id="extra_tv">true</setting>
+    <setting id="ez_tv">true</setting>
+    <setting id="ezio_tv">true</setting>
+    <setting id="furk_tv">true</setting>
+    <setting id="glorls_tv">true</setting>
+    <setting id="goo_tv">true</setting>
+    <setting id="kass_tv">true</setting>
+    <setting id="magno_tv">true</setting>
+    <setting id="mags_tv">true</setting>
+    <setting id="monk_tv">true</setting>
+    <setting id="para_tv">true</setting>
+    <setting id="qaz_tv">true</setting>
+    <setting id="shrss_tv">true</setting>
+    <setting id="sky_tv">true</setting>
+    <setting id="snow_tv">true</setting>
+    <setting id="sol_tv">true</setting>
+    <setting id="solid_tv">true</setting>
+    <setting id="stbay_tv">true</setting>
+    <setting id="thd_tv">true</setting>
+    <setting id="torio_tv">true</setting>
+    <setting id="torrz_tv">true</setting>
+    <setting id="trpar_tv">true</setting>
+    <setting id="tsdl_tv">true</setting>
+    <setting id="tse_tv">true</setting>
+    <setting id="wshd_tv">true</setting>
+    <setting id="yts_tv">true</setting>
+    <setting id="zg_tv">true</setting>
+    <setting id="shazam" default="true">false</setting>
+    <setting id="shazam.settings" default="true" />
+    <setting id="provider.furk" default="true">false</setting>
+    <setting id="furk_login" default="true" />
+    <setting id="furk_password" default="true" />
+    <setting id="furk_api_key" default="true" />
+    <setting id="furk.mod.level" default="true">No</setting>
+    <setting id="provider.easy" default="true">false</setting>
+    <setting id="easynews.user" default="true" />
+    <setting id="easynews.password" default="true" />
+    <setting id="easynews_moderation">true</setting>
+    <setting id="po_watch" default="true">false</setting>
+    <setting id="simple_info" default="true">false</setting>
+    <setting id="trakt_info">true</setting>
+    <setting id="new_play_window">true</setting>
+    <setting id="clean_video_title" default="true">false</setting>
+    <setting id="fancy_scrape" default="true">false</setting>
+    <setting id="eye_candy_style">1</setting>
+    <setting id="video_in_sources_tv" default="true">false</setting>
+    <setting id="video_in_sources" default="true">false</setting>
+    <setting id="video_in_s_wait" default="true">false</setting>
+    <setting id="video_type_in_s">1</setting>
+    <setting id="fanart_scraping" default="true">false</setting>
+    <setting id="sources_window_n">1</setting>
+    <setting id="fanart_sources" default="true">false</setting>
+    <setting id="add_colors">true</setting>
+    <setting id="show_actors">true</setting>
+    <setting id="s_traker">true</setting>
+    <setting id="movie_world">true</setting>
+    <setting id="tv_world">true</setting>
+    <setting id="trakt_world">true</setting>
+    <setting id="trakt">true</setting>
+    <setting id="search">true</setting>
+    <setting id="search_history">true</setting>
+    <setting id="last_link_played">true</setting>
+    <setting id="whats_new">true</setting>
+    <setting id="resume_watching">true</setting>
+    <setting id="my_rd_history">true</setting>
+    <setting id="rd_Torrents">true</setting>
+    <setting id="actor">true</setting>
+    <setting id="scraper_check" default="true">false</setting>
+    <setting id="settings">true</setting>
+    <setting id="debug" default="true">false</setting>
+    <setting id="show_debug" default="true">false</setting>
+    <setting id="check_time" default="true">false</setting>
+    <setting id="stop_where" default="true">0</setting>
+    <setting id="unfilter_test" default="true" />
+    <setting id="one_by_one" default="true">false</setting>
+    <setting id="full_db" default="true">false</setting>
+    <setting id="subtitles" default="true">false</setting>
+    <setting id="subtitles.utf" default="true">false</setting>
+    <setting id="subtitles.lang.1" default="true">English</setting>
+    <setting id="subtitles.lang.2" default="true">English</setting>
+    <setting id="auto_subtitles">true</setting>
+    <setting id="subs_window">30</setting>
+    <setting id="subs_width">400</setting>
+    <setting id="subs_hight">700</setting>
+    <setting id="subs_px">10</setting>
+    <setting id="subs_py">10</setting>
+    <setting id="imdb_user_0" default="true" />
+    <setting id="imdb_user_1" default="true" />
+    <setting id="imdb_user_2" default="true" />
+    <setting id="imdb_user_3" default="true" />
+    <setting id="imdb_user_4" default="true" />
+    <setting id="imdb_user_5" default="true" />
+    <setting id="imdb_user_6" default="true" />
+    <setting id="imdb_user_7" default="true" />
+    <setting id="imdb_user_8" default="true" />
+    <setting id="imdb_user_9" default="true" />
+</settings>

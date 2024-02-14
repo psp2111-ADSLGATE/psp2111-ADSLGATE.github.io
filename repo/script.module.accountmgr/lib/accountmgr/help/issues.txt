@@ -1,0 +1,9 @@
+
+
+ "If you do not report an issue, then I do not know it's broken. Therefore, it stays broken!"
+
+- Report issues using the below URL
+- Prior to opening a new issue you should first reproduce the error and retrieve a log file containing the error.
+- Then include this log along with a detailed description of the problem in your post.
+
+https://github.com/Zaxxon709/accountmanager/issues

@@ -1,0 +1,63 @@
+<settings version="2">
+    <setting id="first.start">true</setting>
+    <setting id="first.setup" default="true">false</setting>
+    <setting id="popup.date" default="true">0</setting>
+    <setting id="premiumize.authorization" default="true" />
+    <setting id="premiumize.status">Authorized</setting>
+    <setting id="premiumize.token">f146a61132ee9bca15497f8e28042d2a4cf982eb</setting>
+    <setting id="premiumize.refresh">315360000</setting>
+    <setting id="premiumize.tls">true</setting>
+    <setting id="cachecloud.startup" default="true">false</setting>
+    <setting id="metacloud.dialog">true</setting>
+    <setting id="metacloud.sort" default="true">0</setting>
+    <setting id="transcoded.play" default="true">false</setting>
+    <setting id="filter.files">true</setting>
+    <setting id="nextup.service" default="true">false</setting>
+    <setting id="nextup.timeout">45</setting>
+    <setting id="nextup.action" default="true">0</setting>
+    <setting id="nextup.skin.native" default="true">false</setting>
+    <setting id="cloud.delete.mode" default="true">0</setting>
+    <setting id="cloud.autodelete.movies">true</setting>
+    <setting id="cloud.autodelete.tv">true</setting>
+    <setting id="cloud.autodelete.unknown">true</setting>
+    <setting id="file.prefix">true</setting>
+    <setting id="poster.type">1</setting>
+    <setting id="fanart.type">2</setting>
+    <setting id="fanart.tv.meta">true</setting>
+    <setting id="api.language" default="true">English</setting>
+    <setting id="fanart">true</setting>
+    <setting id="bookmarks">true</setting>
+    <setting id="bookmarks.autoresume">true</setting>
+    <setting id="indicators.alt" default="true">0</setting>
+    <setting id="inprogress_db">true</setting>
+    <setting id="setting.timezone" default="true">+0</setting>
+    <setting id="premiumizer.debug" default="true">false</setting>
+    <setting id="last.version" default="true">0</setting>
+    <setting id="remotedb.list" default="true">false</setting>
+    <setting id="remotedb.url" default="true" />
+    <setting id="trakt.authorization" default="true" />
+    <setting id="trakt.user" default="true" />
+    <setting id="trakt.scrobbleTV">true</setting>
+    <setting id="trakt.scrobbleMovies">true</setting>
+    <setting id="trakt.scrobblePlayback" default="true">false</setting>
+    <setting id="trakt.sortby" default="true">0</setting>
+    <setting id="trakt.token" default="true" />
+    <setting id="trakt.refresh" default="true" />
+    <setting id="imdb.user" default="true" />
+    <setting id="tvdb.AuthorizeApi" default="true" />
+    <setting id="tvdb.api" default="true">DC475D7361F78DCD</setting>
+    <setting id="tvdb.token" default="true" />
+    <setting id="tvdb.refresh" default="true">0</setting>
+    <setting id="tmdb.api" default="true" />
+    <setting id="fanart.tv.user" default="true" />
+    <setting id="fanart.tv.project" default="true" />
+    <setting id="meta.library.movies" default="true">special://userdata/addon_data/plugin.video.premiumizerx/Movies</setting>
+    <setting id="meta.library.tv" default="true">special://userdata/addon_data/plugin.video.premiumizerx/Tv</setting>
+    <setting id="meta.library.update" default="true">false</setting>
+    <setting id="meta.library.refresh" default="true">0</setting>
+    <setting id="scraper.matchtitle">true</setting>
+    <setting id="scraper.filesonly">true</setting>
+    <setting id="scraper.autoplay">true</setting>
+    <setting id="downloads" default="true">false</setting>
+    <setting id="download.path" default="true" />
+</settings>

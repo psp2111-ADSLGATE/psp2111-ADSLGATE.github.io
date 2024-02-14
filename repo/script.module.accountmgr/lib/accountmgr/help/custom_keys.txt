@@ -1,0 +1,11 @@
+
+
+- This section is where Kodi builders can add their own custom keys.
+
+- Keys added here are obfuscated using asterisks and are persistent after add-on updates/revokes.
+
+- To use this feature you simply select enable, add your custom keys, and select OK to save. Then zip your build to include the keys.
+
+- If you do not already have keys, follow the link below to create them.
+
+https://trakt.tv/oauth/applications/new
