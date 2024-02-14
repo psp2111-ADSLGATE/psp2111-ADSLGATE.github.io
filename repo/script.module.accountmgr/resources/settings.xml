@@ -176,7 +176,7 @@
       	<setting id="sync.metaservice" type="bool" label="خدمة المزامنة التلقائية لـ البيانات التعريفية" default="false"/>
 		<setting label="40094" type="text" />
 		<setting type="lsep" visible="false" label="Persistent Trakt Keys For Builders" />
-		<setting id="traktuserkey.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="traktuserkey.enabled" type="bool" visible="false" label="" default="true" />
 		<setting id="devuserkey.enabled" type="bool" visible="eq(-1,false)" label="40107" default="false" />
 		<setting id="dev.client.id" type="text" option="hidden" visible="eq(-1,true)" label="40089" default="" />
 		<setting id="dev.client.secret" type="text" option="hidden" visible="eq(-2,true)" label="40088" default="" />
