@@ -20,7 +20,6 @@
     <setting id="indicators.alt">1</setting>
     <setting id="indicators" default="true">0</setting>
     <setting id="items.per.page">20</setting>
-    <setting id="imdb.sort.order">1</setting>
     <setting id="prgr.sortorder">1</setting>
     <setting id="trakt.item.limit">100</setting>
     <setting id="trakt.sync" default="true">false</setting>
@@ -28,8 +27,6 @@
     <setting id="trakt.synctext" default="true" />
     <setting id="search.movies.source" default="true">0</setting>
     <setting id="search.tvshows.source" default="true">0</setting>
-    <setting id="search.people.source" default="true">0</setting>
-    <setting id="search.keywords.source" default="true">0</setting>
     <setting id="info.movies.source" default="true">0</setting>
     <setting id="info.tvshows.source" default="true">0</setting>
     <setting id="info.art.source" default="true">0</setting>
@@ -65,21 +62,21 @@
     <setting id="remove.hevc" default="true">false</setting>
     <setting id="remove.captcha" default="true">false</setting>
     <setting id="remove.dupes">true</setting>
+    <setting id="lazy.spacer1" default="true" />
     <setting id="resolveURL.settings" default="true" />
     <setting id="resolve.dbird" default="true">false</setting>
     <setting id="filepursuit.api" default="true" />
     <setting id="trakt.user" default="true" />
     <setting id="trakt.token" default="true" />
     <setting id="trakt.refresh" default="true" />
-    <setting id="imdb.user" default="true" />
     <setting id="tmdb.api" default="true" />
     <setting id="tmdb.user" default="true" />
     <setting id="tmdb.pass" default="true" />
     <setting id="tmdb.auth" default="true" />
-    <setting id="tmdb.session" default="true" />
     <setting id="tmdb.id" default="true" />
+    <setting id="tmdb.session" default="true" />
     <setting id="youtube.api" default="true" />
-    <setting id="fanart.api" default="true">ea89e598e77bbe257990f630076395bb</setting>
+    <setting id="fanart.api" default="true" />
     <setting id="os.user" default="true" />
     <setting id="os.pass" default="true" />
     <setting id="library.movie" default="true">special://userdata/addon_data/plugin.video.scrubsv2/Movies</setting>
@@ -107,13 +104,14 @@
     <setting id="provider.library" default="true">false</setting>
     <setting id="provider.filepursuit" default="true">false</setting>
     <setting id="provider.0123movies_ch">true</setting>
-    <setting id="provider.0123putlocker_com" default="true">false</setting>
     <setting id="provider.123movies_net">true</setting>
     <setting id="provider.123movies_skin">true</setting>
     <setting id="provider.123moviesfree_live">true</setting>
     <setting id="provider.123moviesfree_so">true</setting>
     <setting id="provider.123moviestv_me">true</setting>
+    <setting id="provider.123series_expert">true</setting>
     <setting id="provider.123watch_to">true</setting>
+    <setting id="provider.1movies_la">true</setting>
     <setting id="provider.allmoviesforyou_net">true</setting>
     <setting id="provider.alluc_co">true</setting>
     <setting id="provider.anymovies_co">true</setting>
@@ -124,13 +122,15 @@
     <setting id="provider.cineb_net">true</setting>
     <setting id="provider.cinebox_cc">true</setting>
     <setting id="provider.cinecalidad_vet">true</setting>
+    <setting id="provider.cinehub_wtf">true</setting>
     <setting id="provider.cmovies_so">true</setting>
     <setting id="provider.couchtuner_show">true</setting>
     <setting id="provider.dailyflix_stream">true</setting>
     <setting id="provider.doomovies_ga">true</setting>
     <setting id="provider.dopebox_to">true</setting>
-    <setting id="provider.f123movies_com">true</setting>
     <setting id="provider.filmxy_pw">true</setting>
+    <setting id="provider.flixhq_click">true</setting>
+    <setting id="provider.flixtor_expert">true</setting>
     <setting id="provider.fmovies_vision">true</setting>
     <setting id="provider.gdriveplayer_us">true</setting>
     <setting id="provider.genvideos_org">true</setting>
@@ -147,36 +147,53 @@
     <setting id="provider.himovies_top">true</setting>
     <setting id="provider.hollymoviehd_cc">true</setting>
     <setting id="provider.iwaatch_com">true</setting>
+    <setting id="provider.jexmovie_expert">true</setting>
+    <setting id="provider.jexmovie_pro">true</setting>
     <setting id="provider.levidiamovies_club">true</setting>
     <setting id="provider.lordhd_one">true</setting>
+    <setting id="provider.m4ufree_com">true</setting>
     <setting id="provider.m4uhd_tv">true</setting>
     <setting id="provider.movie4u_live">true</setting>
     <setting id="provider.movieffm_net" default="true">false</setting>
     <setting id="provider.movies123_space">true</setting>
     <setting id="provider.moviesnipipay_me">true</setting>
     <setting id="provider.moviesonline_fm">true</setting>
+    <setting id="provider.movieuniverse_expert">true</setting>
+    <setting id="provider.movieuniversemx_pro">true</setting>
+    <setting id="provider.musichq_expert">true</setting>
     <setting id="provider.myflixer_it">true</setting>
     <setting id="provider.myvideolinks_net">true</setting>
     <setting id="provider.novamovie_net">true</setting>
+    <setting id="provider.noxx_to">true</setting>
+    <setting id="provider.primewire_mx">true</setting>
     <setting id="provider.putlocker_to">true</setting>
     <setting id="provider.putlocker_unblockit">true</setting>
     <setting id="provider.putlockers_do">true</setting>
     <setting id="provider.rarefilmm_com">true</setting>
     <setting id="provider.scnsrc_me">true</setting>
     <setting id="provider.series9_la">true</setting>
+    <setting id="provider.series9movies_com">true</setting>
+    <setting id="provider.series9mx_pro">true</setting>
     <setting id="provider.soap2day_fan">true</setting>
+    <setting id="provider.soapertv_expert">true</setting>
+    <setting id="provider.soapertv_pro">true</setting>
+    <setting id="provider.ssoap2day_to">true</setting>
     <setting id="provider.streamlord_com">true</setting>
+    <setting id="provider.thebestcinema_online">true</setting>
     <setting id="provider.tinyzonetv_to">true</setting>
     <setting id="provider.tubitv_com">true</setting>
     <setting id="provider.tvmovieflix_com">true</setting>
     <setting id="provider.tvseries_video">true</setting>
+    <setting id="provider.upmovies_to">true</setting>
     <setting id="provider.vumoo_to">true</setting>
     <setting id="provider.watcha_movie">true</setting>
     <setting id="provider.watchserieshd_stream">true</setting>
     <setting id="provider.watchseriess_io">true</setting>
     <setting id="provider.winnoise_com">true</setting>
     <setting id="provider.yesmovies_lat">true</setting>
+    <setting id="provider.yifymovies9_pro">true</setting>
     <setting id="provider.yomovies_bio">true</setting>
+    <setting id="mod.domains">true</setting>
     <setting id="scrape.gdriveplayer">true</setting>
     <setting id="scrape.gomo">true</setting>
     <setting id="scrape.furher">true</setting>
@@ -185,6 +202,7 @@
     <setting id="scrape.ronemo">true</setting>
     <setting id="scrape.source_stream">true</setting>
     <setting id="scrape.superembed">true</setting>
+    <setting id="scrape.truepoweroflove">true</setting>
     <setting id="scrape.twoembed">true</setting>
     <setting id="scrape.vidembed">true</setting>
     <setting id="scrape.vidlink">true</setting>

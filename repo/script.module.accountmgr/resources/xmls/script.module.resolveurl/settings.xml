@@ -107,9 +107,6 @@
     <setting id="AniStreamResolver_priority">100</setting>
     <setting id="AniStreamResolver_enabled">true</setting>
     <setting id="AniStreamResolver_login">true</setting>
-    <setting id="AnonFilesResolver_priority">100</setting>
-    <setting id="AnonFilesResolver_enabled">true</setting>
-    <setting id="AnonFilesResolver_login">true</setting>
     <setting id="AnonymFileResolver_priority">100</setting>
     <setting id="AnonymFileResolver_enabled">true</setting>
     <setting id="AnonymFileResolver_login">true</setting>
@@ -119,15 +116,15 @@
     <setting id="ArchiveResolver_priority">100</setting>
     <setting id="ArchiveResolver_enabled">true</setting>
     <setting id="ArchiveResolver_login">true</setting>
-    <setting id="AVideoResolver_priority">100</setting>
-    <setting id="AVideoResolver_enabled">true</setting>
-    <setting id="AVideoResolver_login">true</setting>
     <setting id="BannedVideoResolver_priority">100</setting>
     <setting id="BannedVideoResolver_enabled">true</setting>
     <setting id="BannedVideoResolver_login">true</setting>
     <setting id="BitchuteResolver_priority">100</setting>
     <setting id="BitchuteResolver_enabled">true</setting>
     <setting id="BitchuteResolver_login">true</setting>
+    <setting id="BrBeastResolver_priority">100</setting>
+    <setting id="BrBeastResolver_enabled">true</setting>
+    <setting id="BrBeastResolver_login">true</setting>
     <setting id="BrighteonResolver_priority">100</setting>
     <setting id="BrighteonResolver_enabled">true</setting>
     <setting id="BrighteonResolver_login">true</setting>
@@ -146,9 +143,6 @@
     <setting id="ChillXResolver_priority">100</setting>
     <setting id="ChillXResolver_enabled">true</setting>
     <setting id="ChillXResolver_login">true</setting>
-    <setting id="ChromecastResolver_priority">100</setting>
-    <setting id="ChromecastResolver_enabled">true</setting>
-    <setting id="ChromecastResolver_login">true</setting>
     <setting id="ClickNUploadResolver_priority">100</setting>
     <setting id="ClickNUploadResolver_enabled">true</setting>
     <setting id="ClickNUploadResolver_login">true</setting>
@@ -249,6 +243,9 @@
     <setting id="FlashXResolver_priority">100</setting>
     <setting id="FlashXResolver_enabled">true</setting>
     <setting id="FlashXResolver_login">true</setting>
+    <setting id="FreeDLResolver_priority">100</setting>
+    <setting id="FreeDLResolver_enabled">true</setting>
+    <setting id="FreeDLResolver_login">true</setting>
     <setting id="Full30Resolver_priority">100</setting>
     <setting id="Full30Resolver_enabled">true</setting>
     <setting id="Full30Resolver_login">true</setting>
@@ -337,6 +334,12 @@
     <setting id="MailRuResolver_priority">100</setting>
     <setting id="MailRuResolver_enabled">true</setting>
     <setting id="MailRuResolver_login">true</setting>
+    <setting id="MaxStreamResolver_priority">100</setting>
+    <setting id="MaxStreamResolver_enabled">true</setting>
+    <setting id="MaxStreamResolver_login">true</setting>
+    <setting id="MediaResolver_priority">100</setting>
+    <setting id="MediaResolver_enabled">true</setting>
+    <setting id="MediaResolver_login">true</setting>
     <setting id="MegaUpNetResolver_priority">100</setting>
     <setting id="MegaUpNetResolver_enabled">true</setting>
     <setting id="MegaUpNetResolver_login">true</setting>
@@ -394,6 +397,9 @@
     <setting id="PlayWireResolver_priority">100</setting>
     <setting id="PlayWireResolver_enabled">true</setting>
     <setting id="PlayWireResolver_login">true</setting>
+    <setting id="PreFilesResolver_priority">100</setting>
+    <setting id="PreFilesResolver_enabled">true</setting>
+    <setting id="PreFilesResolver_login">true</setting>
     <setting id="RacatyResolver_priority">100</setting>
     <setting id="RacatyResolver_enabled">true</setting>
     <setting id="RacatyResolver_login">true</setting>
@@ -458,6 +464,9 @@
     <setting id="StreamEmbedResolver_priority">100</setting>
     <setting id="StreamEmbedResolver_enabled">true</setting>
     <setting id="StreamEmbedResolver_login">true</setting>
+    <setting id="StreamGzzzResolver_priority">100</setting>
+    <setting id="StreamGzzzResolver_enabled">true</setting>
+    <setting id="StreamGzzzResolver_login">true</setting>
     <setting id="StreamHubResolver_priority">100</setting>
     <setting id="StreamHubResolver_enabled">true</setting>
     <setting id="StreamHubResolver_login">true</setting>
@@ -482,9 +491,6 @@
     <setting id="StreamWishResolver_priority">100</setting>
     <setting id="StreamWishResolver_enabled">true</setting>
     <setting id="StreamWishResolver_login">true</setting>
-    <setting id="StreamZResolver_priority">100</setting>
-    <setting id="StreamZResolver_enabled">true</setting>
-    <setting id="StreamZResolver_login">true</setting>
     <setting id="SuperEmbedsResolver_priority">100</setting>
     <setting id="SuperEmbedsResolver_enabled">true</setting>
     <setting id="SuperEmbedsResolver_login">true</setting>
@@ -556,6 +562,9 @@
     <setting id="UpToBoxResolver_auth" default="true" />
     <setting id="UpToBoxResolver_reset" default="true" />
     <setting id="UpToBoxResolver_token" default="true" />
+    <setting id="UptoMegaResolver_priority">100</setting>
+    <setting id="UptoMegaResolver_enabled">true</setting>
+    <setting id="UptoMegaResolver_login">true</setting>
     <setting id="UpVidResolver_priority">100</setting>
     <setting id="UpVidResolver_enabled">true</setting>
     <setting id="UpVidResolver_login">true</setting>
@@ -576,6 +585,9 @@
     <setting id="VeeHDResolver_login" default="true">false</setting>
     <setting id="VeeHDResolver_username" default="true" />
     <setting id="VeeHDResolver_password" default="true" />
+    <setting id="VeevResolver_priority">100</setting>
+    <setting id="VeevResolver_enabled">true</setting>
+    <setting id="VeevResolver_login">true</setting>
     <setting id="VemBXResolver_priority">100</setting>
     <setting id="VemBXResolver_enabled">true</setting>
     <setting id="VemBXResolver_login">true</setting>
@@ -627,6 +639,9 @@
     <setting id="VidHDResolver_priority">100</setting>
     <setting id="VidHDResolver_enabled">true</setting>
     <setting id="VidHDResolver_login">true</setting>
+    <setting id="VidHideProResolver_priority">100</setting>
+    <setting id="VidHideProResolver_enabled">true</setting>
+    <setting id="VidHideProResolver_login">true</setting>
     <setting id="VidLookResolver_priority">100</setting>
     <setting id="VidLookResolver_enabled">true</setting>
     <setting id="VidLookResolver_login">true</setting>
@@ -702,6 +717,9 @@
     <setting id="WaawResolver_priority">100</setting>
     <setting id="WaawResolver_enabled">true</setting>
     <setting id="WaawResolver_login">true</setting>
+    <setting id="WorldUploadsResolver_priority">100</setting>
+    <setting id="WorldUploadsResolver_enabled">true</setting>
+    <setting id="WorldUploadsResolver_login">true</setting>
     <setting id="YandexResolver_priority">100</setting>
     <setting id="YandexResolver_enabled">true</setting>
     <setting id="YandexResolver_login">true</setting>

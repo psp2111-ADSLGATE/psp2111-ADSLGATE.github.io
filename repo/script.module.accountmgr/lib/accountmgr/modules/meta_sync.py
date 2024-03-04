@@ -349,12 +349,12 @@ class Auth:
                 
         #Homelander
                 try:
-                        if xbmcvfs.exists(var.chk_homelander) and not xbmcvfs.exists(var.homelander_ud):
-                                os.mkdir(var.homelander_ud)
-                                xbmcvfs.copy(os.path.join(var.homelander), os.path.join(var.chkset_homelander))
+                        if xbmcvfs.exists(var.chk_home) and not xbmcvfs.exists(var.home_ud):
+                                os.mkdir(var.home_ud)
+                                xbmcvfs.copy(os.path.join(var.home), os.path.join(var.chkset_home))
                                 
-                        if not xbmcvfs.exists(var.chkset_homelander):
-                                xbmcvfs.copy(os.path.join(var.homelander), os.path.join(var.chkset_homelander))
+                        if not xbmcvfs.exists(var.chkset_home):
+                                xbmcvfs.copy(os.path.join(var.homelander), os.path.join(var.chkset_home))
 
                         if xbmcvfs.exists(var.chk_home) and xbmcvfs.exists(var.chkset_home):
 

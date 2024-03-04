@@ -121,14 +121,43 @@ class AddonCheckUpdate:
             except:
                 import traceback
                 traceback.print_exc()
-                
-def empty(value):
-    try:
-        value = str(var.chk_account_mgr)
-    except ValueError:
-        pass
-    return bool(value)
 
+class PremAccntNotification:
+	def run(self):
+		from datetime import datetime
+		from accountmgr.modules import alldebrid
+		from accountmgr.modules import premiumize
+		from accountmgr.modules import realdebrid
+		xbmc.log('[ script.module.accountmgr ]  Debrid Account Expiry Notification Service Starting...', LOGINFO)
+		self.duration = [(15, 10), (11, 7), (8, 4), (5, 2), (3, 0)]
+		if control.setting('alldebrid.username') != '' and control.setting('alldebrid.expiry.notice') == 'true':
+			account_info = alldebrid.AllDebrid().account_info()['user']
+			if account_info:
+				if not account_info['isSubscribed']:
+					expires = datetime.fromtimestamp(account_info['premiumUntil'])
+					days_remaining = (expires - datetime.today()).days # int
+					if days_remaining < 15:
+						control.notification(message='AllDebrid Account expires in %s days' % days_remaining, icon=control.joinPath(control.artPath(), 'alldebrid.png'))
+
+		if control.setting('premiumize.username') != '' and control.setting('premiumize.expiry.notice') == 'true':
+			account_info = premiumize.Premiumize().account_info()
+			if account_info:
+				expires = datetime.fromtimestamp(account_info['premium_until'])
+				days_remaining = (expires - datetime.today()).days # int
+				if days_remaining < 15:
+					control.notification(message='Premiumize.me Account expires in %s days' % days_remaining, icon=control.joinPath(control.artPath(), 'premiumize.png'))
+
+		if control.setting('realdebrid.username') != '' and control.setting('realdebrid.expiry.notice') == 'true':
+			account_info = realdebrid.RealDebrid().account_info()
+			if account_info:
+				import time
+				FormatDateTime = "%Y-%m-%dT%H:%M:%S.%fZ"
+				try: expires = datetime.strptime(account_info['expiration'], FormatDateTime)
+				except: expires = datetime(*(time.strptime(account_info['expiration'], FormatDateTime)[0:6]))
+				days_remaining = (expires - datetime.today()).days # int
+				if days_remaining < 15:
+					control.notification(message='Real-Debrid Account expires in %s days' % days_remaining, icon=control.joinPath(control.artPath(), 'realdebrid.png'))
+		
 def api_check():
         while True:
                 if time.time() > timeout_start + timeout: #Time out after 5min
@@ -911,6 +940,8 @@ if var.setting('checkAddonUpdates')=='true': #Check if service is enabled
 	AddonCheckUpdate().run() #Start service
 else:
         pass
+
+PremAccntNotification().run()
 
 if var.setting('dradis_traktsync')=='true': #Check if Trakt Sync is enabled for Dradis add-on
         dradis_sync() #Start Dradis Trakt sync

@@ -1,6 +1,8 @@
 
 
-- WARNING: This action CANNOT be undone! Use ONLY to restore settings back to default prior to authorizing Account Manager.
+WARNING: This action CANNOT be undone! 
+
+- Use ONLY to restore settings back to default prior to authorizing Account Manager.
 
 - This action will revoke all authorizations, reset all add-on settings applied using Account Manager, and delete all your saved data.
 

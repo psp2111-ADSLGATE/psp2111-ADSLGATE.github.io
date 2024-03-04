@@ -1,0 +1,265 @@
+<settings version="2">
+    <setting id="appearance.1" default="true">Chainsgenocide</setting>
+    <setting id="icon.logos" default="true">Traditional</setting>
+    <setting id="index.labels">true</setting>
+    <setting id="trakt.isauthed" default="true" />
+    <setting id="indicators.alt">1</setting>
+    <setting id="indicators" default="true">0</setting>
+    <setting id="highlight.color">1</setting>
+    <setting id="api.language" default="true">English</setting>
+    <setting id="mpa.country" default="true">United States</setting>
+    <setting id="mpa.prefix" default="true" />
+    <setting id="page.item.limit">20</setting>
+    <setting id="search.page.limit">20</setting>
+    <setting id="fanart">true</setting>
+    <setting id="enable.fanarttv">true</setting>
+    <setting id="prefer.tmdbArt">true</setting>
+    <setting id="tmdb.imageResolutions">1</setting>
+    <setting id="hidecinema" default="true">false</setting>
+    <setting id="hidecinema.rollback">6</setting>
+    <setting id="movie.unaired.identify" default="true">0</setting>
+    <setting id="notification.sound" default="true">false</setting>
+    <setting id="general.checkAddonUpdates" default="true">false</setting>
+    <setting id="sort.imdbmovies.type" default="true">0</setting>
+    <setting id="sort.imdbmovies.order" default="true">0</setting>
+    <setting id="sort.movies.type">4</setting>
+    <setting id="sort.movies.order">1</setting>
+    <setting id="sort.collections.type">3</setting>
+    <setting id="sort.collections.order">1</setting>
+    <setting id="sort.movies.watchlist.type">5</setting>
+    <setting id="sort.movies.watchlist.order">1</setting>
+    <setting id="mylists.widget">true</setting>
+    <setting id="navi.anime" default="true">false</setting>
+    <setting id="navi.youtube" default="true">false</setting>
+    <setting id="navi.prem.services" default="true">false</setting>
+    <setting id="navi.alldebrid">true</setting>
+    <setting id="navi.easynews">true</setting>
+    <setting id="navi.furk">true</setting>
+    <setting id="navi.premiumize">true</setting>
+    <setting id="navi.realdebrid">true</setting>
+    <setting id="navi.news" default="true">false</setting>
+    <setting id="navi.changelog" default="true">false</setting>
+    <setting id="navi.movie.trakt.trending">true</setting>
+    <setting id="navi.movie.tmdb.popular">true</setting>
+    <setting id="navi.movie.trakt.popular">true</setting>
+    <setting id="navi.movie.tmdb.nowplaying">true</setting>
+    <setting id="navi.movie.trakt.anticipated">true</setting>
+    <setting id="navi.movie.tmdb.upcoming">true</setting>
+    <setting id="navi.movie.tmdb.boxoffice">true</setting>
+    <setting id="navi.movie.trakt.boxoffice">true</setting>
+    <setting id="navi.movie.tmdb.toprated">true</setting>
+    <setting id="navi.movie.trakt.recommended">true</setting>
+    <setting id="navi.movie.tmdb.genres">true</setting>
+    <setting id="navi.movie.tmdb.years">true</setting>
+    <setting id="navi.movie.tmdb.certificates">true</setting>
+    <setting id="navi.movie.collections">true</setting>
+    <setting id="navi.xmascollections" default="true">false</setting>
+    <setting id="navi.movie.trakt.popularList">true</setting>
+    <setting id="navi.movie.trakt.trendingList">true</setting>
+    <setting id="navi.movie.trakt.searchList">true</setting>
+    <setting id="navi.tv.trakt.trending">true</setting>
+    <setting id="navi.originals" default="true">false</setting>
+    <setting id="navi.tv.tmdb.popular">true</setting>
+    <setting id="navi.tv.trakt.popular">true</setting>
+    <setting id="navi.tv.tmdb.toprated">true</setting>
+    <setting id="navi.tv.trakt.recommended">true</setting>
+    <setting id="navi.tv.tmdb.genres">true</setting>
+    <setting id="navi.tv.tvmaze.networks">true</setting>
+    <setting id="navi.tv.tmdb.years">true</setting>
+    <setting id="navi.tv.tmdb.airingtoday">true</setting>
+    <setting id="navi.tv.tmdb.ontv">true</setting>
+    <setting id="navi.tv.tvmaze.calendar">true</setting>
+    <setting id="navi.tv.trakt.popularList">true</setting>
+    <setting id="navi.tv.trakt.trendingList">true</setting>
+    <setting id="navi.tv.trakt.searchList">true</setting>
+    <setting id="flatten.tvshows">2</setting>
+    <setting id="tv.specials" default="true">false</setting>
+    <setting id="showunaired">true</setting>
+    <setting id="unaired.identify" default="true">0</setting>
+    <setting id="multi.unwatched.enabled" default="true">false</setting>
+    <setting id="tvshows.calendar.extended" default="true">false</setting>
+    <setting id="enable.playnext" default="true">false</setting>
+    <setting id="playnext.time">60</setting>
+    <setting id="playnext.default.action" default="true">0</setting>
+    <setting id="stillwatching.count">3</setting>
+    <setting id="stillwatching.default.action">2</setting>
+    <setting id="sort.imdbshows.type" default="true">0</setting>
+    <setting id="sort.imdbshows.order" default="true">0</setting>
+    <setting id="sort.shows.type" default="true">0</setting>
+    <setting id="sort.shows.order" default="true">0</setting>
+    <setting id="sort.shows.watchlist.type">5</setting>
+    <setting id="sort.shows.watchlist.order">1</setting>
+    <setting id="sort.progress.type">6</setting>
+    <setting id="sort.progress.order">1</setting>
+    <setting id="tvshows.air.enabled" default="true">false</setting>
+    <setting id="tvshows.air.zone" default="true">0</setting>
+    <setting id="tvshows.air.location" default="true">0</setting>
+    <setting id="tvshows.air.format">2</setting>
+    <setting id="tvshows.air.day">1</setting>
+    <setting id="tvshows.air.time">2</setting>
+    <setting id="tvshows.air.bold">true</setting>
+    <setting id="bookmarks">true</setting>
+    <setting id="bookmarks.auto" default="true">false</setting>
+    <setting id="crefresh" default="true">false</setting>
+    <setting id="provider.external">true</setting>
+    <setting id="filter.foreign.single.audio">true</setting>
+    <setting id="filter.undesirables">true</setting>
+    <setting id="debug.enabled" default="true">false</setting>
+    <setting id="debug.location">1</setting>
+    <setting id="provider.bitlord" default="true">false</setting>
+    <setting id="provider.bitsearch">true</setting>
+    <setting id="provider.eztv">true</setting>
+    <setting id="provider.glodls" default="true">false</setting>
+    <setting id="provider.magnetdl" default="true">false</setting>
+    <setting id="provider.nyaa" default="true">false</setting>
+    <setting id="provider.piratebay" default="true">false</setting>
+    <setting id="provider.torrentdownload">true</setting>
+    <setting id="provider.torrentio">true</setting>
+    <setting id="provider.library" default="true">false</setting>
+    <setting id="play.mode" default="true">0</setting>
+    <setting id="rescrape.default" default="true">false</setting>
+    <setting id="rescrape.default2">3</setting>
+    <setting id="scrapers.prioritize" default="true">false</setting>
+    <setting id="cf.disable" default="true">false</setting>
+    <setting id="imdb.Moviemeta.check">true</setting>
+    <setting id="imdb.Movietitle.check">true</setting>
+    <setting id="imdb.Movieyear.check">true</setting>
+    <setting id="imdb.Showmeta.check" default="true">false</setting>
+    <setting id="imdb.Showtitle.check" default="true">false</setting>
+    <setting id="imdb.Showyear.check" default="true">false</setting>
+    <setting id="progress.dialog" default="true">0</setting>
+    <setting id="scrapers.timeout">25</setting>
+    <setting id="scraper.dialog.color">13</setting>
+    <setting id="terminate.onCloud.sources">true</setting>
+    <setting id="preemptive.termination" default="true">false</setting>
+    <setting id="preemptive.limit">25</setting>
+    <setting id="preemptive.res">2</setting>
+    <setting id="hosts.quality" default="true">0</setting>
+    <setting id="source.checkReboots" default="true">false</setting>
+    <setting id="source.prioritize.hdrdv" default="true">false</setting>
+    <setting id="source.prioritize.hevc" default="true">false</setting>
+    <setting id="source.enable.msizelimit" default="true">false</setting>
+    <setting id="source.min.moviesize" default="true">0</setting>
+    <setting id="source.max.moviesize">10</setting>
+    <setting id="source.enable.esizelimit" default="true">false</setting>
+    <setting id="source.min.epsize" default="true">0</setting>
+    <setting id="source.max.epsize">10</setting>
+    <setting id="remove.duplicates">true</setting>
+    <setting id="remove.duplicates.logging">true</setting>
+    <setting id="remove.dolby.vision" default="true">false</setting>
+    <setting id="remove.hdr" default="true">false</setting>
+    <setting id="remove.hevc" default="true">false</setting>
+    <setting id="remove.cam.sources">true</setting>
+    <setting id="remove.sd.sources" default="true">false</setting>
+    <setting id="remove.3D.sources">true</setting>
+    <setting id="torrent.min.seeders">1</setting>
+    <setting id="torrent.remove.uncached">true</setting>
+    <setting id="sources.highlight.color">1</setting>
+    <setting id="sources.group.sort" default="true">0</setting>
+    <setting id="sources.size.sort">true</setting>
+    <setting id="sources.sizeSort.reverse" default="true">false</setting>
+    <setting id="uncached.seeder.sort" default="true">false</setting>
+    <setting id="autoplay.sd" default="true">false</setting>
+    <setting id="trakt.username" default="true" />
+    <setting id="trakt.token" default="true" />
+    <setting id="trakt.refresh" default="true" />
+    <setting id="trakt.service.syncInterval">15</setting>
+    <setting id="trakt.server.notifications">true</setting>
+    <setting id="trakt.general.notifications">true</setting>
+    <setting id="trakt.directProgress.scrape" default="true">false</setting>
+    <setting id="trakt.progressFlatten">true</setting>
+    <setting id="trakt.rating" default="true">0</setting>
+    <setting id="trakt.scrobble" default="true">false</setting>
+    <setting id="trakt.scrobble.notify" default="true">false</setting>
+    <setting id="resume.source.alt" default="true">0</setting>
+    <setting id="resume.source" default="true">0</setting>
+    <setting id="trakt.progress.showunaired" default="true">false</setting>
+    <setting id="trakt.UpcomingProgress.prependDate">true</setting>
+    <setting id="trakt.paginate.lists">true</setting>
+    <setting id="trakt.HiddenManager.hideWatched" default="true">false</setting>
+    <setting id="autoTraktOnStart" default="true">false</setting>
+    <setting id="schedTraktTime" default="true">0</setting>
+    <setting id="trakt.message2" default="true" />
+    <setting id="trakt.expires" default="true" />
+    <setting id="alldebrid.enable">true</setting>
+    <setting id="alldebrid.token" default="true" />
+    <setting id="alldebrid.username" default="true" />
+    <setting id="alldebrid.priority">10</setting>
+    <setting id="alldebrid.saveToCloud" default="true">false</setting>
+    <setting id="ad_cloud.enabled" default="true">false</setting>
+    <setting id="ad_cloud.ignore.m2ts">true</setting>
+    <setting id="alldebrid.server.notifications">true</setting>
+    <setting id="premiumize.enable">true</setting>
+    <setting id="premiumize.token" default="true" />
+    <setting id="premiumize.username" default="true" />
+    <setting id="premiumize.priority">10</setting>
+    <setting id="premiumize.saveToCloud" default="true">false</setting>
+    <setting id="pm_cloud.enabled" default="true">false</setting>
+    <setting id="pm_cloud.ignore.m2ts">true</setting>
+    <setting id="premiumize.server.notifications">true</setting>
+    <setting id="realdebrid.enable">true</setting>
+    <setting id="realdebrid.token" default="true" />
+    <setting id="realdebrid.username" default="true" />
+    <setting id="realdebrid.client_id" default="true" />
+    <setting id="realdebrid.refresh" default="true" />
+    <setting id="realdebrid.secret" default="true" />
+    <setting id="realdebrid.priority">10</setting>
+    <setting id="realdebrid.saveToCloud" default="true">false</setting>
+    <setting id="rd_cloud.enabled" default="true">false</setting>
+    <setting id="rd_cloud.ignore.m2ts">true</setting>
+    <setting id="realdebrid.server.notifications">true</setting>
+    <setting id="fanart_tv.api_key" default="true" />
+    <setting id="tmdb.api.key" default="true" />
+    <setting id="tmdb.username" default="true" />
+    <setting id="tmdb.password" default="true" />
+    <setting id="tmdb.session_id" default="true" />
+    <setting id="imdb.user" default="true" />
+    <setting id="library.movie" default="true">special://userdata/addon_data/plugin.video.chainsgenocide/Movies</setting>
+    <setting id="library.tv" default="true">special://userdata/addon_data/plugin.video.chainsgenocide/TVShows</setting>
+    <setting id="library.service.update" default="true">false</setting>
+    <setting id="library.service.notification">true</setting>
+    <setting id="library.general.notification" default="true">false</setting>
+    <setting id="library.update">true</setting>
+    <setting id="library.check">true</setting>
+    <setting id="library.importdelay">true</setting>
+    <setting id="library.include_specials" default="true">false</setting>
+    <setting id="library.include_unknown">true</setting>
+    <setting id="library.strm.use_tmdbhelper" default="true">false</setting>
+    <setting id="downloads" default="true">false</setting>
+    <setting id="movie.download.path" default="true" />
+    <setting id="tv.download.path" default="true" />
+    <setting id="downloads.file.format">1</setting>
+    <setting id="downloads.message1" default="true" />
+    <setting id="downloads.message2" default="true" />
+    <setting id="subtitles" default="true">false</setting>
+    <setting id="subtitles.notification">true</setting>
+    <setting id="subtitles.utf" default="true">false</setting>
+    <setting id="subtitles.lang.1">Chinese</setting>
+    <setting id="subtitles.lang.2" default="true">English</setting>
+    <setting id="subtitles.message1" default="true" />
+    <setting id="subtitles.message2" default="true" />
+    <setting id="debug.level" default="true">0</setting>
+    <setting id="debug.reversed" default="true">false</setting>
+    <setting id="dev.mode.enable" default="true">false</setting>
+    <setting id="reuse.languageinvoker" default="true">true</setting>
+    <setting id="dev.disable.single" default="true">false</setting>
+    <setting id="dev.disable.single.filter" default="true">false</setting>
+    <setting id="dev.disable.season.packs" default="true">false</setting>
+    <setting id="dev.disable.season.filter" default="true">false</setting>
+    <setting id="dev.disable.show.packs" default="true">false</setting>
+    <setting id="dev.disable.show.filter" default="true">false</setting>
+    <setting id="easynews.password" default="true" />
+    <setting id="easynews.priority" default="true">10</setting>
+    <setting id="easynews.username" default="true" />
+    <setting id="filepursuit.api" default="true" />
+    <setting id="filepursuit.priority" default="true">10</setting>
+    <setting id="furk.api" default="true" />
+    <setting id="furk.password" default="true" />
+    <setting id="furk.priority" default="true">10</setting>
+    <setting id="furk.username" default="true" />
+    <setting id="gdrive.priority" default="true">10</setting>
+    <setting id="gdrive.url" default="true" />
+    <setting id="ororo.password" default="true" />
+    <setting id="ororo.priority" default="true">10</setting>
+    <setting id="ororo.username" default="true" />
+</settings>

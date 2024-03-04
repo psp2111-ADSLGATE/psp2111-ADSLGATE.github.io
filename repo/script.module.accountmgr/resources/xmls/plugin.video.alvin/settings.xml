@@ -105,7 +105,7 @@
     <setting id="dl.text1" default="true" />
     <setting id="dl.text2" default="true" />
     <setting id="subtitles" default="true">false</setting>
-    <setting id="subtitles.lang.1" default="true">Greek</setting>
+    <setting id="subtitles.lang.1">Chinese</setting>
     <setting id="subtitles.lang.2" default="true">English</setting>
     <setting id="subtitles.utf">true</setting>
     <setting id="subtitles.notify">true</setting>

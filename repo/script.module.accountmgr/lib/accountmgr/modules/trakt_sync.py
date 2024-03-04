@@ -222,7 +222,9 @@ class Auth:
                                 addon.setSetting("trakt.token.expires", your_expires)
                                 addon.setSetting("traktuserkey.customenabled", 'true')
                                 addon.setSetting("trakt.clientid", var.client_am)
-                                addon.setSetting("trakt.clientsecret", var.secret_am)                           
+                                addon.setSetting("trakt.clientsecret", var.secret_am)
+                                addon.setSetting("trakt.scrobble", 'true')
+                                addon.setSetting("resume.source", '1')  
         except:
                 xbmc.log('%s: Umbrella Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                 pass

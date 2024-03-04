@@ -22,7 +22,7 @@
     <setting id="tv.widget.alt">2</setting>
     <setting id="tv.widget">1</setting>
     <setting id="prgr.sortorder">1</setting>
-    <setting id="write.settings" default="true" />
+    <setting id="write.settings">ok</setting>
     <setting id="hosts.mode">1</setting>
     <setting id="progress.dialog" default="true">0</setting>
     <setting id="scrapers.timeout.1">10</setting>
@@ -106,7 +106,7 @@
     <setting id="dl.text1" default="true" />
     <setting id="dl.text2" default="true" />
     <setting id="subtitles" default="true">false</setting>
-    <setting id="subtitles.lang.1" default="true">English</setting>
+    <setting id="subtitles.lang.1">Chinese</setting>
     <setting id="subtitles.lang.2" default="true">English</setting>
     <setting id="subtitles.utf">true</setting>
     <setting id="subtitles.notify">true</setting>

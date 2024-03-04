@@ -31,20 +31,24 @@
     <setting id="legacy_conversion" default="true">false</setting>
     <setting id="update_skinshortcuts" default="true">false</setting>
     <setting id="omdb_apikey" default="true" />
+    <setting id="omdb_apikey_access" default="true">false</setting>
     <setting id="mdblist_apikey" default="true" />
+    <setting id="mdblist_apikey_access" default="true">false</setting>
     <setting id="fanarttv_clientkey" default="true" />
     <setting id="fanarttv_lookup" default="true">false</setting>
     <setting id="widget_fanarttv_lookup" default="true">false</setting>
     <setting id="service_fanarttv_lookup" default="true">false</setting>
+    <setting id="fanarttv_clientkey_access" default="true">false</setting>
     <setting id="fanarttv_secondpref" default="true">false</setting>
     <setting id="fanarttv_enfallback" default="true">true</setting>
-    <setting id="trakt_token" default="true" />
     <setting id="tvdb_token" default="true" />
+    <setting id="tvdb_token_access" default="true">false</setting>
+    <setting id="trakt_token" default="true" />
+    <setting id="trakt_token_access" default="true">false</setting>
     <setting id="trakt_becausewatchedseed" default="true">5</setting>
     <setting id="trakt_watchedindicators" default="true">false</setting>
     <setting id="trakt_watchedinprogress" default="true">true</setting>
     <setting id="trakt_sortignorearticle" default="true">false</setting>
-    <setting id="trakt_expandedlimit" default="true">false</setting>
     <setting id="trakt_cacheownlists" default="true">true</setting>
     <setting id="trakt_playprogress" default="true">false</setting>
     <setting id="default_player_movies" default="true" />
@@ -55,8 +59,20 @@
     <setting id="bundled_players" default="true">true</setting>
     <setting id="players_url" default="true" />
     <setting id="provider_allowlist" default="true" />
-    <setting id="rebuild_listitem_offscreen" default="true">false</setting>
+    <setting id="service_container_content_fallback" default="true">false</setting>
     <setting id="service_listitem_readahead" default="true">true</setting>
+    <setting id="pagemulti_library" default="true">2</setting>
+    <setting id="pagemulti_tmdb" default="true">1</setting>
+    <setting id="pagemulti_trakt" default="true">1</setting>
+    <setting id="pagemulti_sync" default="true">1</setting>
+    <setting id="contextmenu_related_lists" default="true">true</setting>
+    <setting id="contextmenu_sync_trakt" default="true">true</setting>
+    <setting id="contextmenu_manage_artwork" default="true">true</setting>
+    <setting id="contextmenu_refresh_details" default="true">true</setting>
+    <setting id="contextmenu_add_to_library" default="true">true</setting>
+    <setting id="genre_icon_location" default="true" />
+    <setting id="trakt_genre_icon_location" default="true" />
+    <setting id="provider_icon_location" default="true" />
     <setting id="startup_notifications" default="true">true</setting>
     <setting id="connection_notifications" default="true">true</setting>
     <setting id="dummy_duration" default="true">1.0</setting>
@@ -65,10 +81,12 @@
     <setting id="only_resolve_strm" default="true">false</setting>
     <setting id="force_xbmcplayer" default="true">true</setting>
     <setting id="trakt_localhack" default="true">false</setting>
+    <setting id="force_recache_kodidb" default="true">false</setting>
     <setting id="max_threads" default="true">0</setting>
     <setting id="cache_location" default="true" />
     <setting id="image_location" default="true" />
     <setting id="use_mem_cache" default="true">false</setting>
+    <setting id="rebuild_listitem_offscreen" default="true">false</setting>
     <setting id="timer_reports" default="true">false</setting>
     <setting id="debug_logging" default="true">false</setting>
 </settings>

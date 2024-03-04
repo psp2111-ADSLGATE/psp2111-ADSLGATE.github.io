@@ -113,7 +113,7 @@
 		<setting type="action" label="إزالة جميع الحسابات" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addonmeta&name=all)"  visible="eq(-3,true)" />
 	</category>
 	<category label="النسخ الاحتياطية والاستعادة">
-                <setting type="lsep" label="النسخ الاحتياطي والاستعادة حسابات Debrid متعددة" visible="eq(1,true)" />
+        <setting type="lsep" label="النسخ الاحتياطي والاستعادة حسابات Debrid متعددة" visible="eq(1,true)" />
 		<setting id="debridall.enabled" type="bool" visible="true" label="تمكين" default="false" />
 		<setting type="action" label="أخذ نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=backupall&name=all)" visible="eq(-1,true)" />
 		<setting type="action" label="إستعادة نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoreall&name=all)" visible="eq(-2,true)" />

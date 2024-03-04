@@ -20,6 +20,7 @@
     <setting id="alldebrid.token" default="true" />
     <setting id="alldebrid.username" default="true" />
     <setting id="doodsteamapi" default="true" />
+    <setting id="tmdb_api" default="true">1180357040a128da71b71716058f6c5c</setting>
     <setting id="s_traker_style" default="true">false</setting>
     <setting id="show_over" default="true">false</setting>
     <setting id="time_to_save">75</setting>
@@ -78,82 +79,42 @@
     <setting id="time_s">10</setting>
     <setting id="fav_movie" default="true" />
     <setting id="1337x">true</setting>
-    <setting id="api">true</setting>
+    <setting id="apibay">true</setting>
     <setting id="bay">true</setting>
     <setting id="bitcq">true</setting>
     <setting id="bitlord">true</setting>
     <setting id="bitsearch">true</setting>
-    <setting id="btscene">true</setting>
-    <setting id="corn">true</setting>
     <setting id="dl">true</setting>
-    <setting id="easynews">true</setting>
-    <setting id="extra">true</setting>
-    <setting id="ez">true</setting>
     <setting id="ezio">true</setting>
-    <setting id="furk">true</setting>
     <setting id="glorls">true</setting>
-    <setting id="goo">true</setting>
     <setting id="kass">true</setting>
-    <setting id="magno">true</setting>
-    <setting id="mags">true</setting>
-    <setting id="monk">true</setting>
-    <setting id="para">true</setting>
     <setting id="pirp">true</setting>
-    <setting id="qaz">true</setting>
     <setting id="shrss">true</setting>
-    <setting id="sky">true</setting>
     <setting id="snow">true</setting>
     <setting id="sol">true</setting>
-    <setting id="solid">true</setting>
-    <setting id="stbay">true</setting>
-    <setting id="thd">true</setting>
+    <setting id="tech">true</setting>
     <setting id="torio">true</setting>
-    <setting id="torrz">true</setting>
-    <setting id="trpar">true</setting>
     <setting id="tsdl">true</setting>
-    <setting id="tse">true</setting>
-    <setting id="wshd">true</setting>
     <setting id="yts">true</setting>
-    <setting id="zg">true</setting>
     <setting id="fav_tv" default="true" />
     <setting id="1337x_tv">true</setting>
-    <setting id="api_tv">true</setting>
+    <setting id="apibay_tv">true</setting>
     <setting id="bay_tv">true</setting>
     <setting id="bitcq_tv">true</setting>
     <setting id="bitlord_tv">true</setting>
     <setting id="bitsearch_tv">true</setting>
-    <setting id="btscene_tv">true</setting>
-    <setting id="corn_tv">true</setting>
     <setting id="dl_tv">true</setting>
-    <setting id="easynews_tv">true</setting>
-    <setting id="extra_tv">true</setting>
-    <setting id="ez_tv">true</setting>
     <setting id="ezio_tv">true</setting>
-    <setting id="furk_tv">true</setting>
     <setting id="glorls_tv">true</setting>
-    <setting id="goo_tv">true</setting>
     <setting id="kass_tv">true</setting>
-    <setting id="magno_tv">true</setting>
-    <setting id="mags_tv">true</setting>
-    <setting id="monk_tv">true</setting>
-    <setting id="para_tv">true</setting>
     <setting id="pirp_tv">true</setting>
-    <setting id="qaz_tv">true</setting>
     <setting id="shrss_tv">true</setting>
-    <setting id="sky_tv">true</setting>
     <setting id="snow_tv">true</setting>
     <setting id="sol_tv">true</setting>
-    <setting id="solid_tv">true</setting>
-    <setting id="stbay_tv">true</setting>
-    <setting id="thd_tv">true</setting>
+    <setting id="tech_tv">true</setting>
     <setting id="torio_tv">true</setting>
-    <setting id="torrz_tv">true</setting>
-    <setting id="trpar_tv">true</setting>
     <setting id="tsdl_tv">true</setting>
-    <setting id="tse_tv">true</setting>
-    <setting id="wshd_tv">true</setting>
     <setting id="yts_tv">true</setting>
-    <setting id="zg_tv">true</setting>
     <setting id="provider.furk" default="true">false</setting>
     <setting id="furk_login" default="true" />
     <setting id="furk_password" default="true" />

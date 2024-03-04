@@ -27,14 +27,14 @@
     <setting id="garbage" default="true" />
     <setting id="max_q">2</setting>
     <setting id="min_q" default="true">0</setting>
-    <setting id="encoding_filter">true</setting>
+    <setting id="encoding_filter" default="true">false</setting>
     <setting id="3d" default="true">false</setting>
     <setting id="hdvc">true</setting>
     <setting id="low_q" default="true">false</setting>
     <setting id="garbage2" default="true" />
     <setting id="max_q_tv">2</setting>
     <setting id="min_q_tv" default="true">0</setting>
-    <setting id="encoding_filter_tv">true</setting>
+    <setting id="encoding_filter_tv" default="true">false</setting>
     <setting id="3d_tv" default="true">false</setting>
     <setting id="hdvc_tv">true</setting>
     <setting id="low_q_tv" default="true">false</setting>
@@ -72,12 +72,13 @@
     <setting id="min_quality_tv">2</setting>
     <setting id="time_s">15</setting>
     <setting id="fav_movie" default="true" />
-    <setting id="1337x">true</setting>
-    <setting id="Bitcq">true</setting>
+    <setting id="1337x" default="true">false</setting>
+    <setting id="ApiBay">true</setting>
     <setting id="Bitlord">true</setting>
     <setting id="BitSearch">true</setting>
+    <setting id="DebridM">true</setting>
     <setting id="EasyNews" default="true">false</setting>
-    <setting id="Eztv" default="true">false</setting>
+    <setting id="Eztv">true</setting>
     <setting id="Furk" default="true">false</setting>
     <setting id="GloTorrents">true</setting>
     <setting id="KickAss">true</setting>
@@ -85,26 +86,27 @@
     <setting id="PBayPlus">true</setting>
     <setting id="SolidTorrent">true</setting>
     <setting id="ThePirateBay">true</setting>
-    <setting id="TorrentD">true</setting>
     <setting id="Torrentio">true</setting>
-    <setting id="Yts">true</setting>
+    <setting id="Torzz">true</setting>
+    <setting id="Yts" default="true">false</setting>
     <setting id="fav_tv" default="true" />
-    <setting id="1337x_tv">true</setting>
-    <setting id="Bitcq_tv">true</setting>
-    <setting id="Bitlord_tv">true</setting>
+    <setting id="1337x_tv" default="true">false</setting>
+    <setting id="ApiBay_tv">true</setting>
+    <setting id="Bitlord_tv" default="true">false</setting>
     <setting id="BitSearch_tv">true</setting>
+    <setting id="DebridM_tv" default="true">false</setting>
     <setting id="Easynews_tv" default="true">false</setting>
     <setting id="Eztv_tv">true</setting>
     <setting id="Furk_tv" default="true">false</setting>
     <setting id="GloTorrents_tv">true</setting>
-    <setting id="KickAss_tv">true</setting>
+    <setting id="KickAss_tv" default="true">false</setting>
     <setting id="MagnetDL_tv">true</setting>
     <setting id="PBayPlus_tv">true</setting>
     <setting id="SolidTorrent_tv">true</setting>
     <setting id="ThePirateBay_tv">true</setting>
-    <setting id="TorrentD_tv">true</setting>
     <setting id="Torrentio_tv">true</setting>
-    <setting id="Yts_tv">true</setting>
+    <setting id="Torzz_tv">true</setting>
+    <setting id="Yts_tv" default="true">false</setting>
     <setting id="provider.furk" default="true">false</setting>
     <setting id="furk_login" default="true" />
     <setting id="furk_password" default="true" />
@@ -128,8 +130,8 @@
     <setting id="fanart_scraping">true</setting>
     <setting id="sources_window_n">1</setting>
     <setting id="fanart_sources">true</setting>
-    <setting id="add_colors">true</setting>
-    <setting id="show_actors">true</setting>
+    <setting id="add_colors" default="true">false</setting>
+    <setting id="show_actors" default="true">false</setting>
     <setting id="movie_world">true</setting>
     <setting id="tv_world">true</setting>
     <setting id="trakt_world">true</setting>

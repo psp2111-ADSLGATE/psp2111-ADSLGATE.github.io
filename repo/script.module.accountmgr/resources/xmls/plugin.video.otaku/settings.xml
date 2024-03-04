@@ -28,20 +28,40 @@
     <setting id="general.dialog" default="true">0</setting>
     <setting id="scraping.fanart" default="true">false</setting>
     <setting id="scraping.clearlogo" default="true">false</setting>
+    <setting id="provider.animetosho">true</setting>
     <setting id="provider.nyaa">true</setting>
     <setting id="provider.nyaaalt" default="true">false</setting>
-    <setting id="provider.animetosho">true</setting>
     <setting id="provider.aniwatch">true</setting>
+    <setting id="provider.aniwatch_region" default="true">false</setting>
+    <setting id="provider.aniwave">true</setting>
     <setting id="provider.animix">true</setting>
+    <setting id="provider.animixalt" default="true">false</setting>
     <setting id="provider.animepahe">true</setting>
     <setting id="provider.gogo">true</setting>
-    <setting id="provider.nineanime">true</setting>
-    <setting id="provider.animess">true</setting>
-    <setting id="provider.animelatino">true</setting>
+    <setting id="provider.gogoalt" default="true">false</setting>
+    <setting id="provider.animess" default="true">false</setting>
+    <setting id="provider.animelatino" default="true">false</setting>
+    <setting id="provider.animecat" default="true">false</setting>
+    <setting id="provider.aniplay" default="true">false</setting>
+    <setting id="embed.doodstream">true</setting>
+    <setting id="embed.filelions">true</setting>
+    <setting id="embed.filemoon">true</setting>
+    <setting id="embed.iga">true</setting>
+    <setting id="embed.kwik">true</setting>
+    <setting id="embed.megacloud">true</setting>
+    <setting id="embed.mp4upload">true</setting>
+    <setting id="embed.mycloud">true</setting>
+    <setting id="embed.streamtape">true</setting>
+    <setting id="embed.streamwish">true</setting>
+    <setting id="embed.vidcdn">true</setting>
+    <setting id="embed.vidplay">true</setting>
+    <setting id="embed.vidstreaming" default="true">false</setting>
+    <setting id="embed.yourupload">true</setting>
+    <setting id="embed.zto">true</setting>
     <setting id="general.playstyle.movie" default="true">0</setting>
     <setting id="general.playstyle.episode" default="true">0</setting>
     <setting id="general.autotrynext">true</setting>
-    <setting id="general.timeout">10</setting>
+    <setting id="general.timeout">30</setting>
     <setting id="general.terminate.oncloud">true</setting>
     <setting id="general.kodi_language" default="true">false</setting>
     <setting id="general.audio" default="true">0</setting>
@@ -51,18 +71,18 @@
     <setting id="general.playlist_length">30</setting>
     <setting id="general.dubsubtitles" default="true">false</setting>
     <setting id="smartplay.playingnextdialog">true</setting>
-    <setting id="skipoutro.aniskip.enable" default="true">false</setting>
+    <setting id="skipoutro.aniskip.enable">true</setting>
     <setting id="skipoutro.aniskip.auto" default="true">false</setting>
     <setting id="skipoutro.aniskip.offset">-3</setting>
     <setting id="playingnext.time">90</setting>
     <setting id="playingnext.defaultaction" default="true">0</setting>
     <setting id="smartplay.skipintrodialog">true</setting>
-    <setting id="skipintro.aniskip.enable" default="true">false</setting>
+    <setting id="skipintro.aniskip.enable">true</setting>
     <setting id="skipintro.aniskip.auto" default="true">false</setting>
     <setting id="skipintro.aniskip.offset">-3</setting>
     <setting id="skipintro.time">86</setting>
     <setting id="skipintro.delay">2</setting>
-    <setting id="skipintro.duration" default="true">0</setting>
+    <setting id="skipintro.duration">3</setting>
     <setting id="general.maxResolution" default="true">0</setting>
     <setting id="torrent.disable265" default="true">false</setting>
     <setting id="torrent.batch" default="true">false</setting>
@@ -121,6 +141,7 @@
     <setting id="mal.enabled" default="true">false</setting>
     <setting id="mal.username" default="true" />
     <setting id="mal.login" default="true" />
+    <setting id="mal.hidenotif" default="true">false</setting>
     <setting id="mal.listsettings" default="true" />
     <setting id="mal.sort" default="true">Last Updated</setting>
     <setting id="mal.userid" default="true" />
@@ -132,7 +153,7 @@
     <setting id="simkl.enabled" default="true">false</setting>
     <setting id="simkl.username" default="true" />
     <setting id="simkl.login" default="true" />
-    <setting id="simkl.sort" default="true">Last Updated</setting>
+    <setting id="simkl.sort" default="true">Last Added</setting>
     <setting id="anilist_airing_calendar">true</setting>
     <setting id="anilist_airing_anime">true</setting>
     <setting id="movies">true</setting>
@@ -155,7 +176,7 @@
     <setting id="upcoming_movie">true</setting>
     <setting id="anilist_top_100_anime_movie">true</setting>
     <setting id="genres_movie">true</setting>
-    <setting id="search_history_movie">true</setting>
+    <setting id="search_history/movie">true</setting>
     <setting id="anilist_airing_calendar_tv">true</setting>
     <setting id="anilist_airing_anime_tv">true</setting>
     <setting id="trending_tv">true</setting>
@@ -165,7 +186,7 @@
     <setting id="upcoming_tv">true</setting>
     <setting id="anilist_top_100_anime_tv">true</setting>
     <setting id="genres_tv">true</setting>
-    <setting id="search_history_tv">true</setting>
+    <setting id="search_history/show">true</setting>
     <setting id="anilist_trending_last_year_trending">true</setting>
     <setting id="anilist_trending_this_year_trending">true</setting>
     <setting id="anilist_trending_last_season_trending">true</setting>
@@ -309,4 +330,8 @@
     <setting id="wipe_addon_data" default="true" />
     <setting id="reuselanguageinvoker.status" default="true">Disabled</setting>
     <setting id="reuselanguageinvoker.toggle" default="true" />
+    <setting id="fs_enable" default="true">false</setting>
+    <setting id="fs_instructions" default="true" />
+    <setting id="fs_url" default="true">http://localhost:8191/v1</setting>
+    <setting id="fs_timeout">60</setting>
 </settings>

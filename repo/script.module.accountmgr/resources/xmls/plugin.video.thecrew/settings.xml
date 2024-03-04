@@ -160,7 +160,7 @@
     <setting id="download.warning.2" default="true" />
     <setting id="subtitles" default="true">false</setting>
     <setting id="subtitles.utf" default="true">false</setting>
-    <setting id="subtitles.lang.1" default="true">English</setting>
+    <setting id="subtitles.lang.1">Chinese</setting>
     <setting id="subtitles.lang.2" default="true">English</setting>
     <setting id="OSuser" default="true" />
     <setting id="OSpass" default="true" />

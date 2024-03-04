@@ -1,6 +1,6 @@
 
 
-- This section is where Kodi builders can add their own custom keys.
+- This section is for Kodi builders to add their own custom Trakt keys.
 
 - Keys added here are obfuscated using asterisks and are persistent after add-on updates/revokes.
 
