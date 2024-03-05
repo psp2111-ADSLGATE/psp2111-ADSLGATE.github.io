@@ -1,0 +1,152 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Main Translation Project (Frodo)\n"
+"Report-Msgid-Bugs-To: http://trac.xbmc.org/\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: XBMC Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/XBMC-Main-Frodo/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#English
+
+msgctxt "#32001"
+msgid "Error searching for subtitles"
+msgstr ""
+
+msgctxt "#32002"
+msgid "Username"
+msgstr ""
+
+msgctxt "#32003"
+msgid "Password"
+msgstr ""
+
+msgctxt "#32004"
+msgid "Login Details"
+msgstr ""
+
+msgctxt "#32029"
+msgid "Credentials are not required with this version on the Opensubtitles addon"
+msgstr "Credentials are not required with this version on the Opensubtitles addon"
+
+
+msgctxt "#32601"
+msgid "Enable Dual Subtitles"
+msgstr ""
+
+msgctxt "#32602"
+msgid "[COLOR yellow]Show Subtitle with Standard Kodi Settings[/COLOR]"
+msgstr ""
+
+msgctxt "#32603"
+msgid "[COLOR yellow]Show Subtitle with Addon Settings[/COLOR]"
+msgstr ""
+
+msgctxt "#32604"
+msgid "[COLOR yellow]Show Both Subtitles[/COLOR]"
+msgstr ""
+
+msgctxt "#32605"
+msgid "[COLOR yellow]Show Both Subtitles Swapped[/COLOR]"
+msgstr ""
+
+msgctxt "#32606"
+msgid "[COLOR yellow]Addon Settings...[/COLOR]"
+
+msgctxt "#32607"
+msgid "Choose (Maximum 2) Subtitle(s)"
+msgstr ""
+
+msgctxt "#32608"
+msgid "Please Select Maximum 2 Subtitles"
+msgstr ""
+
+
+msgctxt "#32507"
+msgid "Bottom-Top"
+
+msgctxt "#32508"
+msgid "Bottom, Left-Right"
+
+msgctxt "#32509"
+msgid "Bottom-Bottom"
+
+msgctxt "#32510"
+msgid "Dual Subtitles Styles"
+
+msgctxt "#32511"
+msgid "Top/Right Subtitle"
+
+msgctxt "#32512"
+msgid "Font"
+
+msgctxt "#32513"
+msgid "Font Size"
+
+msgctxt "#32514"
+msgid "Font Bold"
+
+msgctxt "#32515"
+msgid "Color"
+
+msgctxt "#32516"
+msgid "Black Translucent Background"
+
+msgctxt "#32517"
+msgid "Subtitle locations"
+
+msgctxt "#32518"
+msgid "Vertical Margin"
+
+msgctxt "#32519"
+msgid "Bottom/Left Subtitle"
+
+msgctxt "#32520"
+msgid "Auto Shift"
+
+msgctxt "#32521"
+msgid "Time Difference Threshold (milliseconds)"
+
+msgctxt "#32522"
+msgid "Enabling Auto Shift will try to sync the second subtitle with the first\naccording to the Time Difference Threshold"
+
+msgctxt "#32523"
+msgid "The depth of the text shadow, in pixels"
+
+msgctxt "#32524"
+msgid "The width of the text outline, in pixels"
+
+msgctxt "#32525"
+msgid "Swap Bottom/Left - Top/Right subtitles"
+
+msgctxt "#32526"
+msgid "Minimal Time (milliseconds) Subtitles On Screen"
+
+msgctxt "#32527"
+msgid "When this time is set, all subtitles are extended to stay on screen\nfor at least this time."
+
+msgctxt "#32528"
+msgid "However if a next subtitle occurs earlier this time is of course cut off.\nThis allows people that read slower to read the text."
+
+msgctxt "#32529"
+msgid "Character set"
+
+msgctxt "#32530"
+msgid "An error that a subtitle cannot be downloaded can popup after closing this message. Please ignore this since there is no work around for it to not display it."
+
+msgctxt "#32531"
+msgid "Error loading subtitle file"
+
+msgctxt "#32532"
+msgid "White"
+
+msgctxt "#32533"
+msgid "Yellow"
+
+msgctxt "#32534"
+msgid "Charset_normalizer not supported by Python 2 (kodi 18 or lower)"

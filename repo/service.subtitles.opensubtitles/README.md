@@ -1,26 +1,35 @@
-OpenSubtitles.org KODI add-on
-=============================
-Search and download subtitles for movies and TV-Series from OpenSubtitles.org. Search in 75 languages, 4.000.000+ subtitles, daily updates.
-                            
+OpenSubtitles.org by OpenSubtitles with dual subs KODI add-on
+=============================================================
+
+The possibility to use two subtitles at the same time was build in by moham96.
+See https://github.com/moham96/service.subtitles.opensubtitles_by_opensubtitles
+
 Changelog
 
-5.1.3
-- Safely import translatePath. (by [antonsoroko](https://github.com/antonsoroko))
+5.5.2 (2023-12-02)
+- Some default settings were not applied if not changed first
 
-5.1.2
-- Fixes for python3/matrix. Remove sys.path.append.
+5.5.1
+- Try to allight subtitles better in case of bottom/bottom
+- Allow negative vertical margin
+- Make Auto Charset the default (again)
 
-5.1.1
-- Fixed issue with language flag icons
+5.5.0
+- Allows to show the subtitles on top/bottom, bottom/left - right, bottom/bottom
 
-5.1.0
-- Ported to python 3.0. The 30th anniversary of the Restoration of Independence of Lithuania
+5.4.0
+- Allows to extend the time the subtitle(s) are shown on screen for slow readers.
 
-5.0.16
-- Changed descriptions, icons, fanart... (by opensubtitles)
+5.3.0
+- Possibility to choose two subtitles. One will be shown at the bottom, the other on top
+- Works both with Python 2 (kodi 17, 18) and Python 3 (kodi 19)
 
-5.0.15
-- disable anonymous login, users need to register on opensubtitles.org and login in addon settings.
+5.2.14
+- New feature: Users are able to check for subtitles when Kodi is not playing, by using the manual search or by standing on an item and opening the subtitles search dialog (By key or by an external addon) | @burekas
+- The external addon for the contextmenu can be downloaded from here: https://github.com/burekas7/context.subtitlesdialog.contextmenu
+
+5.1.14
+- Users are able to download subtitles as anonymous without authentication. Added localized descriptions, media files
 
 5.0.14
 - Fix for Portuguese (Brazil) broken by 42f6ec9, thx host505
@@ -73,3 +82,7 @@ Changelog
 
 5.0.0
 - move the service out of XBMC Subtitles
+
+
+# Installation in kodi:
+Via repository https://peno64.github.io/repository.peno64/

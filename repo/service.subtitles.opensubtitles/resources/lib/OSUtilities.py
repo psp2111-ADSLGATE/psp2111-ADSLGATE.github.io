@@ -6,27 +6,37 @@ import xbmc
 import struct
 import urllib
 import xbmcvfs
-import xmlrpc
 import xbmcaddon
 import unicodedata
-from xmlrpc import client
-from urllib.parse import unquote
+
+try:
+  import xmlrpc
+  from xmlrpc import client
+  from urllib.parse import unquote
+  p2 = False
+except:
+  import xmlrpclib
+  from urllib import unquote
+  p2 = True
 
 __addon__      = xbmcaddon.Addon()
 __version__    = __addon__.getAddonInfo('version') # Module version
-__scriptname__ = "XBMC Subtitles Login"
+__scriptname__ = "XBMC Subtitles Unofficial"
 
 BASE_URL_XMLRPC = u"http://api.opensubtitles.org/xml-rpc"
 
 class OSDBServer:
   def __init__( self, *args, **kwargs ):
-    self.server = xmlrpc.client.ServerProxy( BASE_URL_XMLRPC, verbose=0 )
+    if p2:
+      self.server = xmlrpclib.Server( BASE_URL_XMLRPC, verbose=0 )
+    else:
+      self.server = xmlrpc.client.ServerProxy( BASE_URL_XMLRPC, verbose=0 )
+
     login = self.server.LogIn(__addon__.getSetting( "OSuser" ), __addon__.getSetting( "OSpass" ), "en", "%s_v%s" %(__scriptname__.replace(" ","_"),__version__))
-    if login["status"] == "200 OK":
-      self.osdb_token  = login["token"]
+    self.osdb_token  = login[ "token" ]
 
   def searchsubtitles( self, item):
-    if self.osdb_token:
+    if ( self.osdb_token ) :
       searchlist  = []
       if item['mansearch']:
         searchlist = [{'sublanguageid':",".join(item['3let_language']),
@@ -39,17 +49,16 @@ class OSDBServer:
           return None
 
       if len(item['tvshow']) > 0:
-        season = int(item['season']) if item['season'].isdigit() else 0
-        episode = int(item['episode']) if item['episode'].isdigit() else 0
         OS_search_string = ("%s S%.2dE%.2d" % (item['tvshow'],
-                                                season,
-                                                episode,)
+                                                int(item['season']),
+                                                int(item['episode']),)
                                               ).replace(" ","+")
       else:
-        if str(item['year']) == "":
+        if str(item['year']) == "" and xbmc.Player().isPlaying():
           item['title'], item['year'] = xbmc.getCleanMovieTitle( item['title'] )
 
         OS_search_string = item['title'].replace(" ","+")
+
 
       log( __name__ , "Search String [ %s ]" % (OS_search_string,))
 
@@ -64,7 +73,10 @@ class OSDBServer:
         except:
           pass
 
-        imdb = str(xbmc.Player().getVideoInfoTag().getIMDBNumber().replace('tt',''))
+        if xbmc.Player().isPlaying():
+            imdb = str(xbmc.Player().getVideoInfoTag().getIMDBNumber().replace('tt',''))
+        else:
+            imdb = str(xbmc.getInfoLabel("ListItem.IMDBNumber").replace('tt',''))
 
         if ((not item['tvshow']) and imdb != ""):
           searchlist.append({'sublanguageid' :",".join(item['3let_language']),
@@ -81,7 +93,6 @@ class OSDBServer:
                       }]
 
       search = self.server.SearchSubtitles( self.osdb_token, searchlist )
-
       if search["data"]:
         return search["data"]
 
@@ -181,4 +192,11 @@ def addfilehash(name,hash,seek):
     return hash
 
 def normalizeString(str):
+  if p2:
+    return unicodedata.normalize(
+           'NFKD', unicode(unicode(str, 'utf-8'))
+           ).encode('ascii','ignore')
+
   return unicodedata.normalize('NFKD', str)
+
+
