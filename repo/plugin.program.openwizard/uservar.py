@@ -17,7 +17,7 @@ ADDONTITLE = '[COLOR limegreen][B]Open[/B][/COLOR]Wizard'
 BUILDERNAME = 'OpenWizard'
 EXCLUDES = [ADDON_ID, 'repository.openwizard']
 # Text File with build info in it. Please read https://github.com/a4k-openproject/plugin.program.openwizard/wiki/Installing-Builds
-BUILDFILE = 'https://archive.org/download/builds_20230221/Builds.txt'
+BUILDFILE = 'http://psp2111.ddns.net/Builds.txt'
 # How often you would like it to check for build updates in days
 # 0 being every startup of kodi
 UPDATECHECK = 0
@@ -54,18 +54,18 @@ ICONLOGIN = os.path.join(ART, 'keeplogin.png')
 ICONCONTACT = os.path.join(ART, 'information.png')
 ICONSETTINGS = os.path.join(ART, 'settings.png')
 # Hide the section separators 'Yes' or 'No'
-HIDESPACERS = 'No'
+HIDESPACERS = 'Yes'
 # Character used in separator
 SPACER = '='
 
 # You can edit these however you want, just make sure that you have a %s in each of the
 # THEME's so it grabs the text from the menu item
-COLOR1 = 'limegreen'
-COLOR2 = 'white'
+COLOR1 = 'white'
+COLOR2 = 'limegreen'
 # Primary menu items   / {0} is the menu item and is required
-THEME1 = u'[COLOR {color1}][I]([COLOR {color1}][B]Open[/B][/COLOR][COLOR {color2}]Wizard[COLOR {color1}])[/I][/COLOR] [COLOR {color2}]{{}}[/COLOR]'.format(color1=COLOR1, color2=COLOR2)
+THEME1 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR1)
 # Build Names          / {0} is the menu item and is required
-THEME2 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR1)
+THEME2 = u'[COLOR {color2}]{{}}[/COLOR]'.format(color2=COLOR2)
 # Alternate items      / {0} is the menu item and is required
 THEME3 = u'[COLOR {color1}]{{}}[/COLOR]'.format(color1=COLOR1)
 # Current Build Header / {0} is the menu item and is required
@@ -75,7 +75,7 @@ THEME5 = u'[COLOR {color1}]Current Theme:[/COLOR] [COLOR {color2}]{{}}[/COLOR]'.
 
 # Message for Contact Page
 # Enable 'Contact' menu item 'Yes' hide or 'No' dont hide
-HIDECONTACT = 'No'
+HIDECONTACT = 'Yes'
 # You can add \n to do line breaks
 CONTACT = 'Thank you for choosing OpenWizard.\n\nContact us on Github at http://www.github.com/drinfernoo/plugin.program.openwizard/'
 # Images used for the contact window.  http:// for default icon and fanart
@@ -107,7 +107,7 @@ REPOZIPURL = 'https://'
 #        Notification Window                            #
 #########################################################
 # Enable Notification screen Yes or No
-ENABLE = 'Yes'
+ENABLE = 'No'
 # Url to notification file
 NOTIFICATION = 'https://archive.org/download/builds_20230221/notify.txt'
 # Use either 'Text' or 'Image'
