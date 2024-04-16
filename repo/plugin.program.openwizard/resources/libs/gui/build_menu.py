@@ -83,9 +83,9 @@ class BuildMenu:
         if response:
             link = tools.clean_text(response.text)
         else:
-            directory.add_file('Kodi Version: {0}'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS,
+            directory.add_file('Kodi Version: {0} :إصدار كودي'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS,
                                themeit=CONFIG.THEME3)
-            directory.add_dir('Save Data Menu', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
+            directory.add_dir('Save Data Menu - حفظ البيانات', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
             directory.add_separator()
             directory.add_file('URL for txt file not valid', icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
             directory.add_file('{0}'.format(CONFIG.BUILDFILE), icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
@@ -105,8 +105,8 @@ class BuildMenu:
                 self.view_build(match[0][0])
                 return
 
-        directory.add_file('Kodi Version: {0}'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
-        directory.add_dir('Save Data Menu', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
+        directory.add_file('Kodi Version: {0} :إصدار كودي'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
+        directory.add_dir('Save Data Menu - حفظ البيانات', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
         directory.add_separator()
 
         if len(match) >= 1:
@@ -167,25 +167,25 @@ class BuildMenu:
                 
             directory.add_file(build, description=description, fanart=fanart, icon=icon, themeit=CONFIG.THEME4)
             directory.add_separator()
-            directory.add_dir('Save Data Menu', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
-            directory.add_file('Build Information', {'mode': 'buildinfo', 'name': name}, description=description, fanart=fanart,
-                               icon=icon, themeit=CONFIG.THEME3)
+            directory.add_dir('Save Data Menu - حفظ البيانات', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME2)
+            directory.add_file('Build Information - معلومات البيلد', {'mode': 'buildinfo', 'name': name}, description=description, fanart=fanart,
+                               icon=icon, themeit=CONFIG.THEME2)
                                
             if previewcheck:
-                directory.add_file('View Video Preview', {'mode': 'buildpreview', 'name': name}, description=description, fanart=fanart,
-                                   icon=icon, themeit=CONFIG.THEME3)
+                directory.add_file('View Video Preview - فيديو للبيلد', {'mode': 'buildpreview', 'name': name}, description=description, fanart=fanart,
+                                   icon=icon, themeit=CONFIG.THEME2)
             
             if versioncheck:
                 directory.add_file(
                     '[I]Build designed for Kodi v{0} (installed: v{1})[/I]'.format(str(kodi), str(CONFIG.KODIV)),
-                    fanart=fanart, icon=icon, themeit=CONFIG.THEME3)
+                    fanart=fanart, icon=icon, themeit=CONFIG.THEME2)
                     
             directory.add_separator('INSTALL')
-            directory.add_file('Install', {'mode': 'install', 'action': 'build', 'name': name}, description=description, fanart=fanart,
+            directory.add_file('Install - التثبيت', {'mode': 'install', 'action': 'build', 'name': name}, description=description, fanart=fanart,
                                icon=icon, themeit=CONFIG.THEME1)
                                
             if guicheck:
-                directory.add_file('Apply guiFix', {'mode': 'install', 'action': 'gui', 'name': name}, description=description, fanart=fanart,
+                directory.add_file('Apply CoreElec Fix - تثبيت تعديل كوريليك', {'mode': 'install', 'action': 'gui', 'name': name}, description=description, fanart=fanart,
                                    icon=icon, themeit=CONFIG.THEME1)
                                    
             if themecheck:
