@@ -49,7 +49,7 @@ def get_nondebrid():
 	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
 	text = r.read()
 	r.close()
-	heading = '[B]Account Manager -  v%s - Furk/Easynews/FilePursuit[/B]' % (accountmgr_version)
+	heading = '[B]Account Manager -  v%s - OffCloud/Easynews/FilePursuit[/B]' % (accountmgr_version)
 	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
 	windows.run()
 	del windows

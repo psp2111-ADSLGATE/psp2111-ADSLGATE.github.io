@@ -8,6 +8,7 @@ from sqlite3 import Error
 #Account Manager Metadata
 accountmgr = xbmcaddon.Addon("script.module.accountmgr")
 your_omdb_api = accountmgr.getSetting("omdb.api.key")
+your_tmdb_api = accountmgr.getSetting("tmdb.api.key")
 
 ###################### Connect to Database ######################
 def create_conn(db_file):
@@ -23,8 +24,29 @@ def create_conn(db_file):
         xbmc.log('%s: Meta_db Connect Failed!' % var.amgr, xbmc.LOGINFO)
         pass
 
-########################## Metadata #########################
-def connect_meta(conn, setting):
+########################## Fen Light Metadata #########################
+def connect_meta_fenlt(conn, setting):
+    try:
+        # Update settings database
+        omdb_api = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+
+        tmdb_api = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        
+        cur = conn.cursor()
+        cur.execute(omdb_api, setting)
+        cur.execute(tmdb_api, setting)
+        conn.commit()
+        cur.close()
+    except:
+        xbmc.log('%s: Meta_db Auth Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+########################## Affenity Metadata #########################
+def connect_meta_affen(conn, setting):
     try:
         # Update settings database
         omdb_api = ''' UPDATE settings
@@ -39,8 +61,6 @@ def connect_meta(conn, setting):
         xbmc.log('%s: Meta_db Auth Failed!' % var.amgr, xbmc.LOGINFO)
         pass
 
-
-
     
 #################### Auth Fen Light Metadata ###################
 def auth_fenlt_meta():
@@ -48,7 +68,8 @@ def auth_fenlt_meta():
         # Create database connection
         conn = create_conn(var.fenlt_settings_db)
         with conn:
-            connect_meta(conn, (your_omdb_api, 'omdb_api'))
+            connect_meta_fenlt(conn, (your_omdb_api, 'omdb_api'))
+            connect_meta_fenlt(conn, (your_tmdb_api, 'tmdb_api'))
     except:
         xbmc.log('%s: Meta_db Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
         pass
@@ -61,7 +82,7 @@ def auth_affen_meta():
         # Create database connection
         conn = create_conn(var.affen_settings_db)
         with conn:
-            connect_meta(conn, (your_omdb_api, 'omdb_api'))
+            connect_meta_affen(conn, (your_omdb_api, 'omdb_api'))
     except:
         xbmc.log('%s: Meta_db afFENity Failed!' % var.amgr, xbmc.LOGINFO)
         pass

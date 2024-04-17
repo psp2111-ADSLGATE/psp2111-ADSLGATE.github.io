@@ -75,14 +75,6 @@ class Auth:
     #Fen Light
         try:
                 if xbmcvfs.exists(var.chk_fenlt) and xbmcvfs.exists(var.chkset_fenlt): #Check that the addon is installed and settings.db exists
-                    #Insert Account Mananger API keys
-                    with open(var.path_fenlt,'r') as f:
-                        data = f.read()
-
-                    client = data.replace(var.fenlt_client,var.client_am).replace(var.fenlt_secret,var.secret_am)
-
-                    with open(var.path_fenlt,'w') as f:
-                        f.write(client)
                         
                     #Create database connection
                     from accountmgr.modules import trakt_db
@@ -284,7 +276,7 @@ class Auth:
                         os.mkdir(var.shadow_ud)
                         xbmcvfs.copy(os.path.join(var.shadow), os.path.join(var.chkset_shadow))
                         
-                if not xbmcvfs.exists(var.chkset_shadow):
+                if xbmcvfs.exists(var.chk_shadow) and not xbmcvfs.exists(var.chkset_shadow):
                         xbmcvfs.copy(os.path.join(var.shadow), os.path.join(var.chkset_shadow))
 
                 if xbmcvfs.exists(var.chk_shadow) and xbmcvfs.exists(var.chkset_shadow):
@@ -313,7 +305,7 @@ class Auth:
                         os.mkdir(var.ghost_ud)
                         xbmcvfs.copy(os.path.join(var.ghost), os.path.join(var.chkset_ghost))
                         
-                if not xbmcvfs.exists(var.chkset_ghost):
+                if xbmcvfs.exists(var.chk_ghost) and not xbmcvfs.exists(var.chkset_ghost):
                         xbmcvfs.copy(os.path.join(var.ghost), os.path.join(var.chkset_ghost))
 
                 if xbmcvfs.exists(var.chk_ghost) and xbmcvfs.exists(var.chkset_ghost):
@@ -342,7 +334,7 @@ class Auth:
                         os.mkdir(var.base_ud)
                         xbmcvfs.copy(os.path.join(var.base), os.path.join(var.chkset_base))
                         
-                if not xbmcvfs.exists(var.chkset_base):
+                if xbmcvfs.exists(var.chk_base) and not xbmcvfs.exists(var.chkset_base):
                         xbmcvfs.copy(os.path.join(var.base), os.path.join(var.chkset_base))
 
                 if xbmcvfs.exists(var.chk_base) and xbmcvfs.exists(var.chkset_base):
@@ -371,7 +363,7 @@ class Auth:
                         os.mkdir(var.unleashed_ud)
                         xbmcvfs.copy(os.path.join(var.unleashed), os.path.join(var.chkset_unleashed))
                         
-                if not xbmcvfs.exists(var.chkset_unleashed):
+                if xbmcvfs.exists(var.chk_unleashed) and not xbmcvfs.exists(var.chkset_unleashed):
                         xbmcvfs.copy(os.path.join(var.unleashed), os.path.join(var.chkset_unleashed))
 
                 if xbmcvfs.exists(var.chk_unleashed) and xbmcvfs.exists(var.chkset_unleashed):
@@ -400,7 +392,7 @@ class Auth:
                         os.mkdir(var.chains_ud)
                         xbmcvfs.copy(os.path.join(var.chains), os.path.join(var.chkset_chains))
                         
-                if not xbmcvfs.exists(var.chkset_chains):
+                if xbmcvfs.exists(var.chk_chains) and not xbmcvfs.exists(var.chkset_chains):
                         xbmcvfs.copy(os.path.join(var.chains), os.path.join(var.chkset_chains))
 
                 if xbmcvfs.exists(var.chk_chains) and xbmcvfs.exists(var.chkset_chains):
@@ -429,7 +421,7 @@ class Auth:
                         os.mkdir(var.md_ud)
                         xbmcvfs.copy(os.path.join(var.md), os.path.join(var.chkset_md))
                         
-                if not xbmcvfs.exists(var.chkset_md):
+                if xbmcvfs.exists(var.chk_md) and not xbmcvfs.exists(var.chkset_md):
                         xbmcvfs.copy(os.path.join(var.md), os.path.join(var.chkset_md))
 
                 if xbmcvfs.exists(var.chk_md) and xbmcvfs.exists(var.chkset_md):
@@ -458,7 +450,7 @@ class Auth:
                         os.mkdir(var.asgard_ud)
                         xbmcvfs.copy(os.path.join(var.asgard), os.path.join(var.chkset_asgard))
                         
-                if not xbmcvfs.exists(var.chkset_asgard):
+                if xbmcvfs.exists(var.chk_asgard) and not xbmcvfs.exists(var.chkset_asgard):
                         xbmcvfs.copy(os.path.join(var.asgard), os.path.join(var.chkset_asgard))
 
                 if xbmcvfs.exists(var.chk_asgard) and xbmcvfs.exists(var.chkset_asgard):
@@ -487,7 +479,7 @@ class Auth:
                         os.mkdir(var.patriot_ud)
                         xbmcvfs.copy(os.path.join(var.patriot), os.path.join(var.chkset_patriot))
                         
-                if not xbmcvfs.exists(var.chkset_patriot):
+                if xbmcvfs.exists(var.chk_patriot) and not xbmcvfs.exists(var.chkset_patriot):
                         xbmcvfs.copy(os.path.join(var.patriot), os.path.join(var.chkset_patriot))
 
                 if xbmcvfs.exists(var.chk_patriot) and xbmcvfs.exists(var.chkset_patriot):
@@ -516,7 +508,7 @@ class Auth:
                         os.mkdir(var.blackl_ud)
                         xbmcvfs.copy(os.path.join(var.blackl), os.path.join(var.chkset_blackl))
                         
-                if not xbmcvfs.exists(var.chkset_blackl):
+                if xbmcvfs.exists(var.chk_blackl) and not xbmcvfs.exists(var.chkset_blackl):
                         xbmcvfs.copy(os.path.join(var.blackl), os.path.join(var.chkset_blackl))
 
                 if xbmcvfs.exists(var.chk_blackl) and xbmcvfs.exists(var.chkset_blackl):
@@ -545,7 +537,7 @@ class Auth:
                         os.mkdir(var.aliunde_ud)
                         xbmcvfs.copy(os.path.join(var.aliunde), os.path.join(var.chkset_aliunde))
                         
-                if not xbmcvfs.exists(var.chkset_aliunde):
+                if xbmcvfs.exists(var.chk_aliunde) and not xbmcvfs.exists(var.chkset_aliunde):
                         xbmcvfs.copy(os.path.join(var.aliunde), os.path.join(var.chkset_aliunde))
 
                 if xbmcvfs.exists(var.chk_aliunde) and xbmcvfs.exists(var.chkset_aliunde):
@@ -574,7 +566,7 @@ class Auth:
                         os.mkdir(var.home_ud)
                         xbmcvfs.copy(os.path.join(var.home), os.path.join(var.chkset_home))
                         
-                if not xbmcvfs.exists(var.chkset_home):
+                if xbmcvfs.exists(var.chk_home) and not xbmcvfs.exists(var.chkset_home):
                         xbmcvfs.copy(os.path.join(var.home), os.path.join(var.chkset_home))
 
                 if xbmcvfs.exists(var.chk_home) and xbmcvfs.exists(var.chkset_home):
@@ -598,7 +590,7 @@ class Auth:
                         os.mkdir(var.quick_ud)
                         xbmcvfs.copy(os.path.join(var.quick), os.path.join(var.chkset_quick))
                         
-                if not xbmcvfs.exists(var.chkset_quick):
+                if xbmcvfs.exists(var.chk_quick) and not xbmcvfs.exists(var.chkset_quick):
                         xbmcvfs.copy(os.path.join(var.quick), os.path.join(var.chkset_quick))
 
                 if xbmcvfs.exists(var.chk_quick) and xbmcvfs.exists(var.chkset_quick):
@@ -622,7 +614,7 @@ class Auth:
                         os.mkdir(var.genocide_ud)
                         xbmcvfs.copy(os.path.join(var.genocide), os.path.join(var.chkset_genocide))
                         
-                if not xbmcvfs.exists(var.chkset_genocide):
+                if xbmcvfs.exists(var.chk_genocide) and not xbmcvfs.exists(var.chkset_genocide):
                         xbmcvfs.copy(os.path.join(var.genocide), os.path.join(var.chkset_genocide))
 
                 if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
@@ -646,7 +638,7 @@ class Auth:
                         os.mkdir(var.absol_ud)
                         xbmcvfs.copy(os.path.join(var.absol), os.path.join(var.chkset_absol))
                         
-                if not xbmcvfs.exists(var.chkset_absol):
+                if xbmcvfs.exists(var.chk_absol) and not xbmcvfs.exists(var.chkset_absol):
                         xbmcvfs.copy(os.path.join(var.absol), os.path.join(var.chkset_absol))
 
                 if xbmcvfs.exists(var.chk_absol) and xbmcvfs.exists(var.chkset_absol):
@@ -670,7 +662,7 @@ class Auth:
                         os.mkdir(var.shazam_ud)
                         xbmcvfs.copy(os.path.join(var.shazam), os.path.join(var.chkset_shazam))
                         
-                if not xbmcvfs.exists(var.chkset_shazam):
+                if xbmcvfs.exists(var.chk_shazam) and not xbmcvfs.exists(var.chkset_shazam):
                         xbmcvfs.copy(os.path.join(var.shazam), os.path.join(var.chkset_shazam))
 
                 if xbmcvfs.exists(var.chk_shazam) and xbmcvfs.exists(var.chkset_shazam):
@@ -694,7 +686,7 @@ class Auth:
                         os.mkdir(var.crew_ud)
                         xbmcvfs.copy(os.path.join(var.crew), os.path.join(var.chkset_crew))
                         
-                if not xbmcvfs.exists(var.chkset_crew):
+                if xbmcvfs.exists(var.chk_crew) and not xbmcvfs.exists(var.chkset_crew):
                         xbmcvfs.copy(os.path.join(var.crew), os.path.join(var.chkset_crew))
                         
                 if xbmcvfs.exists(var.chk_crew) and xbmcvfs.exists(var.chkset_crew):
@@ -723,7 +715,7 @@ class Auth:
                         os.mkdir(var.night_ud)
                         xbmcvfs.copy(os.path.join(var.night), os.path.join(var.chkset_night))
                         
-                if not xbmcvfs.exists(var.chkset_night):
+                if xbmcvfs.exists(var.chk_night) and not xbmcvfs.exists(var.chkset_night):
                         xbmcvfs.copy(os.path.join(var.night), os.path.join(var.chkset_night))
 
                 if xbmcvfs.exists(var.chk_night) and xbmcvfs.exists(var.chkset_night):
@@ -747,7 +739,7 @@ class Auth:
                         os.mkdir(var.lab_ud)
                         xbmcvfs.copy(os.path.join(var.lab), os.path.join(var.chkset_lab))
                         
-                if not xbmcvfs.exists(var.chkset_lab):
+                if xbmcvfs.exists(var.chk_lab) and not xbmcvfs.exists(var.chkset_lab):
                         xbmcvfs.copy(os.path.join(var.lab), os.path.join(var.chkset_lab))
 
                 if xbmcvfs.exists(var.chk_lab) and xbmcvfs.exists(var.chkset_lab):
@@ -771,7 +763,7 @@ class Auth:
                         os.mkdir(var.alvin_ud)
                         xbmcvfs.copy(os.path.join(var.alvin), os.path.join(var.chkset_alvin))
                         
-                if not xbmcvfs.exists(var.chkset_alvin):
+                if xbmcvfs.exists(var.chk_alvin) and not xbmcvfs.exists(var.chkset_alvin):
                         xbmcvfs.copy(os.path.join(var.alvin), os.path.join(var.chkset_alvin))
 
                 if xbmcvfs.exists(var.chk_alvin) and xbmcvfs.exists(var.chkset_alvin):
@@ -795,7 +787,7 @@ class Auth:
                         os.mkdir(var.moria_ud)
                         xbmcvfs.copy(os.path.join(var.moria), os.path.join(var.chkset_moria))
                         
-                if not xbmcvfs.exists(var.chkset_moria):
+                if xbmcvfs.exists(var.chk_moria) and not xbmcvfs.exists(var.chkset_moria):
                         xbmcvfs.copy(os.path.join(var.moria), os.path.join(var.chkset_moria))
 
                 if xbmcvfs.exists(var.chk_moria) and xbmcvfs.exists(var.chkset_moria):
@@ -819,7 +811,7 @@ class Auth:
                         os.mkdir(var.nine_ud)
                         xbmcvfs.copy(os.path.join(var.nine), os.path.join(var.chkset_nine))
                         
-                if not xbmcvfs.exists(var.chkset_nine):
+                if xbmcvfs.exists(var.chk_nine) and not xbmcvfs.exists(var.chkset_nine):
                         xbmcvfs.copy(os.path.join(var.nine), os.path.join(var.chkset_nine))
 
                 if xbmcvfs.exists(var.chk_nine) and xbmcvfs.exists(var.chkset_nine):
@@ -843,7 +835,7 @@ class Auth:
                         os.mkdir(var.scrubs_ud)
                         xbmcvfs.copy(os.path.join(var.scrubs), os.path.join(var.chkset_scrubs))
                         
-                if not xbmcvfs.exists(var.chkset_scrubs):
+                if xbmcvfs.exists(var.chk_scrubs) and not xbmcvfs.exists(var.chkset_scrubs):
                         xbmcvfs.copy(os.path.join(var.scrubs), os.path.join(var.chkset_scrubs))
 
                 if xbmcvfs.exists(var.chk_scrubs) and xbmcvfs.exists(var.chkset_scrubs):
@@ -873,7 +865,7 @@ class Auth:
                         os.mkdir(var.labjr_ud)
                         xbmcvfs.copy(os.path.join(var.labjr), os.path.join(var.chkset_labjr))
                         
-                if not xbmcvfs.exists(var.chkset_labjr):
+                if xbmcvfs.exists(var.chk_labjr) and not xbmcvfs.exists(var.chkset_labjr):
                         xbmcvfs.copy(os.path.join(var.labjr), os.path.join(var.chkset_labjr))
 
                 if xbmcvfs.exists(var.chk_labjr) and xbmcvfs.exists(var.chkset_labjr):
@@ -903,7 +895,7 @@ class Auth:
                         os.mkdir(var.tmdbh_ud)
                         xbmcvfs.copy(os.path.join(var.tmdbh), os.path.join(var.chkset_tmdbh))
                         
-                if not xbmcvfs.exists(var.chkset_tmdbh):
+                if xbmcvfs.exists(var.chk_tmdbh) and not xbmcvfs.exists(var.chkset_tmdbh):
                         xbmcvfs.copy(os.path.join(var.tmdbh), os.path.join(var.chkset_tmdbh))
 
                 if xbmcvfs.exists(var.chk_tmdbh) and xbmcvfs.exists(var.chkset_tmdbh):
@@ -941,7 +933,7 @@ class Auth:
                         os.mkdir(var.trakt_ud)
                         xbmcvfs.copy(os.path.join(var.trakt), os.path.join(var.chkset_trakt))
                         
-                if not xbmcvfs.exists(var.chkset_trakt):
+                if xbmcvfs.exists(var.chk_trakt) and not xbmcvfs.exists(var.chkset_trakt):
                         xbmcvfs.copy(os.path.join(var.trakt), os.path.join(var.chkset_trakt))
                 
                 if xbmcvfs.exists(var.chk_trakt) and xbmcvfs.exists(var.chkset_trakt):
@@ -979,7 +971,7 @@ class Auth:
                         os.mkdir(var.allaccounts_ud)
                         xbmcvfs.copy(os.path.join(var.allaccounts), os.path.join(var.chkset_allaccounts))
                         
-                if not xbmcvfs.exists(var.chkset_allaccounts):
+                if xbmcvfs.exists(var.chk_allaccounts) and not xbmcvfs.exists(var.chkset_allaccounts):
                         xbmcvfs.copy(os.path.join(var.allaccounts), os.path.join(var.chkset_allaccounts))
                         
                 if xbmcvfs.exists(var.chk_allaccounts) and xbmcvfs.exists(var.chkset_allaccounts):
@@ -1009,7 +1001,7 @@ class Auth:
                         os.mkdir(var.myaccounts_ud)
                         xbmcvfs.copy(os.path.join(var.myaccounts), os.path.join(var.chkset_myaccounts))
                         
-                if not xbmcvfs.exists(var.chkset_myaccounts):
+                if xbmcvfs.exists(var.chk_myaccounts) and not xbmcvfs.exists(var.chkset_myaccounts):
                         xbmcvfs.copy(os.path.join(var.myaccounts), os.path.join(var.chkset_myaccounts))
                         
                 if xbmcvfs.exists(var.chk_myaccounts) and xbmcvfs.exists(var.chkset_myaccounts):

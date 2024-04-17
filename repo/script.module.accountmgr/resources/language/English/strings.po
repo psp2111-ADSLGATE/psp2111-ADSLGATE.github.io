@@ -457,7 +457,7 @@ msgid "[COLOR FFA0C12C]-- Disable ONLY if you do not use Trakt --[/COLOR]"
 msgstr ""
 
 msgctxt "#40094"
-msgid "[COLOR FFA0C12C]-- Auto-Sync supported add-ons at start-up --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Enable to auto-sync supported add-ons at start-up --[/COLOR]"
 msgstr ""
 
 msgctxt "#40097"
@@ -473,7 +473,7 @@ msgid "[COLOR FFA0C12C]-- View Supported Debrid Add-ons --[/COLOR]"
 msgstr ""
 
 msgctxt "#40100"
-msgid "[COLOR FFA0C12C]-- View Supported Furk Add-ons --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- View Supported OffCloud Add-ons --[/COLOR]"
 msgstr ""
 
 msgctxt "#40101"
@@ -493,7 +493,7 @@ msgid "[COLOR FFA0C12C]-- View Changelog --[/COLOR]"
 msgstr ""
 
 msgctxt "#40105"
-msgid "[COLOR FFA0C12C]-- Auto Backup Trakt & Debrid data during authorization --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Auto Backup data during authorization/sync actions--[/COLOR]"
 msgstr ""
 
 msgctxt "#40106"
@@ -505,7 +505,7 @@ msgid "Enable Custom Trakt API Keys"
 msgstr """
 
 msgctxt "#40108"
-msgid "[COLOR FFA0C12C]-- Click here for more info --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Click here for more information --[/COLOR]"
 msgstr """
 
 msgctxt "#40109"
@@ -516,4 +516,18 @@ msgctxt "#40110"
 msgid "[COLOR FFA0C12C]-- View Help --[/COLOR]"
 msgstr """
 
+msgctxt "#40111"
+msgid "[COLOR FFA0C12C]-- View Supported Simkl Add-ons --[/COLOR]"
+msgstr ""
 
+msgctxt "#40112"
+msgid "Total Watched = [B]%s[/B]"
+msgstr ""
+
+msgctxt "#40113"
+msgid "Total Movies Watched = [B]%s[/B]"
+msgstr ""
+
+msgctxt "#40114"
+msgid "Total TV Watched = [B]%s[/B]"
+msgstr ""

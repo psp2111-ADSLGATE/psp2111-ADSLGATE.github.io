@@ -91,23 +91,29 @@ class Auth:
                             from accountmgr.modules import meta_db
                             conn = meta_db.create_conn(var.fenlt_settings_db)
                             
-                            #Get add-on settings to compare
+                            #Get OMDb add-on settings to compare
                             with conn:
                                 cursor = conn.cursor()
                                 cursor.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('omdb_api',))
-                                auth_meta = cursor.fetchone()
-                                chk_auth_fenlt = str(auth_meta)
+                                auth_omdb = cursor.fetchone()
+                                chk_auth_fenlt_omdb = str(auth_omdb)
+
+                                cursor.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('tmdb_api',))
+                                auth_tmdb = cursor.fetchone()
+                                chk_auth_fenlt_tmdb = str(auth_tmdb)
                                 
                                 #Clean up database results
                                 for char in char_remov:
-                                    chk_auth_fenlt = chk_auth_fenlt.replace(char, "")
+                                    chk_auth_fenlt_omdb = chk_auth_fenlt_omdb.replace(char, "")
+
+                                for char in char_remov:
+                                    chk_auth_fenlt_tmdb = chk_auth_fenlt_tmdb.replace(char, "")
                                     
-                                if not str(var.chk_accountmgr_omdb) == chk_auth_fenlt: #Compare Account Mananger data to Add-on data. If they match, authorization is skipped
+                                if str(var.chk_accountmgr_omdb) != chk_auth_fenlt_omdb or str(var.chk_accountmgr_tmdb) != chk_auth_fenlt_tmdb: #Compare Account Mananger data to Add-on data. If they match, authorization is skipped
                                     
                                     #Write settings to database
                                     from accountmgr.modules import meta_db
                                     meta_db.auth_fenlt_meta()
-                                cursor.close()
                 except:
                         xbmc.log('%s: Fen Light Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
@@ -318,7 +324,7 @@ class Auth:
                                 os.mkdir(var.crew_ud)
                                 xbmcvfs.copy(os.path.join(var.crew), os.path.join(var.chkset_crew))
                                 
-                        if not xbmcvfs.exists(var.chkset_crew):
+                        if xbmcvfs.exists(var.chk_crew) and not xbmcvfs.exists(var.chkset_crew):
                                 xbmcvfs.copy(os.path.join(var.crew), os.path.join(var.chkset_crew))
 
                         if xbmcvfs.exists(var.chk_crew) and xbmcvfs.exists(var.chkset_crew):
@@ -353,7 +359,7 @@ class Auth:
                                 os.mkdir(var.home_ud)
                                 xbmcvfs.copy(os.path.join(var.home), os.path.join(var.chkset_home))
                                 
-                        if not xbmcvfs.exists(var.chkset_home):
+                        if xbmcvfs.exists(var.chk_home) and not xbmcvfs.exists(var.chkset_home):
                                 xbmcvfs.copy(os.path.join(var.homelander), os.path.join(var.chkset_home))
 
                         if xbmcvfs.exists(var.chk_home) and xbmcvfs.exists(var.chkset_home):
@@ -383,7 +389,7 @@ class Auth:
                                 os.mkdir(var.lab_ud)
                                 xbmcvfs.copy(os.path.join(var.lab), os.path.join(var.chkset_lab))
                                 
-                        if not xbmcvfs.exists(var.chkset_lab):
+                        if xbmcvfs.exists(var.chk_lab) and not xbmcvfs.exists(var.chkset_lab):
                                 xbmcvfs.copy(os.path.join(var.lab), os.path.join(var.chkset_lab))
 
                         if xbmcvfs.exists(var.chk_lab) and xbmcvfs.exists(var.chkset_lab):
@@ -413,7 +419,7 @@ class Auth:
                                 os.mkdir(var.quick_ud)
                                 xbmcvfs.copy(os.path.join(var.quick), os.path.join(var.chkset_quick))
                                 
-                        if not xbmcvfs.exists(var.chkset_quick):
+                        if xbmcvfs.exists(var.chk_quick) and not xbmcvfs.exists(var.chkset_quick):
                                 xbmcvfs.copy(os.path.join(var.quick), os.path.join(var.chkset_quick))
 
                         if xbmcvfs.exists(var.chk_quick) and xbmcvfs.exists(var.chkset_quick):
@@ -443,7 +449,7 @@ class Auth:
                                 os.mkdir(var.genocide_ud)
                                 xbmcvfs.copy(os.path.join(var.genocide), os.path.join(var.chkset_genocide))
                                 
-                        if not xbmcvfs.exists(var.chkset_genocide):
+                        if xbmcvfs.exists(var.chk_genocide) and not xbmcvfs.exists(var.chkset_genocide):
                                 xbmcvfs.copy(os.path.join(var.genocide), os.path.join(var.chkset_genocide))
 
                         if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
@@ -473,7 +479,7 @@ class Auth:
                                 os.mkdir(var.shazam_ud)
                                 xbmcvfs.copy(os.path.join(var.shazam), os.path.join(var.chkset_shazam))
                                 
-                        if not xbmcvfs.exists(var.chkset_shazam):
+                        if xbmcvfs.exists(var.chk_shazam) and not xbmcvfs.exists(var.chkset_shazam):
                                 xbmcvfs.copy(os.path.join(var.shazam), os.path.join(var.chkset_shazam))
 
                         if xbmcvfs.exists(var.chk_shazam) and xbmcvfs.exists(var.chkset_shazam):
@@ -503,7 +509,7 @@ class Auth:
                                 os.mkdir(var.night_ud)
                                 xbmcvfs.copy(os.path.join(var.night), os.path.join(var.chkset_night))
                                 
-                        if not xbmcvfs.exists(var.chkset_night):
+                        if xbmcvfs.exists(var.chk_night) and not xbmcvfs.exists(var.chkset_night):
                                 xbmcvfs.copy(os.path.join(var.night), os.path.join(var.chkset_night))
                         
                         if xbmcvfs.exists(var.chk_night) and xbmcvfs.exists(var.chkset_night):
@@ -533,7 +539,7 @@ class Auth:
                                 os.mkdir(var.alvin_ud)
                                 xbmcvfs.copy(os.path.join(var.alvin), os.path.join(var.chkset_alvin))
                                 
-                        if not xbmcvfs.exists(var.chkset_alvin):
+                        if xbmcvfs.exists(var.chk_alvin) and not xbmcvfs.exists(var.chkset_alvin):
                                 xbmcvfs.copy(os.path.join(var.alvin), os.path.join(var.chkset_alvin))
 
                         if xbmcvfs.exists(var.chk_alvin) and xbmcvfs.exists(var.chkset_alvin):
@@ -563,7 +569,7 @@ class Auth:
                                 os.mkdir(var.moria_ud)
                                 xbmcvfs.copy(os.path.join(var.moria), os.path.join(var.chkset_moria))
                                 
-                        if not xbmcvfs.exists(var.chkset_moria):
+                        if xbmcvfs.exists(var.chk_moria) and not xbmcvfs.exists(var.chkset_moria):
                                 xbmcvfs.copy(os.path.join(var.moria), os.path.join(var.chkset_moria))
 
                         if xbmcvfs.exists(var.chk_moria) and xbmcvfs.exists(var.chkset_moria):
@@ -593,7 +599,7 @@ class Auth:
                                 os.mkdir(var.absol_ud)
                                 xbmcvfs.copy(os.path.join(var.absol), os.path.join(var.chkset_absol))
                                 
-                        if not xbmcvfs.exists(var.chkset_absol):
+                        if xbmcvfs.exists(var.chk_absol) and not xbmcvfs.exists(var.chkset_absol):
                                 xbmcvfs.copy(os.path.join(var.absol), os.path.join(var.chkset_absol))
 
                         if xbmcvfs.exists(var.chk_absol) and xbmcvfs.exists(var.chkset_absol):
@@ -623,7 +629,7 @@ class Auth:
                                 os.mkdir(var.nine_ud)
                                 xbmcvfs.copy(os.path.join(var.nine), os.path.join(var.chkset_nine))
                                 
-                        if not xbmcvfs.exists(var.chkset_nine):
+                        if xbmcvfs.exists(var.chk_nine) and not xbmcvfs.exists(var.chkset_nine):
                                 xbmcvfs.copy(os.path.join(var.nine), os.path.join(var.chkset_nine))
 
                         if xbmcvfs.exists(var.chk_nine) and xbmcvfs.exists(var.chkset_nine):
@@ -653,7 +659,7 @@ class Auth:
                                 os.mkdir(var.tmdbh_ud)
                                 xbmcvfs.copy(os.path.join(var.tmdbh), os.path.join(var.chkset_tmdbh))
                                 
-                        if not xbmcvfs.exists(var.chkset_tmdbh):
+                        if xbmcvfs.exists(var.chk_tmdbh) and not xbmcvfs.exists(var.chkset_tmdbh):
                                 xbmcvfs.copy(os.path.join(var.tmdbh), os.path.join(var.chkset_tmdbh))
 
                         if xbmcvfs.exists(var.chk_tmdbh) and xbmcvfs.exists(var.chkset_tmdbh):
@@ -683,7 +689,7 @@ class Auth:
                                 os.mkdir(var.embuary_ud)
                                 xbmcvfs.copy(os.path.join(var.embuary), os.path.join(var.chkset_embuary))
                                 
-                        if not xbmcvfs.exists(var.chkset_embuary):
+                        if xbmcvfs.exists(var.chk_embuary) and not xbmcvfs.exists(var.chkset_embuary):
                                 xbmcvfs.copy(os.path.join(var.embuary), os.path.join(var.chkset_embuary))
 
                         if xbmcvfs.exists(var.chk_embuary) and xbmcvfs.exists(var.chkset_embuary):
@@ -708,7 +714,7 @@ class Auth:
                                 os.mkdir(var.meta_ud)
                                 xbmcvfs.copy(os.path.join(var.meta), os.path.join(var.chkset_meta))
                                 
-                        if not xbmcvfs.exists(var.chkset_meta):
+                        if xbmcvfs.exists(var.chk_meta) and not xbmcvfs.exists(var.chkset_meta):
                                 xbmcvfs.copy(os.path.join(var.meta), os.path.join(var.chkset_meta))
 
                         if xbmcvfs.exists(var.chk_meta) and xbmcvfs.exists(var.chkset_meta):
@@ -758,7 +764,7 @@ class Auth:
                                 os.mkdir(var.pvr_ud)
                                 xbmcvfs.copy(os.path.join(var.pvr), os.path.join(var.chkset_pvr))
                                 
-                        if not xbmcvfs.exists(var.chkset_tmdbh):
+                        if xbmcvfs.exists(var.chk_pvr) and not xbmcvfs.exists(var.chkset_tmdbh):
                                 xbmcvfs.copy(os.path.join(var.tmdbh), os.path.join(var.chkset_tmdbh))
 
                         if xbmcvfs.exists(var.chk_pvr) and xbmcvfs.exists(var.chkset_pvr):
@@ -797,7 +803,7 @@ class Auth:
                                 os.mkdir(var.allaccounts_ud)
                                 xbmcvfs.copy(os.path.join(var.allaccounts), os.path.join(var.chkset_allaccounts))
                                 
-                        if not xbmcvfs.exists(var.chkset_allaccounts):
+                        if xbmcvfs.exists(var.chk_allaccounts) and not xbmcvfs.exists(var.chkset_allaccounts):
                                 xbmcvfs.copy(os.path.join(var.allaccounts), os.path.join(var.chkset_allaccounts))
 
                         if xbmcvfs.exists(var.chk_allaccounts) and xbmcvfs.exists(var.chkset_allaccounts):
@@ -843,7 +849,7 @@ class Auth:
                                 os.mkdir(var.myaccounts_ud)
                                 xbmcvfs.copy(os.path.join(var.myaccounts), os.path.join(var.chkset_myaccounts))
                                 
-                        if not xbmcvfs.exists(var.chkset_myaccounts):
+                        if xbmcvfs.exists(var.chk_myaccounts) and not xbmcvfs.exists(var.chkset_myaccounts):
                                 xbmcvfs.copy(os.path.join(var.myaccounts), os.path.join(var.chkset_myaccounts))
                         
                         if xbmcvfs.exists(var.chk_myaccounts) and xbmcvfs.exists(var.chkset_myaccounts):

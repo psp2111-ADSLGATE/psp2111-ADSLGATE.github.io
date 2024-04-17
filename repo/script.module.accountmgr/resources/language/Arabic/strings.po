@@ -474,8 +474,8 @@ msgid "[COLOR FFA0C12C]-- View Supported Debrid Add-ons --[/COLOR]"
 msgstr "[COLOR FFA0C12C]-- عرض الاضافات الداعمة لـDebrid --[/COLOR]"
 
 msgctxt "#40100"
-msgid "[COLOR FFA0C12C]-- View Supported Furk Add-ons --[/COLOR]"
-msgstr "[COLOR FFA0C12C]-- عرض الاضافات الداعمة لـFurk --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- View Supported OffCloud Add-ons --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- عرض الاضافات الداعمة لـOffCloud --[/COLOR]"
 
 msgctxt "#40101"
 msgid "[COLOR FFA0C12C]-- View Supported Easynews Add-ons --[/COLOR]"
@@ -496,3 +496,39 @@ msgstr "[COLOR FFA0C12C]-- عرض سجل التغييرات --[/COLOR]"
 msgctxt "#40105"
 msgid "[COLOR FFA0C12C]-- Auto Backup Trakt & Debrid data during authorization --[/COLOR]"
 msgstr "[COLOR FFA0C12C]-- أخذ نسخة احتياطية لبيانات Trakt و Debrid خلال عملية المزامنة --[/COLOR]"
+
+msgctxt "#40106"
+msgid "[COLOR FFA0C12C]-- Builders can add they own Custom Trakt keys here --[/COLOR]"
+msgstr """
+
+msgctxt "#40107"
+msgid "Enable Custom Trakt API Keys"
+msgstr """
+
+msgctxt "#40108"
+msgid "[COLOR FFA0C12C]-- Click here for more information --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- للمزيد من المعلومات --[/COLOR]"
+
+msgctxt "#40109"
+msgid "[COLOR FFA0C12C]-- View Readme --[/COLOR]"
+msgstr """
+
+msgctxt "#40110"
+msgid "[COLOR FFA0C12C]-- View Help --[/COLOR]"
+msgstr """
+
+msgctxt "#40111"
+msgid "[COLOR FFA0C12C]-- View Supported Simkl Add-ons --[/COLOR]"
+msgstr ""
+
+msgctxt "#40112"
+msgid "Total Watched = [B]%s[/B]"
+msgstr ""
+
+msgctxt "#40113"
+msgid "Total Movies Watched = [B]%s[/B]"
+msgstr ""
+
+msgctxt "#40114"
+msgid "Total TV Watched = [B]%s[/B]"
+msgstr ""

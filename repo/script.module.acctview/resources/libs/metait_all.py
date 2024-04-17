@@ -650,18 +650,17 @@ def create_conn(db_file):
 def debrid_user_fanart(who):
     user_fanart = None
     if DEBRIDID[who]:
-        if os.path.exists(DEBRIDID[who]['path']):
-            name = DEBRIDID[who]['name']
-            if name == 'Fen Light':
-                user_fanart = ''
-            if name == 'afFENity':
-                user_fanart = ''
-        else:
-            try:
-                add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                user_fanart = add.getSetting(DEBRIDID[who]['default_fanart'])
-            except:
-                pass
+        name = DEBRIDID[who]['name']
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'Fen Light':
+            user_fanart = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
+            user_fanart = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name != 'Fen Light' or name != 'afFENity':
+                try:
+                    add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
+                    user_fanart = add.getSetting(DEBRIDID[who]['default_fanart'])
+                except:
+                    pass
     return user_fanart
 
 def debrid_user_omdb(who):
@@ -715,120 +714,130 @@ def debrid_user_omdb(who):
 def debrid_user_mdb(who):
     user_mdb = None
     if DEBRIDID[who]:
-        if os.path.exists(DEBRIDID[who]['path']):
-            name = DEBRIDID[who]['name']
-            if name == 'Fen Light':
-                user_mdb = ''
-            if name == 'afFENity':
-                user_mdb = ''
-        else:
-            try:
-                add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                user_mdb = add.getSetting(DEBRIDID[who]['default_mdb'])
-            except:
-                pass
+        name = DEBRIDID[who]['name']
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'Fen Light':
+            user_mdb = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
+            user_mdb = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name != 'Fen Light' or name != 'afFENity':
+                try:
+                    add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
+                    user_mdb = add.getSetting(DEBRIDID[who]['default_mdb'])
+                except:
+                    pass
     return user_mdb
 
 def debrid_user_imdb(who):
     user_imdb = None
     if DEBRIDID[who]:
-        if os.path.exists(DEBRIDID[who]['path']):
-            name = DEBRIDID[who]['name']
-            if name == 'Fen Light':
-                user_imdb = ''
-            if name == 'afFENity':
-                user_imdb = ''
-        else:
-            try:
-                add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                user_imdb = add.getSetting(DEBRIDID[who]['default_imdb'])
-            except:
-                pass
+        name = DEBRIDID[who]['name']
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'Fen Light':
+            user_imdb = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
+            user_imdb = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name != 'Fen Light' or name != 'afFENity':
+                try:
+                    add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
+                    user_imdb = add.getSetting(DEBRIDID[who]['default_imdb'])
+                except:
+                    pass
     return user_imdb
 
 def debrid_user_tvdb(who):
     user_tvdb = None
     if DEBRIDID[who]:
-        if os.path.exists(DEBRIDID[who]['path']):
-            name = DEBRIDID[who]['name']
-            if name == 'Fen Light':
-                user_tvdb = ''
-            if name == 'afFENity':
-                user_tvdb = ''
-        else:
-            try:
-                add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                user_tvdb = add.getSetting(DEBRIDID[who]['default_tvdb'])
-            except:
-                pass
+        name = DEBRIDID[who]['name']
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'Fen Light':
+            user_tvdb = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
+            user_tvdb = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name != 'Fen Light' or name != 'afFENity':
+                try:
+                    add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
+                    user_tvdb = add.getSetting(DEBRIDID[who]['default_tvdb'])
+                except:
+                    pass
     return user_tvdb
 
 def debrid_user_tmdb(who):
     user_tmdb = None
     if DEBRIDID[who]:
-        if os.path.exists(DEBRIDID[who]['path']):
-            name = DEBRIDID[who]['name']
-            if name == 'Fen Light':
-                user_tmdb = ''
-            if name == 'afFENity':
-                user_tmdb = ''
-        else:
+        name = DEBRIDID[who]['name']
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'Fen Light':
             try:
-                add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                user_tmdb = add.getSetting(DEBRIDID[who]['default_tmdb'])
+                # Create database connection
+                conn = create_conn(var.fenlt_settings_db)
+                with conn:
+                    cur = conn.cursor()
+                    cur.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('tmdb_api',)) #Get setting to compare
+                    auth = cur.fetchone()
+                    user_data = str(auth)
+
+                    if user_data == "('empty_setting',)" or user_data == "('',)" or user_data == '' or user_data == None: #Check if addon is authorized
+                        user_tmdb = None #Return if not authorized
+                    else:
+                        user_tmdb = user_data #Return if authorized
+                    cur.close()
             except:
+                xbmc.log('%s: Metait_all Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
+        elif os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
+            user_tmdb = ''
+        else:
+            if os.path.exists(DEBRIDID[who]['path']):
+                try:
+                    add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
+                    user_omdb = add.getSetting(DEBRIDID[who]['default_tmdb'])
+                except:
+                    pass
     return user_tmdb
 
 def debrid_user_tmdb_user(who):
     user_tmdb_user = None
     if DEBRIDID[who]:
-        if os.path.exists(DEBRIDID[who]['path']):
-            name = DEBRIDID[who]['name']
-            if name == 'Fen Light':
-                user_tmdb_user = ''
-            if name == 'afFENity':
-                user_tmdb_user = ''
-        else:
-            try:
-                add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                user_tmdb_user = add.getSetting(DEBRIDID[who]['default_tmdb_user'])
-            except:
-                pass
+        name = DEBRIDID[who]['name']
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'Fen Light':
+            user_tmdb_user = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
+            user_tmdb_user = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name != 'Fen Light' or name != 'afFENity':
+                try:
+                    add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
+                    user_tmdb_user = add.getSetting(DEBRIDID[who]['default_tmdb_user'])
+                except:
+                    pass
     return user_tmdb_user
 
 def debrid_user_tmdb_pass(who):
     user_tmdb_pass = None
     if DEBRIDID[who]:
-        if os.path.exists(DEBRIDID[who]['path']):
-            name = DEBRIDID[who]['name']
-            if name == 'Fen Light':
-                user_tmdb_pass = ''
-            if name == 'afFENity':
-                user_tmdb_pass = ''
-        else:
-            try:
-                add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                user_tmdb_pass = add.getSetting(DEBRIDID[who]['default_tmdb_pass'])
-            except:
-                pass
+        name = DEBRIDID[who]['name']
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'Fen Light':
+            user_tmdb_pass = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
+            user_tmdb_pass = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name != 'Fen Light' or name != 'afFENity':
+                try:
+                    add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
+                    user_tmdb_pass = add.getSetting(DEBRIDID[who]['default_tmdb_pass'])
+                except:
+                    pass
     return user_tmdb_pass
 
 def debrid_user_tmdb_session(who):
     user_tmdb_session = None
     if DEBRIDID[who]:
-        if os.path.exists(DEBRIDID[who]['path']):
-            name = DEBRIDID[who]['name']
-            if name == 'Fen Light':
-                user_tmdb_session = ''
-            if name == 'afFENity':
-                user_tmdb_session = ''
-        else:
-            try:
-                add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                user_tmdb_session = add.getSetting(DEBRIDID[who]['default_tmdb_session'])
-            except:
-                pass
+        name = DEBRIDID[who]['name']
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'Fen Light':
+            user_tmdb_session = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
+            user_tmdb_session = ''
+        if os.path.exists(DEBRIDID[who]['path']) and name != 'Fen Light' or name != 'afFENity':
+                try:
+                    add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
+                    user_tmdb_session = add.getSetting(DEBRIDID[who]['default_tmdb_session'])
+                except:
+                    pass
     return user_tmdb_session
 
 def debrid_it(do, who):
@@ -868,7 +877,6 @@ def clear_saved(who, over=False):
             os.remove(file)
     if not over:
         xbmc.executebuiltin('Container.Refresh()')
-
 
 def update_debrid(do, who):
     file = DEBRIDID[who]['file']
@@ -922,6 +930,7 @@ def update_debrid(do, who):
                 logging.log("[Debrid Info] Unable to Restore {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
         else:
             logging.log('Debrid Info Not Found for {0}'.format(name))
+        xbmc.executebuiltin('Container.Refresh()')
     elif do == 'clearaddon':
         logging.log('{0} SETTINGS: {1}'.format(name, settings))
         if name == 'Fen Light':
@@ -972,7 +981,6 @@ def auto_update(who):
             else:
                 debrid_it('update', who)
 
-
 def import_list(who):
     if who == 'all':
         for log in DEBRIDID:
@@ -998,7 +1006,6 @@ def import_list(who):
 
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]Debrid Info: Imported![/COLOR]'.format(CONFIG.COLOR2))
-
 
 def open_settings_debrid(who):
     addonid = tools.get_addon_by_id(DEBRIDID[who]['plugin'])

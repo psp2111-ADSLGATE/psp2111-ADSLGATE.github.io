@@ -26,14 +26,29 @@
     <setting id="context.marked.watched">true</setting>
     <setting id="general.icons">4</setting>
     <setting id="general.dialog" default="true">0</setting>
+    <setting id="general.malposters" default="true">false</setting>
     <setting id="scraping.fanart" default="true">false</setting>
     <setting id="scraping.clearlogo" default="true">false</setting>
+    <setting id="download.location" default="true" />
+    <setting id="change_log" default="true" />
+    <setting id="clear_cache" default="true" />
+    <setting id="clear_torrent_cache" default="true" />
+    <setting id="clear_history" default="true" />
+    <setting id="rebuild_database" default="true" />
+    <setting id="wipe_addon_data" default="true" />
+    <setting id="reuselanguageinvoker.status" default="true">Disabled</setting>
+    <setting id="reuselanguageinvoker.toggle" default="true" />
+    <setting id="fs_enable" default="true">false</setting>
+    <setting id="fs_instructions" default="true" />
+    <setting id="fs_url" default="true">http://localhost:8191/v1</setting>
+    <setting id="fs_timeout">60</setting>
     <setting id="provider.animetosho">true</setting>
     <setting id="provider.nyaa">true</setting>
     <setting id="provider.nyaaalt" default="true">false</setting>
-    <setting id="provider.aniwatch">true</setting>
-    <setting id="provider.aniwatch_region" default="true">false</setting>
+    <setting id="provider.hianime">true</setting>
+    <setting id="provider.hianime_region" default="true">false</setting>
     <setting id="provider.aniwave">true</setting>
+    <setting id="provider.aniwavealt" default="true">false</setting>
     <setting id="provider.animix">true</setting>
     <setting id="provider.animixalt" default="true">false</setting>
     <setting id="provider.animepahe">true</setting>
@@ -46,23 +61,25 @@
     <setting id="embed.doodstream">true</setting>
     <setting id="embed.filelions">true</setting>
     <setting id="embed.filemoon">true</setting>
+    <setting id="embed.hd-1" default="true">false</setting>
+    <setting id="embed.hd-2">true</setting>
     <setting id="embed.iga">true</setting>
     <setting id="embed.kwik">true</setting>
-    <setting id="embed.megacloud">true</setting>
     <setting id="embed.mp4upload">true</setting>
     <setting id="embed.mycloud">true</setting>
     <setting id="embed.streamtape">true</setting>
     <setting id="embed.streamwish">true</setting>
     <setting id="embed.vidcdn">true</setting>
     <setting id="embed.vidplay">true</setting>
-    <setting id="embed.vidstreaming" default="true">false</setting>
     <setting id="embed.yourupload">true</setting>
     <setting id="embed.zto">true</setting>
-    <setting id="general.playstyle.movie" default="true">0</setting>
-    <setting id="general.playstyle.episode" default="true">0</setting>
     <setting id="general.autotrynext">true</setting>
     <setting id="general.timeout">30</setting>
     <setting id="general.terminate.oncloud">true</setting>
+    <setting id="premiumize.cloudInspection" default="true">false</setting>
+    <setting id="rd.cloudInspection" default="true">false</setting>
+    <setting id="general.playstyle.movie" default="true">0</setting>
+    <setting id="general.playstyle.episode" default="true">0</setting>
     <setting id="general.kodi_language" default="true">false</setting>
     <setting id="general.audio" default="true">0</setting>
     <setting id="general.subtitles">1</setting>
@@ -92,6 +109,14 @@
     <setting id="general.movie.minGB" default="true">0</setting>
     <setting id="general.episode.maxGB">10</setting>
     <setting id="general.episode.minGB" default="true">0</setting>
+    <setting id="general.release_title_filter.enabled" default="true">false</setting>
+    <setting id="general.release_title_filter.selection" default="true">0</setting>
+    <setting id="general.release_title_filter.logic" default="true">0</setting>
+    <setting id="general.release_title_filter.value1" default="true" />
+    <setting id="general.release_title_filter.value2" default="true" />
+    <setting id="general.release_title_filter.value3" default="true" />
+    <setting id="general.release_title_filter.value4" default="true" />
+    <setting id="general.release_title_filter.value5" default="true" />
     <setting id="general.manual.select" default="true">false</setting>
     <setting id="general.sortsources" default="true">0</setting>
     <setting id="general.prioritize_dualaudio" default="true">false</setting>
@@ -114,12 +139,10 @@
     <setting id="premiumize.username" default="true" />
     <setting id="premiumize.auth_start" default="true" />
     <setting id="premiumize.priority">10</setting>
-    <setting id="premiumize.cloudInspection" default="true">false</setting>
     <setting id="realdebrid.enabled" default="true">false</setting>
     <setting id="rd.username" default="true" />
     <setting id="rd.auth_start" default="true" />
     <setting id="rd.priority">10</setting>
-    <setting id="rd.cloudInspection" default="true">false</setting>
     <setting id="watchlist.update.enabled" default="true">false</setting>
     <setting id="watchlist.update.flavor" default="true">MAL</setting>
     <setting id="watchlist.update.percent">80</setting>
@@ -322,16 +345,4 @@
     <setting id="anilist_genre_sports_tv">true</setting>
     <setting id="anilist_genre_supernatural_tv">true</setting>
     <setting id="anilist_genre_thriller_tv">true</setting>
-    <setting id="change_log" default="true" />
-    <setting id="clear_cache" default="true" />
-    <setting id="clear_torrent_cache" default="true" />
-    <setting id="clear_history" default="true" />
-    <setting id="rebuild_database" default="true" />
-    <setting id="wipe_addon_data" default="true" />
-    <setting id="reuselanguageinvoker.status" default="true">Disabled</setting>
-    <setting id="reuselanguageinvoker.toggle" default="true" />
-    <setting id="fs_enable" default="true">false</setting>
-    <setting id="fs_instructions" default="true" />
-    <setting id="fs_url" default="true">http://localhost:8191/v1</setting>
-    <setting id="fs_timeout">60</setting>
 </settings>

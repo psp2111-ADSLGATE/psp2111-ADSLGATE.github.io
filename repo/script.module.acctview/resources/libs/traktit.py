@@ -773,7 +773,6 @@ def auto_update(who):
             else:
                 trakt_it('update', who)
 
-
 def import_list(who):
     if who == 'all':
         for log in TRAKTID:
@@ -799,7 +798,6 @@ def import_list(who):
 
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]Trakt Data: Imported![/COLOR]'.format(CONFIG.COLOR2))
-
 
 def open_settings_trakt(who):
     addonid = tools.get_addon_by_id(TRAKTID[who]['plugin'])

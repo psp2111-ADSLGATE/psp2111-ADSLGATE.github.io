@@ -6,6 +6,7 @@ import os.path
 import vars
 from pathlib import Path
 
+joinPath = os.path.join
 translatePath = xbmcvfs.translatePath
 addon = xbmcaddon.Addon("script.module.accountmgr")
 setting = addon.getSetting
@@ -15,7 +16,7 @@ addon_acctv = xbmcaddon.Addon
 addon_acctvObject = addon_acctv('script.module.acctview')
 addon_acctvInfo = addon_acctvObject.getAddonInfo
 getLangString = xbmcaddon.Addon().getLocalizedString
-joinPath = os.path.join
+
 
 class Config:
     def __init__(self):
@@ -44,8 +45,7 @@ class Config:
         self.COLOR1 = vars.COLOR1
         self.COLOR2 = vars.COLOR2
         self.THEME2 = vars.THEME2
-        self.THEME3 = vars.THEME3
-        
+        self.THEME3 = vars.THEME3        
 
     def init_paths(self):
         # Default special paths
@@ -67,17 +67,17 @@ class Config:
         self.ADDON_DATA_TRAKT = os.path.join(self.USERDATA, 'addon_data')
         self.ADDON_DATA_DEBRID = os.path.join(self.USERDATA, 'addon_data')
         self.PLUGIN_DATA = os.path.join(self.ADDON_DATA, self.ADDON_ID)
-        self.PLUGIN_DATA_TRAKT = os.path.join(backup_path)
-        self.PLUGIN_DATA_DEBRID = os.path.join(backup_path)
-        self.DEBRIDFOLD = os.path.join(self.PLUGIN_DATA_DEBRID, 'debrid')
-        self.DEBRIDFOLD_RD = os.path.join(self.PLUGIN_DATA_DEBRID, 'realdebrid')
-        self.DEBRIDFOLD_PM = os.path.join(self.PLUGIN_DATA_DEBRID, 'premiumize')
-        self.DEBRIDFOLD_AD = os.path.join(self.PLUGIN_DATA_DEBRID, 'alldebrid')
-        self.NONDEBRIDFOLD = os.path.join(self.PLUGIN_DATA_DEBRID, 'nondebrid')
-        self.METAFOLD = os.path.join(self.PLUGIN_DATA_DEBRID, 'meta')
-        self.TRAKTFOLD = os.path.join(self.PLUGIN_DATA_TRAKT, 'trakt')
+        self.PLUGIN_DATA_BACKUP = os.path.join(backup_path)
+        self.TRAKTFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'trakt')
+        self.DEBRIDFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'debrid')
+        self.DEBRIDFOLD_RD = os.path.join(self.PLUGIN_DATA_BACKUP, 'realdebrid')
+        self.DEBRIDFOLD_PM = os.path.join(self.PLUGIN_DATA_BACKUP, 'premiumize')
+        self.DEBRIDFOLD_AD = os.path.join(self.PLUGIN_DATA_BACKUP, 'alldebrid')
+        self.OFFCFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'offcloud')
+        self.EASYFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'easynews')
+        self.FILEFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'filepursuit')
+        self.METAFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'meta')
         self.LOGINFOLD = os.path.join(self.PLUGIN_DATA, 'login')
-
         
     def init_settings(self):
         # Logging variables

@@ -32,6 +32,18 @@ def get_supported_trakt():
 	windows.run()
 	del windows
 
+def get_supported_simkl():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	changelogfile = joinPath(supported_path, 'supported_simkl.txt')
+	r = open(changelogfile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager - Supported Simkl Add-ons[/B]'
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+
 def get_supported_debrid():
 	accountmgr_path = addonPath()
 	accountmgr_version = addonVersion()
@@ -44,14 +56,14 @@ def get_supported_debrid():
 	windows.run()
 	del windows
 	
-def get_supported_furk():
+def get_supported_offcloud():
 	accountmgr_path = addonPath()
 	accountmgr_version = addonVersion()
-	changelogfile = joinPath(supported_path, 'supported_furk.txt')
+	changelogfile = joinPath(supported_path, 'supported_offcloud.txt')
 	r = open(changelogfile, 'r', encoding='utf-8', errors='ignore')
 	text = r.read()
 	r.close()
-	heading = '[B]Account Manager - Supported Furk Add-ons[/B]'
+	heading = '[B]Account Manager - Supported OffCloud Add-ons[/B]'
 	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
 	windows.run()
 	del windows

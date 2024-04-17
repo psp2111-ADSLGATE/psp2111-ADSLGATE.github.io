@@ -105,8 +105,54 @@ def connect_ad(conn, setting):
         xbmc.log('%s: Databit_db AD Failed!' % var.amgr, xbmc.LOGINFO)
         pass
 
-######################### Trakt #########################
-def connect_trakt(conn, setting):
+
+######################### Fen Light Trakt #########################
+def connect_trakt_fenlt(conn, setting):
+    try:
+        # Update settings database
+        trakt_client = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        trakt_secret = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        trakt_token = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        trakt_user = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        trakt_refresh = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        trakt_expires = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        trakt_watched_indicators = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        trakt_watched_indicators_name = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+
+        cur = conn.cursor()
+        cur.execute(trakt_client, setting)
+        cur.execute(trakt_secret, setting)
+        cur.execute(trakt_token, setting)
+        cur.execute(trakt_user, setting)
+        cur.execute(trakt_refresh, setting)
+        cur.execute(trakt_expires, setting)
+        cur.execute(trakt_watched_indicators, setting)
+        cur.execute(trakt_watched_indicators_name, setting)
+        conn.commit()
+        cur.close()
+    except:
+        xbmc.log('%s: Databit_db Trakt Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+
+    
+######################### Affenity Trakt #########################
+def connect_trakt_affen(conn, setting):
     try:
         # Update settings database
         trakt_token = ''' UPDATE settings
@@ -165,8 +211,28 @@ def connect_easy(conn, setting):
         xbmc.log('%s: Databit_db Easynews Failed!' % var.amgr, xbmc.LOGINFO)
         pass
 
-######################### Metadata #########################
-def connect_meta(conn, setting):
+######################### Fen Light Metadata #########################
+def connect_meta_fenlt(conn, setting):
+    try:
+        # Update settings database
+        omdb_api = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        tmdb_api = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+
+        cur = conn.cursor()
+        cur.execute(omdb_api, setting)
+        cur.execute(tmdb_api, setting)
+        conn.commit()
+        cur.close()
+    except:
+        xbmc.log('%s: Databit_db Metadata Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+######################### Affenity Metadata #########################
+def connect_meta_affen(conn, setting):
     try:
         # Update settings database
         omdb_api = ''' UPDATE settings
@@ -743,6 +809,26 @@ def restore_fenlt_trakt():
         cur_p = conn_p.cursor()
         cur_t = conn_t.cursor()
 
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('trakt.client',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'trakt.client',))
+
+        conn_t.commit()
+
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('trakt.secret',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'trakt.secret',))
+
+        conn_t.commit()
+        
         cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('trakt.token',))
         data = cur_p.fetchone()
         data_set = str(data)
@@ -814,12 +900,14 @@ def revoke_fenlt_trakt():
         # Create database connection
         conn = create_conn(var.fenlt_settings_db)
         with conn:
-            connect_trakt(conn, ('empty_setting', 'trakt.token'))
-            connect_trakt(conn, ('empty_setting', 'trakt.user'))
-            connect_trakt(conn, ('empty_setting', 'trakt.refresh'))
-            connect_trakt(conn, ('empty_setting', 'trakt.expires'))
-            connect_trakt(conn, (0, 'watched_indicators'))
-            connect_trakt(conn, ('Fen Light', 'watched_indicators_name'))
+            connect_trakt_fenlt(conn, (var.fenlt_client, 'trakt.client'))
+            connect_trakt_fenlt(conn, (var.fenlt_secret, 'trakt.secret'))
+            connect_trakt_fenlt(conn, ('empty_setting', 'trakt.token'))
+            connect_trakt_fenlt(conn, ('empty_setting', 'trakt.user'))
+            connect_trakt_fenlt(conn, ('empty_setting', 'trakt.refresh'))
+            connect_trakt_fenlt(conn, ('empty_setting', 'trakt.expires'))
+            connect_trakt_fenlt(conn, (0, 'watched_indicators'))
+            connect_trakt_fenlt(conn, ('Fen Light', 'watched_indicators_name'))
     except:
         xbmc.log('%s: Databit_db Revoke Fen Light Trakt Failed!' % var.amgr, xbmc.LOGINFO)
         pass
@@ -929,12 +1017,12 @@ def revoke_affen_trakt():
         # Create database connection
         conn = create_conn(var.affen_settings_db)
         with conn:
-            connect_trakt(conn, ('empty_setting', 'trakt.token'))
-            connect_trakt(conn, ('empty_setting', 'trakt.user'))
-            connect_trakt(conn, ('empty_setting', 'trakt.refresh'))
-            connect_trakt(conn, ('empty_setting', 'trakt.expires'))
-            connect_trakt(conn, (0, 'watched_indicators'))
-            connect_trakt(conn, ('afFENity', 'watched_indicators_name'))
+            connect_trakt_affen(conn, ('empty_setting', 'trakt.token'))
+            connect_trakt_affen(conn, ('empty_setting', 'trakt.user'))
+            connect_trakt_affen(conn, ('empty_setting', 'trakt.refresh'))
+            connect_trakt_affen(conn, ('empty_setting', 'trakt.expires'))
+            connect_trakt_affen(conn, (0, 'watched_indicators'))
+            connect_trakt_affen(conn, ('afFENity', 'watched_indicators_name'))
     except:
         xbmc.log('%s: Databit_db Revoke afFENity Trakt Failed!' % var.amgr, xbmc.LOGINFO)
         pass
@@ -1022,7 +1110,7 @@ def revoke_fenlt_easy():
     
 ############################ Backup Easynews ############################
 def backup_fenlt_easy():
-    if os.path.exists(os.path.join(var.fenlt_settings_db)) and os.path.exists(os.path.join(var.non_backup)):
+    if os.path.exists(os.path.join(var.fenlt_settings_db)) and os.path.exists(os.path.join(var.easy_backup)):
         try:
             xbmcvfs.copy(os.path.join(var.fenlt_settings_db), os.path.join(var.easy_backup_fenlt))
         except:
@@ -1103,7 +1191,7 @@ def revoke_affen_easy():
     
 ############################ Backup Easynews ############################
 def backup_affen_easy():
-    if os.path.exists(os.path.join(var.affen_settings_db)) and os.path.exists(os.path.join(var.non_backup)):
+    if os.path.exists(os.path.join(var.affen_settings_db)) and os.path.exists(os.path.join(var.easy_backup)):
         try:
             xbmcvfs.copy(os.path.join(var.affen_settings_db), os.path.join(var.easy_backup_affen))
         except:
@@ -1137,12 +1225,22 @@ def restore_fenlt_meta():
         cur_t = conn_t.cursor()
 
         cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('omdb_api',))
-        data = cur_p.fetchone()
-        data_set = str(data)
+        data_omdb = cur_p.fetchone()
+        data_set_omdb = str(data_omdb)
         
         for char in char_remov:
-            data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'omdb_api',))
+            data_set_omdb = data_set_omdb.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set_omdb, 'omdb_api',))
+
+        conn_t.commit()
+
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('tmdb_api',))
+        data_tmdb = cur_p.fetchone()
+        data_set_tmdb = str(data_tmdb)
+
+        for char in char_remov:
+            data_set_tmdb = data_set_tmdb.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set_tmdb, 'tmdb_api',))
 
         conn_t.commit()
         cur_t.close()
@@ -1157,7 +1255,8 @@ def revoke_fenlt_meta():
         # Create database connection
         conn = create_conn(var.fenlt_settings_db)
         with conn:
-            connect_meta(conn, ('empty_setting', 'omdb_api'))
+            connect_meta_fenlt(conn, ('empty_setting', 'omdb_api'))
+            connect_meta_fenlt(conn, (var.fenlt_tmdb, 'tmdb_api'))
     except:
         xbmc.log('%s: Databit_db Revoke Metadata Failed!' % var.amgr, xbmc.LOGINFO)
         pass

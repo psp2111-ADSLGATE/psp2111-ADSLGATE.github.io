@@ -20,7 +20,7 @@ monitor = xbmc.Monitor()
 transPath = xbmcvfs.translatePath
 joinPath = os.path.join
 
-accountmgr = xbmcaddon.Addon("script.module.accountmgr")
+accountmgr = xbmcaddon.Addon('script.module.accountmgr')
 dialog = xbmcgui.Dialog()
 window = xbmcgui.Window(10000)
 progressDialog = xbmcgui.DialogProgress()
@@ -36,15 +36,17 @@ pm_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.accountmgr').getA
 ad_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.accountmgr').getAddonInfo('path'), 'resources', 'icons'), 'alldebrid.png')
 trakt_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.accountmgr').getAddonInfo('path'), 'resources', 'icons'), 'trakt.png')
 tmdb_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.accountmgr').getAddonInfo('path'), 'resources', 'icons'), 'tmdb.png')
-
+simkl_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.accountmgr').getAddonInfo('path'), 'resources', 'icons'), 'simkl.png')
+offcloud_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.accountmgr').getAddonInfo('path'), 'resources', 'icons'), 'offcloud.png')
+	
 def getKodiVersion():
 	return int(xbmc.getInfoLabel("System.BuildVersion")[:2])
 
 def setting(id):
-	return xbmcaddon.Addon('script.module.accountmgr').getSetting(id)
+	return accountmgr.getSetting(id)
 
 def setSetting(id, value):
-	return xbmcaddon.Addon('script.module.accountmgr').setSetting(id, value)
+	return accountmgr.setSetting(id, value)
 
 def lang(language_id):
 	text = getLangString(language_id)
@@ -118,7 +120,7 @@ def notification_rd(title=None, message=None, icon=None, time=3000, sound=False)
 	from accountmgr.modules import debrid_rd
 	debrid_rd.Auth().realdebrid_auth() #Sync all add-ons
 	if var.setting('backupenable') == 'true': #Check if backup service is enabled
-                xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savedebrid_rd&name=all)') #Save debrid data
+                xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savedebrid_rd&name=all)') #Save Debrid data
                 xbmc.sleep(3000)
 	if xbmcvfs.exists(var.chk_fenlt) and xbmcvfs.exists(var.chkset_fenlt):
                 xbmc.executebuiltin('PlayMedia(plugin://plugin.video.fenlight/?mode=sync_settings&amp;silent=true)') #Refresh settings database
@@ -144,7 +146,7 @@ def notification_pm(title=None, message=None, icon=None, time=3000, sound=False)
 	from accountmgr.modules import debrid_pm
 	debrid_pm.Auth().premiumize_auth() #Sync all add-ons
 	if var.setting('backupenable') == 'true': #Check if backup service is enabled
-                xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savedebrid_pm&name=all)') #Save debrid data
+                xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savedebrid_pm&name=all)') #Save Debrid data
                 xbmc.sleep(3000)
 	if xbmcvfs.exists(var.chk_fenlt) and xbmcvfs.exists(var.chkset_fenlt):
                 xbmc.executebuiltin('PlayMedia(plugin://plugin.video.fenlight/?mode=sync_settings&amp;silent=true)') #Refresh settings database
@@ -170,7 +172,7 @@ def notification_ad(title=None, message=None, icon=None, time=3000, sound=False)
 	from accountmgr.modules import debrid_ad
 	debrid_ad.Auth().alldebrid_auth() #Sync all add-ons
 	if var.setting('backupenable') == 'true': #Check if backup service is enabled
-                xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savedebrid_ad&name=all)') #Save debrid data
+                xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savedebrid_ad&name=all)') #Save Debrid data
                 xbmc.sleep(3000)
 	if xbmcvfs.exists(var.chk_fenlt) and xbmcvfs.exists(var.chkset_fenlt):
                 xbmc.executebuiltin('PlayMedia(plugin://plugin.video.fenlight/?mode=sync_settings&amp;silent=true)') #Refresh settings database
@@ -197,13 +199,33 @@ def notification_trakt(title=None, message=None, icon=None, time=3000, sound=Fal
 	trakt_sync.Auth().trakt_auth() #Sync all add-ons
 	xbmc.sleep(1000)
 	if var.setting('backupenable') == 'true': #Check if backup service is enabled
-                xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savetrakt&name=all)') #Save trakt data
+                xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savetrakt&name=all)') #Save Trakt data
                 xbmc.sleep(4000)
 	notification('Trakt', 'Sync Complete!', icon=trakt_icon)
-	accountmgr.setSetting("trakt.service", "true") #Enable Trakt Service
+	accountmgr.setSetting("api.service", "true") #Enable Trakt Service
 	xbmc.sleep(3000)
 	xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
 	os._exit(1)
+
+def notification_offcloud(title=None, message=None, icon=None, time=3000, sound=False):
+        if title == 'default' or title is None: title = addonName()
+        if isinstance(title, int): heading = lang(title)
+        else: heading = str(title)
+        if isinstance(message, int): body = lang(message)
+        else: body = str(message)
+        if icon is None or icon == '' or icon == 'default': icon = addonIcon()
+        elif icon == 'INFO': icon = xbmcgui.NOTIFICATION_INFO
+        elif icon == 'WARNING': icon = xbmcgui.NOTIFICATION_WARNING
+        elif icon == 'ERROR': icon = xbmcgui.NOTIFICATION_ERROR
+        dialog.notification(heading, body, icon, time, sound=sound)
+        xbmc.sleep(3000)
+        notification('OffCloud', 'Sync in progress, please wait!', icon=offcloud_icon)
+        from accountmgr.modules import offcloud_sync
+        offcloud_sync.Auth().offcloud_auth() #Sync all add-ons
+        if var.setting('backupenable') == 'true': #Check if backup service is enabled
+                xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=saveoffcloud&name=all)') #Save OffCloud data
+                xbmc.sleep(3000)
+        notification('OffCloud', 'Sync Complete!', icon=offcloud_icon)
 
 def notification_tmdb(title=None, message=None, icon=None, time=3000, sound=False):
 	if title == 'default' or title is None: title = addonName()

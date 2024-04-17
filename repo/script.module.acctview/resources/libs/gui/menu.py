@@ -36,7 +36,6 @@ def trakt_menu():
             else:
                 directory.add_file('{0} - [COLOR springgreen]Authorized[/COLOR]'.format(name), {'name': trakt}, icon=icon, description='Your Trakt Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
 
-
 def debrid_menu():
     from resources.libs import debridit_rd
     
@@ -103,6 +102,72 @@ def alldebrid_menu():
             else:
                 directory.add_file('{0} - [COLOR springgreen]Authorized[/COLOR]'.format(name), {'name': debrid}, icon=icon, description='Your All-Debrid Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
 
+def offcloud_menu():
+    from resources.libs import offit
+
+    for offc in offit.ORDER:
+        if xbmc.getCondVisibility('System.HasAddon({0})'.format(offit.OFFCID[offc]['plugin'])):
+            name = offit.OFFCID[offc]['name']
+            path = offit.OFFCID[offc]['path']
+            saved = offit.OFFCID[offc]['saved']
+            file = offit.OFFCID[offc]['file']
+            user = CONFIG.get_setting(saved)
+            auser = offit.offc_user(offc)
+            icon = offit.OFFCID[offc]['icon'] if os.path.exists(path) else CONFIG.ICONDEBRID
+            fanart = offit.OFFCID[offc]['fanart'] if os.path.exists(path) else CONFIG.ADDON_FANART
+            menu = create_addon_data_menu('OffCloud', offc)
+            menu2 = create_save_data_menu('OffCloud', offc)
+            menu.append((CONFIG.THEME2.format('{0} Settings'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=offc)'.format(CONFIG.ADDON_ID, offc)))
+
+            if not auser:
+                directory.add_file('{0} - [COLOR red]Not Authorized[/COLOR]'.format(name), {'name': offc}, icon=icon, description='Your All-Easy Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
+            else:
+                directory.add_file('{0} - [COLOR springgreen]Authorized[/COLOR]'.format(name), {'name': offc}, icon=icon, description='Your All-Easy Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
+                
+def easynews_menu():
+    from resources.libs import easyit
+
+    for easy in easyit.ORDER:
+        if xbmc.getCondVisibility('System.HasAddon({0})'.format(easyit.EASYID[easy]['plugin'])):
+            name = easyit.EASYID[easy]['name']
+            path = easyit.EASYID[easy]['path']
+            saved = easyit.EASYID[easy]['saved']
+            file = easyit.EASYID[easy]['file']
+            user = CONFIG.get_setting(saved)
+            auser = easyit.easy_user(easy)
+            icon = easyit.EASYID[easy]['icon'] if os.path.exists(path) else CONFIG.ICONDEBRID
+            fanart = easyit.EASYID[easy]['fanart'] if os.path.exists(path) else CONFIG.ADDON_FANART
+            menu = create_addon_data_menu('Easynews', easy)
+            menu2 = create_save_data_menu('Easynews', easy)
+            menu.append((CONFIG.THEME2.format('{0} Settings'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=easy)'.format(CONFIG.ADDON_ID, easy)))
+
+            if not auser:
+                directory.add_file('{0} - [COLOR red]Not Authorized[/COLOR]'.format(name), {'name': easy}, icon=icon, description='Your All-Debrid Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
+            else:
+                directory.add_file('{0} - [COLOR springgreen]Authorized[/COLOR]'.format(name), {'name': easy}, icon=icon, description='Your All-Debrid Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
+
+def filepursuit_menu():
+    from resources.libs import fileit
+
+    for filep in fileit.ORDER:
+        if xbmc.getCondVisibility('System.HasAddon({0})'.format(fileit.FILEID[filep]['plugin'])):
+            name = fileit.FILEID[filep]['name']
+            path = fileit.FILEID[filep]['path']
+            saved = fileit.FILEID[filep]['saved']
+            file = fileit.FILEID[filep]['file']
+            user = CONFIG.get_setting(saved)
+            auser = fileit.filep_user(filep)
+            icon = fileit.FILEID[filep]['icon'] if os.path.exists(path) else CONFIG.ICONDEBRID
+            fanart = fileit.FILEID[filep]['fanart'] if os.path.exists(path) else CONFIG.ADDON_FANART
+            menu = create_addon_data_menu('Filepursuit', filep)
+            menu2 = create_save_data_menu('Filepursuit', filep)
+            menu.append((CONFIG.THEME2.format('{0} Settings'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=file)'.format(CONFIG.ADDON_ID, filep)))
+
+            if not auser:
+                directory.add_file('{0} - [COLOR red]Not Authorized[/COLOR]'.format(name), {'name': filep}, icon=icon, description='Your All-Easy Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
+            else:
+                directory.add_file('{0} - [COLOR springgreen]Authorized[/COLOR]'.format(name), {'name': filep}, icon=icon, description='Your All-Easy Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
+                
 def all_accounts_menu():
     from resources.libs import debridit_all
 
@@ -140,52 +205,7 @@ def all_accounts_menu():
                 directory.add_file('All-Debrid - [COLOR springgreen]Authorized[/COLOR]', {'name': debrid}, icon=icon, description='Your Debrid Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
             
             directory.add_separator_allaccts()
-
-def nondebrid_accounts_menu():
-    from resources.libs import non_debrid_all
-
-    for debrid in non_debrid_all.ORDER:
-        if xbmc.getCondVisibility('System.HasAddon({0})'.format(non_debrid_all.DEBRIDID[debrid]['plugin'])):
-            name = non_debrid_all.DEBRIDID[debrid]['name']
-            path = non_debrid_all.DEBRIDID[debrid]['path']
-            saved = non_debrid_all.DEBRIDID[debrid]['saved']
-            file = non_debrid_all.DEBRIDID[debrid]['file']
-            user = CONFIG.get_setting(saved)
-            user_furk = non_debrid_all.debrid_user_furk(debrid)
-            user_easy = non_debrid_all.debrid_user_easy(debrid)
-            user_file = non_debrid_all.debrid_user_file(debrid)
-            icon = non_debrid_all.DEBRIDID[debrid]['icon'] if os.path.exists(path) else CONFIG.ICONDEBRID
-            fanart = non_debrid_all.DEBRIDID[debrid]['fanart'] if os.path.exists(path) else CONFIG.ADDON_FANART
-            menu = create_addon_data_menu('Debrid', debrid)
-            menu2 = create_save_data_menu('Debrid', debrid)
-            menu.append((CONFIG.THEME2.format('{0} Settings'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=debrid)'.format(CONFIG.ADDON_ID, debrid)))
-
-            directory.add_file('{0}'.format(name), {'name': debrid}, icon=icon, description='View Your Furk, Easynews, and FilePursuit Accounts', fanart=fanart, themeit=CONFIG.THEME3)
-
-            if user_furk == None or len(user_furk) == 1:
-                directory.add_file('[COLOR red]Furk - No Data Found![/COLOR]', {'mode': 'authdebrid', 'name': debrid}, icon=icon, description='View Your Furk, Easynews, and FilePursuit Accounts', fanart=fanart, menu=menu)
-                continue
-            elif len(user_furk) > 1:
-                directory.add_file('[COLOR springgreen]Furk: {0}[/COLOR]'.format(user_furk), icon=icon, description='View Your Furk, Easynews, and FilePursuit Accounts', fanart=fanart, menu=menu)
-            else:
-                pass
-
-            if user_easy == None or len(user_easy) == 1:
-                directory.add_file('[COLOR red]Easynews - No Data Found![/COLOR]', {'mode': 'authdebrid', 'name': debrid}, icon=icon, description='View Your Furk, Easynews, and FilePursuit Accounts', fanart=fanart, menu=menu)
-            elif not user_easy == None and len(user_easy) > 1:
-                directory.add_file('[COLOR springgreen]Easynews: {0}[/COLOR]'.format(user_easy), icon=icon, description='View Your Furk, Easynews, and FilePursuit Accounts', fanart=fanart, menu=menu)
-            else:
-                pass
-            
-            if user_file == None or len(user_file) == 1:
-                directory.add_file('[COLOR red]FilePursuit - No Data Found![/COLOR]', {'mode': 'authdebrid', 'name': debrid}, icon=icon, description='View Your Furk, Easynews, and FilePursuit Accounts', fanart=fanart, menu=menu)
-            elif len(user_file) > 1:
-                directory.add_file('[COLOR springgreen]FilePursuit: {0}[/COLOR]'.format(user_file), icon=icon, description='View Your Furk, Easynews, and FilePursuit Accounts', fanart=fanart, menu=menu)
-            else:
-                pass
-            
-            directory.add_separator_nondebrid()
-            
+           
 def meta_accounts_menu():
     from resources.libs import metait_all
 
@@ -269,7 +289,7 @@ def meta_accounts_menu():
             else:
                 pass
 
-            if user_tmdb_session == None or len(user_tmdb) == 1:
+            if user_tmdb_session == None or len(user_tmdb_session) == 1:
                 directory.add_file('[COLOR red]TMDb Session ID - No Data Found![/COLOR]', {'mode': 'authdebrid', 'name': debrid}, icon=icon, description='View Your Metadata Accounts', fanart=fanart, menu=menu)
             elif len(user_tmdb_session) > 1:
                 directory.add_file('[COLOR springgreen]TMDb Session ID: {0}[/COLOR]'.format(user_tmdb_session), icon=icon, description='View Your Metadata Accounts', fanart=fanart, menu=menu)

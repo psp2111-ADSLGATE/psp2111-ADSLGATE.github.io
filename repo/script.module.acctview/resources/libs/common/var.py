@@ -53,7 +53,7 @@ def rm_traktcache():
 client_am = traktID()
 secret_am = traktSecret()
 
-#Account Mananger Trakt & Debrid Check
+#Account Mananger Trakt/Simkl/Debrid Check
 chk_api = traktID()
 chk_accountmgr_tk = setting("trakt.token")
 chk_accountmgr_tk_rd = setting("realdebrid.token")
@@ -73,7 +73,7 @@ chk_accountmgr_tvdb = setting("tvdb.api.key")
 chk_accountmgr_trakt = setting("trakt.api.key")
 
 #Account Manager Non-Debrid Check
-chk_accountmgr_furk = setting("furk.password")
+chk_accountmgr_offc = setting("offcloud.token")
 chk_accountmgr_easy = setting("easynews.password")
 chk_accountmgr_file = setting("filepursuit.api.key")
 
@@ -82,7 +82,10 @@ rd_backup = translatePath(backup_path) + 'realdebrid/'
 pm_backup = translatePath(backup_path) + 'premiumize/'
 ad_backup = translatePath(backup_path) + 'alldebrid/'
 trakt_backup = translatePath(backup_path) + 'trakt/'
-non_backup = translatePath(backup_path) + 'nondebrid/'
+simkl_backup = translatePath(backup_path) + 'simkl/'
+offc_backup = translatePath(backup_path) + 'offcloud/'
+easy_backup = translatePath(backup_path) + 'easynews/'
+file_backup = translatePath(backup_path) + 'filepursuit/'
 meta_backup = translatePath(backup_path) + 'meta/'
 
 #Fen Light Database Paths
@@ -97,7 +100,7 @@ pm_backup_fenlt = os.path.join(pm_backup,'fenlt_pm.db')
 ad_backup_fenlt = os.path.join(ad_backup,'fenlt_ad.db')
 trakt_backup_fenlt = os.path.join(trakt_backup,'fenlt_trakt.db')
 meta_backup_fenlt = os.path.join(meta_backup,'fenlt_meta.db')
-easy_backup_fenlt = os.path.join(non_backup,'fenlt_nondebrid.db')
+easy_backup_fenlt = os.path.join(easy_backup,'fenlt_easy.db')
 
 #afFEnity Database Paths
 affen_lt_path = os.path.join(user_path, 'addon_data/plugin.video.affenity/databases')
@@ -111,7 +114,7 @@ pm_backup_affen = os.path.join(pm_backup,'affen_pm.db')
 ad_backup_affen = os.path.join(ad_backup,'affen_ad.db')
 trakt_backup_affen = os.path.join(trakt_backup,'affen_trakt.db')
 meta_backup_affen = os.path.join(meta_backup,'affen_meta.db')
-easy_backup_affen = os.path.join(non_backup,'affen_nondebrid.db')
+easy_backup_affen = os.path.join(easy_backup,'affen_easy.db')
 
 #Realizer Paths
 realx_path = os.path.join(user_path, 'addon_data/plugin.video.realizerx')
@@ -164,6 +167,7 @@ myaccounts = xmls + translatePath('script.module.myaccounts/settings.xml')
 rurl = xmls + translatePath('script.module.resolveurl/settings.xml')
 tmdbh = xmls + translatePath('plugin.video.themoviedb.helper/settings.xml')
 trakt = xmls + translatePath('script.trakt/settings.xml')
+simkl = xmls + translatePath('script.simkl/settings.xml')
 embuary = xmls + translatePath('script.embuary.info/settings.xml')
 meta = xmls + translatePath('script.module.metahandler/settings.xml')
 pvr = xmls + translatePath('script.module.pvr.artwork/settings.xml')
@@ -212,6 +216,7 @@ chk_myaccounts = addons + translatePath('script.module.myaccounts/')
 chk_rurl= addons + translatePath('script.module.resolveurl/')
 chk_tmdbh = addons + translatePath('plugin.video.themoviedb.helper/')
 chk_trakt = addons + translatePath('script.trakt/')
+chk_simkl = addons + translatePath('script.simkl/')
 chk_embuary = addons + translatePath('script.embuary.info/')
 chk_meta = addons + translatePath('script.module.metahandler/')
 chk_pvr = addons + translatePath('script.module.pvr.artwork/')
@@ -258,6 +263,7 @@ myaccounts_ud = addon_data + translatePath('script.module.myaccounts/')
 rurl_ud = addon_data + translatePath('script.module.resolveurl/')
 tmdbh_ud = addon_data + translatePath('plugin.video.themoviedb.helper/')
 trakt_ud = addon_data + translatePath('script.trakt/')
+simkl_ud = addon_data + translatePath('script.simkl/')
 embuary_ud = addon_data + translatePath('script.embuary.info/')
 meta_ud = addon_data + translatePath('script.module.metahandler/')
 pvr_ud = addon_data + translatePath('script.module.pvr.artwork/')
@@ -307,6 +313,7 @@ chkset_myaccounts = addon_data + translatePath('script.module.myaccounts/setting
 chkset_rurl = addon_data + translatePath('script.module.resolveurl/settings.xml')
 chkset_tmdbh = addon_data + translatePath('plugin.video.themoviedb.helper/settings.xml')
 chkset_trakt = addon_data + translatePath('script.trakt/settings.xml')
+chkset_simkl = addon_data + translatePath('script.simkl/settings.xml')
 chkset_embuary = addon_data + translatePath('script.embuary.info/settings.xml')
 chkset_meta = addon_data + translatePath('script.module.metahandler/settings.xml')
 chkset_pvr = addon_data + translatePath('script.module.pvr.artwork/settings.xml')
@@ -314,11 +321,11 @@ chkset_pvr = addon_data + translatePath('script.module.pvr.artwork/settings.xml'
 #Trakt API Key Paths
 path_seren = addons + translatePath('plugin.video.seren/resources/lib/indexers/trakt.py')
 path_fen = addons + translatePath('plugin.video.fen/resources/lib/apis/trakt_api.py')
-path_fenlt = addons + translatePath('plugin.video.fenlight/resources/lib/apis/trakt_api.py')
+#path_fenlt = addons + translatePath('plugin.video.fenlight/resources/lib/apis/trakt_api.py')
 path_affen = addons + translatePath('plugin.video.affenity/resources/lib/apis/trakt_api.py')
 path_coal = addons + translatePath('plugin.video.coalition/resources/lib/apis/trakt_api.py')
-path_pov = addons + translatePath('plugin.video.pov/resources/lib/apis/trakt_api.py')
-path_dradis = addons + translatePath('plugin.video.dradis/resources/lib/modules/trakt.py')
+path_pov = addons + translatePath('plugin.video.pov/resources/lib/modules/settings.py')
+path_dradis = addons + translatePath('plugin.video.dradis/resources/lib/modules/control.py')
 path_taz = addons + translatePath('plugin.video.taz19/resources/lib/apis/trakt_api.py')
 path_shadow = addons + translatePath('plugin.video.shadow/resources/modules/general.py')
 path_ghost = addons + translatePath('plugin.video.ghost/resources/modules/general.py')
@@ -349,10 +356,10 @@ affen_client = 'd4161a7a106424551add171e5470112e4afdaf2438e6ef2fe0548edc75924868
 affen_secret = 'b5fcd7cb5d9bb963784d11bbf8535bc0d25d46225016191eb48e50792d2155c0'
 coal_client = '19849909a0f8c9dc632bc5f5c7ccafd19f3e452e2e44fee05b83fd5dc1e77675'
 coal_secret = 'b5fcd7cb5d9bb963784d11bbf8535bc0d25d46225016191eb48e50792d2155c0'
-pov_client = 'd4161a7a106424551add171e5470112e4afdaf2438e6ef2fe0548edc75924868'
-pov_secret = 'b5fcd7cb5d9bb963784d11bbf8535bc0d25d46225016191eb48e50792d2155c0'
-dradis_client = 'd4161a7a106424551add171e5470112e4afdaf2438e6ef2fe0548edc75924868'
-dradis_secret = 'b5fcd7cb5d9bb963784d11bbf8535bc0d25d46225016191eb48e50792d2155c0'
+pov_client = '6bc29124c3d9466e06a3ed19a7b5976fcb28311008401e1ce04cf08196f8b16a'
+pov_secret = '99478842b17d44d7accafef45c6c1bbba235792753c195069ae149595cd3a919'
+dradis_client = '19d4a08f6601d2c5d791d041a9ffadd3ce26c038500070397eb315b74b5a7550'
+dradis_secret = '3ee868bacbf9edba9dd11a1b26b1abe4f5b81d0f0d90bd30ac53e127af08be39'
 taz_client = '4f2f0e3cf53e5c3b9ed1e2a203ebff1cd9c91205772f48a9bd2e1ba560e5e1f7'
 shadow_client = '8ed545c0b7f92cc26d1ecd6326995c6cf0053bd7596a98e962a472bee63274e6'
 shadow_secret = '1ec4f37e5743e3086abace0c83444c25d9b655d1d77b793806b2c8205a510426'
@@ -394,6 +401,7 @@ ezra_fan = 'fe073550acf157bdb8a4217f215c0882'
 ezra_tmdb = '05a454b451f2f9003fbca293744e4a85'
 fen_fan = 'fa836e1c874ba95ab08a14ee88e05565'
 fen_tmdb = 'b370b60447737762ca38457bd77579b3'
+fenlt_tmdb = 'b370b60447737762ca38457bd77579b3'
 coal_fan = '598515b970d81280063107d49d0e2558"'
 coal_tmdb = '74f3ce931d65ebda1f77ef24eac2625f'
 pov_fan = 'fe073550acf157bdb8a4217f215c0882'
@@ -404,3 +412,4 @@ home_fan = 'c3469c1cc9465b9f1a1a862feea8b76b'
 home_tmdb = 'fb981e5ab89415bba616409d5eb5f05e'
 crew_fan = '27bef29779bbffe947232dc310a91f0c'
 crew_tmdb = '0049795edb57568b95240bc9e61a9dfc'
+dradis_tmdb = '7b2b174744f774ba48145e2859bb2e2c'

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
 	<category label="الحسابات">
-		<setting type="lsep" label="40058" />
+		<setting type="lsep" label="Real-Debrid" />
 		<setting id="realdebrid.token" label="40079" type="text" default="" visible="false" />
 		<setting id="realdebrid.username" label="32318" type="text" default="" visible="!eq(-1,)" enable="false" />
-		<setting id="realdebrid.expiry.notice" type="bool" label="40086" default="true" visible="!eq(-2,)" />
+		<setting id="realdebrid.expiry.notice" type="bool" label="40086" default="false" visible="!eq(-2,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=realdebridAcct)" visible="!eq(-2,)" />
 		<setting type="action" label="32319" option="close" action="RunScript(script.module.accountmgr, action=realdebridAuth)" visible="eq(-4,)" />
 		<setting id="realdebrid.client_id" label="realdebrid client_id" type="text" default="" visible="false" />
@@ -14,14 +14,14 @@
 		<setting type="lsep" label="Premiumize" />
 		<setting id="premiumize.token" label="40078" type="text" default="" visible="false" />
 		<setting id="premiumize.username" label="32318" type="text" default="" visible="!eq(-1,)" enable="false" />
-		<setting id="premiumize.expiry.notice" type="bool" label="40086" default="true" visible="!eq(-2,)" />
+		<setting id="premiumize.expiry.notice" type="bool" label="40086" default="false" visible="!eq(-2,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=premiumizeAcct)" visible="!eq(-2,)" />
 		<setting type="action" label="32319" option="close" action="RunScript(script.module.accountmgr, action=premiumizeAuth)" visible="eq(-4,)" />
 
 		<setting type="lsep" label="All-Debrid" />
 		<setting id="alldebrid.token" label="40077" type="text" default="" visible="false" />
 		<setting id="alldebrid.username" label="32318" type="text" default="" visible="!eq(-1,)" enable="false" />
-		<setting id="alldebrid.expiry.notice" type="bool" label="40086" default="true" visible="!eq(-2,)" />
+		<setting id="alldebrid.expiry.notice" type="bool" label="40086" default="false" visible="!eq(-2,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=alldebridAcct)" visible="!eq(-2,)" />
 		<setting type="action" label="32319" option="close" action="RunScript(script.module.accountmgr, action=alldebridAuth)" visible="eq(-4,)" />
 
@@ -33,40 +33,47 @@
 		<setting id="traktuserkey.enabled" type="bool" visible="false" label="40090" default="true" />
 		<setting id="trakt.client.id" type="text" visible="false" label="40089" default="20fdc5f7364aad2c6d0491652bffc16e2eb7be35b9572478049d54d9824cc4d0" />
 		<setting id="trakt.client.secret" type="text" visible="false" label="40088" default="3bd196ae0ce16d553d17cf5e3535ba3e65215cf8b5975a8dd9f2969ff0cd4592" />
-		<setting type="action" label="إجراء المصادقة" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(-6,)" />
-		<setting id="trakt.username" type="text" default="" label="40062" enable="false" visible="!eq(-7,)" />
+		<setting type="action" label="إجراء المصادقة" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(-7,)" />
+		<setting id="trakt.username" type="text" default="" label="40062" enable="false" visible="!eq(-8,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=traktAcct)" visible="!eq(-1,)" />
 
-		<setting type="lsep" label="Furk/Easynews/FilePursuit" />
-		<setting id="non.enabled" type="bool" visible="true" label="تمكين" default="false" />
-		<setting type="action" label="المزامنة مع جميع الاضافات" option="close" action="RunScript(script.module.accountmgr, action=SyncAll)"  visible="eq(-1,true)" />
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" visible="true" label="تمكين" default="false" />
+		<setting id="offcloud.userid" label="40077" type="text" default="" visible="false" />
+		<setting id="offcloud.user" type="text" label="اسم مستخدم لـOffCloud" default="" visible="eq(-2,true)" />
+		<setting id="offcloud.pass" type="text" label="كلمة مرور لـOffCloud" option="hidden" default="" visible="eq(-3,true)" />
+		<setting type="action" label="32319" option="close" action="RunScript(script.module.accountmgr, action=offcloudAuth)" visible="eq(-4,true)" />
+
+		<setting type="lsep" label="Easynews" />
+		<setting id="easynews.enabled" type="bool" visible="true" label="تمكين" default="false" />
+		<setting type="action" label="المزامنة مع جميع الاضافات" option="close" action="RunScript(script.module.accountmgr, action=easynewsReSync)"  visible="eq(-1,true)" />
 		<setting label="32311" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpNonDebrid)" visible="eq(-2,true)" />
-		<setting type="lsep"/>
-		<setting id="furk.username" type="text" label="اسم المستخدم لـFurk" default="" visible="eq(-4,true)"/>
-		<setting id="furk.password" type="text" label="كلمة المرور لـFurk" option="hidden" default="" visible="eq(-5,true)" />
-		<setting id="furk.api.key" type="text" label="مفتاح الـAPI لـFurk" default="" visible="eq(-6,true)" />
-		<setting id="easynews.username" type="text" label="اسم المستخدم لـEasynews" default="" visible="eq(-7,true)" />
-		<setting id="easynews.password" type="text" label="كلمة المرور لـEasynews" option="hidden" default="" visible="eq(-8,true)" />
-		<setting id="filepursuit.api.key" type="text" label="مفتاح الـAPI لـFilePursuit" default="" visible="eq(-9,true)" />
+		<setting id="easynews.username" type="text" label="اسم المستخدم لـEasynews" default="" visible="eq(-3,true)" />
+		<setting id="easynews.password" type="text" label="كلمة المرور لـEasynews" option="hidden" default="" visible="eq(-4,true)" />
+
+		<setting type="lsep" label="FilePursuit" />
+		<setting id="filepursuit.enabled" type="bool" visible="true" label="تمكين" default="false" />
+		<setting type="action" label="المزامنة مع جميع الاضافات" option="close" action="RunScript(script.module.accountmgr, action=filepursuitReSync)"  visible="eq(-1,true)" />
+		<setting label="32311" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpNonDebrid)" visible="eq(-2,true)" />
+		<setting id="filepursuit.api.key" type="text" label="مفتاح الـAPI لـFilePursuit" default="" visible="eq(-3,true)" />
 
 		<setting type="lsep" label="خدمات البيانات التعريفية" />
 		<setting id="meta.enabled" type="bool" visible="true" label="تمكين" default="false" />
 		<setting type="action" label="المزامنة مع جميع الاضافات" option="close" action="RunScript(script.module.accountmgr, action=metaReSync)"  visible="eq(-1,true)" />
 		<setting label="32311" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpMeta)" visible="eq(-2,true)" />
-		<setting type="lsep"/>
-		<setting id="fanart.tv.api.key" type="text" label="مفتاح الـAPI لـFanart.TV" default="" visible="eq(-4,true)"/>
-		<setting id="omdb.api.key" type="text" label="مفتاح الـAPI لـOMDb" default="" visible="eq(-5,true)" />
-		<setting id="mdb.api.key" type="text" label="مفتاح الـAPI لـMDblist" default="" visible="eq(-6,true)" />
-		<setting id="imdb.user" type="text" label="IMDb User" default="" visible="eq(-7,true)" />
-		<setting id="tvdb.api.key" type="text" label="مفتاح الـAPI لـTVDb" default="" visible="eq(-8,true)" />
-		<setting id="tmdb.api.key" type="text" label="40072" default="" visible="eq(-9,true)" />
+		<setting id="fanart.tv.api.key" type="text" label="مفتاح الـAPI لـFanart.TV" default="" visible="eq(-3,true)"/>
+		<setting id="omdb.api.key" type="text" label="مفتاح الـAPI لـOMDb" default="" visible="eq(-4,true)" />
+		<setting id="mdb.api.key" type="text" label="مفتاح الـAPI لـMDblist" default="" visible="eq(-5,true)" />
+		<setting id="imdb.user" type="text" label="IMDb User" default="" visible="eq(-6,true)" />
+		<setting id="tvdb.api.key" type="text" label="مفتاح الـAPI لـTVDb" default="" visible="eq(-7,true)" />
+		<setting id="tmdb.api.key" type="text" label="40072" default="" visible="eq(-8,true)" />
 		<setting type="sep"/>
-		<setting id="tmdb.username" type="text" label="40060" default="" visible="eq(-11,true)" />
-		<setting id="tmdb.password" type="text" label="40061" option="hidden" default="" visible="eq(-12,true)" />
-		<setting label="40091" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpTMDb)" visible="eq(-13,true)" />
-		<setting id="tmdb.session_id" type="text" default="" label="session_id" enable="false" visible="eq(-14,true)" />
-		<setting type="action" label="32312" option="close" action="RunScript(script.module.accountmgr, action=tmdbAuth, opensettings=true)" visible="eq(-15,true)" />
-		<setting type="action" label="32321" option="close" action="RunScript(script.module.accountmgr, action=tmdbRevoke, opensettings=true)" visible="eq(-16,true)" />
+		<setting id="tmdb.username" type="text" label="40060" default="" visible="eq(-10,true)" />
+		<setting id="tmdb.password" type="text" label="40061" option="hidden" default="" visible="eq(-11,true)" />
+		<setting label="40091" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpTMDb)" visible="eq(-12,true)" />
+		<setting id="tmdb.session_id" type="text" default="" label="session_id" enable="false" visible="eq(-13,true)" />
+		<setting type="action" label="32312" option="close" action="RunScript(script.module.accountmgr, action=tmdbAuth, opensettings=true)" visible="eq(-14,true)" />
+		<setting type="action" label="32321" option="close" action="RunScript(script.module.accountmgr, action=tmdbRevoke, opensettings=true)" visible="eq(-15,true)" />
 	</category>
 	<category label="إدارة الحسابات">
 		<setting type="sep"/>
@@ -79,37 +86,52 @@
 		<setting type="lsep" label="Real-Debrid" />
 		<setting id="realdebrid.username" label="" type="text" default="" visible="false" enable="false" />
 		<setting type="action" label="استعراض الإضافات المفعلة" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=realdebrid,return)" visible="!eq(-1,)" />
-		<setting type="action" label="إعادة تفعيل جميع حسابات Real-Debrid" option="close" action="RunScript(script.module.accountmgr, action=realdebridReSync, opensettings=true)"  visible="!eq(-2,)" />
+		<setting type="action" label="إعادة تفعيل جميع حسابات Real-Debrid" option="close" action="RunScript(script.module.accountmgr, action=realdebridReSync)"  visible="!eq(-2,)" />
 		<setting type="action" label="إزالة جميع حسابات Real-Debrid" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addondebrid_rd&name=all)"  visible="!eq(-3,)" />
 
 		<setting type="lsep" label="Premiumize" />
 		<setting id="premiumize.username" label="" type="text" default="" visible="false" enable="false" />
 		<setting type="action" label="استعراض الإضافات المفعلة" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=premiumize,return)" visible="!eq(-1,)" />
-		<setting type="action" label="إعادة تفعيل جميع حسابات Premiumize" option="close" action="RunScript(script.module.accountmgr, action=premiumizeReSync, opensettings=true)"  visible="!eq(-2,)" />
+		<setting type="action" label="إعادة تفعيل جميع حسابات Premiumize" option="close" action="RunScript(script.module.accountmgr, action=premiumizeReSync)"  visible="!eq(-2,)" />
 		<setting type="action" label="إزالة جميع حسابات Premiumize" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addondebrid_pm&name=all)"  visible="!eq(-3,)" />
 	
 		<setting type="lsep" label="All-Debrid" />
 		<setting id="alldebrid.username" label="" type="text" default="" visible="false" enable="false" />
 		<setting type="action" label="استعراض الإضافات المفعلة" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=alldebrid,return)" visible="!eq(-1,)" />
-		<setting type="action" label="إعادة تفعيل جميع حسابات All-Debrid" option="close" action="RunScript(script.module.accountmgr, action=alldebridReSync, opensettings=true)"  visible="!eq(-2,)" />
+		<setting type="action" label="إعادة تفعيل جميع حسابات All-Debrid" option="close" action="RunScript(script.module.accountmgr, action=alldebridReSync)"  visible="!eq(-2,)" />
 		<setting type="action" label="إزالة جميع حسابات All-Debrid" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addondebrid_ad&name=all)"  visible="!eq(-3,)" />
 
 		<setting type="lsep" label="Trakt" />
 		<setting id="trakt.username" label="" type="text" default="" visible="false" enable="false" />
 		<setting type="action" label="استعراض الإضافات المفعلة" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=trakt,return)" visible="!eq(-1,)" />
-		<setting type="action" label="إعادة تفعيل جميع حسابات Trakt" option="close" action="RunScript(script.module.accountmgr, action=traktReSync, opensettings=true)" visible="!eq(-2,)" />
+		<setting type="action" label="إعادة تفعيل جميع حسابات Trakt" option="close" action="RunScript(script.module.accountmgr, action=traktReSync)" visible="!eq(-2,)" />
 		<setting type="action" label="إزالة جميع حسابات Trakt" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addontrakt&name=all)" visible="!eq(-3,)" />
 
-		<setting type="lsep" label="Furk/Easynews/FilePursuit" />
-		<setting id="non.enabled" type="bool" visible="false" label="" default="false" />
-		<setting type="action" label="استعراض الإضافات المفعلة" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=nondebrid,return)" visible="eq(-1,true)" />
-		<setting type="action" label="إعادة تفعيل جميع الحسابات" option="close" action="RunScript(script.module.accountmgr, action=SyncAll)"  visible="eq(-2,true)" />
-		<setting type="action" label="إزالة جميع الحسابات" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addon_non&name=all)"  visible="eq(-3,true)" />
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="offcloud.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="استعراض الإضافات المفعلة" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=offcloud,return)" visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="إعادة تفعيل جميع حسابات OffCloud" option="close" action="RunScript(script.module.accountmgr, action=offcloudReSync)"  visible="!eq(-2,) + eq(-3,true)" />
+		<setting type="action" label="إزالة جميع حسابات OffCloud" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addonoffc&name=all)"  visible="!eq(-3,) + eq(-4,true)" />
+
+		<setting type="lsep" label="Easynews" />
+		<setting id="easynews.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="easynews.password" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="استعراض الإضافات المفعلة" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=easynews,return)" visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="إعادة تفعيل جميع حسابات Easynews" option="close" action="RunScript(script.module.accountmgr, action=easynewsReSync)"  visible="!eq(-2,) + eq(-3,true)" />
+		<setting type="action" label="إزالة جميع حسابات Easynews" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addoneasy&name=all)"  visible="!eq(-3,) + eq(-4,true)" />
+
+		<setting type="lsep" label="FilePursuit" />
+		<setting id="filepursuit.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="filepursuit.api.key" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="استعراض الإضافات المفعلة" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=filepursuit,return)" visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="إعادة تفعيل جميع حسابات Easynews" option="close" action="RunScript(script.module.accountmgr, action=filepursuitReSync)"  visible="!eq(-2,) + eq(-3,true)" />
+		<setting type="action" label="إزالة جميع حسابات FilePursuit" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addonfile&name=all)"  visible="!eq(-3,) + eq(-4,true)" />
 
 		<setting type="lsep" label="خدمات البيانات التعريفية" />
 		<setting id="meta.enabled" type="bool" visible="false" label="" default="false" />
 		<setting type="action" label="استعراض الإضافات المفعلة" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=metadata,return)" visible="eq(-1,true)" />
-		<setting type="action" label="إعادة تفعيل جميع الحسابات" option="close" action="RunScript(script.module.accountmgr, action=metaReSync, opensettings=true)"  visible="eq(-2,true)" />
+		<setting type="action" label="إعادة تفعيل جميع الحسابات" option="close" action="RunScript(script.module.accountmgr, action=metaReSync)"  visible="eq(-2,true)" />
 		<setting type="action" label="إزالة جميع الحسابات" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addonmeta&name=all)"  visible="eq(-3,true)" />
 	</category>
 	<category label="النسخ الاحتياطية والاستعادة">
@@ -143,13 +165,28 @@
 		<setting type="action" label="إستعادة نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoretrakt&name=all)" visible="true" />
 		<setting type="action" label="مسح البيانات" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=cleartrakt&name=all)" visible="true" />
 
-		<setting type="lsep" label="Furk/Easynews/FilePursuit" />
-		<setting id="non.enabled" type="bool" visible="false" label="" default="false" />
-		<setting type="action" label="أخذ نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=save_non_acctmgr&name=all)"  visible="eq(-1,true)" />
-		<setting type="action" label="إستعادة نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restore_non&name=all)"  visible="true" />
-		<setting type="action" label="مسح البيانات" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=clear_non&name=all)"  visible="true" />
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="offcloud.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="أخذ نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=save_offc_acctmgr&name=all)"  visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="إستعادة نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoreoffc&name=all)"  visible="true" />
+		<setting type="action" label="مسح البيانات" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=clearoffc&name=all)"  visible="true" />
 
-		<setting type="lsep" label="خدمات البيانات التعريفية" />
+		<setting type="lsep" label="Easynews" />
+		<setting id="easynews.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="easynews.password" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="أخذ نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=save_easy_acctmgr&name=all)"  visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="إستعادة نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoreeasy&name=all)"  visible="true" />
+		<setting type="action" label="مسح البيانات" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=cleareasy&name=all)"  visible="true" />
+
+		<setting type="lsep" label="FilePursuit" />
+		<setting id="filepursuit.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="filepursuit.api.key" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="أخذ نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=save_file_acctmgr&name=all)"  visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="إستعادة نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restorefile&name=all)"  visible="true" />
+		<setting type="action" label="مسح البيانات" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=clearfile&name=all)"  visible="true" />
+
+		<setting type="lsep" label="Metadata Providers" />
 		<setting id="meta.enabled" type="bool" visible="false" label="" default="false" />
 		<setting type="action" label="أخذ نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=savemeta_acctmgr&name=all)"  visible="eq(-1,true)" />
 		<setting type="action" label="إستعادة نسخة احتياطية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoremeta&name=all)"  visible="true" />
@@ -157,7 +194,7 @@
 	</category>
 	<category label="تكوين النسخ الاحتياطية">
 		<setting id="backupenable" type="bool" label="تفعيل النسخ الاحتياطي التلقائي" default="false" />
-		<setting label="40105" type="text" />
+		<setting label="40105" visible="false" type="text" />
 		<setting type="lsep" label="تكوين مسار النسخ الاحتياطية" />
 		<setting type="action" label="اختيار مسار مخصص" option="close" action="RunScript(script.module.accountmgr, action=SetBackupFolder)" />
 		<setting type="action" label="استعادة المسار الافتراضي" option="close" action="RunScript(script.module.accountmgr, action=ResetBackupFolder)" />
@@ -167,32 +204,34 @@
 	<category label="متقدم">
 		<setting type="lsep" label="خدمات بدء التشغيل" />
 		<setting id="checkAddonUpdates" type="bool" visible="false" label="Update Notification Service" default="false" />
-		<setting label="40092" type="text" visible="false" />
-      	<setting id="trakt.service" type="bool" visible="false" label="" default="" />
-      	<setting id="sync.service"  type="bool" label="خدمة المزامنة التلقائية لـTrakt و Debrid" default="true"/>
-		<setting label="40094" type="text" />
-      	<setting id="sync.nondebrid.service"  type="bool" label="خدمة المزامنة التلقائية لـFurk/Easynews/FilePursuit" default="false"/>
-		<setting label="40094" type="text" />
-      	<setting id="sync.metaservice" type="bool" label="خدمة المزامنة التلقائية لـ البيانات التعريفية" default="false"/>
-		<setting label="40094" type="text" />
+		<setting label="40092" visible="false" type="text" />
+      		<setting id="api.service" type="bool" visible="false" label="" default="" />
+      		<setting id="sync.service"  type="bool" label="خدمة المزامنة التلقائية لـTrakt و Debrid" default="true"/>
+		<setting label="40094" visible="false" type="text" />
+      		<setting id="sync.nondebrid.service"  type="bool" label="خدمة المزامنة التلقائية لـOffCloud/Easynews/FilePursuit" default="false"/>
+		<setting label="40094" visible="false" type="text" />
+      		<setting id="sync.metaservice" type="bool" label="خدمة المزامنة التلقائية لـ البيانات التعريفية" default="false"/>
+		<setting label="40094" visible="false" type="text" />
 		<setting type="lsep" visible="false" label="Persistent Trakt Keys For Builders" />
 		<setting id="traktuserkey.enabled" type="bool" visible="false" label="" default="true" />
 		<setting id="devuserkey.enabled" type="bool" visible="eq(-1,false)" label="40107" default="false" />
 		<setting id="dev.client.id" type="text" option="hidden" visible="eq(-1,true)" label="40089" default="" />
 		<setting id="dev.client.secret" type="text" option="hidden" visible="eq(-2,true)" label="40088" default="" />
-        <setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpCustom)" visible="true" />
+        	<setting  label="40108"  type="action" action="RunScript(script.module.accountmgr, action=ShowHelpCustom)" visible="false" />
 		<setting type="lsep" label="إستعادة كل الاضافات الى الوضع الافتراضي" />
-		<setting type="action" label="إعادة تعيين الى الاعدادات الافتراضية" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=wipeclean&name=all)" visible="true" />
-        <setting label="40097" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpRestore)" visible="true" />
+		<setting type="action" label="إعادة تعيين الاضافات الى الاعدادات الافتراضية" option="close" action="RunScript(script.module.accountmgr, action=resetSettings)" visible="true" />
+        	<setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpRestore)" visible="true" />
 	</category>
 	<category label="المعلومات">
-		<setting type="lsep" label="الاضافات المدعومة" />
+		<setting type="lsep" label="Supported Add-ons" />
 		<setting label="40099" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Debrid)" />
 		<setting label="40098" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Trakt)" />
-		<setting label="40103" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Meta)" />
-		<setting label="40100" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Furk)" />
+		<setting label="40100" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Offcloud)" />
 		<setting label="40101" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Easy)" />
 		<setting label="40102" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_File)" />
+		<setting label="40103" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Meta)" />
+		<setting type="lsep" visible="false" label="Reporting Issues" />
+        	<setting label="40110" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpIssues)" visible="false" />
 		<setting type="lsep" label="سجل التغييرات" />
 		<setting label="40104" type="action" action="RunScript(script.module.accountmgr, action=ShowChangelog)" />
 	</category>

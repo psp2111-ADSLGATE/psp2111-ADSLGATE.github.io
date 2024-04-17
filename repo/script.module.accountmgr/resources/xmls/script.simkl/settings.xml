@@ -1,0 +1,10 @@
+<settings version="2">
+    <setting id="token" default="true" />
+    <setting id="label1" default="true" />
+    <setting id="synclib" default="true">false</setting>
+    <setting id="autoscrobble">true</setting>
+    <setting id="scr-pct">70</setting>
+    <setting id="sct-w-pct">10</setting>
+    <setting id="bubble">true</setting>
+    <setting id="min-length">5</setting>
+</settings>
