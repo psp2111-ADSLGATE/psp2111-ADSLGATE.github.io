@@ -1538,7 +1538,7 @@
             <screenshot>resources/screenshot-01.png</screenshot>
         </assets>
     </extension>
-</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.13.0" provider-name="Unknown">
+</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.14.0" provider-name="Unknown">
     <requires>
       <import addon="script.module.requests" />
       <import addon="vfs.libarchive" optional="true" />
@@ -1563,6 +1563,9 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
             <screenshot>screenshot-03.png</screenshot>
         </assets>
         <news>
+[v3.14.0]:
+  * Handle invalid `VideoPlayer.IMDBNumber` meta
+
 [v3.13.0]:
   * Show proper error message of wrong username for OpenSubtitles
 
@@ -1819,7 +1822,7 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="service.subtitles.localsubtitle" name="LocalSubtitle" version="1.12.1" provider-name="peno">
+</addon><addon id="service.subtitles.localsubtitle" name="LocalSubtitle" version="1.12.4" provider-name="peno">
   <requires>
       <import addon="script.module.pysubs2" version="0.1.0" />
       <import addon="script.module.chardet" />
@@ -1854,9 +1857,21 @@ As extra several extra feastures are added in this case:
 - Auto shift subtitles: to synchronize the two subtitles such that they are displayed at the same time
 - Font, character set, color, ... selection: This overrules the kodi settings</description>
     <disclaimer lang="en" />
+	<news>
+v1.12.4 (2024-04-07)
+- Add possibility to choose the Kodi selected subtitle font
+v1.12.3 (2024-03-24)
+- If the subtitle is located on a special location like samba then the addon could not load the subtitle file
+v1.12.2 (2023-12-02)
+- Some default settings were not applied if not changed first
+v1.12.1 (2021-12-15)
+- More font options (shadow, outline)
+- Possibility to swap bottom - top subtitles
+- Auto shift option. When enabled, the second subtitle will be synced with the first if start/end is within the time difference threshold.
+	</news>
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <source />
+    <source>https://github.com/peno64/service.subtitles.localsubtitle</source>
 	<assets>
         <icon>icon.png</icon>
     </assets>

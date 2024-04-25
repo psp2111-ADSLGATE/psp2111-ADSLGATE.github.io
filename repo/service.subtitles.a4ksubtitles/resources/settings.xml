@@ -7,15 +7,15 @@
         <setting id="general.auto_search"    label="33103" type="bool"   default="true" />
         <setting id="general.auto_download"  label="33104" type="bool"   default="true" enable="eq(-1,true)" />
         <setting id="general.use_chardet"    label="33105" type="bool"   default="false"  />
-        <setting id="general.auto_select"    label="33106" type="bool"   default="false"  />
+        <setting id="general.auto_select"    label="33106" type="bool"   default="true"  />
         <setting id="general.prefer_sdh"     label="33107" type="bool"   default="false" enable="eq(-1,true)" />
-        <setting id="general.prefer_forced"  label="33108" type="bool"   default="true"  enable="eq(-1,false)+eq(-2,true)" />
+        <setting id="general.prefer_forced"  label="33108" type="bool"   default="false"  enable="eq(-1,false)+eq(-2,true)" />
     </category>
     <!-- Services -->
     <category label="33002">
         <setting id="addic7ed.enabled"      label="33206" type="bool" default="false"/>
         <setting id="bsplayer.enabled"      label="33202" type="bool" default="false"/>
-        <setting id="opensubtitles.enabled" label="33201" type="bool" default="true"/>
+        <setting id="opensubtitles.enabled" label="33201" type="bool" default="false"/>
         <setting id="podnadpisi.enabled"    label="33203" type="bool" default="false"/>
         <setting id="subscene.enabled"      label="33205" type="bool" default="true"/>
     </category>
