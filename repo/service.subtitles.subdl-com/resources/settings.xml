@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<settings version="1">
+    <section id="service.subtitles.subdl">
+        <category id="user" label="32101">
+            <group id="1">
+                <setting id="TMDBApiKey" type="string">
+                    <level>4</level>
+                    <default>c3475734910bdff3c5438b9e6db991ca</default>
+                </setting>
+                <setting id="APIKey" type="string">
+                    <level>4</level>
+                    <default>P6U3iReD0glAFxqhtsqRjGViTlmm14LO</default>
+                </setting>
+            </group>
+        </category>
+    </section>
+</settings>
