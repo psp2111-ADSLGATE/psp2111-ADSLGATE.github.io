@@ -2213,6 +2213,31 @@ Other languages with a great number of subtitles are: Danish, French, Swedish, D
             <icon>icon.jpg</icon>
         </assets>
     </extension>
+</addon><addon id="service.subtitles.subsource-net" name="Subsource.net" version="1.0.0" provider-name="opensubtitles, subsource">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0" />
+		<import addon="script.module.web-pdb" />
+		<import addon="script.module.requests" version="2.25.1+matrix.1" />
+	</requires>
+	<extension point="xbmc.subtitle.module" library="service.py" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">subsource.net</summary>
+		<description lang="en_GB">Search and download subtitles for movies and TV-Series from subsource.net</description>
+		<news>
+v1.0.0 (2024-05-4)
+Support subsource.com
+		</news>
+		<platform>all</platform>
+		<license>GPL-2.0-only</license>
+		<forum>https://forum.opensubtitles.com/t/new-kodi-extension/1673</forum>
+		<website>https://www.opensubtitles.com/en</website>
+		<email>cto [at] opensubtitles {dot} org</email>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.png</fanart>
+		</assets>
+		<source>https://github.com/opensubtitlesdev/service.subtitles.opensubtitles-com</source>
+	</extension>
 </addon><addon id="service.upnext" name="UpNext" version="2.0.27+matrix.dev.0" provider-name="im85288">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
