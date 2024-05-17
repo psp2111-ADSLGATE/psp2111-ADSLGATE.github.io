@@ -1,0 +1,683 @@
+<?xml version="1.0" ?>
+<settings version="1">
+    <!-- https://kodi.wiki/view/Add-on_settings_conversion -->
+    <section id="service.subtitles.universalsubs">
+        <!-- General Settings -->
+        <category id="general" label="30000" help="300001">
+            <group id="1">
+                <setting id="providers" type="list[string]" label="30001" help="300011">
+                    <level>0</level>
+                    <default>OpenSubtitles|Subscene|Addic7ed|SubDivX|PodnapisiNET|Local|FileSystem</default>
+                    <constraints>
+                        <options>
+                            <option label="OpenSubtitles.org | OS">OpenSubtitles</option>
+                            <option label="Subscene | SC">Subscene</option>
+                            <option label="Addic7ed.com | AD7">Addic7ed</option>
+                            <option label="SubDivX | SDX">SubDivX</option>
+                            <option label="Podnapisi.NET | PN">PodnapisiNET</option>
+                            <option label="Local | LO">Local</option>
+                            <option label="File System | FS">FileSystem</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30001</heading>
+                        <multiselect>true</multiselect>
+                    </control>
+                </setting>
+                <setting id="translators" type="list[string]" label="30002" help="300021">
+                    <level>0</level>
+                    <default>Google</default>
+                    <constraints>
+                        <options>
+                            <option label="Google | GG">Google</option>
+                            <option label="Bing | BG">Bing</option>
+                            <option label="Libre | LB">Libre</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30002</heading>
+                        <multiselect>true</multiselect>
+                    </control>
+                </setting>
+                <!-- <setting id="translation_extra_languages" type="string" label="30003" help="300031">
+                    <level>1</level>
+                    <default>english|chinese|hindi|spanish|french|italian</default>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30003</heading>
+                    </control>
+                </setting> -->
+                <setting id="translation_extra_languages" type="list[string]" label="30003" help="300031">
+                    <level>0</level>
+                    <default>Arabic</default>
+                    <constraints>
+                        <options>
+                            <option label="Abkhaz">Abkhaz</option>
+                            <option label="Abkhazian">Abkhazian</option>
+                            <option label="Achinese">Achinese</option>
+                            <option label="Acoli">Acoli</option>
+                            <option label="Adangme">Adangme</option>
+                            <option label="Adyghe">Adyghe</option>
+                            <option label="Afar">Afar</option>
+                            <option label="Afrihili">Afrihili</option>
+                            <option label="Afrikaans">Afrikaans</option>
+                            <option label="Afro-Asiatic">Afro-Asiatic</option>
+                            <option label="Ainu">Ainu</option>
+                            <option label="Akan">Akan</option>
+                            <option label="Akkadian">Akkadian</option>
+                            <option label="Albanian">Albanian</option>
+                            <option label="Aleut">Aleut</option>
+                            <option label="Algonquian">Algonquian</option>
+                            <option label="Altaic">Altaic</option>
+                            <option label="Amharic">Amharic</option>
+                            <option label="Angika">Angika</option>
+                            <option label="Apache">Apache</option>
+                            <option label="Arabic">Arabic</option>
+                            <option label="Aragonese">Aragonese</option>
+                            <option label="Aramaic">Aramaic</option>
+                            <option label="Arapaho">Arapaho</option>
+                            <option label="Arawak">Arawak</option>
+                            <option label="Armenian">Armenian</option>
+                            <option label="Aromanian">Aromanian</option>
+                            <option label="Artificial">Artificial</option>
+                            <option label="Assamese">Assamese</option>
+                            <option label="Asturian">Asturian</option>
+                            <option label="Athapascan">Athapascan</option>
+                            <option label="Australian">Australian</option>
+                            <option label="Austronesian">Austronesian</option>
+                            <option label="Avaric">Avaric</option>
+                            <option label="Avestan">Avestan</option>
+                            <option label="Awadhi">Awadhi</option>
+                            <option label="Aymara">Aymara</option>
+                            <option label="Azerbaijani">Azerbaijani</option>
+                            <option label="Balinese">Balinese</option>
+                            <option label="Baltic">Baltic</option>
+                            <option label="Baluchi">Baluchi</option>
+                            <option label="Bambara">Bambara</option>
+                            <option label="Bamileke">Bamileke</option>
+                            <option label="Banda">Banda</option>
+                            <option label="Bantu">Bantu</option>
+                            <option label="Basa">Basa</option>
+                            <option label="Bashkir">Bashkir</option>
+                            <option label="Basque">Basque</option>
+                            <option label="Batak">Batak</option>
+                            <option label="Beja">Beja</option>
+                            <option label="Belarusian">Belarusian</option>
+                            <option label="Bemba">Bemba</option>
+                            <option label="Bengali">Bengali</option>
+                            <option label="Berber">Berber</option>
+                            <option label="Bhojpuri">Bhojpuri</option>
+                            <option label="Bihari">Bihari</option>
+                            <option label="Bikol">Bikol</option>
+                            <option label="Bini; Edo">Bini; Edo</option>
+                            <option label="Bislama">Bislama</option>
+                            <option label="Blin">Blin</option>
+                            <option label="Blissymbols">Blissymbols</option>
+                            <option label="Bodo">Bodo</option>
+                            <option label="Bosnian">Bosnian</option>
+                            <option label="Braj">Braj</option>
+                            <option label="Breton">Breton</option>
+                            <option label="Buginese">Buginese</option>
+                            <option label="Bulgarian">Bulgarian</option>
+                            <option label="Buriat">Buriat</option>
+                            <option label="Burmese">Burmese</option>
+                            <option label="Caddo">Caddo</option>
+                            <option label="Catalan">Catalan</option>
+                            <option label="Caucasian">Caucasian</option>
+                            <option label="Cebuano">Cebuano</option>
+                            <option label="Celtic">Celtic</option>
+                            <option label="Central American Indian">Central American Indian</option>
+                            <option label="Central Khmer">Central Khmer</option>
+                            <option label="Chagatai">Chagatai</option>
+                            <option label="Chamic">Chamic</option>
+                            <option label="Chamorro">Chamorro</option>
+                            <option label="Chechen">Chechen</option>
+                            <option label="Cherokee">Cherokee</option>
+                            <option label="Cheyenne">Cheyenne</option>
+                            <option label="Chhattisgarhi">Chhattisgarhi</option>
+                            <option label="Chibcha">Chibcha</option>
+                            <option label="Chichewa">Chichewa</option>
+                            <option label="Chinese">Chinese</option>
+                            <option label="Chinook jargon">Chinook jargon</option>
+                            <option label="Chipewyan">Chipewyan</option>
+                            <option label="Choctaw">Choctaw</option>
+                            <option label="Church Slavic">Church Slavic</option>
+                            <option label="Chuukese">Chuukese</option>
+                            <option label="Chuvash">Chuvash</option>
+                            <option label="Classical Syriac">Classical Syriac</option>
+                            <option label="Coptic">Coptic</option>
+                            <option label="Cornish">Cornish</option>
+                            <option label="Corsican">Corsican</option>
+                            <option label="Cree">Cree</option>
+                            <option label="Creek">Creek</option>
+                            <option label="Creoles and pidgins">Creoles and pidgins</option>
+                            <option label="Creoles and pidgins, English based">Creoles and pidgins, English based</option>
+                            <option label="Creoles and pidgins, French-based">Creoles and pidgins, French-based</option>
+                            <option label="Creoles and pidgins, Portuguese-based">Creoles and pidgins, Portuguese-based</option>
+                            <option label="Crimean Tatar">Crimean Tatar</option>
+                            <option label="Croatian">Croatian</option>
+                            <option label="Cushitic">Cushitic</option>
+                            <option label="Czech">Czech</option>
+                            <option label="Dakota">Dakota</option>
+                            <option label="Danish">Danish</option>
+                            <option label="Dargwa">Dargwa</option>
+                            <option label="Dari">Dari</option>
+                            <option label="Delaware">Delaware</option>
+                            <option label="Dinka">Dinka</option>
+                            <option label="Divehi">Divehi</option>
+                            <option label="Dogri">Dogri</option>
+                            <option label="Dogrib">Dogrib</option>
+                            <option label="Dravidian">Dravidian</option>
+                            <option label="Duala">Duala</option>
+                            <option label="Dutch">Dutch</option>
+                            <option label="Dyula">Dyula</option>
+                            <option label="Dzongkha">Dzongkha</option>
+                            <option label="Eastern Frisian">Eastern Frisian</option>
+                            <option label="Efik">Efik</option>
+                            <option label="Ekajuk">Ekajuk</option>
+                            <option label="Elamite">Elamite</option>
+                            <option label="English">English</option>
+                            <option label="Erzya">Erzya</option>
+                            <option label="Esperanto">Esperanto</option>
+                            <option label="Estonian">Estonian</option>
+                            <option label="Ewe">Ewe</option>
+                            <option label="Ewondo">Ewondo</option>
+                            <option label="Extremaduran">Extremaduran</option>
+                            <option label="Fang">Fang</option>
+                            <option label="Fanti">Fanti</option>
+                            <option label="Faroese">Faroese</option>
+                            <option label="Fijian">Fijian</option>
+                            <option label="Filipino">Filipino</option>
+                            <option label="Finnish">Finnish</option>
+                            <option label="Finno-Ugrian">Finno-Ugrian</option>
+                            <option label="Fon">Fon</option>
+                            <option label="French">French</option>
+                            <option label="Friulian">Friulian</option>
+                            <option label="Fulah">Fulah</option>
+                            <option label="Ga">Ga</option>
+                            <option label="Gaelic">Gaelic</option>
+                            <option label="Galibi Carib">Galibi Carib</option>
+                            <option label="Galician">Galician</option>
+                            <option label="Gayo">Gayo</option>
+                            <option label="Gbaya">Gbaya</option>
+                            <option label="Geez">Geez</option>
+                            <option label="Georgian">Georgian</option>
+                            <option label="German">German</option>
+                            <option label="Germanic">Germanic</option>
+                            <option label="Gilbertese">Gilbertese</option>
+                            <option label="Gondi">Gondi</option>
+                            <option label="Gorontalo">Gorontalo</option>
+                            <option label="Gothic">Gothic</option>
+                            <option label="Grebo">Grebo</option>
+                            <option label="Greek">Greek</option>
+                            <option label="Guaraní">Guaraní</option>
+                            <option label="Gujarati">Gujarati</option>
+                            <option label="Gwichin">Gwichin</option>
+                            <option label="Haida">Haida</option>
+                            <option label="Haitian">Haitian</option>
+                            <option label="Hausa">Hausa</option>
+                            <option label="Hawaiian">Hawaiian</option>
+                            <option label="Hebrew">Hebrew</option>
+                            <option label="Herero">Herero</option>
+                            <option label="Hiligaynon">Hiligaynon</option>
+                            <option label="Himachali">Himachali</option>
+                            <option label="Hindi">Hindi</option>
+                            <option label="Hiri Motu">Hiri Motu</option>
+                            <option label="Hittite">Hittite</option>
+                            <option label="Hmong">Hmong</option>
+                            <option label="Hungarian">Hungarian</option>
+                            <option label="Hupa">Hupa</option>
+                            <option label="Iban">Iban</option>
+                            <option label="Icelandic">Icelandic</option>
+                            <option label="Ido">Ido</option>
+                            <option label="Igbo">Igbo</option>
+                            <option label="Ijo">Ijo</option>
+                            <option label="Iloko">Iloko</option>
+                            <option label="Inari Sami">Inari Sami</option>
+                            <option label="Indic">Indic</option>
+                            <option label="Indo-European">Indo-European</option>
+                            <option label="Indonesian">Indonesian</option>
+                            <option label="Ingush">Ingush</option>
+                            <option label="Interlingua">Interlingua</option>
+                            <option label="Interlingue">Interlingue</option>
+                            <option label="Inuktitut">Inuktitut</option>
+                            <option label="Inupiaq">Inupiaq</option>
+                            <option label="Iranian">Iranian</option>
+                            <option label="Irish">Irish</option>
+                            <option label="Iroquoian">Iroquoian</option>
+                            <option label="Italian">Italian</option>
+                            <option label="Japanese">Japanese</option>
+                            <option label="Javanese">Javanese</option>
+                            <option label="Judeo-Arabic">Judeo-Arabic</option>
+                            <option label="Judeo-Persian">Judeo-Persian</option>
+                            <option label="Kabardian">Kabardian</option>
+                            <option label="Kabyle">Kabyle</option>
+                            <option label="Kachin">Kachin</option>
+                            <option label="Kalaallisut">Kalaallisut</option>
+                            <option label="Kalmyk">Kalmyk</option>
+                            <option label="Kamba">Kamba</option>
+                            <option label="Kannada">Kannada</option>
+                            <option label="Kanuri">Kanuri</option>
+                            <option label="Kara-Kalpak">Kara-Kalpak</option>
+                            <option label="Karachay-Balkar">Karachay-Balkar</option>
+                            <option label="Karelian">Karelian</option>
+                            <option label="Karen">Karen</option>
+                            <option label="Kashmiri">Kashmiri</option>
+                            <option label="Kashubian">Kashubian</option>
+                            <option label="Kawi">Kawi</option>
+                            <option label="Kazakh">Kazakh</option>
+                            <option label="Khasi">Khasi</option>
+                            <option label="Khoisan">Khoisan</option>
+                            <option label="Khotanese">Khotanese</option>
+                            <option label="Kikuyu">Kikuyu</option>
+                            <option label="Kimbundu">Kimbundu</option>
+                            <option label="Kinyarwanda">Kinyarwanda</option>
+                            <option label="Kirghiz">Kirghiz</option>
+                            <option label="Klingon">Klingon</option>
+                            <option label="Komi">Komi</option>
+                            <option label="Kongo">Kongo</option>
+                            <option label="Konkani">Konkani</option>
+                            <option label="Korean">Korean</option>
+                            <option label="Kosraean">Kosraean</option>
+                            <option label="Kpelle">Kpelle</option>
+                            <option label="Krio">Krio</option>
+                            <option label="Kru">Kru</option>
+                            <option label="Kuanyama">Kuanyama</option>
+                            <option label="Kumyk">Kumyk</option>
+                            <option label="Kurdish">Kurdish</option>
+                            <option label="Kurukh">Kurukh</option>
+                            <option label="Kutenai">Kutenai</option>
+                            <option label="Ladino">Ladino</option>
+                            <option label="Lahnda">Lahnda</option>
+                            <option label="Lamba">Lamba</option>
+                            <option label="Land Dayak">Land Dayak</option>
+                            <option label="Lao">Lao</option>
+                            <option label="Latin">Latin</option>
+                            <option label="Latvian">Latvian</option>
+                            <option label="Lezghian">Lezghian</option>
+                            <option label="Limburgish">Limburgish</option>
+                            <option label="Lingala">Lingala</option>
+                            <option label="Lithuanian">Lithuanian</option>
+                            <option label="Lojban">Lojban</option>
+                            <option label="Lower Sorbian">Lower Sorbian</option>
+                            <option label="Lozi">Lozi</option>
+                            <option label="Luba-Katanga">Luba-Katanga</option>
+                            <option label="Luba-Lulua">Luba-Lulua</option>
+                            <option label="Luganda">Luganda</option>
+                            <option label="Luiseno">Luiseno</option>
+                            <option label="Lule Sami">Lule Sami</option>
+                            <option label="Lunda">Lunda</option>
+                            <option label="Luo">Luo</option>
+                            <option label="Lushai">Lushai</option>
+                            <option label="Luxembourgish">Luxembourgish</option>
+                            <option label="Macedonian">Macedonian</option>
+                            <option label="Madurese">Madurese</option>
+                            <option label="Magahi">Magahi</option>
+                            <option label="Maithili">Maithili</option>
+                            <option label="Makasar">Makasar</option>
+                            <option label="Malagasy">Malagasy</option>
+                            <option label="Malay">Malay</option>
+                            <option label="Malayalam">Malayalam</option>
+                            <option label="Maltese">Maltese</option>
+                            <option label="Manchu">Manchu</option>
+                            <option label="Mandar">Mandar</option>
+                            <option label="Mandingo">Mandingo</option>
+                            <option label="Manipuri">Manipuri</option>
+                            <option label="Manobo">Manobo</option>
+                            <option label="Manx">Manx</option>
+                            <option label="Māori">Māori</option>
+                            <option label="Mapudungun">Mapudungun</option>
+                            <option label="Marathi">Marathi</option>
+                            <option label="Mari">Mari</option>
+                            <option label="Marshallese">Marshallese</option>
+                            <option label="Marwari">Marwari</option>
+                            <option label="Masai">Masai</option>
+                            <option label="Mayan">Mayan</option>
+                            <option label="Mende">Mende</option>
+                            <option label="Mikmaq">Mikmaq</option>
+                            <option label="Minangkabau">Minangkabau</option>
+                            <option label="Mirandese">Mirandese</option>
+                            <option label="Mohawk">Mohawk</option>
+                            <option label="Moksha">Moksha</option>
+                            <option label="Mon-Khmer">Mon-Khmer</option>
+                            <option label="Mongo">Mongo</option>
+                            <option label="Mongolian">Mongolian</option>
+                            <option label="Montenegrin">Montenegrin</option>
+                            <option label="Mossi">Mossi</option>
+                            <option label="Multiple">Multiple</option>
+                            <option label="Munda">Munda</option>
+                            <option label="Nahuatl">Nahuatl</option>
+                            <option label="Nauru">Nauru</option>
+                            <option label="Navajo">Navajo</option>
+                            <option label="Ndonga">Ndonga</option>
+                            <option label="Neapolitan">Neapolitan</option>
+                            <option label="Nepal Bhasa">Nepal Bhasa</option>
+                            <option label="Nepali">Nepali</option>
+                            <option label="Nias">Nias</option>
+                            <option label="Niger-Kordofanian">Niger-Kordofanian</option>
+                            <option label="Nilo-Saharan">Nilo-Saharan</option>
+                            <option label="Niuean">Niuean</option>
+                            <option label="NKo">NKo</option>
+                            <option label="Nogai">Nogai</option>
+                            <option label="North American Indian">North American Indian</option>
+                            <option label="North Ndebele">North Ndebele</option>
+                            <option label="Northern Frisian">Northern Frisian</option>
+                            <option label="Northern Sami">Northern Sami</option>
+                            <option label="Northern Sotho">Northern Sotho</option>
+                            <option label="Norwegian">Norwegian</option>
+                            <option label="Norwegian Bokmål">Norwegian Bokmål</option>
+                            <option label="Norwegian Nynorsk">Norwegian Nynorsk</option>
+                            <option label="Nubian">Nubian</option>
+                            <option label="Nyamwezi">Nyamwezi</option>
+                            <option label="Nyankole">Nyankole</option>
+                            <option label="Nyoro">Nyoro</option>
+                            <option label="Nzima">Nzima</option>
+                            <option label="Occitan">Occitan</option>
+                            <option label="Ojibwa">Ojibwa</option>
+                            <option label="Oriya">Oriya</option>
+                            <option label="Oromo">Oromo</option>
+                            <option label="Osage">Osage</option>
+                            <option label="Ossetian">Ossetian</option>
+                            <option label="Otomian">Otomian</option>
+                            <option label="Pahlavi">Pahlavi</option>
+                            <option label="Palauan">Palauan</option>
+                            <option label="Pali">Pali</option>
+                            <option label="Pāli">Pāli</option>
+                            <option label="Pampanga">Pampanga</option>
+                            <option label="Pangasinan">Pangasinan</option>
+                            <option label="Papiamento">Papiamento</option>
+                            <option label="Papuan">Papuan</option>
+                            <option label="Pashto">Pashto</option>
+                            <option label="Persian">Persian</option>
+                            <option label="Philippine">Philippine</option>
+                            <option label="Phoenician">Phoenician</option>
+                            <option label="Pohnpeian">Pohnpeian</option>
+                            <option label="Polish">Polish</option>
+                            <option label="Portuguese">Portuguese</option>
+                            <option label="Prakrit">Prakrit</option>
+                            <option label="Punjabi">Punjabi</option>
+                            <option label="Quechua">Quechua</option>
+                            <option label="Querétaro Otomi">Querétaro Otomi</option>
+                            <option label="Rajasthani">Rajasthani</option>
+                            <option label="Rapanui">Rapanui</option>
+                            <option label="Rarotongan">Rarotongan</option>
+                            <option label="Romance">Romance</option>
+                            <option label="Romanian">Romanian</option>
+                            <option label="Romansh">Romansh</option>
+                            <option label="Romany">Romany</option>
+                            <option label="Rundi">Rundi</option>
+                            <option label="Russian">Russian</option>
+                            <option label="Salishan">Salishan</option>
+                            <option label="Samaritan Aramaic">Samaritan Aramaic</option>
+                            <option label="Sami">Sami</option>
+                            <option label="Samoan">Samoan</option>
+                            <option label="Sandawe">Sandawe</option>
+                            <option label="Sango">Sango</option>
+                            <option label="Sanskrit">Sanskrit</option>
+                            <option label="Santali">Santali</option>
+                            <option label="Sardinian">Sardinian</option>
+                            <option label="Sasak">Sasak</option>
+                            <option label="Scots">Scots</option>
+                            <option label="Selkup">Selkup</option>
+                            <option label="Semitic">Semitic</option>
+                            <option label="Serbian">Serbian</option>
+                            <option label="Serer">Serer</option>
+                            <option label="Shan">Shan</option>
+                            <option label="Shona">Shona</option>
+                            <option label="Sichuan Yi">Sichuan Yi</option>
+                            <option label="Sicilian">Sicilian</option>
+                            <option label="Sidamo">Sidamo</option>
+                            <option label="Sign">Sign</option>
+                            <option label="Siksika">Siksika</option>
+                            <option label="Sindhi">Sindhi</option>
+                            <option label="Sinhala">Sinhala</option>
+                            <option label="Sino-Tibetan">Sino-Tibetan</option>
+                            <option label="Siouan">Siouan</option>
+                            <option label="Skolt Sami">Skolt Sami</option>
+                            <option label="Slave">Slave</option>
+                            <option label="Slavic">Slavic</option>
+                            <option label="Slovak">Slovak</option>
+                            <option label="Slovenian">Slovenian</option>
+                            <option label="Sogdian">Sogdian</option>
+                            <option label="Somali">Somali</option>
+                            <option label="Songhai">Songhai</option>
+                            <option label="Soninke">Soninke</option>
+                            <option label="Soranî">Soranî</option>
+                            <option label="Sorbian">Sorbian</option>
+                            <option label="South American Indian">South American Indian</option>
+                            <option label="South Ndebele">South Ndebele</option>
+                            <option label="Southern Altai">Southern Altai</option>
+                            <option label="Southern Sami">Southern Sami</option>
+                            <option label="Southern Sotho">Southern Sotho</option>
+                            <option label="Spanish">Spanish</option>
+                            <option label="Sranan Tongo">Sranan Tongo</option>
+                            <option label="Sukuma">Sukuma</option>
+                            <option label="Sumerian">Sumerian</option>
+                            <option label="Sundanese">Sundanese</option>
+                            <option label="Susu">Susu</option>
+                            <option label="Swahili">Swahili</option>
+                            <option label="Swati">Swati</option>
+                            <option label="Swedish">Swedish</option>
+                            <option label="Swiss German">Swiss German</option>
+                            <option label="Syriac">Syriac</option>
+                            <option label="Tagalog">Tagalog</option>
+                            <option label="Tahitian">Tahitian</option>
+                            <option label="Tai">Tai</option>
+                            <option label="Tajik">Tajik</option>
+                            <option label="Tamashek">Tamashek</option>
+                            <option label="Tamil">Tamil</option>
+                            <option label="Tatar">Tatar</option>
+                            <option label="Telugu">Telugu</option>
+                            <option label="Tereno">Tereno</option>
+                            <option label="Tetum">Tetum</option>
+                            <option label="Thai">Thai</option>
+                            <option label="Tibetan">Tibetan</option>
+                            <option label="Tigre">Tigre</option>
+                            <option label="Tigrinya">Tigrinya</option>
+                            <option label="Timne">Timne</option>
+                            <option label="Tiv">Tiv</option>
+                            <option label="Tlingit">Tlingit</option>
+                            <option label="Tok Pisin">Tok Pisin</option>
+                            <option label="Tokelau">Tokelau</option>
+                            <option label="Tonga">Tonga</option>
+                            <option label="Tonga (Nyasa)">Tonga (Nyasa)</option>
+                            <option label="Tsimshian">Tsimshian</option>
+                            <option label="Tsonga">Tsonga</option>
+                            <option label="Tswana">Tswana</option>
+                            <option label="Tumbuka">Tumbuka</option>
+                            <option label="Tupi">Tupi</option>
+                            <option label="Turkish">Turkish</option>
+                            <option label="Turkmen">Turkmen</option>
+                            <option label="Tuvalu">Tuvalu</option>
+                            <option label="Tuvinian">Tuvinian</option>
+                            <option label="Twi">Twi</option>
+                            <option label="Udmurt">Udmurt</option>
+                            <option label="Ugaritic">Ugaritic</option>
+                            <option label="Ukrainian">Ukrainian</option>
+                            <option label="Umbundu">Umbundu</option>
+                            <option label="Uncoded">Uncoded</option>
+                            <option label="Upper Sorbian">Upper Sorbian</option>
+                            <option label="Urdu">Urdu</option>
+                            <option label="Uyghur">Uyghur</option>
+                            <option label="Uzbek">Uzbek</option>
+                            <option label="Vai">Vai</option>
+                            <option label="Venda">Venda</option>
+                            <option label="Vietnamese">Vietnamese</option>
+                            <option label="Volapük">Volapük</option>
+                            <option label="Votic">Votic</option>
+                            <option label="Wakashan">Wakashan</option>
+                            <option label="Walloon">Walloon</option>
+                            <option label="Waray">Waray</option>
+                            <option label="Washo">Washo</option>
+                            <option label="Welsh">Welsh</option>
+                            <option label="Western Frisian">Western Frisian</option>
+                            <option label="Wolaitta">Wolaitta</option>
+                            <option label="Wolof">Wolof</option>
+                            <option label="Xhosa">Xhosa</option>
+                            <option label="Yakut">Yakut</option>
+                            <option label="Yao">Yao</option>
+                            <option label="Yapese">Yapese</option>
+                            <option label="Yiddish">Yiddish</option>
+                            <option label="Yoruba">Yoruba</option>
+                            <option label="Yucatec Maya">Yucatec Maya</option>
+                            <option label="Yupik">Yupik</option>
+                            <option label="Zande">Zande</option>
+                            <option label="Zapotec">Zapotec</option>
+                            <option label="Zaza">Zaza</option>
+                            <option label="Zenaga">Zenaga</option>
+                            <option label="Zhuang">Zhuang</option>
+                            <option label="Zulu">Zulu</option>
+                            <option label="Zuni">Zuni</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30003</heading>
+                        <multiselect>true</multiselect>
+                    </control>
+                </setting>
+                <setting id="clean_up_subtitles" type="boolean" label="30004" help="300041">
+                    <level>1</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="include_author_on_results" type="boolean" label="30005" help="300051">
+                    <level>1</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="include_downloads_on_results" type="boolean" label="30006" help="300061">
+                    <level>1</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="max_search_results" type="integer" label="30007" help="300071">
+                    <level>1</level>
+                    <default>50</default>
+                    <control type="edit" format="integer">
+                        <heading>30007</heading>
+                    </control>
+                </setting>
+            </group>
+        </category>
+
+        <!-- Subtitles Cleanup -->
+        <category id="subtitles_cleanup" label="60000" help="600001">
+            <group id="1">
+                <setting id="clean_up_ads" type="boolean" label="60001" help="600011">
+                    <level>1</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="clean_up_hi_markers" type="boolean" label="60002" help="600021">
+                    <level>1</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="clean_up_rules_update_url" type="string" label="60003" help="600031">
+                    <level>2</level>
+                    <default>https://raw.githubusercontent.com/bkiziuk/service.subsmangler/master/resources/regexdef.def</default>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>60003</heading>
+                    </control>
+                </setting>
+                <setting id="clean_up_rules_update_interval" type="integer" label="60004" help="600041">
+                    <level>2</level>
+                    <default>7</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <step>1</step>
+                        <maximum>120</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                </setting>
+            </group>
+        </category>
+
+        <!-- File System Settings -->
+        <category id="file_system" label="50000" help="50000">
+            <group id="1">
+                <setting id="file_system_provider_path" type="path" label="50001" help="500011">
+                    <level>0</level>
+                    <default>/select/path/to/local/subs</default>
+                    <constraints>
+                        <writable>false</writable>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="button" format="path">
+                        <heading>50001</heading>
+                    </control>
+                </setting>
+            </group>
+        </category>
+
+        <!-- Advanced Settings -->
+        <category id="advanced" label="40000" help="40000">
+            <group id="1">
+                <setting id="search_cache_ttl" type="integer" label="40001" help="400011">
+                    <level>2</level>
+                    <default>10</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <step>1</step>
+                        <maximum>120</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                </setting>
+                <setting id="translation_cache_ttl" type="integer" label="40002" help="400021">
+                    <level>2</level>
+                    <default>30</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <step>1</step>
+                        <maximum>365</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                </setting>
+                <setting id="seven_zip_executable" type="path" label="40003" help="400031">
+                    <level>2</level>
+                    <default/>
+                    <constraints>
+                        <writable>false</writable>
+                        <masking>executable</masking>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="button" format="file">
+                        <heading>40002</heading>
+                    </control>
+                </setting>
+                <setting id="mkvtoolnix_path" type="path" label="40006" help="400061">
+                    <level>2</level>
+                    <default/>
+                    <constraints>
+                        <writable>false</writable>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="button" format="file">
+                        <heading>40002</heading>
+                    </control>
+                </setting>
+                <setting id="exclude_splitted_subtitles" type="boolean" label="40004" help="400041">
+                    <level>2</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="cache_whole_requests" type="boolean" label="40005" help="400051">
+                    <level>3</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
+    </section>
+</settings>

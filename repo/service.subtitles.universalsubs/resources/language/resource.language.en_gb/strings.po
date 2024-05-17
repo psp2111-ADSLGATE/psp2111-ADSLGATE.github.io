@@ -1,0 +1,130 @@
+# Kodi Media Center language file
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "General"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Subtitle providers to use"
+msgstr ""
+
+msgctxt "#300011"
+msgid "Providers to use for searching subtitles."
+msgstr ""
+
+msgctxt "#30002"
+msgid "Suggest automatic translations from:"
+msgstr ""
+
+msgctxt "#300021"
+msgid "Engines to use for offering automatic subtitle translations."
+msgstr ""
+
+msgctxt "#30003"
+msgid "Extra languages for translations:"
+msgstr ""
+
+msgctxt "#300031"
+msgid "Additional languages to search subtitles for in order to feed them to automatic translations engine(s)."
+msgstr ""
+
+msgctxt "#30004"
+msgid "Clean up subtitles"
+msgstr ""
+
+msgctxt "#300041"
+msgid "When enabled, cleaned up tasks will be performed on donwloaded subtitles."
+msgstr ""
+
+msgctxt "#30005"
+msgid "Include author in search results"
+msgstr ""
+
+msgctxt "#300051"
+msgid "When enabled, author name will be appended to subtitles description if available."
+msgstr ""
+
+msgctxt "#30006"
+msgid "Include downloads in search results"
+msgstr ""
+
+msgctxt "#300061"
+msgid "When enabled, downloads count will be appended to subtitles description if available."
+msgstr ""
+
+msgctxt "#30007"
+msgid "Maximum search results"
+msgstr ""
+
+msgctxt "#300071"
+msgid "Maximum number of search results to fetch."
+msgstr ""
+
+msgctxt "#50000"
+msgid "File System Provider"
+msgstr ""
+
+msgctxt "#50001"
+msgid "File system provider root path"
+msgstr ""
+
+msgctxt "#40000"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "#40001"
+msgid "Subtitle search cache TTL in minutes (0 turns it off)"
+msgstr ""
+
+msgctxt "#40002"
+msgid "Translations cache TTL in days (0 turns it off)"
+msgstr ""
+
+msgctxt "#40003"
+msgid "Path to 7z executable (7-Zip decompression support)"
+msgstr ""
+
+msgctxt "#40006"
+msgid "Path to MKVToolNix executables folder (MKV files subtitles extraction support)"
+msgstr ""
+
+msgctxt "#40004"
+msgid "Exclude splitted subtitles from results"
+msgstr ""
+
+msgctxt "#40005"
+msgid "Cache whole requests (for debugging only, increases cache storage size)"
+msgstr ""
+
+msgctxt "#60000"
+msgid "Subtitles Cleanup"
+msgstr ""
+
+msgctxt "#60001"
+msgid "Remove advertisements"
+msgstr ""
+
+msgctxt "#60002"
+msgid "Remove hearing impaired markers"
+msgstr ""
+
+msgctxt "#60003"
+msgid "Update rules URL"
+msgstr ""
+
+msgctxt "#60004"
+msgid "Update rules interval in days"
+msgstr ""

@@ -1,0 +1,24 @@
+# See https://docs.python.org/3/library/logging.config.html
+---
+version: 1
+disable_existing_loggers: false
+formatters:
+  kodi:
+    format: "%(abbrv_name)s | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+handlers:
+  kodi:
+    class: resources.lib.utils.logging.KodiLogHandler
+    level: DEBUG
+    formatter: kodi
+root:
+  #level: DEBUG
+  handlers:
+    - kodi
+loggers:
+  UniversalSubs:
+    level: DEBUG
+    propagate: "no"
+  UniversalSubs.Cache:
+    level: CRITICAL
+    propagate: "no"

@@ -1,0 +1,33 @@
+# See https://docs.python.org/3/library/logging.config.html
+---
+version: 1
+disable_existing_loggers: false
+formatters:
+  console:
+    format: "%(asctime)s %(levelname)s %(abbrv_name)s | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: console
+    stream: ext://sys.stderr
+root:
+  handlers:
+    - console
+loggers:
+  UniversalSubs:
+    level: ERROR
+    propagate: "no"
+  UniversalSubs.Provider:
+    level: DEBUG
+    propagate: "no"
+  UniversalSubs.Translator:
+    level: DEBUG
+    propagate: "no"
+  #UniversalSubs.Cache:
+  #  level": CRITICAL
+  #  propagate": "no"
+  UniversalSubs.HttpClient:
+    level: DEBUG
+    propagate: "no"
