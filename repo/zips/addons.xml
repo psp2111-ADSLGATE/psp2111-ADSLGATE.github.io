@@ -1291,7 +1291,7 @@
 ### Fixed
 - Fix settings not being saved and setup wizard repeatedly activating in Kodi 20 and lower
 - Fix plugin refresh on settings change</news></extension>
-</addon><addon id="repository.psp2111" name="psp2111" version="0.0.2" provider-name="psp2111-ADSLGATE">
+</addon><addon id="repository.psp2111" name="psp2111" version="0.0.1" provider-name="psp2111-ADSLGATE">
     <extension point="xbmc.addon.repository" name="psp2111 Repository">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/psp2111-ADSLGATE/psp2111.github.io/master/repo/zips/addons.xml</info>
