@@ -4,16 +4,14 @@
     and then update the md5 and addons.xml file
 """
 
-import hashlib
 import os
 import shutil
-import sys
+import hashlib
 import zipfile
-
 from xml.etree import ElementTree
 
-SCRIPT_VERSION = 5
-KODI_VERSIONS = ["krypton", "leia", "matrix", "nexus", "repo"]
+SCRIPT_VERSION = 2
+KODI_VERSIONS = ["krypton", "leia", "matrix", "nexusrepo", "omega", "repo"]
 IGNORE = [
     ".git",
     ".github",
@@ -23,6 +21,19 @@ IGNORE = [
     ".idea",
     "venv",
 ]
+
+
+def _setup_colors():
+    color = os.system("color")
+    console = 0
+    if os.name == 'nt':  # Only if we are running on Windows
+        from ctypes import windll
+
+        k = windll.kernel32
+        console = k.SetConsoleMode(k.GetStdHandle(-11), 7)
+    return color == 1 or console == 1
+
+
 _COLOR_ESCAPE = "\x1b[{}m"
 _COLORS = {
     "black": "30",
@@ -35,81 +46,10 @@ _COLORS = {
     "grey": "37",
     "endc": "0",
 }
-
-
-def _setup_colors():
-    """
-    Return True if the running system's terminal supports color,
-    and False otherwise.
-    """
-
-    def vt_codes_enabled_in_windows_registry():
-        """
-        Check the Windows registry to see if VT code handling has been enabled by default.
-        """
-        try:
-            import winreg
-        except:
-            return False
-        else:
-            reg_key = winreg.OpenKey(
-                winreg.HKEY_CURRENT_USER, "Console", access=winreg.KEY_ALL_ACCESS
-            )
-            try:
-                reg_key_value, _ = winreg.QueryValueEx(reg_key, "VirtualTerminalLevel")
-            except FileNotFoundError:
-                try:
-                    winreg.SetValueEx(
-                        reg_key, "VirtualTerminalLevel", 0, winreg.KEY_DWORD, 1
-                    )
-                except:
-                    return False
-                else:
-                    reg_key_value, _ = winreg.QueryValueEx(
-                        reg_key, "VirtualTerminalLevel"
-                    )
-            else:
-                return reg_key_value == 1
-
-    def is_a_tty():
-        return hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
-
-    def legacy_support():
-        console = 0
-        color = 0
-        if sys.platform in ["linux", "linux2", "darwin"]:
-            pass
-        elif sys.platform == "win32":
-            color = os.system("color")
-
-            from ctypes import windll
-
-            k = windll.kernel32
-            console = k.SetConsoleMode(k.GetStdHandle(-11), 7)
-
-        return any([color == 1, console == 1])
-
-    return any(
-        [
-            is_a_tty(),
-            sys.platform != "win32",
-            "ANSICON" in os.environ,
-            "WT_SESSION" in os.environ,
-            os.environ.get("TERM_PROGRAM") == "vscode",
-            vt_codes_enabled_in_windows_registry(),
-            legacy_support(),
-        ]
-    )
-
-
 _SUPPORTS_COLOR = _setup_colors()
 
 
 def color_text(text, color):
-    """
-    Return an ANSI-colored string, if supported.
-    """
-
     return (
         '{}{}{}'.format(
             _COLOR_ESCAPE.format(_COLORS[color]),
@@ -322,7 +262,7 @@ class Generator:
             except Exception as e:
                 print(
                     "Excluding {}: {}".format(
-                        color_text(addon, 'yellow'), color_text(e, 'red')
+                        color_text(id, 'yellow'), color_text(e, 'red')
                     )
                 )
 
@@ -346,9 +286,10 @@ class Generator:
         Generates a new addons.xml.md5 file.
         """
         try:
-            with open(addons_xml_path, "r", encoding="utf-8") as f:
-                m = hashlib.md5(f.read().encode("utf-8")).hexdigest()
-                self._save_file(m, file=md5_path)
+            m = hashlib.md5(
+                open(addons_xml_path, "r", encoding="utf-8").read().encode("utf-8")
+            ).hexdigest()
+            self._save_file(m, file=md5_path)
 
             return True
         except Exception as e:
@@ -363,8 +304,7 @@ class Generator:
         Saves a file.
         """
         try:
-            with open(file, "w") as f:
-                f.write(data)
+            open(file, "w").write(data)
         except Exception as e:
             print(
                 "An error occurred saving {}!\n{}".format(
@@ -372,7 +312,7 @@ class Generator:
                 )
             )
 
-
 if __name__ == "__main__":
     for release in [r for r in KODI_VERSIONS if os.path.exists(r)]:
+        print(release)
         Generator(release)
