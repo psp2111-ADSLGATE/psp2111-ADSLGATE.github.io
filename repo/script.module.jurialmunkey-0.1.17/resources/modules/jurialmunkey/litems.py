@@ -19,6 +19,8 @@ class Container():
         )
 
     def add_items(self, items, update_listing=False, plugin_category='', container_content=''):
+        if self.handle is None:
+            return
         import xbmcplugin
         xbmcplugin.addDirectoryItems(handle=self.handle, items=items)
         xbmcplugin.setPluginCategory(self.handle, plugin_category)  # Container.PluginCategory

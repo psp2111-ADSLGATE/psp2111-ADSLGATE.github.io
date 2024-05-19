@@ -965,7 +965,7 @@
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.2.14~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.2.23~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -1309,29 +1309,7 @@
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="resource.font.robotocjksc" name="Roboto CJKSC" version="0.0.1" provider-name="jurialmunkey">
-    <requires>
-        <import addon="kodi.resource" version="1.0.0" />
-    </requires>
-    
-    <extension point="kodi.resource.font" compile="false" />
-    
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">Roboto CJKSC fonts</summary>
-        <description lang="en_GB" />
-        <language />
-        <platform>all</platform>
-        <license>Apache-2.0</license>
-        <forum />
-        <email />
-        <source />
-        <news />
-        <disclaimer />
-        <assets>
-            <icon>icon.png</icon>
-        </assets>
-    </extension>
-</addon><addon id="resource.images.studios.coloured" name="Studio Icons - Coloured" version="0.0.23" provider-name="Team Kodi">
+</addon><addon id="resource.images.studios.coloured" name="Studio Icons - Coloured" version="0.0.24" provider-name="Team Kodi - lynxstrike">
 	<extension point="kodi.resource.images" compile="true" type="studios" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
@@ -1406,7 +1384,7 @@
         <reuselanguageinvoker>false</reuselanguageinvoker>
         <source>https://</source>
     </extension>
-</addon><addon id="script.module.jurialmunkey" name="jurialmunkey common" provider-name="jurialmunkey" version="0.1.17">
+</addon><addon id="script.module.jurialmunkey" name="jurialmunkey common" provider-name="jurialmunkey" version="0.1.18">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.requests" version="2.9.1" />
@@ -1472,7 +1450,7 @@
         <description lang="zh_CN">皮肤加载项，提供简单的用户快捷方式管理和列表（需要皮肤支持）</description>
         <description lang="zh_TW">插件为皮肤提供了简单的管理和用户连接方式列表 (需要皮肤支持)</description>
     </extension>
-</addon><addon id="script.skinvariables" version="1.1.9" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariablesAH2" version="1.1.9" name="Skin Variables" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.jurialmunkey" version="0.1.4" />
@@ -1492,7 +1470,7 @@
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="script.texturemaker" version="0.2.8" name="Texture Maker" provider-name="jurialmunkey">
+</addon><addon id="script.texturemakerAH2" version="0.2.8" name="Texture Maker" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.pil" version="1.1.7" />
@@ -2331,16 +2309,15 @@ Många befintliga tillägg integreras redan med den här utanför lådan-tjänst
       <screenshot>resources/media/upnext-developer.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.8.28~omega">
+</addon><addon id="skin.arctic.horizon.2.0" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.8.28~omega">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinshortcuts" version="0.4.0" />
-        <import addon="script.skinvariables" version="1.0.0" />
-        <import addon="script.texturemaker" version="0.2.8" />
+        <import addon="script.skinvariablesAH2" version="1.0.0" />
+        <import addon="script.texturemakerAH2" version="0.2.8" />
         <import addon="plugin.video.themoviedb.helper" version="5.1.11~nexus" />
         <import addon="resource.images.weathericons.white" version="0.0.1" />
         <import addon="resource.images.studios.coloured" version="0.0.1" />
-        <import addon="resource.font.robotocjksc" version="0.0.1" />
     </requires>
     <extension debugging="false" defaultthemename="Textures.xbt" effectslowdown="1" point="xbmc.gui.skin">
         <res aspect="16:9" default="true" folder="1080i" height="1080" width="1920" />

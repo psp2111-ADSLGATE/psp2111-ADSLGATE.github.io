@@ -135,18 +135,21 @@ def wait_until_updated(container_id=9999, instance_id=None, poll=1, timeout=60, 
 
 
 class WindowProperty():
-    def __init__(self, *args):
+    def __init__(self, *args, prefix='TMDbHelper'):
         """ ContextManager for setting a WindowProperty over duration """
+        import xbmcgui
         self.property_pairs = args
+        self.prefix = prefix
+        self.window = xbmcgui.Window(10000)
 
         for k, v in self.property_pairs:
             if not k or not v:
                 continue
-            get_property(k, set_property=v)
+            self.window.setProperty(f'{self.prefix}.{k}', f'{v}')
 
     def __enter__(self):
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         for k, v in self.property_pairs:
-            get_property(k, clear_property=True)
+            self.window.clearProperty(f'{self.prefix}.{k}')
