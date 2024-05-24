@@ -5,7 +5,7 @@
             <group id="1">
                 <setting id="TMDBApiKey" type="string">
                     <level>4</level>
-                    <default>c3475734910bdff3c5438b9e6db991ca</default>
+                    <default>d94b08cb3a0d7e98e4ac81e498a02595</default>
                 </setting>
                 <setting id="APIKey" type="string">
                     <level>4</level>
