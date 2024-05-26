@@ -213,16 +213,18 @@ class SmartPlay:
         if next_position >= g.PLAYLIST.size():
             return
 
-        url = g.PLAYLIST[next_position].getPath()  # pylint: disable=unsubscriptable-object
+        url = g.PLAYLIST[  # pylint: disable=unsubscriptable-object
+            next_position
+        ].getPath()
 
         if not url:
             return
 
         url = url.replace("getSources", "preScrape")
         g.set_runtime_setting("tempSilent", True)
-        g.log(f"Running Pre-Scrape: {url}")
-        xbmc.executebuiltin(f'RunPlugin("{url}")')
-
+        g.log("Running Pre-Scrape: {}".format(url))
+        xbmc.executebuiltin('RunPlugin("{}")'.format(url))
+        
     def shuffle_play(self):
         """
         Creates a playlist of shuffled episodes for selected show and plays it
@@ -292,11 +294,6 @@ class SmartPlay:
         g.PLAYLIST.add(url=f"{g.BASE_URL}/?{g.PARAM_STRING}", listitem=item[1])
         return g.PLAYLIST
 
-    @staticmethod
-    def clear_other_playlist_items():
-        while (pos := g.PLAYLIST.getposition() + 1) < g.PLAYLIST.size():
-            g.PLAYLIST.remove(g.PLAYLIST[pos].getPath())
-
     def playlist_present_check(self, ignore_setting=False):
         """
         Confirms if a playlist is currently present. If not or playlist is for a different item, clear current list
@@ -331,18 +328,25 @@ class SmartPlay:
             return
 
         action_args = [
-            g.legacy_action_args_converter(g.legacy_params_converter(dict(parse.parse_qsl(i.split("?")[-1])))).get(
-                "action_args"
-            )
-            for i in playlist_uris
-        ]
+                g.legacy_action_args_converter(
+                    g.legacy_params_converter(
+                        dict(parse.parse_qsl(i.split("?")[-1]))
+                        )
+                    )["action_args"]
+                for i in playlist_uris]
+  
+        show_ids = set(tools.deconstruct_action_args(i).get('trakt_show_id') for i in action_args)
 
-        show_ids = {tools.deconstruct_action_args(i).get('trakt_show_id') for i in action_args if i}
+        if len(show_ids) > 1 and self.show_trakt_id not in show_ids:
+                g.log("Cleaning up items from other shows", "debug")
+                playlist_uris = []
 
-        if len(show_ids) > 1:
-            g.log("Cleaning up items from other shows", "debug")
-            self.clear_other_playlist_items()
-            return
+        if (len(playlist_uris) == 0 or
+                (len(playlist_uris) > 1 and not any(g.PARAM_STRING in i for i in playlist_uris))) or \
+                    g.PLAYLIST.getposition() == -1:
+                return self.create_single_item_playlist_from_info()
+
+        return False
 
     def is_season_final(self):
         """

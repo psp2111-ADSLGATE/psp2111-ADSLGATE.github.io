@@ -83,6 +83,15 @@ class Config:
         self.CONTACT = uservar.CONTACT
         self.CONTACTICON = uservar.CONTACTICON if not uservar.CONTACTICON.endswith('://') else self.ADDON_ICON
         self.CONTACTFANART = uservar.CONTACTFANART if not uservar.CONTACTFANART.endswith('://') else self.ADDON_FANART
+        self.ICONCOREELEC = uservar.ICONCOREELEC
+        self.ICONDOWNLOAD = uservar.ICONDOWNLOAD
+        self.ICONINFO = uservar.ICONINFO
+        self.ICONVIDEO = uservar.ICONVIDEO
+        self.FANARTCOREELEC = uservar.FANARTCOREELEC
+        self.FANARTDOWNLOAD = uservar.FANARTDOWNLOAD
+        self.FANARTINFO = uservar.FANARTINFO
+        self.FANARTVIDEO = uservar.FANARTVIDEO
+        self.FANARTSAVE = uservar.FANARTSAVE
 
         # Auto Update For Those With No Repo
         self.AUTOUPDATE = uservar.AUTOUPDATE

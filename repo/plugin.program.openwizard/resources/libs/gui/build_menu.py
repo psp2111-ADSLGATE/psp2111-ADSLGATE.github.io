@@ -167,13 +167,13 @@ class BuildMenu:
                 
             directory.add_file(build, description=description, fanart=fanart, icon=icon, themeit=CONFIG.THEME4)
             directory.add_separator()
-            directory.add_dir('Save Data Menu - حفظ البيانات', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME2)
-            directory.add_file('Build Information - معلومات البيلد', {'mode': 'buildinfo', 'name': name}, description=description, fanart=fanart,
-                               icon=icon, themeit=CONFIG.THEME2)
+            directory.add_dir('Save Data Menu - حفظ البيانات', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, fanart=CONFIG.FANARTSAVE, themeit=CONFIG.THEME2)
+            directory.add_file('Build Information - معلومات البيلد', {'mode': 'buildinfo', 'name': name}, description=description, fanart=CONFIG.FANARTINFO,
+                               icon=CONFIG.ICONINFO, themeit=CONFIG.THEME2)
                                
             if previewcheck:
-                directory.add_file('View Video Preview - فيديو للبيلد', {'mode': 'buildpreview', 'name': name}, description=description, fanart=fanart,
-                                   icon=icon, themeit=CONFIG.THEME2)
+                directory.add_file('View Video Preview - فيديو للبيلد', {'mode': 'buildpreview', 'name': name}, description=description, fanart=CONFIG.FANARTVIDEO,
+                                   icon=CONFIG.ICONVIDEO, themeit=CONFIG.THEME2)
             
             if versioncheck:
                 directory.add_file(
@@ -181,12 +181,12 @@ class BuildMenu:
                     fanart=fanart, icon=icon, themeit=CONFIG.THEME2)
                     
             directory.add_separator('INSTALL')
-            directory.add_file('Install - التثبيت', {'mode': 'install', 'action': 'build', 'name': name}, description=description, fanart=fanart,
-                               icon=icon, themeit=CONFIG.THEME1)
+            directory.add_file('Install - التثبيت', {'mode': 'install', 'action': 'build', 'name': name}, description=description, fanart=CONFIG.FANARTDOWNLOAD,
+                               icon=CONFIG.ICONDOWNLOAD, themeit=CONFIG.THEME1)
                                
             if guicheck:
-                directory.add_file('Apply CoreElec Fix - تثبيت تعديل كوريليك', {'mode': 'install', 'action': 'gui', 'name': name}, description=description, fanart=fanart,
-                                   icon=icon, themeit=CONFIG.THEME1)
+                directory.add_file('Apply CoreElec Fix - تثبيت تعديل كوريليك', {'mode': 'install', 'action': 'gui', 'name': name}, description=description, fanart=CONFIG.FANARTCOREELEC,
+                                   icon=CONFIG.ICONCOREELEC, themeit=CONFIG.THEME1)
                                    
             if themecheck:
                 directory.add_separator('THEMES', fanart=fanart, icon=icon)

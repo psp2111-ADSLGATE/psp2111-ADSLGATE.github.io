@@ -258,7 +258,7 @@ msgstr "الأصناف"
 #: resources/lib/gui/movieMenus.py:195 /resources/lib/gui/tvshowMenus.py:212
 msgctxt "#30043"
 msgid "Finish Watching"
-msgstr "تكملة المشاهدة"
+msgstr "لم تنتهي من مشاهدتها"
 
 #: resources/lib/gui/movieMenus.py:213
 msgctxt "#30044"
@@ -1186,7 +1186,7 @@ msgstr "يبدو أن حزمة الثيم هذه غير صالحة، يرجى م
 #: resources/lib/gui/tvshowMenus.py:236
 msgctxt "#30210"
 msgid "Next Up"
-msgstr "لم تنتهي من مشاهدتها"
+msgstr "تكملة المشاهدة"
 
 #: resources/lib/gui/tvshowMenus.py:242
 msgctxt "#30211"
@@ -1999,7 +1999,7 @@ msgstr "اسم الحلقة"
 #: resources/settings.xml:70 /resources/settings.xml:83
 msgctxt "#30357"
 msgid "01x01. Episode Title"
-msgstr "{\\ fad (300,1500)\\ cH 000000\\3 cH 00 FFFF\\ fnArabic Types"
+msgstr "اسم الحلقة: 01x01."
 
 #: resources/settings.xml:71 /resources/settings.xml:84
 msgctxt "#30358"

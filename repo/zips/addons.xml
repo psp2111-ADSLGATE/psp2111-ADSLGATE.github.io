@@ -249,7 +249,7 @@
             <fanart>fanart.png</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" version="2.0.13" provider-name="drinfernoo, slamious">
+</addon><addon id="plugin.program.openwizard" name="[COLOR white][B]psp2111[/B][/COLOR]Wizard" version="2.0.14" provider-name="drinfernoo, slamious">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
@@ -418,7 +418,7 @@
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.seren" version="3.0.0.4~omega" name="Seren" provider-name="Nixgates">
+</addon><addon id="plugin.video.seren" version="3.0.0.5~omega" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
@@ -1309,6 +1309,24 @@
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="repository.taiseer" name="repository Abkrim" version="1.0.1" provider-name="taiseer999">
+    <extension point="xbmc.addon.repository" name="Example Repository">
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/taiseer999/taiseer999.github.io/main/repo/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/taiseer999/taiseer999.github.io/main/repo/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/taiseer999/taiseer999.github.io/main/repo/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>repository.taiseer</summary>
+        <description>Arabic Kodi</description>
+        <disclaimer />
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon><addon id="resource.images.studios.coloured" name="Studio Icons - Coloured" version="0.0.24" provider-name="Team Kodi - lynxstrike">
 	<extension point="kodi.resource.images" compile="true" type="studios" />
 	<requires>
@@ -2019,10 +2037,9 @@ v1.0.1 (2023-07-28)
 		</assets>
 		<source>https://github.com/opensubtitlesdev/service.subtitles.opensubtitles-com</source>
 	</extension>
-</addon><addon id="service.subtitles.subdl-com" name="SubDL.com" version="1.0.0" provider-name="amet, opensubtitles, juokelis, opensubtitlesdev">
+</addon><addon id="service.subtitles.subdl-com" name="SubDL.com" version="1.0.1" provider-name="amet, opensubtitles, juokelis, opensubtitlesdev">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
-		<import addon="script.module.web-pdb" />
 		<import addon="script.module.requests" version="2.25.1+matrix.1" />
 	</requires>
 	<extension point="xbmc.subtitle.module" library="service.py" />
@@ -2340,7 +2357,7 @@ Många befintliga tillägg integreras redan med den här utanför lådan-tjänst
     </extension>
 </addon><addon id="skin.fentastic" version="1.0.21" name="FENtastic" provider-name="Ivar Brandt">
 	<requires>
-		<import addon="xbmc.gui" version="5.16.0" />
+		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.fentastic.helper" />
 	</requires>
 	<extension point="xbmc.gui.skin" debugging="false">

@@ -13,11 +13,11 @@ ART = os.path.join(PATH, 'resources', 'media')
 #########################################################
 #        User Edit Variables                            #
 #########################################################
-ADDONTITLE = '[COLOR limegreen][B]Open[/B][/COLOR]Wizard'
-BUILDERNAME = 'OpenWizard'
+ADDONTITLE = '[COLOR white][B]psp2111[/B][/COLOR]Wizard'
+BUILDERNAME = 'psp2111'
 EXCLUDES = [ADDON_ID, 'repository.openwizard']
 # Text File with build info in it. Please read https://github.com/a4k-openproject/plugin.program.openwizard/wiki/Installing-Builds
-BUILDFILE = 'http://psp2111.ddns.net/Builds.txt'
+BUILDFILE = 'https://psp2111-adslgate.github.io/Builds.txt'
 # How often you would like it to check for build updates in days
 # 0 being every startup of kodi
 UPDATECHECK = 0
@@ -53,6 +53,15 @@ ICONREAL = os.path.join(ART, 'keepdebrid.png')
 ICONLOGIN = os.path.join(ART, 'keeplogin.png')
 ICONCONTACT = os.path.join(ART, 'information.png')
 ICONSETTINGS = os.path.join(ART, 'settings.png')
+ICONCOREELEC = os.path.join(ART, 'coreelec.png')
+ICONDOWNLOAD = os.path.join(ART, 'install.png')
+ICONINFO = os.path.join(ART, 'info.png')
+ICONVIDEO = os.path.join(ART, 'video.png')
+FANARTCOREELEC = os.path.join(ART, 'cefanart.png')
+FANARTDOWNLOAD = os.path.join(ART, 'dlfanart.png')
+FANARTINFO = os.path.join(ART, 'infanart.png')
+FANARTVIDEO = os.path.join(ART, 'vifanart.png')
+FANARTSAVE = os.path.join(ART, 'savefanart.png')
 # Hide the section separators 'Yes' or 'No'
 HIDESPACERS = 'Yes'
 # Character used in separator
@@ -109,12 +118,12 @@ REPOZIPURL = 'https://'
 # Enable Notification screen Yes or No
 ENABLE = 'No'
 # Url to notification file
-NOTIFICATION = 'https://archive.org/download/builds_20230221/notify.txt'
+NOTIFICATION = 'https://'
 # Use either 'Text' or 'Image'
 HEADERTYPE = 'Text'
 # Font size of header
 FONTHEADER = 'Font14'
-HEADERMESSAGE = '[COLOR limegreen][B]Open[/B][/COLOR]Wizard'
+HEADERMESSAGE = '[COLOR white][B]psp2111[/B][/COLOR]Wizard'
 # url to image if using Image 424x180
 HEADERIMAGE = 'http://'
 # Font for Notification Window

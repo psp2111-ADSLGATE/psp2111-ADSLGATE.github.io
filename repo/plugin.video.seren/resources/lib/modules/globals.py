@@ -887,7 +887,7 @@ class GlobalVariables:
 
         return 0
 
-    def log(self, msg, level="info"):
+    def log(self, msg, level="debug"):
         msg = msg
         msg = f"{self.ADDON_NAME.upper()} ({self.PLUGIN_HANDLE}): {msg}"
         if level == "error":

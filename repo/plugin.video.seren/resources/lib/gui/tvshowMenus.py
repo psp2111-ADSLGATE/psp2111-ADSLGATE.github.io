@@ -210,7 +210,7 @@ class Menus:
     @trakt_auth_guard
     def my_shows():
         g.add_directory_item(
-            g.get_language_string(30043),
+            g.get_language_string(30210),
             action="showsNextUp",
             description=g.get_language_string(30436),
             menu_item=g.create_icon_dict("shows_nextup", g.ICONS_PATH),
@@ -234,7 +234,7 @@ class Menus:
             menu_item=g.create_icon_dict("shows_recent", g.ICONS_PATH),
         )
         g.add_directory_item(
-            g.get_language_string(30210),
+            g.get_language_string(30043),
             action="onDeckShows",
             description=g.get_language_string(30433),
             menu_item=g.create_icon_dict("shows_progress", g.ICONS_PATH),

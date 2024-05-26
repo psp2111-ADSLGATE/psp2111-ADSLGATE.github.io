@@ -1,6 +1,6 @@
-
 from typing import Union
 import zipfile
+import xbmc
 import io
 import re
 from requests import Session, ConnectionError, HTTPError, ReadTimeout, Timeout, RequestException
@@ -64,38 +64,40 @@ class SubtitlesProvider:
 
         # Extract year
         year_match = re.search(r'\b(19[0-9]{2}|20[0-9]{2})\b', clean_name)
-        year = year_match.group(0) if year_match else None
+        year = xbmc.getInfoLabel("VideoPlayer.Year") if year_match else None
 
         # Check for series and season/episode
-        series_match = re.search(r'S(\d+)E(\d+)', filename, re.IGNORECASE)
+        series_match = xbmc.getInfoLabel("VideoPlayer.TVshowtitle")
         if series_match:
             type_content = 'tv'
-            seasonIdx = series_match.group(1)
-            episodeIdx = series_match.group(2)
-            title = re.sub(r'\s*S\d+E\d+.*', '', clean_name[:year_match.start() if year_match else None]).strip()
-            title = title.rstrip('.').rstrip()
+            seasonIdx = str(xbmc.getInfoLabel("VideoPlayer.Season"))
+            episodeIdx = str(xbmc.getInfoLabel("VideoPlayer.Episode"))
+            title = xbmc.getInfoLabel("VideoPlayer.OriginalTitle")
+            imdbid = xbmc.getInfoLabel("VideoPlayer.IMDBNumber")
         else:
             type_content = 'movie'
             seasonIdx = None
             episodeIdx = None
             title = clean_name[:year_match.start()].strip().rstrip('.') if year_match else clean_name.rstrip('.')
+            imdbid = xbmc.getInfoLabel("VideoPlayer.IMDBNumber")
 
         return {
             "title": title,
             "year": year,
             "type": type_content,
             "season_number": seasonIdx,
-            "episode_number": episodeIdx
+            "episode_number": episodeIdx,
+            "imdb_id": imdbid
         }
 
 
 
     def get_tmdb_id(self, metadata):
         url = f"{TMDB_API}/{metadata['type']}?query={metadata['title']}&api_key={self.tmdb_api_key}"
-        if 'year' in metadata:
+        if 'year' in metadata and metadata['year']:
             url += f"&year={metadata['year']}"
         data = self.handle_request(url)
-        if "results" not in data:
+        if "results" not in data or not data["results"]:
             raise ProviderError("Invalid JSON returned by provider")
         return data["results"][0]["id"]
 
