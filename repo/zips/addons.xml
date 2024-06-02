@@ -2215,7 +2215,6 @@ Other languages with a great number of subtitles are: Danish, French, Swedish, D
 </addon><addon id="service.subtitles.subsource-net" name="Subsource.net" version="1.0.0" provider-name="opensubtitles, subsource">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
-		<import addon="script.module.web-pdb" />
 		<import addon="script.module.requests" version="2.25.1+matrix.1" />
 	</requires>
 	<extension point="xbmc.subtitle.module" library="service.py" />
