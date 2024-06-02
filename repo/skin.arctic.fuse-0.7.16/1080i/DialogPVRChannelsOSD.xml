@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">11</defaultcontrol>
+    <onload>CancelAlarm(osd_timeout,true)</onload>
+    <include>Animation_OSD_Dialog_WindowChange</include>
+    <onload>SetProperty(TMDbHelper.WidgetContainer,11)</onload>
+    <controls>
+        <include content="OSD_CastInfo_ExpandGroup">
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <control type="group">
+                <left>view_side</left>
+                <right>view_pad</right>
+                <width>view_landscape_item_w</width>
+                <height>view_landscape_item_h</height>
+                <visible>Integer.IsEqual(Container(11).NumItems,0)</visible>
+                <include>Object_ItemBack</include>
+                <control type="image">
+                    <width>128</width>
+                    <height>128</height>
+                    <centerleft>50%</centerleft>
+                    <centertop>50%</centertop>
+                    <texture colordiffuse="panel_fg_70">special://skin/extras/icons/image.png</texture>
+                </control>
+            </control>
+
+            <!-- Episodes List -->
+            <include content="List_Landscape_Row">
+                <param name="orientation">horizontal</param>
+                <param name="control">fixedlist</param>
+                <param name="id">11</param>
+                <include>OSD_List_Dimensions</include>
+                <onup>PreviousMenu</onup>
+                <onleft>4000</onleft>
+                <onright>SetFocus(11,0,absolute)</onright>
+                <onright>4000</onright>
+                <onback>SetFocus(11,0,absolute)</onback>
+                <onback>4000</onback>
+            </include>
+
+            <control type="group">
+                <height>60</height>
+                <centerbottom>20</centerbottom>
+                <left>view_side</left>
+                <right>view_pad</right>
+                <include content="Object_InfoCircle_Horizontal">
+                    <param name="icon">$INFO[Container(11).ListItem.Icon]</param>
+                    <param name="role">$INFO[Container(11).ListItem.ChannelName]</param>
+                    <param name="name">$INFO[VideoPlayer.ChannelGroup,$LOCALIZE[19141]: ,]</param>
+                    <param name="max">560</param>
+                    <param name="top_label_left">80</param>
+                    <param name="bottom_label_left">80</param>
+                </include>
+                <!-- Info Box -->
+                <control type="textbox">
+                    <top>-2</top>
+                    <left>500</left>
+                    <right>0</right>
+                    <label>$INFO[Container(11).ListItem.Title,, ~ ]$INFO[Container(11).ListItem.Season,S,]$INFO[Container(11).ListItem.Episode,E, ]$INFO[Container(11).ListItem.Plot]</label>
+                    <font>font_mini_cond</font>
+                    <textcolor>panel_fg_70</textcolor>
+                </control>
+            </control>
+
+            <control type="grouplist" id="4000">
+                <top>-20</top>
+                <itemgap>0</itemgap>
+                <orientation>vertical</orientation>
+                <width>160</width>
+                <left>view_list</left>
+
+                <onright>SetFocus(11,0,absolute)</onright>
+                <onleft>SetFocus(11,9999,absolute)</onleft>
+
+                <include content="Dialog_Side_Button">
+                    <param name="id">01</param>
+                    <param name="baseid">4</param>
+                    <param name="label">$LOCALIZE[19141]</param>
+                    <param name="icon">special://skin/extras/icons/arrow-right-arrow-left.png</param>
+                    <param name="visible">true</param>
+                    <onclick>NextChannelGroup</onclick>
+                    <onclick>SetFocus(4000)</onclick>
+                </include>
+            </control>
+
+        </include>
+    </controls>
+</window>

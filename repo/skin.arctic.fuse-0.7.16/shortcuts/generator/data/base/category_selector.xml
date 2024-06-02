@@ -1,0 +1,160 @@
+<contents>
+    <template>generator/data/parts/basic_include.xmltemplate</template>
+    <value name="comments">Selector Widgets</value>
+    <value name="includes_name">skinvariables-{item}-widgets-selector</value>
+    <value name="includes_part">
+        <value name="comments">Widget Selector</value>
+        <template>generator/data/parts/endrow_selector.xmltemplate</template>
+        <condition>Skin.HasSetting(Hub.{window_id}.WidgetSelector)</condition>
+        <value name="endrow_visible">True</value>
+        <rules name="endrow_refocus">
+            <rule>
+                <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+                <value>$VAR[Action_Hubs_Complex_SetFocus]</value>
+            </rule>
+            <rule>
+                <condition>{window_id}==Home</condition>
+                <value>$VAR[Action_Hubs_Menu_SetFocus]</value>
+            </rule>
+            <rule>
+                <condition>true</condition>
+                <value>$VAR[Action_Hubs_Classic_SetFocus]</value>
+            </rule>
+        </rules>
+        <value name="all_standard_widgets">
+            <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+            <items menu="{item}">
+                <item>
+                    <condition>{item_disabled}!=True</condition>
+                    <condition>$LOOKUP[disabled?menu=sidemenu&amp;filter_guid={item_sidemenu_guid}]!=True</condition>
+                    <condition>{window_id}!=Home||{item_sidemenu_guid}==||$LOOKUP[guid?menu=sidemenu&amp;filter_guid={item_sidemenu_guid}]!=</condition>
+                    <template>generator/data/parts/basic_template.xmltemplate</template>
+                    <value name="comments">Adaptive EndRow for Category {item_menu} {item_x} {item_label}</value>
+                    <value name="grouplist_item_x">{item_x}</value>
+                    <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</value>
+                    <value name="includes_part">
+                        <template>generator/data/parts/endrow_item.xmltemplate</template>
+                        <datafile>generator/data/setup/onclick_path.xml</datafile>
+                        <datafile>generator/data/setup/endrow_item.xml</datafile>
+                        <datafile>generator/data/setup/category_sublabel.xml</datafile>
+                        <condition>{item_use_as_widget}==True</condition>
+                        <enumitem name="enum_x">endrow_{item_menu}_{item_x}</enumitem>
+                    </value>
+                </item>
+                <item>
+                    <condition>{item_disabled}!=True</condition>
+                    <condition>$LOOKUP[disabled?menu=sidemenu&amp;filter_guid={item_sidemenu_guid}]!=True</condition>
+                    <condition>{window_id}!=Home||{item_sidemenu_guid}==||$LOOKUP[guid?menu=sidemenu&amp;filter_guid={item_sidemenu_guid}]!=</condition>
+                    <items menu="{item_menu}" item="{item_x}" mode="submenu">
+                        <item>
+                            <template>generator/data/parts/basic_template.xmltemplate</template>
+                            <value name="comments">Submenu EndRow for Category {item_menu} {parent_item_x}.{item_x} {parent_item_label} {item_label}</value>
+                            <value name="grouplist_item_x">{parent_item_x}</value>
+                            <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{parent_item_guid}) + String.IsEqual(Container(302).ListItem.Property(guid),{item_guid})</value>
+                            <value name="includes_part">
+                                <items menu="{parent_item_menu}" item="{parent_item_x}.{item_x}" mode="widgets">
+                                    <item>
+                                        <template>generator/data/parts/endrow_item.xmltemplate</template>
+                                        <datafile>generator/data/setup/onclick_path.xml</datafile>
+                                        <datafile>generator/data/setup/endrow_item.xml</datafile>
+                                        <datafile>generator/data/setup/category_sublabel.xml</datafile>
+                                        <condition>{item_path}!=</condition>
+                                        <condition>{item_disabled}!=True</condition>
+                                        <enumitem name="enum_x">endrow_{parent_parent_item_menu}_{parent_parent_item_x}</enumitem>
+                                    </item>
+                                </items>
+                            </value>
+                        </item>
+                    </items>
+                </item>
+                <item>
+                    <condition>{item_disabled}!=True</condition>
+                    <condition>$LOOKUP[disabled?menu=sidemenu&amp;filter_guid={item_sidemenu_guid}]!=True</condition>
+                    <condition>{window_id}!=Home||{item_sidemenu_guid}==||$LOOKUP[guid?menu=sidemenu&amp;filter_guid={item_sidemenu_guid}]!=</condition>
+                    <template>generator/data/parts/basic_template.xmltemplate</template>
+                    <value name="comments">Standard EndRow for Category {item_menu} {item_x} {item_label}</value>
+                    <value name="grouplist_item_x">{item_x}</value>
+                    <value name="widget_category_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</value>
+                    <value name="includes_part">
+                        <items menu="{item_menu}" item="{item_x}" mode="widgets">
+                            <item>
+                                <template>generator/data/parts/endrow_item.xmltemplate</template>
+                                <datafile>generator/data/setup/onclick_path.xml</datafile>
+                                <datafile>generator/data/setup/endrow_item.xml</datafile>
+                                <datafile>generator/data/setup/category_sublabel.xml</datafile>
+                                <condition>{item_path}!=</condition>
+                                <condition>{item_disabled}!=True</condition>
+                                <enumitem name="enum_x">endrow_{parent_item_menu}_{parent_item_x}</enumitem>
+                            </item>
+                        </items>
+                    </value>
+                </item>
+            </items>
+        </value>
+        <value name="all_sidemenu_widgets">
+            <items menu="sidemenu">
+                <item>
+                    <value name="comments">Sidemenu EndRow for {item} {item_x} {item_label}</value>
+                    <condition>{item}==homemenu</condition>
+                    <template>generator/data/parts/basic_template.xmltemplate</template>
+                    <value name="widget_category_visible">String.IsEqual(Container({sidemenu_id}).ListItem.Property(guid),{item_guid})</value>
+                    <value name="grouplist_item_x">$MATH[{item_x} + 100]</value>
+                    <value name="includes_part">
+                        <items mode="widgets" item="{item_x}" menu="{item_menu}">
+                            <item>
+                                <template>generator/data/parts/endrow_item.xmltemplate</template>
+                                <datafile>generator/data/setup/onclick_path.xml</datafile>
+                                <datafile>generator/data/setup/endrow_item.xml</datafile>
+                                <datafile>generator/data/setup/category_sublabel.xml</datafile>
+                                <condition>{item_path}!=</condition>
+                                <condition>{item_disabled}!=True</condition>
+                                <enumitem name="enum_x">endrow_{parent_item_menu}_{parent_item_x}</enumitem>
+                            </item>
+                        </items>
+                    </value>
+                </item>
+            </items>
+        </value>
+        <value name="all_hubsmenu_widgets">
+            <condition>Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+            <value name="comments">Classic Endrow for {item}</value>
+            <template>generator/data/parts/basic_template.xmltemplate</template>
+            <value name="widget_category_visible">True</value>
+            <value name="grouplist_item_x">100</value>
+            <value name="includes_part">
+                <items menu="{item}-widgetsonly">
+                    <item>
+                        <template>generator/data/parts/endrow_item.xmltemplate</template>
+                        <datafile>generator/data/setup/onclick_path.xml</datafile>
+                        <datafile>generator/data/setup/endrow_item.xml</datafile>
+                        <datafile>generator/data/setup/category_sublabel.xml</datafile>
+                        <condition>{item_path}!=</condition>
+                        <condition>{item_disabled}!=True</condition>
+                        <enumitem name="enum_x">endrow_{parent_item}_widgetsonly</enumitem>
+                    </item>
+                </items>
+            </value>
+        </value>
+        <value name="all_constant_widgets">
+            <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+            <value name="comments">Global EndRow for {item}</value>
+            <template>generator/data/parts/basic_template.xmltemplate</template>
+            <value name="widget_category_visible">True</value>
+            <value name="grouplist_item_x">200</value>
+            <value name="includes_part">
+                <items menu="{item}-globalwidgets">
+                    <item>
+                        <template>generator/data/parts/endrow_item.xmltemplate</template>
+                        <datafile>generator/data/setup/onclick_path.xml</datafile>
+                        <datafile>generator/data/setup/endrow_item.xml</datafile>
+                        <datafile>generator/data/setup/category_sublabel.xml</datafile>
+                        <condition>{item_path}!=</condition>
+                        <condition>{item_disabled}!=True</condition>
+                        <enumitem name="enum_x">endrow_{parent_item}_globalwidgets</enumitem>
+                    </item>
+                </items>
+            </value>
+        </value>
+    </value>
+
+</contents>

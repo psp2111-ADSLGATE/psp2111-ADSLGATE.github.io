@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="_Categories_Selector_PreItemFade">
+        <animation effect="fade" start="100" end="0" delay="100" time="300" tween="quadratic" reversible="false" condition="!Container($PARAM[id]).OnNext">Conditional</animation>
+    </include>
+
+    <include name="Categories_Selector_Movement_BasicMenu">
+        <focusposition>0</focusposition>
+        <movement>3</movement>
+        <width>1240</width>
+    </include>
+    <include name="Categories_Selector_Movement_LargeMenu">
+        <focusposition>0</focusposition>
+        <movement>2</movement>
+        <!-- <width>1480</width> -->
+        <width>1000</width>
+    </include>
+    <include name="Categories_Selector_Movement_SmallMenu">
+        <focusposition>0</focusposition>
+        <movement>2</movement>
+        <!-- <width>1480</width> -->
+        <width>760</width>
+    </include>
+
+    <include name="Categories_Selector_Movement_Iconic_BasicMenu">
+        <focusposition>0</focusposition>
+        <movement>3</movement>
+        <width>1384</width>
+    </include>
+    <include name="Categories_Selector_Movement_Iconic_LargeMenu">
+        <focusposition>0</focusposition>
+        <movement>2</movement>
+        <!-- <width>1384</width> -->
+        <width>1048</width>
+    </include>
+    <include name="Categories_Selector_Movement_Iconic_SmallMenu">
+        <focusposition>0</focusposition>
+        <movement>2</movement>
+        <!-- <width>1384</width> -->
+        <width>1048</width>
+        <!-- <width>712</width> -->
+    </include>
+
+    <include name="Categories_Iconic_Selector">
+        <param name="id">300</param>
+        <param name="window_id" />
+        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home</param>
+        <param name="slide">false</param>
+        <param name="detailed">true</param>
+        <definition>
+            <include content="List_Core">
+                <param name="orientation">horizontal</param>
+                <param name="control">fixedlist</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="item_w">view_square_item_w</param>
+                <param name="item_h">80</param>
+                <param name="itemlayout_w">view_square_itemlayout_w</param>
+                <param name="itemlayout_h">120</param>
+                <param name="itemlayout_include">Layout_Info_Selector</param>
+                <param name="offset_x">view_button_offset_x</param>
+                <param name="hidden_button_enabled">true</param>
+                <param name="hidden_button_prefix">$PARAM[hidden_button_prefix]</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <param name="detailed">Skin.HasSetting(Views.UseAltCombined.Detailed)</param>
+                <param name="misc">$PARAM[misc]</param>
+                <preloaditems>0</preloaditems>
+                <hitrect x="40" y="80" w="1360" h="80" />
+                <nested />
+                <width>1364</width>
+                <movement>3</movement>
+                <include>Action_View_SlideOver_OnFocus</include>
+                <onfocus condition="$PARAM[slide]">SetProperty(Slide.WidgetContainer,$PARAM[id],$PARAM[window_id])</onfocus>
+                <onfocus condition="![$PARAM[slide]]">ClearProperty(Slide.WidgetContainer,$PARAM[window_id])</onfocus>
+                <hitrect x="$PARAM[hitrect_x]" y="$PARAM[hitrect_y]" w="$PARAM[hitrect_w]" h="$PARAM[hitrect_h]" />
+                <height>240</height>
+            </include>
+        </definition>
+    </include>
+
+    <include name="Categories_Selector">
+        <param name="id">300</param>
+        <param name="window_id" />
+        <param name="slide">False</param>
+        <param name="font">font_main_black</param>
+        <param name="color_fo">main_fg_100</param>
+        <param name="color_nf">main_fg_30</param>
+        <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_Home</param>
+        <param name="preitem_fade">True</param>
+        <param name="hitrect_x">0</param>
+        <param name="hitrect_y">0</param>
+        <param name="hitrect_w">0</param>
+        <param name="hitrect_h">0</param>
+        <param name="itemlayout_w">240</param>
+        <param name="scrolltime">400</param>
+
+        <param name="small">False</param>
+        <param name="large">False</param>
+        <definition>
+            <include content="List_ButtonMenu_Row" condition="Skin.HasSetting(Views.UseAltCombined)">
+                <param name="id">$PARAM[id]</param>
+                <param name="color_fo">$PARAM[color_fo]</param>
+                <param name="color_nf">$PARAM[color_nf]</param>
+                <param name="itemlayout_w">336</param>
+                <param name="offset_x">view_button_offset_x</param>
+                <param name="control">fixedlist</param>
+                <param name="font">$PARAM[font]</param>
+                <param name="backing">true</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <param name="hidden_button_prefix">$PARAM[hidden_button_prefix]</param>
+                <preloaditems>0</preloaditems>
+                <scrolltime tween="quadratic">$PARAM[scrolltime]</scrolltime>
+                <hitrect x="$PARAM[hitrect_x]" y="$PARAM[hitrect_y]" w="$PARAM[hitrect_w]" h="$PARAM[hitrect_h]" />
+                <height>120</height>
+
+                <include condition="$PARAM[small]">Categories_Selector_Movement_Iconic_SmallMenu</include>
+                <include condition="$PARAM[large]">Categories_Selector_Movement_Iconic_LargeMenu</include>
+                <include>Categories_Selector_Movement_Iconic_BasicMenu</include>
+
+                <nested />
+                <include>Action_View_SlideOver_OnFocus</include>
+                <onfocus condition="$PARAM[slide]">SetProperty(Slide.WidgetContainer,$PARAM[id],$PARAM[window_id])</onfocus>
+                <onfocus condition="![$PARAM[slide]]">ClearProperty(Slide.WidgetContainer,$PARAM[window_id])</onfocus>
+            </include>
+            <include content="List_ButtonMenu_Row" condition="!Skin.HasSetting(Views.UseAltCombined)">
+                <param name="id">$PARAM[id]</param>
+                <param name="color_fo">$PARAM[color_fo]</param>
+                <param name="color_nf">$PARAM[color_nf]</param>
+                <param name="itemlayout_w">240</param>
+                <param name="offset_x">view_button_offset_x</param>
+                <param name="control">fixedlist</param>
+                <param name="font">$PARAM[font]</param>
+                <param name="backing">true</param>
+                <param name="hidden_button">$PARAM[hidden_button]</param>
+                <param name="hidden_button_prefix">$PARAM[hidden_button_prefix]</param>
+                <preloaditems>0</preloaditems>
+                <scrolltime tween="quadratic">$PARAM[scrolltime]</scrolltime>
+                <hitrect x="$PARAM[hitrect_x]" y="$PARAM[hitrect_y]" w="$PARAM[hitrect_w]" h="$PARAM[hitrect_h]" />
+                <height>120</height>
+
+                <include condition="$PARAM[small]">Categories_Selector_Movement_SmallMenu</include>
+                <include condition="$PARAM[large]">Categories_Selector_Movement_LargeMenu</include>
+                <include>Categories_Selector_Movement_BasicMenu</include>
+
+                <nested />
+                <include>Action_View_SlideOver_OnFocus</include>
+                <onfocus condition="$PARAM[slide]">SetProperty(Slide.WidgetContainer,$PARAM[id],$PARAM[window_id])</onfocus>
+                <onfocus condition="![$PARAM[slide]]">ClearProperty(Slide.WidgetContainer,$PARAM[window_id])</onfocus>
+            </include>
+
+        </definition>
+    </include>
+</includes>

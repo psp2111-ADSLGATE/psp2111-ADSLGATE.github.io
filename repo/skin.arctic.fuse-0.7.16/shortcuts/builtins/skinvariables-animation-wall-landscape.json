@@ -1,0 +1,137 @@
+{
+    "parts": {
+        "move-1": [
+            "SetProperty({win_prop}.{id}.-240,1)",
+            "SetFocus({focus_id})",
+            "ClearProperty({clear_prop_one})",
+            "ClearProperty({clear_prop_two})",
+            "sleep={sleeptime}",
+            "ClearProperty({win_prop}.{id}.-240)"
+        ],
+        "move-2": [
+            "SetProperty({win_prop}.{id}.-480,1)",
+            "SetFocus({focus_id})",
+            "ClearProperty({clear_prop_one})",
+            "ClearProperty({clear_prop_two})",
+            "sleep={sleeptime}",
+            "ClearProperty({win_prop}.{id}.-480)"
+        ],
+        "move-3": [
+            "SetProperty({win_prop}.{id}.-720,1)",
+            "SetFocus({focus_id})",
+            "ClearProperty({clear_prop_one})",
+            "ClearProperty({clear_prop_two})",
+            "sleep={sleeptime}",
+            "ClearProperty({win_prop}.{id}.-720)"
+        ],
+        "move-4": [
+            "SetProperty({win_prop}.{id}.-960,1)",
+            "SetFocus({focus_id})",
+            "ClearProperty({clear_prop_one})",
+            "ClearProperty({clear_prop_two})",
+            "sleep={sleeptime}",
+            "ClearProperty({win_prop}.{id}.-960)"
+        ],
+        "move0": [
+            "SetFocus({focus_id})",
+            "ClearProperty({clear_prop_one})",
+            "ClearProperty({clear_prop_two})",
+            "sleep={sleeptime}"
+        ],
+        "move1": [
+            "SetProperty({win_prop}.{id}.240,1)",
+            "SetFocus({focus_id})",
+            "ClearProperty({clear_prop_one})",
+            "ClearProperty({clear_prop_two})",
+            "sleep={sleeptime}",
+            "ClearProperty({win_prop}.{id}.240)"
+        ],
+        "move2": [
+            "SetProperty({win_prop}.{id}.480,1)",
+            "SetFocus({focus_id})",
+            "ClearProperty({clear_prop_one})",
+            "ClearProperty({clear_prop_two})",
+            "sleep={sleeptime}",
+            "ClearProperty({win_prop}.{id}.480)"
+        ],
+        "move3": [
+            "SetProperty({win_prop}.{id}.720,1)",
+            "SetFocus({focus_id})",
+            "ClearProperty({clear_prop_one})",
+            "ClearProperty({clear_prop_two})",
+            "sleep={sleeptime}",
+            "ClearProperty({win_prop}.{id}.720)"
+        ],
+        "move4": [
+            "SetProperty({win_prop}.{id}.960,1)",
+            "SetFocus({focus_id})",
+            "ClearProperty({clear_prop_one})",
+            "ClearProperty({clear_prop_two})",
+            "sleep={sleeptime}",
+            "ClearProperty({win_prop}.{id}.960)"
+        ]
+    },
+    "infolabels": {
+        "position_x": "Container({id}).Position",
+        "folderpath": "Container({id}).FolderPath"
+    },
+    "values": {
+        "sleeptime": "0.9",
+        "position_x": [
+            {
+                "rules": ["{position_x}=="],
+                "value": "0"
+            },
+            "{position_x}"
+        ],
+        "folderpath": [
+            {
+                "rules": ["{folderpath}=="],
+                "value": "1"
+            },
+            "{folderpath}"
+        ],
+        "set_mediafilterbase": [
+            {
+                "rules": [
+                    "{use_mediafilter}==True"
+                ],
+                "value": "SetProperty(MediaFilterBase,{folderpath})"
+            },
+            "ClearProperty(MediaFilterBase)"
+        ],
+        "offset_x": [
+            {
+                "rules": [
+                    "String.IsEmpty(Container({id}).listitemnowrap(2).currentitem)",
+                    "!String.IsEmpty(Container({id}).listitemnowrap(-6).currentitem)"
+                ],
+                "value": "3"
+            },
+            {
+                "rules": [
+                    "String.IsEmpty(Container({id}).listitemnowrap(4).currentitem)",
+                    "!String.IsEmpty(Container({id}).listitemnowrap(-4).currentitem)"
+                ],
+                "value": "2"
+            },
+            {
+                "rules": [
+                    "String.IsEmpty(Container({id}).listitemnowrap(6).currentitem)",
+                    "!String.IsEmpty(Container({id}).listitemnowrap(-2).currentitem)"
+                ],
+                "value": "1"
+            },
+            "0"
+        ]
+    },
+    "sums": {
+        "x": ["-{offset_x}", "{position_x}"]
+    },
+    "actions": [
+        "SetProperty(MediaFilterWall,{folderpath})",
+        "{set_mediafilterbase}",
+        "%move{x}",
+        "{last_action}"
+    ]
+}

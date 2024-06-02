@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">2</defaultcontrol>
+    <onload>CancelAlarm(osd_timeout,true)</onload>
+    <include>Animation_OSD_Dialog_WindowChange</include>
+    <controls>
+        <control type="group">
+            <visible>!Window.IsActive(1141)</visible>
+            <include>Animation_OSD_Dialog_VisibleChange</include>
+            <include content="OSD_CastInfo_ExpandGroup">
+                <control type="group">
+                    <left>view_side</left>
+                    <right>view_pad</right>
+                    <width>view_landscape_item_w</width>
+                    <height>view_landscape_item_h</height>
+                    <visible>Integer.IsEqual(Container(11).NumItems,0)</visible>
+                    <include>Object_ItemBack</include>
+                    <control type="image">
+                        <width>128</width>
+                        <height>128</height>
+                        <centerleft>50%</centerleft>
+                        <centertop>50%</centertop>
+                        <texture colordiffuse="panel_fg_70">special://skin/extras/icons/image.png</texture>
+                    </control>
+                </control>
+
+                <!-- Episodes List -->
+                <include content="List_Landscape_Row">
+                    <param name="orientation">horizontal</param>
+                    <param name="control">fixedlist</param>
+                    <param name="id">11</param>
+                    <include>OSD_List_Dimensions</include>
+                    <onup>Close</onup>
+                    <ondown>2</ondown>
+                </include>
+
+                <control type="group">
+                    <left>view_side</left>
+                    <right>view_pad</right>
+                    <control type="grouplist">
+                        <height>80</height>
+                        <bottom>-20</bottom>
+                        <left>-20</left>
+                        <orientation>horizontal</orientation>
+                        <itemgap>40</itemgap>
+                        <onup>11</onup>
+                        <ondown>ActivateWindow($VAR[Action_OSD_VideoBookmarks_OnDown])</ondown>
+
+                        <control type="button" id="2">
+                            <include>Defs_OSD_Button</include>
+                            <visible>Control.IsEnabled(2)</visible>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay">
+                            <param name="icon">special://skin/extras/icons/plus.png</param>
+                            <param name="visible">Control.IsEnabled(2)</param>
+                            <param name="id">2</param>
+                            <param name="groupid">9002</param>
+                        </include>
+
+                        <control type="button" id="3">
+                            <include>Defs_OSD_Button</include>
+                            <visible>Control.IsEnabled(3) + !Integer.IsEqual(Container(11).NumItems,0)</visible>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay">
+                            <param name="icon">special://skin/extras/icons/trash-can.png</param>
+                            <param name="visible">Control.IsEnabled(3) + !Integer.IsEqual(Container(11).NumItems,0)</param>
+                            <param name="id">3</param>
+                            <param name="groupid">9003</param>
+                        </include>
+
+                        <control type="button" id="4">
+                            <include>Defs_OSD_Button</include>
+                            <visible>Control.IsEnabled(4)</visible>
+                        </control>
+                        <include content="OSD_Button_Icon_Overlay">
+                            <param name="icon">special://skin/extras/icons/image.png</param>
+                            <param name="visible">Control.IsEnabled(4)</param>
+                            <param name="id">4</param>
+                            <param name="groupid">9004</param>
+                        </include>
+                    </control>
+                </control>
+
+            </include>
+        </control>
+    </controls>
+</window>

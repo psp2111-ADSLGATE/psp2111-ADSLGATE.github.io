@@ -1,0 +1,16 @@
+<item>
+    <label>{item_label}</label>
+    <icon>{item_icon}</icon>
+    <property name="target">{item_target}</property>
+    <property name="path">{item_path}</property>
+    <property name="item">$NUMBER[{item_x}]</property>
+    <property name="guid">{item_guid}</property>
+    <property name="listid">$NUMBER[{endrow_widget_id}]</property>
+    <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,{endrow_widget_id})</property>
+    <property name="onfocus_two">SetProperty(Transition.WidgetStyle,{endrow_widget_include},Home)</property>
+    <label2>{parts_sublabel}</label2>
+    {parts_onclick}
+    {parts_additional}
+    <visible>{parts_visible}</visible>
+    <visible>String.IsEmpty(Window.Property(Widgets.ResetPosition))</visible>
+</item>

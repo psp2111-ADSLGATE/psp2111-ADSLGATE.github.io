@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <include content="Action_SettingsCategories_Onload">
+        <param name="defaultcontrol">3</param>
+    </include>
+
+    <controls>
+
+        <include content="Background_Main">
+            <param name="plain_background">true</param>
+        </include>
+
+        <include content="Background_Transition">
+            <param name="windowopen_condition">!$EXP[Exp_SettingsDialogs_Prev]</param>
+            <param name="windowclose_condition">!$EXP[Exp_SettingsDialogs_Next]</param>
+        </include>
+
+        <include content="Settings_Dialog">
+            <include content="Settings_Main_Group">
+                <include content="Settings_Left_Group">
+                    <include content="Settings_Left_Content">
+                        <control type="grouplist" id="3">
+                            <onleft>30000</onleft>
+                            <!-- <onup>30032</onup> -->
+                            <onright>5</onright>
+                            <!-- <ondown>-</ondown> -->
+                        </control>
+                    </include>
+
+                </include>
+                <include content="Settings_Right_Group">
+                    <param name="arrow_prev_visible">Container(5).HasPrevious</param>
+                    <param name="arrow_next_visible">Container(5).HasNext</param>
+
+                    <control type="scrollbar" id="60">
+                        <centerright>-60</centerright>
+                        <bottom>0</bottom>
+                        <top>0</top>
+                        <width>scrollbar_w</width>
+                        <orientation>vertical</orientation>
+                        <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                        <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
+                        <showonepage>false</showonepage>
+                        <include>Texture_Scrollbar_V</include>
+                        <onleft>5</onleft>
+                    </control>
+
+                    <include content="Settings_Right_Grouplist">
+                        <param name="id">5</param>
+                        <onleft>3</onleft>
+                    </include>
+
+                </include>
+                <control type="group">
+                    <left>80</left>
+                    <bottom>80</bottom>
+                    <include content="Settings_InfoText">
+                        <param name="id">6</param>
+                        <param name="dialog">true</param>
+                    </include>
+                </control>
+                <!-- <control type="group">
+                    <left>80</left>
+                    <bottom>80</bottom>
+                    <include>Settings_KodiVersion</include>
+                </control> -->
+            </include>
+            <include content="Settings_Changer">
+                <onup>3</onup>
+            </include>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">10</param>
+            <param name="control">togglebutton</param>
+            <param name="dialog">true</param>
+            <include>Texture_Highlight_ToggleButton_Settings</include>
+            <focusedcolor>$VAR[ColorSettingsToggleButtonText]</focusedcolor>
+            <altfocusedcolor>$VAR[ColorSettingsToggleButtonText]</altfocusedcolor>
+            <width>settings_category_w</width>
+            <description>Default Category Button</description>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">7</param>
+            <param name="control">button</param>
+            <param name="dialog">true</param>
+            <description>Default Setting Button</description>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">8</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <description>Default Setting Button</description>
+            <textwidth>settings_radiobutton_text_w</textwidth>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">9</param>
+            <param name="control">spincontrolex</param>
+            <param name="dialog">true</param>
+            <description>Default Setting Button</description>
+            <textwidth>settings_radiobutton_text_w</textwidth>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">12</param>
+            <param name="control">edit</param>
+            <param name="dialog">true</param>
+            <description>Default Setting Button</description>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">13</param>
+            <param name="control">sliderex</param>
+            <param name="dialog">true</param>
+            <description>Default Setting Button</description>
+            <textwidth>settings_slider_text_w</textwidth>
+        </include>
+
+        <include content="Settings_Label">
+            <param name="id">14</param>
+            <param name="control">label</param>
+            <param name="dialog">true</param>
+            <description>Default Setting Label</description>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="id">15</param>
+            <param name="control">colorbutton</param>
+            <param name="dialog">true</param>
+            <description>Default Setting Button</description>
+        </include>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">20</param>
+            <param name="control">button</param>
+        </include>
+    </controls>
+
+</window>

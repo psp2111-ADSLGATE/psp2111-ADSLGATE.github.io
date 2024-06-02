@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <!-- Basic View Constants -->
+    <constant name="view_pad">80</constant>
+    <constant name="view_top">200</constant>
+    <constant name="view_side">200</constant>
+    <constant name="view_offx">200</constant>
+    <constant name="-view_offx">-200</constant>
+    <constant name="view_bar">40</constant>
+    <constant name="view_menu">80</constant>
+    <constant name="view_list">20</constant>
+    <constant name="view_osd">360</constant>
+    <constant name="view_gutter">-10</constant>
+    <constant name="view_wrap_l">160</constant>
+    <constant name="view_wrap_r">60</constant>
+    <constant name="view_half">1020</constant>
+
+    <!-- View Touch Mode Offsets -->
+    <constant name="view_touchmode_edge_l">160</constant>
+    <constant name="view_touchmode_edge_r">0</constant>  <!-- was 60 -->
+
+    <!-- Settings Dialogs -->
+    <constant name="settings_category_w">500</constant>
+    <constant name="settings_radiobutton_text_w">760</constant>
+    <constant name="settings_slider_text_w">560</constant>
+
+    <!-- General Dialogs -->
+    <constant name="dialog_button_w">320</constant>
+    <constant name="-dialog_button_w">-320</constant>
+    <constant name="dialog_buttongroup_w">120</constant>
+    <constant name="-dialog_buttongroup_w">-120</constant>
+
+    <constant name="dialog_main_button_w">520</constant>
+    <constant name="-dialog_main_button_w">-520</constant>
+
+    <constant name="dialog_tall_h">880</constant>
+    <constant name="dialog_tall_centertop">600</constant>
+
+    <constant name="dialog_full_side">360</constant>
+    <constant name="dialog_preview_w">680</constant>
+
+    <!-- Options Menu -->
+    <constant name="optionsmenu_w">480</constant>
+
+    <!-- Studio Logo -->
+    <constant name="studio_logo_w">240</constant>
+
+    <!-- Icons -->
+    <constant name="icon_main_bordersize">-16</constant>
+    <constant name="icon_kodi_bordersize">-12</constant>
+    <constant name="icon_home_bordersize">-8</constant>
+    <constant name="icon_menu_bordersize">-8</constant>
+    <constant name="icon_item_bordersize">-4</constant>
+
+    <!-- FlixArt -->
+    <constant name="flixart_size_w">1280</constant>
+    <constant name="flixart_size_h">720</constant>
+
+    <!-- Info Dialogs -->
+    <constant name="infodialog_left_w">620</constant>
+    <constant name="-infodialog_left_w">-620</constant>
+    <constant name="infodialog_poster_w">460</constant>
+    <constant name="infodialog_poster_h">680</constant>
+
+
+    <constant name="view_icon_item_w">146.67</constant>
+    <constant name="-view_icon_item_w">-146.67</constant>
+    <constant name="view_icon_itemlayout_w">186.67</constant>
+    <constant name="-view_icon_itemlayout_w">-186.67</constant>
+    <constant name="view_icon_item_h">214</constant>
+    <constant name="-view_icon_item_h">-214</constant>
+    <constant name="view_icon_itemlayout_h">254</constant>
+    <constant name="-view_icon_itemlayout_h">-254</constant>
+    <constant name="view_icon_movement">8</constant>
+
+    <!-- View ItemLayouts -->
+    <constant name="view_poster_itemlayout_h">334</constant>
+    <constant name="-view_poster_itemlayout_h">-334</constant>
+    <constant name="view_poster_item_h">294</constant>
+    <constant name="-view_poster_item_h">-294</constant>
+    <constant name="view_poster_itemlayout_w">240</constant>
+    <constant name="-view_poster_itemlayout_w">-240</constant>
+    <constant name="view_poster_item_w">200</constant>
+    <constant name="-view_poster_item_w">-200</constant>
+    <constant name="view_poster_movement">6</constant>
+
+    <constant name="view_square_itemlayout_w">336</constant>
+    <constant name="-view_square_itemlayout_w">-336</constant>
+    <constant name="view_square_item_w">296</constant>
+    <constant name="-view_square_item_w">-296</constant>
+
+    <constant name="view_card_item_w">680</constant>
+    <constant name="-view_card_item_w">-680</constant>
+    <constant name="view_card_itemlayout_w">720</constant>
+    <constant name="-view_card_itemlayout_w">-720</constant>
+    <constant name="view_card_movement">4</constant>
+
+    <constant name="view_landscape_itemlayout_w">420</constant>
+    <constant name="-view_landscape_itemlayout_w">-420</constant>
+    <constant name="view_landscape_item_w">380</constant>
+    <constant name="-view_landscape_item_w">-380</constant>
+    <constant name="view_landscape_itemlayout_h">254</constant>
+    <constant name="-view_landscape_itemlayout_h">-254</constant>
+    <constant name="view_landscape_item_h">214</constant>
+    <constant name="-view_landscape_item_h">-214</constant>
+    <constant name="view_landscape_movement">3</constant>
+
+    <constant name="view_board_itemlayout_w">560</constant>
+    <constant name="-view_board_itemlayout_w">-560</constant>
+    <constant name="view_board_item_w">520</constant>
+    <constant name="-view_board_item_w">-520</constant>
+    <constant name="view_board_movement">2</constant>
+
+    <constant name="view_listwall_itemlayout_w">573.33</constant>
+    <constant name="-view_listwall_itemlayout_w">-573.33</constant>
+
+    <constant name="view_banner_itemlayout_w">1680</constant>
+    <constant name="-view_banner_itemlayout_w">-1680</constant>
+    <constant name="view_banner_item_w">1640</constant>
+    <constant name="-view_banner_item_w">-1640</constant>
+
+    <constant name="view_button_item_w">240</constant>
+    <constant name="-view_button_item_w">-240</constant>
+    <constant name="view_button_offset_x">40</constant>
+    <constant name="-view_button_offset_x">-40</constant>
+    <constant name="view_button_left">-80</constant>
+
+    <constant name="view_apps_itemlayout_w">280</constant>
+    <constant name="-view_apps_itemlayout_w">-280</constant>
+    <constant name="view_apps_item_w">240</constant>
+    <constant name="-view_apps_item_w">-240</constant>
+    <constant name="view_apps_item_h">135</constant>
+    <constant name="-view_apps_item_h">-135</constant>
+    <constant name="view_apps_movement">5</constant>
+
+    <constant name="view_weatherforecast_itemlayout_w">280</constant>
+    <constant name="-view_weatherforecast_itemlayout_w">-280</constant>
+    <constant name="view_weatherdetails_itemlayout_w">560</constant>
+    <constant name="-view_weatherdetails_itemlayout_w">-560</constant>
+
+    <constant name="view_settings_itemlayout_w">440</constant>
+    <constant name="-view_settings_itemlayout_w">-440</constant>
+    <constant name="view_settings_item_w">400</constant>
+    <constant name="-view_settings_item_w">-400</constant>
+
+    <constant name="view_addonbrowser_itemlayout_w">550</constant>
+    <constant name="-view_addonbrowser_itemlayout_w">-550</constant>
+    <constant name="view_addonbrowser_item_w">510</constant>
+    <constant name="-view_addonbrowser_item_w">-510</constant>
+
+    <!-- View Info -->
+    <constant name="info_poster_w">475</constant>
+    <constant name="info_poster_h">680</constant>
+    <constant name="info_plot_w">640</constant>
+    <constant name="info_panel_w">1120</constant>
+    <constant name="info_landscape_w">731.42</constant>
+    <constant name="info_landscape_h">411.42375</constant>
+    <constant name="info_landscape_details_t">440</constant>
+    <constant name="-info_plot_small_h">-41</constant>
+    <constant name="info_plot_small_h">41</constant>
+    <constant name="-info_plot_h">-81</constant>
+    <constant name="info_plot_h">81</constant>
+    <constant name="-info_plot_large_h">-121</constant>
+    <constant name="info_plot_large_h">121</constant>
+    <constant name="-info_plot_mediainfo_h">-201</constant>
+    <constant name="info_plot_mediainfo_h">201</constant>
+    <constant name="-info_plot_person_h">-441</constant>
+    <constant name="info_plot_person_h">441</constant>
+    <constant name="info_tag_offset_y">-5</constant>
+    <constant name="info_tag_light_offset_y">-3.5</constant>
+
+    <!-- Context Menu -->
+    <constant name="context_icon_w">515.2</constant>
+    <constant name="context_slide_no">-257.6</constant>
+    <constant name="context_slide_arrow_no">257.6</constant>
+    <constant name="context_icon_sq_l">-204.8</constant>
+    <constant name="context_slide_sq">102.4</constant>
+
+    <!-- Widgets -->
+    <constant name="hub_spotlight_fanart_t">400</constant>
+    <constant name="hub_spotlight_mini_t">260</constant>
+    <constant name="hub_spotlight_t">460</constant>
+    <constant name="hub_spotlight_h">40</constant>
+    <constant name="hub_categorieswidget_t">660</constant>
+    <constant name="hub_categorieswidget_h">320</constant>
+    <constant name="hub_submenuwidget_t">740</constant>
+    <constant name="hub_submenuwidget_h">240</constant>
+
+    <constant name="hub_group_widgetup_s">-440</constant>
+    <constant name="hub_group_fanartspotlight_s">340</constant>
+    <constant name="-hub_group_fanartspotlight_s">-340</constant>
+
+    <constant name="hub_recommendations_widgets_grouplist_t">500</constant>
+    <constant name="hub_recommendations_widgets_grouplist_b">0</constant>
+
+    <constant name="hub_widgets_grouplist_t">940</constant>
+    <constant name="hub_widgets_grouplist_b">-440</constant>
+
+    <constant name="widget_tbump_h">140</constant>  <!-- Bumper to address label top spacing -->
+    <constant name="widget_label_t">-140</constant>  <!-- Space from widget bottom to next widget label -->
+    <constant name="widget_label_h">0</constant>  <!-- Space between label and widget -->
+    <constant name="widget_items_t">6</constant>  <!-- Widget position from top -->
+    <constant name="widget_items_h">574</constant>  <!-- Widget position from bottom -->
+
+    <!-- Up Next -->
+    <constant name="upnext_image_w">356</constant>
+    <constant name="upnext_image_h">200</constant>
+
+    <!-- Dividers -->
+    <constant name="divider_bottom">534</constant>
+
+    <!-- Weather -->
+    <constant name="weather_conditions_w">520</constant>
+    <constant name="weather_forecast_h">260</constant>
+    <constant name="weather_forecast_item_w">224</constant>
+
+    <!-- Keyboard -->
+    <constant name="keyboard_pad">10</constant>
+    <constant name="keyboard_h">520</constant>   <!-- 6 keys (height*6 + buttonpad*5 + x04*2) -->
+    <constant name="keyboard_w">1680</constant>   <!-- 16 keys (height*16 + buttonpad*15 + x04*2) -->
+    <constant name="keyboard_symbols_w">120</constant>  <!-- 2 keys (height*2 + buttonpad*1) + rounding -->
+    <constant name="keyboard_done_w">160</constant>     <!-- 3 keys (height*3 + buttonpad*2) + rounding  -->
+    <constant name="keyboard_shift_w">250</constant>    <!-- 4 keys (height*4 + buttonpad*3) + rounding  -->
+    <constant name="keyboard_double_w">170</constant>   <!-- 2 keys (height*2 + buttonpad*1)  -->
+    <constant name="keyboard_backspace_w">260</constant><!-- 3 keys (height*3 + buttonpad*2) -->
+    <constant name="keyboard_spacebar_w">620</constant>    <!-- 7 keys (height*7 + buttonpad*6) -->
+    <constant name="keyboard_edit_w">1340</constant>  <!-- width - buttonpad - x04*2 - shift -->
+    <constant name="keyboard_shadow_x">-320</constant>
+
+    <!-- Scrollbar -->
+    <constant name="scrollbar_w">8</constant>
+    <constant name="alphabet_w">60.74</constant>
+
+
+    <!-- OSD -->
+    <constant name="osd_itemgap">37</constant>
+    <constant name="-osd_itemgap">-37</constant>
+
+    <!-- Background Fadetime -->
+    <constant name="background_fadetime">600</constant>
+
+
+</includes>

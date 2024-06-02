@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">20</defaultcontrol>
+    <include>Action_Blur_Onload</include>
+    <include>Action_BlurImage_SimpleBackground_Onload</include>
+    <controls>
+        <include>Defs_TMDbHelper_Loader</include>
+        <include content="Background_Main">
+            <param name="plain_background">true</param>
+        </include>
+        <include content="Background_Transition">
+            <param name="windowopen_condition">!$EXP[Exp_SettingsDialogs_Prev]</param>
+            <param name="windowclose_condition">!$EXP[Exp_SettingsDialogs_Next]</param>
+        </include>
+
+        <include content="Settings_Dialog">
+            <include content="Settings_Main_Group">
+                <include content="Settings_Left_Group">
+                    <width>760</width>
+                    <include content="Settings_Left_Content">
+                        <control type="scrollbar" id="60">
+                            <centerleft>-20</centerleft>
+                            <bottom>80</bottom>
+                            <top>0</top>
+                            <width>scrollbar_w</width>
+                            <orientation>vertical</orientation>
+                            <texturesliderbackground />
+                            <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
+                            <include>Texture_Scrollbar_V</include>
+                            <onleft>30000</onleft>
+                            <onright>20</onright>
+                            <!-- <visible allowhiddenfocus="true">Control.HasFocus(60)</visible> -->
+                        </control>
+                        <include content="List_AddonCategories">
+                            <param name="id">20</param>
+                            <param name="detailed">true</param>
+                            <param name="width" />
+                            <onleft>60</onleft>
+                            <onright>21</onright>
+                            <pagecontrol>60</pagecontrol>
+                            <right>40</right>
+                            <bottom>80</bottom>
+                        </include>
+                    </include>
+                    <!-- <control type="group">
+                        <bottom>80</bottom>
+                        <left>80</left>
+                        <height>80</height>
+                        <include>Settings_KodiVersion</include>
+                    </control> -->
+                    <include content="Settings_InfoText">
+                        <param name="id">9930</param>
+                        <param name="heading">$INFO[Control.GetLabel(12)]</param>
+                        <param name="override">true</param>
+                        <param name="label">$INFO[Control.GetLabel(101)]</param>
+                        <!-- <param name="align">right</param> -->
+                        <param name="dialog">true</param>
+                        <right>-60</right>
+                        <left>80</left>
+                        <!-- <left>360</left> -->
+                        <bottom>60</bottom>
+                    </include>
+
+                </include>
+                <include content="Settings_Right_Group">
+                    <left>860</left>
+                    <include content="List_AddonCategories">
+                        <param name="id">21</param>
+                        <param name="detailed">true</param>
+                        <param name="width" />
+                        <onleft>20</onleft>
+                        <pagecontrol>61</pagecontrol>
+                        <onright>61</onright>
+                        <left>20</left>
+                        <right>20</right>
+                        <top>20</top>
+                        <bottom>20</bottom>
+                    </include>
+                    <control type="scrollbar" id="61">
+                        <centerright>-60</centerright>
+                        <bottom>20</bottom>
+                        <top>20</top>
+                        <width>scrollbar_w</width>
+                        <orientation>vertical</orientation>
+                        <texturesliderbackground colordiffuse="main_fg_12" border="4">scrollbar/scrollv_line.png</texturesliderbackground>
+                        <texturesliderbar colordiffuse="main_logo" border="4">scrollbar/scrollv.png</texturesliderbar>
+                        <include>Texture_Scrollbar_V</include>
+                        <onleft>21</onleft>
+                        <onright>-</onright>
+                    </control>
+                    <include content="Settings_InfoText">
+                        <param name="id">9931</param>
+                        <param name="heading">$INFO[Control.GetLabel(13)]</param>
+                        <param name="override">true</param>
+                        <param name="label">$INFO[Control.GetLabel(102)]</param>
+                        <param name="dialog">true</param>
+                        <left>40</left>
+                        <height>80</height>
+                        <bottom>-100</bottom>
+                    </include>
+                </include>
+            </include>
+        </include>
+
+        <include content="Settings_Changer">
+            <onup>3</onup>
+        </include>
+
+
+        <include content="Object_Hidden_Button">
+            <param name="id">12</param>
+        </include>
+        <include content="Object_Hidden_Button">
+            <param name="id">101</param>
+        </include>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">13</param>
+        </include>
+        <include content="Object_Hidden_Button">
+            <param name="id">102</param>
+        </include>
+
+    </controls>
+
+</window>

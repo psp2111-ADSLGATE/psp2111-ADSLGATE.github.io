@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1172">
+    <defaultcontrol always="true">303</defaultcontrol>
+    <onload>Dialog.Close(1171)</onload>
+    <onload>Dialog.Close(1170)</onload>
+    <onunload condition="!String.IsEmpty(Window(1172).Property(PreviousMenu))">Action(PreviousMenu)</onunload>
+    <onunload condition="!String.IsEmpty(Window(1172).Property(PreviousMenu))">ClearProperty(PreviousMenu,1172)</onunload>
+
+    <controls>
+
+        <control type="group">
+            <include>Home_Menu_Fade_Labels</include>
+        </control>
+
+        <control type="group">
+            <include>Animation_FadeOut</include>
+            <control type="group">
+                <visible>!Skin.HasSetting(SideMenu.EnableSearchAndOptions)</visible>
+                <include condition="!Skin.HasSetting(SideMenu.EnableSearchAndOptions)">Home_Menu_ProfileButton</include>
+                <control type="group">
+                    <left>-0</left>
+                    <include>Animation_Home_Menu_Label</include>
+                    <include content="Dialog_Head">
+                        <param name="label">$VAR[Label_ProfileName]</param>
+                        <param name="textcolor">main_fg_100</param>
+                        <param name="sublabel_include">[Skin.HasSetting(Furniture.EnableClock.TopLeft) + !Skin.HasSetting(Furniture.EnableClock)]</param>
+                        <param name="sublabel_textcolor">main_fg_70</param>
+                        <param name="left">view_side</param>
+                    </include>
+                </control>
+            </control>
+
+            <control type="group">
+                <centerbottom>100</centerbottom>
+                <height>120</height>
+                <itemgap>80</itemgap>
+                <visible>!Skin.HasSetting(SideMenu.EnableSearchAndOptions)</visible>
+                <control type="group">
+                    <centertop>50%</centertop>
+                    <left>view_menu</left>
+                    <width>40</width>
+                    <height>40</height>
+                    <control type="image">
+                        <aspectratio>keep</aspectratio>
+                        <bordersize>icon_kodi_bordersize</bordersize>
+                        <texture colordiffuse="$VAR[Layout_Home_Menu_Color_NF]">special://skin/extras/icons/kodi.png</texture>
+                    </control>
+                </control>
+                <control type="group">
+                    <left>80</left>
+                    <top>40</top>
+                    <height>100</height>
+                    <include content="Layout_Home_Menu_Label">
+                        <param name="detailed">true</param>
+                        <param name="selected">[False]</param>
+                        <param name="label">Kodi$INFO[System.BuildVersionCode, v,]</param>
+                    </include>
+                </control>
+            </control>
+
+
+            <control type="group">
+                <centertop>100</centertop>
+                <height>120</height>
+                <visible>Skin.HasSetting(SideMenu.EnableSearchAndOptions)</visible>
+                <include content="Home_Menu_Button_Icon">
+                    <param name="id">308</param>
+                    <param name="icon">special://skin/extras/icons/search.png</param>
+                    <param name="color_nf">$VAR[Layout_Home_Menu_Color_NF]</param>
+                    <centertop>50%</centertop>
+                    <left>view_menu</left>
+                    <include content="Home_Menu_Button_Back">
+                        <param name="id">308</param>
+                        <ondown>SetFocus(303,0,absolute)</ondown>
+                        <onup>309</onup>
+                        <onleft>Action(PreviousMenu)</onleft>
+                        <onright>Action(PreviousMenu)</onright>
+                        <onclick>Action(PreviousMenu)</onclick>
+                        <onclick>$VAR[Action_ActivateSearchDiscover]</onclick>
+                    </include>
+                </include>
+                <control type="group">
+                    <left>80</left>
+                    <top>40</top>
+                    <height>100</height>
+                    <include content="Layout_Home_Menu_Label">
+                        <param name="detailed">true</param>
+                        <param name="selected">[Control.HasFocus(308)]</param>
+                        <param name="label">$LOCALIZE[137]</param>
+                    </include>
+                </control>
+            </control>
+
+            <control type="group">
+                <centerbottom>100</centerbottom>
+                <height>120</height>
+                <itemgap>80</itemgap>
+                <visible>Skin.HasSetting(SideMenu.EnableSearchAndOptions)</visible>
+                <include content="Home_Menu_Button_Icon">
+                    <param name="id">309</param>
+                    <param name="icon">special://skin/extras/icons/bars.png</param>
+                    <param name="color_nf">$VAR[Layout_Home_Menu_Color_NF]</param>
+                    <centertop>50%</centertop>
+                    <left>view_menu</left>
+                    <include content="Home_Menu_Button_Back">
+                        <param name="id">309</param>
+                        <onup>SetFocus(303,9999,absolute)</onup>
+                        <ondown>308</ondown>
+                        <onleft>Action(PreviousMenu)</onleft>
+                        <onright>Action(PreviousMenu)</onright>
+                        <onclick>Action(PreviousMenu)</onclick>
+                        <onclick>ActivateWindow(shutdownmenu)</onclick>
+                    </include>
+                </include>
+                <control type="group">
+                    <left>80</left>
+                    <top>40</top>
+                    <height>100</height>
+                    <include content="Layout_Home_Menu_Label">
+                        <param name="detailed">true</param>
+                        <param name="selected">[Control.HasFocus(309)]</param>
+                        <param name="label">$LOCALIZE[33063]</param>
+                    </include>
+                </control>
+            </control>
+
+            <control type="group">
+                <left>0</left>
+                <top>260</top>
+                <bottom>260</bottom>
+                <width>view_side</width>
+
+                <include content="Settings_Arrows">
+                    <param name="arrow_prev_visible">Container(303).HasPrevious</param>
+                    <param name="arrow_next_visible">Container(303).HasNext</param>
+                    <param name="colordiffuse">main_fg_30</param>
+                </include>
+
+                <control type="list" id="303">
+                    <focusposition>2</focusposition>
+                    <movement>2</movement>
+                    <width>view_side</width>
+                    <orientation>vertical</orientation>
+                    <scrolltime tween="quadratic">400</scrolltime>
+                    <onup>308</onup>
+                    <ondown>309</ondown>
+                    <onleft>Action(PreviousMenu)</onleft>
+                    <onright>Action(PreviousMenu)</onright>
+
+                    <onback condition="$EXP[Exp_Navigation_OnMenu]">SetProperty(PreviousMenu,True)</onback>
+                    <onback condition="$EXP[Exp_Navigation_OnMenu]">Action(PreviousMenu)</onback>
+
+                    <include content="Home_Menu_List_ItemLayout">
+                        <param name="id">303</param>
+                        <param name="hidden_button_enabled">False</param>
+                    </include>
+
+                    <content>
+                        <include>skinvariables-sidemenu-staticitems</include>
+                    </content>
+                </control>
+            </control>
+        </control>
+
+    </controls>
+</window>

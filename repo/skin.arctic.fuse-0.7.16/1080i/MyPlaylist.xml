@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <views>50</views>
+    <defaultcontrol always="true">50</defaultcontrol>
+    <menucontrol>303</menucontrol>
+    <include>Action_Blur_Onload</include>
+    <include>Action_Media_Onload</include>
+    <controls>
+
+        <include>View_Bumper</include>
+        <include>Defs_TMDbHelper_Loader</include>
+        <include>Background_Main</include>
+        <include>Background_Transition</include>
+
+        <control type="group">
+            <include>Animation_Group_Bumper</include>
+            <include>Animation_View_WindowChange</include>
+            <include>Animation_View_SlideOver</include>
+            <include content="View_MediaList_Include" condition="Window.IsVisible(videoplaylist)">
+                <param name="id">50</param>
+                <param name="viewtype_label">$LOCALIZE[31121]</param>
+                <param name="visible">[true]</param>
+                <param name="right">802.67</param>
+                <include>View_MediaList_PosterLandscape</include>
+            </include>
+            <include content="View_MediaList_Include" condition="Window.IsVisible(musicplaylist)">
+                <param name="id">50</param>
+                <param name="viewtype_label">$LOCALIZE[31121]</param>
+                <param name="visible">[true]</param>
+                <param name="right">896.67</param>
+                <include>View_MediaList_SquareLandscape</include>
+            </include>
+            <control type="group">
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <include>Animation_Transition_InfoPanel_Hide</include>
+                <include content="Info_Panel">
+                    <top>view_top</top>
+                    <width>info_panel_w</width>
+                    <left>view_side</left>
+                </include>
+            </control>
+        </control>
+        <include>View_Furniture_Edges</include>
+        <include>View_Dialog_VideoPIP</include>
+        <include>View_Dialog_Plot</include>
+    </controls>
+</window>

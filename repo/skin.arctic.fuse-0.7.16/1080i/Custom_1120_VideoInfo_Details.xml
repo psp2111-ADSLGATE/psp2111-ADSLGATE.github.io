@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1120">
+    <defaultcontrol always="true">7000</defaultcontrol>
+    <onload>AlarmClock(refocus,SetFocus(7000,0,absolute),00:00,silent)</onload>
+    <onload>SetProperty(TMDbHelper.WidgetContainer,513)</onload>
+    <include>Action_PreserveTransitionProp_Onload</include>
+
+    <onunload condition="!$EXP[Exp_HomeMenu_IsTopBar]">SetProperty(SideMenu.HasFocus,True,Home)</onunload>
+    <onunload condition="$EXP[Exp_HomeMenu_IsTopBar]">ClearProperty(SideMenu.HasFocus,Home)</onunload>
+    <onunload>SetFocus(4001)</onunload>
+
+    <controls>
+
+        <include>Defs_TMDbHelper_Loader</include>
+
+        <control type="group">
+            <include content="Animation_ConditionalFade">
+                <param name="condition">[!Control.HasFocus(513) | !Window.IsActive(1120)]</param>
+            </include>
+            <control type="image">
+                <texture colordiffuse="$VAR[ColorBackground]">common/white.png</texture>
+            </control>
+            <include>Background_Main</include>
+        </control>
+
+        <control type="group">
+            <include>DialogInfo_Main_Group</include>
+            <control type="group">
+                <include content="Animation_Slide_In">
+                    <param name="type">WindowOpen</param>
+                    <param name="posx">320</param>
+                </include>
+                <include content="Animation_Slide_Out">
+                    <param name="type">WindowClose</param>
+                    <param name="posx">320</param>
+                </include>
+
+                <!-- Widgets -->
+                <control type="group">
+                    <animation effect="slide" start="420" end="0" tween="quadratic" easing="out" time="400" reversible="false" condition="Control.HasFocus(513)">Conditional</animation>
+                    <animation effect="slide" start="0" end="420" tween="quadratic" easing="out" time="400" reversible="false" condition="!Control.HasFocus(513)">Conditional</animation>
+                    <control type="group" id="5000">
+                        <top>hub_recommendations_widgets_grouplist_t</top>
+                        <bottom>hub_recommendations_widgets_grouplist_b</bottom>
+
+                        <include content="Widget_Info_Row">
+                            <param name="baseid">51</param>
+                            <param name="basegroupid">52</param>
+                            <param name="id">3</param>
+                            <param name="label">$LOCALIZE[20339]</param>
+                            <param name="include">List_Landscape_Row</param>
+                            <param name="visible">[!String.IsEmpty(Window.Property(Director_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[20339])]]</param>
+                            <param name="altvisible">[!String.IsEmpty(Window.Property(Director_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[20339])]]</param>
+                            <param name="labeltop">0</param>
+                            <param name="include_movement">false</param>
+                            <content>plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=job&amp;filter_value=Director$INFO[Window.Property(Director_Query)]$VAR[Path_Param_Widget]</content>
+                            <include content="Action_Recommendations_OnClick">
+                                <param name="id">513</param>
+                            </include>
+                            <onup>SetFocus(513,0,absolute)</onup>
+                            <onup>7000</onup>
+                            <ondown>SetFocus(513,0,absolute)</ondown>
+                            <ondown>7000</ondown>
+                            <onleft>SetFocus(513,0,aboslute)</onleft>
+                            <onleft>7000</onleft>
+                            <onback>SetFocus(513,0,absolute)</onback>
+                            <onback>7000</onback>
+                            <include content="Animation_ConditionalFade" condition="!Skin.HasSetting(Views.DisableItemPeek)">
+                                <param name="condition">!Control.HasFocus(513)</param>
+                            </include>
+                        </include>
+                        <include content="Widget_Info_Row">
+                            <param name="baseid">51</param>
+                            <param name="basegroupid">52</param>
+                            <param name="id">3</param>
+                            <param name="label">$LOCALIZE[20417]</param>
+                            <param name="include">List_Landscape_Row</param>
+                            <param name="visible">[!String.IsEmpty(Window.Property(Writer_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[20417])]]</param>
+                            <param name="altvisible">[!String.IsEmpty(Window.Property(Writer_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[20417])]]</param>
+                            <param name="labeltop">0</param>
+                            <param name="include_movement">false</param>
+                            <content>plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=department&amp;filter_value=Writing$INFO[Window.Property(Writer_Query)]$VAR[Path_Param_Widget]</content>
+                            <include content="Action_Recommendations_OnClick">
+                                <param name="id">513</param>
+                            </include>
+                            <onup>SetFocus(513,0,absolute)</onup>
+                            <onup>7000</onup>
+                            <ondown>SetFocus(513,0,absolute)</ondown>
+                            <ondown>7000</ondown>
+                            <onleft>SetFocus(513,0,aboslute)</onleft>
+                            <onleft>7000</onleft>
+                            <onback>SetFocus(513,0,absolute)</onback>
+                            <onback>7000</onback>
+                            <include content="Animation_ConditionalFade" condition="!Skin.HasSetting(Views.DisableItemPeek)">
+                                <param name="condition">!Control.HasFocus(513)</param>
+                            </include>
+                        </include>
+                        <include content="Widget_Info_Row">
+                            <param name="baseid">51</param>
+                            <param name="basegroupid">52</param>
+                            <param name="id">3</param>
+                            <param name="label">$LOCALIZE[31065]</param>
+                            <param name="include">List_Landscape_Row</param>
+                            <param name="visible">[!String.IsEmpty(Window.Property(Creator_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[31065])]]</param>
+                            <param name="altvisible">[!String.IsEmpty(Window.Property(Creator_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[31065])]]</param>
+                            <param name="labeltop">0</param>
+                            <param name="include_movement">false</param>
+                            <content>plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;type=person&amp;filter_key=department&amp;filter_value=Creator$INFO[Window.Property(Creator_Query)]$VAR[Path_Param_Widget]</content>
+                            <include content="Action_Recommendations_OnClick">
+                                <param name="id">513</param>
+                            </include>
+                            <onup>SetFocus(513,0,absolute)</onup>
+                            <onup>7000</onup>
+                            <ondown>SetFocus(513,0,absolute)</ondown>
+                            <ondown>7000</ondown>
+                            <onleft>SetFocus(513,0,aboslute)</onleft>
+                            <onleft>7000</onleft>
+                            <onback>SetFocus(513,0,absolute)</onback>
+                            <onback>7000</onback>
+                            <include content="Animation_ConditionalFade" condition="!Skin.HasSetting(Views.DisableItemPeek)">
+                                <param name="condition">!Control.HasFocus(513)</param>
+                            </include>
+                        </include>
+                        <include content="Widget_Info_Row">
+                            <param name="baseid">51</param>
+                            <param name="basegroupid">52</param>
+                            <param name="id">3</param>
+                            <param name="label">$LOCALIZE[572]</param>
+                            <param name="include">List_Landscape_Row</param>
+                            <param name="visible">[!String.IsEmpty(Window.Property(Studio_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[572])]]</param>
+                            <param name="altvisible">[!String.IsEmpty(Window.Property(Studio_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[572])]]</param>
+                            <param name="labeltop">0</param>
+                            <param name="include_movement">false</param>
+                            <content>plugin://plugin.video.themoviedb.helper/?info=discover$INFO[Window.Property(Studio_Query)]$VAR[Path_Param_Widget]</content>
+                            <include content="Action_Recommendations_OnClick">
+                                <param name="id">513</param>
+                            </include>
+                            <onup>SetFocus(513,0,absolute)</onup>
+                            <onup>7000</onup>
+                            <ondown>SetFocus(513,0,absolute)</ondown>
+                            <ondown>7000</ondown>
+                            <onleft>SetFocus(513,0,aboslute)</onleft>
+                            <onleft>7000</onleft>
+                            <onback>SetFocus(513,0,absolute)</onback>
+                            <onback>7000</onback>
+                            <include content="Animation_ConditionalFade" condition="!Skin.HasSetting(Views.DisableItemPeek)">
+                                <param name="condition">!Control.HasFocus(513)</param>
+                            </include>
+                        </include>
+                        <include content="Widget_Info_Row">
+                            <param name="baseid">51</param>
+                            <param name="basegroupid">52</param>
+                            <param name="id">3</param>
+                            <param name="label">$LOCALIZE[31236]</param>
+                            <param name="include">List_Landscape_Row</param>
+                            <param name="visible">[!String.IsEmpty(Window.Property(Set_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[31236])]]</param>
+                            <param name="altvisible">[!String.IsEmpty(Window.Property(Set_Query)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[31236])]]</param>
+                            <param name="labeltop">0</param>
+                            <param name="include_movement">false</param>
+                            <content sortby="year" sortorder="ascending">plugin://plugin.video.themoviedb.helper/?info=collection&amp;tmdb_type=collection$INFO[Window.Property(Set_Query)]$VAR[Path_Param_Widget]</content>
+                            <include content="Action_Recommendations_OnClick">
+                                <param name="id">513</param>
+                            </include>
+                            <onup>SetFocus(513,0,absolute)</onup>
+                            <onup>7000</onup>
+                            <ondown>SetFocus(513,0,absolute)</ondown>
+                            <ondown>7000</ondown>
+                            <onleft>SetFocus(513,0,aboslute)</onleft>
+                            <onleft>7000</onleft>
+                            <onback>SetFocus(513,0,absolute)</onback>
+                            <onback>7000</onback>
+                            <include content="Animation_ConditionalFade" condition="!Skin.HasSetting(Views.DisableItemPeek)">
+                                <param name="condition">!Control.HasFocus(513)</param>
+                            </include>
+                        </include>
+                        <include content="Widget_Info_Row">
+                            <param name="baseid">51</param>
+                            <param name="basegroupid">52</param>
+                            <param name="id">3</param>
+                            <param name="label">$LOCALIZE[31159]</param>
+                            <param name="include">List_Landscape_Row</param>
+                            <param name="visible">[!String.IsEmpty(Window.Property(Version_Query)) + !String.IsEmpty(Window.Property(Version_Label)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[31159])]]</param>
+                            <param name="altvisible">[!String.IsEmpty(Window.Property(Version_Query)) + !String.IsEmpty(Window.Property(Version_Label)) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[31159])]]</param>
+                            <param name="labeltop">0</param>
+                            <param name="include_movement">false</param>
+                            <content>$INFO[Window.Property(Version_Query)]</content>
+                            <onclick>Dialog.Close(all,true)</onclick>
+                            <onclick>PlayMedia($ESCINFO[Container(513).ListItem.FolderPath])</onclick>
+                            <onup>SetFocus(513,0,absolute)</onup>
+                            <onup>7000</onup>
+                            <ondown>SetFocus(513,0,absolute)</ondown>
+                            <ondown>7000</ondown>
+                            <onleft>SetFocus(513,0,aboslute)</onleft>
+                            <onleft>7000</onleft>
+                            <onback>SetFocus(513,0,absolute)</onback>
+                            <onback>7000</onback>
+                            <include content="Animation_ConditionalFade" condition="!Skin.HasSetting(Views.DisableItemPeek)">
+                                <param name="condition">!Control.HasFocus(513)</param>
+                            </include>
+                        </include>
+                        <include content="Widget_Info_Row">
+                            <param name="baseid">51</param>
+                            <param name="basegroupid">52</param>
+                            <param name="id">3</param>
+                            <param name="label">$LOCALIZE[20360]</param>
+                            <param name="include">List_Landscape_Row</param>
+                            <param name="visible">[String.IsEqual(Window.Property(Item_Type),type=tv) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[20360])]]</param>
+                            <param name="altvisible">[String.IsEqual(Window.Property(Item_Type),type=tv) + [String.IsEqual(Container(7000).ListItem.Label,$LOCALIZE[20360])]]</param>
+                            <param name="labeltop">0</param>
+                            <param name="include_movement">false</param>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=flatseasons&amp;tmdb_type=tv$INFO[Window.Property(Item_Query)]$VAR[Path_Param_Widget]</content>
+                            <onup>SetFocus(513,0,absolute)</onup>
+                            <onup>7000</onup>
+                            <ondown>SetFocus(513,0,absolute)</ondown>
+                            <ondown>7000</ondown>
+                            <onleft>SetFocus(513,0,aboslute)</onleft>
+                            <onleft>7000</onleft>
+                            <onback>SetFocus(513,0,absolute)</onback>
+                            <onback>7000</onback>
+                            <include content="Animation_ConditionalFade" condition="!Skin.HasSetting(Views.DisableItemPeek)">
+                                <param name="condition">!Control.HasFocus(513)</param>
+                            </include>
+                        </include>
+                    </control>
+
+                    <include content="Widget_Fake_Row" condition="!Skin.HasSetting(Views.DisableItemPeek)">
+                        <param name="id">513</param>
+                        <param name="affix">_C513</param>
+                        <animation type="Conditional" reversible="false" condition="Container(513).IsUpdating">
+                            <effect type="fade" start="100" end="0" time="200" delay="600" />
+                        </animation>
+                        <visible>!Control.HasFocus(513)</visible>
+                    </include>
+                </control>
+
+                <!-- Person Info -->
+                <control type="group">
+                    <include>Animation_View_SlideOver_Invert</include>
+                    <control type="group">
+                        <include content="DialogInfo_VideoInfo_CastSpotlight">
+                            <param name="icon">$INFO[Container(7000).ListItem.Icon]</param>
+                            <param name="plot">$VAR[Label_VideoInfo_CastBio]</param>
+                            <param name="label">$INFO[Container(7000).ListItem.Label2]</param>
+                            <param name="label2">$VAR[Label_VideoInfo_CastAge,   ,]</param>
+                        </include>
+                        <include content="Animation_Slide_In">
+                            <param name="type">Visible</param>
+                            <param name="posx">320</param>
+                        </include>
+                        <include content="Animation_Slide_Out">
+                            <param name="type">Hidden</param>
+                            <param name="posx">320</param>
+                        </include>
+                        <visible>Control.HasFocus(7000)</visible>
+                        <visible>!String.ISEmpty(Container(7000).ListItem.Property(query))</visible>
+                        <top>view_top</top>
+                    </control>
+                </control>
+            </control>
+
+            <control type="group">
+                <include>Dimension_Info</include>
+
+                <!-- Info Panel -->
+                <include content="Info_Panel">
+                    <param name="titlelabel">$VAR[Label_Title_C513]</param>
+                    <param name="container">Container(513).</param>
+                    <param name="plotlabel">$VAR[Label_Plot_C513]</param>
+                    <param name="visible">Control.HasFocus(513)</param>
+                    <width>info_panel_w</width>
+                </include>
+
+                <!-- Details List -->
+                <control type="group">
+                    <top>390</top>
+                    <include content="List_Button_Row">
+                        <param name="id">7000</param>
+                        <param name="orientation">vertical</param>
+                        <param name="offset_x">60</param>
+                        <param name="offset_y">25</param>
+                        <param name="item_h">80</param>
+                        <param name="itemlayout_h">80</param>
+                        <param name="item_w">400</param>
+                        <param name="itemlayout_w">600</param>
+                        <param name="itemlayout_include">Layout_InfoDialog_Details</param>
+
+                        <onup condition="$EXP[Exp_HomeMenu_IsTopBar]">Close</onup>
+                        <ondown condition="$EXP[Exp_HomeMenu_IsTopBar]">Close</ondown>
+
+                        <onleft condition="!$EXP[Exp_HomeMenu_IsTopBar]">Close</onleft>
+                        <onright>SetFocus(5000)</onright>
+                        <onback>SetFocus(4001)</onback>
+                        <onback condition="!$EXP[Exp_HomeMenu_IsTopBar]">SetProperty(SideMenu.HasFocus,True,Home)</onback>
+                        <onback condition="$EXP[Exp_HomeMenu_IsTopBar]">ClearProperty(SideMenu.HasFocus,Home)</onback>
+
+                        <left>-80</left>
+                        <top>-40</top>
+                        <width>600</width>
+                        <height>345</height>
+
+                        <preloaditems>0</preloaditems>
+                        <focusposition>0</focusposition>
+                        <movement>3</movement>
+
+                        <include content="Animation_ConditionalFade">
+                            <param name="condition">[Control.HasFocus(513) | !Window.IsActive(1120)]</param>
+                        </include>
+
+                        <content>
+                            <item>
+                                <label2>$INFO[Window.Property(Director_Label)]</label2>
+                                <label>$LOCALIZE[20339]</label>
+                                <icon>$INFO[Window.Property(Director_Image)]</icon>
+                                <property name="icon">special://skin/extras/icons/video-addons.png</property>
+                                <property name="query">$INFO[Window.Property(Director_Query)]</property>
+                                <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(Director_Label)],tmdb_type=person)</onclick>
+                                <visible>!String.IsEmpty(Window.Property(Director_Query))</visible>
+                            </item>
+                            <item>
+                                <label2>$INFO[Window.Property(Writer_Label)]</label2>
+                                <label>$LOCALIZE[20417]</label>
+                                <icon>$INFO[Window.Property(Writer_Image)]</icon>
+                                <property name="icon">special://skin/extras/icons/write.png</property>
+                                <property name="query">$INFO[Window.Property(Writer_Query)]</property>
+                                <visible>!String.IsEmpty(Window.Property(Writer_Query))</visible>
+                                <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(Writer_Label)],tmdb_type=person)</onclick>
+                                <visible>!String.IsEmpty(Window.Property(Writer_Query))</visible>
+                            </item>
+                            <item>
+                                <label2>$INFO[Window.Property(Creator_Label)]</label2>
+                                <label>$LOCALIZE[31065]</label>
+                                <icon>$INFO[Window.Property(Creator_Image)]</icon>
+                                <property name="icon">special://skin/extras/icons/person.png</property>
+                                <property name="query">$INFO[Window.Property(Creator_Query)]</property>
+                                <visible>!String.IsEmpty(Window.Property(Creator_Query))</visible>
+                                <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(Creator_Label)],tmdb_type=person)</onclick>
+                                <visible>!String.IsEmpty(Window.Property(Creator_Query))</visible>
+                            </item>
+                            <item>
+                                <label2>$INFO[Window.Property(Studio_Label)]</label2>
+                                <label>$LOCALIZE[572]</label>
+                                <icon>$INFO[Window.Property(Studio_Image)]</icon>
+                                <property name="icon">special://skin/extras/icons/director.png</property>
+                                <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(Studio_Label)])</onclick>
+                                <visible>!String.IsEmpty(Window.Property(Studio_Query))</visible>
+                            </item>
+                            <item>
+                                <label2>$INFO[Window.Property(Set_Label)]</label2>
+                                <label>$LOCALIZE[31236]</label>
+                                <icon>$INFO[Window.Property(Set_Image)]</icon>
+                                <property name="icon">special://skin/extras/icons/cubes.png</property>
+                                <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(Set_Label)])</onclick>
+                                <visible>!String.IsEmpty(Window.Property(Set_Query))</visible>
+                            </item>
+                            <item>
+                                <label2>$INFO[Window.Property(Version_Label)]</label2>
+                                <label>$LOCALIZE[31159]</label>
+                                <icon>$INFO[Window.Property(Version_Image)]</icon>
+                                <property name="icon">special://skin/extras/icons/cubes.png</property>
+                                <onclick>runscript(script.wikipedia,wikipedia=$INFO[Window.Property(Version_Label)])</onclick>
+                                <visible>!String.IsEmpty(Window.Property(Version_Query))</visible>
+                                <visible>!String.IsEmpty(Window.Property(Version_Label))</visible>
+                            </item>
+                            <item>
+                                <label2>$INFO[Window.Property(Episodes_Label)]</label2>
+                                <label>$LOCALIZE[20360]</label>
+                                <icon>$INFO[Window.Property(Seasons_Image)]</icon>
+                                <property name="icon">special://skin/extras/icons/tv.png</property>
+                                <visible>String.IsEqual(Window.Property(Item_Type),type=tv)</visible>
+                            </item>
+                        </content>
+                    </include>
+                </control>
+            </control>
+        </control>
+
+        <!-- Furniture -->
+        <control type="group">
+            <include content="Animation_ConditionalFade">
+                <param name="condition">[!Control.HasFocus(513)]</param>
+            </include>
+            <control type="group">
+                <include>Animation_Home_SlideOver</include>
+                <include content="DialogInfo_ButtonGroup">
+                    <param name="include">Items_DialogVideoInfo_MenuBar</param>
+                </include>
+            </control>
+            <control type="group">
+                <include>Animation_View_SlideOver</include>
+                <include content="Furniture_Top">
+                    <param name="label">$LOCALIZE[19033]</param>
+                </include>
+                <include content="Furniture_Bottom_Left">
+                    <param name="container">Container(513).</param>
+                </include>
+            </control>
+            <include>Furniture_Bottom_Right</include>
+        </control>
+
+        <include content="Object_Hidden_List">
+            <param name="id">5203</param>
+            <content sortby="year" sortorder="descending">$INFO[Container(7000).ListItem.Property(query),plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person,]</content>
+        </include>
+
+    </controls>
+</window>

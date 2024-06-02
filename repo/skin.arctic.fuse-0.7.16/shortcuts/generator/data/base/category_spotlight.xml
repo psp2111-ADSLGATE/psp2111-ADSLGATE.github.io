@@ -1,0 +1,20 @@
+<contents>
+    <value name="comments">Category Spotlights</value>
+    <template>generator/data/parts/basic_include.xmltemplate</template>
+    <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+    <value name="includes_name">skinvariables-{item}-spotlight</value>
+    <value name="includes_part">
+        <items menu="{item}">
+            <item>
+                <template>generator/data/parts/widgets_spotlight.xmltemplate</template>
+                <datafile>generator/data/setup/widgets_spotlight.xml</datafile>
+                <value name="spotlight_visible">String.IsEqual(Container(300).ListItem.Property(guid),{item_guid})</value>
+                <condition>{item_spotlight_path}!=</condition>
+                <condition>{item_disabled}!=True</condition>
+                <condition>$LOOKUP[disabled?menu=sidemenu&amp;filter_guid={item_sidemenu_guid}]!=True</condition>
+                <condition>{window_id}!=Home||{item_sidemenu_guid}==||$LOOKUP[guid?menu=sidemenu&amp;filter_guid={item_sidemenu_guid}]!=</condition>
+                <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
+            </item>
+        </items>
+    </value>
+</contents>

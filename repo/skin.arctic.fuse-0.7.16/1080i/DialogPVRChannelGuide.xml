@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol>11</defaultcontrol>
+    <include content="Object_MenuControl" condition="Window.IsMedia">
+        <param name="menucontrol">303</param>
+    </include>
+    <onload>CancelAlarm(osd_timeout,true)</onload>
+    <onload>SetProperty(TMDbHelper.WidgetContainer,11)</onload>
+    <onload condition="!Window.IsMedia">SetProperty(ChannelIcon,$ESCINFO[Player.Icon])</onload>
+    <onload condition="Window.IsMedia">ClearProperty(ChannelIcon)</onload>
+    <controls>
+
+        <include condition="Window.IsMedia">Defs_TMDbHelper_Loader</include>
+
+        <control type="group">
+            <include condition="Window.IsMedia">Animation_View_SlideOver</include>
+
+            <include content="View_Bumper" condition="Window.IsMedia">
+                <param name="groupid">50</param>
+            </include>
+
+            <control type="group">
+                <include condition="!Window.IsMedia">Animation_OSD_Dialog_WindowChange</include>
+                <control type="group">
+                    <visible>!Window.IsActive(pvrosdchannels)</visible>
+                    <visible>!Window.IsActive(1141)</visible>
+                    <include condition="!Window.IsMedia">Animation_OSD_Dialog_VisibleChange</include>
+                    <include content="OSD_CastInfo_ExpandGroup">
+
+                        <control type="group">
+                            <left>view_side</left>
+                            <right>view_pad</right>
+                            <width>view_landscape_item_w</width>
+                            <height>view_landscape_item_h</height>
+                            <visible>Integer.IsEqual(Container(11).NumItems,0)</visible>
+                            <include>Object_ItemBack</include>
+                            <control type="image">
+                                <width>128</width>
+                                <height>128</height>
+                                <centerleft>50%</centerleft>
+                                <centertop>50%</centertop>
+                                <texture colordiffuse="panel_fg_70">special://skin/extras/icons/image.png</texture>
+                            </control>
+                        </control>
+
+                        <!-- Episodes List -->
+                        <include content="List_Landscape_Row">
+                            <param name="orientation">horizontal</param>
+                            <param name="control">fixedlist</param>
+                            <param name="id">11</param>
+                            <include>OSD_List_Dimensions</include>
+                            <onup>Close</onup>
+                            <ondown condition="!Window.IsMedia">ActivateWindow($VAR[Action_OSD_PVROSDGuide_OnDown])</ondown>
+                            <ondown condition="Window.IsMedia">Close</ondown>
+                        </include>
+
+                        <control type="group">
+                            <height>60</height>
+                            <centerbottom>20</centerbottom>
+                            <left>view_side</left>
+                            <right>view_pad</right>
+                            <include content="Object_InfoCircle_Horizontal">
+                                <param name="icon">$INFO[Window.Property(ChannelIcon)]</param>
+                                <param name="role">$INFO[Container(11).ListItem.ChannelName]</param>
+                                <param name="name">$INFO[Container(11).ListItem.ChannelNumberLabel,$LOCALIZE[19029] ,]</param>
+                                <param name="max">560</param>
+                                <param name="top_label_left">80</param>
+                                <param name="bottom_label_left">80</param>
+                            </include>
+                            <!-- Info Box -->
+                            <control type="textbox">
+                                <top>-2</top>
+                                <left>500</left>
+                                <right>0</right>
+                                <label>$INFO[Container(11).ListItem.Title,, ~ ]$INFO[Container(11).ListItem.Season,S,]$INFO[Container(11).ListItem.Episode,E, ]$INFO[Container(11).ListItem.Plot]</label>
+                                <font>font_mini_cond</font>
+                                <textcolor>panel_fg_70</textcolor>
+                            </control>
+                        </control>
+
+                    </include>
+                </control>
+            </control>
+
+            <include content="Info_Viewline" condition="Window.IsMedia">
+                <param name="label">$LOCALIZE[19686]</param>
+                <param name="item_condition">true</param>
+                <param name="library_condition">true</param>
+            </include>
+
+            <include content="Info_Panel" condition="Window.IsMedia">
+                <top>view_top</top>
+                <width>info_panel_w</width>
+                <left>view_side</left>
+            </include>
+
+            <include condition="Window.IsMedia">View_Row_Header</include>
+
+            <include content="Home_Menu" condition="Window.IsMedia">
+                <param name="onlist">50</param>
+            </include>
+
+            <include condition="Window.IsMedia">View_Dialog_VideoPIP</include>
+            <include condition="Window.IsMedia">View_Dialog_Plot</include>
+            <include condition="Window.IsMedia">View_PVR_Menu</include>
+        </control>
+    </controls>
+</window>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1183">
+    <defaultcontrol always="true">5000</defaultcontrol>
+    <include>Action_PreserveTransitionProp_Onload</include>
+    <onload>SetFocus($VAR[Action_Recommendations_SetFocusID])</onload>
+    <controls>
+        <include>DialogInfo_Recommendations_BackgroundLoader</include>
+        <include>Background_Main</include>
+        <include>Background_Transition</include>
+        <include content="DialogInfo_Recommendations_Group">
+            <include content="Object_Hidden_List">
+                <param name="id">5203</param>
+                <content sortby="year" sortorder="descending">$INFO[Window.Property(Item_Query),plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person,]</content>
+            </include>
+            <control type="group">
+                <include>Animation_View_SlideOver_Invert</include>
+                <control type="group">
+                    <top>200</top>
+                    <include content="DialogInfo_VideoInfo_CastSpotlight">
+                        <param name="icon">$INFO[Container(5203).ListItem.Icon]</param>
+                        <param name="plot">$VAR[Label_VideoInfo_CastBio]</param>
+                        <param name="label">$INFO[Window.Property(Item_Title)]</param>
+                        <param name="label2">$VAR[Label_VideoInfo_CastAge,   ,]</param>
+                    </include>
+                    <include>Animation_Right</include>
+                </control>
+            </control>
+            <include content="DialogInfo_Recommendations_InfoPanel">
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <include>Animation_Transition_InfoPanel_Hide</include>
+            </include>
+            <include content="DialogInfo_Recommendations_Widgets_Grouplist">
+                <param name="onup">SetFocus(4002)</param>
+                <include content="Widget_Info_Row">
+                    <param name="id">01</param>
+                    <param name="label">$LOCALIZE[342]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="detailed">true</param>
+                    <param name="visible">!String.IsEmpty(Window.Property(Item_Query))</param>
+                    <param name="widgetfade_include">true</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5001)</param>
+                    <content>$INFO[Window.Property(Item_Query),plugin://plugin.video.themoviedb.helper/?info=stars_in_movies&amp;tmdb_type=person,]$VAR[Path_Param_SortKey_MovieCredits]$VAR[Path_Param_Widget]&amp;limit=100</content>
+                </include>
+
+                <include content="Widget_Info_Row">
+                    <param name="id">02</param>
+                    <param name="label">$LOCALIZE[20343]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="detailed">true</param>
+                    <param name="visible">!String.IsEmpty(Window.Property(Item_Query))</param>
+                    <param name="widgetfade_include">true</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5002)</param>
+                    <content>$INFO[Window.Property(Item_Query),plugin://plugin.video.themoviedb.helper/?info=stars_in_tvshows&amp;tmdb_type=person,]$VAR[Path_Param_SortKey_TVShowCredits]$VAR[Path_Param_Widget]&amp;limit=100</content>
+                </include>
+
+                <include content="Widget_Info_Row">
+                    <param name="id">04</param>
+                    <param name="label">$LOCALIZE[31383]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="detailed">true</param>
+                    <param name="visible">!String.IsEmpty(Window.Property(Item_Query))</param>
+                    <param name="widgetfade_include">true</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5004)</param>
+                    <content>$INFO[Window.Property(Item_Query),plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;tmdb_type=person,]$VAR[Path_Param_SortKey_MovieCredits]$VAR[Path_Param_Widget]</content>
+                </include>
+
+                <control type="group" id="5099">
+                    <height>0</height>
+                    <control type="group">
+                        <visible>!Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                        <visible>!Integer.IsEqual(Container(5000).NumItems,1) | !Control.HasFocus(5098) | ControlGroup(5000).HasFocus()</visible>
+                        <include content="Furniture_Bottom_WidgetGroups">
+                            <param name="label">$VAR[Label_NextBump]</param>
+                            <param name="icon">special://skin/extras/icons/kodi.png</param>
+                        </include>
+                    </control>
+                </control>
+            </include>
+            <include>Widget_Transitions</include>
+        </include>
+
+        <control type="group">
+            <include>Animation_Home_SlideOver</include>
+            <include content="DialogInfo_ButtonGroup_Basic">
+                <param name="id">303</param>
+                <param name="include">Items_PersonCredits_MenuBar</param>
+                <param name="include_def">DialogInfo_ButtonGroup_Basic__Def_1183_Person</param>
+                <param name="visible">!$EXP[Exp_InfoDialogs]</param>
+            </include>
+        </control>
+
+        <control type="group">
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include content="DialogInfo_Recommendations_Furniture">
+                <param name="include_homemenu">false</param>
+                <param name="header">$INFO[Window.Property(Item_Title)]</param>
+            </include>
+        </control>
+
+    </controls>
+</window>

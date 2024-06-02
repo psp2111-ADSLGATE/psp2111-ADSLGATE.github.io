@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <constant name="hub_widgets_grouplist_b">-280</constant>
+    <constant name="hub_recommendations_widgets_grouplist_b">160</constant>
+
+    <constant name="widget_tbump_h">-20</constant>  <!-- Bumper to address label top spacing -->
+    <constant name="widget_label_t">20</constant>  <!-- Space from widget bottom to next widget label -->
+    <constant name="widget_label_h">0</constant>  <!-- Space between label and widget -->
+    <constant name="widget_items_t">6</constant>  <!-- Widget position from top -->
+    <constant name="widget_items_h">414</constant>  <!-- Widget position from bottom -->
+</includes>

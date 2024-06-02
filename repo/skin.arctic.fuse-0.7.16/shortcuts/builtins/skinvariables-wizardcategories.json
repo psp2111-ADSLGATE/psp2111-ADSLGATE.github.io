@@ -1,0 +1,12 @@
+{
+    "actions": [
+        "Skin.{category}(Hub.Home.DisableSubmenu)",
+        "Skin.{combined}(Hub.Home.WidgetSelector)",
+        "Skin.SetString(Home.SideMenuCollapse,{hidemenu})",
+        "sleep=0.4",
+        "ReloadSkin()",
+        "sleep=0.4",
+        "ClearProperty(WizardStep,Home)",
+        "SetFocus(50,{position},absolute)"
+    ]
+}

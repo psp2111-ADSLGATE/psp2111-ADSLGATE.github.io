@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <include content="Object_DefaultControl">
+        <param name="always">true</param>
+        <param name="defaultcontrol">4001</param>
+    </include>
+
+    <menucontrol>4000</menucontrol>
+
+    <include>DialogInfo_Onload</include>
+
+    <onload condition="!Player.HasVideo + !String.IsEmpty(ListItem.Trailer) + !Skin.HasSetting(Background.DisableVideo) + Skin.HasSetting(Trailers.EnableAutoPlayback.Info)">PlayMedia($ESCINFO[ListItem.Trailer],False,1)</onload>
+    <onload condition="!Player.HasVideo + !String.IsEmpty(ListItem.Trailer) + !Skin.HasSetting(Background.DisableVideo) + Skin.HasSetting(Trailers.EnableAutoPlayback.Info)">SetProperty(Trailer,$ESCINFO[ListItem.Trailer],1123)</onload>
+    <onunload condition="Player.HasVideo + String.IsEqual(Window(1123).Property(Trailer),Player.FileNameAndPath)">Stop</onunload>
+
+
+    <controls>
+        <include>Defs_TMDbHelper_Loader</include>
+
+        <control type="group">
+            <include>DialogInfo_Main_Group</include>
+            <control type="group">
+                <include>DialogInfo_Body_Group</include>
+                <control type="group">
+                    <include>DialogInfo_InfoPanel_Group</include>
+                </control>
+                <control type="group">
+                    <include>DialogInfo_InfoDetails_Group</include>
+                    <include>DialogInfo_VideoInfo</include>
+                </control>
+                <include condition="!$EXP[Exp_HomeMenu_IsTopBar]">DialogInfo_ArtworkGallery</include>
+            </control>
+        </control>
+
+        <control type="group">
+            <include condition="$EXP[Exp_HomeMenu_IsTopBar]">Animation_Home_Topbar</include>
+            <include condition="!$EXP[Exp_HomeMenu_IsTopBar]">Animation_Home_SlideOver</include>
+            <include condition="!$EXP[Exp_HomeMenu_IsTopBar] + Skin.HasSetting(SideMenu.EnableSearchAndOptions)">Home_Menu_SearchAndOptions</include>
+            <include content="DialogInfo_ButtonGroup" condition="!$EXP[Exp_HomeMenu_IsTopBar]">
+                <param name="include">Items_DialogVideoInfo_MenuBar</param>
+                <param name="vertical">true</param>
+            </include>
+            <include content="DialogInfo_ButtonGroup" condition="$EXP[Exp_HomeMenu_IsTopBar]">
+                <param name="include">Items_DialogVideoInfo_MenuBar</param>
+                <param name="vertical">false</param>
+                <param name="itemgap">0</param>
+            </include>
+        </control>
+
+        <include>DialogInfo_Furniture</include>
+        <include>TouchMode_Info_Zones</include>
+        <include>DialogInfo_PlotBox</include>
+
+    </controls>
+</window>

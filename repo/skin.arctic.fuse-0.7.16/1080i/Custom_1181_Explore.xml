@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1181">
+    <defaultcontrol always="true">5000</defaultcontrol>
+    <include>Action_PreserveTransitionProp_Onload</include>
+    <onload>SetFocus($VAR[Action_Recommendations_SetFocusID])</onload>
+    <controls>
+        <include>DialogInfo_Recommendations_BackgroundLoader</include>
+        <include>Background_Main</include>
+        <include>Background_Transition</include>
+        <include content="DialogInfo_Recommendations_Group">
+            <include content="DialogInfo_Recommendations_InfoPanel">
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <include>Animation_Transition_InfoPanel_Hide</include>
+            </include>
+            <include content="DialogInfo_Recommendations_Widgets_Grouplist">
+                <include content="DialogInfo_Recommendations_Widgets" condition="![Window.Previous(music) | Window.Previous(1103)]">
+                    <param name="include_onclick">false</param>
+                    <param name="transition_include">true</param>
+                    <param name="target">videos</param>
+                </include>
+                <include content="Widget_Info_Row" condition="![Window.Previous(music) | Window.Previous(1103)]">
+                    <param name="id">04</param>
+                    <param name="label">$LOCALIZE[31408]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5004)</param>
+                    <param name="visible">!Control.IsVisible(5001) + !Control.IsVisible(5002) + !Control.IsVisible(5003) + Library.HasContent(Movies)</param>
+                    <param name="widgetfade_include">true</param>
+                    <content target="videos">special://skin/extras/playlists/RandomMovies.xsp</content>
+                </include>
+                <include content="Widget_Info_Row" condition="![Window.Previous(music) | Window.Previous(1103)]">
+                    <param name="id">05</param>
+                    <param name="label">$LOCALIZE[31409]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5005)</param>
+                    <param name="visible">!Control.IsVisible(5001) + !Control.IsVisible(5002) + !Control.IsVisible(5003) + Library.HasContent(TVShows)</param>
+                    <param name="widgetfade_include">true</param>
+                    <content target="videos">special://skin/extras/playlists/RandomTvShows.xsp</content>
+                </include>
+                <include content="Widget_Info_Row" condition="![Window.Previous(music) | Window.Previous(1103)]">
+                    <param name="id">06</param>
+                    <param name="label">$LOCALIZE[31128] $LOCALIZE[20342]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5006)</param>
+                    <param name="visible">!Control.IsVisible(5001) + !Control.IsVisible(5002) + !Control.IsVisible(5003) + !Library.HasContent(Movies)</param>
+                    <param name="widgetfade_include">true</param>
+                    <content target="videos">plugin://plugin.video.themoviedb.helper/?info=trakt_trending&amp;tmdb_type=movie$VAR[Path_Param_Widget]</content>
+                </include>
+                <include content="Widget_Info_Row" condition="![Window.Previous(music) | Window.Previous(1103)]">
+                    <param name="id">07</param>
+                    <param name="label">$LOCALIZE[31128] $LOCALIZE[20343]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5007)</param>
+                    <param name="visible">!Control.IsVisible(5001) + !Control.IsVisible(5002) + !Control.IsVisible(5003) + !Library.HasContent(TVShows)</param>
+                    <param name="widgetfade_include">true</param>
+                    <content target="videos">plugin://plugin.video.themoviedb.helper/?info=trakt_trending&amp;tmdb_type=tv$VAR[Path_Param_Widget]</content>
+                </include>
+
+                <include content="Widget_Info_Row" condition="[Window.Previous(music) | Window.Previous(1103)]">
+                    <param name="id">08</param>
+                    <param name="label">$LOCALIZE[10505]</param>
+                    <param name="include">List_Square_Row</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5008)</param>
+                    <param name="visible">True</param>
+                    <param name="widgetfade_include">true</param>
+                    <content target="music">library://music/top100/top100albums.xml/</content>
+                </include>
+                <include content="Widget_Info_Row" condition="[Window.Previous(music) | Window.Previous(1103)]">
+                    <param name="id">09</param>
+                    <param name="label">$LOCALIZE[517]</param>
+                    <param name="include">List_Square_Row</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5009)</param>
+                    <param name="visible">True</param>
+                    <param name="widgetfade_include">true</param>
+                    <content target="music">library://music/recentlyplayedalbums.xml/</content>
+                </include>
+                <include content="Widget_Info_Row" condition="[Window.Previous(music) | Window.Previous(1103)]">
+                    <param name="id">10</param>
+                    <param name="label">$LOCALIZE[590] $LOCALIZE[133]</param>
+                    <param name="include">List_Square_Row</param>
+                    <param name="transition_include">true</param>
+                    <param name="transition_hidden">Control.HasFocus(5010)</param>
+                    <param name="visible">True</param>
+                    <param name="widgetfade_include">true</param>
+                    <content target="music">special://skin/extras/playlists/RandomArtists.xsp</content>
+                </include>
+                <control type="group" id="5099">
+                    <height>0</height>
+                    <control type="group">
+                        <visible>!Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                        <visible>!Integer.IsEqual(Container(5000).NumItems,1) | !Control.HasFocus(5098) | ControlGroup(5000).HasFocus()</visible>
+                        <include content="Furniture_Bottom_WidgetGroups">
+                            <param name="label">$VAR[Label_NextBump]</param>
+                            <param name="icon">special://skin/extras/icons/kodi.png</param>
+                        </include>
+                    </control>
+                </control>
+            </include>
+            <include>Widget_Transitions</include>
+        </include>
+        <control type="group">
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include>DialogInfo_Recommendations_Furniture</include>
+        </control>
+
+    </controls>
+</window>

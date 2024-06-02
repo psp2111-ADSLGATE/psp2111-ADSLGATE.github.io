@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1171">
+    <defaultcontrol>9000</defaultcontrol>
+    <onload>Dialog.Close(1172)</onload>
+    <onload>Dialog.Close(1170)</onload>
+    <onload>SetFocus(9000,0,absolute)</onload>
+    <onunload>ClearProperty(Bumpers.OnDown,Home)</onunload>
+    <controls>
+
+        <control type="button" id="330">
+            <width>1</width>
+            <height>1</height>
+            <left>-1000</left>
+            <onfocus>SetFocus(9000)</onfocus>
+            <onfocus>ClearProperty(Bumpers.OnDown,Home)</onfocus>
+            <visible allowhiddenfocus="true">Control.HasFocus(330)</visible>
+            <animation effect="fade" time="300" start="0" end="0">Focus</animation>
+        </control>
+
+        <control type="group">
+            <include>Animation_Group_Bumper</include>
+            <include>Animation_View_SlideOver</include>
+            <control type="group">
+                <left>185</left>
+                <height>80</height>
+                <centerbottom>100</centerbottom>
+                <width>700</width>
+                <control type="list" id="9000">
+                    <onup>Close</onup>
+                    <focusposition>2</focusposition>
+                    <movement>2</movement>
+                    <orientation>horizontal</orientation>
+
+                    <ondown>SetProperty(Bumpers.OnDown,True,Home)</ondown>
+                    <ondown>SetFocus(330)</ondown>
+
+                    <itemlayout width="100" height="80">
+                        <include content="Layout_OptionTray">
+                            <param name="selected">false</param>
+                        </include>
+                    </itemlayout>
+
+                    <focusedlayout width="100" height="80">
+                        <include content="Layout_OptionTray">
+                            <param name="selected">true</param>
+                        </include>
+                    </focusedlayout>
+
+                    <content>
+                        <item>
+                            <icon>special://skin/extras/icons/bars.png</icon>
+                            <label>$LOCALIZE[33063]</label>
+                            <onclick>Dialog.Close(1171,true)</onclick>
+                            <onclick>ActivateWindow(shutdownmenu)</onclick>
+                            <visible>!Window.IsMedia</visible>
+                            <visible>!Window.IsVisible(1105)</visible>
+                        </item>
+                        <item>
+                            <icon>special://skin/extras/icons/filter.png</icon>
+                            <label>$LOCALIZE[587]</label>
+                            <onclick>Dialog.Close(1171,true)</onclick>
+                            <onclick>AlarmClock(refocus,SetFocus(64),00:00,silent)</onclick>
+                            <visible>Window.IsMedia | Window.IsVisible(1105)</visible>
+                        </item>
+                    </content>
+
+                    <content>
+                        <include>skinvariables-options-tray-staticitems</include>
+                    </content>
+
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

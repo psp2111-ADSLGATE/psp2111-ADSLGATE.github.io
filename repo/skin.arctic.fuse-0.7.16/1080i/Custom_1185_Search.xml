@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1185">
+    <defaultcontrol always="true">9098</defaultcontrol>
+    <menucontrol>303</menucontrol>
+
+    <include>Action_Blur_Onload</include>
+    <onload>ClearProperty(TMDbHelper.Image.Override,Home)</onload>
+    <onload>SetFocus(9098)</onload>
+    <onload>AlarmClock(refocus,SetFocus(9098),00:00,silent)</onload>
+    <include>Action_PreserveTransitionProp_Onload</include>
+
+    <controls>
+        <include>DialogInfo_Recommendations_BackgroundLoader</include>
+        <include>Background_Main</include>
+        <include>Background_Transition</include>
+        <include content="DialogInfo_Recommendations_Group">
+            <control type="group">
+                <include content="DialogInfo_Recommendations_InfoPanel">
+                    <visible>!$EXP[Exp_InfoDialogs]</visible>
+                    <include>Animation_Transition_InfoPanel_Hide</include>
+                </include>
+                <include content="DialogInfo_Recommendations_Widgets_Grouplist">
+                    <param name="onup">9098</param>
+                    <param name="widget_windowchange_animation">false</param>
+                    <include>skinvariables-searchmenu-widgets</include>
+                    <control type="group" id="5099">
+                        <height>0</height>
+                        <control type="group">
+                            <visible>!Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                            <visible>!Integer.IsEqual(Container(5000).NumItems,1) | !Control.HasFocus(5098) | ControlGroup(5000).HasFocus()</visible>
+                            <include content="Furniture_Bottom_WidgetGroups">
+                                <param name="label">$VAR[Label_NextBump]</param>
+                                <param name="icon">special://skin/extras/icons/kodi.png</param>
+                                <param name="dim">[False]</param>
+                            </include>
+                        </control>
+                    </control>
+                </include>
+                <include>Widget_Transitions</include>
+                <visible>!String.IsEmpty(Control.GetLabel(9099).index(1))</visible>
+                <include content="Animation_ConditionalFade">
+                    <param name="condition">[String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)]</param>
+                </include>
+            </control>
+            <control type="group">
+                <visible>String.IsEmpty(Control.GetLabel(9099).index(1)) | Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                <control type="grouplist">
+                    <left>view_side</left>
+                    <right>view_side</right>
+                    <top>view_top</top>
+                    <bottom>view_pad</bottom>
+                    <orientation>vertical</orientation>
+                    <control type="group">
+                        <height>120</height>
+                        <include content="Info_Title_LogoLabel">
+                            <param name="label">$LOCALIZE[31046]</param>
+                            <param name="wrapmultiline">false</param>
+                            <param name="visible">true</param>
+                            <param name="width">info_plot_w</param>
+                            <param name="height">132</param>
+                            <param name="colordiffuse">main_fg</param>
+                        </include>
+                    </control>
+                    <control type="textbox">
+                        <top>17</top>
+                        <font>font_main_plot</font>
+                        <label>$LOCALIZE[31500] "[CAPITALIZE]$VAR[Path_SearchTerm, , ][/CAPITALIZE]".[CR]$LOCALIZE[31501].</label>
+                        <align>left</align>
+                        <height>90</height>
+                        <textcolor>main_fg_30</textcolor>
+                    </control>
+                </control>
+                <include content="Furniture_Bottom_WidgetGroups">
+                    <param name="label">$VAR[Label_NextBump]</param>
+                    <param name="icon">special://skin/extras/icons/kodi.png</param>
+                    <param name="dim">[False]</param>
+                </include>
+            </control>
+        </include>
+        <control type="group">
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include content="DialogInfo_Recommendations_Furniture">
+                <param name="header_visible">false</param>
+            </include>
+            <control type="group">
+                <include>Animation_View_SlideOver</include>
+                <include>Animation_Group_Bumper</include>
+                <include content="Search_View_Edit">
+                    <param name="ondown">5000</param>
+                </include>
+            </control>
+        </control>
+
+    </controls>
+</window>

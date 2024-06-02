@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1115">
+    <defaultcontrol always="true">303</defaultcontrol>
+    <onload>ClearProperty(url)</onload>
+    <onload>ClearProperty(forced)</onload>
+    <onload>ClearProperty(menu)</onload>
+    <onload>ClearProperty(mode)</onload>
+    <onload>ClearProperty(guid)</onload>
+    <onload>ClearProperty(list_id)</onload>
+    <onload>ClearProperty(widgetonly_menu)</onload>
+    <onload>SetProperty(categories_menu,menu=homemenu)</onload>
+    <onload>SetProperty(hub_prefix,Home)</onload>
+    <onload>SetProperty(TMDbHelper.WidgetContainer,50)</onload>
+    <include>Action_Blur_Onload</include>
+    <onunload>Skin.SetString(Shortcuts.RebuildDateTime,$INFO[System.Date(yyyy-mm-dd)]_$INFO[System.Time(hh:mm:ss)])</onunload>
+    <controls>
+
+        <include>Defs_TMDbHelper_Loader</include>
+        <include>Background_Main</include>
+        <include>Background_Transition</include>
+
+        <control type="image">
+            <texture colordiffuse="$VAR[ColorBackground]">background/combined_overlay.png</texture>
+            <include>Animation_FadeIn</include>
+            <include>Animation_FadeOut</include>
+        </control>
+
+        <include>Shortcuts_Window_Spinner_List</include>
+        <include>Shortcuts_Window_Spinner_Button</include>
+        <include>Shortcuts_Window_Side_Groups</include>
+        <include>Shortcuts_Window_Content</include>
+        <include>Shortcuts_Options</include>
+
+        <include content="Furniture_Busy">
+            <param name="hasspinner">true</param>
+            <param name="spinspinner">true</param>
+            <param name="icon">special://skin/extras/icons/kodi.png</param>
+            <param name="hasbackground">Skin.HasSetting(ToastNotifications.Tabbed)</param>
+            <param name="haslabel">Skin.HasSetting(ToastNotifications.Tabbed)</param>
+            <param name="spinnervisible">Skin.HasSetting(ToastNotifications.Tabbed) | [!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
+            <param name="visible_delay">1200</param>
+            <param name="windowopen_condition">False</param>
+            <param name="visible">[!Skin.HasSetting(ToastNotifications.Tabbed) | [!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]] + [[[Container(300).IsUpdating | [Container(302).IsUpdating + Control.IsVisible(302)]] + !$EXP[Shortcuts_Window_Exp_WidgetsOnly]] | Container(303).IsUpdating | Container(304).IsUpdating]</param>
+        </include>
+
+    </controls>
+</window>

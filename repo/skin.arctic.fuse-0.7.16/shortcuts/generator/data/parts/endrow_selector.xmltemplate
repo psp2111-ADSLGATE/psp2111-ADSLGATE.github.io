@@ -1,0 +1,14 @@
+<include content="Widget_EndRow_Selector">
+    <param name="id">419</param>
+    <param name="groupid">429</param>
+    <param name="grouplistid">400</param>
+    <param name="refocus">{endrow_refocus}</param>
+    <param name="window_id">{window_id}</param>
+    <visible>{endrow_visible}</visible>
+    <content>
+        {all_standard_widgets}
+        {all_sidemenu_widgets}
+        {all_hubsmenu_widgets}
+        {all_constant_widgets}
+    </content>
+</include>

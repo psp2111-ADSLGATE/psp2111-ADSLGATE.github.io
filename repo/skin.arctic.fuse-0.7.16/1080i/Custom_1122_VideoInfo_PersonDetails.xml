@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1122">
+
+    <defaultcontrol always="true">5098</defaultcontrol>
+    <onload>SetFocus(5098)</onload>
+    <include>Action_PreserveTransitionProp_Onload</include>
+    <menucontrol>303</menucontrol>
+
+    <onload condition="String.IsEmpty(Skin.String(VideoInfo.PersonCredits.SortKey))">Skin.SetString(VideoInfo.PersonCredits.SortKey,popular)</onload>
+
+    <controls>
+
+        <include>DialogInfo_Recommendations_BackgroundLoader</include>
+        <include>DialogInfo_Recommendations_BackgroundFake</include>
+        <include content="DialogInfo_Recommendations_Group">
+
+            <include content="Object_Hidden_List">
+                <param name="id">5203</param>
+                <content sortby="year" sortorder="descending">$INFO[Window.Property(Item_Query),plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person,]</content>
+            </include>
+
+            <include>DialogInfo_Recommendations_InfoPanel</include>
+            <include content="DialogInfo_Recommendations_Widgets_Grouplist">
+                <param name="onup">333</param>
+                <param name="ondown">noop</param>
+                <onleft condition="!$EXP[Exp_HomeMenu_IsTopBar]">303</onleft>
+                <onright condition="!$EXP[Exp_HomeMenu_IsTopBar]">332</onright>
+                <ondown condition="!$EXP[Exp_HomeMenu_IsTopBar]">330</ondown>
+                <ondown condition="$EXP[Exp_HomeMenu_IsTopBar]">303</ondown>
+
+                <control type="button" id="5098">
+                    <height>0</height>
+                    <texturefocus />
+                    <texturenofocus />
+                    <onfocus>Action(Down)</onfocus>
+                    <animation effect="fade" time="400" start="0" end="0">Focus</animation>
+                    <visible>!ControlGroup(5000).HasFocus() | Control.HasFocus(5098)</visible>
+                </control>
+
+                <include content="Widget_Info_Row">
+                    <param name="id">01</param>
+                    <param name="label">$LOCALIZE[342]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="detailed">true</param>
+                    <param name="visible">!String.IsEmpty(Window.Property(Item_Query))</param>
+                    <param name="transition_include">false</param>
+                    <param name="transition_hidden">Control.HasFocus(5001)</param>
+                    <param name="widgetfade_include">true</param>
+                    <param name="include_movement">false</param>
+                    <content>$INFO[Window.Property(Item_Query),plugin://plugin.video.themoviedb.helper/?info=stars_in_movies&amp;tmdb_type=person,]$VAR[Path_Param_SortKey_MovieCredits]$VAR[Path_Param_Widget]&amp;limit=100</content>
+                    <include content="Action_Recommendations_OnClick">
+                        <param name="id">5001</param>
+                    </include>
+                </include>
+
+                <include content="Widget_Info_Row">
+                    <param name="id">02</param>
+                    <param name="label">$LOCALIZE[20343]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="detailed">true</param>
+                    <param name="visible">!String.IsEmpty(Window.Property(Item_Query))</param>
+                    <param name="transition_include">false</param>
+                    <param name="transition_hidden">Control.HasFocus(5002)</param>
+                    <param name="widgetfade_include">true</param>
+                    <param name="include_movement">false</param>
+                    <content>$INFO[Window.Property(Item_Query),plugin://plugin.video.themoviedb.helper/?info=stars_in_tvshows&amp;tmdb_type=person,]$VAR[Path_Param_SortKey_TVShowCredits]$VAR[Path_Param_Widget]&amp;limit=100</content>
+                    <include content="Action_Recommendations_OnClick">
+                        <param name="id">5002</param>
+                    </include>
+                </include>
+
+                <include content="Widget_Info_Row">
+                    <param name="id">03</param>
+                    <param name="label">$LOCALIZE[31383]</param>
+                    <param name="include">List_Poster_Row</param>
+                    <param name="detailed">true</param>
+                    <param name="visible">!String.IsEmpty(Window.Property(Item_Query))</param>
+                    <param name="transition_include">false</param>
+                    <param name="transition_hidden">Control.HasFocus(5003)</param>
+                    <param name="widgetfade_include">true</param>
+                    <param name="include_movement">false</param>
+                    <content>$INFO[Window.Property(Item_Query),plugin://plugin.video.themoviedb.helper/?info=crew_in_both&amp;tmdb_type=person,]$VAR[Path_Param_SortKey_MovieCredits]$VAR[Path_Param_Widget]</content>
+                    <include content="Action_Recommendations_OnClick">
+                        <param name="id">5003</param>
+                    </include>
+                </include>
+            </include>
+        </include>
+
+        <include>DialogInfo_ButtonGroup_Recommendations</include>
+
+        <include content="DialogInfo_Recommendations_Furniture">
+            <param name="include_homemenu">false</param>
+            <param name="header">$INFO[Window.Property(Item_Title)]</param>
+        </include>
+
+        <include content="DialogInfo_PlotBox">
+            <param name="include_movement">DialogInfo_PlotBox_Details_OnMove</param>
+            <param name="poster_icon">$INFO[Container(5203).ListItem.Icon]</param>
+            <param name="poster_visible">true</param>
+            <param name="landscape_visible">false</param>
+            <param name="textbox">$INFO[Container(5203).ListItem.Plot]</param>
+            <param name="header">$INFO[Window.Property(Item_Title)]$INFO[Container(5203).ListItem.Property(Age),  , $LOCALIZE[31057]]$INFO[Container(5203).ListItem.Property(Deathday),  † ,]</param>
+        </include>
+
+
+
+    </controls>
+</window>

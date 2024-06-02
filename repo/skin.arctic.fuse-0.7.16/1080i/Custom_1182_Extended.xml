@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1182">
+    <defaultcontrol always="true">5000</defaultcontrol>
+    <include>Action_PreserveTransitionProp_Onload</include>
+    <onload>SetFocus($VAR[Action_Recommendations_SetFocusID])</onload>
+    <controls>
+        <include>DialogInfo_Recommendations_BackgroundLoader</include>
+        <include>Background_Main</include>
+        <include>Background_Transition</include>
+        <include content="DialogInfo_Recommendations_Group">
+            <include content="DialogInfo_Recommendations_InfoPanel">
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <include>Animation_Transition_InfoPanel_Hide</include>
+            </include>
+            <include content="DialogInfo_Recommendations_Widgets_Grouplist">
+
+                <include condition="String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetBase),homemenu)">skinvariables-homemenu-extended-global</include>
+                <include condition="String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetBase),1101menu)">skinvariables-1101menu-extended-global</include>
+                <include condition="String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetBase),1102menu)">skinvariables-1102menu-extended-global</include>
+                <include condition="String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetBase),1103menu)">skinvariables-1103menu-extended-global</include>
+                <include condition="String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetBase),1104menu)">skinvariables-1104menu-extended-global</include>
+                <include condition="String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetBase),1106menu)">skinvariables-1106menu-extended-global</include>
+                <include condition="String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetBase),1107menu)">skinvariables-1107menu-extended-global</include>
+                <include condition="String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetBase),1108menu)">skinvariables-1108menu-extended-global</include>
+                <include condition="String.IsEqual(Window(Home).Property(Hubs.ExtendedWidgetBase),1109menu)">skinvariables-1109menu-extended-global</include>
+
+                <control type="group" id="5099">
+                    <height>0</height>
+                    <control type="group">
+                        <visible>!Integer.IsEqual(Container(5000).NumItems,0)</visible>
+                        <visible>!Integer.IsEqual(Container(5000).NumItems,1) | !Control.HasFocus(5098) | ControlGroup(5000).HasFocus()</visible>
+                        <include content="Furniture_Bottom_WidgetGroups">
+                            <param name="label">$VAR[Label_NextBump]</param>
+                            <param name="icon">special://skin/extras/icons/kodi.png</param>
+                        </include>
+                    </control>
+                </control>
+
+            </include>
+            <include>Widget_Transitions</include>
+        </include>
+        <control type="group">
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include>DialogInfo_Recommendations_Furniture</include>
+        </control>
+
+    </controls>
+</window>

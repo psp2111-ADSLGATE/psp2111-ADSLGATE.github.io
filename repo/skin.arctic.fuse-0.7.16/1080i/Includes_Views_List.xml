@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <!-- Media List -->
+    <include name="View_056_MediaList">
+        <include content="View_MediaList_Include" condition="Window.IsVisible(MyVideoNav.xml)">
+            <param name="id">56</param>
+            <param name="viewtype_label">$LOCALIZE[31479]</param>
+            <param name="visible">$EXP[Exp_View_56]</param>
+            <param name="right">802.67</param>
+            <include>View_MediaList_PosterLandscape</include>
+        </include>
+        <include content="View_MediaList_Include" condition="!Window.IsVisible(MyVideoNav.xml)">
+            <param name="id">56</param>
+            <param name="viewtype_label">$LOCALIZE[31479]</param>
+            <param name="visible">$EXP[Exp_View_56]</param>
+            <param name="right">896.67</param>
+            <include>View_MediaList_SquareLandscape</include>
+        </include>
+    </include>
+    <include name="View_516_Landscape_MediaList">
+        <include content="View_MediaList_Include">
+            <param name="id">516</param>
+            <param name="viewtype_label">$LOCALIZE[31480]</param>
+            <param name="visible">$EXP[Exp_View_516]</param>
+            <param name="right">view_board_itemlayout_w</param>
+            <include>View_MediaList_Landscape</include>
+        </include>
+    </include>
+
+    <include name="View_MediaList_Square">
+        <control type="group">
+            <right>-40</right>
+            <bottom>-40</bottom>
+            <height>view_poster_itemlayout_h</height>
+            <control type="group">
+                <right>0</right>
+                <height>view_poster_itemlayout_h</height>
+                <width>view_poster_itemlayout_h</width>
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <include content="Transitions_Standard_Animation">
+                    <param name="visible_delay">80</param>
+                    <param name="hidden_delay">280</param>
+                    <param name="slide_x">240</param>
+                </include>
+                <include content="Layout_Poster">
+                    <param name="indicator">false</param>
+                    <param name="diffuse">diffuse/square_w294_h294.png</param>
+                    <param name="item_w">view_poster_item_h</param>
+                    <param name="item_h">view_poster_item_h</param>
+                </include>
+            </control>
+        </control>
+    </include>
+
+    <include name="View_MediaList_Landscape">
+        <control type="group">
+            <right>-40</right>
+            <bottom>-40</bottom>
+            <height>view_poster_itemlayout_h</height>
+            <control type="group">
+                <right>0</right>
+                <height>view_poster_itemlayout_h</height>
+                <width>view_board_itemlayout_w</width>
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <include content="Transitions_Standard_Animation">
+                    <param name="visible_delay">120</param>
+                    <param name="hidden_delay">240</param>
+                    <param name="slide_x">320</param>
+                </include>
+                <include content="Layout_Poster">
+                    <param name="icon">$VAR[Image_Landscape]</param>
+                    <param name="diffuse">diffuse/landscape_w520_h294.png</param>
+                    <param name="indicator">true</param>
+                    <param name="item_w">view_board_item_w</param>
+                    <param name="item_h">view_poster_item_h</param>
+                </include>
+            </control>
+        </control>
+    </include>
+
+    <include name="View_MediaList_PosterLandscape">
+        <param name="visible">!$EXP[Exp_InfoDialogs]</param>
+        <definition>
+            <control type="group">
+                <right>-40</right>
+                <bottom>-40</bottom>
+                <height>view_poster_itemlayout_h</height>
+                <control type="group">
+                    <right>0</right>
+                    <height>view_poster_itemlayout_h</height>
+                    <width>view_board_itemlayout_w</width>
+                    <visible>$PARAM[visible]</visible>
+                    <include content="Transitions_Standard_Animation">
+                        <param name="visible_delay">120</param>
+                        <param name="hidden_delay">240</param>
+                        <param name="slide_x">320</param>
+                    </include>
+                    <include content="Layout_Poster">
+                        <param name="icon">$VAR[Image_Landscape]</param>
+                        <param name="diffuse">diffuse/landscape_w520_h294.png</param>
+                        <param name="indicator">true</param>
+                        <param name="item_w">view_board_item_w</param>
+                        <param name="item_h">view_poster_item_h</param>
+                    </include>
+                </control>
+
+                <control type="group">
+                    <right>view_board_itemlayout_w</right>
+                    <height>view_poster_itemlayout_h</height>
+                    <width>view_poster_itemlayout_w</width>
+                    <visible>$PARAM[visible]</visible>
+                    <include content="Transitions_Standard_Animation">
+                        <param name="visible_delay">80</param>
+                        <param name="hidden_delay">280</param>
+                        <param name="slide_x">240</param>
+                    </include>
+                    <include content="Layout_Poster">
+                        <param name="indicator">false</param>
+                        <param name="item_w">view_poster_item_w</param>
+                        <param name="item_h">view_poster_item_h</param>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="View_MediaList_SquareLandscape">
+        <control type="group">
+            <right>-40</right>
+            <bottom>-40</bottom>
+            <height>view_poster_itemlayout_h</height>
+            <control type="group">
+                <right>0</right>
+                <height>view_poster_itemlayout_h</height>
+                <width>view_board_itemlayout_w</width>
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <include content="Transitions_Standard_Animation">
+                    <param name="visible_delay">120</param>
+                    <param name="hidden_delay">240</param>
+                    <param name="slide_x">320</param>
+                </include>
+                <include content="Layout_Poster">
+                    <param name="icon">$VAR[Image_Landscape]</param>
+                    <param name="diffuse">diffuse/landscape_w520_h294.png</param>
+                    <param name="indicator">true</param>
+                    <param name="item_w">view_board_item_w</param>
+                    <param name="item_h">view_poster_item_h</param>
+                </include>
+            </control>
+
+            <control type="group">
+                <right>view_board_itemlayout_w</right>
+                <height>view_poster_itemlayout_h</height>
+                <width>view_poster_itemlayout_h</width>
+                <visible>!$EXP[Exp_InfoDialogs]</visible>
+                <include content="Transitions_Standard_Animation">
+                    <param name="visible_delay">80</param>
+                    <param name="hidden_delay">280</param>
+                    <param name="slide_x">240</param>
+                </include>
+                <include content="Layout_Poster">
+                    <param name="indicator">false</param>
+                    <param name="diffuse">diffuse/square_w294_h294.png</param>
+                    <param name="item_w">view_poster_item_h</param>
+                    <param name="item_h">view_poster_item_h</param>
+                </include>
+            </control>
+        </control>
+    </include>
+
+    <include name="View_MediaList_Include">
+        <definition>
+
+            <control type="group">
+                <visible>Control.IsVisible($PARAM[id])</visible>
+                <include>Dimension_Info</include>
+
+                <nested />
+
+                <control type="group">
+                    <left>-20</left>
+                    <right>$PARAM[right]</right>
+                    <bottom>-20</bottom>
+                    <top>360</top>
+
+                    <visible>!$EXP[Exp_InfoDialogs]</visible>
+
+                    <include content="Animation_Fade_In">
+                        <param name="type">Visible</param>
+                        <param name="delay">40</param>
+                        <param name="time">300</param>
+                    </include>
+                    <include content="Animation_Fade_Out">
+                        <param name="type">Hidden</param>
+                        <param name="delay">320</param>
+                        <param name="time">200</param>
+                    </include>
+
+                    <include content="List_DialogSelect">
+                        <param name="id">$PARAM[id]</param>
+                        <param name="textcolor">main_fg</param>
+                        <param name="control">fixedlist</param>
+                        <param name="itemlayout_include">Layout_MediaList</param>
+
+                        <right>-20</right>
+
+                        <!-- <onleft>SetProperty(List.ViewContainer.Bump,True)</onleft> -->
+                        <onleft>SetProperty(List.ViewContainer,50)</onleft>
+                        <onleft>SetFocus(303,1,absolute)</onleft>
+
+                        <onright condition="Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</onright>
+                        <onright condition="Skin.String(Navigation.Global.OnDown,Filter)">SetFocus(64)</onright>
+                        <onright condition="Skin.String(Navigation.Global.OnDown,Explore)">SetFocus(67)</onright>
+                        <onright condition="Skin.String(Navigation.Global.OnDown,Bump)">SetFocus(332)</onright>
+
+                        <include content="Action_View_Movement_OnBack">
+                            <param name="id">50</param>
+                            <param name="onback">True</param>
+                            <param name="onleft">50</param>
+                        </include>
+
+                        <focusposition>1</focusposition>
+                        <movement>2</movement>
+                        <top>15</top>
+                        <pagecontrol>60</pagecontrol>
+                        <visible>$PARAM[visible]</visible>
+                        <viewtype label="$PARAM[viewtype_label]">list</viewtype>
+                        <onfocus>ClearProperty(TMDbHelper.WidgetContainer)</onfocus>
+                        <include>Action_View_SlideOver_OnFocus</include>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+</includes>

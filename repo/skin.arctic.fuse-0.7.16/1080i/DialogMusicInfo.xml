@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <include content="Object_DefaultControl">
+        <param name="always">true</param>
+        <param name="defaultcontrol">4001</param>
+    </include>
+
+    <menucontrol>4000</menucontrol>
+    <include>DialogInfo_Onload</include>
+
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.Artist&amp;&amp;$INFO[ListItem.Artist]")</onload>
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.AlbumArtist&amp;&amp;$INFO[ListItem.AlbumArtist]")</onload>
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.Album&amp;&amp;$INFO[ListItem.Album]")</onload>
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.Title&amp;&amp;$INFO[ListItem.Title]")</onload>
+    <onload>RunPlugin("plugin://script.skinvariables/?info=get_encoded_string&amp;window_prop=Encoded.ListItem.Label&amp;&amp;$INFO[ListItem.Label]")</onload>
+    <controls>
+
+        <include>Defs_TMDbHelper_Loader</include>
+
+        <control type="group">
+            <include>DialogInfo_Main_Group</include>
+            <control type="group">
+                <include>DialogInfo_Body_Group</include>
+                <control type="group">
+                    <include>DialogInfo_InfoPanel_Group</include>
+                </control>
+                <control type="group">
+                    <include>DialogInfo_InfoDetails_Group</include>
+                    <include>DialogInfo_MusicInfo</include>
+                </control>
+                <include condition="!$EXP[Exp_HomeMenu_IsTopBar]">DialogInfo_ArtworkGallery</include>
+            </control>
+        </control>
+
+        <control type="group">
+            <include condition="$EXP[Exp_HomeMenu_IsTopBar]">Animation_Home_Topbar</include>
+            <include condition="!$EXP[Exp_HomeMenu_IsTopBar]">Animation_Home_SlideOver</include>
+            <include content="DialogInfo_ButtonGroup" condition="!$EXP[Exp_HomeMenu_IsTopBar]">
+                <param name="include">Items_DialogMusicInfo_MenuBar</param>
+                <param name="vertical">true</param>
+            </include>
+            <include content="DialogInfo_ButtonGroup" condition="$EXP[Exp_HomeMenu_IsTopBar]">
+                <param name="include">Items_DialogMusicInfo_MenuBar</param>
+                <param name="vertical">false</param>
+            </include>
+        </control>
+
+
+        <include>DialogInfo_Furniture</include>
+        <include>TouchMode_Info_Zones</include>
+        <include>DialogInfo_PlotBox</include>
+
+    </controls>
+</window>
