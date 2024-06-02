@@ -1468,13 +1468,16 @@
         <description lang="zh_CN">皮肤加载项，提供简单的用户快捷方式管理和列表（需要皮肤支持）</description>
         <description lang="zh_TW">插件为皮肤提供了简单的管理和用户连接方式列表 (需要皮肤支持)</description>
     </extension>
-</addon><addon id="script.skinvariables" version="1.1.9" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariables" version="2.1.14" name="Skin Variables" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
-  <import addon="script.module.jurialmunkey" version="0.1.4" />
+  <import addon="script.module.jurialmunkey" version="0.1.17" />
+  <import addon="script.module.infotagger" version="0.0.5" />
 </requires>
 <extension point="xbmc.python.script" library="script.py" />
-<extension point="xbmc.python.pluginsource" library="plugin.py" />
+<extension point="xbmc.python.pluginsource" library="plugin.py">
+  <provides>video</provides>
+</extension>
 <extension point="xbmc.addon.metadata">
   <summary lang="en_GB">Skin Variables helps skinners to construct variables and expressions for multiple containers and listitems using a template</summary>
   <summary lang="fr_FR">Skin Variables aide les skinners à créer des variables et des expressions pour plusieurs conteneurs et listes à l'aide d'un modèle</summary>
@@ -1488,10 +1491,11 @@
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="script.texturemaker" version="0.2.8" name="Texture Maker" provider-name="jurialmunkey">
+</addon><addon id="script.texturemaker" version="0.2.10" name="Texture Maker" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.pil" version="1.1.7" />
+  <import addon="script.module.jurialmunkey" version="0.1.9" />
 </requires>
 <extension point="xbmc.python.script" library="script.py" />
 <extension point="xbmc.python.pluginsource" library="plugin.py">
