@@ -179,19 +179,6 @@ class Router:
                     xbmc.log('%s: Traktit.py Revoke API Fen Failed!' % var.amgr, xbmc.LOGINFO)
                     pass
 
-            if xbmcvfs.exists(var.chk_fenlt):
-                try:
-                    with open(var.path_fenlt,'r') as f:
-                        data = f.read()
-
-                    client = data.replace(var.client_am,var.fenlt_client).replace(var.secret_am,var.fenlt_secret)
-
-                    with open(var.path_fenlt,'w') as f:
-                        f.write(client)
-                except:
-                    xbmc.log('%s: Traktit.py Revoke API Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
-                    pass
-
             if xbmcvfs.exists(var.chk_coal):
                 try:
                     with open(var.path_coal,'r') as f:

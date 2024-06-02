@@ -7,22 +7,23 @@
 6.  The Coalition
 7.  POV                   
 8.  Umbrella
-9.  Dradis
-10. Taz19
-11. The Crew 
-12. Homelander 
-13. Quicksilver
-14. Chains Genocide           
-15. Shazam
-16. Nightwing
-17. Alvin
-18. TheLab
-19. Moria
-20. Absolution
-21. Nine Lives
-22. TMDb Helper
-23. Embuary Info
-24. Metahandler
-25. PVR Artwork Module
-26. All Accounts
-27. My Accounts
+9.  OneMoar
+10. Dradis
+11. Taz19
+12. The Crew 
+13. Homelander 
+14. Quicksilver
+15. Chains Genocide           
+16. Shazam
+17. Nightwing
+18. Alvin
+19. TheLab
+20. Moria
+21. Absolution
+22. Nine Lives
+23. TMDb Helper
+24. Embuary Info
+25. Metahandler
+26. PVR Artwork Module
+27. All Accounts
+28. My Accounts

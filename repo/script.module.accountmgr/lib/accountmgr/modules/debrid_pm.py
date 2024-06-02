@@ -326,6 +326,38 @@ class Auth:
                 xbmc.log('%s: Umbrella Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
+    #OneMoar PM
+        try:
+                if xbmcvfs.exists(var.chk_onem) and xbmcvfs.exists(var.chkset_onem):
+                        chk_auth_onem = xbmcaddon.Addon('plugin.video.onemoar').getSetting("premiumizetoken")
+                        chk_auth_onem_rd = xbmcaddon.Addon('plugin.video.onemoar').getSetting("realdebridtoken")
+                        chk_auth_onem_ad = xbmcaddon.Addon('plugin.video.onemoar').getSetting("alldebridtoken")
+                        if not str(var.chk_accountmgr_tk_pm) == str(chk_auth_onem) or str(chk_auth_onem) == '':
+                                
+                                addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                addon.setSetting("premiumizeusername", your_pm_username)
+                                addon.setSetting("premiumizetoken", your_pm_token)
+
+                                enabled_pm = ("true")
+                                addon.setSetting("premiumize.enable", enabled_pm)
+
+                                if str(chk_auth_onem_rd) != '':
+                                        enabled_rd = ("true")
+                                        addon.setSetting("alldebrid.enable", enabled_rd)
+                                else:
+                                        enabled_rd = ("false")
+                                        addon.setSetting("realdebrid.enable", enabled_rd)
+
+                                if str(chk_auth_onem_ad) != '':
+                                        enabled_ad = ("true")
+                                        addon.setSetting("alldebrid.enable", enabled_ad)
+                                else:
+                                        enabled_ad = ("false")
+                                        addon.setSetting("alldebrid.enable", enabled_ad)
+        except:
+                xbmc.log('%s: OneMoar Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+            
      #Dradis PM
         try:
                 if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):

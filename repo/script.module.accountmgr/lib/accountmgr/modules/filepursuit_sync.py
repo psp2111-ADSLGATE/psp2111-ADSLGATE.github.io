@@ -29,6 +29,21 @@ class Auth:
                         xbmc.log('%s: Umbrella FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
+        #OneMoar
+                try:
+                        if xbmcvfs.exists(var.chk_onem) and xbmcvfs.exists(var.chkset_onem):
+                                
+                                chk_file = xbmcaddon.Addon('plugin.video.onemoar').getSetting("filepursuit.api")
+                                enable_file = ("true")
+                                
+                                if not str(var.chk_accountmgr_file) == str(chk_file) or str(chk_file) == '':
+                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon.setSetting("filepursuit.enable", enable_file)
+                                        addon.setSetting("filepursuit.api", your_file_api)
+                except:
+                        xbmc.log('%s: OneMoar FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
+                        pass
+                
         #Dradis
                 try:
                         if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):

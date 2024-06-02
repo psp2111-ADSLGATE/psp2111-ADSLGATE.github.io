@@ -221,6 +221,26 @@ class Auth:
                 xbmc.log('%s: Umbrella Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
+    #OneMoar
+        try:
+                if xbmcvfs.exists(var.chk_onem) and xbmcvfs.exists(var.chkset_onem):
+                        chk_auth_onem = xbmcaddon.Addon('plugin.video.onemoar').getSetting("trakt.user.token")
+                        if not str(var.chk_accountmgr_tk) == str(chk_auth_onem) or str(chk_auth_onem) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                addon.setSetting("trakt.user.name", your_username)
+                                addon.setSetting("trakt.user.token", your_token)
+                                addon.setSetting("trakt.refreshtoken", your_refresh)
+                                addon.setSetting("trakt.token.expires", your_expires)
+                                addon.setSetting("traktuserkey.customenabled", 'true')
+                                addon.setSetting("trakt.clientid", var.client_am)
+                                addon.setSetting("trakt.clientsecret", var.secret_am)
+                                addon.setSetting("trakt.scrobble", 'true')
+                                addon.setSetting("resume.source", '1')  
+        except:
+                xbmc.log('%s: OneMoar Trakt Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
     #Dradis
         try:
                 if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):

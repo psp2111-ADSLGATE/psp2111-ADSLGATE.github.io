@@ -348,6 +348,42 @@ class Auth:
                 xbmc.log('%s: Umbrella Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
+    #OneMoar RD
+        try:
+                if xbmcvfs.exists(var.chk_onem) and xbmcvfs.exists(var.chkset_onem):
+                        chk_auth_onem = xbmcaddon.Addon('plugin.video.onemoar').getSetting("realdebridtoken")
+                        chk_auth_onem_pm = xbmcaddon.Addon('plugin.video.onemoar').getSetting("premiumizetoken")
+                        chk_auth_onem_ad = xbmcaddon.Addon('plugin.video.onemoar').getSetting("alldebridtoken")
+                        if not str(var.chk_accountmgr_tk_rd) == str(chk_auth_onem) or str(chk_auth_onem) == '':
+                        
+                                addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                addon.setSetting("realdebridusername", your_rd_username)
+                                addon.setSetting("realdebridtoken", your_rd_token)
+                                addon.setSetting("realdebrid.clientid", your_rd_client_id)
+                                addon.setSetting("realdebridrefresh", your_rd_refresh)
+                                addon.setSetting("realdebridsecret", your_rd_secret)
+
+                                enabled_rd = ("true")
+                                addon.setSetting("realdebrid.enable", enabled_rd)
+
+                 
+                                if str(chk_auth_onem_pm) != '':
+                                        enabled_pm = ("true")
+                                        addon.setSetting("premiumize.enable", enabled_pm)
+                                else:
+                                        enabled_pm = ("false")
+                                        addon.setSetting("premiumize.enable", enabled_pm)
+
+                                if str(chk_auth_onem_ad) != '':
+                                        enabled_ad = ("true")
+                                        addon.setSetting("alldebrid.enable", enabled_ad)
+                                else:
+                                        enabled_ad = ("false")
+                                        addon.setSetting("alldebrid.enable", enabled_ad)
+        except:
+                xbmc.log('%s: OneMoar Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+            
      #Dradis RD
         try:
                 if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):

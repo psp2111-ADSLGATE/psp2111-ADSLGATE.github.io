@@ -152,6 +152,22 @@ class Auth:
                         xbmc.log('%s: Umbrella Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
+        #OneMoar
+                try:
+                        if xbmcvfs.exists(var.chk_onem) and xbmcvfs.exists(var.chkset_onem):
+
+                                chk_easy = xbmcaddon.Addon('plugin.video.onemoar').getSetting("easynews.password")
+                                enable_easy = ("true")
+                                     
+                                if not str(var.chk_accountmgr_easy) == str(chk_easy) or str(chk_easy) == '':
+                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon.setSetting("easynews.enable", enable_easy)
+                                        addon.setSetting("easynews.user", your_easy_user)
+                                        addon.setSetting("easynews.password", your_easy_pass)
+                except:
+                        xbmc.log('%s: OneMoar Easynews Failed!' % var.amgr, xbmc.LOGINFO)
+                        pass
+                
         #Dradis
                 try:
                         if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):

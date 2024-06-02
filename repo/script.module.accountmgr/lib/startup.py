@@ -886,12 +886,7 @@ def restore_api():
                 pass
         
        
-var.rm_traktcache()
-
-if str(var.chk_accountmgr_tk) != '':
-        accountmgr.setSetting("api.service", "true")
-else:
-        pass      
+var.rm_traktcache()     
         
 if var.setting('api_restore')=='true': #Check if API restore is enabled
         restore_api() #Restore API Keys
@@ -937,7 +932,7 @@ if var.setting('reset_settings')=='true': #Check if reset settings is enabled
 else:
         pass
 
-if var.setting('api.service')=='true' and (str(var.chk_accountmgr_tk) != ''): #Check if service is enabled and either Trakt of Simkl are authorized
+if var.setting('api.service')=='true' and (str(var.chk_accountmgr_tk) != ''): #Check if service is enabled and Trakt is authorized
         check_api() #Start service
 else:
         quit()
