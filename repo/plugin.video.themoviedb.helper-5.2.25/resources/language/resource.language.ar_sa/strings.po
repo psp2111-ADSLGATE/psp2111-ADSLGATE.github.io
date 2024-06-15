@@ -1170,22 +1170,22 @@ msgstr "البوسترات"
 #: resources/lib/plugin.py
 msgctxt "#32227"
 msgid "Cast in Movies"
-msgstr "طاقم العمل في الأفلام"
+msgstr "أفلام مثلها"
 
 #: resources/lib/plugin.py
 msgctxt "#32228"
 msgid "Cast in TV Shows"
-msgstr "طاقم العمل في الأفلام"
+msgstr "مسلسلات مثلها"
 
 #: resources/lib/plugin.py
 msgctxt "#32229"
 msgid "Crew in Movies"
-msgstr "طاقم الإنتاج في الأفلام"
+msgstr "أفلام أنتجها"
 
 #: resources/lib/plugin.py
 msgctxt "#32230"
 msgid "Crew in TV Shows"
-msgstr "طاقم الإنتاج في المسلسلات"
+msgstr "مسلسلات أنتجها"
 
 #: resources/lib/plugin.py
 msgctxt "#32231"

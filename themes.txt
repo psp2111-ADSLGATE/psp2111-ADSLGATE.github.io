@@ -1,4 +1,4 @@
-name="[COLOR white][B]Install[/B][/COLOR]:Arabic Subtitle Fonts"
+name="[COLOR red][B]Install[/B][/COLOR]: Arabic Subtitle Fonts"
 url="https://psp2111-adslgate.github.io/Builds/media.zip"
 icon="http://"
 fanart="http://"

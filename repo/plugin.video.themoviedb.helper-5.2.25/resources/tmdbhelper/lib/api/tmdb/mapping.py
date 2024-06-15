@@ -71,7 +71,7 @@ def get_collection(v):
 
 def get_mpaa_rating(v, mpaa_prefix, iso_country, certification=True):
     for i in v or []:
-        if not i.get('iso_3166_1') or i.get('iso_3166_1') != iso_country:
+        if not i.get('iso_3166_1') or i.get('iso_3166_1') != 'US':
             continue
         if not certification:
             if i.get('rating'):
