@@ -1,6 +1,6 @@
 name="[COLOR red]Install[/COLOR]: Arabic Subtitle Fonts"
 url="https://psp2111-adslgate.github.io/Builds/media.zip"
-icon="http://"
-fanart="http://"
+icon="https://i.imgur.com/W2eEKiy.png"
+fanart="https://i.imgur.com/W2eEKiy.png"
 adult="no"
 description="أفضل خطوط عربية للترجمة."
