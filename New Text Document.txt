@@ -1,0 +1,6 @@
+name="Arabic Subtitle Fonts - خطوط ترجمة عربية"
+url="https://psp2111-adslgate.github.io/Builds/media.zip"
+icon="http://"
+fanart="http://"
+adult="no"
+description="أفضل خطوط عربية للترجمة."

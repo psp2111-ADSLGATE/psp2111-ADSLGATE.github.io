@@ -1,0 +1,6 @@
+name="Arabic Subtitle Fonts - خطوط ترجمة عربية"
+url="http://your.theme.url/"
+icon="http://"
+fanart="http://"
+adult="no"
+description="أفضل خطوط عربية للترجمة."
