@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from io import BytesIO
 import os
 import re
 import requests
@@ -36,13 +35,12 @@ __resource__ = xbmcvfs.translatePath(os.path.join(__cwd__, 'resources', 'lib')) 
 __temp__ = xbmcvfs.translatePath(os.path.join(__profile__, 'temp', '')) if six.PY3 else xbmc.translatePath(os.path.join(__profile__, 'temp', ''))
 
 
-BASE_URL = "https://subscene.com"
-BASE_URL1 = "https://subscene.com/"
+BASE_URL = "https://subscene.best"
 
 s = requests.Session()
 s.mount("https://", TLS12HttpAdapter())
 ua = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0'
-s.headers.update({'User-Agent': ua, 'Referer': BASE_URL1, 'Origin': BASE_URL})
+s.headers.update({'User-Agent': ua, 'Referer': BASE_URL + '/', 'Origin': BASE_URL})
 
 if xbmcvfs.exists(__temp__):
     shutil.rmtree(__temp__)
@@ -204,15 +202,15 @@ def search_links(nume='', item=None):
     if item.get('season') and item.get('season') != 'None':
         season_ordinal = seasons(int(item.get('season')))
         nume = '%s - %s Season' % (item.get('tvshow'), season_ordinal)
-    urlcautare = '%s/subtitles/searchbytitle' % (BASE_URL)
-    search_data = {"query": nume, "l": ""}
+    urlcautare = '%s/search' % (BASE_URL)
+    search_data = {"query": nume}
     url = BASE_URL
     t = s.get(url)
     cj = s.cookies
     time.sleep(1)
     codes = get_language_codes(item['3let_language'])
     requests.utils.add_dict_to_cookiejar(cj, {'LanguageFilter': ','.join(codes), 'HearingImpaired': '2', 'ForeignOnly': 'False'})
-    u = s.post(urlcautare, data=search_data, cookies=cj)
+    u = s.get(urlcautare, params=search_data, cookies=cj)
     continuturl = u.text
     first_search = []
     for nothing, datas, content_datas in re.findall('<h2( class=".+?")?>(.+?)</h2(.+?)</ul>', continuturl, re.IGNORECASE | re.DOTALL):
@@ -223,13 +221,11 @@ def search_links(nume='', item=None):
             if datas == "Exact":
                 break
 
-    subtitle_pattern = (r"<td class=\"a1\">\s+<a href=\"(?P<link>/subtitles/[^\"]+)\">\s+"
-                        r"<span class=\"[^\"]+ (?P<quality>\w+-icon)\">\s+(?P<language>[^\r\n\t]+)\s+</span>\s+"
-                        r"<span>\s+(?P<filename>[^\r\n\t]+)\s+</span>\s+"
-                        r"</a>\s+</td>\s+"
-                        r"<td class=\"[^\"]+\">\s+(?P<numfiles>[^\r\n\t]*)\s+</td>\s+"
-                        r"<td class=\"(?P<hiclass>[^\"]+)\">"
-                        r"(?:.*?)<td class=\"a6\">\s+<div>\s+(?P<comment>[^\"]+)&nbsp;\s*</div>")
+    subtitle_pattern = r'''<td class="a1">\s+<a\s+href="(?P<link>/subtitle/[^"]+)">\s+<div>\s+<span class="[^"]+\s+''' \
+                       r'''(?P<quality>\w+-icon)">\s+(?P<language>[^\r\n\t]+)\s+</span>\s+<span\s+class="new">\s+''' \
+                       r'''(?P<filename>[^\r\n\t]+)\s+</span>\s+</div>\s+</a>\s+</td>\s+<td class="[^"]+">\s+''' \
+                       r'''(?P<numfiles>[^\r\n\t]*)\s+</td>\s+<td class="(?P<hiclass>[^"]+)">(?:.*?)''' \
+                       r'''<td class="a6">\s+<div[^>]+>\s+(?P<comment>[^\r\n\t]+)\s+</div>'''
     filename = os.path.splitext(os.path.basename(item['file_original_path']))[0]
     selected = []
     if first_search:
@@ -262,7 +258,7 @@ def search_links(nume='', item=None):
                     if matches.group('numfiles') != "":
                         numfiles = int(matches.group('numfiles'))
                     languagefound = matches.group('language')
-                    language_info = subscene_languages[languagefound]
+                    language_info = subscene_languages.get(languagefound)
                     if language_info and language_info['3let'] in item['3let_language']:
                         link = BASE_URL + matches.group('link')
                         subtitle_name = matches.group('filename').strip()
@@ -310,12 +306,14 @@ def Download(url, season, episode):
     pub_list = []
     exts = [".srt", ".sub", ".txt", ".smi", ".ssa", ".ass"]
     f = s.get(url).text
-    downlinkreg = '''class="download".+?href="(.+?)"'''
-    downlink = '%s%s' % (BASE_URL, re.findall(downlinkreg, f, re.IGNORECASE | re.DOTALL)[0])
+    downlinkreg = r'''class="download".+?href="([^"]+)'''
+    downlink = re.findall(downlinkreg, f, re.IGNORECASE | re.DOTALL)[0]
     time.sleep(1)
     response = s.head(downlink)
     cT = response.headers['content-type']
-    if re.search('application/x-zip-compressed', cT) or re.search('application/x-rar-compressed', cT):
+    if re.search('application/x-zip-compressed', cT) \
+        or re.search('application/x-rar-compressed', cT) \
+            or re.search('application/zip', cT):
         g = s.get(downlink)
         if re.search('application/x-rar-compressed', cT):
             import patoolib
@@ -333,7 +331,7 @@ def Download(url, season, episode):
                         subtitle_list.append(dirfile)
 
         else:
-            archive = ZipFile(BytesIO(g.content), 'r')
+            archive = ZipFile(six.BytesIO(g.content), 'r')
             files = archive.namelist()
             files.sort()
             for file in files:
