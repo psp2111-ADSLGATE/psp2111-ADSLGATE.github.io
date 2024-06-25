@@ -4,7 +4,7 @@ zip="url.to.wizard"
 
 name="Arctic Fuse - Arabic - Kodi 21 - By psp2111."
 version="1.0"
-url="https://aboda7em.tvbox-tv-trakt.workers.dev/download.aspx?file=Vfz8J6oYK%2B3Za%2Frob6Wce3W7r0ri9V8zVGuo2VPYaoRV6x1FcYaZ%2BAQN2pgRFdi1&expiry=RCYaHRmBTJFD59xDGeVGjg%3D%3D&mac=4b8af1e5ade11e916ab21345f07a5cd0f8c87a4a101a9da164e16e2496590a2f"
+url="https://aboda7em.tvbox-tv-trakt.workers.dev/download.aspx?file=Vfz8J6oYK%2B3Za%2Frob6Wce3W7r0ri9V8zVGuo2VPYaoRV6x1FcYaZ%2BAQN2pgRFdi1&expiry=SkePacYUKObV3zuwFi6VUQ%3D%3D&mac=0f68a1e8fa40e065a07e6d804d0df641938da87ed67f3036a38bd1639745b77a"
 minor="http://"
 gui="https://aboda7em.tvbox-tv-trakt.workers.dev/download.aspx?file=HC1ZpNmujGhFxXe6AjTWg8pZc7RTrsAPoTs52NXcjQkuK7kFwpGzsBGrUdG2V6Iq&expiry=ZrjjPO7jArEKFDvEgILYtA%3D%3D&mac=3e8534e5b21983760d814cf6c21e731fb4404c0f59958d850b5abf557862bdff"
 kodi="21"
