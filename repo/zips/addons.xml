@@ -1368,6 +1368,22 @@
         <description lang="en_NZ">FENtastic Helper for the FENtastic Skin.</description>
         <description lang="en_US">FENtastic Helper for the FENtastic Skin.</description>
     </extension>
+</addon><addon id="script.kodinerds.android.update" name="KN APK Downloader" version="1.1.5+matrix.1" provider-name="Maven">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.six" version="1.0.0" />
+        <import addon="script.module.simplecache" version="1.0.0" />
+    </requires>
+    <extension point="xbmc.python.script" library="default.py" />
+    <extension point="xbmc.service" library="service.py" start="login" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="de">Downloader für Maven's Kodi-Builds</summary>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, June 2007</license>
+        <platform>android</platform>
+        <assets>
+            <icon>resources/images/icon.png</icon>
+        </assets>
+    </extension>
 </addon><addon id="script.module.accountmgr" version="2.5.4" name="Account Manager" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
