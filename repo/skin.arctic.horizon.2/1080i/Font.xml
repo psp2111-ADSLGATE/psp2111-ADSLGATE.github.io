@@ -1255,7 +1255,6 @@
             <name>font_hint_black</name>
             <style>uppercase bold</style>
             <filename>HecanFull.ttf</filename>
-			<style>lighten</style>
             <size>18</size>
         </font>
 
@@ -1307,31 +1306,26 @@
         <font>
             <name>font_midi</name>
             <filename>HecanFull.ttf</filename>
-			<style>lighten</style>
             <size>35</size>
         </font>
         <font>
             <name>font_main</name>
             <filename>HecanFull.ttf</filename>
-			<style>lighten</style>
             <size>30</size>
         </font>
         <font>
             <name>font_mini</name>
             <filename>HecanFull.ttf</filename>
-			<style>lighten</style>
             <size>26</size>
         </font>
         <font>
             <name>font_tiny</name>
             <filename>HecanFull.ttf</filename>
-			<style>lighten</style>
             <size>22</size>
         </font>
         <font>
             <name>font_hint</name>
             <filename>HecanFull.ttf</filename>
-			<style>lighten</style>
             <size>16</size>
             <linespacing>1.05</linespacing>
         </font>
@@ -1340,22 +1334,22 @@
         <font>
             <name>font_huge_plot</name>
             <filename>HecanFull.ttf</filename>
-            <size>45</size>
+            <size>47</size>
         </font>
         <font>
             <name>font_midi_plot</name>
             <filename>HecanFull.ttf</filename>
-            <size>33</size>
+            <size>35</size>
         </font>
         <font>
             <name>font_main_plot</name>
             <filename>HecanFull.ttf</filename>
-            <size>28</size>
+            <size>30</size>
         </font>
         <font>
             <name>font_mini_plot</name>
             <filename>HecanFull.ttf</filename>
-            <size>24</size>
+            <size>26</size>
         </font>
 
         <!-- Font for codec flag -->
@@ -1408,7 +1402,7 @@
         <font>
             <name>font13</name>
             <filename>HecanFull.ttf</filename>
-            <style>lighten</style>
+            <aspect>0.89</aspect>
             <size>30</size>
         </font>
         <font>
@@ -1426,6 +1420,7 @@
             <aspect>0.8</aspect>
         </font>
     </fontset>
+	
 
 
 </fonts>
