@@ -1368,7 +1368,7 @@
         <description lang="en_NZ">FENtastic Helper for the FENtastic Skin.</description>
         <description lang="en_US">FENtastic Helper for the FENtastic Skin.</description>
     </extension>
-</addon><addon id="script.kodinerds.android.update" name="KN APK Downloader" version="1.1.5+matrix.1" provider-name="Maven">
+</addon><addon id="script.kodinerds.android.update" name="KN APK Downloader" version="1.1.6+matrix.1" provider-name="Maven">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.six" version="1.0.0" />
