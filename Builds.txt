@@ -30,7 +30,6 @@ adult="no"
 info="http://your.info.url"
 description="LITE Kodi Build of Arctic Fuse with Arabic interface for Version 21+ ONLY By psp2111.."
 
-
 name="Arctic Horizon 2 - Arabic - Kodi 21 - By psp2111."
 version="6.2"
 url="https://aboda7em.tvbox-tv-trakt.workers.dev/download.aspx?file=Ts%2FbtN8Hgp%2F3oj%2BbfAH0W1j82FJoM6RilR785vLhJYA34%2FF9%2FfgVoYQhBvtv0rwH&expiry=cViVb8pA%2BSZ1ShMso8H5Uw%3D%3D&mac=c8ddf7d01a10d09ad2a1720fb60e116b60b9f1af134f8f9a56717ed344c02a22"
