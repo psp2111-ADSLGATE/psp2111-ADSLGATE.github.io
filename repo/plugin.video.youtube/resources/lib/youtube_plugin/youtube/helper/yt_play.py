@@ -16,62 +16,88 @@ from traceback import format_stack
 
 from ..helper import utils, v3
 from ..youtube_exceptions import YouTubeException
-from ...kodion.items import VideoItem
-from ...kodion.utils import select_stream
+from ...kodion.compatibility import urlencode, urlunsplit
+from ...kodion.constants import (
+    BUSY_FLAG,
+    PATHS,
+    PLAYBACK_INIT,
+    PLAYER_DATA,
+    PLAYLIST_PATH,
+    PLAYLIST_POSITION,
+    PLAY_FORCE_AUDIO,
+    PLAY_PROMPT_QUALITY,
+    PLAY_PROMPT_SUBTITLES,
+    PLAY_TIMESHIFT,
+    PLAY_WITH,
+)
+from ...kodion.items import AudioItem, VideoItem
+from ...kodion.network import get_connect_address
+from ...kodion.utils import find_video_id, select_stream
 
 
-def play_video(provider, context):
+def _play_stream(provider, context):
+    ui = context.get_ui()
     params = context.get_params()
     video_id = params.get('video_id')
-
-    client = provider.get_client(context)
-    settings = context.get_settings()
-    ui = context.get_ui()
-
-    ask_for_quality = None
-    if video_id and ui.get_property('ask_for_quality') == video_id:
-        ask_for_quality = True
-    ui.clear_property('ask_for_quality')
-
-    screensaver = False
-    if params.get('screensaver'):
-        ask_for_quality = False
-        screensaver = True
-
-    audio_only = None
-    if video_id and ui.get_property('audio_only') == video_id:
-        ask_for_quality = False
-        audio_only = True
-    ui.clear_property('audio_only')
-
-    try:
-        video_streams = client.get_video_streams(context, video_id)
-    except YouTubeException as exc:
-        context.log_error('yt_play.play_video - {exc}:\n{details}'.format(
-            exc=exc, details=''.join(format_stack())
-        ))
-        ui.show_notification(message=exc.get_message())
-        return False
-
-    if not video_streams:
+    if not video_id:
         message = context.localize('error.no_video_streams_found')
         ui.show_notification(message, time_ms=5000)
         return False
 
-    video_stream = select_stream(
-        context,
-        video_streams,
-        ask_for_quality=ask_for_quality,
-        audio_only=audio_only
-    )
+    client = provider.get_client(context)
+    settings = context.get_settings()
 
-    if video_stream is None:
-        return False
+    incognito = params.get('incognito', False)
+    screensaver = params.get('screensaver', False)
 
-    is_video = video_stream.get('video')
-    is_live = video_stream.get('Live')
+    audio_only = False
+    is_external = ui.get_property(PLAY_WITH)
+    if ((is_external and settings.alternative_player_web_urls())
+            or settings.default_player_web_urls()):
+        stream = {
+            'url': 'https://youtu.be/{0}'.format(video_id),
+        }
+    else:
+        ask_for_quality = settings.ask_for_video_quality()
+        if ui.pop_property(PLAY_PROMPT_QUALITY) and not screensaver:
+            ask_for_quality = True
+        elif ui.pop_property(PLAY_FORCE_AUDIO):
+            audio_only = True
+        else:
+            audio_only = settings.audio_only()
 
-    if is_video and video_stream['video'].get('rtmpe', False):
+        try:
+            streams = client.get_streams(context,
+                                         video_id,
+                                         ask_for_quality,
+                                         audio_only,
+                                         settings.use_mpd_videos())
+        except YouTubeException as exc:
+            context.log_error('yt_play.play_video - {exc}:\n{details}'.format(
+                exc=exc, details=''.join(format_stack())
+            ))
+            ui.show_notification(message=exc.get_message())
+            return False
+
+        if not streams:
+            message = context.localize('error.no_video_streams_found')
+            ui.show_notification(message, time_ms=5000)
+            return False
+
+        stream = select_stream(
+            context,
+            streams,
+            ask_for_quality=ask_for_quality,
+            audio_only=audio_only,
+            use_adaptive_formats=(not is_external
+                                  or settings.alternative_player_adaptive()),
+        )
+
+        if stream is None:
+            return False
+
+    video_type = stream.get('video')
+    if video_type and video_type.get('rtmpe'):
         message = context.localize('error.rtmpe_not_supported')
         ui.show_notification(message, time_ms=5000)
         return False
@@ -84,66 +110,71 @@ def play_video(provider, context):
                                             v3,
                                             video_id)
 
-    metadata = video_stream.get('meta', {})
+    metadata = stream.get('meta', {})
+    if is_external:
+        url = urlunsplit((
+            'http',
+            get_connect_address(context=context, as_netloc=True),
+            PATHS.REDIRECT,
+            urlencode({'url': stream['url']}),
+            '',
+        ))
+        stream['url'] = url
 
-    title = metadata.get('video', {}).get('title', '')
-    video_item = VideoItem(title, video_stream['url'])
+    if audio_only or not video_type:
+        media_item = AudioItem(metadata.get('title', ''), stream['url'])
+    else:
+        media_item = VideoItem(metadata.get('title', ''), stream['url'])
 
-    incognito = params.get('incognito', False)
-    use_history = not is_live and not screensaver and not incognito
+    use_history = not (screensaver or incognito or stream.get('live'))
     use_remote_history = use_history and settings.use_remote_history()
-    use_play_data = use_history and settings.use_local_history()
+    use_local_history = use_history and settings.use_local_history()
 
-    utils.update_play_info(provider, context, video_id, video_item,
-                           video_stream, use_play_data=use_play_data)
+    utils.update_play_info(provider, context, video_id, media_item, stream)
 
     seek_time = 0.0 if params.get('resume') else params.get('seek', 0.0)
     start_time = params.get('start', 0.0)
     end_time = params.get('end', 0.0)
 
     if start_time:
-        video_item.set_start_time(start_time)
+        media_item.set_start_time(start_time)
     # Setting the duration based on end_time can cause issues with
     # listing/sorting and other addons that monitor playback
     # if end_time:
     #     video_item.set_duration_from_seconds(end_time)
 
-    play_count = use_play_data and video_item.get_play_count() or 0
-    playback_stats = video_stream.get('playback_stats')
+    play_count = use_local_history and media_item.get_play_count() or 0
+    playback_stats = stream.get('playback_stats')
 
-    playback_json = {
+    playback_data = {
         'video_id': video_id,
         'channel_id': metadata.get('channel', {}).get('id', ''),
-        'video_status': metadata.get('video', {}).get('status', {}),
-        'playing_file': video_item.get_uri(),
+        'video_status': metadata.get('status', {}),
+        'playing_file': media_item.get_uri(),
         'play_count': play_count,
         'use_remote_history': use_remote_history,
-        'use_local_history': use_play_data,
+        'use_local_history': use_local_history,
         'playback_stats': playback_stats,
         'seek_time': seek_time,
         'start_time': start_time,
         'end_time': end_time,
-        'clip': params.get('clip'),
+        'clip': params.get('clip', False),
         'refresh_only': screensaver
     }
 
-    ui.set_property('playback_json', json.dumps(playback_json,
-                                                ensure_ascii=False))
-    context.send_notification('PlaybackInit', {
-        'video_id': video_id,
-        'channel_id': playback_json.get('channel_id', ''),
-        'status': playback_json.get('video_status', {})
-    })
-    return video_item
+    ui.set_property(PLAYER_DATA, json.dumps(playback_data, ensure_ascii=False))
+    context.send_notification(PLAYBACK_INIT, playback_data)
+    return media_item
 
 
-def play_playlist(provider, context):
+def _play_playlist(provider, context):
     videos = []
     params = context.get_params()
 
-    player = context.get_video_player()
-    player.stop()
+    playlist_player = context.get_playlist_player()
+    playlist_player.stop()
 
+    action = params.get('action')
     playlist_ids = params.get('playlist_ids')
     if not playlist_ids:
         playlist_ids = [params.get('playlist_id')]
@@ -152,9 +183,9 @@ def play_playlist(provider, context):
     ui = context.get_ui()
 
     with ui.create_progress_dialog(
-        context.localize('playlist.progress.updating'),
-        context.localize('please_wait'),
-        background=True
+            context.localize('playlist.progress.updating'),
+            context.localize('please_wait'),
+            background=True
     ) as progress_dialog:
         json_data = resource_manager.get_playlist_items(playlist_ids)
 
@@ -192,7 +223,7 @@ def play_playlist(provider, context):
         # select order
         order = params.get('order', '')
         if not order:
-            order_list = ['default', 'reverse', 'shuffle']
+            order_list = ('default', 'reverse', 'shuffle')
             items = [(context.localize('playlist.play.%s' % order), order)
                      for order in order_list]
             order = ui.on_select(context.localize('playlist.play.select'),
@@ -208,41 +239,39 @@ def play_playlist(provider, context):
             # The implementation of XBMC/KODI is quite weak :(
             random.shuffle(videos)
 
-        # clear the playlist
-        playlist = context.get_video_playlist()
-        playlist.clear()
+        if action == 'list':
+            return videos
 
-        # select unshuffle
-        if order == 'shuffle':
-            playlist.unshuffle()
+        # clear the playlist
+        playlist_player.clear()
+        playlist_player.unshuffle()
 
         # check if we have a video as starting point for the playlist
-        video_id = params.get('video_id', '')
+        video_id = params.get('video_id')
+        playlist_position = None if video_id else 0
         # add videos to playlist
-        playlist_position = 0
         for idx, video in enumerate(videos):
-            playlist.add(video)
-            if (video_id and not playlist_position
-                    and video_id in video.get_uri()):
+            playlist_player.add(video)
+            if playlist_position is None and video.video_id == video_id:
                 playlist_position = idx
 
-        # we use the shuffle implementation of the playlist
-        """
-        if order == 'shuffle':
-            playlist.shuffle()
-        """
+    options = {
+        provider.RESULT_CACHE_TO_DISC: False,
+        provider.RESULT_FORCE_RESOLVE: True,
+        provider.RESULT_UPDATE_LISTING: False,
+    }
 
-    if not params.get('play'):
-        return videos
-    if context.get_handle() == -1:
-        player.play(playlist_index=playlist_position)
+    if action == 'queue':
+        return videos, options
+    if context.get_handle() == -1 or action == 'play':
+        playlist_player.play(playlist_index=playlist_position)
         return False
-    return videos[playlist_position]
+    return videos[playlist_position], options
 
 
-def play_channel_live(provider, context):
+def _play_channel_live(provider, context):
     channel_id = context.get_param('channel_id')
-    index = context.get_param('live') - 1
+    index = context.get_param('live', 1) - 1
     if index < 0:
         index = 0
     json_data = provider.get_client(context).search(q='',
@@ -263,14 +292,82 @@ def play_channel_live(provider, context):
     except IndexError:
         return False
 
-    player = context.get_video_player()
-    player.stop()
-
-    playlist = context.get_video_playlist()
-    playlist.clear()
-    playlist.add(video_item)
+    playlist_player = context.get_playlist_player()
+    playlist_player.stop()
+    playlist_player.clear()
+    playlist_player.add(video_item)
 
     if context.get_handle() == -1:
-        player.play(playlist_index=0)
+        playlist_player.play(playlist_index=0)
         return False
     return video_item
+
+
+def process(provider, context, **_kwargs):
+    ui = context.get_ui()
+
+    params = context.get_params()
+    param_keys = params.keys()
+
+    if {'channel_id', 'playlist_id', 'playlist_ids', 'video_id'}.isdisjoint(
+            param_keys
+    ):
+        listitem_path = context.get_listitem_info('FileNameAndPath')
+        if context.is_plugin_path(listitem_path, PATHS.PLAY):
+            video_id = find_video_id(listitem_path)
+            if video_id:
+                context.set_param('video_id', video_id)
+                params['video_id'] = video_id
+            else:
+                return False
+        else:
+            return False
+
+    video_id = params.get('video_id')
+    playlist_id = params.get('playlist_id')
+
+    force_play = False
+    for param in {PLAY_FORCE_AUDIO,
+                  PLAY_TIMESHIFT,
+                  PLAY_PROMPT_QUALITY,
+                  PLAY_PROMPT_SUBTITLES,
+                  PLAY_WITH}.intersection(param_keys):
+        del params[param]
+        ui.set_property(param)
+        force_play = True
+
+    if video_id and not playlist_id:
+        # This is required to trigger Kodi resume prompt, along with using
+        # RunPlugin. Prompt will not be used if using PlayMedia
+        if force_play:
+            context.execute('Action(Play)')
+            return False
+
+        if context.get_handle() == -1:
+            context.execute('PlayMedia({0})'.format(
+                context.create_uri(('play',), params)
+            ))
+            return False
+
+        ui.set_property(BUSY_FLAG)
+        playlist_player = context.get_playlist_player()
+        position, _ = playlist_player.get_position()
+        items = playlist_player.get_items()
+
+        media_item = _play_stream(provider, context)
+        if media_item:
+            if position and items:
+                ui.set_property(PLAYLIST_PATH,
+                                items[position - 1]['file'])
+                ui.set_property(PLAYLIST_POSITION, str(position))
+        else:
+            ui.clear_property(BUSY_FLAG)
+
+        return media_item
+
+    if playlist_id or 'playlist_ids' in params:
+        return _play_playlist(provider, context)
+
+    if 'channel_id' in params:
+        return _play_channel_live(provider, context)
+    return False

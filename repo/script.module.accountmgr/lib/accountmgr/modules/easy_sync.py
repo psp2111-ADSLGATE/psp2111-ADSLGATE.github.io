@@ -152,20 +152,20 @@ class Auth:
                         xbmc.log('%s: Umbrella Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
-        #OneMoar
+        #Infinity
                 try:
-                        if xbmcvfs.exists(var.chk_onem) and xbmcvfs.exists(var.chkset_onem):
+                        if xbmcvfs.exists(var.chk_infinity) and xbmcvfs.exists(var.chkset_infinity):
 
-                                chk_easy = xbmcaddon.Addon('plugin.video.onemoar').getSetting("easynews.password")
+                                chk_easy = xbmcaddon.Addon('plugin.video.infinity').getSetting("easynews.password")
                                 enable_easy = ("true")
                                      
                                 if not str(var.chk_accountmgr_easy) == str(chk_easy) or str(chk_easy) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon = xbmcaddon.Addon("plugin.video.infinityity")
                                         addon.setSetting("easynews.enable", enable_easy)
                                         addon.setSetting("easynews.user", your_easy_user)
                                         addon.setSetting("easynews.password", your_easy_pass)
                 except:
-                        xbmc.log('%s: OneMoar Easynews Failed!' % var.amgr, xbmc.LOGINFO)
+                        xbmc.log('%s: Infinity Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
         #Dradis

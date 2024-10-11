@@ -10,7 +10,6 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
-import copy
 import json
 import os
 import re
@@ -18,17 +17,17 @@ import shutil
 from datetime import timedelta
 from math import floor, log
 
-from ..compatibility import byte_string_type, quote, string_type, xbmc, xbmcvfs
+from ..compatibility import byte_string_type, string_type, xbmc, xbmcvfs
 from ..logger import log_error
 
 
 __all__ = (
-    'create_path',
     'duration_to_seconds',
-    'find_best_fit',
     'find_video_id',
     'friendly_number',
-    'get_kodi_setting',
+    'get_kodi_setting_bool',
+    'get_kodi_setting_value',
+    'jsonrpc',
     'loose_version',
     'make_dirs',
     'merge_dicts',
@@ -38,6 +37,8 @@ __all__ = (
     'select_stream',
     'strip_html_from_text',
     'to_unicode',
+    'validate_ip_address',
+    'wait',
 )
 
 
@@ -54,133 +55,76 @@ def to_unicode(text):
     return text
 
 
-def find_best_fit(data, compare_method=None):
-    if isinstance(data, dict):
-        data = data.values()
-
-    try:
-        return next(item for item in data if item.get('container') == 'mpd')
-    except StopIteration:
-        pass
-
-    if not compare_method:
-        return None
-
-    result = None
-    last_fit = -1
-    for item in data:
-        fit = abs(compare_method(item))
-        if last_fit == -1 or fit < last_fit:
-            last_fit = fit
-            result = item
-
-    return result
-
-
-def select_stream(context, stream_data_list, quality_map_override=None, ask_for_quality=None, audio_only=None):
-    # sort - best stream first
-    def _sort_stream_data(_stream_data):
-        return _stream_data.get('sort', (0, 0))
-
+def select_stream(context,
+                  stream_data_list,
+                  ask_for_quality,
+                  audio_only,
+                  use_adaptive_formats=True):
     settings = context.get_settings()
-    use_adaptive = context.use_inputstream_adaptive()
-    ask_for_quality = context.get_settings().ask_for_video_quality() if ask_for_quality is None else ask_for_quality
-    video_quality = settings.get_video_quality(quality_map_override=quality_map_override)
-    audio_only = audio_only if audio_only is not None else settings.audio_only()
-    adaptive_live = settings.use_isa_live_streams() and context.inputstream_adaptive_capabilities('live')
+    isa_capabilities = context.inputstream_adaptive_capabilities()
+    use_adaptive = (use_adaptive_formats
+                    and settings.use_isa()
+                    and bool(isa_capabilities))
+    live_type = ('live' in isa_capabilities
+                 and settings.live_stream_type()) or 'hls'
 
-    if not ask_for_quality:
-        stream_data_list = [item for item in stream_data_list
-                            if (item['container'] not in {'mpd', 'hls'} or
-                                item.get('hls/video') or
-                                item.get('dash/video'))]
-
-    if not ask_for_quality and audio_only:  # check for live stream, audio only not supported
+    if audio_only:
         context.log_debug('Select stream: Audio only')
-        for item in stream_data_list:
-            if item.get('Live', False):
-                context.log_debug('Select stream: Live stream, audio only not available')
-                audio_only = False
-                break
-
-    if not ask_for_quality and audio_only:
-        audio_stream_data_list = [item for item in stream_data_list
-                                  if (item.get('dash/audio') and
-                                      not item.get('dash/video') and
-                                      not item.get('hls/video'))]
-
-        if audio_stream_data_list:
-            use_adaptive = False
-            stream_data_list = audio_stream_data_list
-        else:
-            context.log_debug('Select stream: Audio only, no audio only streams found')
-
-    if not adaptive_live:
-        stream_data_list = [item for item in stream_data_list
-                            if (item['container'] != 'mpd' or
-                                not item.get('Live'))]
-    elif not use_adaptive:
-        stream_data_list = [item for item in stream_data_list
-                            if item['container'] != 'mpd']
-
-    def _find_best_fit_video(_stream_data):
-        if audio_only:
-            return video_quality - _stream_data.get('sort', (0, 0))[0]
-        return video_quality - _stream_data.get('video', {}).get('height', 0)
-
-    sorted_stream_data_list = sorted(stream_data_list, key=_sort_stream_data)
-
-    context.log_debug('selectable streams: %d' % len(sorted_stream_data_list))
-    log_streams = []
-    for sorted_stream_data in sorted_stream_data_list:
-        log_data = copy.deepcopy(sorted_stream_data)
-        if 'license_info' in log_data:
-            log_data['license_info']['url'] = '[not shown]' if log_data['license_info'].get('url') else None
-            log_data['license_info']['token'] = '[not shown]' if log_data['license_info'].get('token') else None
-        else:
-            log_data['url'] = re.sub(r'ip=\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}', 'ip=xxx.xxx.xxx.xxx', log_data['url'])
-        log_streams.append(log_data)
-    context.log_debug('selectable streams: \n%s' % '\n'.join(str(stream) for stream in log_streams))
-
-    selected_stream_data = None
-    if ask_for_quality and len(sorted_stream_data_list) > 1:
-        items = [
-            (sorted_stream_data['title'], sorted_stream_data)
-            for sorted_stream_data in sorted_stream_data_list
+        stream_list = [item for item in stream_data_list
+                       if 'video' not in item]
+    else:
+        stream_list = [
+            item for item in stream_data_list
+            if (not item.get('adaptive')
+                or (not item.get('live') and use_adaptive)
+                or (item.get('live')
+                    and live_type.startswith('isa')
+                    and ((live_type == 'isa_mpd' and item.get('dash/video'))
+                         or item.get('hls/video'))))
         ]
 
-        result = context.get_ui().on_select(context.localize('select_video_quality'), items)
-        if result != -1:
-            selected_stream_data = result
-    else:
-        selected_stream_data = find_best_fit(sorted_stream_data_list, _find_best_fit_video)
+    if not stream_list:
+        context.log_debug('Select stream: no streams found')
+        return None
 
-    if selected_stream_data is not None:
-        log_data = copy.deepcopy(selected_stream_data)
+    def _stream_sort(_stream):
+        return _stream.get('sort', [0, 0, 0])
+
+    stream_list.sort(key=_stream_sort, reverse=True)
+    num_streams = len(stream_list)
+    ask_for_quality = ask_for_quality and num_streams >= 1
+    context.log_debug('Available streams: {0}'.format(num_streams))
+
+    for idx, stream in enumerate(stream_list):
+        log_data = stream.copy()
+
         if 'license_info' in log_data:
-            log_data['license_info']['url'] = '[not shown]' if log_data['license_info'].get('url') else None
-            log_data['license_info']['token'] = '[not shown]' if log_data['license_info'].get('token') else None
-        context.log_debug('selected stream: %s' % log_data)
+            license_info = log_data['license_info'].copy()
+            for detail in ('url', 'token'):
+                original_value = license_info.get(detail)
+                if original_value:
+                    license_info[detail] = '<redacted>'
+            log_data['license_info'] = license_info
 
-    return selected_stream_data
+        original_value = log_data.get('url')
+        if original_value:
+            log_data['url'] = redact_ip(original_value)
 
+        context.log_debug('Stream {0}:\n{1}'.format(idx, log_data))
 
-def create_path(*args, **kwargs):
-    path = '/'.join([
-        part
-        for part in [
-            str(arg).strip('/').replace('\\', '/').replace('//', '/')
-            for arg in args
-        ] if part
-    ])
-    if path:
-        path = path.join(('/', '/'))
+    if ask_for_quality:
+        selected_stream = context.get_ui().on_select(
+            context.localize('select_video_quality'),
+            [stream['title'] for stream in stream_list],
+        )
+        if selected_stream == -1:
+            context.log_debug('Select stream: no stream selected')
+            return None
     else:
-        return '/'
+        selected_stream = 0
 
-    if kwargs.get('is_uri', False):
-        return quote(path)
-    return path
+    context.log_debug('Selected stream: Stream {0}'.format(selected_stream))
+    return stream_list[selected_stream]
 
 
 def strip_html_from_text(text):
@@ -247,7 +191,8 @@ def rm_dir(path):
 
 
 def find_video_id(plugin_path):
-    match = re.search(r'.*video_id=(?P<video_id>[a-zA-Z0-9_\-]{11}).*', plugin_path)
+    match = re.search(r'.*video_id=(?P<video_id>[a-zA-Z0-9_\-]{11}).*',
+                      plugin_path)
     if match:
         return match.group('video_id')
     return ''
@@ -294,7 +239,11 @@ def seconds_to_duration(seconds):
 
 def merge_dicts(item1, item2, templates=None, _=Ellipsis):
     if not isinstance(item1, dict) or not isinstance(item2, dict):
-        return item1 if item2 is _ else _ if item2 is KeyError else item2
+        return (
+            item1 if item2 is _ else
+            _ if (item1 is KeyError or item2 is KeyError) else
+            item2
+        )
     new = {}
     keys = set(item1)
     keys.update(item2)
@@ -309,12 +258,60 @@ def merge_dicts(item1, item2, templates=None, _=Ellipsis):
     return new or _
 
 
-def get_kodi_setting(setting):
-    json_query = xbmc.executeJSONRPC(json.dumps({
-        'jsonrpc': '2.0',
-        'method': 'Settings.GetSettingValue',
-        'params': {'setting': setting},
-        'id': 1,
-    }))
-    json_query = json.loads(json_query)
-    return json_query.get('result', {}).get('value')
+def get_kodi_setting_value(setting, process=None):
+    response = jsonrpc(method='Settings.GetSettingValue',
+                       params={'setting': setting})
+    try:
+        value = response['result']['value']
+        if process:
+            return process(value)
+    except (KeyError, TypeError, ValueError):
+        return None
+    return value
+
+
+def get_kodi_setting_bool(setting):
+    return xbmc.getCondVisibility(setting.join(('System.GetBool(', ')')))
+
+
+def validate_ip_address(ip_address):
+    try:
+        octets = [octet for octet in map(int, ip_address.split('.'))
+                  if 0 <= octet <= 255]
+        if len(octets) != 4:
+            raise ValueError
+    except ValueError:
+        return 0, 0, 0, 0
+    return tuple(octets)
+
+
+def jsonrpc(batch=None, **kwargs):
+    """
+    Perform JSONRPC calls
+    """
+
+    if not batch and not kwargs:
+        return None
+
+    do_response = False
+    for request_id, kwargs in enumerate(batch or (kwargs,)):
+        do_response = (not kwargs.pop('no_response', False)) or do_response
+        if do_response and 'id' not in kwargs:
+            kwargs['id'] = request_id
+        kwargs['jsonrpc'] = '2.0'
+
+    request = json.dumps(batch or kwargs, default=tuple, ensure_ascii=False)
+    response = xbmc.executeJSONRPC(request)
+    return json.loads(response) if do_response else None
+
+
+def wait(timeout=None):
+    if not timeout:
+        timeout = 0
+    elif timeout < 0:
+        timeout = 0.1
+    return xbmc.Monitor().waitForAbort(timeout)
+
+
+def redact_ip(url):
+    return re.sub(r'([?&/])ip([=/])[^?&/]+', r'\g<1>ip\g<2><redacted>', url)

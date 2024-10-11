@@ -12,43 +12,45 @@ from __future__ import absolute_import, division, unicode_literals
 
 from . import datetime_parser
 from .methods import (
-    create_path,
     duration_to_seconds,
-    find_best_fit,
     find_video_id,
     friendly_number,
-    get_kodi_setting,
+    get_kodi_setting_bool,
+    get_kodi_setting_value,
+    jsonrpc,
     loose_version,
     make_dirs,
     merge_dicts,
+    redact_ip,
     rm_dir,
     seconds_to_duration,
     select_stream,
     strip_html_from_text,
     to_unicode,
+    validate_ip_address,
+    wait,
 )
-from .player_monitor import PlayerMonitor
-from .service_monitor import ServiceMonitor
 from .system_version import current_system_version
 
 
 __all__ = (
-    'PlayerMonitor',
-    'ServiceMonitor',
-    'create_path',
     'current_system_version',
     'datetime_parser',
     'duration_to_seconds',
-    'find_best_fit',
     'find_video_id',
     'friendly_number',
-    'get_kodi_setting',
+    'get_kodi_setting_bool',
+    'get_kodi_setting_value',
+    'jsonrpc',
     'loose_version',
     'make_dirs',
     'merge_dicts',
+    'redact_ip',
     'rm_dir',
     'seconds_to_duration',
     'select_stream',
     'strip_html_from_text',
     'to_unicode',
+    'validate_ip_address',
+    'wait',
 )

@@ -21,7 +21,7 @@ ORDER = ['seren',
          'coal',
          'pov',
          'umbrella',
-         'onemoar',
+         'infinity',
          'dradis',
          'taz',
          'shadow',
@@ -34,19 +34,17 @@ ORDER = ['seren',
          'patriot',
          'blackl',
          'aliunde',
+         'nightlite',
          'homelander',
          'quicksilver',
          'genocide',
          'absolution',
          'shazam',
          'thecrew',
-         'nightwing',
-         'thelab',
          'alvin',
          'moria',
          'nine',
          'scrubs',
-         'thelabjr',
          'tmdbhelper',
          'trakt',
          'acctmgr',
@@ -150,18 +148,18 @@ TRAKTID = {
         'default'  : 'trakt.user.name',
         'data'     : ['trakt.clientid', 'trakt.clientsecret', 'trakt.user.token', 'trakt.user.name', 'trakt.token.expires', 'trakt.refreshtoken', 'traktuserkey.customenabled', 'trakt.scrobble', 'resume.source'],
         'activate' : 'Addon.OpenSettings(plugin.video.umbrella)'},
-    'onemoar': {
-        'name'     : 'OneMoar',
-        'plugin'   : 'plugin.video.onemoar',
-        'saved'    : 'onemoar',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'onemoar_trakt'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.onemoar', 'settings.xml'),
+    'infinity': {
+        'name'     : 'Infinity',
+        'plugin'   : 'plugin.video.infinity',
+        'saved'    : 'infinity',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media/', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'infinity_trakt'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.infinity', 'settings.xml'),
         'default'  : 'trakt.user.name',
         'data'     : ['trakt.clientid', 'trakt.clientsecret', 'trakt.user.token', 'trakt.user.name', 'trakt.token.expires', 'trakt.refreshtoken', 'traktuserkey.customenabled', 'trakt.scrobble', 'resume.source'],
-        'activate' : 'Addon.OpenSettings(plugin.video.onemoar)'},
+        'activate' : 'Addon.OpenSettings(plugin.video.infinity)'},
     'dradis': {
         'name'     : 'Dradis',
         'plugin'   : 'plugin.video.dradis',
@@ -306,7 +304,19 @@ TRAKTID = {
         'default'  : 'trakt_access_token',
         'data'     : ['trakt_expires_at', 'trakt_refresh_token', 'trakt_access_token'],
         'activate' : 'Addon.OpenSettings(plugin.video.aliundek19)'},
-   'homelander': {
+    'nightlite': {
+        'name'     : 'Nightwing Lite',
+        'plugin'   : 'plugin.video.NightwingLite',
+        'saved'    : 'nightlite',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.NightwingLite'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.NightwingLite', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.NightwingLite', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'nightlite_trakt'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.NightwingLite', 'settings.xml'),
+        'default'  : 'trakt_access_token',
+        'data'     : ['trakt_expires_at', 'trakt_refresh_token', 'trakt_access_token'],
+        'activate' : 'Addon.OpenSettings(plugin.video.NightwingLite)'},
+    'homelander': {
         'name'     : 'Homelander',
         'plugin'   : 'plugin.video.homelander',
         'saved'    : 'homelander',
@@ -318,7 +328,7 @@ TRAKTID = {
         'default'  : 'trakt.user',
         'data'     : ['trakt.authed', 'trakt.user', 'trakt.token' 'trakt.refresh', 'trakt.client_id', 'trakt.client_secret'],
         'activate' : 'Addon.OpenSettings(plugin.video.homelander)'},
-   'quicksilver': {
+    'quicksilver': {
         'name'     : 'Quicksilver',
         'plugin'   : 'plugin.video.quicksilver',
         'saved'    : 'quicksilver',
@@ -330,7 +340,7 @@ TRAKTID = {
         'default'  : 'trakt.user',
         'data'     : ['trakt.authed', 'trakt.user', 'trakt.token' 'trakt.refresh', 'trakt.client_id', 'trakt.client_secret'],
         'activate' : 'Addon.OpenSettings(plugin.video.quicksilver)'},
-   'genocide': {
+    'genocide': {
         'name'     : 'Chains Genocide',
         'plugin'   : 'plugin.video.chainsgenocide',
         'saved'    : 'genocide',
@@ -342,7 +352,7 @@ TRAKTID = {
         'default'  : 'trakt.user',
         'data'     : ['trakt.authed', 'trakt.user', 'trakt.token' 'trakt.refresh', 'trakt.client_id', 'trakt.client_secret'],
         'activate' : 'Addon.OpenSettings(plugin.video.chainsgenocide)'},
-   'absolution': {
+    'absolution': {
         'name'     : 'Absolution',
         'plugin'   : 'plugin.video.absolution',
         'saved'    : 'absolution',
@@ -354,7 +364,7 @@ TRAKTID = {
         'default'  : 'trakt.user',
         'data'     : ['trakt.authed', 'trakt.user', 'trakt.token' 'trakt.refresh', 'trakt.client_id', 'trakt.client_secret'],
         'activate' : 'Addon.OpenSettings(plugin.video.absolution)'},
-   'shazam': {
+    'shazam': {
         'name'     : 'Shazam',
         'plugin'   : 'plugin.video.shazam',
         'saved'    : 'shazam',
@@ -366,7 +376,7 @@ TRAKTID = {
         'default'  : 'trakt.user',
         'data'     : ['trakt.authed', 'trakt.user', 'trakt.token' 'trakt.refresh', 'trakt.client_id', 'trakt.client_secret'],
         'activate' : 'Addon.OpenSettings(plugin.video.shazam)'},
-   'thecrew': {
+    'thecrew': {
         'name'     : 'The Crew',
         'plugin'   : 'plugin.video.thecrew',
         'saved'    : 'thecrew',
@@ -378,31 +388,7 @@ TRAKTID = {
         'default'  : 'trakt.user',
         'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
         'activate' : 'Addon.OpenSettings(plugin.video.thecrew)'},
-   'nightwing': {
-        'name'     : 'Nightwing',
-        'plugin'   : 'plugin.video.nightwing',
-        'saved'    : 'nightwing',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.nightwing'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.nightwing', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.nightwing', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'nightwing_trakt'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.nightwing', 'settings.xml'),
-        'default'  : 'trakt.user',
-        'data'     : ['trakt.client_id', 'trakt.client_secret', 'trakt.refresh', 'trakt.token', 'trakt.user'],
-        'activate' : 'Addon.OpenSettings(plugin.video.nightwing)'},
-   'thelab': {
-        'name'     : 'TheLab',
-        'plugin'   : 'plugin.video.thelab',
-        'saved'    : 'thelab',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.thelab'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.thelab', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.thelab', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'thelab_trakt'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.thelab', 'settings.xml'),
-        'default'  : 'trakt.user',
-        'data'     : ['trakt.authed', 'trakt.user', 'trakt.token' 'trakt.refresh', 'trakt.client_id', 'trakt.client_secret'],
-        'activate' : 'Addon.OpenSettings(plugin.video.thelab)'},
-   'alvin': {
+    'alvin': {
         'name'     : 'Alvin',
         'plugin'   : 'plugin.video.alvin',
         'saved'    : 'alvin',
@@ -414,7 +400,7 @@ TRAKTID = {
         'default'  : 'trakt.token',
         'data'     : ['trakt.client_id', 'trakt.client_secret', 'trakt.refresh', 'trakt.token', 'trakt.user'],
         'activate' : 'Addon.OpenSettings(plugin.video.alvin)'},
-   'moria': {
+    'moria': {
         'name'     : 'Moria',
         'plugin'   : 'plugin.video.moria',
         'saved'    : 'moria',
@@ -426,7 +412,7 @@ TRAKTID = {
         'default'  : 'trakt.user',
         'data'     : ['trakt.authed', 'trakt.user', 'trakt.token' 'trakt.refresh', 'trakt.client_id', 'trakt.client_secret'],
         'activate' : 'Addon.OpenSettings(plugin.video.moria)'},
-   'nine': {
+    'nine': {
         'name'     : '9 Lives',
         'plugin'   : 'plugin.video.nine',
         'saved'    : 'nine',
@@ -438,7 +424,7 @@ TRAKTID = {
         'default'  : 'trakt.token',
         'data'     : ['trakt.authed', 'trakt.user', 'trakt.token' 'trakt.refresh', 'trakt.client_id', 'trakt.client_secret'],
         'activate' : 'Addon.OpenSettings(plugin.video.nine)'},
-   'scrubs': {
+    'scrubs': {
         'name'     : 'Scrubs V2',
         'plugin'   : 'plugin.video.scrubsv2',
         'saved'    : 'scrubsv2',
@@ -450,19 +436,7 @@ TRAKTID = {
         'default'  : 'trakt.user',
         'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
         'activate' : 'Addon.OpenSettings(plugin.video.scrubsv2)'},
-   'thelabjr': {
-        'name'     : 'TheLabjr',
-        'plugin'   : 'plugin.video.thelabjr',
-        'saved'    : 'thelabjr',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.thelabjr'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.thelabjr', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.thelabjr', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'thelabjr_trakt'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.thelabjr', 'settings.xml'),
-        'default'  : 'trakt.user',
-        'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
-        'activate' : 'Addon.OpenSettings(plugin.video.thelabjr)'},
-   'tmdbhelper': {
+    'tmdbhelper': {
         'name'     : 'TMDB Helper',
         'plugin'   : 'plugin.video.themoviedb.helper',
         'saved'    : 'tmdbhelper',
@@ -474,7 +448,7 @@ TRAKTID = {
         'default'  : 'trakt_token',
         'data'     : ['trakt_token'],
         'activate' : 'Addon.OpenSettings(plugin.video.themoviedb.helper)'},
-   'trakt': {
+    'trakt': {
         'name'     : 'Trakt Add-on',
         'plugin'   : 'script.trakt',
         'saved'    : 'trakt',
@@ -486,7 +460,7 @@ TRAKTID = {
         'default'  : 'user',
         'data'     : ['authorization', 'user'],
         'activate' : 'Addon.OpenSettings(script.trakt)'},
-   'acctmgr': {
+    'acctmgr': {
         'name'     : 'Account Manager',
         'plugin'   : 'script.module.accountmgr',
         'saved'    : 'acctmgr',
@@ -498,7 +472,7 @@ TRAKTID = {
         'default'  : 'trakt.username',
         'data'     : ['trakt.client.id', 'trakt.client.secret', 'traktuserkey.enabled', 'devuserkey.enabled', 'dev.client.id', 'dev.client.secret', 'trakt.expires', 'trakt.refresh', 'trakt.token', 'trakt.username'],
         'activate' : 'Addon.OpenSettings(script.module.accountmgr)'},
-   'allact': {
+    'allact': {
         'name'     : 'All Accounts',
         'plugin'   : 'script.module.allaccounts',
         'saved'    : 'allact',
@@ -510,7 +484,7 @@ TRAKTID = {
         'default'  : 'trakt.username',
         'data'     : ['trakt.client.id', 'trakt.client.secret', 'trakt.expires', 'trakt.refresh', 'trakt.token', 'trakt.username'],
         'activate' : 'Addon.OpenSettings(script.module.allaccounts)'},
-   'myact': {
+    'myact': {
         'name'     : 'My Accounts',
         'plugin'   : 'script.module.myaccounts',
         'saved'    : 'myact',
@@ -559,7 +533,7 @@ def trakt_user(who):
             except:
                 xbmc.log('%s: Traktit Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
-        elif os.path.exists(TRAKTID[who]['path']) and name == 'afFENity': #Skip Fen Light due to not having a settings.xml
+        elif os.path.exists(TRAKTID[who]['path']) and name == 'afFENity': #Skip afFENity due to not having a settings.xml
             try:
                 conn = create_conn(var.affen_settings_db)
                 with conn:

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1115">
+    <defaultcontrol always="true">303</defaultcontrol>
+    <onload>ClearProperty(url)</onload>
+    <onload>ClearProperty(forced)</onload>
+    <onload>ClearProperty(menu)</onload>
+    <onload>ClearProperty(mode)</onload>
+    <onload>ClearProperty(guid)</onload>
+    <onload>ClearProperty(list_id)</onload>
+    <onload>ClearProperty(widgetonly_menu)</onload>
+    <onload>SetProperty(categories_menu,menu=homemenu)</onload>
+    <onload>SetProperty(hub_prefix,Home)</onload>
+    <onload>SetProperty(TMDbHelper.WidgetContainer,50)</onload>
+    <include>Action_Blur_Onload</include>
+    <onunload>Skin.SetString(Shortcuts.RebuildDateTime,$INFO[System.Date(yyyy-mm-dd)]_$INFO[System.Time(hh:mm:ss)])</onunload>
+    <controls>
+
+        <include>Shortcuts_Window_Hidden_Buttons</include>
+        <include>Defs_TMDbHelper_Loader</include>
+        <include>Background_Main</include>
+        <include>Background_Transition</include>
+
+        <control type="image">
+            <texture colordiffuse="$VAR[ColorBackground]">background/combined_overlay.png</texture>
+            <include>Animation_FadeIn</include>
+            <include>Animation_FadeOut</include>
+        </control>
+
+        <include content="Settings_Dialog">
+            <param name="side_buttons_include">Shortcuts_Window_Side_Buttons</param>
+            <include content="Settings_Main_Group">
+                <param name="label">$LOCALIZE[31496]</param>
+                <control type="group">
+                    <width>940</width>
+                    <include>Shortcuts_Window_Spinner_Button</include>
+                    <control type="image">
+                        <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                        <height>1</height>
+                        <left>80</left>
+                        <right>-100</right>
+                        <top>160</top>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                        <height>1</height>
+                        <left>80</left>
+                        <right>-100</right>
+                        <bottom>160</bottom>
+                    </control>
+                    <include content="Settings_Left_Content">
+                        <include>Shortcuts_Window_Content</include>
+                    </include>
+                </control>
+                <include content="Settings_Right_Group">
+                    <left>1080</left>
+                    <control type="group">
+                        <include content="Dimension_Padding">
+                            <param name="pad">40</param>
+                        </include>
+                        <control type="label">
+                            <centertop>20</centertop>
+                            <height>40</height>
+                            <font>font_midi_black</font>
+                            <textcolor>main_fg_90</textcolor>
+                            <label>$VAR[Label_Shortcut_HelpHead]</label>
+                        </control>
+                        <control type="textbox">
+                            <top>80</top>
+                            <font>font_main_plot</font>
+                            <textcolor>main_fg_70</textcolor>
+                            <label>$VAR[Label_Shortcut_HelpText]</label>
+                        </control>
+                    </control>
+                </include>
+            </include>
+        </include>
+
+        <include>Shortcuts_Options</include>
+
+        <include content="Furniture_Busy">
+            <param name="hasspinner">true</param>
+            <param name="spinspinner">true</param>
+            <param name="icon">special://skin/extras/icons/kodi.png</param>
+            <param name="hasbackground">Skin.HasSetting(ToastNotifications.Tabbed)</param>
+            <param name="haslabel">Skin.HasSetting(ToastNotifications.Tabbed)</param>
+            <param name="spinnervisible">Skin.HasSetting(ToastNotifications.Tabbed) | [!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]</param>
+            <param name="visible_delay">1200</param>
+            <param name="windowopen_condition">False</param>
+            <param name="visible">[!Skin.HasSetting(ToastNotifications.Tabbed) | [!Window.IsActive(DialogVolumeBar.xml) | Player.Muted]] + [[[Container(300).IsUpdating | [Container(302).IsUpdating + Control.IsVisible(302)]] + !$EXP[Shortcuts_Window_Exp_WidgetsOnly]] | Container(303).IsUpdating | Container(304).IsUpdating]</param>
+        </include>
+
+    </controls>
+</window>

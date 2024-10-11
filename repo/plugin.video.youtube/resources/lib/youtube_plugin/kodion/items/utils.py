@@ -13,11 +13,10 @@ from __future__ import absolute_import, division, unicode_literals
 import json
 from datetime import date, datetime
 
-from .audio_item import AudioItem
 from .directory_item import DirectoryItem
 from .image_item import ImageItem
-from .video_item import VideoItem
-from ..compatibility import string_type
+from .media_item import AudioItem, VideoItem
+from ..compatibility import string_type, to_str
 from ..utils.datetime_parser import strptime
 
 
@@ -47,18 +46,23 @@ def _decoder(obj):
     return obj
 
 
-def from_json(json_data, *_args):
+def from_json(json_data, *args):
     """
     Creates an instance of the given json dump or dict.
     :param json_data:
     :return:
     """
     if isinstance(json_data, string_type):
+        if json_data == to_str(None):
+            # Channel bookmark that will be updated. Store timestamp for update
+            if args and args[0] and len(args[0]) == 4:
+                return args[0][1]
+            return None
         json_data = json.loads(json_data, object_hook=_decoder)
 
     item_type = json_data.get('type')
     if not item_type or item_type not in _ITEM_TYPES:
-        return json_data
+        return None
 
     item = _ITEM_TYPES[item_type](name='', uri='')
 

@@ -107,12 +107,14 @@
     <setting id="debug.enabled" default="true">false</setting>
     <setting id="debug.location">1</setting>
     <setting id="provider.bitlord" default="true">false</setting>
-    <setting id="provider.bitsearch">true</setting>
+    <setting id="provider.elfhosted">true</setting>
+    <setting id="provider.piratebay">false</setting>
     <setting id="provider.eztv">true</setting>
+    <setting id="provider.torrentz2">true</setting>
+    <setting id="provider.bitsearch">true</setting>
+    <setting id="provider.knaben" default="true">false</setting>
     <setting id="provider.glodls" default="true">false</setting>
     <setting id="provider.magnetdl" default="true">false</setting>
-    <setting id="provider.nyaa" default="true">false</setting>
-    <setting id="provider.piratebay" default="true">false</setting>
     <setting id="provider.torrentdownload">true</setting>
     <setting id="provider.torrentio">true</setting>
     <setting id="provider.library" default="true">false</setting>
@@ -262,4 +264,5 @@
     <setting id="ororo.password" default="true" />
     <setting id="ororo.priority" default="true">10</setting>
     <setting id="ororo.username" default="true" />
+    <setting id="provider.nyaa" default="true">false</setting>
 </settings>

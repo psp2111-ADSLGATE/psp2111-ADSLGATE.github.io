@@ -14,7 +14,7 @@ from resources.libs.common import tools
 from resources.libs.common import var
 
 ORDER = ['umbrella',
-         'onemoar',
+         'infinity',
          'dradis',
          'allact',
          'myact',
@@ -33,18 +33,18 @@ FILEID = {
         'default'  : 'filepursuit.api',
         'data'     : ['filepursuit.enable', 'filepursuit.api', 'filepursuit.priority'],
         'activate' : 'Addon.OpenSettings(plugin.video.umbrella)'},
-    'onemoar': {
-        'name'     : 'OneMoar',
-        'plugin'   : 'plugin.video.onemoar',
-        'saved'    : 'onemoar',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.FILEFOLD, 'onemoar_file'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.onemoar', 'settings.xml'),
+    'infinity': {
+        'name'     : 'Infinity',
+        'plugin'   : 'plugin.video.infinity',
+        'saved'    : 'infinity',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media/', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.FILEFOLD, 'infinity_file'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.infinity', 'settings.xml'),
         'default'  : 'filepursuit.api',
         'data'     : ['filepursuit.enable', 'filepursuit.api', 'filepursuit.priority'],
-        'activate' : 'Addon.OpenSettings(plugin.video.onemoar)'},
+        'activate' : 'Addon.OpenSettings(plugin.video.infinity)'},
     'dradis': {
         'name'     : 'Dradis',
         'plugin'   : 'plugin.video.dradis',

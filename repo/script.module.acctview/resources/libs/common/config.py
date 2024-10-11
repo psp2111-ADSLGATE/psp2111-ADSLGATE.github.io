@@ -34,6 +34,8 @@ class Config:
         self.ADDON_ICON = self.ADDON.getAddonInfo('icon')
         self.ADDON_SEP_ICON = joinPath(os.path.join(xbmcaddon.Addon('script.module.acctview').getAddonInfo('path'), 'resources', 'icons'), 'separator.png')
         self.ADDON_FANART = self.ADDON.getAddonInfo('fanart')
+        self.ICONDEBRID = self.ADDON.getAddonInfo('icon')
+        self.ICONTRAKT = self.ADDON.getAddonInfo('icon')
 
     def init_vars(self):
         # User Edit Variables

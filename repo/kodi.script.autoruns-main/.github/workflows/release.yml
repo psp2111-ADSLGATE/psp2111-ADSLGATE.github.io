@@ -1,0 +1,41 @@
+name: Kodi Addon Release
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v4.3.0
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    name: Kodi Addon Release
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Prepare file release
+        run: |
+          mkdir script.autoruns
+          wget ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/archive/refs/tags/${{ github.ref_name }}.tar.gz -O - | tar xz --strip-components=1 -C script.autoruns
+          rm -rf script.autoruns/.github script.autoruns/README.md
+          zip -r -9 script.autoruns-${{ github.ref_name }}.zip script.autoruns
+
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v4.3.1
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          name: Autoruns ${{ github.ref_name }}
+          tag: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: script.autoruns-${{ github.ref_name }}.zip
+          artifactContentType: application/zip
+          artifactErrorsFailBuild: true

@@ -14,22 +14,23 @@ from .storage import Storage, fromtimestamp
 
 class PlaybackHistory(Storage):
     _table_name = 'storage_v2'
-    _table_created = False
     _table_updated = False
     _sql = {}
 
-    def __init__(self, filepath):
-        super(PlaybackHistory, self).__init__(filepath)
+    def __init__(self, filepath, migrate=False):
+        super(PlaybackHistory, self).__init__(filepath, migrate=migrate)
 
     @staticmethod
     def _add_last_played(value, item):
         value['last_played'] = fromtimestamp(item[1])
         return value
 
-    def get_items(self, keys=None, limit=-1):
+    def get_items(self, keys=None, limit=-1, process=None):
+        if process is None:
+            process = self._add_last_played
         result = self._get_by_ids(keys,
                                   oldest_first=False,
-                                  process=self._add_last_played,
+                                  process=process,
                                   as_dict=True,
                                   limit=limit)
         return result
@@ -38,11 +39,14 @@ class PlaybackHistory(Storage):
         result = self._get(key, process=self._add_last_played)
         return result
 
-    def remove(self, video_id):
+    def set_item(self, video_id, play_data, timestamp=None):
+        self._set(video_id, play_data, timestamp)
+
+    def del_item(self, video_id):
         self._remove(video_id)
 
-    def update(self, video_id, play_data):
-        self._set(video_id, play_data)
+    def update_item(self, video_id, play_data, timestamp=None):
+        self._update(video_id, play_data, timestamp)
 
     def _optimize_item_count(self, limit=-1, defer=False):
         return False

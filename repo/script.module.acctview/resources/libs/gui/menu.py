@@ -14,11 +14,13 @@ except ImportError:  # Python 2
 from resources.libs.common import directory
 from resources.libs.common.config import CONFIG
 
+translatePath = xbmcvfs.translatePath
+addons = translatePath('special://home/addons/')
+
 def trakt_menu():
     from resources.libs import traktit
-
     for trakt in traktit.ORDER:
-        if xbmc.getCondVisibility('System.HasAddon({0})'.format(traktit.TRAKTID[trakt]['plugin'])):
+        if xbmc.getCondVisibility('System.HasAddon({0})'.format(traktit.TRAKTID[trakt]['plugin'])) or xbmcvfs.exists(addons + translatePath('plugin.video.NightwingLite/')):
             name = traktit.TRAKTID[trakt]['name']
             path = traktit.TRAKTID[trakt]['path']
             saved = traktit.TRAKTID[trakt]['saved']
@@ -38,9 +40,8 @@ def trakt_menu():
 
 def debrid_menu():
     from resources.libs import debridit_rd
-    
     for debrid in debridit_rd.ORDER:
-        if xbmc.getCondVisibility('System.HasAddon({0})'.format(debridit_rd.DEBRIDID[debrid]['plugin'])):
+        if xbmc.getCondVisibility('System.HasAddon({0})'.format(debridit_rd.DEBRIDID[debrid]['plugin'])) or xbmcvfs.exists(addons + translatePath('plugin.video.NightwingLite/')):
             name = debridit_rd.DEBRIDID[debrid]['name']
             path = debridit_rd.DEBRIDID[debrid]['path']
             saved = debridit_rd.DEBRIDID[debrid]['saved']
@@ -58,11 +59,12 @@ def debrid_menu():
             else:
                 directory.add_file('{0} - [COLOR springgreen]Authorized[/COLOR]'.format(name), {'name': debrid}, icon=icon, description='Your Real-Debrid Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
 
+
 def premiumize_menu():
     from resources.libs import debridit_pm
 
     for debrid in debridit_pm.ORDER:
-        if xbmc.getCondVisibility('System.HasAddon({0})'.format(debridit_pm.DEBRIDID[debrid]['plugin'])):
+        if xbmc.getCondVisibility('System.HasAddon({0})'.format(debridit_pm.DEBRIDID[debrid]['plugin'])) or xbmcvfs.exists(addons + translatePath('plugin.video.NightwingLite/')):
             name = debridit_pm.DEBRIDID[debrid]['name']
             path = debridit_pm.DEBRIDID[debrid]['path']
             saved = debridit_pm.DEBRIDID[debrid]['saved']
@@ -84,7 +86,7 @@ def alldebrid_menu():
     from resources.libs import debridit_ad
 
     for debrid in debridit_ad.ORDER:
-        if xbmc.getCondVisibility('System.HasAddon({0})'.format(debridit_ad.DEBRIDID[debrid]['plugin'])):
+        if xbmc.getCondVisibility('System.HasAddon({0})'.format(debridit_ad.DEBRIDID[debrid]['plugin'])) or xbmcvfs.exists(addons + translatePath('plugin.video.NightwingLite/')):
             name = debridit_ad.DEBRIDID[debrid]['name']
             path = debridit_ad.DEBRIDID[debrid]['path']
             saved = debridit_ad.DEBRIDID[debrid]['saved']

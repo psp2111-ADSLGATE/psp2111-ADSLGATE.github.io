@@ -10,63 +10,54 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
-import copy
-import platform
-import timeit
-
-from . import debug
 from .context import XbmcContext
 from .plugin import XbmcPlugin
+from ..youtube import Provider
 
 
 __all__ = ('run',)
 
-__DEBUG_RUNTIME = False
-__DEBUG_RUNTIME_SINGLE_FILE = False
+_context = XbmcContext()
+_plugin = XbmcPlugin()
+_provider = Provider()
 
-__PLUGIN__ = XbmcPlugin()
+_profiler = _context.get_infobool('System.GetBool(debug.showloginfo)')
+_profiler = True
+if _profiler:
+    from .debug import Profiler
+
+    _profiler = Profiler(enabled=False, print_callees=False, num_lines=20)
 
 
-def run(provider, context=None):
-    start_time = timeit.default_timer()
+def run(context=_context,
+        plugin=_plugin,
+        provider=_provider,
+        profiler=_profiler):
+    if profiler:
+        profiler.enable(flush=True)
 
-    if not context:
-        context = XbmcContext()
+    current_uri = context.get_uri()
+    context.init()
+    new_uri = context.get_uri()
 
-    context.log_debug('Starting Kodion framework by bromix...')
+    params = context.get_params().copy()
+    for key in ('api_key', 'client_id', 'client_secret'):
+        if key in params:
+            params[key] = '<redacted>'
 
-    addon_version = context.get_version()
-    python_version = 'Python {0}'.format(platform.python_version())
-
-    redacted = '<redacted>'
-    params = copy.deepcopy(context.get_params())
-    if 'api_key' in params:
-        params['api_key'] = redacted
-    if 'client_id' in params:
-        params['client_id'] = redacted
-    if 'client_secret' in params:
-        params['client_secret'] = redacted
-
-    context.log_notice('Running: {plugin} ({version}) on {kodi} with {python}\n'
-                       'Path: {path}\n'
-                       'Params: {params}'
-                       .format(plugin=context.get_name(),
-                               version=addon_version,
-                               kodi=context.get_system_version(),
-                               python=python_version,
+    system_version = context.get_system_version()
+    context.log_notice('Plugin: Running |v{version}|\n'
+                       'Kodi: |v{kodi}|\n'
+                       'Python: |v{python}|\n'
+                       'Path: |{path}|\n'
+                       'Params: |{params}|'
+                       .format(version=context.get_version(),
+                               kodi=str(system_version),
+                               python=system_version.get_python_version(),
                                path=context.get_path(),
                                params=params))
 
-    __PLUGIN__.run(provider, context)
-    provider.tear_down(context)
+    plugin.run(provider, context, focused=(current_uri == new_uri))
 
-    elapsed = timeit.default_timer() - start_time
-
-    if __DEBUG_RUNTIME:
-        debug.runtime(context,
-                      addon_version,
-                      elapsed,
-                      single_file=__DEBUG_RUNTIME_SINGLE_FILE)
-
-    context.log_debug('Shutdown of Kodion after |{elapsed:.4}| seconds'
-                      .format(elapsed=elapsed))
+    if profiler:
+        profiler.print_stats()

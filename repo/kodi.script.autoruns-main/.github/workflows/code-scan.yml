@@ -1,0 +1,116 @@
+name: Python Code Scan
+
+on:
+  # Triggers the workflow on push events but only for the code_scan branch
+  push:
+    branches:
+      - code_scan
+
+  # Manual trigger
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  coverity-scan:
+    runs-on: ubuntu-latest
+
+    env:
+      COVERITY_SCAN_PROJECT_NAME: bittor7x0%2Fkodi.script.autoruns
+      COVERITY_SCAN_TOKEN: ${{ secrets.COVERITY_SCAN_TOKEN }}
+      COVERITY_SCAN_NOTIFICATION_EMAIL: ${{ secrets.COVERITY_SCAN_EMAIL }}
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Set Coverity Build Tool MD5 hash
+        id: coverity_scan_md5
+        run: |
+          echo "coverity_scan_md5sum=$(curl --silent https://scan.coverity.com/download/linux64 --data "token=${COVERITY_SCAN_TOKEN}&project=${COVERITY_SCAN_PROJECT_NAME}&md5=1")" >> ${GITHUB_OUTPUT}
+
+      - name: Cache Coverity Build Tool
+        id: coverity_scan_cache
+        uses: actions/cache@v4
+        with:
+          path: cov-analysis-linux64.tar.gz
+          key: cov-analysis-linux64-${{ steps.coverity_scan_md5.outputs.coverity_scan_md5sum }}
+
+      - name: Download Coverity Build Tool
+        if: steps.coverity_scan_cache.outputs.cache-hit != 'true'
+        run: |
+          curl -fs --show-error https://scan.coverity.com/download/linux64 --data "token=${COVERITY_SCAN_TOKEN}&project=${COVERITY_SCAN_PROJECT_NAME}" -o cov-analysis-linux64.tar.gz
+
+      - name: Extract Coverity Build Tool
+        run: |
+          mkdir /tmp/cov-analysis-linux64
+          tar xzf cov-analysis-linux64.tar.gz --strip-components=1 -C /tmp/cov-analysis-linux64
+
+      - name: Set env Coverity Build Tool
+        run: |
+           echo "/tmp/cov-analysis-linux64/bin" >> ${GITHUB_PATH}
+
+      - name: Build and analyze python code
+        run: |
+          cov-configure --python
+          cov-build --dir cov-int --no-command --fs-capture-search ./
+
+      - name: Submit the result to Coverity Scan
+        continue-on-error: true
+        run: |
+          tar jcvf kodi.script.autoruns.tar.bz2 cov-int
+          curl \
+            --silent --show-error \
+            --output coverity_scan_submit.txt \
+            --form project=kodi.script.autoruns \
+            --form token=${COVERITY_SCAN_TOKEN} \
+            --form email=${COVERITY_SCAN_NOTIFICATION_EMAIL} \
+            --form file=@kodi.script.autoruns.tar.bz2 \
+            --form version=${GITHUB_SHA} \
+            --form description="Automatic Coverity Scan build for ${GITHUB_REF}" \
+            https://scan.coverity.com/builds?project=${COVERITY_SCAN_PROJECT_NAME}
+          cat ./coverity_scan_submit.txt
+
+  sonar-scan:
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Analyze Python code with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v3.0.0
+        with:
+          args: >
+            -Dsonar.organization=bittor7x0
+            -Dsonar.projectKey=bittor7x0_kodi-script-autoruns
+            -Dsonar.python.version=3.7,3.8,3.9,3.10
+
+  codeql-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:python"

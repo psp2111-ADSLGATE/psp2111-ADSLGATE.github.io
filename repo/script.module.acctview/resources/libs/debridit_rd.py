@@ -7,6 +7,7 @@ import json
 import os
 import time
 import sqlite3
+import xbmcvfs
 
 from sqlite3 import Error
 from xml.etree import ElementTree
@@ -14,6 +15,8 @@ from resources.libs.common.config import CONFIG
 from resources.libs.common import logging
 from resources.libs.common import tools
 from resources.libs.common import var
+translatePath = xbmcvfs.translatePath
+addons = translatePath('special://home/addons/')
 
 ORDER = ['serenrd',
          'fenrd',
@@ -23,7 +26,7 @@ ORDER = ['serenrd',
          'coalrd',
          'povrd',
          'umbrd',
-         'onemrd',
+         'infinityrd',
          'dradisrd',
          'tazrd',
          'shadowrd',
@@ -38,6 +41,7 @@ ORDER = ['serenrd',
          'blacklrd',
          'metvrd',
          'aliunderd',
+         'nightliterd',
          'otakurd',
          'realxrd',
          'acctmgrrd',
@@ -142,18 +146,18 @@ DEBRIDID = {
         'default'  : 'realdebridusername',
         'data'     : ['realdebridusername', 'realdebridtoken', 'realdebrid.clientid', 'realdebridsecret', 'realdebridrefresh', 'realdebrid.enable'],
         'activate' : 'Addon.OpenSettings(plugin.video.umbrella)'},
-    'onemrd': {
-        'name'     : 'OneMoar',
-        'plugin'   : 'plugin.video.onemoar',
-        'saved'    : 'onemrd',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.DEBRIDFOLD_RD, 'onem_rd'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.onemoar', 'settings.xml'),
+    'infinityrd': {
+        'name'     : 'Infinity',
+        'plugin'   : 'plugin.video.infinity',
+        'saved'    : 'infinityrd',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media/', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.DEBRIDFOLD_RD, 'infinity_rd'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.infinity', 'settings.xml'),
         'default'  : 'realdebridusername',
         'data'     : ['realdebridusername', 'realdebridtoken', 'realdebrid.clientid', 'realdebridsecret', 'realdebridrefresh', 'realdebrid.enable'],
-        'activate' : 'Addon.OpenSettings(plugin.video.onemoar)'},
+        'activate' : 'Addon.OpenSettings(plugin.video.infinity)'},
     'dradisrd': {
         'name'     : 'Dradis',
         'plugin'   : 'plugin.video.dradis',
@@ -322,6 +326,18 @@ DEBRIDID = {
         'default'  : 'rd.client_id',
         'data'     : ['rd.expiry', 'rd.auth', 'rd.client_id', 'rd.refresh', 'rd.secret', 'debrid_select'],
         'activate' : 'Addon.OpenSettings(plugin.video.aliunde)'},
+    'nightliterd': {
+        'name'     : 'Nightwing Lite',
+        'plugin'   : 'plugin.video.NightwingLite',
+        'saved'    : 'nightliterd',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.NightwingLite'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.NightwingLite', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.NightwingLite', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.DEBRIDFOLD_RD, 'nightlite_rd'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.NightwingLite', 'settings.xml'),
+        'default'  : 'rd.client_id',
+        'data'     : ['rd.expiry', 'rd.auth', 'rd.client_id', 'rd.refresh', 'rd.secret', 'debrid_select'],
+        'activate' : 'Addon.OpenSettings(plugin.video.NightwingLite)'},
     'otakurd': {
         'name'     : 'Otaku',
         'plugin'   : 'plugin.video.otaku',
@@ -459,7 +475,7 @@ def debrid_user(who):
                         user = str(chk_auth_realx)
             except:
                 xbmc.log('%s: Debridit_rd Realizer Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
+                pass              
         else:
             if os.path.exists(DEBRIDID[who]['path']):
                 try:

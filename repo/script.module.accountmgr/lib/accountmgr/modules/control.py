@@ -183,30 +183,40 @@ def notification_ad(title=None, message=None, icon=None, time=3000, sound=False)
 	notification('All-Debrid', 'Sync Complete!', icon=ad_icon)
 
 def notification_trakt(title=None, message=None, icon=None, time=3000, sound=False):
-	if title == 'default' or title is None: title = addonName()
-	if isinstance(title, int): heading = lang(title)
-	else: heading = str(title)
-	if isinstance(message, int): body = lang(message)
-	else: body = str(message)
-	if icon is None or icon == '' or icon == 'default': icon = addonIcon()
-	elif icon == 'INFO': icon = xbmcgui.NOTIFICATION_INFO
-	elif icon == 'WARNING': icon = xbmcgui.NOTIFICATION_WARNING
-	elif icon == 'ERROR': icon = xbmcgui.NOTIFICATION_ERROR
-	dialog.notification(heading, body, icon, time, sound=sound)
-	xbmc.sleep(3000)
-	notification('Trakt', 'Sync in progress, please wait!', icon=trakt_icon)
-	from accountmgr.modules import trakt_sync
-	trakt_sync.Auth().trakt_auth() #Sync all add-ons
-	xbmc.sleep(1000)
-	if var.setting('backupenable') == 'true': #Check if backup service is enabled
+        if title == 'default' or title is None: title = addonName()
+        if isinstance(title, int): heading = lang(title)
+        else: heading = str(title)
+        if isinstance(message, int): body = lang(message)
+        else: body = str(message)
+        if icon is None or icon == '' or icon == 'default': icon = addonIcon()
+        elif icon == 'INFO': icon = xbmcgui.NOTIFICATION_INFO
+        elif icon == 'WARNING': icon = xbmcgui.NOTIFICATION_WARNING
+        elif icon == 'ERROR': icon = xbmcgui.NOTIFICATION_ERROR
+        dialog.notification(heading, body, icon, time, sound=sound)
+        xbmc.sleep(3000)
+        notification('Trakt', 'Sync in progress, please wait!', icon=trakt_icon)
+        from accountmgr.modules import trakt_sync
+        trakt_sync.Auth().trakt_auth() #Sync all add-ons
+        xbmc.sleep(1000)
+        if var.setting('backupenable') == 'true': #Check if backup service is enabled
                 xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savetrakt&name=all)') #Save Trakt data
                 xbmc.sleep(4000)
-	notification('Trakt', 'Sync Complete!', icon=trakt_icon)
-	accountmgr.setSetting("api.service", "true") #Enable Trakt Service
-	xbmc.sleep(3000)
-	xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
-	os._exit(1)
-
+        notification('Trakt', 'Sync Complete!', icon=trakt_icon)
+        accountmgr.setSetting("api.service", "true") #Enable Trakt Service
+        if xbmcvfs.exists(var.chk_fenlt) and xbmcvfs.exists(var.chkset_fenlt):
+                accountmgr.setSetting("rm_traktcache", 'true')
+        if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):
+                chk_auth_dradis = xbmcaddon.Addon('plugin.video.dradis').getSetting("trakt.token")
+                if not str(var.chk_accountmgr_tk) == str(chk_auth_dradis) or str(chk_auth_dradis) == '':
+                        accountmgr.setSetting("dradis_traktsync", 'true')
+        if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
+                chk_auth_genocide = xbmcaddon.Addon('plugin.video.chainsgenocide').getSetting("trakt.token")
+                if not str(var.chk_accountmgr_tk) == str(chk_auth_genocide) or str(chk_auth_genocide) == '':
+                        accountmgr.setSetting("genocide_traktsync", 'true')
+        xbmc.sleep(3000)
+        xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
+        os._exit(1)
+        
 def notification_offcloud(title=None, message=None, icon=None, time=3000, sound=False):
         if title == 'default' or title is None: title = addonName()
         if isinstance(title, int): heading = lang(title)

@@ -256,47 +256,47 @@ class Auth:
                         xbmc.log('%s: Umbrella Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
-        #OneMoar
+        #Infinity
                 try:
-                        if xbmcvfs.exists(var.chk_onem) and xbmcvfs.exists(var.chkset_onem):
+                        if xbmcvfs.exists(var.chk_infinity) and xbmcvfs.exists(var.chkset_infinity):
 
-                                chk_fanart_api = xbmcaddon.Addon('plugin.video.onemoar').getSetting("fanart_tv.api_key")
-                                chk_mdb_api = xbmcaddon.Addon('plugin.video.onemoar').getSetting("mdblist.api")
-                                chk_imdb_api = xbmcaddon.Addon('plugin.video.onemoar').getSetting("imdbuser")    
-                                chk_tmdb_api = xbmcaddon.Addon('plugin.video.onemoar').getSetting("tmdb.apikey")
-                                chk_tmdb_user = xbmcaddon.Addon('plugin.video.onemoar').getSetting("tmdbusername")
-                                chk_tmdb_pass = xbmcaddon.Addon('plugin.video.onemoar').getSetting("tmdbpassword")
-                                chk_tmdb_session = xbmcaddon.Addon('plugin.video.onemoar').getSetting("tmdb.sessionid")
+                                chk_fanart_api = xbmcaddon.Addon('plugin.video.infinity').getSetting("fanart_tv.api_key")
+                                chk_mdb_api = xbmcaddon.Addon('plugin.video.infinity').getSetting("mdblist.api")
+                                chk_imdb_api = xbmcaddon.Addon('plugin.video.infinity').getSetting("imdbuser")    
+                                chk_tmdb_api = xbmcaddon.Addon('plugin.video.infinity').getSetting("tmdb.apikey")
+                                chk_tmdb_user = xbmcaddon.Addon('plugin.video.infinity').getSetting("tmdbusername")
+                                chk_tmdb_pass = xbmcaddon.Addon('plugin.video.infinity').getSetting("tmdbpassword")
+                                chk_tmdb_session = xbmcaddon.Addon('plugin.video.infinity').getSetting("tmdb.sessionid")
                                 
                                 if not str(var.chk_accountmgr_fanart) == str(chk_fanart_api) or str(chk_fanart_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon = xbmcaddon.Addon("plugin.video.infinity")
                                         addon.setSetting("fanart_tv.api_key", your_fanart_api)
 
                                 if not str(var.chk_accountmgr_mdb) == str(chk_mdb_api) or str(chk_mdb_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon = xbmcaddon.Addon("plugin.video.infinity")
                                         addon.setSetting("mdblist.api", your_mdb_api)
 
                                 if not str(var.chk_accountmgr_imdb) == str(chk_imdb_api) or str(chk_imdb_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon = xbmcaddon.Addon("plugin.video.infinity")
                                         addon.setSetting("imdbuser", your_imdb_api)
                                         
                                 if not str(var.chk_accountmgr_tmdb) == str(chk_tmdb_api) or str(chk_tmdb_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon = xbmcaddon.Addon("plugin.video.infinity")
                                         addon.setSetting("tmdb.apikey", your_tmdb_api)
 
                                 if not str(var.chk_accountmgr_tmdb_user) == str(chk_tmdb_user) or str(chk_tmdb_user) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon = xbmcaddon.Addon("plugin.video.infinity")
                                         addon.setSetting("tmdbusername", your_tmdb_user)
 
                                 if not str(var.chk_accountmgr_tmdb_pass) == str(chk_tmdb_pass) or str(chk_tmdb_pass) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon = xbmcaddon.Addon("plugin.video.infinity")
                                         addon.setSetting("tmdbpassword", your_tmdb_pass)
 
                                 if not str(var.chk_accountmgr_tmdb_session) == str(chk_tmdb_session) or str(chk_tmdb_session) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon = xbmcaddon.Addon("plugin.video.infinity")
                                         addon.setSetting("tmdb.sessionid", your_tmdb_session)
                 except:
-                        xbmc.log('%s: OneMoar Metadata Failed!' % var.amgr, xbmc.LOGINFO)
+                        xbmc.log('%s: Infinity Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
         #Dradis
@@ -425,36 +425,6 @@ class Auth:
                 except:
                         xbmc.log('%s: Homelander Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
-
-        #TheLab
-                try:
-                        if xbmcvfs.exists(var.chk_lab) and not xbmcvfs.exists(var.lab_ud):
-                                os.mkdir(var.lab_ud)
-                                xbmcvfs.copy(os.path.join(var.lab), os.path.join(var.chkset_lab))
-                                
-                        if xbmcvfs.exists(var.chk_lab) and not xbmcvfs.exists(var.chkset_lab):
-                                xbmcvfs.copy(os.path.join(var.lab), os.path.join(var.chkset_lab))
-
-                        if xbmcvfs.exists(var.chk_lab) and xbmcvfs.exists(var.chkset_lab):
-
-                                chk_fanart_api = xbmcaddon.Addon('plugin.video.thelab').getSetting("fanart.tv.user")
-                                chk_imdb_api = xbmcaddon.Addon('plugin.video.thelab').getSetting("imdb.user")    
-                                chk_tmdb_api = xbmcaddon.Addon('plugin.video.thelab').getSetting("tm.user")
-                                
-                                if not str(var.chk_accountmgr_fanart) == str(chk_fanart_api) or str(chk_fanart_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.thelab")
-                                        addon.setSetting("fanart.tv.user", your_fanart_api)
-
-                                if not str(var.chk_accountmgr_imdb) == str(chk_imdb_api) or str(chk_imdb_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.thelab")
-                                        addon.setSetting("imdb.user", your_imdb_api)
-                                        
-                                if not str(var.chk_accountmgr_tmdb) == str(chk_tmdb_api) or str(chk_tmdb_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.thelab")
-                                        addon.setSetting("tm.user", your_tmdb_api)
-                except:
-                        xbmc.log('%s: TheLab Metadata Failed!' % var.amgr, xbmc.LOGINFO)
-                        pass
                 
         #Quicksilver
                 try:
@@ -544,36 +514,6 @@ class Auth:
                                         addon.setSetting("tm.user", your_tmdb_api)
                 except:
                         xbmc.log('%s: Shazam Metadata Failed!' % var.amgr, xbmc.LOGINFO)
-                        pass
-
-        #Nightwing
-                try:
-                        if xbmcvfs.exists(var.chk_night) and not xbmcvfs.exists(var.night_ud):
-                                os.mkdir(var.night_ud)
-                                xbmcvfs.copy(os.path.join(var.night), os.path.join(var.chkset_night))
-                                
-                        if xbmcvfs.exists(var.chk_night) and not xbmcvfs.exists(var.chkset_night):
-                                xbmcvfs.copy(os.path.join(var.night), os.path.join(var.chkset_night))
-                        
-                        if xbmcvfs.exists(var.chk_night) and xbmcvfs.exists(var.chkset_night):
-
-                                chk_fanart_api = xbmcaddon.Addon('plugin.video.nightwing').getSetting("fanart.tv.user")
-                                chk_imdb_api = xbmcaddon.Addon('plugin.video.nightwing').getSetting("imdb.user")    
-                                chk_tmdb_api = xbmcaddon.Addon('plugin.video.nightwing').getSetting("tm.user")
-                                
-                                if not str(var.chk_accountmgr_fanart) == str(chk_fanart_api) or str(chk_fanart_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.nightwing")
-                                        addon.setSetting("fanart.tv.user", your_fanart_api)
-
-                                if not str(var.chk_accountmgr_imdb) == str(chk_imdb_api) or str(chk_imdb_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.nightwing")
-                                        addon.setSetting("imdb.user", your_imdb_api)
-                                        
-                                if not str(var.chk_accountmgr_tmdb) == str(chk_tmdb_api) or str(chk_tmdb_api) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.nightwing")
-                                        addon.setSetting("tm.user", your_tmdb_api)
-                except:
-                        xbmc.log('%s: Nightwing Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
         #Alvin

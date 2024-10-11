@@ -103,152 +103,6 @@
 			Rework for Seren 2.0
 		</news>
 	</extension>
-</addon><addon id="plugin.program.archivewizard" name="[COLOR FFFE9900]Archive[/COLOR]Wizard" version="0.0.9" provider-name="drinfernoo, slamious, psp2111">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-        <import addon="script.module.requests" />
-        <import addon="script.module.six" />
-        <import addon="script.kodi.android.update" optional="true" version="1.1.7" />
-        <import addon="script.speedtester" optional="true" version="1.1.2" />
-    </requires>
-    
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>executable</provides>
-    </extension>
-    
-    <extension point="xbmc.service" library="startup.py" start="startup" />
-    
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en">[COLOR FFFE9900]Archive[/COLOR]Wizard</summary>
-        <description lang="en">[COLOR FFFE9900]Archive[/COLOR]Wizard offers many maintenance features, selective add-on data saving, and automated build installs.</description>
-        <platform>all</platform>
-        <reuselanguageinvoker>false</reuselanguageinvoker>
-        <source>https://www.github.com/a4k-openproject/plugin.program.openwizard/</source>
-        <news>
-2.0.7
- - Fix Error when using default log settings
-2.0.6
- - Fix regex for formatting tags
- - Fix theme selection after build install
- - Fix downloading into invalid path
-2.0.5
- - Add Enable All Add-ons after Build Install
-2.0.4
- - Fix leftover broken dialogs
-2.0.3
- - Don't show previous version builds in Matrix
-2.0.2
- - Replace remaining occurences of LOGNOTICE
-2.0.1
- - Add attribution to @slamious
-2.0.0
- - Initial Matrix support
-1.4.5
- - Fix bugs with unintended files being cleared`
-1.4.4
- - Transfer ownership
-1.4.3
- - Fix missing artwork on items (thanks @xulek)
-1.4.2
- - A few bug fixes
-1.4.1
- - Fix crash on fresh installs
-1.4.0
- - Fix APK Installer
- - Convert official APK downloader to use official script
- - Add scrollbar to Save Data dialog
- - Fix skin path in build info
-1.3.7
- - Fix import lock error
-1.3.6
- - Fix notifications
- - Cleanup log files
-1.3.5
- - Add Fen
- - Add Shadow
- - Fix restoring saved data every boot
-1.3.4
- - Fix bad indent
-1.3.3
- - Fix Unicode characters in notification window
-1.3.2
- - Fix build restore
-1.3.1
- - Fix "Keep Login Info" menu        
-1.3.0
- - Fix formatting of saved restore times
- - Fix local build zip being deleted on restore
- - Add YouTube API saving
- - Remove broken context menus
- - Fix repeating dialogs from shortcuts/favorites
- - Remove "Normal Install" option
- - Add "Logging Tools" menu
- - Add option to save guisettings.xml
- - Add TMDbHelper Fanart.tv saving
- - More fixes for OS X
- - Fix Seren Fanart.tv saving
-1.2.9
- - Fix NuMb3r5 cache clearing
- - Fix hang during repo force check
- - Fix logins being restored every startup
- - Fix some file permission errors
- - Fix OS X backup errors
-1.2.8
- - Add Gaia PM OAuth
- - Fix binary add-on restoration
- - Fix some issues with old settings
- - Fix timing on many startup tasks
-1.2.7
- - Add TheMovieDb Helper
-1.2.6
- - Fix Seren PM OAuth    
-1.2.5
- - Fix typo in debridit.py
-1.2.4
- - Cover more edge cases during binary detection
-1.2.3
- - Fix notification ID bug
-1.2.2
- - Add Seren PM OAuth
- - Add AllDebrid spport for Gaia, Seren, ResolveURL, and URLResolver
-1.2.1
- - General bug fixes
-1.2.0
- - Silence save data notifications on startup
- - Fix Addon Installer menu
- - Convert addons.txt to JSON format
-1.1.1
- - Fix error on advancedsettings categories
-1.1.0
- - Add back advancedsettings area under System Tweaks/Fixes
- - Rudimentary version of advancedsettings editor. Can currently only handle editing pre-existing tags under 'cache' and 'network'.
- - Convert advanced.txt to JSON format
- - Add "built-in" advancedsettings.xml presets
-1.0.3
- - Update artwork
- - Fix rare issues with URLs not working
- - Fix repetitive build prompt (again)
- - Fix builds downloading twice
- - Fix title coloring on notifications
- - Fix auto repo install
- - Fix first run settings not being respected
-1.0.2
- - Fix crash in login menu
- - Fix auto install repo
-1.0.1
- - Fix double startup
- - Fix repetitive build prompt
- - Fix main menu not opening on Krypton
- - Fix notification timeout
- - Fix crash in Trakt menu
-1.0.0
- - Initial Commit
-        </news>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.png</fanart>
-        </assets>
-    </extension>
 </addon><addon id="plugin.program.openwizard" name="[COLOR white][B]psp2111[/B][/COLOR]Wizard" version="2.0.14" provider-name="drinfernoo, slamious">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -417,6 +271,68 @@
             <fanart>resources/media/fen_fanart.png</fanart>
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
+    </extension>
+</addon><addon id="plugin.video.pov" version="4.10.02" name="POV" provider-name="kodifitzwell">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="resources/lib/pov.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.service" library="resources/lib/service.py" />
+    <extension point="xbmc.addon.metadata">
+        <reuselanguageinvoker>true</reuselanguageinvoker>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <disclaimer lang="en">The author of this addon does not host any of the content which is found and has no affiliation with any of the content providers.[CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.</disclaimer>
+        <summary>What you like to watch.[CR]</summary>
+        <description lang="en">This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</description>
+        <news>INFO: For latest changes see Changelog within add-on.</news>
+        <assets><icon>icon.png</icon><fanart>fanart.png</fanart></assets>
+    </extension>
+    <extension point="kodi.context.item">
+        <menu id="kodi.core.main">
+            <item library="resources/lib/contextmenu.py" args="refresh_widgets">
+                <label>40001</label>
+                <visible>String.IsEqual(ListItem.Property(pov_widget),true)</visible>
+            </item>
+            <item library="resources/lib/contextmenu.py" args="pov_watched_params">
+                <label>40003</label>
+                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)] + String.IsEqual(ListItem.Property(pov_widget),true) + String.IsEqual(ListItem.Property(pov_playcount),0)</visible>
+            </item>
+            <item library="resources/lib/contextmenu.py" args="pov_unwatched_params">
+                <label>40004</label>
+                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)] + String.IsEqual(ListItem.Property(pov_widget),true) + String.IsEqual(ListItem.Property(pov_playcount),1)</visible>
+            </item>
+            <item library="resources/lib/contextmenu.py" args="pov_clearprog_params">
+                <label>40009</label>
+                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)] + String.IsEqual(ListItem.Property(pov_widget),true) + String.IsEqual(ListItem.Property(pov_in_progress),true)</visible>
+            </item>
+            <item library="resources/lib/contextmenu.py" args="pov_browse_params">
+                <label>40002</label>
+                <visible>String.IsEqual(ListItem.dbtype,episode) + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
+            </item>
+            <item library="resources/lib/contextmenu.py" args="pov_browse_seas_params">
+                <label>40011</label>
+                <visible>String.IsEqual(ListItem.dbtype,episode) + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
+            </item>
+            <item library="resources/lib/contextmenu.py" args="pov_trakt_manager_params">
+                <label>40005</label>
+                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow)] + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
+            </item>
+            <item library="resources/lib/contextmenu.py" args="pov_fav_manager_params">
+                <label>40008</label>
+                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow)] + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
+            </item>
+            <item library="resources/lib/contextmenu.py" args="pov_options_menu_params">
+                <label>40007</label>
+                <visible>String.IsEqual(ListItem.Property(pov_widget),true)</visible>
+            </item>
+            <item library="resources/lib/contextmenu.py" args="pov_extras_menu_params">
+                <label>40006</label>
+                <visible>String.IsEqual(ListItem.Property(pov_widget),true)</visible>
+            </item>
+        </menu>
     </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0.5~omega" name="Seren" provider-name="Nixgates">
     <requires>
@@ -965,7 +881,7 @@
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.2.25.1" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.2.32" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -1186,13 +1102,13 @@
 		</news>
 	</extension>
 
-</addon><addon id="plugin.video.youtube" name="YouTube" version="7.0.3.2+unofficial.1" provider-name="anxdpanic, bromix">
+</addon><addon id="plugin.video.youtube" name="YouTube" version="7.1.1+beta.1.unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
-        <import addon="xbmc.python" version="3.0.1" />
-        <import addon="script.module.requests" version="2.12.4" />
-        <import addon="inputstream.adaptive" version="20.0.0" />
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" version="2.27.1" />
+        <import addon="inputstream.adaptive" version="19.0.0" />
         <import addon="script.module.inputstreamhelper" version="0.2.2" optional="true" />
-        <import addon="script.module.infotagger" version="0.0.5" />
+        <import addon="script.module.pysocks" optional="true" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="resources/lib/plugin.py">
         <provides>video</provides>
@@ -1219,7 +1135,8 @@
         <summary lang="de_DE">Plugin für YouTube</summary>
         <summary lang="el_GR">Πρόσθετο YouTube</summary>
         <summary lang="en_GB">Plugin for YouTube</summary>
-        <summary lang="es_ES">Plugin para YouTube</summary>
+        <summary lang="eo">Aldonaĵo por YouTube</summary>
+        <summary lang="es_ES">Complemento para YouTube</summary>
         <summary lang="es_MX">Complemento para YouTube</summary>
         <summary lang="fi_FI">YouTube-lisäosa</summary>
         <summary lang="fr_FR">Plugin pour YouTube</summary>
@@ -1232,10 +1149,13 @@
         <summary lang="nb_NO">Tillegg for YouTube</summary>
         <summary lang="nl_NL">Plugin voor YouTube</summary>
         <summary lang="pl_PL">Wtyczka YouTube</summary>
+        <summary lang="pt_BR">Plugin para YouTube</summary>
+        <summary lang="ro_RO">Modul pentru YouTube</summary>
         <summary lang="ru_RU">Видеодополнение YouTube</summary>
         <summary lang="sk_SK">Doplnok pre YouTube</summary>
         <summary lang="sv_SE">Plugin för YouTube</summary>
         <summary lang="tr_TR">YouTube için eklenti</summary>
+        <summary lang="uk_UA">Додаток для YouTube</summary>
         <summary lang="vi_VN">Plugin dành cho YouTube</summary>
         <summary lang="zh_CN">油管插件</summary>
         <summary lang="zh_TW">YouTube附加元件</summary>
@@ -1245,7 +1165,7 @@
         <description lang="de_DE">YouTube ist eines der größten Video-Sharing-Websites der Welt.</description>
         <description lang="el_GR">Το YouTube είναι μία από τις μεγαλύτερες ιστοσελίδες διαμοιρασμού βίντεο στον κόσμο.</description>
         <description lang="en_GB">YouTube is one of the biggest video-sharing websites of the world.</description>
-        <description lang="es_ES">YouTube es uno de los sitios web más grande del mundo para compartir vídeos.</description>
+        <description lang="es_ES">YouTube es uno de los sitios web para compartir vídeos más grandes del mundo.</description>
         <description lang="es_MX">YouTube es uno de los más grandes sitios web de intercambio de videos del mundo.</description>
         <description lang="fi_FI">YouTube on yksi maailman suurimmista videoiden jakosivustoista.</description>
         <description lang="fr_FR">YouTube est l'un des plus grands sites de partage vidéos du monde.</description>
@@ -1258,10 +1178,13 @@
         <description lang="nb_NO">YouTube er en av verdens største nettsider for videodeling.</description>
         <description lang="nl_NL">YouTube is een van de grootste videodelenwebsite in de hele wereld.</description>
         <description lang="pl_PL">YouTube jest jednym z największych na świecie serwisów udostępniania wideo.</description>
+        <description lang="pt_BR">O YouTube é um dos maiores sites de compartilhamento de vídeos do mundo.</description>
+        <description lang="ro_RO">YouTube este unul dintre cele mai mari saituri de distribuire de videoclipuri din lume.</description>
         <description lang="ru_RU">YouTube - популярнейший видеохостинговый сайт, предоставляющий пользователям услуги хранения, доставки и показа видео.</description>
         <description lang="sk_SK">YouTube je jednou z najväčších stránok na zdieľanie videa na svete.</description>
         <description lang="sv_SE">YouTube är en av de största videodelningssajterna i världen.</description>
         <description lang="tr_TR">YouTube, dünya üzerindeki en büyük video paylaşma platformlarından birisidir.</description>
+        <description lang="uk_UA">YouTube є одним з найбільших відеохостингів в світі.</description>
         <description lang="vi_VN">YouTube là một trong những trang web chia sẻ video lớn nhất trên thế giới.</description>
         <description lang="zh_CN">油管是世界上最大的视频分享网站之一。</description>
         <description lang="zh_TW">Youtube 是全世界最大的影片分享網站。</description>
@@ -1280,17 +1203,38 @@
         <disclaimer lang="ko_KR">이 플러그인은 Google의 허가를 받지 않았습니다</disclaimer>
         <disclaimer lang="nl_NL">Deze plug-in wordt niet door Google ondersteund</disclaimer>
         <disclaimer lang="pl_PL">Ta wtyczka nie jest zatwierdzona przez Google</disclaimer>
+        <disclaimer lang="pt_BR">Este plugin não é recomendado pelo Google</disclaimer>
+        <disclaimer lang="ro_RO">Acest modul nu este susținut de Google</disclaimer>
         <disclaimer lang="ru_RU">Плагин не поддерживается Google</disclaimer>
         <disclaimer lang="sk_SK">Tento doplnok nie je schválený spoločnosťou Google</disclaimer>
         <disclaimer lang="sv_SE">Detta plugin är inte godkänt av Google</disclaimer>
         <disclaimer lang="tr_TR">Bu eklenti Google tarafından üretilmemiştir</disclaimer>
+        <disclaimer lang="uk_UA">Цей плагін не має відношення до компанії Google</disclaimer>
         <disclaimer lang="vi_VN">Plugin này không được xác nhận bởi Google</disclaimer>
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
-    <news>## v7.0.3.2
+    <news>## v7.1.1+beta.1
 ### Fixed
-- Fix settings not being saved and setup wizard repeatedly activating in Kodi 20 and lower
-- Fix plugin refresh on settings change</news></extension>
+- Fix http server not listening on any interface if listen IP is 0.0.0.0
+
+### New
+- Explicitly enable TCP keep alive
+- Add localised title and description for videos, channels and playlists
+- Update display of playlists to show the following details:
+  - item count
+  - date
+  - channel name
+  - description
+  - web url
+  - podcast status
+- Update display of channels to show the following details:
+  - view count
+  - subscriber count
+  - video count
+  - date
+  - description
+  - channel name in description
+  - web url</news></extension>
 </addon><addon id="repository.psp2111" name="psp2111 Repository" version="0.0.3" provider-name="psp2111-ADSLGATE">
     <extension point="xbmc.addon.repository" name="psp2111 Repository">
         <dir>
@@ -1327,7 +1271,7 @@
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="resource.images.studios.coloured" name="Studio Icons - Coloured" version="0.0.24" provider-name="Team Kodi - lynxstrike">
+</addon><addon id="resource.images.studios.coloured" name="Studio Icons - Coloured" version="0.0.25" provider-name="Team Kodi - lynxstrike">
 	<extension point="kodi.resource.images" compile="true" type="studios" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
@@ -1347,6 +1291,78 @@
 		<description lang="en">White Weather Icons</description>
 		<platform>all</platform>
 	</extension>
+</addon><addon id="resource.language.ar_sa" version="99.0.58" name="Arabic" provider-name="Team Kodi">
+  <requires>
+    <import addon="kodi.resource" version="1.0.0" />
+  </requires>
+  <extension point="kodi.resource.language" locale="ar_SA">
+    <charsets>
+      <gui unicodefont="true">CP1256</gui>
+      <subtitle>CP1256</subtitle>
+    </charsets>
+  </extension>
+  <extension point="kodi.addon.metadata">
+    <summary lang="en_GB">Arabic language pack</summary>
+    <description lang="en_GB">Arabic version of all texts used in Kodi.</description>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon><addon id="script.autoruns" name="Autoruns" version="1.0.3" provider-name="fightnight, bittor7x0">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <source>https://github.com/bittor7x0/kodi.script.autoruns</source>
+        <summary lang="en">Disable startup services on Kodi</summary>
+        <summary lang="pt">Desactive serviços do arranque no Kodi</summary>
+        <summary lang="es">Desactive el inicio de servicios en Kodi</summary>
+        <description lang="en">You can disable startup services, improving Kodi internal speed.</description>
+        <description lang="pt">Pode desactivar serviços do arranque, melhorando a velocidade interna do Kodi.</description>
+        <description lang="es">Puede desactivar el inicio de servicios, mejorando la velocidad interna de Kodi.</description>
+        <disclaimer lang="en">Opensource addon not endorsed with Team Kodi.</disclaimer>
+        <disclaimer lang="pt">Addon opensource não afliado com a Equipa Kodi.</disclaimer>
+        <disclaimer lang="es">Addon opensource no afiliado con el Equipo de Kodi.</disclaimer>
+        <license>GPL-3.0-or-later</license>
+        <assets>
+            <icon>resources/icon.png</icon>
+        </assets>
+        <news>[B]v1.0.3 (6 February 2024):[/B]
+- Fix issues detected by Coverity Scan and SonarCloud.
+- Fix warning detected by kodi-addon-checker.
+- Reformat code using Black Python code formatter.
+- Reformat imports using isort Import Sorter.
+
+[B]v1.0.2 (14 November 2022):[/B]
+- Update for Kodi v19 Matrix.
+- Add Spanish translation.
+
+[B]v1.0.1 (31 March 2015):[/B]
+- Little tweaks.
+- Submittion to Kodi official Kodi repository.
+- Cosmetic changes.
+
+[B]v1.0.0 (28 de Marco de 2015):[/B]
+- Limpeza de codigo.
+- Novo addon_id.
+- Outras correccoes.
+
+[B]v0.1.00 (13 de Novembro de 2014):[/B]
+- Melhorias de performance.
+- Adicionado logotipo do addon a cada pasta.
+- Outras correccoes.
+
+[B]v0.0.02 (21 de Dezembro de 2013):[/B]
+- Logotipo adicionado.
+
+[B]v0.0.01 (5 de Dezembro de 2013):[/B]
+- Release inicial.</news>
+    </extension>
 </addon><addon id="script.fentastic.helper" name="FENtastic Helper" version="0.6.18" provider-name="Tikipeter, Ivar Brandt">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -1384,11 +1400,11 @@
             <icon>resources/images/icon.png</icon>
         </assets>
     </extension>
-</addon><addon id="script.module.accountmgr" version="2.5.4" name="Account Manager" provider-name="Zaxxon709">
+</addon><addon id="script.module.accountmgr" version="2.6.0" name="Account Manager" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.19.1" />
-            	<import addon="script.module.acctview" version="2.3.6" />
+            	<import addon="script.module.acctview" version="2.4.2" />
 	</requires>
 	<extension point="xbmc.service" library="lib/startup.py" start="startup" />
 	<extension point="xbmc.python.script" library="lib/default.py">
@@ -1407,7 +1423,7 @@
 			<fanart>fanart.png</fanart>
 		</assets>
 	</extension>
-</addon><addon id="script.module.acctview" name="acctviewer" version="2.3.6" provider-name="Zaxxon709">
+</addon><addon id="script.module.acctview" name="acctviewer" version="2.4.2" provider-name="Zaxxon709">
     <extension point="xbmc.python.pluginsource" library="default.py">
     </extension>
     <extension point="xbmc.python.module" library="resources" />
@@ -1484,7 +1500,7 @@
         <description lang="zh_CN">皮肤加载项，提供简单的用户快捷方式管理和列表（需要皮肤支持）</description>
         <description lang="zh_TW">插件为皮肤提供了简单的管理和用户连接方式列表 (需要皮肤支持)</description>
     </extension>
-</addon><addon id="script.skinvariables" version="2.1.14" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariables" version="2.1.18" name="Skin Variables" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.jurialmunkey" version="0.1.17" />
@@ -1554,7 +1570,7 @@
             <screenshot>resources/screenshot-01.png</screenshot>
         </assets>
     </extension>
-</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.16.1" provider-name="Unknown">
+</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.17.0" provider-name="Unknown">
     <requires>
       <import addon="script.module.requests" />
       <import addon="vfs.libarchive" optional="true" />
@@ -1579,6 +1595,19 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, SubDL, Addic7ed
             <screenshot>screenshot-03.png</screenshot>
         </assets>
         <news>
+[v3.17.0]:
+  * Fix: TV year being pulled incorrectly
+  * Fix: File name issues in both temp and media directories
+  * Fix: Subtitle file missing extension
+  * Fix: Incorrect episode selection when downloaded archive contains multiple subtitles
+  * Fix: Auto-download not working after the first selected episode in the playlist (A4K only works for the first media)
+  * Fix: Subtitle import issue due to "illegal characters"
+  * Improve: determination of subtitle episodes
+  * Improve: results parsing
+  * Feature: Auto-download now copies subtitles next to the video or to a custom location, based on Kodi's subtitle storage mode path
+  * SubSource: Now supports series in "absolute order", as used by some anime websites
+  * SubSource: Fixed issue of duplicated subtitle IDs with different names
+
 [v3.16.1]:
   * Fix addons.xml.crc  
 
@@ -2281,12 +2310,12 @@ Många befintliga tillägg integreras redan med den här utanför lådan-tjänst
       <screenshot>resources/media/upnext-developer.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="skin.arctic.fuse" name="Arctic Fuse" provider-name="jurialmunkey" version="0.7.16~omega">
+</addon><addon id="skin.arctic.fuse" name="Arctic Fuse" provider-name="jurialmunkey" version="0.7.39~omega">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinvariables" version="2.1.14" />
         <import addon="script.texturemaker" version="0.2.9" />
-        <import addon="plugin.video.themoviedb.helper" version="5.2.17~nexus" />
+        <import addon="plugin.video.themoviedb.helper" version="5.2.27" />
         <import addon="resource.images.weathericons.white" version="0.0.1" />
         <import addon="resource.images.studios.coloured" version="0.0.1" />
     </requires>

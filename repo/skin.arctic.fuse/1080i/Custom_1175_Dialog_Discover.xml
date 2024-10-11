@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1175">
+    <defaultcontrol always="true">8000</defaultcontrol>
+    <onload condition="!Skin.String(Discover.TMDbType,movie) + !Skin.String(Discover.TMDbType,tv)">Skin.SetString(Discover.TMDbType,movie)</onload>
+    <controls>
+
+        <control type="group">
+            <include>Dimension_DialogHugeMenu</include>
+            <include>Animation_Right_Delay</include>
+
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <visible>!Window.IsVisible(1113)</visible>
+
+            <include content="Dialog_Dim_Side">
+                <param name="slide_condition">True</param>
+            </include>
+
+            <!-- Bottom Layer -->
+            <include content="Dialog_Background_Side">
+                <param name="slide_condition">True</param>
+                <param name="dialog_size">Dimension_DialogHugeMenu</param>
+                <!-- Side Buttons -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+                    <control type="grouplist" id="9000">
+                        <include>Dialog_Side_Grouplist_Def</include>
+                        <onleft>Close</onleft>
+                        <onright>8000</onright>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">01</param>
+                            <param name="label">$LOCALIZE[15067]</param>
+                            <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                            <param name="visible">true</param>
+                            <onclick>Action(Close)</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">02</param>
+                            <param name="label">$LOCALIZE[1024]</param>
+                            <param name="icon">special://skin/extras/icons/folder.png</param>
+                            <param name="visible">true</param>
+                            <onclick>Dialog.Close(1175,force)</onclick>
+                            <onclick>ActivateWindow(videos,$INFO[window(home).property(tmdbhelper.userdiscover.folderpath)]$INFO[Control.GetLabel(9099).index(1),&amp;with_text_query=,],return)</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">03</param>
+                            <param name="baseid">4</param>
+                            <param name="label">$VAR[Label_Discover_TMDbType]</param>
+                            <param name="icon">$VAR[Image_Discover_TMDbType]</param>
+                            <param name="visible">true</param>
+                            <onclick condition="Skin.String(Discover.TMDbType,movie)">Skin.SetString(Discover.TMDbType,tv)</onclick>
+                            <onclick condition="!Skin.String(Discover.TMDbType,movie)">Skin.SetString(Discover.TMDbType,movie)</onclick>
+                            <onclick>RunPlugin(plugin://plugin.video.themoviedb.helper/?info=user_discover&amp;tmdb_type=tv&amp;method=clear)</onclick>
+                        </include>
+                        <include content="Dialog_Side_Button">
+                            <param name="id">04</param>
+                            <param name="label">$LOCALIZE[192]</param>
+                            <param name="icon">special://skin/extras/icons/triangle-exclamation.png</param>
+                            <param name="visible">true</param>
+                            <onclick>RunScript(script.skinvariables,set_editcontrol=9099,window_id=1175,setfocus=9004)</onclick>
+                            <onclick>RunPlugin(plugin://plugin.video.themoviedb.helper/?info=user_discover&amp;tmdb_type=tv&amp;method=clear)</onclick>
+                        </include>
+                    </control>
+                </control>
+            </include>
+
+            <include content="Dialog_Foreground_Side">
+                <param name="dialog_size">Dimension_DialogHugeMenu</param>
+                <param name="slide_condition">True</param>
+                <param name="lines_right">800</param>
+
+                <!-- Header -->
+                <include content="Dialog_Head">
+                    <param name="label">$LOCALIZE[31066]</param>
+                    <param name="sublabel">TMDbHelper</param>
+                    <param name="sublabel_include">true</param>
+                </include>
+                <include>Dialog_Head_CloseButton</include>
+
+                <!-- Content -->
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+
+                    <control type="group">
+                        <width>480</width>
+
+                        <control type="group">
+                            <include>Dimension_Dialog_Body_Group</include>
+
+                            <include content="Settings_Button">
+                                <param name="dialog">true</param>
+                                <param name="id">9099</param>
+                                <param name="control">edit</param>
+                                <label>$LOCALIZE[31553]</label>
+                                <onup>SetFocus(8000,99999,absolute)</onup>
+                                <ondown>SetFocus(8000,0,absolute)</ondown>
+
+                                <onleft>9000</onleft>
+                                <onright>7000</onright>
+                            </include>
+
+                            <include content="List_DialogSelect">
+                                <param name="id">8000</param>
+                                <param name="textcolor">dialog_fg</param>
+                                <param name="itemlayout_include">Layout_MenuList</param>
+                                <param name="detailed">true</param>
+
+                                <onup>9099</onup>
+                                <ondown>9099</ondown>
+
+                                <onleft>9000</onleft>
+                                <onright>7000</onright>
+
+                                <top>80</top>
+
+                                <content>plugin://plugin.video.themoviedb.helper/?info=user_discover&amp;tmdb_type=$INFO[Skin.String(Discover.TMDbType)]&amp;method=skip$INFO[Window(Home).Property(TMDbHelper.UserDiscover.ParamsDict),&amp;reload=,]</content>
+
+                                <onclick>RunPlugin($INFO[Container(8000).ListItem.FolderPath])</onclick>
+
+                            </include>
+                        </control>
+
+                    </control>
+
+                    <include content="Dialog_Outline_InnerBox">
+                        <left>480</left>
+                        <right>40</right>
+                        <!-- <height>708</height>
+                        <bottom>0</bottom> -->
+
+                        <include content="List_Poster_Wall">
+                            <param name="id">7000</param>
+                            <param name="detailed">String.IsEqual(ListItem.Label,$LOCALIZE[31046])</param>
+
+                            <include content="Animation_ConditionalFade">
+                                <param name="condition">Container(7000).IsUpdating</param>
+                            </include>
+
+                            <pagecontrol>61</pagecontrol>
+
+                            <onleft>8000</onleft>
+                            <onright>61</onright>
+                            <content>
+                                <item>
+                                    <label>$LOCALIZE[31046]</label>
+                                    <icon>fallback/no-results.png</icon>
+                                    <visible>Integer.IsEqual(Container(7000).NumItems,0) | [Integer.IsEqual(Container(7000).NumItems,1) + String.IsEqual(Container(7000).ListItemAbsolute(0).Label,$LOCALIZE[31046])]</visible>
+                                </item>
+                            </content>
+
+                            <content browse="$VAR[Defs_BrowseLimitedLists]" target="videos">$INFO[window(home).property(tmdbhelper.userdiscover.folderpath)]$INFO[Control.GetLabel(9099).index(1),&amp;with_text_query=,]</content>
+                        </include>
+
+                        <control type="group">
+                            <right>-40</right>
+                            <include content="Object_BusySpinner">
+                                <param name="colordiffuse">dialog_fg</param>
+                                <visible>Container(7000).IsUpdating</visible>
+                            </include>
+                        </control>
+
+                    </include>
+
+                    <include content="Dialog_Scrollbar">
+                        <param name="id">61</param>
+                        <onleft>7000</onleft>
+                    </include>
+                </control>
+            </include>
+        </control>
+    </controls>
+</window>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fonts>
+
+    <fontset id="Default" unicode="false">
+        <include content="Font_Default">
+            <param name="font_black">AljazeeraFull.ttf</param>
+            <param name="font_bold">AljazeeraFull.ttf</param>
+            <param name="font_regular">AljazeeraFull.ttf</param>
+            <param name="font_light">AljazeeraFull.ttf</param>
+            <param name="aspect_system">0.8</param>
+        </include>
+    </fontset>	
+
+    <fontset id="Amazon" unicode="true">
+        <include content="Font_Default">
+            <param name="font_black">AmazonFullRegular.ttf</param>
+            <param name="font_bold">AmazonFullRegular.ttf</param>
+            <param name="font_regular">AmazonFullRegular.ttf</param>
+            <param name="font_light">AmazonFullRegular.ttf</param>
+            <param name="aspect_system">0.8</param>
+        </include>
+    </fontset>
+
+    <fontset id="Samim" unicode="true">
+        <include content="Font_Default">
+            <param name="font_black">SamimFullBold.ttf</param>
+            <param name="font_bold">SamimFullBold.ttf</param>
+            <param name="font_regular">SamimFullBold.ttf</param>
+            <param name="font_light">SamimFullBold.ttf</param>
+            <param name="aspect_system">0.8</param>
+        </include>
+    </fontset>
+	
+	<fontset id="NotoRoboto" unicode="true">
+        <include content="Font_Default">
+            <param name="font_black">RobotoNotoCondensed-Black.ttf</param>
+            <param name="font_bold">RobotoNotoCondensed-Bold.ttf</param>
+            <param name="font_regular">RobotoNotoCondensed-Regular.ttf</param>
+            <param name="font_light">RobotoNotoCondensed-Light.ttf</param>
+            <param name="aspect_system">0.8</param>
+        </include>
+    </fontset>
+
+
+</fonts>
+

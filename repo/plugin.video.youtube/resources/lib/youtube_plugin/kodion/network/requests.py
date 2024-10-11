@@ -10,16 +10,16 @@
 from __future__ import absolute_import, division, unicode_literals
 
 import atexit
+import socket
 from traceback import format_stack
 
 from requests import Session
 from requests.adapters import HTTPAdapter, Retry
 from requests.exceptions import InvalidJSONError, RequestException
+from requests.utils import DEFAULT_CA_BUNDLE_PATH, extract_zipped_paths
+from urllib3.util.ssl_ import create_urllib3_context
 
-from ..compatibility import xbmcaddon
-from ..constants import ADDON_ID
 from ..logger import log_error
-from ..settings import XbmcPluginSettings
 
 
 __all__ = (
@@ -27,11 +27,45 @@ __all__ = (
     'InvalidJSONError'
 )
 
-_settings = XbmcPluginSettings(xbmcaddon.Addon(id=ADDON_ID))
+
+class SSLHTTPAdapter(HTTPAdapter):
+    _SOCKET_OPTIONS = (
+        (socket.SOL_SOCKET, getattr(socket, 'SO_KEEPALIVE', None), 1),
+        (socket.IPPROTO_TCP, getattr(socket, 'TCP_NODELAY', None), 1),
+        (socket.IPPROTO_TCP, getattr(socket, 'TCP_KEEPIDLE', None), 300),
+        # TCP_KEEPALIVE equivalent to TCP_KEEPIDLE on iOS/macOS
+        (socket.IPPROTO_TCP, getattr(socket, 'TCP_KEEPALIVE', None), 300),
+        # TCP_KEEPINTVL may not be implemented at app level on iOS/macOS
+        (socket.IPPROTO_TCP, getattr(socket, 'TCP_KEEPINTVL', None), 60),
+        # TCP_KEEPCNT may not be implemented at app level on iOS/macOS
+        (socket.IPPROTO_TCP, getattr(socket, 'TCP_KEEPCNT', None), 5),
+        # TCP_USER_TIMEOUT = TCP_KEEPIDLE + TCP_KEEPINTVL * TCP_KEEPCNT
+        (socket.IPPROTO_TCP, getattr(socket, 'TCP_USER_TIMEOUT', None), 600),
+    )
+
+    _ssl_context = create_urllib3_context()
+    _ssl_context.load_verify_locations(
+        capath=extract_zipped_paths(DEFAULT_CA_BUNDLE_PATH)
+    )
+
+    def init_poolmanager(self, *args, **kwargs):
+        kwargs['ssl_context'] = self._ssl_context
+
+        kwargs['socket_options'] = [
+            socket_option for socket_option in self._SOCKET_OPTIONS
+            if socket_option[1] is not None
+        ]
+
+        return super(SSLHTTPAdapter, self).init_poolmanager(*args, **kwargs)
+
+    def cert_verify(self, conn, url, verify, cert):
+        self._ssl_context.check_hostname = bool(verify)
+        return super(SSLHTTPAdapter, self).cert_verify(conn, url, verify, cert)
 
 
 class BaseRequestsClass(object):
-    _http_adapter = HTTPAdapter(
+    _session = Session()
+    _session.mount('https://', SSLHTTPAdapter(
         pool_maxsize=10,
         pool_block=True,
         max_retries=Retry(
@@ -40,24 +74,21 @@ class BaseRequestsClass(object):
             status_forcelist={500, 502, 503, 504},
             allowed_methods=None,
         )
-    )
-
-    _session = Session()
-    _session.mount('https://', _http_adapter)
+    ))
     atexit.register(_session.close)
 
-    def __init__(self, exc_type=None):
-        self._verify = _settings.verify_ssl()
-        self._timeout = _settings.get_timeout()
+    def __init__(self, context, exc_type=None):
+        settings = context.get_settings()
+        self._verify = settings.verify_ssl()
+        self._timeout = settings.requests_timeout()
+        self._proxy = settings.proxy_settings()
+
         if isinstance(exc_type, tuple):
             self._default_exc = (RequestException,) + exc_type
         elif exc_type:
             self._default_exc = (RequestException, exc_type)
         else:
             self._default_exc = (RequestException,)
-
-    def __del__(self):
-        self._session.close()
 
     def __enter__(self):
         return self
@@ -81,6 +112,8 @@ class BaseRequestsClass(object):
             timeout = self._timeout
         if verify is None:
             verify = self._verify
+        if proxies is None:
+            proxies = self._proxy
         if allow_redirects is None:
             allow_redirects = True
 
@@ -133,7 +166,7 @@ class BaseRequestsClass(object):
                     error_details.update(_detail)
                 if _response is not None:
                     response = _response
-                    response_text = str(_response)
+                    response_text = repr(_response)
                 if _trace is not None:
                     stack_trace = _trace
                 if _exc is not None:
@@ -156,7 +189,7 @@ class BaseRequestsClass(object):
                     error_info = str(exc)
 
             if response_text:
-                response_text = 'Request response:\n{0}'.format(response_text)
+                response_text = 'Response:\n\t|{0}|'.format(response_text)
 
             if stack_trace:
                 stack_trace = (

@@ -20,7 +20,7 @@ ORDER = ['seren',
          'coal',
          'pov',
          'umb',
-         'onem',
+         'infinity',
          'dradis',
          'taz',
          'shadow',
@@ -35,6 +35,7 @@ ORDER = ['seren',
          'blackl',
          'metv',
          'aliunde',
+         'nightlite',
          'otaku',
          'acctmgr',
          'allact',
@@ -154,20 +155,20 @@ DEBRIDID = {
         'default_ad'  : 'alldebridusername',
         'data'     : [],
         'activate' : 'Addon.OpenSettings(plugin.video.umbrella)'},
-    'onem': {
-        'name'     : 'OneMoar',
-        'plugin'   : 'plugin.video.onemoar',
-        'saved'    : 'onem',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'onem'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.onemoar', 'settings.xml'),
+    'infinity': {
+        'name'     : 'Infinity',
+        'plugin'   : 'plugin.video.infinity',
+        'saved'    : 'infinity',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media/', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'infinity'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.infinity', 'settings.xml'),
         'default_rd'  : 'realdebridusername',
         'default_pm'  : 'premiumizeusername',
         'default_ad'  : 'alldebridusername',
         'data'     : [],
-        'activate' : 'Addon.OpenSettings(plugin.video.onemoar)'},
+        'activate' : 'Addon.OpenSettings(plugin.video.infinity)'},
     'dradis': {
         'name'     : 'Dradis',
         'plugin'   : 'plugin.video.dradis',
@@ -352,7 +353,7 @@ DEBRIDID = {
         'activate' : 'Addon.OpenSettings(plugin.video.metv19)'},
     'aliunde': {
         'name'     : 'Aliunde K19',
-        'plugin'   : 'plugin.video.aliunde',
+        'plugin'   : 'plugin.video.aliundek19',
         'saved'    : 'aliunde',
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.aliundek19'),
         'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.aliundek19', 'icon.png'),
@@ -364,6 +365,20 @@ DEBRIDID = {
         'default_ad'  : 'alldebrid.username',
         'data'     : [],
         'activate' : 'Addon.OpenSettings(plugin.video.aliundek19)'},
+    'nightlite': {
+        'name'     : 'Nightwing Lite',
+        'plugin'   : 'plugin.video.NightwingLite',
+        'saved'    : 'nightlite',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.NightwingLite'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.NightwingLite', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.NightwingLite', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'nightlite'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.NightwingLite', 'settings.xml'),
+        'default_rd'  : 'rd.client_id',
+        'default_pm'  : 'premiumize.token',
+        'default_ad'  : 'alldebrid.username',
+        'data'     : [],
+        'activate' : 'Addon.OpenSettings(plugin.video.NightwingLite)'},
     'otaku': {
         'name'     : 'Otaku',
         'plugin'   : 'plugin.video.otaku',
@@ -492,7 +507,7 @@ def debrid_user_rd(who):
             if os.path.exists(DEBRIDID[who]['path']):
                 try:
                     add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                    user_rd = add.getSetting(DEBRIDID[who]['default_rd'])
+                    user_rd = add.getSetting(DEBRIDID[who]['default'])
                 except:
                     pass
     return user_rd
@@ -540,7 +555,7 @@ def debrid_user_pm(who):
             if os.path.exists(DEBRIDID[who]['path']):
                 try:
                     add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                    user_pm = add.getSetting(DEBRIDID[who]['default_pm'])
+                    user_pm = add.getSetting(DEBRIDID[who]['default'])
                 except:
                     pass
     return user_pm
@@ -588,7 +603,7 @@ def debrid_user_ad(who):
             if os.path.exists(DEBRIDID[who]['path']):
                 try:
                     add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                    user_ad = add.getSetting(DEBRIDID[who]['default_ad'])
+                    user_ad = add.getSetting(DEBRIDID[who]['default'])
                 except:
                     pass
     return user_ad

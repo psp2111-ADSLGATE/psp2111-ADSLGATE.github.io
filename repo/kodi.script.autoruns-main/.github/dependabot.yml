@@ -1,0 +1,22 @@
+# Keep GitHub Actions up to date with Dependabot:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      timezone: "Europe/Madrid"
+      time: "23:00"
+    commit-message:
+      prefix: "[dependabot] github-action update"
+    reviewers:
+      - "bittor7x0"
+    assignees:
+      - "bittor7x0"
+    groups:
+      github_actions:
+        patterns:
+          - "*"  # Group all GitHub Actions updates into a single larger pull request

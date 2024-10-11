@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC-Addons\n"
-"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: 2015-09-21 11:01+0000\n"
-"PO-Revision-Date: 2023-10-27 12:11+0000\n"
+"PO-Revision-Date: 2024-04-14 19:47+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Russian <https://kodi.weblate.cloud/projects/kodi-add-ons-video/plugin-video-youtube/ru_ru/>\n"
 "Language: ru_ru\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.4.3\n"
 
 msgctxt "Addon Summary"
 msgid "Plugin for YouTube"
@@ -41,21 +41,25 @@ msgid "General"
 msgstr "Общие"
 
 msgctxt "#30001"
-msgid "Username"
-msgstr "Имя пользователя"
+msgid ""
+msgstr ""
 
 msgctxt "#30002"
-msgid "Password"
-msgstr "Пароль"
+msgid ""
+msgstr ""
 
-# empty strings from id 30003 to 30006
+msgctxt "#30003"
+msgid "YouTube"
+msgstr ""
+
+# empty strings from id 30004 to 30006
 msgctxt "#30007"
-msgid "Use MPEG-DASH"
-msgstr "Использовать MPEG-DASH"
+msgid "Use InputStream.Adaptive"
+msgstr ""
 
 msgctxt "#30008"
-msgid "Configure InputStream Adaptive"
-msgstr "Настроить InputStream Adaptive"
+msgid "Configure InputStream.Adaptive"
+msgstr ""
 
 msgctxt "#30009"
 msgid "Always ask for the video quality"
@@ -123,12 +127,12 @@ msgid "Cache size (MB)"
 msgstr "Размер кэша (Мб)"
 
 msgctxt "#30025"
-msgid "Enable setup-wizard"
-msgstr "Запустить мастер настройки"
+msgid "Enable Setup Wizard"
+msgstr ""
 
 msgctxt "#30026"
-msgid "Override view"
-msgstr "Пользовательские настройки вида"
+msgid "Override views"
+msgstr ""
 
 msgctxt "#30027"
 msgid "View: Default"
@@ -143,8 +147,8 @@ msgid "View: Movies"
 msgstr "Вид: Фильмы"
 
 msgctxt "#30030"
-msgid "Execute setup-wizard?"
-msgstr "Запустить мастер настройки?"
+msgid "Configure %s?"
+msgstr ""
 
 msgctxt "#30031"
 msgid "Advanced"
@@ -181,28 +185,28 @@ msgstr "ID плейлиста для истории"
 # Kodion Common
 # empty strings from id 30039 to 30099
 msgctxt "#30100"
-msgid "Favourites"
-msgstr "Избранное"
+msgid "Bookmarks"
+msgstr ""
 
 msgctxt "#30101"
-msgid "Add to addon favs"
-msgstr "Добавить в избранное дополнения"
+msgid "Bookmark"
+msgstr ""
 
 msgctxt "#30102"
 msgid "Search"
 msgstr "Поиск"
 
 msgctxt "#30103"
-msgid "Library"
-msgstr "Библиотека"
+msgid ""
+msgstr ""
 
 msgctxt "#30104"
-msgid "Highlights"
-msgstr "Рекомендуемое"
+msgid ""
+msgstr ""
 
 msgctxt "#30105"
-msgid "Archive"
-msgstr "Архив"
+msgid ""
+msgstr ""
 
 msgctxt "#30106"
 msgid "Next Page (%d)"
@@ -217,8 +221,8 @@ msgid "Remove"
 msgstr "Удалить"
 
 msgctxt "#30109"
-msgid "Latest Videos"
-msgstr "Новейшее видео"
+msgid ""
+msgstr ""
 
 msgctxt "#30110"
 msgid "New Search"
@@ -261,8 +265,12 @@ msgid "Please wait..."
 msgstr "Пожалуйста, подождите..."
 
 msgctxt "#30120"
-msgid "Clear"
-msgstr "Очистить"
+msgid "Confirm clear"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Clear %s?"
+msgstr ""
 
 # YouTube
 # empty strings from id 30121 to 30199
@@ -283,12 +291,12 @@ msgid "API Secret"
 msgstr "Секретный код клиента (API Secret)"
 
 msgctxt "#30204"
-msgid "Enable personal API keys"
-msgstr "Использовать персональный ключ API"
+msgid ""
+msgstr ""
 
 msgctxt "#30205"
-msgid "Use preset API key set"
-msgstr "Использовать предустановленный ключ API"
+msgid ""
+msgstr ""
 
 # YouTube
 # empty strings from id 30206 to 30499
@@ -305,8 +313,8 @@ msgid "Go to %s"
 msgstr "Перейти к %s"
 
 msgctxt "#30503"
-msgid "Show channel fanart"
-msgstr "Показывать фанарты каналов"
+msgid "Channel fanart"
+msgstr ""
 
 msgctxt "#30504"
 msgid "Subscriptions"
@@ -345,8 +353,8 @@ msgid "Browse Channels"
 msgstr "Просмотр каналов"
 
 msgctxt "#30513"
-msgid "Popular right now"
-msgstr "Сейчас просматривают"
+msgid "Trending"
+msgstr ""
 
 msgctxt "#30514"
 msgid "Related Videos"
@@ -365,8 +373,8 @@ msgid "Subscribe to %s"
 msgstr "Подписаться %s"
 
 msgctxt "#30518"
-msgid "Go to '%s'"
-msgstr "Перейдите по ссылке '%s'"
+msgid ""
+msgstr ""
 
 msgctxt "#30519"
 msgid "and enter the following code:"
@@ -397,12 +405,12 @@ msgid "Select region"
 msgstr "Выберите регион"
 
 msgctxt "#30526"
-msgid "Adjust"
-msgstr "Региональные настройки"
+msgid "Setup Wizard"
+msgstr ""
 
 msgctxt "#30527"
-msgid "Language and region?"
-msgstr "Запустить настройку языка и региона?"
+msgid "Language and Region"
+msgstr ""
 
 msgctxt "#30528"
 msgid "Rate..."
@@ -457,8 +465,8 @@ msgid "Play with..."
 msgstr "Воспроизвести с помощью..."
 
 msgctxt "#30541"
-msgid "Show channel name in description"
-msgstr "Показывать название канала в описании"
+msgid "Show channel name and video details in description"
+msgstr ""
 
 msgctxt "#30542"
 msgid "rtmpe streams are not supported"
@@ -477,12 +485,12 @@ msgid "No further links found."
 msgstr "Ссылки не найдены."
 
 msgctxt "#30546"
-msgid "Please log in twice!"
-msgstr "Пожалуйста, авторизуйтесь дважды!"
+msgid "Please complete all login prompts"
+msgstr ""
 
 msgctxt "#30547"
-msgid "You must enable two applications so that YouTube is functioning properly."
-msgstr "Вы должны подключить две копии приложения, чтобы YouTube функционировал правильно."
+msgid "You may be prompted to enable two applications so that YouTube is functioning properly."
+msgstr ""
 
 msgctxt "#30548"
 msgid "More..."
@@ -541,20 +549,20 @@ msgid "None"
 msgstr "Ничего"
 
 msgctxt "#30562"
-msgid "All"
-msgstr "Все"
+msgid ""
+msgstr ""
 
 msgctxt "#30563"
-msgid "Setting"
-msgstr "Установка"
+msgid ""
+msgstr ""
 
 msgctxt "#30564"
-msgid "Setting, English"
-msgstr "Установка, Английский"
+msgid ""
+msgstr ""
 
 msgctxt "#30565"
-msgid "English"
-msgstr "Английский"
+msgid ""
+msgstr ""
 
 msgctxt "#30566"
 msgid "Prompt"
@@ -609,8 +617,8 @@ msgid "Force SSL certificate verification"
 msgstr "Принудительная проверка SSL сертификатов"
 
 msgctxt "#30579"
-msgid "MPEG-DASH is enabled in the YouTube settings, however InputStream Adaptive appears to be disabled. Would you like to enable InputStream Adaptive now?"
-msgstr "В настройках YouTube MPEG-DASH включен, однако InputStream Adaptive выключен. Хотите включить InputStream Adaptive?"
+msgid "InputStream.Adaptive is activated in the YouTube settings, however the add-on has been disabled. Would you like to enable InputStream.Adaptive now?"
+msgstr ""
 
 msgctxt "#30580"
 msgid "Reset access manager"
@@ -693,12 +701,12 @@ msgid "Failed to enable personal API keys. Missing: %s"
 msgstr "Ошибка включения персонального API ключа. Отсутствует: %s"
 
 msgctxt "#30600"
-msgid "Configure subtitles"
-msgstr "Настройка субтитров"
+msgid "Subtitles"
+msgstr "Субтитры"
 
 msgctxt "#30601"
-msgid "%s with %s fallback"
-msgstr "%s с альтернативой %s"
+msgid "%s with Original/%s fallback"
+msgstr ""
 
 msgctxt "#30602"
 msgid "No auto-generated"
@@ -745,28 +753,28 @@ msgid "Retry"
 msgstr "Повтор"
 
 msgctxt "#30613"
-msgid "Retrieve Watch Later playlist id"
-msgstr "Получить идентификатор списка воспроизведения \"Смотреть позже\""
+msgid ""
+msgstr ""
 
 msgctxt "#30614"
-msgid "Failed to retrieve Watch Later playlist id. Add a few videos to Watch Later via the web/app and retry."
-msgstr "Не удалось получить идентификатор для списка воспроизведения \"Смотреть позже\". Добавьте несколько видео в список через веб-приложение и повторите попытку."
+msgid ""
+msgstr ""
 
 msgctxt "#30615"
 msgid "Cancel"
 msgstr "Отмена"
 
 msgctxt "#30616"
-msgid "Must be signed in."
-msgstr "Должен быть зарегистрирован."
+msgid ""
+msgstr ""
 
 msgctxt "#30617"
-msgid "MPEG-DASH"
-msgstr "MPEG-DASH"
+msgid "InputStream.Adaptive"
+msgstr ""
 
 msgctxt "#30618"
-msgid "Enable mpeg-dash proxy"
-msgstr "Включить MPEG-DASH прокси"
+msgid ""
+msgstr ""
 
 msgctxt "#30619"
 msgid "Port"
@@ -777,8 +785,8 @@ msgid "Port %s already in use. Cannot start http server."
 msgstr "Порт %s уже используется. Ошибка запуска HTTP сервера."
 
 msgctxt "#30621"
-msgid "Proxy is required for mpeg-dash vods (see HTTP Server)"
-msgstr "Для MPEG-DASH vods необходим прокси (HTTP сервер)"
+msgid ""
+msgstr ""
 
 msgctxt "#30622"
 msgid "Purchases"
@@ -789,8 +797,8 @@ msgid "Install InputStream Helper"
 msgstr "Установить InputStream Helper"
 
 msgctxt "#30624"
-msgid "Requires Kodi 17+"
-msgstr "Требуется Kodi 17+"
+msgid ""
+msgstr ""
 
 msgctxt "#30625"
 msgid "InputStream Helper is already installed."
@@ -825,8 +833,8 @@ msgid "Enable API configuration page"
 msgstr "Включить страницу настроек API"
 
 msgctxt "#30633"
-msgid "http://<ipaddress>:<port>/api (see HTTP Server)"
-msgstr "http://<ipaddress>:<port>/api (смотрите HTTP сервер)"
+msgid "http://<ipaddress>:<port>/youtube/api (see Advanced > HTTP Server)"
+msgstr "http://<ipaddress>:<port>/youtube/api (смотрите HTTP сервер)"
 
 msgctxt "#30634"
 msgid "YouTube Add-on API Configuration"
@@ -885,16 +893,16 @@ msgid "Completed Live"
 msgstr "Завершенный прямой эфир"
 
 msgctxt "#30648"
-msgid "API Key is incorrect. Settings - API - API Key"
-msgstr "Неподходящий ключ API. Настройки - API - Ключ API"
+msgid "API Key is incorrect. Settings > API > API Key"
+msgstr ""
 
 msgctxt "#30649"
-msgid "Client Id is incorrect. Settings - API - API Id"
-msgstr "Неподходящий идентификатор клиента. Настройки - API - Идентификатор клиента (API Id)"
+msgid "Client Id is incorrect. Settings > API > API Id"
+msgstr ""
 
 msgctxt "#30650"
-msgid "Client Secret is incorrect. Settings - API - API Secret"
-msgstr "Неподходящий код клиента. Настройки - API - Секретный код клиента (API Secret)"
+msgid "Client Secret is incorrect. Settings > API > API Secret"
+msgstr ""
 
 msgctxt "#30651"
 msgid "Location"
@@ -905,8 +913,8 @@ msgid "Location radius (km)"
 msgstr "Радиус местонахождения (км)"
 
 msgctxt "#30653"
-msgid "Perform geolocation? Used for [B]My Location[/B]"
-msgstr "Выполнять геолокацию? Используется для [B]Мое местонахождение[/B]"
+msgid "My Location using IP geolocation lookup"
+msgstr ""
 
 msgctxt "#30654"
 msgid "My Location"
@@ -957,8 +965,8 @@ msgid "Switch to '%s' now?"
 msgstr "Переключиться на '%s'?"
 
 msgctxt "#30666"
-msgid "Removed '%s'"
-msgstr "'%s' удален"
+msgid "%s removed"
+msgstr ""
 
 msgctxt "#30667"
 msgid "Renamed '%s' to '%s'"
@@ -981,8 +989,8 @@ msgid "Clear playback history"
 msgstr "Очистить историю просмотра"
 
 msgctxt "#30672"
-msgid "Delete playback history"
-msgstr "Удалить историю просмотра"
+msgid "Delete playback history database"
+msgstr ""
 
 msgctxt "#30673"
 msgid "playback history"
@@ -1045,15 +1053,15 @@ msgid "data cache"
 msgstr "кеш данных"
 
 msgctxt "#30688"
-msgid "Use for videos"
-msgstr "Использовать для видео"
+msgid "Use MPEG-DASH for videos"
+msgstr ""
 
 msgctxt "#30689"
 msgid "Use for live streams"
 msgstr "Использовать для прямого эфира"
 
 msgctxt "#30690"
-msgid "InputStream Adaptive >= 2.0.12 is required for adaptive live streams"
+msgid "InputStream.Adaptive >= 2.0.12 is required for adaptive live streams"
 msgstr ""
 
 msgctxt "#30691"
@@ -1109,8 +1117,8 @@ msgid "Are you sure?"
 msgstr "Вы уверены?"
 
 msgctxt "#30704"
-msgid "Use YouTube website urls"
-msgstr "Использовать ссылки сайта YouTube"
+msgid "Use YouTube website urls with default player"
+msgstr ""
 
 msgctxt "#30705"
 msgid "Download subtitles"
@@ -1129,16 +1137,16 @@ msgid "Play audio only"
 msgstr "Воспроизвести аудио"
 
 msgctxt "#30709"
-msgid "Failed to retrieve Watch Later playlist id. To increase the chances of retrieval add 8-10 videos to Watch Later via the web/app and retry."
-msgstr "Не удалось получить идентификатор списка воспроизведения \"Смотреть позже\". Чтобы увеличить шансы на получение, добавьте 8-10 видео в список через веб-приложение и повторите попытку."
+msgid ""
+msgstr ""
 
 msgctxt "#30710"
-msgid "Failed to retrieve Watch Later playlist id. Try again tomorrow without removing any of the videos."
-msgstr "Не удалось получить идентификатор списка воспроизведения \"Смотреть позже\". Повторите попытку завтра, не удаляя ни одного видео."
+msgid ""
+msgstr ""
 
 msgctxt "#30711"
-msgid "Searching for Watch Later... Page %s"
-msgstr "Поиск в списке \"Смотреть позже\"... Страница %s"
+msgid ""
+msgstr ""
 
 msgctxt "#30712"
 msgid "Rate videos in playlists"
@@ -1177,16 +1185,16 @@ msgid "Unsubscribed from channel"
 msgstr "Отписан от канала"
 
 msgctxt "#30721"
-msgid "Default to WEBM adaptation set (4K)"
-msgstr "По умолчанию установлено значение адаптации WEBM (4K)"
+msgid ""
+msgstr ""
 
 msgctxt "#30722"
 msgid "Enable HDR video"
 msgstr ""
 
 msgctxt "#30723"
-msgid "Proxy is required for mpeg-dash vods (see HTTP Server)[CR]> 1080p and HDR requires InputStream Adaptive >= 2.3.14"
-msgstr "Прокси требуется для mpeg-dash видео (см. HTTP сервер)[CR]>Для 1080p и HDR требуется InputStream Adaptive >= 2.3.14"
+msgid "Proxy is required for MPEG-DASH VODs (see Advanced > HTTP Server)[CR]HDR and >1080p video requires InputStream.Adaptive >= 2.3.14"
+msgstr ""
 
 msgctxt "#30724"
 msgid "Enable high framerate video"
@@ -1237,19 +1245,19 @@ msgid "Edited"
 msgstr "Изменен"
 
 msgctxt "#30736"
-msgid "Hide short videos (1 minute or less)"
+msgid "Shorts (1 minute or less)"
 msgstr ""
 
 msgctxt "#30737"
-msgid "Use alternate client details"
+msgid ""
 msgstr ""
 
 msgctxt "#30738"
-msgid "Alternate #1"
+msgid ""
 msgstr ""
 
 msgctxt "#30739"
-msgid "Alternate #2"
+msgid ""
 msgstr ""
 
 msgctxt "#30740"
@@ -1347,6 +1355,437 @@ msgstr ""
 msgctxt "#30763"
 msgid "Multi-audio"
 msgstr ""
+
+msgctxt "#30764"
+msgid "Requests connect timeout"
+msgstr ""
+
+msgctxt "#30765"
+msgid "Requests read timeout"
+msgstr ""
+
+msgctxt "#30766"
+msgid "Premieres"
+msgstr ""
+
+msgctxt "#30767"
+msgid "Views"
+msgstr "Просмотры"
+
+msgctxt "#30768"
+msgid "Disable high framerate video at maximum video quality"
+msgstr ""
+
+msgctxt "#30769"
+msgid "Clear Watch Later list"
+msgstr ""
+
+msgctxt "#30770"
+msgid "Are you sure you want to clear your Watch Later list?"
+msgstr ""
+
+msgctxt "#30771"
+msgid "Disable fractional framerate hinting"
+msgstr ""
+
+msgctxt "#30772"
+msgid "Disable all framerate hinting"
+msgstr ""
+
+msgctxt "#30773"
+msgid "Show video details in video lists"
+msgstr ""
+
+msgctxt "#30774"
+msgid "All available"
+msgstr ""
+
+msgctxt "#30775"
+msgid "%s (translation)"
+msgstr ""
+
+msgctxt "#30776"
+msgid "Ask + Automatic + Quality selection"
+msgstr ""
+
+msgctxt "#30777"
+msgid "Views for %s (%s)"
+msgstr ""
+
+msgctxt "#30778"
+msgid "Import old playback history?"
+msgstr ""
+
+msgctxt "#30779"
+msgid "Import old search history?"
+msgstr ""
+
+msgctxt "#30780"
+msgid "Clear local watch later list"
+msgstr ""
+
+msgctxt "#30781"
+msgid "Delete watch later database"
+msgstr ""
+
+msgctxt "#30782"
+msgid "local watch later list"
+msgstr ""
+
+msgctxt "#30783"
+msgid "settings to recommended values"
+msgstr ""
+
+msgctxt "#30784"
+msgid "listings to show minimal details"
+msgstr ""
+
+msgctxt "#30785"
+msgid "performance settings"
+msgstr ""
+
+msgctxt "#30786"
+msgid "Choose device capabilities"
+msgstr ""
+
+msgctxt "#30787"
+msgid "720p, H.264 only | Limited or older devices"
+msgstr ""
+
+msgctxt "#30788"
+msgid "1080p/30 fps | Raspberry Pi 3, or similar"
+msgstr ""
+
+msgctxt "#30789"
+msgid "4K/30 fps or 1080p/60 fps, HDR if compatible | Raspberry Pi 5, or similar"
+msgstr ""
+
+msgctxt "#30790"
+msgid "4K/60 fps, HDR if compatible | Fire TV Cube Gen 2, Shield TV, Fire TV Stick 4K Gen 1, or similar"
+msgstr ""
+
+msgctxt "#30791"
+msgid "4K/60 fps, HDR, using AV1 | Fire TV Cube Gen 3, Fire TV Stick 4K Max, Vero V, or similar"
+msgstr ""
+
+msgctxt "#30792"
+msgid "8K/60 fps, HDR, using AV1 | Modern device or PC with full capabilities"
+msgstr ""
+
+msgctxt "#30793"
+msgid "Views count display colour"
+msgstr ""
+
+msgctxt "#30794"
+msgid "Likes count display colour"
+msgstr ""
+
+msgctxt "#30795"
+msgid "Comments count display colour"
+msgstr ""
+
+msgctxt "#30796"
+msgid "1080p/60 fps | Raspberry Pi 4, or similar"
+msgstr ""
+
+msgctxt "#30797"
+msgid "1080p/30 fps or 720p/30 fps, H.264 only | Raspberry Pi 1/2, or similar"
+msgstr ""
+
+msgctxt "#30798"
+msgid "Clear bookmarks list"
+msgstr ""
+
+msgctxt "#30799"
+msgid "Delete bookmarks database"
+msgstr ""
+
+msgctxt "#30800"
+msgid "bookmarks list"
+msgstr ""
+
+msgctxt "#30801"
+msgid "Clear Bookmarks list"
+msgstr ""
+
+msgctxt "#30802"
+msgid "Are you sure you want to clear your Bookmarks list?"
+msgstr ""
+
+msgctxt "#30803"
+msgid "Bookmark %s"
+msgstr ""
+
+msgctxt "#30804"
+msgid "Use YouTube website urls with external player"
+msgstr ""
+
+msgctxt "#30805"
+msgid "Use adaptive streaming formats with external player"
+msgstr ""
+
+msgctxt "#30806"
+msgid "Jump to page..."
+msgstr ""
+
+msgctxt "#30807"
+msgid "Use channel name as"
+msgstr ""
+
+msgctxt "#30808"
+msgid "Hide videos from listings"
+msgstr ""
+
+msgctxt "#30809"
+msgid "All upcoming videos"
+msgstr ""
+
+msgctxt "#30810"
+msgid "All previously streamed (completed) videos"
+msgstr ""
+
+msgctxt "#30811"
+msgid "Filter Live folders"
+msgstr ""
+
+msgctxt "#30812"
+msgid "Clear subscription feed history"
+msgstr ""
+
+msgctxt "#30813"
+msgid "Delete subscription feed history database"
+msgstr ""
+
+msgctxt "#30814"
+msgid "feed history"
+msgstr ""
+
+msgctxt "#30815"
+msgid "Go back..."
+msgstr ""
+
+msgctxt "#30816"
+msgid "List is empty.[CR][CR]Refresh from context menu or try again later."
+msgstr ""
+
+msgctxt "#30817"
+msgid "Refresh settings.xml"
+msgstr ""
+
+msgctxt "#30818"
+msgid "Are you sure you want to refresh settings.xml?"
+msgstr ""
+
+msgctxt "#30819"
+msgid "Play from start"
+msgstr ""
+
+#~ msgctxt "#30546"
+#~ msgid "Please log in twice!"
+#~ msgstr "Пожалуйста, авторизуйтесь дважды!"
+
+#~ msgctxt "#30547"
+#~ msgid "You must enable two applications so that YouTube is functioning properly."
+#~ msgstr "Вы должны подключить две копии приложения, чтобы YouTube функционировал правильно."
+
+#~ msgctxt "#30001"
+#~ msgid "Username"
+#~ msgstr "Имя пользователя"
+
+#~ msgctxt "#30002"
+#~ msgid "Password"
+#~ msgstr "Пароль"
+
+#~ msgctxt "#30008"
+#~ msgid "Configure InputStream Adaptive"
+#~ msgstr "Настроить InputStream Adaptive"
+
+#~ msgctxt "#30103"
+#~ msgid "Library"
+#~ msgstr "Библиотека"
+
+#~ msgctxt "#30104"
+#~ msgid "Highlights"
+#~ msgstr "Рекомендуемое"
+
+#~ msgctxt "#30105"
+#~ msgid "Archive"
+#~ msgstr "Архив"
+
+#~ msgctxt "#30109"
+#~ msgid "Latest Videos"
+#~ msgstr "Новейшее видео"
+
+#~ msgctxt "#30204"
+#~ msgid "Enable personal API keys"
+#~ msgstr "Использовать персональный ключ API"
+
+#~ msgctxt "#30205"
+#~ msgid "Use preset API key set"
+#~ msgstr "Использовать предустановленный ключ API"
+
+#~ msgctxt "#30518"
+#~ msgid "Go to '%s'"
+#~ msgstr "Перейдите по ссылке '%s'"
+
+#~ msgctxt "#30562"
+#~ msgid "All"
+#~ msgstr "Все"
+
+#~ msgctxt "#30563"
+#~ msgid "Setting"
+#~ msgstr "Установка"
+
+#~ msgctxt "#30564"
+#~ msgid "Setting, English"
+#~ msgstr "Установка, Английский"
+
+#~ msgctxt "#30565"
+#~ msgid "English"
+#~ msgstr "Английский"
+
+#~ msgctxt "#30613"
+#~ msgid "Retrieve Watch Later playlist id"
+#~ msgstr "Получить идентификатор списка воспроизведения \"Смотреть позже\""
+
+#~ msgctxt "#30614"
+#~ msgid "Failed to retrieve Watch Later playlist id. Add a few videos to Watch Later via the web/app and retry."
+#~ msgstr "Не удалось получить идентификатор для списка воспроизведения \"Смотреть позже\". Добавьте несколько видео в список через веб-приложение и повторите попытку."
+
+#~ msgctxt "#30616"
+#~ msgid "Must be signed in."
+#~ msgstr "Должен быть зарегистрирован."
+
+#~ msgctxt "#30624"
+#~ msgid "Requires Kodi 17+"
+#~ msgstr "Требуется Kodi 17+"
+
+#~ msgctxt "#30648"
+#~ msgid "API Key is incorrect. Settings - API - API Key"
+#~ msgstr "Неподходящий ключ API. Настройки - API - Ключ API"
+
+#~ msgctxt "#30649"
+#~ msgid "Client Id is incorrect. Settings - API - API Id"
+#~ msgstr "Неподходящий идентификатор клиента. Настройки - API - Идентификатор клиента (API Id)"
+
+#~ msgctxt "#30650"
+#~ msgid "Client Secret is incorrect. Settings - API - API Secret"
+#~ msgstr "Неподходящий код клиента. Настройки - API - Секретный код клиента (API Secret)"
+
+#~ msgctxt "#30709"
+#~ msgid "Failed to retrieve Watch Later playlist id. To increase the chances of retrieval add 8-10 videos to Watch Later via the web/app and retry."
+#~ msgstr "Не удалось получить идентификатор списка воспроизведения \"Смотреть позже\". Чтобы увеличить шансы на получение, добавьте 8-10 видео в список через веб-приложение и повторите попытку."
+
+#~ msgctxt "#30710"
+#~ msgid "Failed to retrieve Watch Later playlist id. Try again tomorrow without removing any of the videos."
+#~ msgstr "Не удалось получить идентификатор списка воспроизведения \"Смотреть позже\". Повторите попытку завтра, не удаляя ни одного видео."
+
+#~ msgctxt "#30711"
+#~ msgid "Searching for Watch Later... Page %s"
+#~ msgstr "Поиск в списке \"Смотреть позже\"... Страница %s"
+
+#~ msgctxt "#30721"
+#~ msgid "Default to WEBM adaptation set (4K)"
+#~ msgstr "По умолчанию установлено значение адаптации WEBM (4K)"
+
+#~ msgctxt "#30666"
+#~ msgid "Removed '%s'"
+#~ msgstr "'%s' удален"
+
+#~ msgctxt "#30503"
+#~ msgid "Show channel fanart"
+#~ msgstr "Показывать фанарты каналов"
+
+# Kodion Common
+# empty strings from id 30039 to 30099
+#~ msgctxt "#30100"
+#~ msgid "Favourites"
+#~ msgstr "Избранное"
+
+#~ msgctxt "#30101"
+#~ msgid "Add to addon favs"
+#~ msgstr "Добавить в избранное дополнения"
+
+#~ msgctxt "#30704"
+#~ msgid "Use YouTube website urls"
+#~ msgstr "Использовать ссылки сайта YouTube"
+
+# empty strings from id 30003 to 30006
+#~ msgctxt "#30007"
+#~ msgid "Use MPEG-DASH"
+#~ msgstr "Использовать MPEG-DASH"
+
+#~ msgctxt "#30025"
+#~ msgid "Enable setup-wizard"
+#~ msgstr "Запустить мастер настройки"
+
+#~ msgctxt "#30026"
+#~ msgid "Override view"
+#~ msgstr "Пользовательские настройки вида"
+
+#~ msgctxt "#30030"
+#~ msgid "Execute setup-wizard?"
+#~ msgstr "Запустить мастер настройки?"
+
+#~ msgctxt "#30120"
+#~ msgid "Clear"
+#~ msgstr "Очистить"
+
+#~ msgctxt "#30513"
+#~ msgid "Popular right now"
+#~ msgstr "Сейчас просматривают"
+
+#~ msgctxt "#30526"
+#~ msgid "Adjust"
+#~ msgstr "Региональные настройки"
+
+#~ msgctxt "#30527"
+#~ msgid "Language and region?"
+#~ msgstr "Запустить настройку языка и региона?"
+
+#~ msgctxt "#30541"
+#~ msgid "Show channel name in description"
+#~ msgstr "Показывать название канала в описании"
+
+#~ msgctxt "#30579"
+#~ msgid "MPEG-DASH is enabled in the YouTube settings, however InputStream Adaptive appears to be disabled. Would you like to enable InputStream Adaptive now?"
+#~ msgstr "В настройках YouTube MPEG-DASH включен, однако InputStream Adaptive выключен. Хотите включить InputStream Adaptive?"
+
+#~ msgctxt "#30600"
+#~ msgid "Configure subtitles"
+#~ msgstr "Настройка субтитров"
+
+#~ msgctxt "#30601"
+#~ msgid "%s with %s fallback"
+#~ msgstr "%s с альтернативой %s"
+
+#~ msgctxt "#30617"
+#~ msgid "MPEG-DASH"
+#~ msgstr "MPEG-DASH"
+
+#~ msgctxt "#30618"
+#~ msgid "Enable mpeg-dash proxy"
+#~ msgstr "Включить MPEG-DASH прокси"
+
+#~ msgctxt "#30621"
+#~ msgid "Proxy is required for mpeg-dash vods (see Advanced > HTTP Server)"
+#~ msgstr "Для MPEG-DASH vods необходим прокси (HTTP сервер)"
+
+#~ msgctxt "#30653"
+#~ msgid "Perform geolocation? Used for [B]My Location[/B]"
+#~ msgstr "Выполнять геолокацию? Используется для [B]Мое местонахождение[/B]"
+
+#~ msgctxt "#30672"
+#~ msgid "Delete playback history"
+#~ msgstr "Удалить историю просмотра"
+
+#~ msgctxt "#30688"
+#~ msgid "Use for videos"
+#~ msgstr "Использовать для видео"
+
+#~ msgctxt "#30723"
+#~ msgid "Proxy is required for mpeg-dash vods (see Advanced > HTTP Server)[CR]> 1080p and HDR requires InputStream Adaptive >= 2.3.14"
+#~ msgstr "Прокси требуется для mpeg-dash видео (см. HTTP сервер)[CR]>Для 1080p и HDR требуется InputStream Adaptive >= 2.3.14"
 
 #~ msgctxt "#30010"
 #~ msgid "Video quality"

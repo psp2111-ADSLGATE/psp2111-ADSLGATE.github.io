@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <include content="Object_DefaultControl">
+        <param name="always">true</param>
+        <param name="defaultcontrol">4001</param>
+    </include>
+
+    <menucontrol>4000</menucontrol>
+
+    <include>DialogInfo_Onload</include>
+
+    <controls>
+        <include>Defs_TMDbHelper_Loader</include>
+
+        <control type="group">
+            <include>DialogInfo_Main_Group</include>
+            <control type="group">
+                <include>DialogInfo_Body_Group</include>
+                <control type="group">
+                    <include>DialogInfo_InfoPanel_Group</include>
+                </control>
+                <control type="group">
+                    <include>DialogInfo_InfoDetails_Group</include>
+                    <include>DialogInfo_VideoInfo</include>
+                </control>
+            </control>
+            <include condition="!$EXP[Exp_HomeMenu_IsTopBar]">DialogInfo_ArtworkGallery</include>
+        </control>
+
+        <include>DialogInfo_VideoButtons</include>
+        <include>DialogInfo_Furniture</include>
+        <include>TouchMode_Info_Zones</include>
+        <include>DialogInfo_PlotBox</include>
+    </controls>
+</window>

@@ -1,0 +1,231 @@
+<settings version="2">
+    <setting id="greeting_enabled">true</setting>
+    <setting id="skip_burst_search" default="true">false</setting>
+    <setting id="skip_repository_search" default="true">false</setting>
+    <setting id="startup_delay" default="true">0</setting>
+    <setting id="preload_timeout">1</setting>
+    <setting id="binary_platform" default="true">Auto</setting>
+    <setting id="play_resume_action">1</setting>
+    <setting id="play_resume_back" default="true">0</setting>
+    <setting id="download_storage">1</setting>
+    <setting id="auto_memory_size">true</setting>
+    <setting id="label1" default="true" />
+    <setting id="auto_memory_size_strategy">1</setting>
+    <setting id="label2" default="true" />
+    <setting id="memory_size">100</setting>
+    <setting id="auto_adjust_memory_size">true</setting>
+    <setting id="label3" default="true" />
+    <setting id="label4" default="true" />
+    <setting id="label5" default="true" />
+    <setting id="label6" default="true" />
+    <setting id="label7" default="true" />
+    <setting id="download_file_strategy" default="true">0</setting>
+    <setting id="download_path" default="true" />
+    <setting id="library_path" default="true">special://temp/elementum_library/</setting>
+    <setting id="torrents_path" default="true">special://temp/elementum_torrents/</setting>
+    <setting id="use_torrent_history">true</setting>
+    <setting id="torrent_history_size">50</setting>
+    <setting id="keep_downloading">1</setting>
+    <setting id="keep_files_playing">1</setting>
+    <setting id="keep_files_finished">1</setting>
+    <setting id="completed_move" default="true">false</setting>
+    <setting id="completed_movies_path" default="true" />
+    <setting id="completed_shows_path" default="true" />
+    <setting id="completed_help" default="true" />
+    <setting id="silent_stream_start" default="true">false</setting>
+    <setting id="autoyes_enabled">true</setting>
+    <setting id="autoyes_timeout">5</setting>
+    <setting id="force_link_type" default="true">false</setting>
+    <setting id="smart_episode_match">true</setting>
+    <setting id="smart_episode_start">true</setting>
+    <setting id="smart_episode_choose">true</setting>
+    <setting id="use_cache_torrents">true</setting>
+    <setting id="show_files_watched">true</setting>
+    <setting id="choose_stream_auto_movie" default="true">false</setting>
+    <setting id="choose_stream_auto_show" default="true">false</setting>
+    <setting id="choose_stream_auto_search" default="true">false</setting>
+    <setting id="library_enabled">true</setting>
+    <setting id="label15" default="true" />
+    <setting id="library_sync_enabled">true</setting>
+    <setting id="library_sync_playback_enabled">true</setting>
+    <setting id="library_update_delay">300</setting>
+    <setting id="library_update_frequency">6</setting>
+    <setting id="library_auto_scan">true</setting>
+    <setting id="add_specials" default="true">false</setting>
+    <setting id="unaired_seasons" default="true">false</setting>
+    <setting id="unaired_episodes" default="true">false</setting>
+    <setting id="show_episodes_on_release_day" default="true">false</setting>
+    <setting id="playback_percent">85</setting>
+    <setting id="library_update" default="true">0</setting>
+    <setting id="strm_language" default="true" />
+    <setting id="library_nfo_movies">true</setting>
+    <setting id="library_nfo_shows">true</setting>
+    <setting id="language" default="true" />
+    <setting id="second_language" default="true" />
+    <setting id="do_not_disturb" default="true">false</setting>
+    <setting id="enable_overlay_status">true</setting>
+    <setting id="overlay_status_offset">150</setting>
+    <setting id="disable_bg_progress" default="true">false</setting>
+    <setting id="disable_bg_progress_playback">true</setting>
+    <setting id="add_episode_numbers" default="true">false</setting>
+    <setting id="results_per_page">9</setting>
+    <setting id="default_fanart">true</setting>
+    <setting id="use_fanart_tv" default="true">false</setting>
+    <setting id="tmdb_images_quality">1</setting>
+    <setting id="seasons_all">true</setting>
+    <setting id="seasons_order" default="true">0</setting>
+    <setting id="seasons_specials">true</setting>
+    <setting id="tmdb_show_use_prod_company_as_studio" default="true">false</setting>
+    <setting id="show_unwatched_episodes_number">true</setting>
+    <setting id="viewmode_movies" default="true">0</setting>
+    <setting id="viewmode_tvshows" default="true">0</setting>
+    <setting id="viewmode_seasons" default="true">0</setting>
+    <setting id="viewmode_episodes" default="true">0</setting>
+    <setting id="viewmode_menus_movies" default="true">0</setting>
+    <setting id="viewmode_menus_tvshows" default="true">0</setting>
+    <setting id="viewmode_menus_movies_genres" default="true">0</setting>
+    <setting id="viewmode_menus_tvshows_genres" default="true">0</setting>
+    <setting id="buffer_size">20</setting>
+    <setting id="end_buffer_size">4</setting>
+    <setting id="auto_kodi_buffer_size">true</setting>
+    <setting id="buffer_timeout">60</setting>
+    <setting id="max_upload_rate" default="true">0</setting>
+    <setting id="max_download_rate" default="true">0</setting>
+    <setting id="limit_after_buffering" default="true">false</setting>
+    <setting id="autoload_torrents">true</setting>
+    <setting id="autoload_torrents_paused">true</setting>
+    <setting id="connections_limit" default="true">0</setting>
+    <setting id="conntracker_limit_auto">true</setting>
+    <setting id="conntracker_limit" default="true">0</setting>
+    <setting id="seed_forever" default="true">false</setting>
+    <setting id="share_ratio_limit">200</setting>
+    <setting id="seed_time_ratio_limit">700</setting>
+    <setting id="seed_time_limit">24</setting>
+    <setting id="disable_dht" default="true">false</setting>
+    <setting id="disable_lsd" default="true">false</setting>
+    <setting id="disable_tcp" default="true">false</setting>
+    <setting id="disable_utp" default="true">false</setting>
+    <setting id="disable_upnp" default="true">false</setting>
+    <setting id="listen_autodetect_ip">true</setting>
+    <setting id="listen_interfaces" default="true" />
+    <setting id="outgoing_interfaces" default="true" />
+    <setting id="listen_autodetect_port">true</setting>
+    <setting id="listen_port_min">6891</setting>
+    <setting id="listen_port_max">6899</setting>
+    <setting id="magnet_resolve_timeout">60</setting>
+    <setting id="label20" default="true" />
+    <setting id="tuned_storage">true</setting>
+    <setting id="disk_cache_size">12</setting>
+    <setting id="session_save">15</setting>
+    <setting id="encryption_policy" default="true">0</setting>
+    <setting id="spoof_user_agent" default="true">0</setting>
+    <setting id="use_libtorrent_config">true</setting>
+    <setting id="label21" default="true" />
+    <setting id="remove_original_trackers" default="true">false</setting>
+    <setting id="add_extra_trackers">1</setting>
+    <setting id="modify_trackers_strategy" default="true">0</setting>
+    <setting id="use_libtorrent_logging" default="true">false</setting>
+    <setting id="libtorrent_profile" default="true">0</setting>
+    <setting id="use_libtorrent_pauseresume" default="true">false</setting>
+    <setting id="trakt_token" default="true" />
+    <setting id="trakt_username" default="true" />
+    <setting id="trakt_refresh_token" default="true" />
+    <setting id="trakt_token_expiry" default="true">0</setting>
+    <setting id="force_use_trakt" default="true">false</setting>
+    <setting id="trakt_scrobble" default="true">false</setting>
+    <setting id="trakt_sync_enabled">true</setting>
+    <setting id="trakt_sync_playback_enabled">true</setting>
+    <setting id="trakt_sync_frequency_min">5</setting>
+    <setting id="trakt_sync_collections">true</setting>
+    <setting id="trakt_sync_watchlist">true</setting>
+    <setting id="trakt_sync_userlists">true</setting>
+    <setting id="trakt_sync_watched">true</setting>
+    <setting id="trakt_sync_watchedback">true</setting>
+    <setting id="trakt_sync_playback_progress">true</setting>
+    <setting id="trakt_sync_hidden">true</setting>
+    <setting id="trakt_sync_added_movies">true</setting>
+    <setting id="trakt_sync_added_movies_location" default="true">0</setting>
+    <setting id="trakt_sync_added_movies_list_name" default="true" />
+    <setting id="trakt_sync_added_movies_list" default="true">0</setting>
+    <setting id="trakt_sync_added_shows">true</setting>
+    <setting id="trakt_sync_added_shows_location" default="true">0</setting>
+    <setting id="trakt_sync_added_shows_list_name" default="true" />
+    <setting id="trakt_sync_added_shows_list" default="true">0</setting>
+    <setting id="trakt_sync_removed_movies_back">true</setting>
+    <setting id="trakt_sync_removed_movies">true</setting>
+    <setting id="trakt_sync_removed_movies_location" default="true">0</setting>
+    <setting id="trakt_sync_removed_movies_list_name" default="true" />
+    <setting id="trakt_sync_removed_movies_list" default="true">0</setting>
+    <setting id="trakt_sync_removed_shows_back">true</setting>
+    <setting id="trakt_sync_removed_shows">true</setting>
+    <setting id="trakt_sync_removed_shows_location" default="true">0</setting>
+    <setting id="trakt_sync_removed_shows_list_name" default="true" />
+    <setting id="trakt_sync_removed_shows_list" default="true">0</setting>
+    <setting id="trakt_progress_sort" default="true">0</setting>
+    <setting id="trakt_progress_hide_unaired">true</setting>
+    <setting id="trakt_use_lowest_release_date">true</setting>
+    <setting id="trakt_progress_color_date" default="true">yellow</setting>
+    <setting id="trakt_progress_color_show" default="true">none</setting>
+    <setting id="trakt_progress_color_episode" default="true">skyblue</setting>
+    <setting id="trakt_progress_color_unaired" default="true">deeppink</setting>
+    <setting id="trakt_progress_date_format" default="true">yyyy-mm-dd</setting>
+    <setting id="trakt_calendars_hide_watched" default="true">false</setting>
+    <setting id="trakt_calendars_color_date" default="true">yellow</setting>
+    <setting id="trakt_calendars_color_show" default="true">none</setting>
+    <setting id="trakt_calendars_color_episode" default="true">skyblue</setting>
+    <setting id="trakt_calendars_color_unaired" default="true">deeppink</setting>
+    <setting id="trakt_calendars_date_format" default="true">yyyy-mm-dd</setting>
+    <setting id="provider_use_lowest_release_date">true</setting>
+    <setting id="min_candidate_size">100</setting>
+    <setting id="min_candidate_show_size">4</setting>
+    <setting id="sorting_mode_movies">2</setting>
+    <setting id="sorting_mode_shows">2</setting>
+    <setting id="resolution_preference_movies" default="true">0</setting>
+    <setting id="resolution_preference_shows" default="true">0</setting>
+    <setting id="percentage_additional_seeders">25</setting>
+    <setting id="use_cache_selection">true</setting>
+    <setting id="use_cache_search" default="true">false</setting>
+    <setting id="cache_search_duration">180</setting>
+    <setting id="provider_disable_failing" default="true">false</setting>
+    <setting id="provider_allowed_failures">3</setting>
+    <setting id="custom_provider_timeout_enabled" default="true">false</setting>
+    <setting id="custom_provider_timeout">30</setting>
+    <setting id="internal_dns_enabled" default="true">false</setting>
+    <setting id="internal_dns_help" default="true" />
+    <setting id="internal_dns_skip_ipv6">true</setting>
+    <setting id="internal_dns_opennic" default="true">54.36.111.116, 192.3.165.37, 80.78.132.79</setting>
+    <setting id="internal_proxy_help" default="true" />
+    <setting id="internal_proxy_enabled" default="true">false</setting>
+    <setting id="internal_proxy_logging" default="true">false</setting>
+    <setting id="internal_proxy_logging_body" default="true">false</setting>
+    <setting id="proxy_enabled" default="true">false</setting>
+    <setting id="proxy_type">1</setting>
+    <setting id="proxy_host" default="true" />
+    <setting id="proxy_port">1080</setting>
+    <setting id="proxy_login" default="true" />
+    <setting id="proxy_password" default="true" />
+    <setting id="use_proxy_http">true</setting>
+    <setting id="use_proxy_tracker">true</setting>
+    <setting id="use_proxy_download">true</setting>
+    <setting id="opensubtitles_token" default="true" />
+    <setting id="opensubtitles_token_expiry" default="true">0</setting>
+    <setting id="opensubtitles_user" default="true" />
+    <setting id="opensubtitles_pass" default="true" />
+    <setting id="osdb_auto_language">true</setting>
+    <setting id="osdb_language" default="true" />
+    <setting id="osdb_auto_load" default="true">false</setting>
+    <setting id="osdb_auto_load_count">1</setting>
+    <setting id="osdb_auto_load_delete">true</setting>
+    <setting id="osdb_auto_load_skipexists">true</setting>
+    <setting id="osdb_included_enabled">true</setting>
+    <setting id="osdb_included_skipexists">true</setting>
+    <setting id="log_level">2</setting>
+    <setting id="tmdb_api_key" default="true" />
+    <setting id="local_only_client" default="true">false</setting>
+    <setting id="local_force_library" default="true">false</setting>
+    <setting id="local_port">65221</setting>
+    <setting id="remote_host" default="true">127.0.0.1</setting>
+    <setting id="remote_port">65220</setting>
+    <setting id="remote_login" default="true" />
+    <setting id="remote_password" default="true" />
+</settings>

@@ -127,6 +127,8 @@ class Router:
                         databit.restore_affen_trakt()
                         if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):
                             accountmgr.setSetting("dradis_traktsync", 'true')
+                        if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
+                            accountmgr.setSetting("genocide_traktsync", 'true')
                         accountmgr.setSetting("dradis_traktsync", 'true')
                         accountmgr.setSetting("api_restore", 'true')                            
                         accountmgr.setSetting("api.service", "true") #Enable API Check Service
@@ -194,26 +196,18 @@ class Router:
 
             if xbmcvfs.exists(var.chk_pov):
                 try:
-                    with open(var.path_pov,'r') as f:
-                        data = f.read()
-
-                    client = data.replace(var.client_am,var.pov_client).replace(var.secret_am,var.pov_secret)
-
-                    with open(var.path_pov,'w') as f:
-                        f.write(client)
+                    addon = xbmcaddon.Addon("plugin.video.pov")
+                    addon.setSetting("trakt.client_id", var.pov_client)
+                    addon.setSetting("trakt.client_secret", var.pov_secret)
                 except:
                     xbmc.log('%s: Traktit.py Revoke API POV Failed!' % var.amgr, xbmc.LOGINFO)
                     pass
 
             if xbmcvfs.exists(var.chk_dradis):
                 try:
-                    with open(var.path_dradis,'r') as f:
-                        data = f.read()
-
-                    client = data.replace(var.client_am,var.dradis_client).replace(var.secret_am,var.dradis_secret)
-
-                    with open(var.path_dradis,'w') as f:
-                        f.write(client)
+                    addon = xbmcaddon.Addon("plugin.video.dradis")
+                    addon.setSetting("trakt.client_id", var.client_am)
+                    addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
                     xbmc.log('%s: Traktit.py Revoke API Dradis Failed!' % var.amgr, xbmc.LOGINFO)
                     pass
@@ -361,6 +355,32 @@ class Router:
                     xbmc.log('%s: Traktit.py Revoke API Aliunde Failed!' % var.amgr, xbmc.LOGINFO)
                     pass
 
+            if xbmcvfs.exists(var.chk_night):
+                try:
+                    with open(var.path_night,'r') as f:
+                        data = f.read()
+
+                    client = data.replace(var.client_am,var.night_client).replace(var.secret_am,var.night_secret)
+
+                    with open(var.path_night,'w') as f:
+                        f.write(client)
+                except:
+                    xbmc.log('%s: Traktit.py Revoke API Nightwing Lite Failed!' % var.amgr, xbmc.LOGINFO)
+                    pass
+
+            if xbmcvfs.exists(var.chk_genocide):
+                try:
+                    with open(var.path_genocide,'r') as f:
+                        data = f.read()
+
+                    client = data.replace(var.client_am,var.genocide_client).replace(var.secret_am,var.genocide_secret)
+
+                    with open(var.path_genocide,'w') as f:
+                        f.write(client)
+                except:
+                    xbmc.log('%s: Traktit.py Revoke API Chains Genocide Failed!' % var.amgr, xbmc.LOGINFO)
+                    pass
+                
             if xbmcvfs.exists(var.chk_crew):
                 try:
                     with open(var.path_crew,'r') as f:
@@ -385,19 +405,6 @@ class Router:
                         f.write(client)
                 except:
                     xbmc.log('%s: Traktit.py Revoke API Scrubs V2 Failed!' % var.amgr, xbmc.LOGINFO)
-                    pass
-
-            if xbmcvfs.exists(var.chk_labjr):
-                try:
-                    with open(var.path_labjr,'r') as f:
-                        data = f.read()
-
-                    client = data.replace(var.client_am,var.labjr_client).replace(var.secret_am,var.labjr_secret)
-
-                    with open(var.path_labjr,'w') as f:
-                        f.write(client)
-                except:
-                    xbmc.log('%s: Traktit.py Revoke API TheLabjr Failed!' % var.amgr, xbmc.LOGINFO)
                     pass
 
             if xbmcvfs.exists(var.chk_tmdbh):
@@ -1205,26 +1212,17 @@ class Router:
 
                     if xbmcvfs.exists(var.chk_pov):
                         try:
-                            with open(var.path_pov,'r') as f:
-                                data = f.read()
-
-                            client = data.replace(var.client_am,var.pov_client).replace(var.secret_am,var.pov_secret)
-
-                            with open(var.path_pov,'w') as f:
-                                f.write(client)
+                            addon = xbmcaddon.Addon("plugin.video.pov")
+                            addon.setSetting("trakt.client_id", var.pov_client)
+                            addon.setSetting("trakt.client_secret", var.pov_secret)
                         except:
                             xbmc.log('%s: Traktit.py Revoke API POV Failed!' % var.amgr, xbmc.LOGINFO)
                             pass
 
                     if xbmcvfs.exists(var.chk_dradis):
                         try:
-                            with open(var.path_dradis,'r') as f:
-                                data = f.read()
-
-                            client = data.replace(var.client_am,var.dradis_client).replace(var.secret_am,var.dradis_secret)
-
-                            with open(var.path_dradis,'w') as f:
-                                f.write(client)
+                            addon.setSetting("trakt.client_id", var.dradis_client)
+                            addon.setSetting("trakt.client_secret", var.dradis_secret)
                         except:
                             xbmc.log('%s: Traktit.py Revoke API Dradis Failed!' % var.amgr, xbmc.LOGINFO)
                             pass
@@ -1372,6 +1370,19 @@ class Router:
                             xbmc.log('%s: Traktit.py Revoke API Aliunde Failed!' % var.amgr, xbmc.LOGINFO)
                             pass
 
+                    if xbmcvfs.exists(var.chk_night):
+                        try:
+                            with open(var.path_night,'r') as f:
+                                data = f.read()
+
+                            client = data.replace(var.client_am,var.night_client).replace(var.secret_am,var.night_secret)
+
+                            with open(var.path_night,'w') as f:
+                                f.write(client)
+                        except:
+                            xbmc.log('%s: Traktit.py Revoke API Nightwing Lite Failed!' % var.amgr, xbmc.LOGINFO)
+                            pass
+                        
                     if xbmcvfs.exists(var.chk_crew):
                         try:
                             with open(var.path_crew,'r') as f:
@@ -1396,19 +1407,6 @@ class Router:
                                 f.write(client)
                         except:
                             xbmc.log('%s: Traktit.py Revoke API Scrubs V2 Failed!' % var.amgr, xbmc.LOGINFO)
-                            pass
-
-                    if xbmcvfs.exists(var.chk_labjr):
-                        try:
-                            with open(var.path_labjr,'r') as f:
-                                data = f.read()
-
-                            client = data.replace(var.client_am,var.labjr_client).replace(var.secret_am,var.labjr_secret)
-
-                            with open(var.path_labjr,'w') as f:
-                                f.write(client)
-                        except:
-                            xbmc.log('%s: Traktit.py Revoke API TheLabjr Failed!' % var.amgr, xbmc.LOGINFO)
                             pass
 
                     if xbmcvfs.exists(var.chk_tmdbh):

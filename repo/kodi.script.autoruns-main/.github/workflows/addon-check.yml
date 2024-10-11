@@ -1,0 +1,70 @@
+name: Kodi Addon Check
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags-ignore:
+      - v*
+    paths-ignore:
+      - '.github/**'
+      - '!.github/workflows/addon-check.yml'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.gitmodules'
+      - '**/LICENSE.txt'
+      - '**.md'
+
+  pull_request:
+    branches:
+      - 'main'
+      - 'dependabot/**'
+    paths-ignore:
+      - '.github/**'
+      - '!.github/workflows/addon-check.yml'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.gitmodules'
+      - '**/LICENSE.txt'
+      - '**.md'
+
+  # Manual trigger
+  workflow_dispatch:
+
+jobs:
+  kodi-addon-checker:
+    name: Kodi addon checker
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        kodi-version: [ matrix, nexus, omega ]
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Kodi addon checker validation
+        id: kodi-addon-checker
+        uses: xbmc/action-kodi-addon-checker@master
+        with:
+          kodi-version: ${{ matrix.kodi-version }}
+          addon-id: script.autoruns
+
+  lint-python-format:
+    name: Python format
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Black Code Formatter
+        uses: psf/black@stable
+        with:
+          options: --check --diff --verbose
+
+      - name: isort Import Sorter
+        uses: isort/isort-action@v1
+        with:
+          configuration: --check-only --diff --profile black --verbose

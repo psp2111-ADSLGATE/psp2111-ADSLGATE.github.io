@@ -11,12 +11,13 @@
 from __future__ import absolute_import, division, unicode_literals
 
 from ...kodion import KodionException
+from ...kodion.constants import PATHS
 from ...kodion.items import menu_items
 from ...kodion.utils import find_video_id
 
 
 def _process_rate_video(provider, context, re_match):
-    listitem_path = context.get_listitem_detail('FileNameAndPath', attr=True)
+    listitem_path = context.get_listitem_info('FileNameAndPath')
     ratings = ['like', 'dislike', 'none']
 
     rating_param = context.get_param('rating', '')
@@ -28,7 +29,7 @@ def _process_rate_video(provider, context, re_match):
         try:
             video_id = re_match.group('video_id')
         except IndexError:
-            if context.is_plugin_path(listitem_path, 'play/'):
+            if context.is_plugin_path(listitem_path, PATHS.PLAY):
                 video_id = find_video_id(listitem_path)
 
             if not video_id:
@@ -65,12 +66,9 @@ def _process_rate_video(provider, context, re_match):
 
         response = provider.get_client(context).rate_video(video_id, result)
 
-        if response.get('status_code') != 204:
-            notify_message = context.localize('failed')
-
-        elif response.get('status_code') == 204:
+        if response:
             # this will be set if we are in the 'Liked Video' playlist
-            if context.get_param('refresh_container'):
+            if context.get_param('refresh'):
                 context.get_ui().refresh_container()
 
             if result == 'none':
@@ -79,6 +77,8 @@ def _process_rate_video(provider, context, re_match):
                 notify_message = context.localize('liked.video')
             elif result == 'dislike':
                 notify_message = context.localize('disliked.video')
+        else:
+            notify_message = context.localize('failed')
 
         if notify_message:
             context.get_ui().show_notification(
@@ -104,7 +104,7 @@ def _process_more_for_video(context):
         menu_items.content_from_description(context, video_id),
         menu_items.rate_video(context,
                               video_id,
-                              params.get('refresh_container')),
+                              params.get('refresh')),
     ] if params.get('logged_in') else [
         menu_items.related_videos(context, video_id),
         menu_items.video_comments(context, video_id),
@@ -116,9 +116,14 @@ def _process_more_for_video(context):
         context.execute(result)
 
 
-def process(method, provider, context, re_match):
+def process(provider, context, re_match=None, method=None):
+    if re_match and method is None:
+        method = re_match.group('method')
+
     if method == 'rate':
         return _process_rate_video(provider, context, re_match)
+
     if method == 'more':
         return _process_more_for_video(context)
-    raise KodionException("Unknown method '%s'" % method)
+
+    raise KodionException('Unknown method: %s' % method)

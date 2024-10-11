@@ -1,0 +1,3782 @@
+# Kodi Media Center language file
+# Addon Name: POV
+# Addon id: plugin.video.pov
+# Addon Provider: kodifitzwell
+# Translator Dutch: Tinuz97
+msgid ""
+msgstr ""
+
+msgctxt "#32001"
+msgid "General"
+msgstr "Algemeen"
+
+msgctxt "#32002"
+msgid "Show Next Episode Window"
+msgstr "Volgende Aflevering Venster"
+
+msgctxt "#32003"
+msgid "Databases"
+msgstr "Databases"
+
+msgctxt "#32004"
+msgid "Show Window Before End (secs)"
+msgstr "Venster Tonen Voor Einde (sec)"
+
+msgctxt "#32005"
+msgid "Show Window Before End (%)"
+msgstr "Venster Tonen Voor Einde (%)"
+
+msgctxt "#32006"
+msgid "Scrape with ALL External Scrapers"
+msgstr "Scrape met ALLE externe scrapers"
+
+msgctxt "#32007"
+msgid "[B]Download Pack[/B]"
+msgstr "[B]Download Pakket[/B]"
+
+msgctxt "#32008"
+msgid "Show TV Show Specials When Available"
+msgstr "TV Serie Specials Laten Zien Indien Beschikbaar"
+
+msgctxt "#32009"
+msgid "Flatten TV Show Seasons"
+msgstr "Verberg Seizoenen Van Series"
+
+msgctxt "#32010"
+msgid "Use Season Titles When Available"
+msgstr "Gebruik Seizoen Titels Indien Beschikbaar"
+
+msgctxt "#32011"
+msgid "Priority (Lower Number Equals Higher Priority)"
+msgstr "Prioriteit (Een Lager Getal Is Gelijk Aan Een Hogere Prioriteit)"
+
+msgctxt "#32012"
+msgid "Use as Default Provider (Slow)"
+msgstr "Gebruik als Standaard Provider (Traag)"
+
+msgctxt "#32013"
+msgid "Never"
+msgstr "Nooit"
+
+msgctxt "#32014"
+msgid "Rescrape & Select Source"
+msgstr "Opnieuw Scrapen & Bron Selecteren"
+
+msgctxt "#32015"
+msgid "Always"
+msgstr "Altijd"
+
+msgctxt "#32016"
+msgid "[B]Add to Cloud[/B]"
+msgstr "[B]Toevoegen Aan De Cloud[/B]"
+
+msgctxt "#32017"
+msgid "Auto Start POV when Kodi Starts"
+msgstr "POV Automatisch Starten Als Kodi Opstart"
+
+msgctxt "#32018"
+msgid "Set"
+msgstr "Stel"
+
+msgctxt "#32019"
+msgid "Paginate Lists When Possible"
+msgstr "Pagineer Lijsten Indien Mogelijk"
+
+msgctxt "#32020"
+msgid "Max. Lists items"
+msgstr "Maximale Lijsten Items"
+
+msgctxt "#32021"
+msgid "Jump To... List Navigation"
+msgstr "Ga naar... Lijst Navigatie"
+
+msgctxt "#32022"
+msgid "Page"
+msgstr "Pagina"
+
+msgctxt "#32023"
+msgid "Alphabet"
+msgstr "Alfabet"
+
+msgctxt "#32024"
+msgid "Disable"
+msgstr "Uitschakelen"
+
+msgctxt "#32025"
+msgid "Ignore Articles When Sorting Lists"
+msgstr "Negeer Artikelen Bij Het Sorteren Van Lijsten"
+
+msgctxt "#32026"
+msgid "Open POV Extras When Selecting..."
+msgstr "Open POV Extras Bij Het Selecteren Van..."
+
+msgctxt "#32027"
+msgid "Off"
+msgstr "Uit"
+
+msgctxt "#32028"
+msgid "Movies"
+msgstr "Films"
+
+msgctxt "#32029"
+msgid "TV Shows"
+msgstr "TV Series"
+
+msgctxt "#32030"
+msgid "Both"
+msgstr "Beide"
+
+msgctxt "#32031"
+msgid "Choose Files to Download"
+msgstr "Kies Bestanden om te Downloaden"
+
+msgctxt "#32032"
+msgid "If Only One Season"
+msgstr "Als Er Maar 1 Seizoen Is"
+
+msgctxt "#32033"
+msgid "Always"
+msgstr "Altijd"
+
+msgctxt "#32034"
+msgid "Watched Indicators"
+msgstr "Bekeken Indicatoren"
+
+msgctxt "#32035"
+msgid "Watched Status Provider"
+msgstr "Bekeken Status Provider"
+
+msgctxt "#32036"
+msgid "POV"
+msgstr "POV"
+
+msgctxt "#32037"
+msgid "Trakt"
+msgstr "Trakt"
+
+msgctxt "#32038"
+msgid "Show Window Based On"
+msgstr "Toon Venster Gebaseerd Op"
+
+msgctxt "#32039"
+msgid "Authorize Trakt for More options"
+msgstr "Autoriseer Trakt Voor Meer Opties"
+
+msgctxt "#32040"
+msgid "Percentage Played"
+msgstr "Percentage Gespeeld"
+
+msgctxt "#32041"
+msgid "Time Remaining"
+msgstr "Resterende Tijd"
+
+msgctxt "#32042"
+msgid "Set Watched in Kodi Library when Watched in POV"
+msgstr "Stel Bekeken in Kodi Bibliotheek In Wanneer Bekeken In POV"
+
+msgctxt "#32043"
+msgid "Most Watched This Week"
+msgstr "Meest Bekeken Deze Week"
+
+msgctxt "#32044"
+msgid "Continue Transfer in Background?"
+msgstr "Doorgaan met Overdracht op de Achtergrond?"
+
+msgctxt "#32045"
+msgid "UTC (+/-)"
+msgstr "UTC (+/-)"
+
+msgctxt "#32046"
+msgid "Enable Content for Extras Lists"
+msgstr "Inhoud voor Extras Lijsten Inschakelen"
+
+msgctxt "#32047"
+msgid "Refresh Data from Trakt Server every...(mins)"
+msgstr "Ververs Gegevens van Trakt Server elke...(min)"
+
+msgctxt "#32048"
+msgid "Attempt to Refresh Widgets After Refresh"
+msgstr "Poging om Widgets te Vernieuwen na Vernieuwen"
+
+msgctxt "#32049"
+msgid "Press Context Menu to Download Image..."
+msgstr "Druk op Contextmenu om Afbeelding te Downloaden..."
+
+msgctxt "#32050"
+msgid "Ignore All Filters When No Results Available"
+msgstr "Negeer Alle Filters Wanneer Er Geen Resultaten Beschikbaar Zijn"
+
+msgctxt "#32051"
+msgid "Login"
+msgstr "Login"
+
+msgctxt "#32052"
+msgid "Password"
+msgstr "Wachtwoord"
+
+msgctxt "#32053"
+msgid "API Key (optional)"
+msgstr "API Sleutel (optioneel)"
+
+msgctxt "#32054"
+msgid "Real Debrid"
+msgstr "Real Debrid"
+
+msgctxt "#32055"
+msgid "Enable"
+msgstr "Inschakelen"
+
+msgctxt "#32056"
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+msgctxt "#32057"
+msgid "Authorize"
+msgstr "Autoriseer"
+
+msgctxt "#32058"
+msgid "Re-Authorize"
+msgstr "Opnieuw Autoriseren"
+
+msgctxt "#32059"
+msgid "Revoke Authorization"
+msgstr "Autorisatie Intrekken"
+
+msgctxt "#32060"
+msgid "Add Resolved Torrents to Cloud"
+msgstr "Resolved Torrents Toevoegen Aan Cloud"
+
+msgctxt "#32061"
+msgid "Premiumize"
+msgstr "Premiumize"
+
+msgctxt "#32062"
+msgid "Customer ID"
+msgstr "Klant ID"
+
+msgctxt "#32063"
+msgid "All Debrid"
+msgstr "All Debrid"
+
+msgctxt "#32064"
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt "#32065"
+msgid "User"
+msgstr "Gebruiker"
+
+msgctxt "#32066"
+msgid "Sort Type"
+msgstr "Sorteer Type"
+
+msgctxt "#32067"
+msgid "Sort Order"
+msgstr "Sorteer Volgorde"
+
+msgctxt "#32068"
+msgid "TMDb"
+msgstr "TMDb"
+
+msgctxt "#32069"
+msgid "Furk"
+msgstr "Furk"
+
+msgctxt "#32070"
+msgid "Easynews"
+msgstr "Easynews"
+
+msgctxt "#32071"
+msgid "Next Episodes"
+msgstr "Volgende Afleveringen"
+
+msgctxt "#32072"
+msgid "Content and Sorting"
+msgstr "Inhoud En Sortering"
+
+msgctxt "#32073"
+msgid "Include Unaired Episodes"
+msgstr "Niet Uitgezonden Afleveringen Inbegrepen"
+
+msgctxt "#32074"
+msgid "Include Trakt Watchlist"
+msgstr "Trakt Watchlist Inbegrepen"
+
+# msgctxt "32075"
+
+msgctxt "#32076"
+msgid "Include Airdate in Title"
+msgstr "Uitzenddatum In Titel Inbegrepen"
+
+msgctxt "#32077"
+msgid "Single Episode Airdate Format"
+msgstr "Uitzenddatum Formaat in Lijsten met Één Aflevering"
+
+# msgctxt "32078"
+
+# msgctxt "32079"
+
+msgctxt "#32080"
+msgid "Unwatched Color"
+msgstr "Niet Bekeken Kleur"
+
+msgctxt "#32081"
+msgid "Trakt Calendar"
+msgstr "Trakt Kalender"
+
+msgctxt "#32082"
+msgid "Set Focus to Today's Date"
+msgstr "Zet De Focus Op De Datum Van Vandaag"
+
+msgctxt "#32083"
+msgid "Show Previous Days"
+msgstr "Toon Vorige Dagen"
+
+msgctxt "#32084"
+msgid "Show Future Days"
+msgstr "Toon Toekomstige Dagen"
+
+msgctxt "#32085"
+msgid "Widgets"
+msgstr "Widgets"
+
+msgctxt "#32086"
+msgid "Max. Items"
+msgstr "Maximale Items"
+
+msgctxt "#32087"
+msgid "Trakt Cache"
+msgstr "Trakt Cache"
+
+msgctxt "#32088"
+msgid "Use Episode Thumbnails For Background When Available"
+msgstr "Aflevering Thumbnail Gebruiken Voor Achtergrond indien Beschikbaar"
+
+msgctxt "#32089"
+msgid "Show"
+msgstr "Serie"
+
+msgctxt "#32090"
+msgid "On"
+msgstr "Aan"
+
+msgctxt "#32091"
+msgid "Full"
+msgstr "Volledig"
+
+msgctxt "#32092"
+msgid "Keywords"
+msgstr "Trefwoorden"
+
+msgctxt "#32093"
+msgid "Search Moderation"
+msgstr "Zoek Moderatie"
+
+msgctxt "#32094"
+msgid "Details"
+msgstr "Details"
+
+msgctxt "#32095"
+msgid "Highlight Color"
+msgstr "Kleur"
+
+msgctxt "#32096"
+msgid "Internal Scrapers"
+msgstr "Interne Scrapers"
+
+msgctxt "#32097"
+msgid "PM Cloud"
+msgstr "PM Cloud"
+
+msgctxt "#32098"
+msgid "RD Cloud"
+msgstr "RD Cloud"
+
+msgctxt "#32099"
+msgid "AD Cloud"
+msgstr "AD Cloud"
+
+msgctxt "#32100"
+msgid "Site"
+msgstr "Website"
+
+msgctxt "#32101"
+msgid "UTC Time Offset"
+msgstr "UTC Tijdcorrectie"
+
+msgctxt "#32102"
+msgid "Exclude Adult Results"
+msgstr "Adult Resultaten Uitgesloten"
+
+msgctxt "#32103"
+msgid "Show Results at Top"
+msgstr "Toon Resultaten Bovenaan"
+
+msgctxt "#32104"
+msgid "Check Before Full Search"
+msgstr "Controleer Voor Het Volledige Zoeken"
+
+msgctxt "#32105"
+msgid "Quality Limit"
+msgstr "Kwaliteitslimiet"
+
+msgctxt "#32106"
+msgid "Hash"
+msgstr "Hash"
+
+msgctxt "#32107"
+msgid "Downloads"
+msgstr "Downloads"
+
+msgctxt "#32108"
+msgid "Folders 1-5"
+msgstr "Mappen 1-5"
+
+msgctxt "#32109"
+msgid "Choose Folder Scraper"
+msgstr "Kies Map Scraper"
+
+msgctxt "#32110"
+msgid "Folder 1"
+msgstr "Map 1"
+
+msgctxt "#32111"
+msgid "Folder 2"
+msgstr "Map 2"
+
+msgctxt "#32112"
+msgid "Folder 3"
+msgstr "Map 3"
+
+msgctxt "#32113"
+msgid "Folder 4"
+msgstr "Map 4"
+
+msgctxt "#32114"
+msgid "Folder 5"
+msgstr "Map 5"
+
+msgctxt "#32115"
+msgid "Display Name"
+msgstr "Weergave Naam"
+
+msgctxt "#32116"
+msgid "Movies Directory"
+msgstr "Films Directory"
+
+msgctxt "#32117"
+msgid "TV Shows Directory"
+msgstr "TV Series Directory"
+
+msgctxt "#32118"
+msgid "External Scrapers"
+msgstr "Externe Scrapers"
+
+msgctxt "#32119"
+msgid "External Scrapers (Powered by Fenomscrapers)"
+msgstr "Externe Scrapers (Aangedreven Door Fenomscrapers)"
+
+msgctxt "#32120"
+msgid "Stop Search Early if Most Sources Finished"
+msgstr "Stop Zoeken Vroegtijdig Als De Meeste Bronnen Klaar Zijn"
+
+# msgctxt "32121"
+
+# msgctxt "32122"
+
+msgctxt "#32123"
+msgid "Internet Speed (Mbit/s)"
+msgstr "Internet Snelheid (Mbit/s)"
+
+# msgctxt "32124"
+
+# msgctxt "32125"
+
+# msgctxt "32126"
+
+msgctxt "#32127"
+msgid "Hosters Color"
+msgstr "Hosters Kleur"
+
+msgctxt "#32128"
+msgid "Torrents Color"
+msgstr "Torrents Kleur"
+
+msgctxt "#32129"
+msgid "All"
+msgstr "Alle"
+
+msgctxt "#32130"
+msgid "4K"
+msgstr "4K"
+
+msgctxt "#32131"
+msgid "1080P"
+msgstr "1080P"
+
+msgctxt "#32132"
+msgid "720P"
+msgstr "720P"
+
+msgctxt "#32133"
+msgid "SD"
+msgstr "SD"
+
+msgctxt "#32134"
+msgid "Multi File Pack Download Started..."
+msgstr "Downloaden Multi Bestandspakket Gestart..."
+
+msgctxt "#32135"
+msgid "Scrape with Custom Values"
+msgstr "Scrape met Aangepaste Waarden"
+
+msgctxt "#32136"
+msgid "Press Context Menu for Playback Options..."
+msgstr "Druk op Contextmenu voor Afspeelopties..."
+
+msgctxt "#32137"
+msgid "Default Scrapers"
+msgstr "Standaard Scrapers"
+
+msgctxt "#32138"
+msgid "Results Color Highlights"
+msgstr "Resultaten Kleur Highlights"
+
+msgctxt "#32139"
+msgid "Results"
+msgstr "Resultaten"
+
+msgctxt "#32140"
+msgid "Display"
+msgstr "Weergave"
+
+msgctxt "#32141"
+msgid "Scraper Timeout"
+msgstr "Scraper Timeout"
+
+msgctxt "#32142"
+msgid "Tikiskins"
+msgstr "Tikiskins"
+
+msgctxt "#32143"
+msgid "Search Dialog Heading"
+msgstr "Zoeken Dialoog Rubriek"
+
+msgctxt "#32144"
+msgid "Choose Notifications"
+msgstr "Kies Notificaties"
+
+msgctxt "#32145"
+msgid "Set Language"
+msgstr "Taal Instellen"
+
+msgctxt "#32146"
+msgid "Metadata"
+msgstr "Metadata"
+
+msgctxt "#32147"
+msgid "Extra Art (Powered by Fanart.tv)"
+msgstr "Extra Art (Aangedreven Door Fanart.tv)"
+
+msgctxt "#32148"
+msgid "Include Extra Art"
+msgstr "Inclusief Extra Art"
+
+msgctxt "#32149"
+msgid "TMDb Image Resolution"
+msgstr "TMDb Afbeelding Resolutie"
+
+msgctxt "#32150"
+msgid "Sorting and Filtering"
+msgstr "Sorteren en Filteren"
+
+msgctxt "#32151"
+msgid "Results Sorting"
+msgstr "Resultaten Sorteren"
+
+msgctxt "#32152"
+msgid "Filter Results"
+msgstr "Filter Resultaten"
+
+msgctxt "#32153"
+msgid "Clear Filter"
+msgstr "Wis Filter"
+
+msgctxt "#32154"
+msgid "Filter by Quality"
+msgstr "Filter op Kwaliteit"
+
+msgctxt "#32155"
+msgid "Include Pre-Release Results (CAM/SCR/TELE)"
+msgstr "Pre-Release Resultaten Inbegrepen (CAM/SCR/TELE)"
+
+msgctxt "#32156"
+msgid "Include 3D Results"
+msgstr "3D Resultaten Inbegrepen"
+
+msgctxt "#32157"
+msgid "Filter by Provider"
+msgstr "Filter op Provider"
+
+msgctxt "#32158"
+msgid "HDR Files Filter"
+msgstr " HDR Bestanden Filter"
+
+msgctxt "#32159"
+msgid "Dolby Vision Files Filter"
+msgstr "Dolby Vision Bestanden Filter"
+
+msgctxt "#32160"
+msgid "Display Uncached Torrents"
+msgstr "Weergave Van Niet In Cache Torrents"
+
+msgctxt "#32161"
+msgid "Filter Results by Size"
+msgstr "Filter Resultaten Op Grootte"
+
+msgctxt "#32162"
+msgid "Include Results With Unknown Size"
+msgstr "Resultaten Met Onbekende Grootte Inbegrepen"
+
+# msgctxt "32163"
+
+# msgctxt "32164"
+
+# msgctxt "32165"
+
+# msgctxt "32166"
+
+msgctxt "#32167"
+msgid "Internal Scrapers Color"
+msgstr "Interne Scrapers Kleur"
+
+msgctxt "#32168"
+msgid "External Scrapers Color"
+msgstr "Externe Scrapers Kleur"
+
+msgctxt "#32169"
+msgid "Filter Extra Info"
+msgstr "Filter Extra Informatie"
+
+msgctxt "#32170"
+msgid "Resolution"
+msgstr "Resolutie"
+
+# msgctxt "32171"
+
+msgctxt "#32172"
+msgid "Filter Results by Name"
+msgstr "Filter Resultaten Op Naam"
+
+msgctxt "#32173"
+msgid "Fanart.tv"
+msgstr "Fanart.tv"
+
+msgctxt "#32174"
+msgid "Playback"
+msgstr "Afspelen"
+
+msgctxt "#32175"
+msgid "Auto Play"
+msgstr "Automatisch Afspelen"
+
+msgctxt "#32176"
+msgid "Limit Quality"
+msgstr "Beperk Kwaliteit"
+
+msgctxt "#32177"
+msgid "HEVC Files Filter"
+msgstr "HEVC Bestanden Filter"
+
+msgctxt "#32178"
+msgid "Autoplay Next Episode"
+msgstr "Automatisch Afspelen Volgende Aflevering"
+
+msgctxt "#32179"
+msgid "Episodes Watched Before Still Watching Check (0=Off)"
+msgstr "Afleveringen Bekeken Voordat Ze Nog Steeds Worden Bekeken Check (0=Uit)"
+
+msgctxt "#32180"
+msgid "Become a VIP member at fanart.tv for many benefits"
+msgstr "Word VIP lid bij fanart.tv voor vele voordelen"
+
+msgctxt "#32181"
+msgid "Automatically Resume Playback"
+msgstr "Afspelen Automatisch Hervatten"
+
+msgctxt "#32182"
+msgid "Subtitles (Powered by opensubtitles.org)"
+msgstr "Ondertiteling (Aangedreven door opensubtitles.org)"
+
+msgctxt "#32183"
+msgid "Download Subtitles Action"
+msgstr "Download Ondertiteling Actie"
+
+msgctxt "#32184"
+msgid "Subtitle Language"
+msgstr "Ondertiteling Taal"
+
+# msgctxt "32185"
+
+msgctxt "#32186"
+msgid "Force Enable Local Subs"
+msgstr "Forceer Lokale Ondertiteling Activeren"
+
+# msgctxt "32187"
+
+msgctxt "#32188"
+msgid "Include"
+msgstr "Inbegrepen"
+
+msgctxt "#32189"
+msgid "Exclude"
+msgstr "Uitgesloten"
+
+msgctxt "#32190"
+msgid "Prefer (Autoplay)"
+msgstr "Voorkeur (Automatisch Afspelen)"
+
+msgctxt "#32191"
+msgid "Autoplay Only"
+msgstr "Alleen Automatisch Afspelen"
+
+msgctxt "#32192"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "#32193"
+msgid "Select"
+msgstr "Selecteer"
+
+msgctxt "#32194"
+msgid "Single Episode Lists Title Format"
+msgstr "Titel Formaat in Lijsten met Één Aflevering"
+
+msgctxt "#32195"
+msgid "Directories"
+msgstr "Directories"
+
+msgctxt "#32196"
+msgid "Updates"
+msgstr "Updates"
+
+msgctxt "#32197"
+msgid "[B]Favorites Manager[/B]"
+msgstr "[B]Favorieten Beheren[/B]"
+
+msgctxt "#32198"
+msgid "[B]Trakt Lists Manager[/B]"
+msgstr "[B]Trakt Lijsten Beheren[/B]"
+
+msgctxt "#32199"
+msgid "Trakt List"
+msgstr "Trakt Lijst"
+
+# msgctxt "32200"
+
+msgctxt "#32201"
+msgid "TITLE: SxE - EPISODE"
+msgstr "TITEL: SxE - AFLEVERING"
+
+msgctxt "#32202"
+msgid "SxE - EPISODE"
+msgstr "SxE - AFLEVERING"
+
+msgctxt "#32203"
+msgid "EPISODE"
+msgstr "AFLEVERING"
+
+msgctxt "#32204"
+msgid "Highlight Results Based On"
+msgstr "Resultaten Markeren Op Basis Van"
+
+msgctxt "#32205"
+msgid "Trakt Lists"
+msgstr "Trakt Lijsten"
+
+msgctxt "#32206"
+msgid "Real Debrid Color"
+msgstr "Real Debrid Kleur"
+
+msgctxt "#32207"
+msgid "Premiumize Color"
+msgstr "Premiumize Kleur"
+
+msgctxt "#32208"
+msgid "All Debrid Color"
+msgstr "All Debrid Kleur"
+
+msgctxt "#32209"
+msgid "Progress Color Highlights"
+msgstr "Voortgang Kleur Highlights"
+
+msgctxt "#32210"
+msgid "Premium Files Directory"
+msgstr "Premium Bestanden Directory"
+
+msgctxt "#32211"
+msgid "Notifications"
+msgstr "Notificaties"
+
+# msgctxt "32212"
+
+# msgctxt "32213"
+
+# msgctxt "32214"
+
+msgctxt "#32215"
+msgid "List Default"
+msgstr "Lijst Standaard"
+
+msgctxt "#32216"
+msgid "Alphabetical"
+msgstr "Alfabetisch"
+
+msgctxt "#32217"
+msgid "IMDb Rating"
+msgstr "IMDb Beoordeling"
+
+msgctxt "#32218"
+msgid "Popularity"
+msgstr "Populariteit"
+
+msgctxt "#32219"
+msgid "Your Rating"
+msgstr "Uw Beoordeling"
+
+msgctxt "#32220"
+msgid "Number Of Ratings"
+msgstr "Aantal Beoordelingen"
+
+msgctxt "#32221"
+msgid "Release Date"
+msgstr "Release Datum"
+
+msgctxt "#32222"
+msgid "Runtime"
+msgstr "Speelduur"
+
+msgctxt "#32223"
+msgid "Date Added"
+msgstr "Datum Toegevoegd"
+
+msgctxt "#32224"
+msgid "Ascending"
+msgstr "Oplopend"
+
+msgctxt "#32225"
+msgid "Descending"
+msgstr "Aflopend"
+
+msgctxt "#32226"
+msgid "Recently Watched"
+msgstr "Onlangs Bekeken"
+
+msgctxt "#32227"
+msgid "Airdate"
+msgstr "Uitzenddatum"
+
+msgctxt "#32228"
+msgid "Title"
+msgstr "Titel"
+
+msgctxt "#32229"
+msgid "Day-Month-Year"
+msgstr "Dag-Maand-Jaar"
+
+msgctxt "#32230"
+msgid "Year-Month-Day"
+msgstr "Jaar-Maand-Dag"
+
+msgctxt "#32231"
+msgid "Month-Day-Year"
+msgstr "Maand-Dag-Jaar"
+
+msgctxt "#32232"
+msgid "One Hour"
+msgstr "Een Uur"
+
+msgctxt "#32233"
+msgid "One Day"
+msgstr "Een Dag"
+
+msgctxt "#32234"
+msgid "One Week"
+msgstr "Een Week"
+
+msgctxt "#32235"
+msgid "Furk Color"
+msgstr "Furk Kleur"
+
+msgctxt "#32236"
+msgid "Easynews Color"
+msgstr "Easynews Kleur"
+
+msgctxt "#32237"
+msgid "Dialog"
+msgstr "Dialoog"
+
+msgctxt "#32238"
+msgid "Scraper Module"
+msgstr "Scraper Module"
+
+msgctxt "#32239"
+msgid "Media Title"
+msgstr "Media Titel"
+
+msgctxt "#32240"
+msgid "Scraper Type"
+msgstr "Scraper Type"
+
+msgctxt "#32241"
+msgid "Quality"
+msgstr "Kwaliteit"
+
+msgctxt "#32242"
+msgid "Hourly Intervals"
+msgstr "Uurlijkse Intervallen"
+
+msgctxt "#32243"
+msgid "Daily Time"
+msgstr "Dagelijkse Tijd"
+
+msgctxt "#32244"
+msgid "Debrid Cloud Color"
+msgstr "Debrid Cloud Kleur"
+
+msgctxt "#32245"
+msgid "[B]CHOOSE SETTINGS GROUP...[/B]"
+msgstr "[B]INSTELLINGEN GROEP KIEZEN...[/B]"
+
+msgctxt "#32246"
+msgid "Subtitles"
+msgstr "Ondertiteling"
+
+msgctxt "#32247"
+msgid "Settings"
+msgstr "Instellingen"
+
+# msgctxt "32248"
+
+# msgctxt "32249"
+
+# msgctxt "32250"
+
+# msgctxt "32251"
+
+# msgctxt "32252"
+
+# msgctxt "32253"
+
+# msgctxt "32254"
+
+# msgctxt "32255"
+
+# msgctxt "32256"
+
+# msgctxt "32257"
+
+# msgctxt "32258"
+
+# msgctxt "32259"
+
+# msgctxt "32260"
+
+# msgctxt "32261"
+
+# msgctxt "32262"
+
+# msgctxt "32263"
+
+# msgctxt "32264"
+
+# msgctxt "32265"
+
+# msgctxt "32266"
+
+# msgctxt "32267"
+
+# msgctxt "32268"
+
+# msgctxt "32269"
+
+# msgctxt "32270"
+
+# msgctxt "32271"
+
+# msgctxt "32272"
+
+# msgctxt "32273"
+
+# msgctxt "32274"
+
+# msgctxt "32275"
+
+# msgctxt "32276"
+
+# msgctxt "32277"
+
+# msgctxt "32278"
+
+# msgctxt "32279"
+
+# msgctxt "32280"
+
+# msgctxt "32281"
+
+# msgctxt "32282"
+
+# msgctxt "32283"
+
+# msgctxt "32284"
+
+# msgctxt "32285"
+
+# msgctxt "32286"
+
+# msgctxt "32287"
+
+# msgctxt "32288"
+
+# msgctxt "32289"
+
+# msgctxt "32290"
+
+# msgctxt "32291"
+
+# msgctxt "32292"
+
+# msgctxt "32293"
+
+# msgctxt "32294"
+
+# msgctxt "32295"
+
+# msgctxt "32296"
+
+# msgctxt "32297"
+
+# msgctxt "32298"
+
+# msgctxt "32299"
+
+# msgctxt "32300"
+
+# msgctxt "32301"
+
+# msgctxt "32302"
+
+# msgctxt "32303"
+
+# msgctxt "32304"
+
+# msgctxt "32305"
+
+# msgctxt "32306"
+
+# msgctxt "32307"
+
+# msgctxt "32308"
+
+# msgctxt "32309"
+
+# msgctxt "32310"
+
+# msgctxt "32311"
+
+# msgctxt "32312"
+
+# msgctxt "32313"
+
+# msgctxt "32314"
+
+# msgctxt "32315"
+
+# msgctxt "32316"
+
+# msgctxt "32317"
+
+# msgctxt "32318"
+
+# msgctxt "32319"
+
+# msgctxt "32320"
+
+# msgctxt "32321"
+
+# msgctxt "32322"
+
+# msgctxt "32323"
+
+# msgctxt "32324"
+
+# msgctxt "32325"
+
+# msgctxt "32326"
+
+# msgctxt "32327"
+
+# msgctxt "32328"
+
+# msgctxt "32329"
+
+# msgctxt "32330"
+
+# msgctxt "32331"
+
+# msgctxt "32332"
+
+# msgctxt "32333"
+
+# msgctxt "32334"
+
+# msgctxt "32335"
+
+# msgctxt "32336"
+
+# msgctxt "32337"
+
+# msgctxt "32338"
+
+# msgctxt "32339"
+
+# msgctxt "32340"
+
+# msgctxt "32341"
+
+# msgctxt "32342"
+
+# msgctxt "32343"
+
+# msgctxt "32344"
+
+# msgctxt "32345"
+
+# msgctxt "32346"
+
+# msgctxt "32347"
+
+# msgctxt "32348"
+
+# msgctxt "32349"
+
+# msgctxt "32350"
+
+# msgctxt "32351"
+
+# msgctxt "32352"
+
+# msgctxt "32353"
+
+# msgctxt "32354"
+
+# msgctxt "32355"
+
+# msgctxt "32356"
+
+# msgctxt "32357"
+
+# msgctxt "32358"
+
+# msgctxt "32359"
+
+# msgctxt "32360"
+
+# msgctxt "32361"
+
+# msgctxt "32362"
+
+# msgctxt "32363"
+
+# msgctxt "32364"
+
+# msgctxt "32365"
+
+# msgctxt "32366"
+
+# msgctxt "32367"
+
+# msgctxt "32368"
+
+# msgctxt "32369"
+
+# msgctxt "32370"
+
+# msgctxt "32371"
+
+# msgctxt "32372"
+
+# msgctxt "32373"
+
+# msgctxt "32374"
+
+# msgctxt "32375"
+
+# msgctxt "32376"
+
+# msgctxt "32377"
+
+# msgctxt "32378"
+
+# msgctxt "32379"
+
+# msgctxt "32380"
+
+# msgctxt "32381"
+
+# msgctxt "32382"
+
+# msgctxt "32383"
+
+# msgctxt "32384"
+
+# msgctxt "32385"
+
+# msgctxt "32386"
+
+# msgctxt "32387"
+
+# msgctxt "32388"
+
+# msgctxt "32389"
+
+# msgctxt "32390"
+
+# msgctxt "32391"
+
+# msgctxt "32392"
+
+# msgctxt "32393"
+
+# msgctxt "32394"
+
+# msgctxt "32395"
+
+# msgctxt "32396"
+
+# msgctxt "32397"
+
+# msgctxt "32398"
+
+# msgctxt "32399"
+
+# msgctxt "32400"
+
+# msgctxt "32401"
+
+# msgctxt "32402"
+
+# msgctxt "32403"
+
+# msgctxt "32404"
+
+# msgctxt "32405"
+
+# msgctxt "32406"
+
+# msgctxt "32407"
+
+# msgctxt "32408"
+
+# msgctxt "32409"
+
+# msgctxt "32410"
+
+# msgctxt "32411"
+
+# msgctxt "32412"
+
+# msgctxt "32413"
+
+# msgctxt "32414"
+
+# msgctxt "32415"
+
+# msgctxt "32416"
+
+# msgctxt "32417"
+
+# msgctxt "32418"
+
+# msgctxt "32419"
+
+# msgctxt "32420"
+
+# msgctxt "32421"
+
+# msgctxt "32422"
+
+# msgctxt "32423"
+
+# msgctxt "32424"
+
+# msgctxt "32425"
+
+# msgctxt "32426"
+
+# msgctxt "32427"
+
+# msgctxt "32428"
+
+# msgctxt "32429"
+
+# msgctxt "32430"
+
+# msgctxt "32431"
+
+# msgctxt "32432"
+
+# msgctxt "32433"
+
+# msgctxt "32434"
+
+# msgctxt "32435"
+
+# msgctxt "32436"
+
+# msgctxt "32437"
+
+# msgctxt "32438"
+
+# msgctxt "32439"
+
+# msgctxt "32440"
+
+# msgctxt "32441"
+
+# msgctxt "32442"
+
+# msgctxt "32443"
+
+# msgctxt "32444"
+
+# msgctxt "32445"
+
+# msgctxt "32446"
+
+# msgctxt "32447"
+
+# msgctxt "32448"
+
+# msgctxt "32449"
+
+msgctxt "#32450"
+msgid "Search"
+msgstr "Zoeken"
+
+msgctxt "#32451"
+msgid "Discover"
+msgstr "Ontdek"
+
+msgctxt "#32452"
+msgid "Popular People"
+msgstr "Populaire Acteurs/Actrices"
+
+msgctxt "#32453"
+msgid "Favorites"
+msgstr "Favorieten"
+
+msgctxt "#32454"
+msgid "My Lists"
+msgstr "Mijn Lijsten"
+
+msgctxt "#32455"
+msgid "My Services"
+msgstr "Mijn Diensten"
+
+msgctxt "#32456"
+msgid "Tools"
+msgstr "Tools"
+
+msgctxt "#32457"
+msgid "Root"
+msgstr "Hoofd"
+
+msgctxt "#32458"
+msgid "Trending"
+msgstr "Meest Bekeken"
+
+msgctxt "#32459"
+msgid "Popular"
+msgstr "Populair"
+
+msgctxt "#32460"
+msgid "Premieres"
+msgstr "Premieres"
+
+msgctxt "#32461"
+msgid "Latest Releases"
+msgstr "Laatste Releases"
+
+msgctxt "#32462"
+msgid "Top 10 Box Office"
+msgstr "Top 10 Box Office"
+
+msgctxt "#32463"
+msgid "Blockbusters"
+msgstr "Blockbusters"
+
+msgctxt "#32464"
+msgid "In Theaters"
+msgstr "In De Bioscoop"
+
+msgctxt "#32465"
+msgid "Hide Watched Items in Widgets"
+msgstr "Verberg Bekeken Items in Widgets"
+
+msgctxt "#32466"
+msgid "Non-binary"
+msgstr "Non-binair"
+
+msgctxt "#32467"
+msgid "Anticipated"
+msgstr "Verwacht"
+
+msgctxt "#32468"
+msgid "Oscar Winners"
+msgstr "Oscar Winnaars"
+
+msgctxt "#32469"
+msgid "Up Coming"
+msgstr "Binnenkort"
+
+msgctxt "#32470"
+msgid "Genres"
+msgstr "Genres"
+
+msgctxt "#32471"
+msgid "Languages"
+msgstr "Talen"
+
+msgctxt "#32472"
+msgid "Years"
+msgstr "Jaren"
+
+msgctxt "#32473"
+msgid "Certifications"
+msgstr "Kijkwijzer"
+
+msgctxt "#32474"
+msgid "Because You Watched..."
+msgstr "Omdat Je Keek Naar..."
+
+msgctxt "#32475"
+msgid "Watched"
+msgstr "Bekeken"
+
+msgctxt "#32476"
+msgid "In Progress"
+msgstr "Bezig"
+
+msgctxt "#32477"
+msgid "Search"
+msgstr "Zoeken"
+
+msgctxt "#32478"
+msgid "Airing Today"
+msgstr "Vandaag Te Zien"
+
+msgctxt "#32479"
+msgid "On the Air"
+msgstr "Nu Op TV"
+
+msgctxt "#32480"
+msgid "Networks"
+msgstr "Netwerken"
+
+msgctxt "#32481"
+msgid "In Progress TV Shows"
+msgstr "Bezig TV Series"
+
+msgctxt "#32482"
+msgid "In Progress Episodes"
+msgstr "Bezig Afleveringen"
+
+msgctxt "#32483"
+msgid "Next Episodes"
+msgstr "Volgende Afleveringen"
+
+msgctxt "#32484"
+msgid "[B]%s: [/B]%s"
+msgstr "[B]%s: [/B]%s"
+
+msgctxt "#32485"
+msgid "Premium Files"
+msgstr "Premium Bestanden"
+
+msgctxt "#32486"
+msgid "History"
+msgstr "Geschiedenis"
+
+msgctxt "#32487"
+msgid "Help"
+msgstr "Help"
+
+msgctxt "#32488"
+msgid "Premium"
+msgstr "Premium"
+
+msgctxt "#32489"
+msgid "Active"
+msgstr "Actief"
+
+msgctxt "#32490"
+msgid "None Found"
+msgstr "Niets Gevonden"
+
+msgctxt "#32491"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "#32492"
+msgid "Navigation"
+msgstr "Navigatie"
+
+msgctxt "#32493"
+msgid "Files"
+msgstr "Bestanden"
+
+msgctxt "#32494"
+msgid "Account Info"
+msgstr "Account Informatie"
+
+msgctxt "#32495"
+msgid "(Re)Authorize"
+msgstr "(Her)Autoriseer"
+
+msgctxt "#32496"
+msgid "Cloud Storage"
+msgstr "Cloud Opslag"
+
+msgctxt "#32497"
+msgid "Clear %s Cache"
+msgstr "Wis %s Cache"
+
+msgctxt "#32498"
+msgid "Recently Added"
+msgstr "Onlangs Toegevoegde"
+
+msgctxt "#32499"
+msgid "Collection"
+msgstr "Collectie"
+
+msgctxt "#32500"
+msgid "Watchlist"
+msgstr "Volglijst"
+
+msgctxt "#32501"
+msgid "Lists"
+msgstr "Lijsten"
+
+msgctxt "#32502"
+msgid "Liked Lists"
+msgstr "Vind Ik Leuk Lijsten"
+
+msgctxt "#32503"
+msgid "Recommended"
+msgstr "Aanbevolen"
+
+msgctxt "#32504"
+msgid "Random"
+msgstr "Willekeurig"
+
+msgctxt "#32505"
+msgid "Recently Aired"
+msgstr "Onlangs Uitgezonden"
+
+msgctxt "#32506"
+msgid "Episodes"
+msgstr "Afleveringen"
+
+msgctxt "#32507"
+msgid "People"
+msgstr "Acteurs/Actrices"
+
+msgctxt "#32508"
+msgid "Changelog"
+msgstr "Changelog"
+
+msgctxt "#32509"
+msgid "Log Viewer"
+msgstr "Logboek Bekijken"
+
+msgctxt "#32510"
+msgid "Set Views"
+msgstr "Stel Weergave In"
+
+# msgctxt "32511"
+
+msgctxt "#32512"
+msgid "Clean Settings Files and Clear Caches"
+msgstr "Instellingenbestanden opschonen en caches wissen"
+
+msgctxt "#32513"
+msgid "Manager"
+msgstr "Beheren"
+
+msgctxt "#32514"
+msgid "Shortcut Folders"
+msgstr "Snelkoppeling Mappen"
+
+msgctxt "#32515"
+msgid "Sources Folders"
+msgstr "Bronnen Mappen"
+
+# msgctxt "32516"
+
+msgctxt "#32517"
+msgid "Authorize Debrid Services"
+msgstr "Autoriseer Debrid Diensten"
+
+msgctxt "#32518"
+msgid "Tips for POV Use"
+msgstr "Gebruikerstips voor POV"
+
+msgctxt "#32519"
+msgid "Folders 1-5 Color"
+msgstr "Mappen 1-5 Kleur"
+
+msgctxt "#32520"
+msgid "4K Results Color"
+msgstr "4K Resultaten Kleur"
+
+# msgctxt "32521"
+
+msgctxt "#32522"
+msgid "Fenomscrapers"
+msgstr "Fenomscrapers"
+
+msgctxt "#32523"
+msgid "1080P Results Color"
+msgstr "1080P Resultaten Kleur"
+
+msgctxt "#32524"
+msgid "Cache"
+msgstr "Cache"
+
+msgctxt "#32525"
+msgid "All"
+msgstr "Alle"
+
+msgctxt "#32526"
+msgid "Clean"
+msgstr "Schoonmaken"
+
+msgctxt "#32527"
+msgid "Meta"
+msgstr "Meta"
+
+msgctxt "#32528"
+msgid "Bookmark Page Progress"
+msgstr "Bladwijzer Pagina Vooruitgang"
+
+# msgctxt "32529"
+
+# msgctxt "32530"
+
+# msgctxt "32531"
+
+# msgctxt "32532"
+
+msgctxt "#32533"
+msgid "Scrapers"
+msgstr "Scrapers"
+
+msgctxt "#32534"
+msgid "Debrid"
+msgstr "Debrid"
+
+msgctxt "#32535"
+msgid "Torrent"
+msgstr "Torrent"
+
+msgctxt "#32536"
+msgid "Specific"
+msgstr "Specifieke"
+
+msgctxt "#32537"
+msgid "Season"
+msgstr "Seizoen"
+
+msgctxt "#32538"
+msgid "Kodi"
+msgstr "Kodi"
+
+msgctxt "#32539"
+msgid "Enable Kodi Menu Caching"
+msgstr "Schakel Kodi Menu Caching in"
+
+msgctxt "#32540"
+msgid "Choose Random Play Type..."
+msgstr "Kies Willekeurig Afspeeltype..."
+
+msgctxt "#32541"
+msgid "Single Random Play"
+msgstr "Eenmalig Willekeurig Afspelen"
+
+msgctxt "#32542"
+msgid "Continual Random Play"
+msgstr "Voortdurend Willekeurig Afspelen"
+
+msgctxt "#32543"
+msgid "Year"
+msgstr "Jaar"
+
+msgctxt "#32544"
+msgid "[B]Browse Season...[/B]"
+msgstr "[B]Bladeren Seizoen...[/B]"
+
+msgctxt "#32545"
+msgid "Time"
+msgstr "Tijden"
+
+msgctxt "#32546"
+msgid "Tips"
+msgstr "Tips"
+
+msgctxt "#32547"
+msgid "Set view and then click here"
+msgstr "Stel weergave in en klik dan hier"
+
+msgctxt "#32548"
+msgid "Action"
+msgstr "Actie"
+
+msgctxt "#32549"
+msgid "Adventure"
+msgstr "Avontuur"
+
+msgctxt "#32550"
+msgid "Animation"
+msgstr "Animatie"
+
+msgctxt "#32551"
+msgid "Comedy"
+msgstr "Komedie"
+
+msgctxt "#32552"
+msgid "Crime"
+msgstr "Misdaad"
+
+msgctxt "#32553"
+msgid "Documentary"
+msgstr "Documentaire"
+
+msgctxt "#32554"
+msgid "Drama"
+msgstr "Drama"
+
+msgctxt "#32555"
+msgid "Family"
+msgstr "Familie"
+
+msgctxt "#32556"
+msgid "Kids"
+msgstr "Kinderen"
+
+msgctxt "#32557"
+msgid "Mystery"
+msgstr "Mysterie"
+
+msgctxt "#32558"
+msgid "Fantasy"
+msgstr "Fantasie"
+
+msgctxt "#32559"
+msgid "History"
+msgstr "Geschiedenis"
+
+msgctxt "#32560"
+msgid "Horror"
+msgstr "Horror"
+
+msgctxt "#32561"
+msgid "Music"
+msgstr "Muziek"
+
+msgctxt "#32562"
+msgid "Romance"
+msgstr "Romantiek"
+
+msgctxt "#32563"
+msgid "Science Fiction"
+msgstr "Science Fiction"
+
+msgctxt "#32564"
+msgid "TV Movie"
+msgstr "TV Film"
+
+msgctxt "#32565"
+msgid "Thriller"
+msgstr "Thriller"
+
+msgctxt "#32566"
+msgid "War"
+msgstr "Oorlog"
+
+msgctxt "#32567"
+msgid "Western"
+msgstr "Western"
+
+msgctxt "#32568"
+msgid "News"
+msgstr "Nieuws"
+
+msgctxt "#32569"
+msgid "Reality"
+msgstr "Realiteit"
+
+msgctxt "#32570"
+msgid "Soap"
+msgstr "Soap"
+
+msgctxt "#32571"
+msgid "Talk"
+msgstr "Gespreksprogramma"
+
+msgctxt "#32572"
+msgid "War & Politics"
+msgstr "Politiek"
+
+msgctxt "#32573"
+msgid "Auto [B]Page %d[/B] Selected"
+msgstr "Auto [B]Pagina %d[/B] Geselecteerd"
+
+msgctxt "#32574"
+msgid "Error"
+msgstr "Fout"
+
+msgctxt "#32575"
+msgid "Failed"
+msgstr "Mislukt"
+
+msgctxt "#32576"
+msgid "Success"
+msgstr "Succes"
+
+msgctxt "#32577"
+msgid "[B]Please Wait..[/B]"
+msgstr "[B]Even Wachten...[/B]"
+
+msgctxt "#32578"
+msgid "[B]Checking Debrid Providers[/B]"
+msgstr "[B]Controle Debrid Aanbieders[/B]"
+
+msgctxt "#32579"
+msgid "[B]Remaining Debrid Checks:[/B] %s"
+msgstr "[B]Resterende Debrid Controles:[/B] %s"
+
+msgctxt "#32580"
+msgid "Are you sure?"
+msgstr "Weet je het zeker?"
+
+msgctxt "#32581"
+msgid "No Scraper Stats Available"
+msgstr "Geen Scraper Statistieken Beschikbaar"
+
+msgctxt "#32582"
+msgid "Quality, Provider, Size"
+msgstr "Kwaliteit, Provider, Grootte"
+
+msgctxt "#32583"
+msgid "Provider"
+msgstr "Provider"
+
+msgctxt "#32584"
+msgid "Size"
+msgstr "Grootte"
+
+msgctxt "#32585"
+msgid "Manage Folder Scrapers"
+msgstr "Scraper Mappen Beheren"
+
+msgctxt "#32586"
+msgid "Cloud"
+msgstr "Cloud"
+
+msgctxt "#32587"
+msgid "Choose %s Scraper Position"
+msgstr "Kies %s Scraper Positie"
+
+msgctxt "#32588"
+msgid "Place [B]%s[/B] 1st"
+msgstr "Plaats [B]%s[/B] 1ste"
+
+msgctxt "#32589"
+msgid "Place [B]%s[/B] 2nd"
+msgstr "Plaats [B]%s[/B] 2de"
+
+msgctxt "#32590"
+msgid "Place [B]%s[/B] 3rd"
+msgstr "Plaats [B]%s[/B] 3de"
+
+msgctxt "#32591"
+msgid "Place [B]%s[/B] 4th"
+msgstr "Plaats [B]%s[/B] 4de"
+
+msgctxt "#32592"
+msgid "Similar"
+msgstr "Vergelijkbaar"
+
+msgctxt "#32593"
+msgid "Recommended"
+msgstr "Aanbevolen"
+
+msgctxt "#32594"
+msgid "Hours"
+msgstr "Uren"
+
+msgctxt "#32595"
+msgid "24 Hours"
+msgstr "24 Uur"
+
+msgctxt "#32596"
+msgid "Manage In Progress Shows"
+msgstr "Lopende TV Series Beheren"
+
+msgctxt "#32597"
+msgid "Manage Unwatched TV Shows"
+msgstr "Ongezien TV Series Beheren"
+
+msgctxt "#32598"
+msgid "Currently"
+msgstr "Momenteel"
+
+msgctxt "#32599"
+msgid "[B]Next Episode Manager[/B]"
+msgstr "[B]Volgende Aflevering Manager[/B]"
+
+msgctxt "#32600"
+msgid "Basic"
+msgstr "Basis"
+
+msgctxt "#32601"
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+msgctxt "#32602"
+msgid "Add To"
+msgstr "Toevoegen Aan"
+
+msgctxt "#32603"
+msgid "Remove From"
+msgstr "Verwijderen Uit"
+
+msgctxt "#32604"
+msgid "RE-CACHE %s INFO"
+msgstr "OPNIEUW CACHEN %s INFO"
+
+msgctxt "#32605"
+msgid "Extra Info"
+msgstr "Extra Informatie"
+
+msgctxt "#32606"
+msgid "Trailer"
+msgstr "Trailer"
+
+msgctxt "#32607"
+msgid "Reviews"
+msgstr "Reviews"
+
+msgctxt "#32608"
+msgid "Actors Info"
+msgstr "Acteursinformatie"
+
+msgctxt "#32609"
+msgid "Director Info"
+msgstr "Regisseur Informatie"
+
+msgctxt "#32610"
+msgid "Extended Info"
+msgstr "Extended Info"
+
+msgctxt "#32611"
+msgid "[B]Play Random[/B]"
+msgstr "[B]Willekeurig Afspelen[/B]"
+
+msgctxt "#32612"
+msgid "More from"
+msgstr "Meer van"
+
+msgctxt "#32613"
+msgid "Play Random"
+msgstr "Willekeurig Afspelen"
+
+msgctxt "#32614"
+msgid "Close"
+msgstr "Sluiten"
+
+msgctxt "#32615"
+msgid "Studio"
+msgstr "Studio"
+
+msgctxt "#32616"
+msgid "Posters"
+msgstr "Posters"
+
+msgctxt "#32617"
+msgid "Fanart"
+msgstr "Fanart"
+
+msgctxt "#32618"
+msgid "720P Results Color"
+msgstr "720P Resultaten Kleur"
+
+msgctxt "#32619"
+msgid "Tagline"
+msgstr "Slogan"
+
+msgctxt "#32620"
+msgid "Premiered"
+msgstr "Première"
+
+msgctxt "#32621"
+msgid "Rating"
+msgstr "Beoordeling"
+
+msgctxt "#32622"
+msgid "Runtime"
+msgstr "Speelduur"
+
+msgctxt "#32623"
+msgid "Votes"
+msgstr "Stemmen"
+
+msgctxt "#32624"
+msgid "Genre/s"
+msgstr "Genre/s"
+
+msgctxt "#32625"
+msgid "Budget"
+msgstr "Budget"
+
+msgctxt "#32626"
+msgid "Revenue"
+msgstr "Inkomsten"
+
+msgctxt "#32627"
+msgid "Director"
+msgstr "Regisseur"
+
+msgctxt "#32628"
+msgid "Writer/s"
+msgstr "Schrijver/s"
+
+msgctxt "#32629"
+msgid "Homepage"
+msgstr "Website"
+
+msgctxt "#32630"
+msgid "Status"
+msgstr "Status"
+
+msgctxt "#32631"
+msgid "Type"
+msgstr "Type"
+
+msgctxt "#32632"
+msgid "Classification"
+msgstr "Classificatie"
+
+msgctxt "#32633"
+msgid "Created By"
+msgstr "Gemaakt Door"
+
+msgctxt "#32634"
+msgid "Last"
+msgstr "Laatst"
+
+msgctxt "#32635"
+msgid "Next"
+msgstr "Volgende"
+
+msgctxt "#32636"
+msgid "Seasons"
+msgstr "Seizoenen"
+
+msgctxt "#32637"
+msgid "Clear Scrapers Cache"
+msgstr "Scrapers Cache Wissen"
+
+msgctxt "#32638"
+msgid "Results Display Mode"
+msgstr "Resultaten Weergavemodus"
+
+msgctxt "#32639"
+msgid "Clear Bookmark Page Progress"
+msgstr "Voortgang Bladwijzerpagina Wissen"
+
+msgctxt "#32640"
+msgid "Save Setting & Exit"
+msgstr "Instelling Opslaan & Afsluiten"
+
+msgctxt "#32641"
+msgid "Open"
+msgstr "Open"
+
+msgctxt "#32642"
+msgid "[B]Mark Watched %s[/B]"
+msgstr "[B]Markeer Bekeken %s[/B]"
+
+msgctxt "#32643"
+msgid "[B]Mark Unwatched %s[/B]"
+msgstr "[B]Markeer Onbekeken %s[/B]"
+
+msgctxt "#32644"
+msgid "[B]Add/Remove[/B]"
+msgstr "[B]Toevoegen/Verwijderen[/B]"
+
+msgctxt "#32645"
+msgid "[B]Extras...[/B]"
+msgstr "[B]Extras...[/B]"
+
+msgctxt "#32646"
+msgid "[B]Options...[/B]"
+msgstr "[B]Opties...[/B]"
+
+msgctxt "#32647"
+msgid "SD Results Color"
+msgstr "SD Resultaten Kleur"
+
+msgctxt "#32648"
+msgid "[B]Hide from Recommendations[/B]"
+msgstr "[B]Verbergen voor Aanbevelingen[/B]"
+
+msgctxt "#32649"
+msgid "[B]Exit Movie List[/B]"
+msgstr "[B]Exit Film Lijst[/B]"
+
+msgctxt "#32650"
+msgid "[B]Exit TV Show List[/B]"
+msgstr "[B]Exit TV Serie Lijst[/B]"
+
+msgctxt "#32651"
+msgid "[B]Clear Progress[/B]"
+msgstr "[B]Wis Vooruitgang[/B]"
+
+msgctxt "#32652"
+msgid "[B]Browse...[/B]"
+msgstr "[B]Bladeren...[/B]"
+
+msgctxt "#32653"
+msgid "[B]Refresh[/B]"
+msgstr "[B]Vernieuwen[/B]"
+
+msgctxt "#32654"
+msgid "Start"
+msgstr "Start"
+
+msgctxt "#32655"
+msgid "End"
+msgstr "Einde"
+
+msgctxt "#32656"
+msgid "Clear All Filters"
+msgstr "Wis Alle Filters"
+
+msgctxt "#32657"
+msgid "Keywords"
+msgstr "Trefwoorden"
+
+msgctxt "#32658"
+msgid "Language"
+msgstr "Taal"
+
+msgctxt "#32659"
+msgid "Region"
+msgstr "Regio"
+
+msgctxt "#32660"
+msgid "Companies"
+msgstr "Maatschappijen"
+
+msgctxt "#32661"
+msgid "Minimum"
+msgstr "Minimaal"
+
+msgctxt "#32662"
+msgid "Maximum"
+msgstr "Maximaal"
+
+msgctxt "#32663"
+msgid "Number of Votes"
+msgstr "Aantal Stemmen"
+
+msgctxt "#32664"
+msgid "Cast"
+msgstr "Cast"
+
+msgctxt "#32665"
+msgid "Adult"
+msgstr "Volwassene"
+
+msgctxt "#32666"
+msgid "[B]SAVE & BROWSE RESULTS FOR:[/B]  [I]%s[/I]"
+msgstr "[B]BEWAAR & BLADER RESULTATEN VOOR:[/B]  [I]%s[/I]"
+
+msgctxt "#32667"
+msgid "[B]EXPORT SEARCH:[/B]  [I]%s[/I]"
+msgstr "[B]EXPORTEER ZOEKEN:[/B]  [I]%s[/I]"
+
+msgctxt "#32668"
+msgid "Change"
+msgstr "Verander"
+
+msgctxt "#32669"
+msgid "Optional"
+msgstr "Optioneel"
+
+msgctxt "#32670"
+msgid "Filter"
+msgstr "Filter"
+
+msgctxt "#32671"
+msgid "Clear"
+msgstr "Wis"
+
+msgctxt "#32672"
+msgid "Similar to"
+msgstr "Vergelijkbaar met"
+
+msgctxt "#32673"
+msgid "Recommended based on"
+msgstr "Aanbevolen op basis van"
+
+msgctxt "#32674"
+msgid "Time elapsed: %s seconds"
+msgstr "Verstreken tijd: %s seconden"
+
+msgctxt "#32675"
+msgid "%s seconds"
+msgstr "%s seconden"
+
+msgctxt "#32676"
+msgid "[B]Remaining providers:[/B] %s"
+msgstr "[B]Resterende providers:[/B] %s"
+
+msgctxt "#32677"
+msgid "Total"
+msgstr "Totaal"
+
+msgctxt "#32678"
+msgid "[B]Preparing sources[/B]"
+msgstr "[B]Bronnen voorbereiden[/B]"
+
+msgctxt "#32679"
+msgid "Filter Title"
+msgstr "Filter Titel"
+
+msgctxt "#32680"
+msgid "[I]Please visit Fenom Scrapers to change settings[/I]"
+msgstr "[I]Bezoek Fenom Scrapers om instellingen te wijzigen[/I]"
+
+msgctxt "#32681"
+msgid "Choose Addons"
+msgstr "Kies Addons"
+
+msgctxt "#32682"
+msgid "Clear Current Folder"
+msgstr "Huidige Map Wissen"
+
+msgctxt "#32683"
+msgid "Choose New Folder"
+msgstr "Kies Nieuwe Map"
+
+msgctxt "#32684"
+msgid "Meta Accounts"
+msgstr "Meta Accounts"
+
+msgctxt "#32685"
+msgid "Provider Accounts"
+msgstr "Provider Accounts"
+
+msgctxt "#32686"
+msgid "Filters Ignored"
+msgstr "Filters Genegeerd"
+
+msgctxt "#32687"
+msgid "Include HDR Results"
+msgstr "HDR Resultaten Inbegrepen"
+
+msgctxt "#32688"
+msgid "Complete file is [B]%dMB[/B]"
+msgstr "Volledige bestand is [B]%dMB[/B]"
+
+msgctxt "#32689"
+msgid "Continue with download?"
+msgstr "Doorgaan met downloaden?"
+
+msgctxt "#32690"
+msgid "Downloading [B]%s[/B]"
+msgstr "Downloaden [B]%s[/B]"
+
+msgctxt "#32691"
+msgid "Download Progress: "
+msgstr "Voortgang Downloaden: "
+
+msgctxt "#32692"
+msgid "No URL found for Download. Pick another Source: "
+msgstr "Geen URL gevonden om te Downloaden. Kies een andere Bron:"
+
+msgctxt "#32693"
+msgid "Content"
+msgstr "Inhoud"
+
+msgctxt "#32694"
+msgid "Sorting"
+msgstr "Sortering"
+
+# msgctxt "32695"
+
+# msgctxt "32696"
+
+msgctxt "#32697"
+msgid "Export List"
+msgstr "Exporteer Lijst"
+
+msgctxt "#32698"
+msgid "Remove From History"
+msgstr "Verwijderen Uit De Geschiedenis"
+
+msgctxt "#32699"
+msgid "Clear All History"
+msgstr "Wis Alle Geschiedenis"
+
+msgctxt "#32700"
+msgid "Navigate to: [B]%s[/B]"
+msgstr "Navigeer naar: [B]%s[/B]"
+
+msgctxt "#32701"
+msgid "Enter the following code: [B]%s[/B]"
+msgstr "Vul de volgende code in: [B]%s[/B]"
+
+msgctxt "#32702"
+msgid "Make New Shortcut Folder"
+msgstr "Maak Nieuwe Snelkoppelingsmap"
+
+msgctxt "#32703"
+msgid "[B]Delete Shortcut Folder[/B]"
+msgstr "[B]Verwijder Snelkoppelingsmap[/B]"
+
+# msgctxt "32704"
+
+msgctxt "#32705"
+msgid "[B]Edit Menu[/B]"
+msgstr "[B]Menu Bewerken[/B]"
+
+msgctxt "#32706"
+msgid "[B]Browse Removed item[/B]"
+msgstr "[B]Bladeren Verwijderde item[/B]"
+
+msgctxt "#32707"
+msgid "Place [B]%s[/B] below [B]%s[/B]"
+msgstr "Plaats [B]%s[/B] onder [B]%s[/B]"
+
+msgctxt "#32708"
+msgid "Place [B]%s[/B] at Top of List"
+msgstr "Plaats [B]%s[/B] Bovenaan de Lijst"
+
+msgctxt "#32709"
+msgid "Top Position"
+msgstr "Bovenste Positie"
+
+msgctxt "#32710"
+msgid "Existing Shortcut Folder"
+msgstr "Bestaande Snelkoppelingsmap"
+
+msgctxt "#32711"
+msgid "Edit [B]'%s'[/B] Folder..."
+msgstr "Bewerk [B]'%s'[/B] Map..."
+
+msgctxt "#32712"
+msgid "Move"
+msgstr "Verplaats"
+
+msgctxt "#32713"
+msgid "Remove"
+msgstr "Verwijder"
+
+# msgctxt "32714"
+
+msgctxt "#32715"
+msgid "[B]MAKE NEW FOLDER[/B]"
+msgstr "[B]NIEUWE MAP MAKEN[/B]"
+
+msgctxt "#32716"
+msgid "Move [B]'%s'[/B] to a different position in the list"
+msgstr "Verplaats [B]'%s'[/B] naar een andere positie in de lijst"
+
+msgctxt "#32717"
+msgid "Remove [B]'%s'[/B] from the list"
+msgstr "Verwijder [B]'%s'[/B] van de lijst"
+
+msgctxt "#32718"
+msgid "Add [B]'%s'[/B] to a different Menu list"
+msgstr "Voeg [B]'%s'[/B] toe aan een andere Menulijst"
+
+msgctxt "#32719"
+msgid "Add [B]'%s'[/B] to a [B]Shortcut Folder[/B]"
+msgstr "Voeg [B]'%s'[/B] toe aan een [B]Snelkoppelingsmap[/B]"
+
+msgctxt "#32720"
+msgid "Add a Trakt list to [B]'%s'[/B] Menu"
+msgstr "Voeg een Trakt lijst toe aan [B]'%s'[/B] Menu"
+
+msgctxt "#32721"
+msgid "Re-add a removed item from [B]'%s'[/B] Menu"
+msgstr "Een verwijderd item opnieuw toevoegen aan [B]'%s'[/B] Menu"
+
+msgctxt "#32722"
+msgid "Restore [B]'%s'[/B] Menu to default"
+msgstr "Herstel [B]'%s'[/B] Menu naar Standaardinstelling"
+
+msgctxt "#32723"
+msgid "Check if [B]'%s'[/B] Menu has New Menu items"
+msgstr "Controleer of [B]'%s'[/B] Menu nieuwe Menu items heeft."
+
+msgctxt "#32724"
+msgid "Reload [B]'%s'[/B]"
+msgstr "Herladen [B]'%s'[/B]"
+
+msgctxt "#32725"
+msgid "Add a [B]Shortcut Folder[/B] to [B]'%s'[/B] Menu"
+msgstr "Voeg een [B]Snelkoppelingsmap[/B] toe aan [B]'%s'[/B] Menu"
+
+msgctxt "#32726"
+msgid "Choose Menu to add %s Into.."
+msgstr "Kies Menu om %s Toe te voegen aan.."
+
+msgctxt "#32727"
+msgid "New item %s Exists"
+msgstr "Nieuw item %s Bestaat"
+
+msgctxt "#32728"
+msgid "Would you like to add this to the Menu?"
+msgstr "Wilt u dit toevoegen aan het Menu?"
+
+msgctxt "#32729"
+msgid "You Must Also Remove Instances of this Shortcut Folder from any Lists Individually"
+msgstr "U Moet Ook Exemplaren van deze Snelkoppelingsmap afzonderlijk verwijderen uit alle Lijsten"
+
+msgctxt "#32730"
+msgid "[B]Add to a Menu[/B]"
+msgstr "[B]Toevoegen aan een Menu[/B]"
+
+msgctxt "#32731"
+msgid "[B]Add to a Shortcut Folder[/B]"
+msgstr "[B]Toevoegen aan een Snelkoppelingsmap[/B]"
+
+msgctxt "#32732"
+msgid "Saving Torrent to the %s Cloud"
+msgstr "Opslaan Torrent naar de %s Cloud"
+
+msgctxt "#32733"
+msgid "POV Cloud Transfer"
+msgstr "POV Cloud Overdracht"
+
+msgctxt "#32734"
+msgid "Downloading at %s MB/s from %s peers, %s%% of %sGB completed"
+msgstr "Downloaden met %s MB/s van %s peers, %s%% van %sGB voltooid"
+
+msgctxt "#32735"
+msgid "Uploading at %s MB/s, %s%% of %s GB completed"
+msgstr "Uploaden met %s MB/s, %s%% van %s GB voltooid"
+
+msgctxt "#32736"
+msgid "Cancelled"
+msgstr "Geannuleerd"
+
+msgctxt "#32737"
+msgid "Converting MAGNET..."
+msgstr "Converteren MAGNET..."
+
+msgctxt "#32738"
+msgid "%s seeders"
+msgstr "%s seeders"
+
+msgctxt "#32739"
+msgid "Downloading %s GB @ %s mbps from %s peers, %s %% completed"
+msgstr "Downloaden %s GB @ %s mbps van %s peers, %s %% voltooid"
+
+msgctxt "#32740"
+msgid "OpenSubtitles Rate Limited. Retrying in 10 secs.."
+msgstr "OpenSubtitles Rate Gelimiteerd. Opnieuw proberen in 10 seconden.."
+
+msgctxt "#32741"
+msgid "You must authenticate with Trakt. Do you want to authenticate now?"
+msgstr "U moet zich authenticeren met Trakt. Wilt u zich nu authentificeren?"
+
+msgctxt "#32742"
+msgid "folder"
+msgstr "map"
+
+msgctxt "#32743"
+msgid "file"
+msgstr "bestand"
+
+# msgctxt "32744"
+
+# msgctxt "32745"
+
+# msgctxt "32746"
+
+msgctxt "#32747"
+msgid "[B]Download File[/B]"
+msgstr "[B]Download Bestand[/B]"
+
+msgctxt "#32748"
+msgid "[B]Rename %s[/B]"
+msgstr "[B]Hernoem %s[/B]"
+
+msgctxt "#32749"
+msgid "[B]Customer ID:[/B] %s"
+msgstr "[B]Klant ID:[/B] %s"
+
+msgctxt "#32750"
+msgid "[B]Expires:[/B] %s"
+msgstr "[B]Verloopt:[/B] %s"
+
+msgctxt "#32751"
+msgid "[B]Days Remaining:[/B] %s"
+msgstr "[B]Dagen Resterend:[/B] %s"
+
+msgctxt "#32752"
+msgid "[B]Points Used:[/B] %.f"
+msgstr "[B]Punten Gebruikt:[/B] %.f"
+
+msgctxt "#32753"
+msgid "[B]Space Used:[/B] %.2f"
+msgstr "[B]Ruimte Gebruikt:[/B] %.2f"
+
+msgctxt "#32754"
+msgid "[B]Fair Use (Percentage Used):[/B] %s"
+msgstr "[B]Fair Use (Percentage Gebruikt):[/B] %s"
+
+msgctxt "#32755"
+msgid "[B]Username:[/B] %s"
+msgstr "[B]Gebruikersnaam:[/B] %s"
+
+msgctxt "#32756"
+msgid "[B]Email:[/B] %s"
+msgstr "[B]Email:[/B] %s"
+
+msgctxt "#32757"
+msgid "[B]Status:[/B] %s"
+msgstr "[B]Status:[/B] %s"
+
+msgctxt "#32758"
+msgid "[B]Account:[/B] %s"
+msgstr "[B]Account:[/B] %s"
+
+msgctxt "#32759"
+msgid "[B]Fidelity Points:[/B] %s"
+msgstr "[B]Fidelity Punten:[/B] %s"
+
+msgctxt "#32760"
+msgid "No Results"
+msgstr "Geen Resultaten"
+
+msgctxt "#32761"
+msgid "[B]Data Used:[/B] %s"
+msgstr "[B]Data Gebruikt:[/B] %s"
+
+msgctxt "#32762"
+msgid "[B]Data Remaining:[/B] %s"
+msgstr "[B]Data Resterend:[/B] %s"
+
+msgctxt "#32763"
+msgid "Browse Songs or Play Full Album?"
+msgstr "Door Nummers Bladeren of het Volledige Album Afspelen?"
+
+msgctxt "#32764"
+msgid "Play"
+msgstr "Speel"
+
+msgctxt "#32765"
+msgid "Uncached"
+msgstr "Niet Gecached"
+
+msgctxt "#32766"
+msgid "[B]Remove from My Files[/B]"
+msgstr "[B]Verwijder uit Mijn Bestanden[/B]"
+
+msgctxt "#32767"
+msgid "[B]Protect File[/B]"
+msgstr "[B]Bescherm Bestand[/B]"
+
+msgctxt "#32768"
+msgid "[B]Unprotect File[/B]"
+msgstr "[B]Bestand Onbeschermd Maken[/B]"
+
+msgctxt "#32769"
+msgid "[B]Add to My Furk Files[/B]"
+msgstr "[B]Toevoegen aan Mijn Furk Bestanden[/B]"
+
+msgctxt "#32770"
+msgid "[B]Monthly Limit:[/B] %s GB"
+msgstr "[B]Maandelijkse Limiet:[/B] %s GB"
+
+msgctxt "#32771"
+msgid "[B]Current Month:[/B]"
+msgstr "[B]Huidige Maand:[/B]"
+
+msgctxt "#32772"
+msgid "[B]Current Subscription:[/B]"
+msgstr "[B]Huidig Abonnement:[/B]"
+
+msgctxt "#32773"
+msgid "[B]Resets On:[/B] %s"
+msgstr "[B]Reset Op:[/B] %s"
+
+msgctxt "#32774"
+msgid "[B]Renewal Needed On:[/B] %s"
+msgstr "[B]Vernieuwing Nodig Op:[/B] %s"
+
+msgctxt "#32775"
+msgid "Speed"
+msgstr "Snelheid"
+
+msgctxt "#32776"
+msgid "[B]Like List[/B]"
+msgstr "[B]Like Lijst[/B]"
+
+msgctxt "#32777"
+msgid "Log Utils"
+msgstr "Log Hulpprogramma's"
+
+msgctxt "#32778"
+msgid "[B]PERSONAL:[/B] [I]%s[/I]"
+msgstr "[B]PERSOONLIJK:[/B] [I]%s[/I]"
+
+msgctxt "#32779"
+msgid "[B]LIKED:[/B] [I]%s[/I]"
+msgstr "[B]LEUK GEVONDEN:[/B] [I]%s[/I]"
+
+msgctxt "#32780"
+msgid "[B]Make a new Trakt list[/B]"
+msgstr "[B]Maak een nieuwe Trakt lijst[/B]"
+
+msgctxt "#32781"
+msgid "[B]Delete list[/B]"
+msgstr "[B]Lijst Wissen[/B]"
+
+msgctxt "#32782"
+msgid "Size Sort Order"
+msgstr "Grootte Sorteer Volgorde"
+
+msgctxt "#32783"
+msgid "[B]Unlike List[/B]"
+msgstr "[B]Unlike Lijst[/B]"
+
+msgctxt "#32784"
+msgid "[B]Switch Jump To Action[/B]"
+msgstr "[B]Schakel Over Naar Actie[/B]"
+
+msgctxt "#32785"
+msgid "Delete"
+msgstr "Wis"
+
+msgctxt "#32786"
+msgid "[B]Remove from history[/B]"
+msgstr "[B]Verwijderen uit de Geschiedenis[/B]"
+
+msgctxt "#32787"
+msgid "Kodi Library Sync Complete"
+msgstr "Kodi Bibliotheek Synchronisatie Voltooid"
+
+# msgctxt "32788"
+
+msgctxt "#32789"
+msgid "[B]Multiselect...[/B]"
+msgstr "[B]Multiselectie...[/B]"
+
+msgctxt "#32790"
+msgid "Resume Point: [B]%s[/B]"
+msgstr "Hervat Punt: [B]%s[/B]"
+
+# msgctxt "32791"
+
+msgctxt "#32792"
+msgid "Downloaded Subtitles Found"
+msgstr "Gedownloade Ondertiteling Gevonden"
+
+msgctxt "#32793"
+msgid "No Subtitles Found"
+msgstr "Geen Ondertiteling Gevonden"
+
+msgctxt "#32794"
+msgid "Searching Secondary Language"
+msgstr "Zoeken Secundaire Taal"
+
+msgctxt "#32795"
+msgid "Clear Old Subtitle Files When Kodi Starts"
+msgstr "Wis Oude Ondertitelbestanden Wanneer Kodi Start"
+
+msgctxt "#32796"
+msgid "Directed"
+msgstr "Geregisseerd"
+
+msgctxt "#32797"
+msgid "Biography"
+msgstr "Biografie"
+
+msgctxt "#32798"
+msgid "Images"
+msgstr "Afbeeldingen"
+
+msgctxt "#32799"
+msgid "Next Page"
+msgstr "Volgende Pagina"
+
+msgctxt "#32800"
+msgid "Kodi Log Uploader"
+msgstr "Kodi Log Uploader"
+
+msgctxt "#32801"
+msgid "[B]Next Up:[/B]"
+msgstr "[B]Volgende:[/B]"
+
+msgctxt "#32802"
+msgid "Still watching?"
+msgstr "Ben je nog steeds aan het kijken?"
+
+msgctxt "#32803"
+msgid "Unwatched"
+msgstr "Niet Bekeken"
+
+msgctxt "#32804"
+msgid "Included"
+msgstr "Inbegrepen"
+
+msgctxt "#32805"
+msgid "Excluded"
+msgstr "Uitgesloten"
+
+msgctxt "#32806"
+msgid "Select TV Show to Hide/Unhide from Trakt Progress:"
+msgstr "Selecteer TV Serie om te Verbergen/Zichtbaar te maken in de voortgang van Trakt:"
+
+msgctxt "#32807"
+msgid "Scrape With All Filters Ignored"
+msgstr "Scrape Met Alle Filters Genegeerd"
+
+msgctxt "#32808"
+msgid "Disable All Filters for Search?"
+msgstr "Alle Filters Voor Zoeken Uitschakelen?"
+
+msgctxt "#32809"
+msgid "Clearing Trakt Cache"
+msgstr "Reiniging Trakt Cache"
+
+msgctxt "#32810"
+msgid "[B]Exit Results[/B]"
+msgstr "[B]Resultaten Afsluiten[/B]"
+
+msgctxt "#32811"
+msgid "Show Release Year in Listings"
+msgstr "Releasejaar Weergeven in Vermeldingen"
+
+msgctxt "#32812"
+msgid "Cleaned Addon: [B]%s[/B]"
+msgstr "Addon Opgeschoond: [B]%s[/B]"
+
+msgctxt "#32813"
+msgid "Removed Settings: [B]%s[/B]"
+msgstr "Verwijderde Instellingen: [B]%s[/B]"
+
+msgctxt "#32814"
+msgid "Browsed Pages"
+msgstr "Bekeken Pagina's"
+
+msgctxt "#32815"
+msgid "List Data"
+msgstr "Lijst Gegevens"
+
+msgctxt "#32816"
+msgid "Clearing"
+msgstr "Opschonen"
+
+msgctxt "#32817"
+msgid "Settings File"
+msgstr "Instellingen Bestand"
+
+msgctxt "#32818"
+msgid "Database Files"
+msgstr "Database Bestanden"
+
+msgctxt "#32819"
+msgid "Sort Episodes Airing Today to Top"
+msgstr "Sorteer Afleveringen Die Vandaag Worden Uitgezonden naar Boven"
+
+msgctxt "#32820"
+msgid "Choose Data"
+msgstr "Kies Data"
+
+msgctxt "#32821"
+msgid "[I]Jump to %s Starting with '%s'[/I]"
+msgstr "[I]Ga naar %s Beginnend met '%s'[/I]"
+
+msgctxt "#32822"
+msgid "[I]Jump to Page %s[/I]"
+msgstr "[I]Ga naar Pagina %s[/I]"
+
+msgctxt "#32823"
+msgid "[B]NAME:[/B]"
+msgstr "[B]NAAM:[/B]"
+
+msgctxt "#32824"
+msgid "Yes"
+msgstr "Ja"
+
+msgctxt "#32825"
+msgid "BIRTHDAY"
+msgstr "VERJAARDAG"
+
+msgctxt "#32826"
+msgid "DIED"
+msgstr "OVERLEDEN"
+
+msgctxt "#32827"
+msgid "AGE"
+msgstr "LEEFTIJD"
+
+msgctxt "#32828"
+msgid "No"
+msgstr "Nee"
+
+msgctxt "#32829"
+msgid "Pre-Scrape"
+msgstr "Pre-Scrape"
+
+msgctxt "#32830"
+msgid "Sources"
+msgstr "Bronnen"
+
+msgctxt "#32831"
+msgid "Download this Torrent to your [B]%s[/B] Cloud?"
+msgstr "Download deze Torrent naar je [B]%s[/B] Cloud?"
+
+msgctxt "#32832"
+msgid "Resume"
+msgstr "Hervat"
+
+msgctxt "#32833"
+msgid "Start Over"
+msgstr "Begin Opnieuw"
+
+msgctxt "#32834"
+msgid "Limit Auto Play Quality"
+msgstr "Beperk Automatisch Afspelen Kwaliteit"
+
+msgctxt "#32835"
+msgid "Filter Languages"
+msgstr "Filter Talen"
+
+msgctxt "#32836"
+msgid "Choose Languages To Include"
+msgstr "Kies Talen Die Inbegrepen Zijn"
+
+msgctxt "#32837"
+msgid "Exit"
+msgstr "Exit"
+
+msgctxt "#32838"
+msgid "Browse"
+msgstr "Bladeren"
+
+msgctxt "#32839"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#32840"
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgctxt "#32841"
+msgid "Options"
+msgstr "Opties"
+
+msgctxt "#32842"
+msgid "Plot"
+msgstr "Plot"
+
+msgctxt "#32843"
+msgid "Male"
+msgstr "Man"
+
+msgctxt "#32844"
+msgid "Female"
+msgstr "Vrouw"
+
+msgctxt "#32845"
+msgid "GENDER"
+msgstr "GESLACHT"
+
+msgctxt "#32846"
+msgid "Enable Scrollbars for Extras Lists"
+msgstr "Scrollbars voor Extras Lijsten Inschakelen"
+
+msgctxt "#32847"
+msgid "Select Genres to Include in Search"
+msgstr "Selecteer Genres om op te nemen in de Zoekopdracht"
+
+msgctxt "#32848"
+msgid "Yesterday"
+msgstr "Gisteren"
+
+msgctxt "#32849"
+msgid "Today"
+msgstr "Vandaag"
+
+msgctxt "#32850"
+msgid "Tomorrow"
+msgstr "Morgen"
+
+msgctxt "#32851"
+msgid "Jump To Action Switched to [B]%s[/B]"
+msgstr "Ga Naar Actie Overgeschakeld naar [B]%s[/B]"
+
+msgctxt "#32852"
+msgid "Local Subtitles Found"
+msgstr "Lokale Ondertiteling Gevonden"
+
+msgctxt "#32853"
+msgid "Upload Kodi Log to Pastebin"
+msgstr "Upload Kodi Log naar Pastebin"
+
+msgctxt "#32854"
+msgid "No External Scrapers Enabled"
+msgstr "Geen Externe Scrapers Ingeschakeld"
+
+msgctxt "#32855"
+msgid "Show Log Errors Only?"
+msgstr "Alleen Logfouten Weergeven?"
+
+msgctxt "#32856"
+msgid "Syncing Kodi Library Watched Status"
+msgstr "Synchroniseren van Kodi Bibliotheek Bekeken Status"
+
+msgctxt "#32857"
+msgid "New"
+msgstr "Nieuw"
+
+msgctxt "#32858"
+msgid "Spotlight"
+msgstr "Schijnwerper"
+
+msgctxt "#32859"
+msgid "True"
+msgstr "Inbegrepen"
+
+msgctxt "#32860"
+msgid "False"
+msgstr "Uitgesloten"
+
+msgctxt "#32861"
+msgid "Arabic"
+msgstr "Arabisch"
+
+msgctxt "#32862"
+msgid "Bosnian"
+msgstr "Bosnisch"
+
+msgctxt "#32863"
+msgid "Bulgarian"
+msgstr "Bulgaars"
+
+msgctxt "#32864"
+msgid "Chinese"
+msgstr "Chinees"
+
+msgctxt "#32865"
+msgid "Croatian"
+msgstr "Kroatisch"
+
+msgctxt "#32866"
+msgid "Dutch"
+msgstr "Nederlands"
+
+msgctxt "#32867"
+msgid "English"
+msgstr "Engels"
+
+msgctxt "#32868"
+msgid "Finnish"
+msgstr "Fins"
+
+msgctxt "#32869"
+msgid "French"
+msgstr "Frans"
+
+msgctxt "#32870"
+msgid "German"
+msgstr "Duits"
+
+msgctxt "#32871"
+msgid "Greek"
+msgstr "Grieks"
+
+msgctxt "#32872"
+msgid "Hebrew"
+msgstr "Hebreeuws"
+
+msgctxt "#32873"
+msgid "Hindi"
+msgstr "Hindi"
+
+msgctxt "#32874"
+msgid "Hungarian"
+msgstr "Hongaars"
+
+msgctxt "#32875"
+msgid "Icelandic"
+msgstr "IJsland"
+
+msgctxt "#32876"
+msgid "Italian"
+msgstr "Italiaans"
+
+msgctxt "#32877"
+msgid "Japanese"
+msgstr "Japans"
+
+msgctxt "#32878"
+msgid "Korean"
+msgstr "Koreaans"
+
+msgctxt "#32879"
+msgid "Macedonian"
+msgstr "Macedonisch"
+
+msgctxt "#32880"
+msgid "Norwegian"
+msgstr "Noors"
+
+msgctxt "#32881"
+msgid "Persian"
+msgstr "Perzisch"
+
+msgctxt "#32882"
+msgid "Polish"
+msgstr "Pools"
+
+msgctxt "#32883"
+msgid "Portuguese"
+msgstr "Portugees"
+
+msgctxt "#32884"
+msgid "Punjabi"
+msgstr "Punjabi"
+
+msgctxt "#32885"
+msgid "Romanian"
+msgstr "Roemeens"
+
+msgctxt "#32886"
+msgid "Russian"
+msgstr "Russisch"
+
+msgctxt "#32887"
+msgid "Serbian"
+msgstr "Servisch"
+
+msgctxt "#32888"
+msgid "Slovenian"
+msgstr "Sloveens"
+
+msgctxt "#32889"
+msgid "Spanish"
+msgstr "Spaans"
+
+msgctxt "#32890"
+msgid "Swedish"
+msgstr "Zweeds"
+
+msgctxt "#32891"
+msgid "Turkish"
+msgstr "Turks"
+
+msgctxt "#32892"
+msgid "Ukrainian"
+msgstr "Oekraiens"
+
+msgctxt "#32893"
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+msgctxt "#32894"
+msgid "Albania"
+msgstr "Albanie"
+
+msgctxt "#32895"
+msgid "Algeria"
+msgstr "Algerije"
+
+msgctxt "#32896"
+msgid "Antarctica"
+msgstr "Antarctica"
+
+msgctxt "#32897"
+msgid "Argentina"
+msgstr "Argentinie"
+
+msgctxt "#32898"
+msgid "Armenia"
+msgstr "Armenie"
+
+msgctxt "#32899"
+msgid "Australia"
+msgstr "Australie"
+
+msgctxt "#32900"
+msgid "Austria"
+msgstr "Oostenrijk"
+
+msgctxt "#32901"
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+msgctxt "#32902"
+msgid "Belarus"
+msgstr "Wit-Rusland"
+
+msgctxt "#32903"
+msgid "Belgium"
+msgstr "Belgie"
+
+msgctxt "#32904"
+msgid "Brazil"
+msgstr "Brazilie"
+
+msgctxt "#32905"
+msgid "Bulgaria"
+msgstr "Bulgarije"
+
+msgctxt "#32906"
+msgid "Cambodia"
+msgstr "Cambodja"
+
+msgctxt "#32907"
+msgid "Canada"
+msgstr "Canada"
+
+msgctxt "#32908"
+msgid "Chile"
+msgstr "Chili"
+
+msgctxt "#32909"
+msgid "China"
+msgstr "China"
+
+msgctxt "#32910"
+msgid "Croatia"
+msgstr "Kroatie"
+
+msgctxt "#32911"
+msgid "Czech Republic"
+msgstr "Tsjechische Republiek"
+
+msgctxt "#32912"
+msgid "Denmark"
+msgstr "Denemarken"
+
+msgctxt "#32913"
+msgid "Germany"
+msgstr "Duitsland"
+
+msgctxt "#32914"
+msgid "France"
+msgstr "Frankrijk"
+
+msgctxt "#32915"
+msgid "Finland"
+msgstr "Finland"
+
+msgctxt "#32916"
+msgid "Egypt"
+msgstr "Egypte"
+
+msgctxt "#32917"
+msgid "Greece"
+msgstr "Griekenland"
+
+msgctxt "#32918"
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+msgctxt "#32919"
+msgid "Hungary"
+msgstr "Hongarije"
+
+msgctxt "#32920"
+msgid "Iceland"
+msgstr "IJsland"
+
+msgctxt "#32921"
+msgid "India"
+msgstr "India"
+
+msgctxt "#32922"
+msgid "Indonesia"
+msgstr "Indonesie"
+
+msgctxt "#32923"
+msgid "Iran"
+msgstr "Iran"
+
+msgctxt "#32924"
+msgid "Iraq"
+msgstr "Iraq"
+
+msgctxt "#32925"
+msgid "Ireland"
+msgstr "Ierland"
+
+msgctxt "#32926"
+msgid "Israel"
+msgstr "Israel"
+
+msgctxt "#32927"
+msgid "Italy"
+msgstr "Italie"
+
+msgctxt "#32928"
+msgid "Japan"
+msgstr "Japan"
+
+msgctxt "#32929"
+msgid "Malaysia"
+msgstr "Maleisie"
+
+msgctxt "#32930"
+msgid "Nepal"
+msgstr "Nepal"
+
+msgctxt "#32931"
+msgid "Netherlands"
+msgstr "Nederland"
+
+msgctxt "#32932"
+msgid "New Zealand"
+msgstr "Nieuw Zeeland"
+
+msgctxt "#32933"
+msgid "Norway"
+msgstr "Noorwegen"
+
+msgctxt "#32934"
+msgid "Pakistan"
+msgstr "Pakistan"
+
+msgctxt "#32935"
+msgid "Paraguay"
+msgstr "Paraguay"
+
+msgctxt "#32936"
+msgid "Peru"
+msgstr "Peru"
+
+msgctxt "#32937"
+msgid "Philippines"
+msgstr "Filippijnen"
+
+msgctxt "#32938"
+msgid "Poland"
+msgstr "Polen"
+
+msgctxt "#32939"
+msgid "Portugal"
+msgstr "Portugal"
+
+msgctxt "#32940"
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+msgctxt "#32941"
+msgid "Romania"
+msgstr "Roemenie"
+
+msgctxt "#32942"
+msgid "Russian Federation"
+msgstr "Russische Federatie"
+
+msgctxt "#32943"
+msgid "Saudi Arabia"
+msgstr "Saoedi Arabie"
+
+msgctxt "#32944"
+msgid "Serbia"
+msgstr "Servie"
+
+msgctxt "#32945"
+msgid "Singapore"
+msgstr "Singapore"
+
+msgctxt "#32946"
+msgid "Slovakia"
+msgstr "Slowakije"
+
+msgctxt "#32947"
+msgid "Slovenia"
+msgstr "Slovenie"
+
+msgctxt "#32948"
+msgid "South Africa"
+msgstr "Zuid Afrika"
+
+msgctxt "#32949"
+msgid "Spain"
+msgstr "Spanje"
+
+msgctxt "#32950"
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+msgctxt "#32951"
+msgid "Sweden"
+msgstr "Zweden"
+
+msgctxt "#32952"
+msgid "Switzerland"
+msgstr "Zwitserland"
+
+msgctxt "#32953"
+msgid "Thailand"
+msgstr "Thailand"
+
+msgctxt "#32954"
+msgid "Turkey"
+msgstr "Turkije"
+
+msgctxt "#32955"
+msgid "Ukraine"
+msgstr "Oekraine"
+
+msgctxt "#32956"
+msgid "United Arab Emirates"
+msgstr "Verenigde Arabische Emiraten"
+
+msgctxt "#32957"
+msgid "United Kingdom"
+msgstr "Verenigd Koninkrijk"
+
+msgctxt "#32958"
+msgid "United States"
+msgstr "Verenigde Staten"
+
+msgctxt "#32959"
+msgid "Uruguay"
+msgstr "Uruguay"
+
+msgctxt "#32960"
+msgid "Venezuela"
+msgstr "Venezuela"
+
+msgctxt "#32961"
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+msgctxt "#32962"
+msgid "Yemen"
+msgstr "Jemen"
+
+msgctxt "#32963"
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+msgctxt "#32964"
+msgid "Jump To..."
+msgstr "Ga Naar..."
+
+msgctxt "#32965"
+msgid "None"
+msgstr "Geen"
+
+msgctxt "#32966"
+msgid "Please go to [B]https://trakt.tv/activate[/B] and enter the code"
+msgstr "Ga naar [B]https://trakt.tv/activate[/B] en voer de code in"
+
+msgctxt "#32967"
+msgid "Trakt & POV Watched Status"
+msgstr "Trakt & POV Bekeken Status"
+
+msgctxt "#32968"
+msgid "Checking %s Watched Status"
+msgstr "Controle %s Bekeken Status"
+
+msgctxt "#32969"
+msgid "Syncing %s Watched Status"
+msgstr "Synchronisatie %s Bekeken Status"
+
+# msgctxt "32970"
+
+msgctxt "#32971"
+msgid "MONDAY"
+msgstr "MAANDAG"
+
+msgctxt "#32972"
+msgid "TUESDAY"
+msgstr "DINSDAG"
+
+msgctxt "#32973"
+msgid "WEDNESDAY"
+msgstr "WOENSDAG"
+
+msgctxt "#32974"
+msgid "THURSDAY"
+msgstr "DONDERDAG"
+
+msgctxt "#32975"
+msgid "FRIDAY"
+msgstr "VRIJDAG"
+
+msgctxt "#32976"
+msgid "SATURDAY"
+msgstr "ZATERDAG"
+
+msgctxt "#32977"
+msgid "SUNDAY"
+msgstr "ZONDAG"
+
+# msgctxt "32978"
+
+# msgctxt "32979"
+
+# msgctxt "32980"
+
+# msgctxt "32981"
+
+msgctxt "#32982"
+msgid "[B]Download Archive[/B]"
+msgstr "[B]Download Archief[/B]"
+
+msgctxt "#32983"
+msgid "No New Items"
+msgstr "Geen Nieuwe Items"
+
+msgctxt "#32984"
+msgid "Trivia"
+msgstr "Trivia"
+
+msgctxt "#32985"
+msgid "Contains Spoilers"
+msgstr "Bevat Spoilers"
+
+msgctxt "#32986"
+msgid "Blunders"
+msgstr "Blunders"
+
+msgctxt "#32987"
+msgid "Plot"
+msgstr "Plot"
+
+# msgctxt "32988"
+
+msgctxt "#32989"
+msgid "Parental Guide"
+msgstr "Ouderlijke Gids"
+
+msgctxt "#32990"
+msgid "Sex & Nudity"
+msgstr "Seks en Naaktheid"
+
+msgctxt "#32991"
+msgid "Violence & Gore"
+msgstr "Geweld en Bloedvergieten"
+
+msgctxt "#32992"
+msgid "Profanity"
+msgstr "Vloeken"
+
+msgctxt "#32993"
+msgid "Alcohol, Drugs & Smoking"
+msgstr "Alcohol, Drugs en Roken"
+
+msgctxt "#32994"
+msgid "Frightening & Intense Scenes"
+msgstr "Beangstigende en Intense Scenes"
+
+# msgctxt "32995"
+
+msgctxt "#32996"
+msgid "Mild"
+msgstr "Mild"
+
+msgctxt "#32997"
+msgid "Moderate"
+msgstr "Matig"
+
+msgctxt "#32998"
+msgid "Severe"
+msgstr "Hevig"
+
+# msgctxt "32999"
+
+msgctxt "#33000"
+msgid "Confirm"
+msgstr "Bevestigen"
+
+# msgctxt "33001"
+
+# msgctxt "33002"
+
+msgctxt "#33003"
+msgid "Enable Season/Show Pack Search"
+msgstr "Seizoen/Show Pakket Zoeken Inschakelen"
+
+msgctxt "#33004"
+msgid "[B]Browse Pack[/B]"
+msgstr "[B]Blader Door Pakket[/B]"
+
+msgctxt "#33005"
+msgid "Image Files Directory"
+msgstr "Afbeeldingen Bestanden Directory"
+
+msgctxt "#33006"
+msgid "Check Year Before Search"
+msgstr "Controleer Jaar Voor Het Zoeken"
+
+msgctxt "#33007"
+msgid "API Version"
+msgstr "API Versie"
+
+msgctxt "#33008"
+msgid "Version 2"
+msgstr "Versie 2"
+
+msgctxt "#33009"
+msgid "Version 3"
+msgstr "Versie 3"
+
+# msgctxt "33010"
+
+# msgctxt "33011"
+
+msgctxt "#33012"
+msgid "Open POV Extras For Movies/TV Shows"
+msgstr "Open POV Extras Voor Films/TV Series"
+
+msgctxt "#33013"
+msgid "Default"
+msgstr "Standaard"
+
+msgctxt "#33014"
+msgid "Choose Files"
+msgstr "Kies Bestanden"
+
+msgctxt "#33015"
+msgid "Use Torrent Services"
+msgstr "Gebruik Torrent Diensten"
+
+msgctxt "#33016"
+msgid "Use Hoster Services"
+msgstr "Gebruik Hoster Diensten"
+
+msgctxt "#33017"
+msgid "Set Language Invoker (ADVANCED!!)"
+msgstr "Taal Invoker Instellen (GEAVANCEERD!!)"
+
+msgctxt "#33018"
+msgid "[B]Reuse Langauage Invoker[/B] is currently set to %s.\n\nDo you wish to change this setting to %s?"
+msgstr "[B] Hergebruik taal Invoker [/B] is momenteel ingesteld op %s.\n\nWilt u deze instelling wijzigen in %s?"
+
+msgctxt "#33019"
+msgid "Changing this setting can create problems within POV. Continue?"
+msgstr "Het wijzigen van deze instelling kan problemen veroorzaken binnen POV. Doorgaan?"
+
+msgctxt "#33020"
+msgid "POV will reload your profile to refresh the addon.xml"
+msgstr "POV zal je profiel opnieuw laden om de addon.xml te vernieuwen"
+
+msgctxt "#33021"
+msgid "[B]Reuse Language Invoker[/B] SETTING/XML mismatch"
+msgstr "[B]Hergebruik Taal Invoker [/B] INSTELLING/XML komt niet overeen"
+
+msgctxt "#33022"
+msgid "No Trakt or IMDb Account Detected"
+msgstr "Geen Trakt- of IMDb-account gevonden"
+
+msgctxt "#33023"
+msgid "Start Full Scrape"
+msgstr "Starten Volledige Scrape"
+
+msgctxt "#33024"
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+msgctxt "#33025"
+msgid "My Accounts"
+msgstr "Mijn Accounts"
+
+msgctxt "#33026"
+msgid "My Accounts Manager"
+msgstr "Mijn Accounts Beheren"
+
+msgctxt "#33027"
+msgid "Open My Accounts  [I](Enter Account Details Here)[/I]"
+msgstr "Open Mijn Accounts  [I](voer hier accountgegevens in)[/I]"
+
+msgctxt "#33028"
+msgid "(Re)Sync POV Settings with My Accounts"
+msgstr "(Her)Synchroniseer POV Instellingen met Mijn Accounts"
+
+msgctxt "#33029"
+msgid "[I]Please visit My Accounts to change settings[/I]"
+msgstr "[I]Bezoek Mijn Accounts om instellingen te wijzigen[/I]"
+
+msgctxt "#33030"
+msgid "Settings Updated"
+msgstr "Instellingen Bijgewerkt"
+
+msgctxt "#33031"
+msgid "Hoster"
+msgstr "Hoster"
+
+msgctxt "#33032"
+msgid "Videos"
+msgstr "Video's"
+
+# msgctxt "33033"
+
+# msgctxt "33034"
+
+# msgctxt "33035"
+
+msgctxt "#33036"
+msgid "CLEAR %s:  [I]%s[/I]"
+msgstr "WIS %s:  [I]%s[/I]"
+
+msgctxt "#33037"
+msgid "[B]EXTRAS:[/B] %s"
+msgstr "[B]EXTRAS:[/B] %s"
+
+msgctxt "#33038"
+msgid "Extras"
+msgstr "Extras"
+
+# msgctxt "33039"
+
+msgctxt "#33040"
+msgid "Exclude Non Acting Roles in Person Results"
+msgstr "Niet Acterende Rollen Uitsluiten in Persoons Resultaten"
+
+msgctxt "#33041"
+msgid "On Deck"
+msgstr "On Deck"
+
+# msgctxt "33042"
+
+# msgctxt "33043"
+
+# msgctxt "33044"
+
+msgctxt "#33045"
+msgid "Tagged"
+msgstr "Getagd"
+
+msgctxt "#33046"
+msgid "%s of %s Watched"
+msgstr "%s van %s Bekeken"
+
+# msgctxt "33047"
+
+msgctxt "#33048"
+msgid "Watched Status"
+msgstr "Bekeken Status"
+
+msgctxt "#33049"
+msgid "Watched Progress"
+msgstr "Bekeken Voortgang"
+
+# msgctxt "33050"
+
+msgctxt "#33051"
+msgid "Slideshow"
+msgstr "Diavoorstelling"
+
+# msgctxt "33052"
+
+# msgctxt "33053"
+
+# msgctxt "33054"
+
+# msgctxt "33055"
+
+# msgctxt "33056"
+
+msgctxt "#33057"
+msgid "Sci-Fi & Fantasy"
+msgstr "Sciencefiction & Fantasie"
+
+msgctxt "#33058"
+msgid "%smins"
+msgstr "%smins"
+
+msgctxt "#33059"
+msgid "Duration"
+msgstr "Duur"
+
+msgctxt "#33060"
+msgid "Production Status"
+msgstr "Productiestatus"
+
+msgctxt "#33061"
+msgid "Press BACK to Exit"
+msgstr "Druk op TERUG om af te sluiten"
+
+msgctxt "#33062"
+msgid "Finish Watching"
+msgstr "Klaar Met Kijken"
+
+msgctxt "#33063"
+msgid "Playback Volume"
+msgstr "Afspeelvolume"
+
+msgctxt "#33064"
+msgid "Check Playback Volume Before Start of Playback"
+msgstr "Controleer Afspeelvolume Voordat U met Afspelen begint"
+
+msgctxt "#33065"
+msgid "Set Max. Percent Starting Volume (0-100)"
+msgstr "Stel Maximale Percentage Startvolume In (0-100)"
+
+msgctxt "#40001"
+msgid "[B]POV: Refresh Widgets[/B]"
+msgstr "[B]POV: Widgets Vernieuwen[/B]"
+
+msgctxt "#40002"
+msgid "[B]POV: Browse...[/B]"
+msgstr "[B]POV: Bladeren...[/B]"
+
+msgctxt "#40003"
+msgid "[B]POV: Mark Watched[/B]"
+msgstr "[B]POV: Markeer Bekeken[/B]"
+
+msgctxt "#40004"
+msgid "[B]POV: Mark Unwatched[/B]"
+msgstr "[B]POV: Markeer Onbekeken[/B]"
+
+msgctxt "#40005"
+msgid "[B]POV: Trakt Lists Manager[/B]"
+msgstr "[B]POV: Trakt Lijsten Beheren[/B]"
+
+msgctxt "#40006"
+msgid "[B]POV: Extras...[/B]"
+msgstr "[B]POV: Extras...[/B]"
+
+msgctxt "#40007"
+msgid "[B]POV: Options...[/B]"
+msgstr "[B]POV: Opties...[/B]"
+
+msgctxt "#40008"
+msgid "[B]POV: Favorites Manager[/B]"
+msgstr "[B]POV: Favorieten Beheren[/B]"
+
+msgctxt "#40009"
+msgid "[B]POV: Clear Progress[/B]"
+msgstr "[B]POV: Wis Vooruitgang[/B]"
+
+msgctxt "#40010"
+msgid "[B]POV: Play Random[/B]"
+msgstr "[B]POV: Willekeurig Afspelen[/B]"
+

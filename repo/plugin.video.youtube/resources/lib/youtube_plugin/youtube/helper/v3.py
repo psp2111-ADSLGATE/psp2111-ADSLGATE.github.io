@@ -10,10 +10,11 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
-from threading import Thread
+import threading
 
 from .utils import (
-    filter_short_videos,
+    THUMB_TYPES,
+    filter_videos,
     get_thumbnail,
     make_comment_item,
     update_channel_infos,
@@ -21,12 +22,13 @@ from .utils import (
     update_playlist_infos,
     update_video_infos,
 )
-from ...kodion.constants import paths
 from ...kodion import KodionException
-from ...kodion.items import DirectoryItem, NextPageItem, VideoItem, menu_items
+from ...kodion.constants import PATHS
+from ...kodion.items import CommandItem, DirectoryItem, NextPageItem, VideoItem
+from ...kodion.utils import strip_html_from_text
 
 
-def _process_list_response(provider, context, json_data):
+def _process_list_response(provider, context, json_data, item_filter):
     yt_items = json_data.get('items', [])
     if not yt_items:
         context.log_warning('v3 response: Items list is empty')
@@ -40,70 +42,116 @@ def _process_list_response(provider, context, json_data):
 
     result = []
 
-    item_params = {}
-    incognito = context.get_param('incognito', False)
-    if incognito:
-        item_params['incognito'] = incognito
-    addon_id = context.get_param('addon_id', '')
+    new_params = {}
+    params = context.get_params()
+    if params.get('incognito'):
+        new_params['incognito'] = True
+    addon_id = params.get('addon_id', '')
     if addon_id:
-        item_params['addon_id'] = addon_id
+        new_params['addon_id'] = addon_id
 
     settings = context.get_settings()
-    thumb_size = settings.use_thumbnail_size()
-    use_play_data = not incognito and settings.use_local_history()
+    thumb_size = settings.get_thumbnail_size()
+    fanart_type = params.get('fanart_type')
+    if fanart_type is None:
+        fanart_type = settings.fanart_selection()
+    if fanart_type == settings.FANART_THUMBNAIL:
+        fanart_type = settings.get_thumbnail_size(settings.THUMB_SIZE_BEST)
+    else:
+        fanart_type = False
+    untitled = context.localize('untitled')
 
     for yt_item in yt_items:
-        is_youtube, kind = _parse_kind(yt_item)
-        if not is_youtube or not kind:
-            context.log_debug('v3 response: Item discarded, is_youtube=False')
+        kind, is_youtube, is_plugin, kind_type = _parse_kind(yt_item)
+        if not (is_youtube or is_plugin) or not kind_type:
+            context.log_debug('v3 item discarded: |%s|' % kind)
             continue
 
-        item_id = yt_item.get('id')
-        snippet = yt_item.get('snippet', {})
-        title = snippet.get('title', context.localize('untitled'))
-        image = get_thumbnail(thumb_size, snippet.get('thumbnails', {}))
+        item_params = yt_item.get('_params', {})
+        item_params.update(new_params)
 
-        if kind == 'searchresult':
-            _, kind = _parse_kind(item_id)
-            if kind == 'video':
+        if is_youtube:
+            item_id = yt_item.get('id')
+            snippet = yt_item.get('snippet', {})
+
+            localised_info = snippet.get('localized') or {}
+            title = (localised_info.get('title')
+                     or snippet.get('title')
+                     or untitled)
+            description = strip_html_from_text(localised_info.get('description')
+                                               or snippet.get('description')
+                                               or '')
+            # context.log_debug(f'***********\n{item_id = }, {title = }\n{yt_item = }\n***************')
+
+            thumbnails = snippet.get('thumbnails')
+            if not thumbnails:
+                thumbnails = {
+                    thumb_type: {
+                        'url': thumb['url'].format(item_id, ''),
+                        'size': thumb['size'],
+                        'ratio': thumb['ratio'],
+                    }
+                    for thumb_type, thumb in THUMB_TYPES.items()
+                }
+            image = get_thumbnail(thumb_size, thumbnails)
+            if fanart_type:
+                fanart = get_thumbnail(fanart_type, thumbnails)
+            else:
+                fanart = None
+
+        if kind_type == 'searchresult':
+            kind, _, _, kind_type = _parse_kind(item_id)
+            if kind_type == 'video' and 'videoId' in item_id:
                 item_id = item_id['videoId']
-            elif kind == 'playlist':
+            elif kind_type == 'playlist' and 'playlistId' in item_id:
                 item_id = item_id['playlistId']
-            elif kind == 'channel':
+            elif kind_type == 'channel' and 'channelId' in item_id:
                 item_id = item_id['channelId']
+            else:
+                item_id = None
+            if not item_id:
+                context.log_debug('v3 searchResult discarded: |%s|' % kind)
+                continue
 
-        if kind == 'video':
+        if kind_type == 'video':
+            item_params['video_id'] = item_id
             item_uri = context.create_uri(
-                ('play',),
-                dict(item_params, video_id=item_id),
+                (PATHS.PLAY,),
+                item_params,
             )
-            item = VideoItem(title, item_uri, image=image)
+            item = VideoItem(title,
+                             item_uri,
+                             image=image,
+                             fanart=fanart,
+                             plot=description)
             video_id_dict[item_id] = item
 
-        elif kind == 'channel':
+        elif kind_type == 'channel':
             item_uri = context.create_uri(
                 ('channel', item_id),
                 item_params,
             )
-            item = DirectoryItem(title, item_uri, image=image)
+            item = DirectoryItem(title,
+                                 item_uri,
+                                 image=image,
+                                 fanart=fanart,
+                                 plot=description,
+                                 channel_id=item_id)
             channel_id_dict[item_id] = item
-            # if logged in => provide subscribing to the channel
-            if provider.is_logged_in():
-                context_menu = [
-                    menu_items.subscribe_to_channel(
-                        context, item_id
-                    ),
-                ]
-                item.set_context_menu(context_menu)
 
-        elif kind == 'guidecategory':
+        elif kind_type == 'guidecategory':
+            item_params['guide_id'] = item_id
             item_uri = context.create_uri(
                 ('special', 'browse_channels'),
-                dict(item_params, guide_id=item_id),
+                item_params,
             )
-            item = DirectoryItem(title, item_uri)
+            item = DirectoryItem(title,
+                                 item_uri,
+                                 image=image,
+                                 fanart=fanart,
+                                 plot=description)
 
-        elif kind == 'subscription':
+        elif kind_type == 'subscription':
             subscription_id = item_id
             item_id = snippet['resourceId']['channelId']
             # map channel id with subscription id - needed to unsubscribe
@@ -113,37 +161,60 @@ def _process_list_response(provider, context, json_data):
                 ('channel', item_id),
                 item_params
             )
-            item = DirectoryItem(title, item_uri, image=image)
+            item = DirectoryItem(title,
+                                 item_uri,
+                                 image=image,
+                                 fanart=fanart,
+                                 plot=description,
+                                 channel_id=item_id,
+                                 subscription_id=subscription_id)
             channel_id_dict[item_id] = item
-            item.set_channel_id(item_id)
 
-        elif kind == 'playlist':
+        elif kind_type == 'playlist':
             # set channel id to 'mine' if the path is for a playlist of our own
-            if context.get_path().startswith(paths.MY_PLAYLISTS):
-                channel_id = 'mine'
+            channel_id = snippet.get('channelId')
+            if context.get_path().startswith(PATHS.MY_PLAYLISTS):
+                uri_channel_id = 'mine'
             else:
-                channel_id = snippet['channelId']
-            item_uri = context.create_uri(
-                ('channel', channel_id, 'playlist', item_id),
-                item_params,
-            )
-            item = DirectoryItem(title, item_uri, image=image)
+                uri_channel_id = channel_id
+            if uri_channel_id:
+                item_uri = context.create_uri(
+                    ('channel', uri_channel_id, 'playlist', item_id),
+                    item_params,
+                )
+            else:
+                item_uri = context.create_uri(
+                    ('playlist', item_id),
+                    item_params,
+                )
+            item = DirectoryItem(title,
+                                 item_uri,
+                                 image=image,
+                                 fanart=fanart,
+                                 plot=description,
+                                 channel_id=channel_id,
+                                 playlist_id=item_id)
             playlist_id_dict[item_id] = item
 
-        elif kind == 'playlistitem':
+        elif kind_type == 'playlistitem':
             playlistitem_id = item_id
             item_id = snippet['resourceId']['videoId']
             # store the id of the playlistItem - needed for deleting item
             playlist_item_id_dict[item_id] = playlistitem_id
 
+            item_params['video_id'] = item_id
             item_uri = context.create_uri(
-                ('play',),
-                dict(item_params, video_id=item_id),
+                (PATHS.PLAY,),
+                item_params,
             )
-            item = VideoItem(title, item_uri, image=image)
+            item = VideoItem(title,
+                             item_uri,
+                             image=image,
+                             fanart=fanart,
+                             plot=description)
             video_id_dict[item_id] = item
 
-        elif kind == 'activity':
+        elif kind_type == 'activity':
             details = yt_item['contentDetails']
             activity_type = snippet['type']
             if activity_type == 'recommendation':
@@ -153,14 +224,19 @@ def _process_list_response(provider, context, json_data):
             else:
                 continue
 
+            item_params['video_id'] = item_id
             item_uri = context.create_uri(
-                ('play',),
-                dict(item_params, video_id=item_id),
+                (PATHS.PLAY,),
+                item_params,
             )
-            item = VideoItem(title, item_uri, image=image)
+            item = VideoItem(title,
+                             item_uri,
+                             image=image,
+                             fanart=fanart,
+                             plot=description)
             video_id_dict[item_id] = item
 
-        elif kind == 'commentthread':
+        elif kind_type == 'commentthread':
             total_replies = snippet['totalReplyCount']
             snippet = snippet['topLevelComment']['snippet']
             if total_replies:
@@ -172,22 +248,35 @@ def _process_list_response(provider, context, json_data):
                 item_uri = ''
             item = make_comment_item(context, snippet, item_uri, total_replies)
 
-        elif kind == 'comment':
+        elif kind_type == 'comment':
             item = make_comment_item(context, snippet, uri='')
 
+        elif kind_type == 'pluginitem':
+            item = DirectoryItem(**item_params)
+
+        elif kind_type == 'commanditem':
+            item = CommandItem(context=context, **item_params)
+
         else:
-            raise KodionException("Unknown kind '%s'" % kind)
+            item = None
+            raise KodionException('Unknown kind: %s' % kind)
 
         if not item:
             continue
+
+        if '_context_menu' in yt_item:
+            item.add_context_menu(**yt_item['_context_menu'])
+
         if isinstance(item, VideoItem):
             item.video_id = item_id
-            if incognito:
-                item.set_play_count(0)
             # Set track number from playlist, or set to current list length to
             # match "Default" (unsorted) sort order
             position = snippet.get('position') or len(result)
             item.set_track_number(position + 1)
+
+        if '_callback' in yt_item:
+            yt_item['_callback'](item)
+
         result.append(item)
 
     # this will also update the channel_id_dict with the correct channel_id
@@ -216,7 +305,7 @@ def _process_list_response(provider, context, json_data):
             'upd_kwargs': {
                 'data': None,
                 'live_details': True,
-                'use_play_data': use_play_data
+                'item_filter': item_filter,
             },
             'complete': False,
             'defer': False,
@@ -257,7 +346,10 @@ def _process_list_response(provider, context, json_data):
         4: {
             'fetcher': resource_manager.get_fanarts,
             'args': (channel_items_dict,),
-            'kwargs': {'defer_cache': True},
+            'kwargs': {
+                'force': bool(channel_id_dict or playlist_id_dict),
+                'defer_cache': True,
+            },
             'thread': None,
             'updater': update_fanarts,
             'upd_args': (
@@ -286,22 +378,41 @@ def _process_list_response(provider, context, json_data):
         data = resource['fetcher'](
             *resource['args'], **resource['kwargs']
         )
-        if not data or not resource['updater']:
-            return
-        resource['upd_kwargs']['data'] = data
-        resource['updater'](*resource['upd_args'], **resource['upd_kwargs'])
+        if data and resource['updater']:
+            resource['upd_kwargs']['data'] = data
+            resource['updater'](*resource['upd_args'], **resource['upd_kwargs'])
+        resource['complete'] = True
+        threads['current'].discard(resource['thread'])
+        threads['loop'].set()
+
+    threads = {
+        'current': set(),
+        'loop': threading.Event(),
+    }
 
     remaining = len(resources)
     deferred = sum(1 for resource in resources.values() if resource['defer'])
-    iterator = iter(resources.values())
-    while remaining:
+    completed = []
+    iterator = iter(resources)
+    threads['loop'].set()
+    while threads['loop'].wait():
         try:
-            resource = next(iterator)
+            resource_id = next(iterator)
         except StopIteration:
-            iterator = iter(resources.values())
-            resource = next(iterator)
+            if not remaining and not threads['current']:
+                break
+            if threads['current']:
+                threads['loop'].clear()
+            for resource_id in completed:
+                del resources[resource_id]
+            completed = []
+            iterator = iter(resources)
+            continue
 
+        resource = resources[resource_id]
         if resource['complete']:
+            remaining -= 1
+            completed.append(resource_id)
             continue
 
         defer = resource['defer']
@@ -315,23 +426,32 @@ def _process_list_response(provider, context, json_data):
         args = resource['args']
         if args and not args[0]:
             resource['complete'] = True
-            remaining -= 1
             continue
 
-        thread = resource['thread']
-        if thread:
-            thread.join(5)
-            if not thread.is_alive():
-                resource['thread'] = None
-                resource['complete'] = True
-                remaining -= 1
-        else:
-            thread = Thread(target=_fetch, args=(resource,))
-            thread.daemon = True
-            thread.start()
-            resource['thread'] = thread
+        if not resource['thread']:
+            new_thread = threading.Thread(target=_fetch, args=(resource,))
+            new_thread.daemon = True
+            threads['current'].add(new_thread)
+            resource['thread'] = new_thread
+            new_thread.start()
 
     return result
+
+
+_KNOWN_RESPONSE_KINDS = {
+    'activitylistresponse',
+    'channellistresponse',
+    'commentlistresponse',
+    'commentthreadlistresponse',
+    'guidecategorylistresponse',
+    'playlistitemlistresponse',
+    'playlistlistresponse',
+    'searchlistresponse',
+    'subscriptionlistresponse',
+    'videolistresponse',
+    # plugin kinds
+    'pluginlistresponse',
+}
 
 
 def response_to_items(provider,
@@ -339,36 +459,36 @@ def response_to_items(provider,
                       json_data,
                       sort=None,
                       reverse=False,
-                      process_next_page=True):
-    is_youtube, kind = _parse_kind(json_data)
-    if not is_youtube:
-        context.log_debug('v3 response: Response discarded, is_youtube=False')
+                      process_next_page=True,
+                      item_filter=None):
+    kind, is_youtube, is_plugin, kind_type = _parse_kind(json_data)
+    if not is_youtube and not is_plugin:
+        context.log_debug('v3 response discarded: |%s|' % kind)
         return []
 
-    if kind in (
-            'activitylistresponse',
-            'channellistresponse',
-            'commentlistresponse',
-            'commentthreadlistresponse',
-            'guidecategorylistresponse',
-            'playlistitemlistresponse',
-            'playlistlistresponse',
-            'searchlistresponse',
-            'subscriptionlistresponse',
-            'videolistresponse',
-    ):
-        result = _process_list_response(provider, context, json_data)
+    params = context.get_params()
+
+    if kind_type in _KNOWN_RESPONSE_KINDS:
+        item_filter = context.get_settings().item_filter(
+            update=item_filter,
+            override=params.get('item_filter'),
+        )
+        result = _process_list_response(
+            provider, context, json_data, item_filter
+        )
+        if not result:
+            return result
     else:
-        raise KodionException("Unknown kind '%s'" % kind)
+        raise KodionException('Unknown kind: %s' % kind)
+
+    if item_filter:
+        result = filter_videos(result, **item_filter)
 
     if sort is not None:
         result.sort(key=sort, reverse=reverse)
 
-    if context.get_settings().hide_short_videos():
-        result = filter_short_videos(result)
-
     # no processing of next page item
-    if not process_next_page:
+    if not process_next_page or params.get('hide_next_page'):
         return result
 
     # next page
@@ -379,39 +499,61 @@ def response_to_items(provider,
     We implemented our own calculation for the token into the YouTube client
     This should work for up to ~2000 entries.
     """
-    page_info = json_data.get('pageInfo', {})
-    yt_total_results = int(page_info.get('totalResults', 0))
-    yt_results_per_page = int(page_info.get('resultsPerPage', 0))
-    page = int(context.get_param('page', 1))
-    offset = int(json_data.get('offset', 0))
-    yt_visitor_data = json_data.get('visitorData', '')
-    yt_next_page_token = json_data.get('nextPageToken', '')
-    yt_click_tracking = json_data.get('clickTracking', '')
-    if yt_next_page_token or (page * yt_results_per_page < yt_total_results):
-        if not yt_next_page_token:
-            client = provider.get_client(context)
-            yt_next_page_token = client.calculate_next_page_token(
-                page + 1, yt_results_per_page
-            )
+    current_page = params.get('page')
+    next_page = current_page + 1 if current_page else 2
+    new_params = dict(params, page=next_page)
 
-        new_params = dict(context.get_params(),
-                          page_token=yt_next_page_token)
-        if yt_visitor_data:
-            new_params['visitor'] = yt_visitor_data
+    yt_next_page_token = json_data.get('nextPageToken')
+    if yt_next_page_token == next_page:
+        new_params['page_token'] = ''
+    elif yt_next_page_token:
+        new_params['page_token'] = yt_next_page_token
+    else:
+        if 'page_token' in new_params:
+            del new_params['page_token']
+        elif current_page:
+            new_params['page_token'] = ''
+        else:
+            return result
+
+        page_info = json_data.get('pageInfo', {})
+        yt_total_results = int(page_info.get('totalResults', 0))
+        yt_results_per_page = int(page_info.get('resultsPerPage', 50))
+
+        if current_page * yt_results_per_page < yt_total_results:
+            new_params['items_per_page'] = yt_results_per_page
+        elif context.is_plugin_path(
+                context.get_infolabel('Container.FolderPath'),
+                partial=True,
+        ):
+            next_page = 1
+            new_params['page'] = 1
+        else:
+            return result
+
+    yt_visitor_data = json_data.get('visitorData')
+    if yt_visitor_data:
+        new_params['visitor'] = yt_visitor_data
+
+    if next_page > 1:
+        yt_click_tracking = json_data.get('clickTracking')
         if yt_click_tracking:
             new_params['click_tracking'] = yt_click_tracking
+
+        offset = json_data.get('offset')
         if offset:
             new_params['offset'] = offset
-        new_context = context.clone(new_params=new_params)
-        current_page = new_context.get_param('page', 1)
-        next_page_item = NextPageItem(new_context, current_page)
-        result.append(next_page_item)
+
+    next_page_item = NextPageItem(context, new_params)
+    result.append(next_page_item)
 
     return result
 
 
 def _parse_kind(item):
-    parts = item.get('kind', '').split('#')
+    kind = item.get('kind', '')
+    parts = kind.split('#')
     is_youtube = parts[0] == 'youtube'
-    kind = parts[1 if len(parts) > 1 else 0].lower()
-    return is_youtube, kind
+    is_plugin = parts[0] == 'plugin'
+    kind_type = parts[1 if len(parts) > 1 else 0].lower()
+    return kind, is_youtube, is_plugin, kind_type

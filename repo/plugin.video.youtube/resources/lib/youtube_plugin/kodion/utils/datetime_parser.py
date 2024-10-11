@@ -14,6 +14,7 @@ import re
 from datetime import date, datetime, time as dt_time, timedelta
 from importlib import import_module
 from sys import modules
+from threading import Condition, Lock
 
 from ..exceptions import KodionException
 from ..logger import log_error
@@ -240,54 +241,80 @@ def strptime(datetime_str, fmt=None):
     if fmt is None:
         fmt = '%Y-%m-%d%H%M%S'
 
-    if ' ' in datetime_str:
-        date_part, time_part = datetime_str.split(' ')
-    elif 'T' in datetime_str:
-        date_part, time_part = datetime_str.split('T')
-    else:
-        date_part = None
-        time_part = datetime_str
+        if ' ' in datetime_str:
+            date_part, time_part = datetime_str.split(' ')
+        elif 'T' in datetime_str:
+            date_part, time_part = datetime_str.split('T')
+        else:
+            date_part = None
+            time_part = datetime_str
 
-    if ':' in time_part:
-        time_part = time_part.replace(':', '')
+        if ':' in time_part:
+            time_part = time_part.replace(':', '')
 
-    if '+' in time_part:
-        time_part, offset, timezone_part = time_part.partition('+')
-    elif '-' in time_part:
-        time_part, offset, timezone_part = time_part.partition('+')
-    else:
-        offset = timezone_part = ''
+        if '+' in time_part:
+            time_part, offset, timezone_part = time_part.partition('+')
+        elif '-' in time_part:
+            time_part, offset, timezone_part = time_part.partition('+')
+        else:
+            offset = timezone_part = ''
 
-    if timezone and timezone_part and offset:
-        fmt = fmt.replace('%S', '%S%z')
-    else:
-        fmt = fmt.replace('%S%z', '%S')
+        if timezone and timezone_part and offset:
+            fmt = fmt.replace('%S', '%S%z')
+        else:
+            fmt = fmt.replace('%S%z', '%S')
 
-    if '.' in time_part:
-        fmt = fmt.replace('%S', '%S.%f')
-    else:
-        fmt = fmt.replace('%S.%f', '%S')
+        if '.' in time_part:
+            fmt = fmt.replace('%S', '%S.%f')
+        else:
+            fmt = fmt.replace('%S.%f', '%S')
 
-    if timezone and timezone_part and offset:
-        time_part = offset.join((time_part, timezone_part))
-    datetime_str = ''.join((date_part, time_part)) if date_part else time_part
+        if timezone and timezone_part and offset:
+            time_part = offset.join((time_part, timezone_part))
+        if date_part:
+            datetime_str = ''.join((date_part, time_part))
+        else:
+            datetime_str = time_part
 
     try:
         return datetime.strptime(datetime_str, fmt)
     except TypeError:
-        log_error('Python strptime bug workaround.\n'
-                  'Refer to https://github.com/python/cpython/issues/71587')
-
-        if '_strptime' not in modules:
-            modules['_strptime'] = import_module('_strptime')
-        _strptime = modules['_strptime']
+        if '_strptime' not in modules or strptime.reloading.locked():
+            if strptime.reloaded.acquire(False):
+                _strptime = import_module('_strptime')
+                modules['_strptime'] = _strptime
+                log_error('Python strptime bug workaround - '
+                          'https://github.com/python/cpython/issues/71587')
+                strptime.reloaded.notify_all()
+                strptime.reloaded.release()
+            else:
+                strptime.reloaded.acquire()
+                while '_strptime' not in modules:
+                    strptime.reloaded.wait()
+                _strptime = modules['_strptime']
+                strptime.reloaded.release()
+        else:
+            _strptime = modules['_strptime']
 
         if timezone:
             return _strptime._strptime_datetime(datetime, datetime_str, fmt)
         return datetime(*(_strptime._strptime(datetime_str, fmt)[0][0:6]))
 
 
+strptime.reloading = Lock()
+strptime.reloaded = Condition(lock=strptime.reloading)
+
+
 def since_epoch(dt_object=None):
     if dt_object is None:
         dt_object = now(tz=timezone.utc) if timezone else datetime.utcnow()
     return (dt_object - __INTERNAL_CONSTANTS__['epoch_dt']).total_seconds()
+
+
+def yt_datetime_offset(**kwargs):
+    if timezone:
+        _now = now(tz=timezone.utc)
+    else:
+        _now = datetime.utcnow()
+
+    return (_now - timedelta(**kwargs)).strftime('%Y-%m-%dT%H:%M:%SZ')

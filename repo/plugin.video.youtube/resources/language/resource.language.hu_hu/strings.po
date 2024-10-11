@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC-Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: 2015-09-21 11:01+0000\n"
-"PO-Revision-Date: 2021-08-03 08:29+0000\n"
+"PO-Revision-Date: 2024-04-12 14:59+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Hungarian <https://kodi.weblate.cloud/projects/kodi-add-ons-video/plugin-video-youtube/hu_hu/>\n"
 "Language: hu_hu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7.2\n"
+"X-Generator: Weblate 5.4.3\n"
 
 msgctxt "Addon Summary"
 msgid "Plugin for YouTube"
@@ -40,20 +40,24 @@ msgid "General"
 msgstr "Általános"
 
 msgctxt "#30001"
-msgid "Username"
-msgstr "Felhasználónév"
+msgid ""
+msgstr ""
 
 msgctxt "#30002"
-msgid "Password"
-msgstr "Jelszó"
+msgid ""
+msgstr ""
 
-# empty strings from id 30003 to 30006
+msgctxt "#30003"
+msgid "YouTube"
+msgstr ""
+
+# empty strings from id 30004 to 30006
 msgctxt "#30007"
-msgid "Use MPEG-DASH"
+msgid "Use InputStream.Adaptive"
 msgstr ""
 
 msgctxt "#30008"
-msgid "Configure InputStream Adaptive"
+msgid "Configure InputStream.Adaptive"
 msgstr ""
 
 msgctxt "#30009"
@@ -121,12 +125,12 @@ msgid "Cache size (MB)"
 msgstr "Gyorsítótár mérete (MB)"
 
 msgctxt "#30025"
-msgid "Enable setup-wizard"
-msgstr "Beállítás varázsló engedélyezése"
+msgid "Enable Setup Wizard"
+msgstr ""
 
 msgctxt "#30026"
-msgid "Override view"
-msgstr "Nézet felülírása"
+msgid "Override views"
+msgstr ""
 
 msgctxt "#30027"
 msgid "View: Default"
@@ -141,8 +145,8 @@ msgid "View: Movies"
 msgstr "Nézet: Videók"
 
 msgctxt "#30030"
-msgid "Execute setup-wizard?"
-msgstr "Szeretné futtatni a beállítás varázslót?"
+msgid "Configure %s?"
+msgstr ""
 
 msgctxt "#30031"
 msgid "Advanced"
@@ -179,28 +183,28 @@ msgstr "Előzmények egyedi azonosító"
 # Kodion Common
 # empty strings from id 30039 to 30099
 msgctxt "#30100"
-msgid "Favourites"
+msgid "Bookmarks"
 msgstr ""
 
 msgctxt "#30101"
-msgid "Add to addon favs"
-msgstr "Kiegészítő hozzáadása a kedvencekhez"
+msgid "Bookmark"
+msgstr ""
 
 msgctxt "#30102"
 msgid "Search"
 msgstr "Keresés"
 
 msgctxt "#30103"
-msgid "Library"
-msgstr "Könyvtár"
+msgid ""
+msgstr ""
 
 msgctxt "#30104"
-msgid "Highlights"
-msgstr "Kiemelt"
+msgid ""
+msgstr ""
 
 msgctxt "#30105"
-msgid "Archive"
-msgstr "Archívum"
+msgid ""
+msgstr ""
 
 msgctxt "#30106"
 msgid "Next Page (%d)"
@@ -215,8 +219,8 @@ msgid "Remove"
 msgstr "Eltávolítás"
 
 msgctxt "#30109"
-msgid "Latest Videos"
-msgstr "Legújabb videók"
+msgid ""
+msgstr ""
 
 msgctxt "#30110"
 msgid "New Search"
@@ -259,8 +263,12 @@ msgid "Please wait..."
 msgstr "Kérjük várjon..."
 
 msgctxt "#30120"
-msgid "Clear"
-msgstr "Törlés"
+msgid "Confirm clear"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Clear %s?"
+msgstr ""
 
 # YouTube
 # empty strings from id 30121 to 30199
@@ -281,12 +289,12 @@ msgid "API Secret"
 msgstr "API Secret"
 
 msgctxt "#30204"
-msgid "Enable personal API keys"
-msgstr "Személyes API Kulcs engedélyezés"
+msgid ""
+msgstr ""
 
 msgctxt "#30205"
-msgid "Use preset API key set"
-msgstr "Jelenlegi API Kulcs használata"
+msgid ""
+msgstr ""
 
 # YouTube
 # empty strings from id 30206 to 30499
@@ -303,8 +311,8 @@ msgid "Go to %s"
 msgstr "Ugrás ide: %s"
 
 msgctxt "#30503"
-msgid "Show channel fanart"
-msgstr "Fanart csatorna megjelenítése"
+msgid "Channel fanart"
+msgstr ""
 
 msgctxt "#30504"
 msgid "Subscriptions"
@@ -343,8 +351,8 @@ msgid "Browse Channels"
 msgstr "Csatornák böngészése"
 
 msgctxt "#30513"
-msgid "Popular right now"
-msgstr "Ajánlott videók"
+msgid "Trending"
+msgstr ""
 
 msgctxt "#30514"
 msgid "Related Videos"
@@ -363,8 +371,8 @@ msgid "Subscribe to %s"
 msgstr "Feliratkozás: %s"
 
 msgctxt "#30518"
-msgid "Go to '%s'"
-msgstr "Ugrás ide: '%s'"
+msgid ""
+msgstr ""
 
 msgctxt "#30519"
 msgid "and enter the following code:"
@@ -395,12 +403,12 @@ msgid "Select region"
 msgstr "Ország kiválasztása"
 
 msgctxt "#30526"
-msgid "Adjust"
-msgstr "Beállítás"
+msgid "Setup Wizard"
+msgstr ""
 
 msgctxt "#30527"
-msgid "Language and region?"
-msgstr "Nyelv és ország?"
+msgid "Language and Region"
+msgstr ""
 
 msgctxt "#30528"
 msgid "Rate..."
@@ -455,8 +463,8 @@ msgid "Play with..."
 msgstr "Lejátszás..."
 
 msgctxt "#30541"
-msgid "Show channel name in description"
-msgstr "A csatorna nevének megjelenítése a leírásban"
+msgid "Show channel name and video details in description"
+msgstr ""
 
 msgctxt "#30542"
 msgid "rtmpe streams are not supported"
@@ -475,12 +483,12 @@ msgid "No further links found."
 msgstr "Nem találhatók további hivatkozások."
 
 msgctxt "#30546"
-msgid "Please log in twice!"
-msgstr "Kérjük, jelentkezzen be kétszer!"
+msgid "Please complete all login prompts"
+msgstr ""
 
 msgctxt "#30547"
-msgid "You must enable two applications so that YouTube is functioning properly."
-msgstr "Engedélyeznie kell két alkalmazás használatát, hogy a YouTube megfelelően működjön."
+msgid "You may be prompted to enable two applications so that YouTube is functioning properly."
+msgstr ""
 
 msgctxt "#30548"
 msgid "More..."
@@ -539,20 +547,20 @@ msgid "None"
 msgstr "Nincs"
 
 msgctxt "#30562"
-msgid "All"
-msgstr "Összes"
+msgid ""
+msgstr ""
 
 msgctxt "#30563"
-msgid "Setting"
-msgstr "Beállítás"
+msgid ""
+msgstr ""
 
 msgctxt "#30564"
-msgid "Setting, English"
-msgstr "Beállítás, Angol"
+msgid ""
+msgstr ""
 
 msgctxt "#30565"
-msgid "English"
-msgstr "Angol"
+msgid ""
+msgstr ""
 
 msgctxt "#30566"
 msgid "Prompt"
@@ -607,8 +615,8 @@ msgid "Force SSL certificate verification"
 msgstr "SSL Tanúsítvány megerősítése"
 
 msgctxt "#30579"
-msgid "MPEG-DASH is enabled in the YouTube settings, however InputStream Adaptive appears to be disabled. Would you like to enable InputStream Adaptive now?"
-msgstr "Az MPEG-DASH engedélyezve van a YouTube beállításaiban, de a bemeneti adaptív alkalmazások le vannak tiltva. Szeretné most engedélyezni a bemeneti adaptív alkalmazásokat?"
+msgid "InputStream.Adaptive is activated in the YouTube settings, however the add-on has been disabled. Would you like to enable InputStream.Adaptive now?"
+msgstr ""
 
 msgctxt "#30580"
 msgid "Reset access manager"
@@ -691,12 +699,12 @@ msgid "Failed to enable personal API keys. Missing: %s"
 msgstr "Nem sikerült engedélyezni a személyes API-kulcsokat. Hiányzik: %s"
 
 msgctxt "#30600"
-msgid "Configure subtitles"
-msgstr "Feliratok beállítása"
+msgid "Subtitles"
+msgstr ""
 
 msgctxt "#30601"
-msgid "%s with %s fallback"
-msgstr "%s - %s visszajelzés"
+msgid "%s with Original/%s fallback"
+msgstr ""
 
 msgctxt "#30602"
 msgid "No auto-generated"
@@ -743,28 +751,28 @@ msgid "Retry"
 msgstr "Próbálja meg újra"
 
 msgctxt "#30613"
-msgid "Retrieve Watch Later playlist id"
-msgstr "Megtekintés később lejátszási lista azonosítója"
+msgid ""
+msgstr ""
 
 msgctxt "#30614"
-msgid "Failed to retrieve Watch Later playlist id. Add a few videos to Watch Later via the web/app and retry."
-msgstr "Nem sikerült lekérni a későbbi lejátszási lista azonosítóját. Adjon hozzá néhány videót a későbbiekben a webes/android-alkalmazáshoz, majd próbálja meg újra."
+msgid ""
+msgstr ""
 
 msgctxt "#30615"
 msgid "Cancel"
 msgstr "Mégse"
 
 msgctxt "#30616"
-msgid "Must be signed in."
-msgstr "Jelentkezzen be."
+msgid ""
+msgstr ""
 
 msgctxt "#30617"
-msgid "MPEG-DASH"
-msgstr "MPEG-DASH"
+msgid "InputStream.Adaptive"
+msgstr ""
 
 msgctxt "#30618"
-msgid "Enable mpeg-dash proxy"
-msgstr "Mpeg-dash proxy engedélyezése"
+msgid ""
+msgstr ""
 
 msgctxt "#30619"
 msgid "Port"
@@ -775,8 +783,8 @@ msgid "Port %s already in use. Cannot start http server."
 msgstr "%s port használatban van. Nem lehet elindítani a http kiszolgálót."
 
 msgctxt "#30621"
-msgid "Proxy is required for mpeg-dash vods (see HTTP Server)"
-msgstr "Proxy szükséges az mpeg-dash formátumhoz (lásd HTTP kiszolgáló)"
+msgid ""
+msgstr ""
 
 msgctxt "#30622"
 msgid "Purchases"
@@ -787,8 +795,8 @@ msgid "Install InputStream Helper"
 msgstr "InputStream Helper telepítés"
 
 msgctxt "#30624"
-msgid "Requires Kodi 17+"
-msgstr "Kodi 17+ szükséges"
+msgid ""
+msgstr ""
 
 msgctxt "#30625"
 msgid "InputStream Helper is already installed."
@@ -823,8 +831,8 @@ msgid "Enable API configuration page"
 msgstr "API beállítások oldal engedélyezése"
 
 msgctxt "#30633"
-msgid "http://<ipaddress>:<port>/api (see HTTP Server)"
-msgstr "http://<ipaddress>:<port>/api (lásd HTTP kiszolgáló)"
+msgid "http://<ipaddress>:<port>/youtube/api (see Advanced > HTTP Server)"
+msgstr "http://<ipaddress>:<port>/youtube/api (lásd HTTP kiszolgáló)"
 
 msgctxt "#30634"
 msgid "YouTube Add-on API Configuration"
@@ -883,16 +891,16 @@ msgid "Completed Live"
 msgstr "Befejezett élő közvetítés"
 
 msgctxt "#30648"
-msgid "API Key is incorrect. Settings - API - API Key"
-msgstr "Az API kulcs helytelen. Beállítások - API - API kulcs"
+msgid "API Key is incorrect. Settings > API > API Key"
+msgstr ""
 
 msgctxt "#30649"
-msgid "Client Id is incorrect. Settings - API - API Id"
-msgstr "Az Ügyfél azonosító helytelen. Beállítások - API - API azonosító"
+msgid "Client Id is incorrect. Settings > API > API Id"
+msgstr ""
 
 msgctxt "#30650"
-msgid "Client Secret is incorrect. Settings - API - API Secret"
-msgstr "Az Ügyfél titkos kulcs helytelen. Beállítások - API - API titkos kulcs"
+msgid "Client Secret is incorrect. Settings > API > API Secret"
+msgstr ""
 
 msgctxt "#30651"
 msgid "Location"
@@ -903,8 +911,8 @@ msgid "Location radius (km)"
 msgstr "Tartózkodási hely sugara (km)"
 
 msgctxt "#30653"
-msgid "Perform geolocation? Used for [B]My Location[/B]"
-msgstr "Szeretne Földrajzi helymeghatározás használni? [B]Tartózkodási helyem[/B]"
+msgid "My Location using IP geolocation lookup"
+msgstr ""
 
 msgctxt "#30654"
 msgid "My Location"
@@ -955,8 +963,8 @@ msgid "Switch to '%s' now?"
 msgstr "Felhasználóváltás '%s' most?"
 
 msgctxt "#30666"
-msgid "Removed '%s'"
-msgstr "'%s' törölve"
+msgid "%s removed"
+msgstr ""
 
 msgctxt "#30667"
 msgid "Renamed '%s' to '%s'"
@@ -979,8 +987,8 @@ msgid "Clear playback history"
 msgstr "Lejátszási előzmények tisztítása"
 
 msgctxt "#30672"
-msgid "Delete playback history"
-msgstr "Lejátszási előzmények törlése"
+msgid "Delete playback history database"
+msgstr ""
 
 msgctxt "#30673"
 msgid "playback history"
@@ -1043,15 +1051,15 @@ msgid "data cache"
 msgstr "adat gyorsítótár"
 
 msgctxt "#30688"
-msgid "Use for videos"
-msgstr "Használja videókhoz"
+msgid "Use MPEG-DASH for videos"
+msgstr ""
 
 msgctxt "#30689"
 msgid "Use for live streams"
 msgstr "Használja élő közvetítésekhez"
 
 msgctxt "#30690"
-msgid "InputStream Adaptive >= 2.0.12 is required for adaptive live streams"
+msgid "InputStream.Adaptive >= 2.0.12 is required for adaptive live streams"
 msgstr ""
 
 msgctxt "#30691"
@@ -1107,8 +1115,8 @@ msgid "Are you sure?"
 msgstr "Biztos benne?"
 
 msgctxt "#30704"
-msgid "Use YouTube website urls"
-msgstr "YouTube weboldal hivatkozás használata"
+msgid "Use YouTube website urls with default player"
+msgstr ""
 
 msgctxt "#30705"
 msgid "Download subtitles"
@@ -1127,16 +1135,16 @@ msgid "Play audio only"
 msgstr "Csak hang lejátszás"
 
 msgctxt "#30709"
-msgid "Failed to retrieve Watch Later playlist id. To increase the chances of retrieval add 8-10 videos to Watch Later via the web/app and retry."
-msgstr "Nem sikerült lekérni a Megnézendő videók lejátszási lista azonosítóját. A letöltés esélyének növelése érdekében adjon hozzá 8-10 videót a Megtekintés később az interneten/alkalmazáson keresztül, és próbálkozzon újra."
+msgid ""
+msgstr ""
 
 msgctxt "#30710"
-msgid "Failed to retrieve Watch Later playlist id. Try again tomorrow without removing any of the videos."
-msgstr "Nem sikerült lekérni a Megnézendő videók lejátszási lista azonosítóját. Próbálkozzon újra holnap anélkül, hogy eltávolította volna a videókat."
+msgid ""
+msgstr ""
 
 msgctxt "#30711"
-msgid "Searching for Watch Later... Page %s"
-msgstr "Keresés a megtekintendő videók között... %s oldal"
+msgid ""
+msgstr ""
 
 msgctxt "#30712"
 msgid "Rate videos in playlists"
@@ -1175,16 +1183,16 @@ msgid "Unsubscribed from channel"
 msgstr "Leiratkozott a csatornáról"
 
 msgctxt "#30721"
-msgid "Default to WEBM adaptation set (4K)"
-msgstr "Alapértelmezés a WEBM adaptációs készlethez (4K)"
+msgid ""
+msgstr ""
 
 msgctxt "#30722"
 msgid "Enable HDR video"
 msgstr ""
 
 msgctxt "#30723"
-msgid "Proxy is required for mpeg-dash vods (see HTTP Server)[CR]> 1080p and HDR requires InputStream Adaptive >= 2.3.14"
-msgstr "A Proxyra van szükség az mpeg-dash vod esetén (lásd a HTTP szervert) [CR]> 1080p, és a HDR-hez pedig az InputStream Adaptive kiegészítő szükséges >= 2.3.14"
+msgid "Proxy is required for MPEG-DASH VODs (see Advanced > HTTP Server)[CR]HDR and >1080p video requires InputStream.Adaptive >= 2.3.14"
+msgstr ""
 
 msgctxt "#30724"
 msgid "Enable high framerate video"
@@ -1235,19 +1243,19 @@ msgid "Edited"
 msgstr "Szerkesztve"
 
 msgctxt "#30736"
-msgid "Hide short videos (1 minute or less)"
+msgid "Shorts (1 minute or less)"
 msgstr ""
 
 msgctxt "#30737"
-msgid "Use alternate client details"
+msgid ""
 msgstr ""
 
 msgctxt "#30738"
-msgid "Alternate #1"
+msgid ""
 msgstr ""
 
 msgctxt "#30739"
-msgid "Alternate #2"
+msgid ""
 msgstr ""
 
 msgctxt "#30740"
@@ -1345,6 +1353,422 @@ msgstr ""
 msgctxt "#30763"
 msgid "Multi-audio"
 msgstr ""
+
+msgctxt "#30764"
+msgid "Requests connect timeout"
+msgstr ""
+
+msgctxt "#30765"
+msgid "Requests read timeout"
+msgstr ""
+
+msgctxt "#30766"
+msgid "Premieres"
+msgstr ""
+
+msgctxt "#30767"
+msgid "Views"
+msgstr ""
+
+msgctxt "#30768"
+msgid "Disable high framerate video at maximum video quality"
+msgstr ""
+
+msgctxt "#30769"
+msgid "Clear Watch Later list"
+msgstr ""
+
+msgctxt "#30770"
+msgid "Are you sure you want to clear your Watch Later list?"
+msgstr ""
+
+msgctxt "#30771"
+msgid "Disable fractional framerate hinting"
+msgstr ""
+
+msgctxt "#30772"
+msgid "Disable all framerate hinting"
+msgstr ""
+
+msgctxt "#30773"
+msgid "Show video details in video lists"
+msgstr ""
+
+msgctxt "#30774"
+msgid "All available"
+msgstr ""
+
+msgctxt "#30775"
+msgid "%s (translation)"
+msgstr ""
+
+msgctxt "#30776"
+msgid "Ask + Automatic + Quality selection"
+msgstr ""
+
+msgctxt "#30777"
+msgid "Views for %s (%s)"
+msgstr ""
+
+msgctxt "#30778"
+msgid "Import old playback history?"
+msgstr ""
+
+msgctxt "#30779"
+msgid "Import old search history?"
+msgstr ""
+
+msgctxt "#30780"
+msgid "Clear local watch later list"
+msgstr ""
+
+msgctxt "#30781"
+msgid "Delete watch later database"
+msgstr ""
+
+msgctxt "#30782"
+msgid "local watch later list"
+msgstr ""
+
+msgctxt "#30783"
+msgid "settings to recommended values"
+msgstr ""
+
+msgctxt "#30784"
+msgid "listings to show minimal details"
+msgstr ""
+
+msgctxt "#30785"
+msgid "performance settings"
+msgstr ""
+
+msgctxt "#30786"
+msgid "Choose device capabilities"
+msgstr ""
+
+msgctxt "#30787"
+msgid "720p, H.264 only | Limited or older devices"
+msgstr ""
+
+msgctxt "#30788"
+msgid "1080p/30 fps | Raspberry Pi 3, or similar"
+msgstr ""
+
+msgctxt "#30789"
+msgid "4K/30 fps or 1080p/60 fps, HDR if compatible | Raspberry Pi 5, or similar"
+msgstr ""
+
+msgctxt "#30790"
+msgid "4K/60 fps, HDR if compatible | Fire TV Cube Gen 2, Shield TV, Fire TV Stick 4K Gen 1, or similar"
+msgstr ""
+
+msgctxt "#30791"
+msgid "4K/60 fps, HDR, using AV1 | Fire TV Cube Gen 3, Fire TV Stick 4K Max, Vero V, or similar"
+msgstr ""
+
+msgctxt "#30792"
+msgid "8K/60 fps, HDR, using AV1 | Modern device or PC with full capabilities"
+msgstr ""
+
+msgctxt "#30793"
+msgid "Views count display colour"
+msgstr ""
+
+msgctxt "#30794"
+msgid "Likes count display colour"
+msgstr ""
+
+msgctxt "#30795"
+msgid "Comments count display colour"
+msgstr ""
+
+msgctxt "#30796"
+msgid "1080p/60 fps | Raspberry Pi 4, or similar"
+msgstr ""
+
+msgctxt "#30797"
+msgid "1080p/30 fps or 720p/30 fps, H.264 only | Raspberry Pi 1/2, or similar"
+msgstr ""
+
+msgctxt "#30798"
+msgid "Clear bookmarks list"
+msgstr ""
+
+msgctxt "#30799"
+msgid "Delete bookmarks database"
+msgstr ""
+
+msgctxt "#30800"
+msgid "bookmarks list"
+msgstr ""
+
+msgctxt "#30801"
+msgid "Clear Bookmarks list"
+msgstr ""
+
+msgctxt "#30802"
+msgid "Are you sure you want to clear your Bookmarks list?"
+msgstr ""
+
+msgctxt "#30803"
+msgid "Bookmark %s"
+msgstr ""
+
+msgctxt "#30804"
+msgid "Use YouTube website urls with external player"
+msgstr ""
+
+msgctxt "#30805"
+msgid "Use adaptive streaming formats with external player"
+msgstr ""
+
+msgctxt "#30806"
+msgid "Jump to page..."
+msgstr ""
+
+msgctxt "#30807"
+msgid "Use channel name as"
+msgstr ""
+
+msgctxt "#30808"
+msgid "Hide videos from listings"
+msgstr ""
+
+msgctxt "#30809"
+msgid "All upcoming videos"
+msgstr ""
+
+msgctxt "#30810"
+msgid "All previously streamed (completed) videos"
+msgstr ""
+
+msgctxt "#30811"
+msgid "Filter Live folders"
+msgstr ""
+
+msgctxt "#30812"
+msgid "Clear subscription feed history"
+msgstr ""
+
+msgctxt "#30813"
+msgid "Delete subscription feed history database"
+msgstr ""
+
+msgctxt "#30814"
+msgid "feed history"
+msgstr ""
+
+msgctxt "#30815"
+msgid "Go back..."
+msgstr ""
+
+msgctxt "#30816"
+msgid "List is empty.[CR][CR]Refresh from context menu or try again later."
+msgstr ""
+
+msgctxt "#30817"
+msgid "Refresh settings.xml"
+msgstr ""
+
+msgctxt "#30818"
+msgid "Are you sure you want to refresh settings.xml?"
+msgstr ""
+
+msgctxt "#30819"
+msgid "Play from start"
+msgstr ""
+
+#~ msgctxt "#30546"
+#~ msgid "Please log in twice!"
+#~ msgstr "Kérjük, jelentkezzen be kétszer!"
+
+#~ msgctxt "#30547"
+#~ msgid "You must enable two applications so that YouTube is functioning properly."
+#~ msgstr "Engedélyeznie kell két alkalmazás használatát, hogy a YouTube megfelelően működjön."
+
+#~ msgctxt "#30001"
+#~ msgid "Username"
+#~ msgstr "Felhasználónév"
+
+#~ msgctxt "#30002"
+#~ msgid "Password"
+#~ msgstr "Jelszó"
+
+#~ msgctxt "#30103"
+#~ msgid "Library"
+#~ msgstr "Könyvtár"
+
+#~ msgctxt "#30104"
+#~ msgid "Highlights"
+#~ msgstr "Kiemelt"
+
+#~ msgctxt "#30105"
+#~ msgid "Archive"
+#~ msgstr "Archívum"
+
+#~ msgctxt "#30109"
+#~ msgid "Latest Videos"
+#~ msgstr "Legújabb videók"
+
+#~ msgctxt "#30204"
+#~ msgid "Enable personal API keys"
+#~ msgstr "Személyes API Kulcs engedélyezés"
+
+#~ msgctxt "#30205"
+#~ msgid "Use preset API key set"
+#~ msgstr "Jelenlegi API Kulcs használata"
+
+#~ msgctxt "#30518"
+#~ msgid "Go to '%s'"
+#~ msgstr "Ugrás ide: '%s'"
+
+#~ msgctxt "#30562"
+#~ msgid "All"
+#~ msgstr "Összes"
+
+#~ msgctxt "#30563"
+#~ msgid "Setting"
+#~ msgstr "Beállítás"
+
+#~ msgctxt "#30564"
+#~ msgid "Setting, English"
+#~ msgstr "Beállítás, Angol"
+
+#~ msgctxt "#30565"
+#~ msgid "English"
+#~ msgstr "Angol"
+
+#~ msgctxt "#30613"
+#~ msgid "Retrieve Watch Later playlist id"
+#~ msgstr "Megtekintés később lejátszási lista azonosítója"
+
+#~ msgctxt "#30614"
+#~ msgid "Failed to retrieve Watch Later playlist id. Add a few videos to Watch Later via the web/app and retry."
+#~ msgstr "Nem sikerült lekérni a későbbi lejátszási lista azonosítóját. Adjon hozzá néhány videót a későbbiekben a webes/android-alkalmazáshoz, majd próbálja meg újra."
+
+#~ msgctxt "#30616"
+#~ msgid "Must be signed in."
+#~ msgstr "Jelentkezzen be."
+
+#~ msgctxt "#30624"
+#~ msgid "Requires Kodi 17+"
+#~ msgstr "Kodi 17+ szükséges"
+
+#~ msgctxt "#30648"
+#~ msgid "API Key is incorrect. Settings - API - API Key"
+#~ msgstr "Az API kulcs helytelen. Beállítások - API - API kulcs"
+
+#~ msgctxt "#30649"
+#~ msgid "Client Id is incorrect. Settings - API - API Id"
+#~ msgstr "Az Ügyfél azonosító helytelen. Beállítások - API - API azonosító"
+
+#~ msgctxt "#30650"
+#~ msgid "Client Secret is incorrect. Settings - API - API Secret"
+#~ msgstr "Az Ügyfél titkos kulcs helytelen. Beállítások - API - API titkos kulcs"
+
+#~ msgctxt "#30709"
+#~ msgid "Failed to retrieve Watch Later playlist id. To increase the chances of retrieval add 8-10 videos to Watch Later via the web/app and retry."
+#~ msgstr "Nem sikerült lekérni a Megnézendő videók lejátszási lista azonosítóját. A letöltés esélyének növelése érdekében adjon hozzá 8-10 videót a Megtekintés később az interneten/alkalmazáson keresztül, és próbálkozzon újra."
+
+#~ msgctxt "#30710"
+#~ msgid "Failed to retrieve Watch Later playlist id. Try again tomorrow without removing any of the videos."
+#~ msgstr "Nem sikerült lekérni a Megnézendő videók lejátszási lista azonosítóját. Próbálkozzon újra holnap anélkül, hogy eltávolította volna a videókat."
+
+#~ msgctxt "#30711"
+#~ msgid "Searching for Watch Later... Page %s"
+#~ msgstr "Keresés a megtekintendő videók között... %s oldal"
+
+#~ msgctxt "#30721"
+#~ msgid "Default to WEBM adaptation set (4K)"
+#~ msgstr "Alapértelmezés a WEBM adaptációs készlethez (4K)"
+
+#~ msgctxt "#30666"
+#~ msgid "Removed '%s'"
+#~ msgstr "'%s' törölve"
+
+#~ msgctxt "#30503"
+#~ msgid "Show channel fanart"
+#~ msgstr "Fanart csatorna megjelenítése"
+
+#~ msgctxt "#30101"
+#~ msgid "Add to addon favs"
+#~ msgstr "Kiegészítő hozzáadása a kedvencekhez"
+
+#~ msgctxt "#30704"
+#~ msgid "Use YouTube website urls"
+#~ msgstr "YouTube weboldal hivatkozás használata"
+
+#~ msgctxt "#30025"
+#~ msgid "Enable setup-wizard"
+#~ msgstr "Beállítás varázsló engedélyezése"
+
+#~ msgctxt "#30026"
+#~ msgid "Override view"
+#~ msgstr "Nézet felülírása"
+
+#~ msgctxt "#30030"
+#~ msgid "Execute setup-wizard?"
+#~ msgstr "Szeretné futtatni a beállítás varázslót?"
+
+#~ msgctxt "#30120"
+#~ msgid "Clear"
+#~ msgstr "Törlés"
+
+#~ msgctxt "#30513"
+#~ msgid "Popular right now"
+#~ msgstr "Ajánlott videók"
+
+#~ msgctxt "#30526"
+#~ msgid "Adjust"
+#~ msgstr "Beállítás"
+
+#~ msgctxt "#30527"
+#~ msgid "Language and region?"
+#~ msgstr "Nyelv és ország?"
+
+#~ msgctxt "#30541"
+#~ msgid "Show channel name in description"
+#~ msgstr "A csatorna nevének megjelenítése a leírásban"
+
+#~ msgctxt "#30579"
+#~ msgid "MPEG-DASH is enabled in the YouTube settings, however InputStream Adaptive appears to be disabled. Would you like to enable InputStream Adaptive now?"
+#~ msgstr "Az MPEG-DASH engedélyezve van a YouTube beállításaiban, de a bemeneti adaptív alkalmazások le vannak tiltva. Szeretné most engedélyezni a bemeneti adaptív alkalmazásokat?"
+
+#~ msgctxt "#30600"
+#~ msgid "Configure subtitles"
+#~ msgstr "Feliratok beállítása"
+
+#~ msgctxt "#30601"
+#~ msgid "%s with %s fallback"
+#~ msgstr "%s - %s visszajelzés"
+
+#~ msgctxt "#30617"
+#~ msgid "MPEG-DASH"
+#~ msgstr "MPEG-DASH"
+
+#~ msgctxt "#30618"
+#~ msgid "Enable mpeg-dash proxy"
+#~ msgstr "Mpeg-dash proxy engedélyezése"
+
+#~ msgctxt "#30621"
+#~ msgid "Proxy is required for mpeg-dash vods (see Advanced > HTTP Server)"
+#~ msgstr "Proxy szükséges az mpeg-dash formátumhoz (lásd HTTP kiszolgáló)"
+
+#~ msgctxt "#30653"
+#~ msgid "Perform geolocation? Used for [B]My Location[/B]"
+#~ msgstr "Szeretne Földrajzi helymeghatározás használni? [B]Tartózkodási helyem[/B]"
+
+#~ msgctxt "#30672"
+#~ msgid "Delete playback history"
+#~ msgstr "Lejátszási előzmények törlése"
+
+#~ msgctxt "#30688"
+#~ msgid "Use for videos"
+#~ msgstr "Használja videókhoz"
+
+#~ msgctxt "#30723"
+#~ msgid "Proxy is required for mpeg-dash vods (see Advanced > HTTP Server)[CR]> 1080p and HDR requires InputStream Adaptive >= 2.3.14"
+#~ msgstr "A Proxyra van szükség az mpeg-dash vod esetén (lásd a HTTP szervert) [CR]> 1080p, és a HDR-hez pedig az InputStream Adaptive kiegészítő szükséges >= 2.3.14"
 
 #~ msgctxt "#30010"
 #~ msgid "Video quality"

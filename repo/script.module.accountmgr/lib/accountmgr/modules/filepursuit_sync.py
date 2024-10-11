@@ -29,19 +29,19 @@ class Auth:
                         xbmc.log('%s: Umbrella FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
-        #OneMoar
+        #Infinity
                 try:
-                        if xbmcvfs.exists(var.chk_onem) and xbmcvfs.exists(var.chkset_onem):
+                        if xbmcvfs.exists(var.chk_infinity) and xbmcvfs.exists(var.chkset_infinity):
                                 
-                                chk_file = xbmcaddon.Addon('plugin.video.onemoar').getSetting("filepursuit.api")
+                                chk_file = xbmcaddon.Addon('plugin.video.infinity').getSetting("filepursuit.api")
                                 enable_file = ("true")
                                 
                                 if not str(var.chk_accountmgr_file) == str(chk_file) or str(chk_file) == '':
-                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon = xbmcaddon.Addon("plugin.video.infinity")
                                         addon.setSetting("filepursuit.enable", enable_file)
                                         addon.setSetting("filepursuit.api", your_file_api)
                 except:
-                        xbmc.log('%s: OneMoar FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
+                        xbmc.log('%s: Infinity FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
         #Dradis

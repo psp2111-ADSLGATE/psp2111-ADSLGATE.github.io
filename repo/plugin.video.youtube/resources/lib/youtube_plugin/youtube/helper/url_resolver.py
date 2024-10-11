@@ -43,7 +43,7 @@ class AbstractResolver(BaseRequestsClass):
 
     def __init__(self, context):
         self._context = context
-        super(AbstractResolver, self).__init__()
+        super(AbstractResolver, self).__init__(context=context)
 
     def supports_url(self, url, url_components):
         raise NotImplementedError()
@@ -66,11 +66,11 @@ class YouTubeResolver(AbstractResolver):
         super(YouTubeResolver, self).__init__(*args, **kwargs)
 
     def supports_url(self, url, url_components):
-        if url_components.hostname not in (
-                'www.youtube.com',
-                'youtube.com',
-                'm.youtube.com',
-        ):
+        if url_components.hostname not in {
+            'www.youtube.com',
+            'youtube.com',
+            'm.youtube.com',
+        }:
             return False
 
         path = url_components.path.lower()
@@ -126,6 +126,9 @@ class YouTubeResolver(AbstractResolver):
         response = self.request(url,
                                 method=method,
                                 headers=self._HEADERS,
+                                # Manually configured cookies to avoid cookie
+                                # consent redirect
+                                cookies={'SOCS': 'CAISAiAD'},
                                 allow_redirects=True)
         if not response or not response.ok:
             return url
@@ -166,6 +169,17 @@ class YouTubeResolver(AbstractResolver):
                 })
                 return url_components._replace(query=urlencode(params)).geturl()
 
+        elif path == '/watch_videos':
+            params = dict(parse_qsl(url_components.query))
+            new_components = urlsplit(response.url)
+            new_params = dict(parse_qsl(new_components.query))
+            # add/overwrite all other params from original query string
+            new_params.update(params)
+            # build new URL from these components
+            return new_components._replace(
+                query=urlencode(new_params)
+            ).geturl()
+
         # we try to extract the channel id from the html content
         # With the channel id we can construct a URL we already work with
         # https://www.youtube.com/channel/<CHANNEL_ID>
@@ -190,6 +204,12 @@ class CommonResolver(AbstractResolver):
         super(CommonResolver, self).__init__(*args, **kwargs)
 
     def supports_url(self, url, url_components):
+        if url_components.hostname in {
+            'www.youtube.com',
+            'youtube.com',
+            'm.youtube.com',
+        }:
+            return False
         return 'HEAD'
 
     def resolve(self, url, url_components, method='HEAD'):
@@ -205,7 +225,6 @@ class CommonResolver(AbstractResolver):
 class UrlResolver(object):
     def __init__(self, context):
         self._context = context
-        self._function_cache = context.get_function_cache()
         self._resolvers = (
             ('common_resolver', CommonResolver(context)),
             ('youtube_resolver', YouTubeResolver(context)),
@@ -231,9 +250,10 @@ class UrlResolver(object):
         return resolved_url
 
     def resolve(self, url):
-        resolved_url = self._function_cache.run(
+        function_cache = self._context.get_function_cache()
+        resolved_url = function_cache.run(
             self._resolve,
-            self._function_cache.ONE_DAY,
+            function_cache.ONE_DAY,
             _refresh=self._context.get_param('refresh'),
             url=url
         )

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">20</defaultcontrol>
+    <include>Action_Blur_Onload</include>
+    <include>Action_BlurImage_SimpleBackground_Onload</include>
+    <controls>
+        <include>Defs_TMDbHelper_Loader</include>
+        <include content="Background_Main">
+            <param name="plain_background">true</param>
+        </include>
+        <include content="Background_Transition">
+            <param name="windowopen_condition">!$EXP[Exp_SettingsDialogs_Prev]</param>
+            <param name="windowclose_condition">!$EXP[Exp_SettingsDialogs_Next]</param>
+        </include>
+
+        <include>Settings_Landing</include>
+
+        <control type="group">
+            <include>Animation_Settings_WindowChange</include>
+            <control type="group">
+                <include>Dimension_DialogMainMenu</include>
+                <include content="Dialog_Dim_Side">
+                    <param name="slide_condition">True</param>
+                </include>
+            </control>
+
+            <control type="group">
+                <left>120</left>
+                <control type="group">
+                    <right>50%</right>
+                    <control type="group">
+                        <right>-10</right>
+                        <control type="group">
+                            <right>-120</right>
+                            <!-- Bottom Layer -->
+                            <include content="Dialog_Background_Side">
+                                <param name="slide_condition">True</param>
+                                <param name="dialog_size">Dimension_DialogWideMenu</param>
+                                <!-- Side Buttons -->
+                                <control type="group">
+                                    <include>Dimension_Dialog_Body</include>
+                                    <control type="grouplist" id="30000">
+                                        <include>Dialog_Side_Grouplist_Def</include>
+                                        <onright condition="!Window.IsVisible(EventLog.xml) + !Window.IsVisible(addonbrowser) + !Window.IsVisible(filemanager) + !Window.IsVisible(1115)">3</onright>
+                                        <onright condition="Window.IsVisible(EventLog.xml)">8000</onright>
+                                        <onright condition="Window.IsVisible(addonbrowser)">6000</onright>
+                                        <onright condition="Window.IsVisible(filemanager)">20</onright>
+                                        <onright condition="Window.IsVisible(1115)">340</onright>
+                                        <onleft>SetFocus(30040)</onleft>
+                                        <include>Settings_Standard_Buttons</include>
+                                    </control>
+                                </control>
+                            </include>
+                        </control>
+                        <control type="group">
+                            <include content="Dialog_Foreground_Side">
+                                <param name="dialog_size">Dimension_DialogWideMenu</param>
+                                <param name="slide_condition">True</param>
+                                <param name="lines_right">0</param>
+                                <param name="topline">true</param>
+                                <param name="subline">false</param>
+                                <!-- Header -->
+                                <include content="Dialog_Head">
+                                    <param name="id">9901</param>
+                                    <param name="label">$VAR[Label_Header_Mini]</param>
+                                </include>
+                            </include>
+                            <control type="group">
+                                <include>Dimension_Dialog_Body</include>
+                                <control type="group">
+                                    <include>Dimension_Dialog_Body_Group</include>
+                                    <include content="List_AddonCategories">
+                                        <param name="id">20</param>
+                                        <param name="detailed">true</param>
+                                        <param name="width" />
+                                        <onleft>30000</onleft>
+                                        <pagecontrol>60</pagecontrol>
+                                        <onright>60</onright>
+                                    </include>
+                                </control>
+                                <control type="group">
+                                    <height>40</height>
+                                    <centerbottom>-5</centerbottom>
+                                    <left>40</left>
+                                    <right>40</right>
+                                    <control type="grouplist">
+                                        <right>120</right>
+                                        <orientation>horizontal</orientation>
+                                        <control type="label" id="101">
+                                            <textcolor>dialog_fg_70</textcolor>
+                                            <align>left</align>
+                                            <width>auto</width>
+                                            <font>font_tiny</font>
+                                            <haspath>true</haspath>
+                                        </control>
+                                        <control type="image">
+                                            <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                                            <height>1</height>
+                                            <centertop>58%</centertop>
+                                            <width>3000</width>
+                                            <left>20</left>
+                                        </control>
+                                    </control>
+                                    <control type="label" id="12">
+                                        <textcolor>dialog_fg_70</textcolor>
+                                        <align>right</align>
+                                        <font>font_tiny</font>
+                                    </control>
+                                </control>
+                                <include content="Dialog_Scrollbar">
+                                    <param name="id">60</param>
+                                    <onleft>20</onleft>
+                                    <onright>21</onright>
+                                </include>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+                <control type="group">
+                    <left>50%</left>
+                    <control type="group">
+                        <left>-10</left>
+                        <include content="Dialog_Foreground_Side">
+                            <param name="dialog_size">Dimension_DialogWideMenu</param>
+                            <param name="slide_condition">True</param>
+                            <param name="lines_right">0</param>
+                            <param name="topline">true</param>
+                            <param name="subline">false</param>
+                            <include>Dialog_Head_CloseButton</include>
+                        </include>
+                        <control type="group">
+                            <include>Dimension_Dialog_Body</include>
+                            <control type="group">
+                                <include>Dimension_Dialog_Body_Group</include>
+                                <include content="List_AddonCategories">
+                                    <param name="id">21</param>
+                                    <param name="detailed">true</param>
+                                    <param name="width" />
+                                    <onleft>60</onleft>
+                                    <pagecontrol>61</pagecontrol>
+                                    <onright>61</onright>
+                                </include>
+                            </control>
+                            <include content="Dialog_Scrollbar">
+                                <param name="id">61</param>
+                                <onleft>21</onleft>
+                                <onright>-</onright>
+                            </include>
+                            <control type="group">
+                                <height>40</height>
+                                <centerbottom>-5</centerbottom>
+                                <left>40</left>
+                                <right>40</right>
+                                <control type="grouplist">
+                                    <right>120</right>
+                                    <orientation>horizontal</orientation>
+                                    <control type="label" id="102">
+                                        <textcolor>dialog_fg_70</textcolor>
+                                        <align>left</align>
+                                        <width>auto</width>
+                                        <font>font_tiny</font>
+                                        <haspath>true</haspath>
+                                    </control>
+                                    <control type="image">
+                                        <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                                        <height>1</height>
+                                        <centertop>58%</centertop>
+                                        <width>3000</width>
+                                        <left>20</left>
+                                    </control>
+                                </control>
+                                <control type="label" id="13">
+                                    <textcolor>dialog_fg_70</textcolor>
+                                    <align>right</align>
+                                    <font>font_tiny</font>
+                                </control>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+            </control>
+        </control>
+
+
+
+
+        <include content="Settings_Changer">
+            <onup>3</onup>
+        </include>
+
+    </controls>
+
+</window>
