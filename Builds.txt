@@ -2,7 +2,7 @@ id="plugin.program.openwizard"
 version="1.0.0"
 zip="url.to.wizard"
 
-name="Ultimate Fuse [COLOR red]PC Only[/COLOR] - Arabic - Kodi 21 - By psp2111."
+name="Ultimate Fuse PC Only - Arabic - Kodi 21 - By psp2111."
 version="1.0"
 url="https://aboda7em.tvbox-tv-trakt.workers.dev/download.aspx?file=w%2FpZOv%2BstYRzK1s82Cl7HXWyDio0TVZCwEnPFJBr1UzihXJoE5pcv3yvLOM5JK3i&expiry=1K3oAzf1VAfqwoMvvFj93g%3D%3D&mac=5381a5d50c9e418ad57c5c214eb43688ba7db1c3608787c5fe555a58e4de452b"
 minor="http://"
