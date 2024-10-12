@@ -14,7 +14,7 @@ fanart="https://i.imgur.com/ByNVpkt.png"
 preview="https://"
 adult="no"
 info="http://your.info.url"
-description="Kodi Build for [COLOR red]PC Only[/COLOR] using Arctic Fuse with Arabic interface for Version 21+ ONLY By psp2111.[CR]بناء لتطبيق Kodi لأجهزة الـPC فقط تم بنائه على سكن Arctic Fuse."
+description="Kodi Build for [COLOR red]PC Only[/COLOR] using Arctic Fuse with Arabic interface for Version 21+ ONLY By psp2111."
 
 
 name="Arctic Fuse - Arabic - Kodi 21 - By psp2111."
