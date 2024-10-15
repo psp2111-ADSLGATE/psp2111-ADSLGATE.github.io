@@ -249,7 +249,7 @@
             <fanart>fanart.png</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.12.4">
+</addon><addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.12.5">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
@@ -881,7 +881,7 @@
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.2.32" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.2.33.1" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -1570,7 +1570,7 @@
             <screenshot>resources/screenshot-01.png</screenshot>
         </assets>
     </extension>
-</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.17.0" provider-name="Unknown">
+</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.18.0" provider-name="Unknown">
     <requires>
       <import addon="script.module.requests" />
       <import addon="vfs.libarchive" optional="true" />
@@ -1594,7 +1594,10 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, SubDL, Addic7ed
             <screenshot>screenshot-02.png</screenshot>
             <screenshot>screenshot-03.png</screenshot>
         </assets>
-        <news>
+    <news>
+[v3.18.0]:
+  * Use the newer InfoTagVideo KODI API (contributed by @kiamvdd)
+
 [v3.17.0]:
   * Fix: TV year being pulled incorrectly
   * Fix: File name issues in both temp and media directories

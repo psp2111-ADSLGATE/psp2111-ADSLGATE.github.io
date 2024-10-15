@@ -15,9 +15,12 @@ season_display, show_display, remain_str, pack_display = ls(32537), ls(32089), l
 pack_check = (season_display, show_display)
 debrid_runners = {'Real-Debrid': ('Real-Debrid', RD_check), 'Premiumize.me': ('Premiumize.me', PM_check), 'AllDebrid': ('AllDebrid', AD_check)}
 sd_check = ('SD', 'CAM', 'TELE', 'SYNC')
+correct_pack_sizes = ('torrentio', 'knightcrawler', 'comet')
 
 class source:
-	def __init__(self, meta, source_dict, debrid_torrents, internal_scrapers, prescrape_sources, progress_dialog, disabled_ext_ignored=False):
+	def __init__(self, meta, source_dict, debrid_torrents, debrid_service, debrid_token, internal_scrapers, prescrape_sources, progress_dialog, disabled_ext_ignored=False):
+
+		self.debrid_service, self.debrid_token = debrid_service, debrid_token
 		self.scrape_provider = 'external'
 		self.progress_dialog = progress_dialog
 		self.meta = meta
@@ -49,13 +52,14 @@ class source:
 			self.single_expiry, self.season_expiry, self.show_expiry = info['expiry_times']
 			if self.media_type == 'movie':
 				self.season_divider, self.show_divider = 0, 0
-				self.data = {'imdb': info['imdb_id'], 'title': self.title, 'aliases': aliases, 'year': self.year}
+				self.data = {'imdb': info['imdb_id'], 'title': self.title, 'aliases': aliases, 'year': self.year,
+				'debrid_service': self.debrid_service, 'debrid_token': self.debrid_token}
 			else:
 				try: self.season_divider = [int(x['episode_count']) for x in self.meta['season_data'] if int(x['season_number']) == int(self.meta['season'])][0]
 				except: self.season_divider = 1
 				self.show_divider = int(self.meta['total_aired_eps'])
 				self.data = {'imdb': info['imdb_id'], 'tvdb': info['tvdb_id'], 'tvshowtitle': self.title, 'aliases': aliases,'year': self.year,
-							'title': ep_name, 'season': str(self.season), 'episode': str(self.episode)}
+							'title': ep_name, 'season': str(self.season), 'episode': str(self.episode), 'debrid_service': self.debrid_service, 'debrid_token': self.debrid_token}
 		except: return []
 		return self.get_sources()
 
@@ -211,7 +215,7 @@ class source:
 					else: quality, extraInfo = get_file_info(url=i_get('url'))
 					try:
 						size = i_get('size')
-						if 'package' in i and provider != 'torrentio':
+						if 'package' in i and provider not in correct_pack_sizes:
 							if i_get('package') == 'season': divider = self.season_divider
 							else: divider = self.show_divider
 							size = float(size) / divider
@@ -281,13 +285,6 @@ class source:
 			self.processed_internal_scrapers_append(i)
 			self.process_quality_count(internal_sources)
 		return [i for i in self.internal_scrapers if not i in self.processed_internal_scrapers]
-
-	def _kill_progress_dialog(self):
-		try: self.progress_dialog.close()
-		except: close_all_dialog()
-		try: del self.progress_dialog
-		except: pass
-		self.progress_dialog = None
 
 	def _quality_length(self, items, quality):
 		return len([i for i in items if i['quality'] == quality])

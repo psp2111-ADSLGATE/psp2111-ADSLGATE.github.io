@@ -30,6 +30,7 @@ rd_info, pm_info, ad_info = ('apis.real_debrid_api', 'RealDebridAPI'), ('apis.pr
 debrids = {'Real-Debrid': rd_info, 'rd_cloud': rd_info, 'rd_browse': rd_info, 'Premiumize.me': pm_info, 'pm_cloud': pm_info, 'pm_browse': pm_info,
 			'AllDebrid': ad_info, 'ad_cloud': ad_info, 'ad_browse': ad_info}
 debrid_providers = ('Real-Debrid', 'Premiumize.me', 'AllDebrid')
+debrid_token_dict = {'Real-Debrid': 'rd.token' , 'Premiumize.me': 'pm.token' , 'AllDebrid': 'ad.token'}
 quality_ranks = {'4K': 1, '1080p': 2, '720p': 3, 'SD': 4, 'SCR': 5, 'CAM': 5, 'TELE': 5}
 cloud_scrapers, folder_scrapers = ('rd_cloud', 'pm_cloud', 'ad_cloud'), ('folder1', 'folder2', 'folder3', 'folder4', 'folder5')
 default_internal_scrapers = ('furk', 'easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'folders')
@@ -131,8 +132,14 @@ class Sources():
 			[i.start() for i in self.threads]
 		if self.active_external or self.background:
 			if self.active_external:
-				self.external_args = (self.meta, self.external_providers, self.debrid_torrent_enabled, self.internal_scraper_names,
+				if any((i[0] == 'comet' for i in self.external_providers)):
+					debrid_service = self.debrid_enabled[0]
+					debrid_token = get_setting('fen.%s' % debrid_token_dict[debrid_service])
+				else: debrid_service, debrid_token = '', ''
+				self.external_args = (self.meta, self.external_providers, self.debrid_enabled, debrid_service, debrid_token, self.internal_scraper_names,
 										self.prescrape_sources, self.progress_dialog, self.disabled_ext_ignored)
+
+
 				self.activate_providers('external', external, False)
 			if self.background: [i.join() for i in self.threads]
 		elif self.active_internal_scrapers: self.scrapers_dialog()
