@@ -165,7 +165,7 @@
             <name>font_hint</name>
             <filename>HecanFull.ttf</filename>
 			<style>lighten</style>
-            <size>18</size>
+            <size>16</size>
             <linespacing>1.05</linespacing>
         </font>
 
