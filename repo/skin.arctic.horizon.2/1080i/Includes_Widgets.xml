@@ -509,29 +509,34 @@
                     <top>20</top>
                     <height>720</height>
                     <control type="image">
+						<top>-200</top>
                         <right>1280</right>
-                        <width>1280</width>
+                        <width>1780</width>
                         <aspectratio>stretch</aspectratio>
                         <fadetime>400</fadetime>
                         <texture background="true" flipx="true">$INFO[Container($PARAM[id]).ListItem.Art(fanart)]</texture>
                     </control>
                     <control type="image">
-                        <width>1280</width>
+						<top>-200</top>
+                        <width>1780</width>
                         <right>0</right>
                         <aspectratio>scale</aspectratio>
-                        <fadetime>400</fadetime>
+                        <fadetime>100</fadetime>
                         <texture background="true">$INFO[Container($PARAM[id]).ListItem.Art(fanart)]</texture>
                     </control>
                     <control type="image">
+						<top>-200</top>
                         <width>100</width>
                         <texture colordiffuse="black">common/white.png</texture>
                     </control>
                     <control type="image">
+						<top>-200</top>
                         <left>100</left>
                         <right>-100</right>
                         <texture>common/dim-side-bezier.png</texture>
                     </control>
                     <control type="image">
+						<top>-200</top>
                         <texture flipy="true">common/dim-top-bezier.png</texture>
                     </control>
                     <include content="Info_Panel">
