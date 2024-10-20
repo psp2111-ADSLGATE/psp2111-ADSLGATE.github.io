@@ -121,7 +121,7 @@
             <name>font_mini_bold</name>
             <filename>HecanFull.ttf</filename>
             <style>bold</style>
-            <size>30</size>
+            <size>29</size>
         </font>
         <font>
             <name>font_tiny_bold</name>
