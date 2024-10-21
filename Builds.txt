@@ -129,7 +129,7 @@ adult="no"
 info="http://your.info.url"
 description="FENtastic Build Based on FEN with Arabic for Kodi 21+ ONLY By psp2111."
 
-name="[COLOR {color1}]Arabic Subtitle Fonts.[/COLOR]"
+name="Arabic Subtitle Fonts."
 version="1.0"
 url="https://"
 minor="http://"
