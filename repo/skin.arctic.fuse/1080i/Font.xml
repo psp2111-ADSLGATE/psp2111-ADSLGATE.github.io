@@ -7,7 +7,7 @@
             <param name="font_bold">AljazeeraFull.ttf</param>
             <param name="font_regular">AljazeeraFull.ttf</param>
             <param name="font_light">AljazeeraFull.ttf</param>
-            <param name="aspect_system">0.8</param>
+            <param name="aspect_system">1.1</param>
         </include>
     </fontset>	
 
@@ -17,7 +17,7 @@
             <param name="font_bold">AmazonFullRegular.ttf</param>
             <param name="font_regular">AmazonFullRegular.ttf</param>
             <param name="font_light">AmazonFullRegular.ttf</param>
-            <param name="aspect_system">0.8</param>
+            <param name="aspect_system">0.9</param>
         </include>
     </fontset>
 
@@ -27,7 +27,7 @@
             <param name="font_bold">SamimFullBold.ttf</param>
             <param name="font_regular">SamimFullBold.ttf</param>
             <param name="font_light">SamimFullBold.ttf</param>
-            <param name="aspect_system">0.8</param>
+            <param name="aspect_system">0.9</param>
         </include>
     </fontset>
 	
@@ -37,7 +37,17 @@
             <param name="font_bold">RobotoNotoCondensed-Bold.ttf</param>
             <param name="font_regular">RobotoNotoCondensed-Regular.ttf</param>
             <param name="font_light">RobotoNotoCondensed-Light.ttf</param>
-            <param name="aspect_system">0.8</param>
+            <param name="aspect_system">0.95</param>
+        </include>
+    </fontset>
+	
+	<fontset id="PFDin" unicode="true">
+        <include content="Font_Default">
+            <param name="font_black">PFDinTextArabic.ttf</param>
+            <param name="font_bold">PFDinTextArabic.ttf</param>
+            <param name="font_regular">PFDinTextArabic.ttf</param>
+            <param name="font_light">PFDinTextArabic.ttf</param>
+            <param name="aspect_system">1.0</param>
         </include>
     </fontset>
 

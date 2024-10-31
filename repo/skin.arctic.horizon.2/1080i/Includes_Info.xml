@@ -52,7 +52,7 @@
                 <width>info_plot_w</width>
                 <control type="label">
                     <aligny>center</aligny>
-                    <height>114</height>
+                    <height>85</height>
                     <top>0</top>
                     <label>$PARAM[label]</label>
                     <textcolor>$PARAM[colordiffuse]_100</textcolor>
@@ -71,7 +71,7 @@
                 <width>info_plot_w</width>
                 <control type="label">
                     <aligny>center</aligny>
-                    <height>114</height>
+                    <height>85</height>
                     <top>0</top>
                     <label>$PARAM[label]</label>
                     <textcolor>$PARAM[colordiffuse]_100</textcolor>
@@ -81,7 +81,7 @@
                 <control type="label">
                     <wrapmultiline>true</wrapmultiline>
                     <aligny>center</aligny>
-                    <height>114</height>
+                    <height>85</height>
                     <top>0</top>
                     <label>$PARAM[label]</label>
                     <textcolor>$PARAM[colordiffuse]_100</textcolor>
@@ -93,7 +93,7 @@
                 <control type="label">
                     <wrapmultiline>true</wrapmultiline>
                     <aligny>center</aligny>
-                    <height>114</height>
+                    <height>85</height>
                     <top>0</top>
                     <label>$PARAM[label]</label>
                     <textcolor>$PARAM[colordiffuse]_100</textcolor>
@@ -106,7 +106,7 @@
                 <control type="label">
                     <wrapmultiline>true</wrapmultiline>
                     <aligny>center</aligny>
-                    <height>114</height>
+                    <height>85</height>
                     <top>0</top>
                     <label>$PARAM[label]</label>
                     <textcolor>$PARAM[colordiffuse]_100</textcolor>
@@ -150,7 +150,7 @@
     <include name="Info_Title_Logo">
         <definition>
             <control type="group">
-                <height>120</height>
+                <height>105</height>
                 <visible>![$PARAM[mainlogo_visible]]</visible>
                 <animation effect="fade" start="0" end="100" time="200" delay="400" reversible="true">Visible</animation>
                 <animation effect="fade" start="100" end="0" delay="0" time="200" reversible="true">Hidden</animation>
@@ -163,7 +163,7 @@
                 <animation effect="fade" start="100" end="0" delay="400" time="200" reversible="true">Hidden</animation>
                 <visible>$PARAM[mainlogo_visible]</visible>
                 <control type="image">
-                    <height>120</height>
+                    <height>105</height>
                     <aspectratio align="left">keep</aspectratio>
                     <fadetime>200</fadetime>
                     <texture background="true">$PARAM[mainlogo_texture]</texture>
@@ -1037,7 +1037,7 @@
                 <height>32</height>
                 <orientation>horizontal</orientation>
                 <align>$PARAM[align]</align>
-                <itemgap>4</itemgap>
+                <itemgap>0</itemgap>
                 <usecontrolcoords>true</usecontrolcoords>
                 <include content="Info_Ratings_Item">
                     <param name="include_condition">!Skin.HasSetting(Ratings.DisableStarRating)</param>
@@ -1826,7 +1826,7 @@
             <control type="group">
                 <nested />
                 <control type="grouplist">
-                    <top>-20</top>
+                    <top>0</top>
                     <hitrect x="0" y="0" w="0" h="0" />
                     <orientation>vertical</orientation>
                     <itemgap>0</itemgap>
@@ -1838,7 +1838,7 @@
                         <param name="width" value="$PARAM[plotwidth]" />
                     </include>
                     <control type="group">
-                        <height>40</height>
+                        <height>5</height>
                         <visible>$PARAM[infoline]</visible>
                         <include content="Info_Line">
                             <param name="colordiffuse" value="$PARAM[colordiffuse]" />
@@ -1893,8 +1893,8 @@
                                 <visible>$PARAM[details]</visible>
                                 <visible>$PARAM[plotbox]</visible>
                                 <visible>[[String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,tvshow) | String.IsEqual($PARAM[container]ListItem.DBType,season) | String.IsEqual($PARAM[container]ListItem.DBType,episode) | [!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) + [String.IsEqual(Container(99950).ListItem.Property(TMDB_Type),movie) | String.IsEqual(Container(99950).ListItem.Property(TMDB_Type),tv)]]] | [String.IsEqual($PARAM[container]ListItem.DBType,artist) | String.IsEqual($PARAM[container]ListItem.DBType,album) | String.IsEqual($PARAM[container]ListItem.DBType,song) | [String.IsEqual($PARAM[container]ListItem.DBType,video) + String.IsEqual($PARAM[container]ListItem.Property(TMDB_Type),person)]]]</visible>
-                                <top>-3</top>
-                                <bottom>3</bottom>
+                                <top>-30</top>
+                                <bottom>-10</bottom>
                             </include>
                             <!-- No Ratings + Plot -->
                             <include content="Object_Control">
@@ -1907,8 +1907,8 @@
                                 <visible>Skin.HasSetting(Ratings.HideAll) | [![$PARAM[ratings] + [[String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,tvshow) | String.IsEqual($PARAM[container]ListItem.DBType,season) | String.IsEqual($PARAM[container]ListItem.DBType,episode) | [!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel) + [String.IsEqual(Container(99950).ListItem.Property(TMDB_Type),movie) | String.IsEqual(Container(99950).ListItem.Property(TMDB_Type),tv)]]] | [String.IsEqual($PARAM[container]ListItem.DBType,artist) | String.IsEqual($PARAM[container]ListItem.DBType,album) | String.IsEqual($PARAM[container]ListItem.DBType,song) | [String.IsEqual($PARAM[container]ListItem.DBType,video) + String.IsEqual($PARAM[container]ListItem.Property(TMDB_Type),person)]]]]]</visible>
                                 <visible>$PARAM[details]</visible>
                                 <visible>$PARAM[plotbox]</visible>
-                                <top>-63</top>
-                                <bottom>23</bottom>
+                                <top>-80</top>
+                                <bottom>0</bottom>
                             </include>
                         </control>
                     </control>
