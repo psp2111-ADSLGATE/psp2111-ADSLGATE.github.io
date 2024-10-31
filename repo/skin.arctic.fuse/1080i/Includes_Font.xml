@@ -164,7 +164,6 @@
 				<style>lighten</style>
 				<linespacing>$PARAM[linespacing]</linespacing>
             </font>
-            </font>
             <font>
                 <name>font_mini</name>
                 <filename>$PARAM[font_regular]</filename>
@@ -213,7 +212,7 @@
                 <name>font_main_plot</name>
                 <filename>$PARAM[font_regular]</filename>
                 <size>28</size>
-                <aspect>$PARAM[aspect_system]</aspect>
+                <aspect>$PARAM[aspect_standard]</aspect>
 				<style>lighten</style>
 				<linespacing>$PARAM[linespacing]</linespacing>
             </font>
