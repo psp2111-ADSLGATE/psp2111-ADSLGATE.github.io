@@ -38,6 +38,7 @@
             <param name="font_regular">RobotoNotoCondensed-Regular.ttf</param>
             <param name="font_light">RobotoNotoCondensed-Light.ttf</param>
             <param name="aspect_system">0.95</param>
+			<param name="linespacing">1.1</param>
         </include>
     </fontset>
 	
@@ -48,6 +49,7 @@
             <param name="font_regular">PFDinTextArabic.ttf</param>
             <param name="font_light">PFDinTextArabic.ttf</param>
             <param name="aspect_system">1.0</param>
+			<param name="linespacing">0.9</param>
         </include>
     </fontset>
 

@@ -26,6 +26,7 @@
         <param name="font_light">RobotoNotoCondensed-Light.ttf</param>
         <param name="aspect_system">0.8</param>
         <param name="aspect_standard">1.0</param>
+		<param name="linespacing">1.0</param>
         <definition>
 
             <!-- Title fonts -->
@@ -212,7 +213,7 @@
                 <size>28</size>
                 <aspect>$PARAM[aspect_system]</aspect>
 				<style>lighten</style>
-				<linespacing>1.0</linespacing>
+				<linespacing>$PARAM[linespacing]</linespacing>
             </font>
             <font>
                 <name>font_mini_plot</name>

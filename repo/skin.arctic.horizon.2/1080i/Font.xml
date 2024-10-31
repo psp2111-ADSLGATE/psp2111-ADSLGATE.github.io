@@ -1590,6 +1590,7 @@
             <name>font_main_plot</name>
             <filename>PFDinTextArabic.ttf</filename>
             <size>28</size>
+			<linespacing>0.95</linespacing>
         </font>
         <font>
             <name>font_mini_plot</name>
