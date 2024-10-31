@@ -1571,7 +1571,7 @@
         <font>
             <name>font_hint</name>
             <filename>PFDinTextArabic.ttf</filename>
-            <size>14</size>
+            <size>13</size>
             <linespacing>1.05</linespacing>
         </font>
 
