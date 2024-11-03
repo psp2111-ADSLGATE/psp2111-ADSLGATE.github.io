@@ -1,4 +1,4 @@
-from tmdbhelper.lib.addon.plugin import get_condvisibility, get_infolabel, convert_media_type, convert_type, get_setting
+from tmdbhelper.lib.addon.plugin import get_condvisibility, get_infolabel, convert_media_type, convert_type, get_setting, get_skindir
 from tmdbhelper.lib.addon.tmdate import convert_timestamp, get_region_date
 from jurialmunkey.window import get_property
 from tmdbhelper.lib.monitor.images import ImageFunctions
@@ -8,23 +8,48 @@ from collections import namedtuple
 from copy import deepcopy
 
 
-BASEITEM_PROPERTIES = [
-    ('base_label', ('label',), None),
-    ('base_title', ('title',), None),
-    ('base_icon', ('icon',), None),
-    ('base_plot', ('plot', 'Property(artist_description)', 'Property(album_description)', 'addondescription'), None),
-    ('base_tagline', ('tagline',), None),
-    ('base_dbtype', ('dbtype',), None),
-    ('base_rating', ('userrating', 'rating',), None),
-    ('base_poster', ('Art(poster)', 'Art(season.poster)', 'Art(tvshow.poster)'), None),
-    ('base_fanart', ('Art(fanart)', 'Art(season.fanart)', 'Art(tvshow.fanart)'), None),
-    ('base_clearlogo', ('Art(clearlogo)', 'Art(tvshow.clearlogo)', 'Art(artist.clearlogo)'), None),
-    ('base_tvshowtitle', ('tvshowtitle',), None),
-    ('base_studio', ('studio',), lambda v: v.split(' / ')[0] if v else None),
-    ('base_genre', ('genre',), lambda v: v.split(' / ')[0] if v else None),
-    ('base_director', ('director',), lambda v: v.split(' / ')[0] if v else None),
-    ('base_writer', ('writer',), lambda v: v.split(' / ')[0] if v else None),
-]
+class BaseItemProperties(dict):
+    baseitem_default_properties = [
+        ('base_label', ('label',), None),
+        ('base_title', ('title',), None),
+        ('base_icon', ('icon',), None),
+        ('base_dbtype', ('dbtype',), None),
+    ]
+
+    baseitem_functions = {
+        'split': lambda v: v.split(' / ')[0]
+    }
+
+    def get_skin_baseitem_properties(self):
+        import json
+        import xbmcvfs
+        import contextlib
+
+        filepath = 'special://skin/extras/tmdbhelper/baseitem.json'
+
+        response = None
+        with contextlib.suppress(IOError, json.JSONDecodeError):
+            with xbmcvfs.File(filepath, 'r') as file:
+                response = json.load(file)
+
+        if not response:
+            return []
+
+        def get_item_tuple(k, v):
+            key = f'base_{k}'
+            values = v.get('infolabels') or []
+            function = self.baseitem_functions.get(v.get('function'))
+            return (key, values, function,)
+
+        return [get_item_tuple(k, v) for k, v in response.items()]
+
+    def __missing__(self, key):
+        self[key] = self.get_skin_baseitem_properties() + self.baseitem_default_properties
+        return self[key]
+
+
+BASEITEM_PROPERTIES = BaseItemProperties()
+
 
 CV_USE_MULTI_TYPE = ""\
     "Window.IsVisible(DialogPVRInfo.xml) | "\
@@ -269,7 +294,7 @@ class ListItemDetails():
             return
         self._itemdetails.listitem['folderpath'] = self._itemdetails.listitem['infoproperties']['folderpath'] = self.get_infolabel('folderpath')
         self._itemdetails.listitem['filenameandpath'] = self._itemdetails.listitem['infoproperties']['filenameandpath'] = self.get_infolabel('filenameandpath')
-        for k, v, f in BASEITEM_PROPERTIES:
+        for k, v, f in BASEITEM_PROPERTIES[get_skindir()]:
             try:
                 value = next(j for j in (self.get_infolabel(i) for i in v) if j)
                 value = f(value) if f else value
