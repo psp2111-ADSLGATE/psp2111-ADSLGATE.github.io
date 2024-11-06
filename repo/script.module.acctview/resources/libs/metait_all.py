@@ -765,7 +765,7 @@ def debrid_user_tmdb(who):
             if os.path.exists(DEBRIDID[who]['path']):
                 try:
                     add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                    user_omdb = add.getSetting(DEBRIDID[who]['default_tmdb'])
+                    user_tmdb = add.getSetting(DEBRIDID[who]['default_tmdb'])
                 except:
                     pass
     return user_tmdb

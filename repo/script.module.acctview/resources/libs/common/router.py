@@ -675,11 +675,9 @@ class Router:
                 xbmc.log('%s: Router.py Restore AD Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
         elif mode == 'addondebrid_ad':  # Clear All Addon Debrid Data
-            data = os.listdir(var.ad_backup)
-            for file in data:
-                    files = os.path.join(var.ad_backup, file)
-                    if os.path.isfile(files):
-                            os.remove(files)
+            debridit_ad.debrid_it('wipeaddon', name)
+            databit.revoke_fenlt_ad()
+            databit.revoke_affen_ad()
             xbmcgui.Dialog().notification('Account Manager', 'All Add-ons Revoked!', ad_icon, 3000)
             xbmc.sleep(1000)
             xbmc.executebuiltin('Addon.OpenSettings(script.module.accountmgr)')

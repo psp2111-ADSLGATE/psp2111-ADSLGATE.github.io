@@ -246,8 +246,6 @@ class ListItemMonitor(CommonMonitorFunctions):
             _listitem.setArt(_detailed['artwork'] or {}) if process_artwork else None
             _listitem.setProperties(_detailed['ratings'] or {}) if process_ratings else None
 
-        self.set_base_properties(_item._itemdetails.listitem)
-
         if process_artwork or process_ratings:
             t = Thread(target=_process_artwork_ratings)
             t.start()
@@ -258,15 +256,20 @@ class ListItemMonitor(CommonMonitorFunctions):
         _item.get_nextaired()
 
         # Item changed so reset properties
+        # if not self.is_same_item():
+        #     return self.on_exit(keep_tv_artwork=True)
+
         if not self.is_same_item():
-            return self.on_exit(keep_tv_artwork=True)
+            return
 
         # Proces artwork in a thread
         def _process_artwork():
             _artwork = _item.get_builtartwork()
             _artwork.update(_item.get_image_manipulations(built_artwork=_artwork))
-            self.clear_property_list(SETMAIN_ARTWORK)
-            self.set_iter_properties(_artwork, SETMAIN_ARTWORK) if self.is_same_item() else None
+            _artwork_properties = set()
+            if self.is_same_item():
+                self.set_iter_properties(_artwork, SETMAIN_ARTWORK, property_object=_artwork_properties)
+                self.clear_property_list(SETMAIN_ARTWORK.difference(_artwork_properties))
 
         if process_artwork:
             thread_artwork = Thread(target=_process_artwork)
@@ -276,8 +279,10 @@ class ListItemMonitor(CommonMonitorFunctions):
         def _process_ratings():
             get_property('IsUpdatingRatings', 'True')
             _details = _item.get_all_ratings() or {}
-            self.clear_property_list(SETPROP_RATINGS)
-            self.set_iter_properties(_details.get('infoproperties', {}), SETPROP_RATINGS) if self.is_same_item() else None
+            _ratings_properties = set()
+            if self.is_same_item():
+                self.set_iter_properties(_details.get('infoproperties', {}), SETPROP_RATINGS, property_object=_ratings_properties)
+                self.clear_property_list(SETPROP_RATINGS.difference(_ratings_properties))
             get_property('IsUpdatingRatings', clear_property=True)
 
         if process_ratings:
@@ -348,8 +353,8 @@ class ListItemMonitor(CommonMonitorFunctions):
         get_property('IsUpdating', 'True')
 
         # Clear properties for clean slate if user opened a new directory and using window properties
-        if not self._listcontainer and not self.is_same_folder(update=True):
-            self.on_exit(is_done=False)
+        # if not self._listcontainer and not self.is_same_folder(update=True):
+        #     self.on_exit(is_done=False)
 
         # Get the current listitem details for the details lookup
         self.setup_current_item()
@@ -387,11 +392,14 @@ class ListItemMonitor(CommonMonitorFunctions):
             return
         self.add_item_listcontainer(self._last_listitem, _id_dialog, _id_d_list)
 
-    def on_scroll_clear(self):
+    def on_scroll(self):
         self.setup_current_container()
         if self.is_same_item():
             return
-        return self.on_listitem() if self._listcontainer else self.on_exit(keep_tv_artwork=True)
+        if self._listcontainer:
+            return self.on_listitem()
+        # return self.on_listitem()
+        # return self.on_exit(keep_tv_artwork=True)
 
     def on_exit(self, keep_tv_artwork=False, is_done=True):
         if self._listcontainer:

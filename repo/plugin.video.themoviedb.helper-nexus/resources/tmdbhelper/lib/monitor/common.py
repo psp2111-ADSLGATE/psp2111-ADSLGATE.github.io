@@ -35,12 +35,6 @@ SETPROP_RATINGS = {
     'goldenglobe_awards_nominated', 'mtv_awards_nominated', 'criticschoice_awards_nominated',
     'emmy_awards_nominated', 'sag_awards_nominated', 'bafta_awards_nominated'}
 
-SETBASE = {
-    'base_label', 'base_title', 'base_icon', 'base_plot', 'base_tagline', 'base_dbtype', 'base_rating',
-    'base_poster', 'base_fanart', 'base_clearlogo', 'base_tvshowtitle', 'base_studio', 'base_genre',
-    'base_director', 'base_writer'
-}
-
 TVDB_AWARDS_KEYS = {
     'Academy Awards': 'academy',
     'Golden Globe Awards': 'goldenglobe',
@@ -243,18 +237,23 @@ class CommonMonitorFunctions(CommonMonitorDetails):
         get_property(key, set_property=f'{value}')
 
     @kodi_try_except('lib.monitor.common set_iter_properties')
-    def set_iter_properties(self, dictionary: dict, keys: set):
+    def set_iter_properties(self, dictionary: dict, keys: set, property_object=None):
         """ Interates through a set of keys and adds corresponding value from the dictionary as a window property
         Lists of values from dictionary are joined with ' / '.join(dictionary[key])
         TMDbHelper.ListItem.{key} = dictionary[key]
         """
         if not isinstance(dictionary, dict):
             dictionary = {}
+
+        if property_object is None:
+            property_object = set()
+
         for k in keys:
             v = dictionary.get(k)
             if isinstance(v, list):
                 v = ' / '.join(v)
             self.properties.add(k)
+            property_object.add(k)
             self.set_property(k, v)
 
     @kodi_try_except('lib.monitor.common set_indexed_properties')
@@ -310,10 +309,6 @@ class CommonMonitorFunctions(CommonMonitorDetails):
         self.set_property('Premiered_Long', get_region_date(date_obj, 'datelong'))
         self.set_property('Premiered_Custom', date_obj.strftime(get_infolabel('Skin.String(TMDbHelper.Date.Format)') or '%d %b %Y'))
         self.properties.update(['Premiered', 'Premiered_Long', 'Premiered_Custom'])
-
-    def set_base_properties(self, item):
-        infoproperties = item.get('infoproperties', {})
-        self.set_iter_properties(infoproperties, SETBASE)
 
     def set_properties(self, item):
         cast = item.get('cast', [])
