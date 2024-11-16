@@ -24,11 +24,15 @@ class XbmcContextUI(AbstractContextUI):
         self._context = context
         self._view_manager = None
 
-    def create_progress_dialog(self, heading, text=None, background=False):
+    def create_progress_dialog(self,
+                               heading,
+                               message='',
+                               background=False,
+                               message_template=None):
         if background:
-            return XbmcProgressDialogBG(heading, text)
+            return XbmcProgressDialogBG(heading, message, message_template)
 
-        return XbmcProgressDialog(heading, text)
+        return XbmcProgressDialog(heading, message, message_template)
 
     def get_view_manager(self):
         if self._view_manager is None:
@@ -66,20 +70,20 @@ class XbmcContextUI(AbstractContextUI):
 
     def on_remove_content(self, name):
         return self.on_yes_no_input(
-            self._context.localize('content.remove.confirm'),
-            self._context.localize('content.remove') % to_unicode(name),
+            self._context.localize('content.remove'),
+            self._context.localize('content.remove.check') % to_unicode(name),
         )
 
     def on_delete_content(self, name):
         return self.on_yes_no_input(
-            self._context.localize('content.delete.confirm'),
-            self._context.localize('content.delete') % to_unicode(name),
+            self._context.localize('content.delete'),
+            self._context.localize('content.delete.check') % to_unicode(name),
         )
 
     def on_clear_content(self, name):
         return self.on_yes_no_input(
-            self._context.localize('content.clear.confirm'),
-            self._context.localize('content.clear') % to_unicode(name),
+            self._context.localize('content.clear'),
+            self._context.localize('content.clear.check') % to_unicode(name),
         )
 
     def on_select(self, title, items=None, preselect=-1, use_details=False):

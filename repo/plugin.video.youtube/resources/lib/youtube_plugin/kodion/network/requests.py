@@ -19,7 +19,7 @@ from requests.exceptions import InvalidJSONError, RequestException
 from requests.utils import DEFAULT_CA_BUNDLE_PATH, extract_zipped_paths
 from urllib3.util.ssl_ import create_urllib3_context
 
-from ..logger import log_error
+from ..logger import Logger
 
 
 __all__ = (
@@ -63,7 +63,7 @@ class SSLHTTPAdapter(HTTPAdapter):
         return super(SSLHTTPAdapter, self).cert_verify(conn, url, verify, cert)
 
 
-class BaseRequestsClass(object):
+class BaseRequestsClass(Logger):
     _session = Session()
     _session.mount('https://', SSLHTTPAdapter(
         pool_maxsize=10,
@@ -148,7 +148,7 @@ class BaseRequestsClass(object):
         except self._default_exc as exc:
             exc_response = exc.response or response
             response_text = exc_response and exc_response.text
-            stack_trace = format_stack()
+            stack = format_stack()
             error_details = {'exc': exc}
 
             if error_hook:
@@ -168,38 +168,38 @@ class BaseRequestsClass(object):
                     response = _response
                     response_text = repr(_response)
                 if _trace is not None:
-                    stack_trace = _trace
+                    stack = _trace
                 if _exc is not None:
                     raise_exc = _exc
 
             if error_title is None:
-                error_title = 'Request failed'
+                error_title = 'Request - Failed'
 
             if error_info is None:
                 try:
-                    error_info = 'Status: {0.status_code} - {0.reason}'.format(
-                        exc.response
-                    )
+                    error_info = ('Status:    {0.status_code} - {0.reason}'
+                                  .format(exc.response))
                 except AttributeError:
-                    error_info = str(exc)
+                    error_info = ('Exception: {exc!r}'
+                                  .format(exc=exc))
             elif '{' in error_info:
                 try:
                     error_info = error_info.format(**error_details)
                 except (AttributeError, IndexError, KeyError):
-                    error_info = str(exc)
+                    error_info = ('Exception: {exc!r}'
+                                  .format(exc=exc))
 
             if response_text:
-                response_text = 'Response:\n\t|{0}|'.format(response_text)
+                response_text = ('Response:   {0}'
+                                 .format(response_text))
 
-            if stack_trace:
-                stack_trace = (
-                    'Stack trace (most recent call last):\n{0}'.format(
-                        ''.join(stack_trace)
-                    )
+            if stack:
+                stack = 'Stack trace (most recent call last):\n{stack}'.format(
+                    stack=''.join(stack)
                 )
 
-            log_error('\n'.join([part for part in [
-                error_title, error_info, response_text, stack_trace
+            self.log_error('\n\t'.join([part for part in [
+                error_title, error_info, response_text, stack
             ] if part]))
 
             if raise_exc:

@@ -12,13 +12,21 @@ from __future__ import absolute_import, division, unicode_literals
 
 import os
 
-from .. import logger
-from ..compatibility import parse_qsl, quote, to_str, urlencode, urlsplit
+from ..logger import Logger
+from ..compatibility import (
+    parse_qsl,
+    quote,
+    to_str,
+    unquote,
+    urlencode,
+    urlsplit,
+)
 from ..constants import (
     PATHS,
     PLAY_FORCE_AUDIO,
     PLAY_PROMPT_QUALITY,
     PLAY_PROMPT_SUBTITLES,
+    PLAY_STRM,
     PLAY_TIMESHIFT,
     PLAY_WITH,
     VALUE_FROM_STR,
@@ -36,7 +44,7 @@ from ..sql_store import (
 from ..utils import current_system_version
 
 
-class AbstractContext(object):
+class AbstractContext(Logger):
     _initialized = False
     _addon = None
     _settings = None
@@ -45,6 +53,7 @@ class AbstractContext(object):
         PLAY_FORCE_AUDIO,
         PLAY_PROMPT_SUBTITLES,
         PLAY_PROMPT_QUALITY,
+        PLAY_STRM,
         PLAY_TIMESHIFT,
         PLAY_WITH,
         'confirmed',
@@ -58,10 +67,10 @@ class AbstractContext(object):
         'incognito',
         'location',
         'logged_in',
-        'play',
         'resume',
         'screensaver',
-        'strm',
+        'window_fallback',
+        'window_replace',
         'window_return',
     }
     _INT_PARAMS = {
@@ -93,19 +102,18 @@ class AbstractContext(object):
         'addon_id',
         'category_label',
         'channel_id',
-        'channel_name',
         'client_id',
         'client_secret',
         'click_tracking',
         'event_type',
         'item',
         'item_id',
+        'item_name',
         'order',
         'page_token',
         'parent_id',
         'playlist',  # deprecated
         'playlist_id',
-        'playlist_name',
         'q',
         'rating',
         'reload_path',
@@ -114,12 +122,12 @@ class AbstractContext(object):
         'uri',
         'videoid',  # deprecated
         'video_id',
-        'video_name',
         'visitor',
     }
     _STRING_BOOL_PARAMS = {
         'reload_path',
     }
+    _NON_EMPTY_STRING_PARAMS = set()
 
     def __init__(self, path='/', params=None, plugin_id=''):
         self._access_manager = None
@@ -139,9 +147,13 @@ class AbstractContext(object):
         self._plugin_icon = None
         self._version = 'UNKNOWN'
 
-        self._path = self.create_path(path)
+        self._path = path
+        self._path_parts = []
+        self.set_path(path, force=True)
+
         self._params = params or {}
         self.parse_params(self._params)
+
         self._uri = self.create_uri(self._path, self._params)
 
     @staticmethod
@@ -265,7 +277,9 @@ class AbstractContext(object):
         uri = self._plugin_id.join(('plugin://', uri))
 
         if params:
-            uri = '?'.join((uri, urlencode(params)))
+            if isinstance(params, (dict, list, tuple)):
+                params = urlencode(params)
+            uri = '?'.join((uri, params))
 
         return ''.join((
             'RunPlugin(',
@@ -273,32 +287,42 @@ class AbstractContext(object):
             ')'
         )) if run else uri
 
+    def get_parent_uri(self, **kwargs):
+        return self.create_uri(self._path_parts[:-1], **kwargs)
+
     @staticmethod
     def create_path(*args, **kwargs):
-        path = '/'.join([
-            part
-            for part in [
+        include_parts = kwargs.get('parts')
+        parts = [
+            part for part in [
                 str(arg).strip('/').replace('\\', '/').replace('//', '/')
                 for arg in args
             ] if part
-        ])
-        if path:
-            path = path.join(('/', '/'))
+        ]
+        if parts:
+            path = '/'.join(parts).join(('/', '/'))
+            if path.startswith(PATHS.ROUTE):
+                parts = parts[2:]
+            elif path.startswith(PATHS.COMMAND):
+                parts = []
+            elif path.startswith(PATHS.GOTO_PAGE):
+                parts = parts[2:]
+                if parts and parts[0].isnumeric():
+                    parts = parts[1:]
         else:
-            return '/'
+            return ('/', parts) if include_parts else '/'
 
         if kwargs.get('is_uri'):
-            return quote(path)
-        return path
+            path = quote(path)
+        return (path, parts) if include_parts else path
 
     def get_path(self):
         return self._path
 
     def set_path(self, *path, **kwargs):
         if kwargs.get('force'):
-            self._path = path[0]
-        else:
-            self._path = self.create_path(*path)
+            path = unquote(path[0]).split('/')
+        self._path, self._path_parts = self.create_path(*path, parts=True)
 
     def get_params(self):
         return self._params
@@ -308,7 +332,7 @@ class AbstractContext(object):
 
     def parse_uri(self, uri):
         uri = urlsplit(uri)
-        path = uri.path
+        path = uri.path.rstrip('/')
         params = self.parse_params(
             dict(parse_qsl(uri.query, keep_blank_values=True)),
             update=False,
@@ -322,15 +346,13 @@ class AbstractContext(object):
         for param, value in params.items():
             try:
                 if param in self._BOOL_PARAMS:
-                    parsed_value = VALUE_FROM_STR.get(str(value).lower(), False)
+                    parsed_value = VALUE_FROM_STR.get(str(value), False)
                 elif param in self._INT_PARAMS:
-                    parsed_value = None
-                    if param in self._INT_BOOL_PARAMS:
-                        parsed_value = VALUE_FROM_STR.get(str(value).lower())
-                    if parsed_value is None:
-                        parsed_value = int(value)
-                    else:
-                        parsed_value = int(parsed_value)
+                    parsed_value = int(
+                        (VALUE_FROM_STR.get(str(value), value) or 0)
+                        if param in self._INT_BOOL_PARAMS else
+                        value
+                    )
                 elif param in self._FLOAT_PARAMS:
                     parsed_value = float(value)
                 elif param in self._LIST_PARAMS:
@@ -343,7 +365,7 @@ class AbstractContext(object):
                     parsed_value = to_str(value)
                     if param in self._STRING_BOOL_PARAMS:
                         parsed_value = VALUE_FROM_STR.get(
-                            parsed_value.lower(), parsed_value
+                            parsed_value, parsed_value
                         )
                     # process and translate deprecated parameters
                     elif param == 'action':
@@ -357,8 +379,15 @@ class AbstractContext(object):
                     elif params == 'playlist':
                         to_delete.append(param)
                         param = 'playlist_id'
+                elif param in self._NON_EMPTY_STRING_PARAMS:
+                    parsed_value = to_str(value)
+                    parsed_value = VALUE_FROM_STR.get(
+                        parsed_value, parsed_value
+                    )
+                    if not parsed_value:
+                        raise ValueError
                 else:
-                    self.log_debug('Unknown parameter - |{0}: {1}|'.format(
+                    self.log_debug('Unknown parameter - |{0}: {1!r}|'.format(
                         param, value
                     ))
                     to_delete.append(param)
@@ -429,24 +458,6 @@ class AbstractContext(object):
 
     def add_sort_method(self, *sort_methods):
         raise NotImplementedError()
-
-    def log(self, text, log_level=logger.NOTICE):
-        logger.log(text, log_level, self.get_id())
-
-    def log_warning(self, text):
-        self.log(text, logger.WARNING)
-
-    def log_error(self, text):
-        self.log(text, logger.ERROR)
-
-    def log_notice(self, text):
-        self.log(text, logger.NOTICE)
-
-    def log_debug(self, text):
-        self.log(text, logger.DEBUG)
-
-    def log_info(self, text):
-        self.log(text, logger.INFO)
 
     def clone(self, new_path=None, new_params=None):
         raise NotImplementedError()

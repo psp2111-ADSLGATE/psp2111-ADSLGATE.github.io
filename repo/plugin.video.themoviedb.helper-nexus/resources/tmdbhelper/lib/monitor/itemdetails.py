@@ -1,54 +1,10 @@
-from tmdbhelper.lib.addon.plugin import get_condvisibility, get_infolabel, convert_media_type, convert_type, get_setting, get_skindir
+from tmdbhelper.lib.addon.plugin import get_condvisibility, get_infolabel, convert_media_type, convert_type, get_setting
 from tmdbhelper.lib.addon.tmdate import convert_timestamp, get_region_date
-from jurialmunkey.window import get_property
-from tmdbhelper.lib.monitor.images import ImageFunctions
+from tmdbhelper.lib.monitor.images import ImageManipulations
 from tmdbhelper.lib.items.listitem import ListItem
 from tmdbhelper.lib.api.mapping import get_empty_item
 from collections import namedtuple
 from copy import deepcopy
-
-
-class BaseItemProperties(dict):
-    baseitem_default_properties = [
-        ('base_label', ('label',), None),
-        ('base_title', ('title',), None),
-        ('base_icon', ('icon',), None),
-        ('base_dbtype', ('dbtype',), None),
-    ]
-
-    baseitem_functions = {
-        'split': lambda v: v.split(' / ')[0]
-    }
-
-    def get_skin_baseitem_properties(self):
-        import json
-        import xbmcvfs
-        import contextlib
-
-        filepath = 'special://skin/extras/tmdbhelper/baseitem.json'
-
-        response = None
-        with contextlib.suppress(IOError, json.JSONDecodeError):
-            with xbmcvfs.File(filepath, 'r') as file:
-                response = json.load(file)
-
-        if not response:
-            return []
-
-        def get_item_tuple(k, v):
-            key = f'base_{k}'
-            values = v.get('infolabels') or []
-            function = self.baseitem_functions.get(v.get('function'))
-            return (key, values, function,)
-
-        return [get_item_tuple(k, v) for k, v in response.items()]
-
-    def __missing__(self, key):
-        self[key] = self.get_skin_baseitem_properties() + self.baseitem_default_properties
-        return self[key]
-
-
-BASEITEM_PROPERTIES = BaseItemProperties()
 
 
 CV_USE_MULTI_TYPE = ""\
@@ -58,20 +14,10 @@ CV_USE_MULTI_TYPE = ""\
     "Window.IsVisible(MyPVRSearch.xml) | "\
     "Window.IsVisible(MyPVRGuide.xml)"
 
-ARTWORK_LOOKUP_TABLE = {
-    'poster': ['Art(tvshow.poster)', 'Art(poster)', 'Art(thumb)'],
-    'fanart': ['Art(fanart)', 'Art(thumb)'],
-    'landscape': ['Art(landscape)', 'Art(fanart)', 'Art(thumb)'],
-    'thumb': ['Art(thumb)']}
-
-
-CROPIMAGE_SOURCE = "Art(artist.clearlogo)|Art(tvshow.clearlogo)|Art(clearlogo)"
-
-
 ItemDetails = namedtuple("ItemDetails", "tmdb_type tmdb_id listitem artwork")
 
 
-class ListItemDetails():
+class ListItemDetails(ImageManipulations):
     def __init__(self, parent, position=0):
         self._parent = parent
         self._position = position
@@ -153,19 +99,6 @@ class ListItemDetails():
             return 'multi'
         return convert_media_type(self._dbtype, 'tmdb', strip_plural=True, parent_type=True)
 
-    @property
-    def kodi_db(self):
-        if not get_setting('local_db'):
-            return
-
-        if self._dbtype == 'movies':
-            from tmdbhelper.lib.items.kodi import KodiDb
-            return KodiDb('movie')
-
-        if self._dbtype in ['tvshows', 'seasons', 'episodes']:
-            from tmdbhelper.lib.items.kodi import KodiDb
-            return KodiDb('tv')
-
     def setup_current_listitem(self):
         """ Cache property getter return values for performance """
         self._dbtype = self.dbtype
@@ -178,95 +111,6 @@ class ListItemDetails():
 
     def get_infolabel(self, info):
         return self._parent.get_infolabel(info, self._position)
-
-    def get_artwork(self, source='', build_fallback=False, built_artwork=None):
-        source = source or ''
-        source = source.lower()
-
-        def _get_artwork_infolabel(_infolabels):
-            for i in _infolabels:
-                artwork = self.get_infolabel(i)
-                if not artwork:
-                    continue
-                return artwork
-
-        def _get_artwork_fallback(_infolabels, _built_artwork):
-            for i in _infolabels:
-                if not i.startswith('art('):
-                    continue
-                artwork = _built_artwork.get(i[4:-1])
-                if not artwork:
-                    continue
-                return artwork
-
-        def _get_artwork(_source):
-            if _source:
-                _infolabels = ARTWORK_LOOKUP_TABLE.get(_source, _source.split("|"))
-            else:
-                _infolabels = ARTWORK_LOOKUP_TABLE.get('thumb')
-
-            artwork = _get_artwork_infolabel(_infolabels)
-
-            if artwork or not build_fallback:
-                return artwork
-
-            nonlocal built_artwork
-
-            built_artwork = built_artwork or self.get_builtartwork()
-            if not built_artwork:
-                return
-
-            return _get_artwork_fallback(_infolabels, built_artwork)
-
-        for _source in source.split("||"):
-            artwork = _get_artwork(_source)
-            if not artwork:
-                continue
-            return artwork
-
-    def get_image_manipulations(self, use_winprops=False, built_artwork=None):
-        self._parent._last_blur_fallback = False
-
-        images = {}
-
-        _manipulations = (
-            {'method': 'crop',
-                'active': lambda: get_condvisibility("Skin.HasSetting(TMDbHelper.EnableCrop)"),
-                'images': lambda: self.get_artwork(
-                    source=CROPIMAGE_SOURCE,
-                    build_fallback=True, built_artwork=built_artwork)},
-            {'method': 'blur',
-                'active': lambda: get_condvisibility("Skin.HasSetting(TMDbHelper.EnableBlur)"),
-                'images': lambda: self.get_artwork(
-                    source=get_property('Blur.SourceImage'),
-                    build_fallback=True, built_artwork=built_artwork)
-                or get_property('Blur.Fallback')},
-            {'method': 'desaturate',
-                'active': lambda: get_condvisibility("Skin.HasSetting(TMDbHelper.EnableDesaturate)"),
-                'images': lambda: self.get_artwork(
-                    source=get_property('Desaturate.SourceImage'),
-                    build_fallback=True, built_artwork=built_artwork)
-                or get_property('Desaturate.Fallback')},
-            {'method': 'colors',
-                'active': lambda: get_condvisibility("Skin.HasSetting(TMDbHelper.EnableColors)"),
-                'images': lambda: self.get_artwork(
-                    source=get_property('Colors.SourceImage'),
-                    build_fallback=True, built_artwork=built_artwork)
-                or get_property('Colors.Fallback')},)
-
-        for i in _manipulations:
-            if not i['active']():
-                continue
-            imgfunc = ImageFunctions(method=i['method'], is_thread=False, artwork=i['images']())
-
-            output = imgfunc.func(imgfunc.image)
-            images[f'{i["method"]}image'] = output
-            images[f'{i["method"]}image.original'] = imgfunc.image
-
-            if use_winprops:
-                imgfunc.set_properties(output)
-
-        return images
 
     def get_person_stats(self):
         if not self._itemdetails or not self._itemdetails.listitem:
@@ -289,18 +133,15 @@ class ListItemDetails():
             return self._itemdetails.listitem
         return self._parent.get_nextaired(self._itemdetails.listitem, self._itemdetails.tmdb_type, self._itemdetails.tmdb_id)
 
-    def get_additional_properties(self):
+    def get_additional_properties(self, infoproperties=None):
         if not self._itemdetails:
             return
         self._itemdetails.listitem['folderpath'] = self._itemdetails.listitem['infoproperties']['folderpath'] = self.get_infolabel('folderpath')
         self._itemdetails.listitem['filenameandpath'] = self._itemdetails.listitem['infoproperties']['filenameandpath'] = self.get_infolabel('filenameandpath')
-        for k, v, f in BASEITEM_PROPERTIES[get_skindir()]:
-            try:
-                value = next(j for j in (self.get_infolabel(i) for i in v) if j)
-                value = f(value) if f else value
-                self._itemdetails.listitem['infoproperties'][k] = value
-            except StopIteration:
-                self._itemdetails.listitem['infoproperties'][k] = None
+        if not infoproperties:
+            return
+        for k, v in infoproperties.items():
+            self._itemdetails.listitem['infoproperties'][k] = v
 
     def get_itemtypeid(self, tmdb_type):
         li_year = self._year if tmdb_type == 'movie' else None
@@ -392,12 +233,6 @@ class ListItemDetails():
 
         li = ListItem(**self._itemdetails.listitem)
         li.art = self.get_builtartwork()
-
-        try:
-            li.set_details(details=self.kodi_db.get_kodi_details(li), reverse=True)
-        except AttributeError:
-            pass
-
         set_time_properties(li)
         set_date_properties(li)
 

@@ -17,7 +17,7 @@ import time
 from threading import Lock
 from traceback import format_stack
 
-from ..logger import log_warning, log_error
+from ..logger import Logger
 from ..utils.datetime_parser import fromtimestamp, since_epoch
 from ..utils.methods import make_dirs
 
@@ -232,14 +232,16 @@ class Storage(object):
                                      isolation_level=None)
                 break
             except (sqlite3.Error, sqlite3.OperationalError) as exc:
-                msg = 'SQLStorage._open - {exc}:\n{details}'.format(
-                    exc=exc, details=''.join(format_stack())
-                )
+                msg = ('SQLStorage._open - Error'
+                       '\n\tException: {exc!r}'
+                       '\n\tStack trace (most recent call last):\n{stack}'
+                       .format(exc=exc,
+                               stack=''.join(format_stack())))
                 if isinstance(exc, sqlite3.OperationalError):
-                    log_warning(msg)
+                    Logger.log_warning(msg)
                     time.sleep(0.1)
                 else:
-                    log_error(msg)
+                    Logger.log_error(msg)
                     return False
 
         else:
@@ -309,14 +311,16 @@ class Storage(object):
                     return cursor.executescript(query)
                 return cursor.execute(query, values)
             except (sqlite3.Error, sqlite3.OperationalError) as exc:
-                msg = 'SQLStorage._execute - {exc}:\n{details}'.format(
-                    exc=exc, details=''.join(format_stack())
-                )
+                msg = ('SQLStorage._execute - Error'
+                       '\n\tException: {exc!r}'
+                       '\n\tStack trace (most recent call last):\n{stack}'
+                       .format(exc=exc,
+                               stack=''.join(format_stack())))
                 if isinstance(exc, sqlite3.OperationalError):
-                    log_warning(msg)
+                    Logger.log_warning(msg)
                     time.sleep(0.1)
                 else:
-                    log_error(msg)
+                    Logger.log_error(msg)
                     return []
         return []
 
