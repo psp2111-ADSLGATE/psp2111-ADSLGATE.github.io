@@ -7,7 +7,8 @@ class BaseItemSkinDefaults(dict):
     ]
 
     baseitem_functions = {
-        'split': lambda v: v.split(' / ')[0]
+        'split': lambda v: v.split(' / ')[0],
+        'boolean': 'boolean'
     }
 
     def get_skin_baseitem_properties(self):
@@ -29,7 +30,7 @@ class BaseItemSkinDefaults(dict):
             key = f'base_{k}'
             values = v.get('infolabels') or []
             function = self.baseitem_functions.get(v.get('function'))
-            return (key, values, function,)
+            return (key, values, function)
 
         return [get_item_tuple(k, v) for k, v in response.items()]
 

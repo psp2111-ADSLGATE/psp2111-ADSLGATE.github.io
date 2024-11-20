@@ -19,8 +19,8 @@ SETMAIN_ARTWORK = {
     'tvshow.poster', 'tvshow.thumb', 'tvshow.fanart', 'tvshow.discart', 'tvshow.clearart', 'tvshow.clearlogo', 'tvshow.landscape', 'tvshow.banner', 'tvshow.keyart'}
 SETINFO = {
     'title', 'originaltitle', 'tvshowtitle', 'plot', 'rating', 'votes', 'premiered', 'year',
-    'imdbnumber', 'tagline', 'status', 'episode', 'season', 'genre', 'set', 'studio', 'country',
-    'mpaa', 'director', 'writer', 'trailer', 'top250'}
+    'imdbnumber', 'tagline', 'episode', 'season', 'genre', 'set', 'studio', 'country',
+    'mpaa', 'director', 'writer', 'trailer'}
 SETPROP = {
     'tmdb_id', 'imdb_id', 'tvdb_id', 'tvshow.tvdb_id', 'tvshow.tmdb_id', 'tvshow.imdb_id',
     'biography', 'birthday', 'age', 'deathday', 'character', 'department', 'job', 'known_for', 'role', 'born',
@@ -219,6 +219,8 @@ class CommonMonitorDetails(CommonContainerAPIs):
         return item
 
     def get_nextaired(self, item, tmdb_type, tmdb_id):
+        if 'status' in item['infolabels']:
+            item['infoproperties']['status'] = item['infolabels']['status']
         if tmdb_type != 'tv':
             return item
         nextaired = self.tmdb_api.get_tvshow_nextaired(tmdb_id)

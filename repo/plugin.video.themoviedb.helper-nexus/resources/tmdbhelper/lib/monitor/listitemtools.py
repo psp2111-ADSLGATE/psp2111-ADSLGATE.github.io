@@ -29,6 +29,9 @@ class ListItemInfoGetter():
     def get_infolabel(self, info, position=0):
         return get_infolabel(f'{self._container_item.format(position)}{info}')
 
+    def get_condvisibility(self, info, position=0):
+        return get_condvisibility(f'{self._container_item.format(position)}{info}')
+
     def get_item_identifier(self, position=0):
         return str((
             'current_listitem_v5.1.17',
@@ -131,10 +134,13 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
     @property
     def baseitem_properties(self):
         infoproperties = {}
-        for k, v, f in self._baseitem_skindefaults[get_skindir()]:
+        for k, v, func in self._baseitem_skindefaults[get_skindir()]:
+            if func == 'boolean':
+                infoproperties[k] = 'True' if all([self.get_condvisibility(i) for i in v]) else None
+                continue
             try:
                 value = next(j for j in (self.get_infolabel(i) for i in v) if j)
-                value = f(value) if f else value
+                value = func(value) if func else value
                 infoproperties[k] = value
             except StopIteration:
                 infoproperties[k] = None
