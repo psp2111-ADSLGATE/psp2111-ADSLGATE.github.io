@@ -41,7 +41,7 @@ def runner(params):
 		try:
 			debrid_files, debrid_function = Sources().debridPacks(provider, params['name'], params['magnet_url'], params['info_hash'], download=True)
 			pack_choices = [dict(params, **{'pack_files':item}) for item in debrid_files]
-			icon = {'Real-Debrid': 'realdebrid.png', 'Premiumize.me': 'premiumize.png', 'AllDebrid': 'alldebrid.png', 'Offcloud': 'offcloud.png'}[provider]
+			icon = {'Real-Debrid': 'realdebrid.png', 'Premiumize.me': 'premiumize.png', 'AllDebrid': 'alldebrid.png', 'Offcloud': 'offcloud.png', 'TorBox': 'torbox.png'}[provider]
 		except: return kodi_utils.notification(32692)
 		default_icon = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/%s' % icon)
 		chosen_list = select_pack_item(pack_choices, params['highlight'], default_icon)
@@ -150,7 +150,7 @@ class Downloader:
 				elif self.provider == 'AllDebrid':
 					from apis.alldebrid_api import AllDebridAPI as debrid_function
 				url = self.params_get('pack_files')['link']
-				if self.provider in ('Real-Debrid', 'AllDebrid'):
+				if self.provider in ('Real-Debrid', 'AllDebrid', 'TorBox'):
 					url = debrid_function().unrestrict_link(url)
 				elif self.provider == 'Premiumize.me':
 					url = debrid_function().add_headers_to_url(url)
@@ -164,12 +164,16 @@ class Downloader:
 				elif 'alldebrid' in self.action:
 					from indexers.alldebrid import resolve_ad
 					url = resolve_ad(self.params)
+				elif 'torbox' in self.action:
+					from indexers.torbox import resolve_tb
+					url = resolve_tb(self.params)
 				elif 'premiumize' in self.action:
 					from apis.premiumize_api import PremiumizeAPI
 					url = PremiumizeAPI().add_headers_to_url(url)
 				elif 'easynews' in self.action:
 					from indexers.easynews import resolve_easynews
 					url = resolve_easynews(self.params)
+		if 'torbox' in url: url += '|User-Agent=Mozilla%2F5.0'
 		try: headers = dict(parse_qsl(url.rsplit('|', 1)[1]))
 		except: headers = dict('')
 		try: url = url.split('|')[0]

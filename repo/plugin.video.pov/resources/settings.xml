@@ -154,13 +154,14 @@
 			<setting id="provider.pm_colour" label="32207" type="action" default="orangered" subsetting="true" visible="eq(-4,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=pm)" />
 			<setting id="provider.ad_colour" label="32208" type="action" default="goldenrod" subsetting="true" visible="eq(-5,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=ad)" />
 			<setting id="provider.oc_colour" label="Offcloud Color" type="action" default="dodgerblue" subsetting="true" visible="eq(-6,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=oc)" />
-			<setting id="provider.easynews_colour" label="32236" type="action" default="darkturquoise" subsetting="true" visible="eq(-7,0)|eq(-7,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=easynews)" />
-			<setting id="provider.debrid_cloud_colour" label="32244" type="action" default="darkviolet" subsetting="true" visible="eq(-8,0)|eq(-8,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=debrid_cloud)" />
-			<setting id="provider.folders_colour" label="32519" type="action" default="darkgoldenrod" subsetting="true" visible="eq(-9,0)|eq(-9,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=folders)" />
-			<setting id="scraper_4k_highlight" label="32520" type="action" default="magenta" subsetting="true" visible="eq(-10,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_4k_highlight)" />
-			<setting id="scraper_1080p_highlight" label="32523" type="action" default="cyan" subsetting="true" visible="eq(-11,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_1080p_highlight)" />
-			<setting id="scraper_720p_highlight" label="32618" type="action" default="mediumorchid" subsetting="true" visible="eq(-12,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_720p_highlight)" />
-			<setting id="scraper_SD_highlight" label="32647" type="action" default="dodgerblue" subsetting="true" visible="eq(-13,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_SD_highlight)" />
+			<setting id="provider.tb_colour" label="TorBox Color" type="action" default="lightgreen" subsetting="true" visible="eq(-7,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=tb)" />
+			<setting id="provider.easynews_colour" label="32236" type="action" default="darkturquoise" subsetting="true" visible="eq(-8,0)|eq(-8,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=easynews)" />
+			<setting id="provider.debrid_cloud_colour" label="32244" type="action" default="darkviolet" subsetting="true" visible="eq(-9,0)|eq(-9,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=debrid_cloud)" />
+			<setting id="provider.folders_colour" label="32519" type="action" default="darkgoldenrod" subsetting="true" visible="eq(-10,0)|eq(-10,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=folders)" />
+			<setting id="scraper_4k_highlight" label="32520" type="action" default="magenta" subsetting="true" visible="eq(-11,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_4k_highlight)" />
+			<setting id="scraper_1080p_highlight" label="32523" type="action" default="cyan" subsetting="true" visible="eq(-12,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_1080p_highlight)" />
+			<setting id="scraper_720p_highlight" label="32618" type="action" default="mediumorchid" subsetting="true" visible="eq(-13,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_720p_highlight)" />
+			<setting id="scraper_SD_highlight" label="32647" type="action" default="dodgerblue" subsetting="true" visible="eq(-14,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_SD_highlight)" />
 		<!-- Progress Color Highlights -->
 		<setting label="32209" type="lsep" />
 		<setting id="int_dialog_highlight" label="32167" type="action" default="magenta" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_dialog_color_choice&amp;setting=internal)" />
@@ -177,14 +178,19 @@
 		<setting id="debug.enabled" label="Enable Debug" type="bool" default="false" />
 		<setting id="debug.location" label="Logging Location" type="enum" default="1" enable="eq(-1,true)" values="Kodi Log|Addon Log" visible="eq(-1,true)" />
 		<setting label="Torrents" type="lsep" />
-		<setting id="provider.comet" label="comet (dmm)" type="bool" default="false" />
-			<setting id="comet.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" lvalues="32054|32061|32063" visible="eq(-1,true)" />
+		<setting id="provider.comet" label="comet" type="bool" default="false" />
+			<setting id="comet.url" label="Comet url" type="text" default="https://comet.elfhosted.com" subsetting="true" enable="false" visible="eq(-1,true)" />
+			<setting id="comet.indexers" label="Comet indexers" type="text" default="" subsetting="true" enable="false" visible="eq(-2,true)" />
+			<setting id="comet.langs" label="Comet languages" type="text" default="All" subsetting="true" enable="false" visible="eq(-3,true)" />
+			<setting id="comet.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" lvalues="32054|32061|32063|32075" visible="eq(-4,true)" />
+			<setting label="Configure" type="action" subsetting="true" visible="eq(-5,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=comet_configure)" />
 		<setting id="provider.knightcrawler" label="knightcrawler (torrentio/dmm)" type="bool" default="false" />
 		<setting id="provider.mediafusion" label="mediafusion" type="bool" default="false" />
-			<setting id="mediafusion.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" values="Real Debrid|Premiumize|All Debrid|Direct" visible="eq(-1,true)" />
-			<setting id="mediafusion.packs" label="Include Show Packs" type="bool" default="false" subsetting="true" visible="eq(-2,true)" />
+			<setting id="mediafusion.packs" label="Include Show Packs" type="bool" default="false" subsetting="true" visible="eq(-1,true)" />
+		<setting id="provider.zilean" label="zilean (dmm)" type="bool" default="false" />
 		<setting id="provider.nyaaio" label="nyaaio (nyaasi/tokyotosho/anidex)" type="bool" default="false" />
 		<setting id="provider.torrentio" label="torrentio (pack capable)" type="bool" default="true" />
+		<setting id="provider.animetosho" label="animetosho (pack capable)" type="bool" default="false" />
 		<setting id="provider.bitsearch" label="bitsearch (pack capable)" type="bool" default="false" />
 			<setting id="bitsearch.sort" label="results preference" type="enum" default="0" subsetting="true" values="random|largest" visible="eq(-1,true)" />
 		<setting id="provider.nyaa" label="nyaa" type="bool" default="false" />
@@ -192,6 +198,13 @@
 		<setting id="provider.torrentdownload" label="torrentdownload (pack capable)" type="bool" default="false" />
 		<setting id="provider.torrentquest" label="torrentquest (pack capable)" type="bool" default="false" />
 		<setting id="provider.library" label="library" type="bool" default="false" visible="false" />
+		<!-- Folders 1-5 -->
+		<setting label="32108" type="lsep" />
+		<setting id="provider.folders" label="32055" type="bool" default="false" />
+		<setting id="folders.manage" label="32585" type="action" default="$ADDON[plugin.video.pov 32652]" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=folder_scraper_manager_choice)" />
+		<setting id="folders.title_filter" label="32172" type="bool" default="false" visible="eq(-2,true)" />
+		<setting id="check.folders" label="32104" type="bool" default="false" visible="eq(-3,true)" />
+		<setting id="results.sort_folders_first" label="32103" type="bool" default="true" visible="eq(-4,true)" />
 	</category>
 	<!-- Provider Accounts -->
 	<category label="32455">
@@ -253,6 +266,19 @@
 		<setting id="oc.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-7,true)+!eq(-8,)" />
 		<setting label="Authorize" type="action" visible="eq(-9,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=offcloud.oc_auth)" />
 		<setting label="Revoke" type="action" visible="!eq(-10,)" action="RunPlugin(plugin://plugin.video.pov/?mode=offcloud.oc_revoke)" />
+		<!-- TorBox-->
+		<setting label="TorBox" type="lsep" />
+		<setting id="tb.token" label="key" type="text" default="" visible="false" />
+		<setting id="tb.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+		<setting id="tb.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+		<setting id="tb.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+		<setting id="provider.tb_cloud" label="$ADDON[plugin.video.pov 32450] TB Cloud" type="bool" default="false" visible="eq(-3,true)+!eq(-4,)" />
+			<setting id="tb_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-4,true)+!eq(-5,)" />
+			<setting id="check.tb_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-5,true)+!eq(-6,)" />
+			<setting id="results.sort_tbcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-6,true)+!eq(-7,)" />
+		<setting id="tb.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-7,true)+!eq(-8,)" />
+		<setting label="Authorize" type="action" visible="eq(-9,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_auth)" />
+		<setting label="Revoke" type="action" visible="!eq(-10,)" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_revoke)" />
 		<!-- Easynews -->
 		<setting label="32070" type="lsep" />
 		<setting id="provider.easynews" label="32055" type="bool" default="false" />
@@ -265,13 +291,6 @@
 		<setting id="check.easynews" label="32104" type="bool" default="false" visible="eq(-7,true)+!eq(-5,)" />
 		<setting id="en.priority" label="32011" type="slider" default="7" option="int" range="1,1,10" visible="eq(-8,true)+!eq(-6,)" />
 		<!--setting id="easynews.api_version" label="33007" type="enum" default="0" lvalues="33008|33009" visible="!eq(-2,)" /-->
-		<!-- Folders 1-5 -->
-		<setting label="32108" type="lsep" />
-		<setting id="provider.folders" label="32055" type="bool" default="false" />
-		<setting id="folders.manage" label="32585" type="action" default="$ADDON[plugin.video.pov 32652]" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=folder_scraper_manager_choice)" />
-		<setting id="folders.title_filter" label="32172" type="bool" default="false" visible="eq(-2,true)" />
-		<setting id="check.folders" label="32104" type="bool" default="false" visible="eq(-3,true)" />
-		<setting id="results.sort_folders_first" label="32103" type="bool" default="true" visible="eq(-4,true)" />
 	</category>
 	<!-- Trakt -->
 	<category label="32454">

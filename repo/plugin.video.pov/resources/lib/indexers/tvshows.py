@@ -241,6 +241,7 @@ class TVShows:
 				videoinfo.setTitle(title)
 				videoinfo.setTrailer(meta_get('trailer'))
 				videoinfo.setTvShowStatus(meta_get('status'))
+				videoinfo.setTvShowTitle(title)
 				videoinfo.setVotes(meta_get('votes'))
 				videoinfo.setWriters(meta_get('writer').split(', '))
 				videoinfo.setYear(int(year or 0))

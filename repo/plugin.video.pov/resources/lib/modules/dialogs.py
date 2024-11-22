@@ -303,6 +303,7 @@ def scraper_color_choice(setting):
 		('pm', 'provider.pm_colour'),
 		('ad', 'provider.ad_colour'),
 		('oc', 'provider.oc_colour'),
+		('tb', 'provider.tb_colour'),
 		('free', 'provider.free_colour')
 	]
 	setting = [i[1] for i in choices if i[0] == setting][0]

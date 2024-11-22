@@ -153,7 +153,7 @@ class OffcloudAPI:
 			torrent = self.add_magnet(magnet_url)
 			if not torrent['status'] == 'downloaded': return None
 			torrent_id = torrent['requestId']
-			torrent_files = torrent_files = self.torrent_info(torrent_id)
+			torrent_files = self.torrent_info(torrent_id)
 			end_results = []
 			append = end_results.append
 			for item in torrent_files:
@@ -212,6 +212,7 @@ class OffcloudAPI:
 		r = self._POST('/key')
 		api_key = r.get('apiKey')
 		if not api_key: kodi_utils.notification(32574) ; return False
+		self.api_key = api_key
 		set_setting('oc.token', api_key)
 		set_setting('oc.account_id', user_id)
 		kodi_utils.notification('%s %s' % (ls(32576), 'Offcloud'))
@@ -219,6 +220,7 @@ class OffcloudAPI:
 
 	def revoke_auth(self):
 		if not kodi_utils.confirm_dialog(): return
+		self.api_key = ''
 		set_setting('oc.token', '')
 		set_setting('oc.account_id', '')
 		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))

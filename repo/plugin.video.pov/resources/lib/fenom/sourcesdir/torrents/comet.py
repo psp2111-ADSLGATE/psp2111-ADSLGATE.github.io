@@ -18,16 +18,24 @@ class source:
 	_queue = queue.SimpleQueue()
 	def __init__(self):
 		services = {
-			'0': ('realdebrid', 'rd.token'), '1': ('premiumize', 'pm.token'), '2': ('alldebrid', 'ad.token')
+			'0': ('realdebrid', 'rd.token'),
+			'1': ('premiumize', 'pm.token'),
+			'2': ('alldebrid', 'ad.token'),
+			'3': ('torbox', 'tb.token')
 		}
+		url = getSetting('comet.url')
 		debrid = getSetting('comet.debrid', '0')
 		debrid, token = services[debrid]
 		token = getSetting(token, '')
-		params = {"indexers":["bitsearch","eztv","thepiratebay","therarbg","yts"],"maxResults":0,"maxSize":0,"resultFormat":["All"],"resolutions":["All"],"languages":["All"],"debridService":"","debridApiKey":"","debridStreamProxyPassword":""}
-		params.update({'debridService': debrid, 'debridApiKey': token})
+		indexers = getSetting('comet.indexers')
+		indexers = [i.strip() for i in indexers.split(',') if i.strip()]
+		languages = getSetting('comet.langs')
+		languages = [i.strip() for i in languages.split(',') if i.strip()]
+		params = {"indexers":[],"maxResults":0,"maxSize":0,"resultFormat":["All"],"resolutions":["All"],"languages":["All"],"debridService":"","debridApiKey":"","debridStreamProxyPassword":""}
+		params.update({'indexers': indexers, 'languages': languages, 'debridService': debrid, 'debridApiKey': token})
 		params = base64.b64encode(jsdumps(params, separators=(',', ':')).encode('utf-8')).decode('utf-8')
 		self.language = ['en']
-		self.base_link = "https://comet.elfhosted.com"
+		self.base_link = url or 'https://comet.elfhosted.com'
 		self.movieSearch_link = f"/{params}/stream/movie/%s.json"
 		self.tvSearch_link = f"/{params}/stream/series/%s:%s:%s.json"
 		self.min_seeders = 0
@@ -53,10 +61,12 @@ class source:
 				url = '%s%s' % (self.base_link, self.movieSearch_link % imdb)
 				hdlr = year
 			# log_utils.log('url = %s' % url)
-			results = requests.get(url, timeout=7) # client.request(url, timeout=7)
-			self._queue.put_nowait(results) # if seasons
-			self._queue.put_nowait(results) # if shows
-			files = results.json()['streams'] # jsloads(results)['streams']
+			try:
+				results = requests.get(url, timeout=7) # client.request(url, timeout=7)
+				files = results.json()['streams'] # jsloads(results)['streams']
+			except: files = []
+			self._queue.put_nowait(files) # if seasons
+			self._queue.put_nowait(files) # if shows
 			_INFO = re.compile(r'💾.*') # _INFO = re.compile(r'👤.*')
 			undesirables = source_utils.get_undesirables()
 			check_foreign_audio = source_utils.check_foreign_audio()
@@ -66,8 +76,9 @@ class source:
 
 		for file in files:
 			try:
-				hash = file['behaviorHints']['bingeGroup'].replace('comet|', '')
-				file_title = file['title'].split('\n')
+				try: hash = file['infoHash']
+				except: hash = file['behaviorHints']['bingeGroup'].replace('comet|', '')
+				file_title = file['description'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]
 				# try:
 					# index = file_title.index(file_info)
@@ -119,9 +130,8 @@ class source:
 			year = data['year']
 			season = data['season']
 			url = '%s%s' % (self.base_link, self.tvSearch_link % (imdb, season, data['episode']))
-			try: results = self._queue.get(timeout=8)
-			except queue.Empty: results = requests.get(url, timeout=7) # client.request(url, timeout=7)
-			files = results.json()['streams'] # jsloads(results)['streams']
+#			results = requests.get(url, timeout=7) # client.request(url, timeout=7)
+			files = self._queue.get(timeout=8) # jsloads(results)['streams']
 			_INFO = re.compile(r'💾.*') # _INFO = re.compile(r'👤.*')
 			undesirables = source_utils.get_undesirables()
 			check_foreign_audio = source_utils.check_foreign_audio()
@@ -131,9 +141,10 @@ class source:
 
 		for file in files:
 			try:
-				hash = file['behaviorHints']['bingeGroup'].replace('comet|', '')
-				file_title = file['torrentTitle'].split('\n')
-				file_info = [x for x in file['title'].split('\n') if _INFO.match(x)][0]
+				try: hash = file['infoHash']
+				except: hash = file['behaviorHints']['bingeGroup'].replace('comet|', '')
+				file_title = file['description'].split('\n')
+				file_info = [x for x in file_title if _INFO.match(x)][0]
 				# try:
 					# index = file_title.index(file_info)
 					# if index == 1: combo = file_title[0].replace(' ', '.')
@@ -141,7 +152,7 @@ class source:
 					# if '🇷🇺' in file_title[index+1] and not any(value in combo for value in ('.en.', '.eng.', 'english')): continue
 				# except: pass
 
-				name = source_utils.clean_name(file_title[0])
+				name = source_utils.clean_name(file['torrentTitle'].split('\n')[0])
 
 				episode_start, episode_end = 0, 0
 				if not search_series:

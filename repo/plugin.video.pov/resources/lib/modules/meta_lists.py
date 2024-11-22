@@ -43,15 +43,16 @@ meta_languages = (
 	{'iso': 'ar-SA', 'name': 'Arabic Saudi Arabia'},    {'iso': 'cs', 'name': 'Czech'},
 	{'iso': 'da', 'name': 'Danish'},                    {'iso': 'de', 'name': 'German'},
 	{'iso': 'el', 'name': 'Greek'},                     {'iso': 'en', 'name': 'English'},
-	{'iso': 'es', 'name': 'Spanish'},                   {'iso': 'fi', 'name': 'Finnish'},
-	{'iso': 'fr', 'name': 'French'},                    {'iso': 'h', 'name': 'Hungarian'},
-	{'iso': 'he', 'name': 'Hebrew'},                    {'iso': 'hr', 'name': 'Croatian'},
-	{'iso': 'it', 'name': 'Italian'},                   {'iso': 'ja', 'name': 'Japanese'},
-	{'iso': 'ko', 'name': 'Korean'},                    {'iso': 'nl', 'name': 'Dutch'},
-	{'iso': 'no', 'name': 'Norwegian'},                 {'iso': 'pl', 'name': 'Polish'},
-	{'iso': 'pt', 'name': 'Portuguese'},                {'iso': 'ru', 'name': 'Russian'},
+	{'iso': 'es', 'name': 'Spanish'},                   {'iso': 'es-MX', 'name': 'Spanish (Mexico)'},
+	{'iso': 'fi', 'name': 'Finnish'},                   {'iso': 'fr', 'name': 'French'},
+	{'iso': 'h', 'name': 'Hungarian'},                  {'iso': 'he', 'name': 'Hebrew'},
+	{'iso': 'hr', 'name': 'Croatian'},                  {'iso': 'it', 'name': 'Italian'},
+	{'iso': 'ja', 'name': 'Japanese'},                  {'iso': 'ko', 'name': 'Korean'},
+	{'iso': 'nl', 'name': 'Dutch'},                     {'iso': 'no', 'name': 'Norwegian'},
+	{'iso': 'pl', 'name': 'Polish'},                    {'iso': 'pt', 'name': 'Portuguese'},
+	{'iso': 'pt-BR', 'name': 'Portuguese (Brazil)'},    {'iso': 'ru', 'name': 'Russian'},
 	{'iso': 'sl', 'name': 'Slovenian'},                 {'iso': 'sv', 'name': 'Swedish'},
-	{'iso': 'tr', 'name': 'Turkish'},                   {'iso': 'zh', 'name': 'Chinese'},
+	{'iso': 'tr', 'name': 'Turkish'},                   {'iso': 'zh', 'name': 'Chinese'}
 )
 
 language_choices =  {

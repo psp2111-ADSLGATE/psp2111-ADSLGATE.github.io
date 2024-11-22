@@ -47,7 +47,8 @@ class source:
 		return self.sources
 
 	def _search_name(self):
-		if self.media_type == 'movie': return '"%s" %d,%d,%d' % (self.search_title, self.year-1, self.year, self.year+1)
+#		if self.media_type == 'movie': return '"%s" %d,%d,%d' % (self.search_title, self.year-1, self.year, self.year+1)
+		if self.media_type == 'movie': return '%s %d' % (self.search_title, self.year)
 		else: return '%s S%02dE%02d' % (self.search_title,  self.season, self.episode)
 
 	def to_bytes(self, num, unit):

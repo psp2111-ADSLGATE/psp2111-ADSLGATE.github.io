@@ -272,7 +272,7 @@
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.pov" version="4.10.02" name="POV" provider-name="kodifitzwell">
+</addon><addon id="plugin.video.pov" version="4.11.06" name="POV" provider-name="kodifitzwell">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />

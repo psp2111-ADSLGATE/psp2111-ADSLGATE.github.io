@@ -302,7 +302,9 @@ msgctxt "#32074"
 msgid "Include Trakt Watchlist"
 msgstr "Trakt Watchlist Inbegrepen"
 
-# msgctxt "32075"
+msgctxt "#32075"
+msgid "TorBox"
+msgstr "TorBox"
 
 msgctxt "#32076"
 msgid "Include Airdate in Title"

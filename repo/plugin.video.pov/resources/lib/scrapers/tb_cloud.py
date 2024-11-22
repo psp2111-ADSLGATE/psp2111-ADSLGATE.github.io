@@ -1,5 +1,5 @@
 from threading import Thread
-from apis.offcloud_api import OffcloudAPI
+from apis.torbox_api import TorBoxAPI
 from modules import source_utils
 from modules.utils import clean_file_name, normalize
 from modules.settings import enabled_debrids_check, filter_by_name
@@ -8,16 +8,16 @@ from modules.settings import enabled_debrids_check, filter_by_name
 internal_results, check_title, clean_title = source_utils.internal_results, source_utils.check_title, source_utils.clean_title
 get_file_info, release_info_format, seas_ep_filter = source_utils.get_file_info, source_utils.release_info_format, source_utils.seas_ep_filter
 extensions = source_utils.supported_video_extensions()
-Offcloud = OffcloudAPI()
+TorBox = TorBoxAPI()
 
 class source:
 	def __init__(self):
-		self.scrape_provider = 'oc_cloud'
+		self.scrape_provider = 'tb_cloud'
 		self.sources = []
 
 	def results(self, info):
 		try:
-			if not enabled_debrids_check('oc'): return internal_results(self.scrape_provider, self.sources)
+			if not enabled_debrids_check('tb'): return internal_results(self.scrape_provider, self.sources)
 			self.scrape_results = []
 			title_filter = filter_by_name(self.scrape_provider)
 			self.media_type, title = info.get('media_type'), info.get('title')
@@ -32,7 +32,7 @@ class source:
 					try:
 						file_name = item['filename']
 						if title_filter and not check_title(title, file_name, self.aliases, self.year, self.season, self.episode): continue
-						file_dl, size = Offcloud.requote_uri(item['url']), 0
+						file_dl, size = item['url'], round(float(int(item['size']))/1073741824, 2)
 						URLName = clean_file_name(file_name).replace('html', ' ').replace('+', ' ').replace('-', ' ')
 						video_quality, details = get_file_info(name_info=release_info_format(file_name))
 						source_item = {'name': file_name, 'title': file_name, 'URLName': URLName, 'quality': video_quality, 'size': size, 'size_label': '%.2f GB' % size,
@@ -43,46 +43,25 @@ class source:
 			self.sources = list(_process())
 		except Exception as e:
 			from modules.kodi_utils import logger
-			logger('POV offcloud scraper Exception', e)
+			logger('POV torbox scraper Exception', e)
 		internal_results(self.scrape_provider, self.sources)
 		return self.sources
 
 	def _scrape_cloud(self):
 		try:
-			threads = []
-			append = threads.append
 			results_append = self.scrape_results.append
-			try: my_cloud_files = Offcloud.user_cloud()
+			try: my_cloud_files = TorBox.user_cloud()
 			except: return self.sources
-			for item in my_cloud_files:
-				if item['status'] != 'downloaded': continue
-				if item['isDirectory']:
-					append(i := Thread(target=self._scrape_folders, args=(item['requestId'],)))
-					i.start()
-				else:
-					if not item['fileName'].endswith(tuple(extensions)): continue
+			for item in my_cloud_files['data']:
+				if not item['download_finished']: continue
+				for file in item['files']:
+					if not file['short_name'].endswith(tuple(extensions)): continue
 					match = False
-					normalized = normalize(item['fileName'])
+					normalized = normalize(file['short_name'])
 					filename = clean_title(normalized)
 					if self.media_type == 'movie':
 						if any(x in filename for x in self.year_query_list) and self.folder_query in filename: match = True
 					elif seas_ep_filter(self.season, self.episode, normalized): match = True
-					if match: results_append({'filename': normalized, 'url': Offcloud.build_url(item['server'], item['requestId'], item['fileName'])})
-			for i in threads: i.join()
-		except: return
-
-	def _scrape_folders(self, folder_info):
-		try:
-			results_append = self.scrape_results.append
-			torrent_info = Offcloud.torrent_info(folder_info)
-			for item in torrent_info:
-				if not item.endswith(tuple(extensions)): continue
-				match = False
-				normalized = normalize(item.split('/')[-1])
-				filename = clean_title(normalized)
-				if self.media_type == 'movie':
-					if any(x in filename for x in self.year_query_list) and self.folder_query in filename: match = True
-				elif seas_ep_filter(self.season, self.episode, normalized): match = True
-				if match: results_append({'filename': normalized, 'url': item})
+					if match: results_append({'filename': normalized, 'url': '%d,%d' % (item['id'], file['id']), 'size': file['size']})
 		except: return
 

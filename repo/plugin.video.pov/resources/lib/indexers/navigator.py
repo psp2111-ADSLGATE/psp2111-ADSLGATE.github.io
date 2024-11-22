@@ -70,6 +70,7 @@ class Navigator:
 		if 'Premiumize.me' in debrids: self.premiumize()
 		if 'AllDebrid' in debrids: self.alldebrid()
 		if 'Offcloud' in debrids: self.offcloud()
+		if 'TorBox' in debrids: self.torbox()
 		self._end_directory()
 
 	def easynews(self):
@@ -109,6 +110,14 @@ class Navigator:
 		self._add_item({'mode': 'offcloud.oc_account_info',         'name': ai_str   }, 'offcloud.png', n_ins, False)
 		self._add_item({'mode': 'offcloud.user_cloud_clear',        'name': clc_str  }, 'offcloud.png', n_ins, False)
 		self._add_item({'mode': 'clear_cache', 'cache': 'oc_cloud', 'name': clca_str }, 'offcloud.png', n_ins, False)
+
+	def torbox(self):
+		tb_str, clc_str = 'TorBox', 'Clear Cloud Storage',
+		cloud_str, ai_str = ls(32496), ls(32494)
+		clca_str, n_ins = ls(32497) % tb_str, _in_str % (tb_str.upper(), '')
+		self._add_item({'mode': 'torbox.tb_torrent_cloud',          'name': cloud_str}, 'torbox.png', n_ins)
+		self._add_item({'mode': 'torbox.tb_account_info',           'name': ai_str   }, 'torbox.png', n_ins, False)
+		self._add_item({'mode': 'clear_cache', 'cache': 'tb_cloud', 'name': clca_str }, 'torbox.png', n_ins, False)
 
 	def favourites(self):
 		fav_str = ls(32453)
@@ -166,12 +175,14 @@ class Navigator:
 		self._end_directory()
 
 	def trakt_lists(self):
-		t_str, ml_str, ll_str, rec_str, cal_str = ls(32037), ls(32454), ls(32502), ls(32503), ls(32081)
+		t_str, ml_str, ll_str, rec_str = ls(32037), ls(32454), ls(32502), ls(32503)
+		cal_str, ani_str = ls(32081), ls(32081).replace('Calendar', 'Anime Calendar')
 		n_ins = _in_str % (t_str.upper(), '')
 		self._add_item({'mode': 'build_trakt_list.get_trakt_lists', 'list_type': 'my_lists'   , 'name': ml_str }, 'trakt.png', n_ins)
 		self._add_item({'mode': 'build_trakt_list.get_trakt_lists', 'list_type': 'liked_lists', 'name': ll_str }, 'trakt.png', n_ins)
 		self._add_item({'mode': 'navigator.trakt_recommendations'                             , 'name': rec_str}, 'trakt.png', n_ins)
 		self._add_item({'mode': 'build_my_calendar'                                           , 'name': cal_str}, 'trakt.png', n_ins)
+		self._add_item({'mode': 'build_my_anime_calendar'                                     , 'name': ani_str}, 'trakt.png', n_ins)
 		self._end_directory()
 
 	def trakt_recommendations(self):
@@ -235,8 +246,8 @@ class Navigator:
 		clear_all_str, clear_meta_str = clca_str % all_str, clca_str % ls(32527)
 		clear_list_str, clear_trakt_str = clca_str % ls(32501), clca_str % ls(32037)
 		clear_imdb_str, clint_str, clext_str = clca_str % ls(32064), clca_str % ls(32096), clca_str % ls(32118)
-		clear_rd_str, clear_pm_str = clca_str % ls(32054), clca_str % ls(32061)
-		clear_ad_str, clear_oc_str = clca_str % ls(32063), clca_str % 'Offcloud'
+		clear_rd_str, clear_pm_str, clear_ad_str = clca_str % ls(32054), clca_str % ls(32061), clca_str % ls(32063)
+		clear_oc_str, clear_tb_str = clca_str % 'Offcloud', clca_str % 'TorBox'
 		clear_all_upper = '[B]%s[/B]' % clear_all_str.upper()
 		n_ins, clean_ins = _in_str % (cache_str.upper(), ''), _in_str % (clean_str.upper(), '')
 		self._add_item({'mode': 'clean_settings',                            'name': clean_all_str      }, 'tools.png', clean_ins, False)
@@ -253,6 +264,7 @@ class Navigator:
 		self._add_item({'mode': 'clear_cache', 'cache': 'pm_cloud',          'name': clear_pm_str       }, 'tools.png', n_ins, False)
 		self._add_item({'mode': 'clear_cache', 'cache': 'ad_cloud',          'name': clear_ad_str       }, 'tools.png', n_ins, False)
 		self._add_item({'mode': 'clear_cache', 'cache': 'oc_cloud',          'name': clear_oc_str       }, 'tools.png', n_ins, False)
+		self._add_item({'mode': 'clear_cache', 'cache': 'tb_cloud',          'name': clear_tb_str       }, 'tools.png', n_ins, False)
 		self._end_directory()
 
 	def set_view_modes(self):
@@ -281,12 +293,8 @@ class Navigator:
 		self._end_directory()
 
 	def anime(self):
-		n_ins = _in_str % ('SIMKL', '')
-		self._add_item({'mode': 'build_movie_list', 'action': 'simkl_movies_popular',        'name': 'Movies Popular This Week'}, 'movies.png',   n_ins)
-		self._add_item({'mode': 'build_movie_list', 'action': 'simkl_movies_most_watched',   'name': 'Movies Most Watched'     }, 'movies.png',   n_ins)
-		self._add_item({'mode': 'build_movie_list', 'action': 'simkl_movies_recent_release', 'name': 'Movies Recent Released'  }, 'movies.png',   n_ins)
-		self._add_item({'mode': 'navigator.anime_genres', 'menu_type': 'movie',              'name': 'Movies Genres'           }, 'genres.png',   n_ins)
-		self._add_item({'mode': 'navigator.anime_years', 'menu_type': 'movie',               'name': 'Movies Years'            }, 'calender.png', n_ins)
+		n_ins, t_ins = _in_str % ('SIMKL', ''), _in_str % ('TRAKT', '')
+		self._add_item({'mode': 'build_anime_calendar'                                     , 'name': 'Series Calendar'         }, 'trakt.png',    t_ins)
 		self._add_item({'mode': 'build_tvshow_list', 'action': 'simkl_tv_popular',           'name': 'Series Popular This Week'}, 'tv.png',       n_ins)
 		self._add_item({'mode': 'build_tvshow_list', 'action': 'simkl_tv_most_watched',      'name': 'Series Most Watched'     }, 'tv.png',       n_ins)
 		self._add_item({'mode': 'build_tvshow_list', 'action': 'simkl_tv_recent_release',    'name': 'Series Recent Released'  }, 'tv.png',       n_ins)
@@ -295,6 +303,11 @@ class Navigator:
 		self._add_item({'mode': 'build_tvshow_list', 'action': 'simkl_onas_popular',         'name': 'ONAs Popular This Week'  }, 'tv.png',       n_ins)
 		self._add_item({'mode': 'build_tvshow_list', 'action': 'simkl_onas_most_watched',    'name': 'ONAs Most Watched'       }, 'tv.png',       n_ins)
 		self._add_item({'mode': 'build_tvshow_list', 'action': 'simkl_onas_recent_release',  'name': 'ONAs Recent Released'    }, 'tv.png',       n_ins)
+		self._add_item({'mode': 'build_movie_list', 'action': 'simkl_movies_popular',        'name': 'Movies Popular This Week'}, 'movies.png',   n_ins)
+		self._add_item({'mode': 'build_movie_list', 'action': 'simkl_movies_most_watched',   'name': 'Movies Most Watched'     }, 'movies.png',   n_ins)
+		self._add_item({'mode': 'build_movie_list', 'action': 'simkl_movies_recent_release', 'name': 'Movies Recent Released'  }, 'movies.png',   n_ins)
+		self._add_item({'mode': 'navigator.anime_genres', 'menu_type': 'movie',              'name': 'Movies Genres'           }, 'genres.png',   n_ins)
+		self._add_item({'mode': 'navigator.anime_years', 'menu_type': 'movie',               'name': 'Movies Years'            }, 'calender.png', n_ins)
 		self._end_directory()
 
 	def certifications(self):

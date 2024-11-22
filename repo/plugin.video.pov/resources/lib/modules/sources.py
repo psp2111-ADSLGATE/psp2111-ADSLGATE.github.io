@@ -23,8 +23,8 @@ metadata_user_info, quality_filter, sort_to_top  = settings.metadata_user_info, 
 results_xml_style, results_xml_window_number = settings.results_xml_style, settings.results_xml_window_number
 debrid_enabled, debrid_type_enabled, debrid_valid_hosts = debrid.debrid_enabled, debrid.debrid_type_enabled, debrid.debrid_valid_hosts
 quality_ranks = {'4K': 1, '1080p': 2, '720p': 3, 'SD': 4, 'SCR': 5, 'CAM': 5, 'TELE': 5}
-cloud_scrapers, folder_scrapers = ('rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud'), ('folder1', 'folder2', 'folder3', 'folder4', 'folder5')
-default_internal_scrapers = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'folders')
+cloud_scrapers, folder_scrapers = ('rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud'), ('folder1', 'folder2', 'folder3', 'folder4', 'folder5')
+default_internal_scrapers = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders')
 av1_filter_key, hevc_filter_key, hdr_filter_key, dolby_vision_filter_key = '[B]AV1[/B]', '[B]HEVC[/B]', '[B]HDR[/B]', '[B]D/VISION[/B]'
 dialog_format, remaining_format = '[COLOR %s][B]%s[/B][/COLOR] 4K: %s | 1080p: %s | 720p: %s | SD: %s | Total: %s', ls(32676)
 main_line = '%s[CR]%s[CR]%s'
@@ -134,6 +134,7 @@ class Sources():
 				self.activate_providers('external', external, False)
 			if self.providers: [i.join() for i in self.threads]
 		else: self.scrapers_dialog('internal')
+		self._kill_progress_dialog()
 		return self.sources
 
 	def collect_prescrape_results(self):
@@ -149,6 +150,7 @@ class Sources():
 		self.remove_scrapers.extend(i[2] for i in self.prescrape_scrapers)
 		if self.background: [i.join() for i in self.prescrape_threads]
 		else: self.scrapers_dialog('pre_scrape')
+		self._kill_progress_dialog()
 		return self.prescrape_sources
 
 	def process_results(self, results):
@@ -447,8 +449,9 @@ class Sources():
 			episodes_data = metadata.season_episodes_meta(self.season, self.meta, meta_user_info)
 			try:
 				episode_data = [i for i in episodes_data if i['episode'] == int(self.episode)][0]
-				self.meta.update({'media_type': 'episode', 'season': episode_data['season'], 'episode': episode_data['episode'], 'premiered': episode_data['premiered'],
-								'ep_name': episode_data['title'], 'plot': episode_data['plot']})
+				self.meta.update({'media_type': 'episode', 'season': episode_data['season'], 'episode': episode_data['episode'],
+								'premiered': episode_data['premiered'], 'ep_name': episode_data['title'], 'plot': episode_data['plot']})
+				if self.custom_season and self.custom_episode: self.meta.update({'custom_season': self.custom_season, 'custom_episode': self.custom_episode})
 			except: pass
 
 	def _get_module(self, module_type, function):
@@ -485,6 +488,9 @@ class Sources():
 		elif debrid_provider == 'Offcloud':
 			from apis.offcloud_api import OffcloudAPI as debrid_function
 			icon = 'offcloud.png'
+		elif debrid_provider == 'TorBox':
+			from apis.torbox_api import TorBoxAPI as debrid_function
+			icon = 'torbox.png'
 		show_busy_dialog()
 		try: debrid_files = debrid_function().display_magnet_pack(magnet_url, info_hash)
 		except: debrid_files = None
@@ -501,7 +507,7 @@ class Sources():
 		chosen_result = select_dialog(debrid_files, **kwargs)
 		if chosen_result is None: return None
 		url_dl = chosen_result['link']
-		if debrid_provider in ('Real-Debrid', 'AllDebrid'):
+		if debrid_provider in ('Real-Debrid', 'AllDebrid', 'TorBox'):
 			link = debrid_function().unrestrict_link(url_dl)
 		elif debrid_provider == 'Premiumize.me':
 			link = debrid_function().add_headers_to_url(url_dl)
@@ -574,8 +580,8 @@ class Sources():
 			if 'cache_provider' in item:
 				cache_provider = item['cache_provider']
 				if meta['media_type'] == 'movie': title, season, episode = self._get_search_title(meta), None, None
-				else: title, season, episode = meta['ep_name'], self.custom_season or meta.get('season'), self.custom_episode or meta.get('episode')
-				if cache_provider in ('Real-Debrid', 'Premiumize.me', 'AllDebrid', 'Offcloud'):
+				else: title, season, episode = meta['ep_name'], meta.get('custom_season') or meta.get('season'), meta.get('custom_episode') or meta.get('episode')
+				if cache_provider in ('Real-Debrid', 'Premiumize.me', 'AllDebrid', 'Offcloud', 'TorBox'):
 					url = self.resolve_cached_torrents(cache_provider, item['url'], item['hash'], title, season, episode)
 					return url
 				if 'Uncached' in cache_provider:
@@ -606,6 +612,7 @@ class Sources():
 		elif debrid_provider == 'Premiumize.me': from apis.premiumize_api import PremiumizeAPI as debrid_function
 		elif debrid_provider == 'AllDebrid': from apis.alldebrid_api import AllDebridAPI as debrid_function
 		elif debrid_provider == 'Offcloud': from apis.offcloud_api import OffcloudAPI as debrid_function
+		elif debrid_provider == 'TorBox': from apis.torbox_api import TorBoxAPI as debrid_function
 		return debrid_function
 
 	def resolve_cached_torrents(self, debrid_provider, item_url, _hash, title, season, episode):
@@ -653,6 +660,9 @@ class Sources():
 				url = AllDebridAPI().unrestrict_link(item_id)
 			elif scrape_provider == 'oc_cloud':
 				url = url_dl
+			elif scrape_provider == 'tb_cloud':
+				from apis.torbox_api import TorBoxAPI
+				url = TorBoxAPIAPI().unrestrict_link(item_id)
 			elif scrape_provider == 'folders':
 				if url_dl.endswith('.strm'):
 					from modules.kodi_utils import open_file

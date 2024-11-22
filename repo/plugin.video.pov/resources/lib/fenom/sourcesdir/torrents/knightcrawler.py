@@ -42,10 +42,12 @@ class source:
 				url = '%s%s' % (self.base_link, self.movieSearch_link % imdb)
 				hdlr = year
 			# log_utils.log('url = %s' % url)
-			results = requests.get(url, timeout=5) # client.request(url, timeout=5)
-			self._queue.put_nowait(results) # if seasons
-			self._queue.put_nowait(results) # if shows
-			files = results.json()['streams'] # jsloads(results)['streams']
+			try:
+				results = requests.get(url, timeout=5) # client.request(url, timeout=5)
+				files = results.json()['streams'] # jsloads(results)['streams']
+			except: files = []
+			self._queue.put_nowait(files) # if seasons
+			self._queue.put_nowait(files) # if shows
 			_INFO = re.compile(r'💾.*') # _INFO = re.compile(r'👤.*')
 			undesirables = source_utils.get_undesirables()
 			check_foreign_audio = source_utils.check_foreign_audio()
@@ -108,9 +110,8 @@ class source:
 			year = data['year']
 			season = data['season']
 			url = '%s%s' % (self.base_link, self.tvSearch_link % (imdb, season, data['episode']))
-			try: results = self._queue.get(timeout=6)
-			except queue.Empty: results = requests.get(url, timeout=5) # client.request(url, timeout=5)
-			files = results.json()['streams'] # jsloads(results)['streams']
+#			results = requests.get(url, timeout=5) # client.request(url, timeout=5)
+			files = self._queue.get(timeout=6) # jsloads(results)['streams']
 			_INFO = re.compile(r'💾.*') # _INFO = re.compile(r'👤.*')
 			undesirables = source_utils.get_undesirables()
 			check_foreign_audio = source_utils.check_foreign_audio()

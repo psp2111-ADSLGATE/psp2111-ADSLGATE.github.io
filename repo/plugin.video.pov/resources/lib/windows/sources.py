@@ -9,10 +9,14 @@ info_icons_dict = {
 					'easynews': translate_path(media_folder % 'providers/easynews.png'),
 					'alldebrid': translate_path(media_folder % 'providers/alldebrid.png'),
 					'real-debrid': translate_path(media_folder % 'providers/realdebrid.png'),
-					'premiumize': translate_path(media_folder % 'providers/premiumize.png'), 'offcloud': translate_path(media_folder % 'providers/offcloud.png'),
+					'premiumize': translate_path(media_folder % 'providers/premiumize.png'),
+					'offcloud': translate_path(media_folder % 'providers/offcloud.png'),
+					'torbox': translate_path(media_folder % 'providers/torbox.png'),
 					'ad_cloud': translate_path(media_folder % 'providers/alldebrid.png'),
 					'rd_cloud': translate_path(media_folder % 'providers/realdebrid.png'),
-					'pm_cloud': translate_path(media_folder % 'providers/premiumize.png'), 'oc_cloud': translate_path(media_folder % 'providers/offcloud.png')}
+					'pm_cloud': translate_path(media_folder % 'providers/premiumize.png'),
+					'oc_cloud': translate_path(media_folder % 'providers/offcloud.png'),
+					'tb_cloud': translate_path(media_folder % 'providers/torbox.png')}
 info_quality_dict = {'4k': translate_path(media_folder % 'flags/4k.png'),
 					'1080p': translate_path(media_folder % 'flags/1080p.png'),
 					'720p': translate_path(media_folder % 'flags/720p.png'),
@@ -112,7 +116,7 @@ class SourceResults(BaseDialog):
 					try: name = upper(get('URLName', 'N/A'))
 					except: name = 'N/A'
 					pack = get('package', 'false') in pack_check
-					if pack: extra_info = '[B]PACK[/B] | %s' % get('extraInfo', '')
+					if pack: extra_info = '[B]%s[/B] | %s' % (upper(get('package')), get('extraInfo', ''))
 					else: extra_info = get('extraInfo', 'N/A')
 					if not extra_info: extra_info = 'N/A'
 					extra_info = extra_info.rstrip('| ')

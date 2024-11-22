@@ -17,8 +17,8 @@ class OpenSubtitlesAPI:
 		if season: cache_name += '_%s_%s' % (season, episode)
 		cache = main_cache.get(cache_name)
 		if cache: return cache
-		url = '/imdbid-%s/query-%s' % (imdb_id, quote(query))
-		if season: url += '/season-%d/episode-%d' % (season, episode)
+		if season: url = '/episode-%d/imdbid-%s/season-%d' % (episode, imdb_id.lstrip('t'), season)
+		else: url = '/imdbid-%s' % imdb_id.lstrip('t')
 		url += '/sublanguageid-%s' % language
 		url = base_url + url
 		response = self._get(url, retry=True)

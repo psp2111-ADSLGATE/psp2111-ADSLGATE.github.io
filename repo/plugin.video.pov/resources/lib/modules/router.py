@@ -102,6 +102,12 @@ def routing(params):
 		elif mode == 'build_my_calendar':
 			from indexers.episodes import Episodes
 			Episodes(params).run()
+		elif mode == 'build_my_anime_calendar':
+			from indexers.episodes import Episodes
+			Episodes(params).run()
+		elif mode == 'build_anime_calendar':
+			from indexers.episodes import Episodes
+			Episodes(params).run()
 		elif mode == 'build_navigate_to_page':
 			from modules.dialogs import build_navigate_to_page
 			build_navigate_to_page(params)
@@ -257,6 +263,28 @@ def routing(params):
 		elif mode == 'offcloud.oc_revoke':
 			from apis.offcloud_api import OffcloudAPI
 			OffcloudAPI().revoke_auth()
+	elif 'torbox' in mode:
+		if mode == 'torbox.tb_torrent_cloud':
+			from indexers.torbox import tb_torrent_cloud
+			tb_torrent_cloud()
+		elif mode == 'torbox.browse_tb_cloud':
+			from indexers.torbox import browse_tb_cloud
+			browse_tb_cloud(params_get('folder_id'))
+		elif mode == 'torbox.resolve_tb':
+			from indexers.torbox import resolve_tb
+			resolve_tb(params)
+		elif mode == 'torbox.tb_account_info':
+			from indexers.torbox import tb_account_info
+			tb_account_info()
+		elif mode == 'torbox.delete':
+			from indexers.torbox import tb_delete
+			tb_delete(params_get('folder_id'))
+		elif mode == 'torbox.tb_auth':
+			from apis.torbox_api import TorBoxAPI
+			TorBoxAPI().auth()
+		elif mode == 'torbox.tb_revoke':
+			from apis.torbox_api import TorBoxAPI
+			TorBoxAPI().revoke_auth()
 	elif '_settings' in mode:
 		if mode == 'open_settings':
 			from modules.kodi_utils import open_settings
@@ -322,4 +350,7 @@ def routing(params):
 	elif mode == 'undesirablesUserRemove':
 		from caches.undesirables_cache import undesirablesUserRemove
 		undesirablesUserRemove()
+	elif mode == 'comet_configure':
+		from fenom.hosted import Comet
+		Comet().configure()
 

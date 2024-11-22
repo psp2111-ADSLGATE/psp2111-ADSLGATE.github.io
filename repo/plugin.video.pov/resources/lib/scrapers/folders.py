@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 from caches.main_cache import cache_object
 from modules import source_utils
 from modules.kodi_utils import list_dirs, open_file
-from modules.utils import clean_file_name, normalize, make_thread_list
+from modules.utils import clean_file_name, normalize, remove_accents, make_thread_list
 from modules.settings import source_folders_directory, filter_by_name
 # from modules.kodi_utils import logger
 
@@ -25,7 +25,7 @@ class source:
 			self.folder_path = source_folders_directory(self.media_type, self.scrape_provider)
 			if not self.folder_path: return internal_results(self.scraper_name, self.sources)
 			self.season, self.episode = info.get('season'), info.get('episode')
-			self.title_query = clean_title(normalize(title))
+			self.title_query = clean_title(normalize(remove_accents(title))).replace('&', 'and')
 			self.folder_query = self._season_query_list() if self.media_type == 'episode' else self._year_query_list()
 			self._scrape_directory(self.folder_path)
 			if not self.scrape_results: return internal_results(self.scraper_name, self.sources)

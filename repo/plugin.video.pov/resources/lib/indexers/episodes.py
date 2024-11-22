@@ -1,6 +1,6 @@
 import sys
 from threading import Thread
-from apis.trakt_api import trakt_fetch_collection_watchlist, trakt_get_hidden_items, trakt_get_my_calendar
+from apis.trakt_api import trakt_fetch_collection_watchlist, trakt_get_hidden_items, trakt_get_my_calendar, trakt_my_anime_calendar, trakt_anime_calendar
 from indexers.metadata import tvshow_meta, season_episodes_meta
 from caches.watched_cache import get_resumetime, get_watched_status_episode, get_watched_info_tv, get_bookmarks, get_next_episodes, get_in_progress_episodes
 from modules import kodi_utils, settings
@@ -57,6 +57,14 @@ class Episodes:
 				else:
 					self.list_type = 'trakt_calendar'
 					self.list = sorted(self.list, key=lambda k: k['sort_title'])
+			elif 'my_anime_calendar' in mode:
+				self.list = trakt_my_anime_calendar(get_datetime())
+				self.list_type = 'trakt_calendar'
+				self.list = sorted(self.list, key=lambda k: k['sort_title'])
+			elif 'anime_calendar' in mode:
+				self.list = trakt_anime_calendar(get_datetime())
+				self.list_type = 'trakt_calendar'
+				self.list = sorted(self.list, key=lambda k: k['sort_title'])
 			kodi_utils.add_items(__handle__, self.worker())
 		except: pass
 		kodi_utils.set_category(__handle__, category)
@@ -66,7 +74,7 @@ class Episodes:
 		kodi_utils.set_view_mode(view_type, content_type)
 		if self.list_type == 'trakt_calendar' and calendar_focus_today():
 			today = '[%s]' % ls(32849).upper()
-			labels = enumerate(i[1].getLabel() for i in self.items)
+			labels = enumerate([i[1].getLabel() for i in self.items], 1)
 			try: index = max([i for i, x in labels if today in x])
 			except: return
 			kodi_utils.focus_index(index)
@@ -86,14 +94,14 @@ class Episodes:
 			tmdb_id, tvdb_id, imdb_id = meta_get('tmdb_id'), meta_get('tvdb_id'), meta_get('imdb_id')
 			title, year, rootname, show_status = meta_get('title'), meta_get('year'), meta_get('rootname'), meta_get('status')
 			show_poster = meta_get(self.poster_main) or meta_get(self.poster_backup) or poster
-			fanart = meta_get(self.fanart_main) or meta_get(self.fanart_backup) or fanart
+			show_fanart = meta_get(self.fanart_main) or meta_get(self.fanart_backup) or fanart
 			clearlogo = meta_get('clearlogo') or meta_get('tmdblogo') or ''
 			if self.fanart_enabled: banner, clearart, landscape = meta_get('banner'), meta_get('clearart'), meta_get('landscape')
 			else: banner, clearart, landscape = '', '', ''
 			cast, mpaa, duration, tvshow_plot = meta_get('cast', []), meta_get('mpaa'), meta_get('duration'), meta_get('plot')
 			trailer, genre, studio = string(meta_get('trailer')), meta_get('genre'), meta_get('studio')
 			orig_season, orig_episode = ep_data_get('season'), ep_data_get('episode')
-			curr_season_data = [i for i in meta_get('season_data') if i['season_number'] == orig_season][0]
+			curr_season_data = next((i for i in meta_get('season_data') if i['season_number'] == orig_season), {})
 			season_poster = curr_season_data.get('poster_path')
 			if season_poster: season_poster = '%s%s%s' % ('https://image.tmdb.org/t/p/', self.meta_user_info['image_resolution']['poster'], season_poster)
 			else: season_poster = show_poster
@@ -144,9 +152,9 @@ class Episodes:
 			else:
 				color_tags = ('[COLOR cyan]', '[/COLOR]') if unaired else ('', '')
 				display = ''.join([title_string.upper(), seas_ep, color_tags[0], ep_name, color_tags[1]])
-			thumb = item_get('thumb', None) or fanart
+			thumb = item_get('thumb', None) or show_fanart
 			if self.thumb_fanart: background = thumb
-			else: background = fanart
+			else: background = show_fanart
 			item.update({'trailer': trailer, 'tvshowtitle': title, 'premiered': premiered, 'genre': genre, 'duration': duration,
 						'mpaa': mpaa, 'studio': studio, 'playcount': playcount, 'overlay': overlay, 'title': display})
 			extras_params = build_url({'mode': 'extras_menu_choice', 'media_type': 'tvshow', 'tmdb_id': tmdb_id, 'is_widget': self.is_widget})

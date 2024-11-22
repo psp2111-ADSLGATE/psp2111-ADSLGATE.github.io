@@ -17,7 +17,13 @@ pack_display, format_line, total_format = '%s (%s)', '%s[CR]%s[CR]%s', '[COLOR %
 int_format, ext_format = '[COLOR %s][B]Int: [/B][/COLOR]%s', '[COLOR %s][B]Ext: [/B][/COLOR]%s'
 ext_scr_format, unfinshed_import_format = '[COLOR %s][B]%s[/B][/COLOR]', '[COLOR red]+%s[/COLOR]'
 diag_format = '4K: %s | 1080p: %s | 720p: %s | SD: %s | %s: %s'
-debrid_hash_tuple = (('Real-Debrid', 'rd_cached_hashes'), ('Premiumize.me', 'pm_cached_hashes'), ('AllDebrid', 'ad_cached_hashes'), ('Offcloud', 'oc_cached_hashes'))
+debrid_hash_tuple = (
+	('Real-Debrid', 'rd_cached_hashes'),
+	('Premiumize.me', 'pm_cached_hashes'),
+	('AllDebrid', 'ad_cached_hashes'),
+	('Offcloud', 'oc_cached_hashes'),
+	('TorBox', 'tb_cached_hashes')
+)
 season_display, show_display = ls(32537), ls(32089)
 pack_check = (season_display, show_display)
 

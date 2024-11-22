@@ -12,7 +12,7 @@ from fenom.control import setting as getSetting
 
 class source:
 	priority = 1
-	pack_capable = True if getSetting('mediafusion.packs') == 'true' else False
+	pack_capable = True
 	hasMovies = True
 	hasEpisodes = True
 	_queue = queue.SimpleQueue()
@@ -23,8 +23,8 @@ class source:
 			'2': 'eJwBEALv_YYta-vqXeyplvsLdRa9_gxrLyIAUKZSldRcxYdL5hpgJHeZ4yTo2elnviHYziZulfHPkPYRIeNvbDbfcmzEy7KZ3ezdsLPAkst6Wieeje9MJXegkfn27I_lrDRad0A56yAq8Gkics8dFbW1AukN8DEwo0ZS_s9JqSyjaqpQJb2Kvhu9rGY03fAeRKFm6bLRjeEOZOa7VuRixNvKPTj3oJmGQ53cfFqdAHxV572MeroKe0x7MauQK2ZT2QHYPS6C2wJ6nH2y8yG724JcNUGywZNeCmvboJRySQ1Vi-sRkpzrNUq8zw5uGOQoJ7hdXC96Dik-_3CUpU3XTW-sCCCp-ifsY-mQFv8UmZZ1D-TTJlN_Jj1mUcGSkMj89mb3Xdwwb3C50aqGNgT4MbIgHUwZ_DLnBcadfSQ3FKzWvf1qRGKiu1IoINCubweYjQ-0ApWvtneOKITKsjkRs6y8NJFNaaS3eyXSx6D_PLwQkxjfhA9aYATnuO5pB23u8hINXA2IR-jPVbhxj3HBe4VfyZLmZMYcED7c-Bx_wsOPVMLYpnD90tUIICQaDvdISfMEbGkq9ggvKy0MYqrkZsaMWwnKOAaSm29toAmkaORMzxi2zJrOT6-nOIFpAv0P-tfS6KzHmAMKrnSogaByWPWVTUP-GeSW-Gd74_cbnnJk8FusX6PrH7wv_Z8qxpDw4n9y-o-SPUZRDUg=',
 			'3': 'eJwB4AEf_lnXQtODtVEQPYTzN5RH5ekzdON8j6UfgBIzKmwW1uMrQleG82Nq_AC3GmUVA0XDSiL2WzX3HgB6X6dyaNXQNui09IcpCE6JVfVcio7wjtL6a4dB64mBGFk4NCKxpZgr6J5D2tdURTyVdv15lJV0RUXp6OT-ojBKt13ldML-KPFFRe7KuHRwUhN7LF3bY7mdunCw88dpH7Il5HTZkZqVrrb4bu7RlsvgtSFs8bW-JP3emhHG37wen3PFG2OsK0kO1BYN0INshwF8nXnHX6dLnZO-lL7Ec7NsMpvsvnTJYRka6tPEZRQx3bFyMXXA8j2RgVUYxPbC6YSoamWp1Gd9MVPdY_kO8oftLC3jh1o3PdcTmuigdAtH0O6nkmBc3q8vye5Xp72GNnBgLXfGAhBqUv1bd9PvIu61_w-PL6Ch2JWRu9WuGVoY4ctbFJmqnwGXf-4x-0m50J-CaWxVE-c1ekOW7TTRGnpb1voDYWzVzqhcQBt7H9Fx9-DtXuFAxUi8Trxef3JKcSC3AoHXBEkkNAcOWoe7zXPEERcmFhriI4QRZBGjIih_o0lNRiyuoZFO9qmU28eKVbadfcKoIuqQmiFb5oNTPDsM3QXE0g0Hr8HM43URPStEh1B2TkfnuiKQ_rO2850='
 		}
-		self.debrid = getSetting('mediafusion.debrid', '3')
-		params = services[self.debrid]
+#		debrid = getSetting('mediafusion.debrid', '3')
+		params = services['3'] # services[debrid]
 		self.language = ['en']
 		self.base_link = "https://mediafusion.elfhosted.com"
 		self.movieSearch_link = f"/{params}/stream/movie/%s.json"
@@ -51,10 +51,12 @@ class source:
 				url = '%s%s' % (self.base_link, self.movieSearch_link % imdb)
 				hdlr = year
 			# log_utils.log('url = %s' % url)
-			results = requests.get(url, timeout=7) # client.request(url, timeout=7)
-			self._queue.put_nowait(results) # if seasons
-			self._queue.put_nowait(results) # if shows
-			files = results.json()['streams'] # jsloads(results)['streams']
+			try:
+				results = requests.get(url, timeout=7) # client.request(url, timeout=7)
+				files = results.json()['streams'] # jsloads(results)['streams']
+			except: files = []
+			self._queue.put_nowait(files) # if seasons
+			self._queue.put_nowait(files) # if shows
 			_INFO = re.compile(r'💾.*') # _INFO = re.compile(r'👤.*')
 			undesirables = source_utils.get_undesirables()
 			check_foreign_audio = source_utils.check_foreign_audio()
@@ -64,12 +66,11 @@ class source:
 
 		for file in files:
 			try:
-				if self.debrid == '3':
-					hash = file['infoHash']
-				else:
+				if 'url' in file:
 					query = requests.utils.urlparse(file['url']).query
 					params = dict(i.split('=') for i in query.split('&'))
 					hash = params['info_hash']
+				else: hash = file['infoHash']
 				file_title = file['behaviorHints']['filename'].split('\n')
 				file_info = [x for x in file['description'].split('\n') if _INFO.match(x)][0]
 				# try:
@@ -114,6 +115,7 @@ class source:
 	def sources_packs(self, data, hostDict, search_series=False, total_seasons=None, bypass_filter=False):
 		sources = []
 		if not data: return sources
+		if not getSetting('mediafusion.packs') == 'true': return sources
 		sources_append = sources.append
 		try:
 			title = data['tvshowtitle'].replace('&', 'and').replace('Special Victims Unit', 'SVU').replace('/', ' ')
@@ -122,9 +124,8 @@ class source:
 			year = data['year']
 			season = data['season']
 			url = '%s%s' % (self.base_link, self.tvSearch_link % (imdb, season, data['episode']))
-			try: results = self._queue.get(timeout=8)
-			except queue.Empty: results = requests.get(url, timeout=7) # client.request(url, timeout=7)
-			files = results.json()['streams'] # jsloads(results)['streams']
+#			results = requests.get(url, timeout=7) # client.request(url, timeout=7)
+			files = self._queue.get(timeout=8) # jsloads(results)['streams']
 			_INFO = re.compile(r'💾.*') # _INFO = re.compile(r'👤.*')
 			undesirables = source_utils.get_undesirables()
 			check_foreign_audio = source_utils.check_foreign_audio()
@@ -134,12 +135,11 @@ class source:
 
 		for file in files:
 			try:
-				if self.debrid == '3':
-					hash = file['infoHash']
-				else:
+				if 'url' in file:
 					query = requests.utils.urlparse(file['url']).query
 					params = dict(i.split('=') for i in query.split('&'))
 					hash = params['info_hash']
+				else: hash = file['infoHash']
 				file_title = file['description'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]
 				# try:

@@ -1,12 +1,24 @@
 
   [COLOR dodgerblue][B]CREDITS[/B][/COLOR]
 - Fen, Venom, Mr-Kodi.
+- elfhosted.com for community instances.
 
   [COLOR dodgerblue][B]Anime[/B][/COLOR]
 - Added small Anime menu courtesy of Simkl.  From root context menu, Edit and
   "Restore" menu or "Check" menu for new items.
 - nyaaio added in Sources/Torrents, sourced from torrentio anime sources with filters disabled.
 - nyaa in Sources/Torrents sourced from website.
+
+  [COLOR dodgerblue][B]Version 4.12.01[/B][/COLOR]
+- Added zilean.
+- Changed mediafusion to "Direct Torrent" only.
+
+  [COLOR dodgerblue][B]Version 4.11.01[/B][/COLOR]
+- [COLOR chartreuse]Added TorBox as a debrid provider.[/COLOR]
+- Added torbox cloud scraper and enabled context menu download options.
+- Added meta_language iso:pt-BR, name:Portuguese (Brazil).
+- Added meta_language iso:es-MX, name:Spanish (Mexico).
+- Added animetosho
 
   [COLOR dodgerblue][B]Version 4.10.01[/B][/COLOR]
 - Enabled piratebay as default, disabled bitsearch.

@@ -525,13 +525,45 @@ def trakt_get_my_calendar(recently_aired, current_date):
 			{'sort_title': '%s s%s e%s' % (i['show']['title'], str(i['episode']['season']).zfill(2), str(i['episode']['number']).zfill(2)),
 			'media_ids': i['show']['ids'], 'season': i['episode']['season'], 'episode': i['episode']['number'], 'first_aired': i['first_aired']}
 			for i in data
-			if i['episode']['season'] > 0
+			if i['episode']['season'] > 0 and not 'anime' in i['show']['genres']
 		]
 		data = [i for n, i in enumerate(data) if i not in data[n + 1:]] # remove duplicates
 		return data
 	start, finish = trakt_calendar_days(recently_aired, current_date)
 	string = 'trakt_get_my_calendar_%s_%s' % (start, finish)
-	url = {'path': 'calendars/my/shows/%s/%s', 'path_insert': (start, finish), 'with_auth': True, 'pagination': False}
+	url = {'path': 'calendars/my/shows/%s/%s', 'path_insert': (start, finish), 'params': {'extended': 'full'}, 'with_auth': True, 'pagination': False}
+	return trakt_cache.cache_trakt_object(_process, string, url)
+
+def trakt_my_anime_calendar(current_date):
+	def _process(dummy):
+		data = get_trakt(url)
+		data = [
+			{'sort_title': '%s s%s e%s' % (i['show']['title'], str(i['episode']['season']).zfill(2), str(i['episode']['number']).zfill(2)),
+			'media_ids': i['show']['ids'], 'season': i['episode']['season'], 'episode': i['episode']['number'], 'first_aired': i['first_aired']}
+			for i in data
+			if i['episode']['season'] > 0
+		]
+		data = [i for n, i in enumerate(data) if i not in data[n + 1:]] # remove duplicates
+		return data
+	start, finish = trakt_calendar_days(False, current_date)
+	string = 'trakt_my_anime_calendar_%s_%s' % (start, finish)
+	url = {'path': 'calendars/my/shows/%s/%s', 'path_insert': (start, finish), 'params': {'genres': 'anime'}, 'with_auth': True, 'pagination': False}
+	return trakt_cache.cache_trakt_object(_process, string, url)
+
+def trakt_anime_calendar(current_date):
+	def _process(dummy):
+		data = get_trakt(url)
+		data = [
+			{'sort_title': '%s s%s e%s' % (i['show']['title'], str(i['episode']['season']).zfill(2), str(i['episode']['number']).zfill(2)),
+			'media_ids': i['show']['ids'], 'season': i['episode']['season'], 'episode': i['episode']['number'], 'first_aired': i['first_aired']}
+			for i in data
+			if i['episode']['season'] > 0
+		]
+		data = [i for n, i in enumerate(data) if i not in data[n + 1:]] # remove duplicates
+		return data
+	start, finish = trakt_calendar_days(False, current_date)
+	string = 'trakt_anime_calendar_%s_%s' % (start, finish)
+	url = {'path': 'calendars/all/shows/%s/%s', 'path_insert': (start, finish), 'params': {'genres': 'anime'}, 'with_auth': True, 'pagination': False}
 	return trakt_cache.cache_trakt_object(_process, string, url)
 
 def trakt_calendar_days(recently_aired, current_date):

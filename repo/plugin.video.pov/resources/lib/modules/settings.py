@@ -169,7 +169,7 @@ def extras_enabled_menus():
 	return [int(i) for i in setting.split(',')]
 
 def check_prescrape_sources(scraper):
-	if scraper in ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud'): return get_setting('check.%s' % scraper) == 'true'
+	if scraper in ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud'): return get_setting('check.%s' % scraper) == 'true'
 	if get_setting('check.%s' % scraper) == 'true' and get_setting('auto_play') != 'true': return True
 	else: return False
 
@@ -194,7 +194,7 @@ def results_sort_order():
 			)[int(get_setting('results.sort_order', '1'))]
 
 def active_internal_scrapers():
-	clouds = [('rd', 'provider.rd_cloud'), ('pm', 'provider.pm_cloud'), ('ad', 'provider.ad_cloud'), ('oc', 'provider.oc_cloud')]
+	clouds = [('rd', 'provider.rd_cloud'), ('pm', 'provider.pm_cloud'), ('ad', 'provider.ad_cloud'), ('oc', 'provider.oc_cloud'), ('tb', 'provider.tb_cloud')]
 	settings = ['provider.external', 'provider.easynews', 'provider.folders']
 	settings_append = settings.append
 	for item in clouds:
@@ -208,13 +208,14 @@ def provider_sort_ranks():
 	pm_priority = int(get_setting('pm.priority', '8'))
 	ad_priority = int(get_setting('ad.priority', '9'))
 	oc_priority = int(get_setting('oc.priority', '9'))
+	tb_priority = int(get_setting('tb.priority', '9'))
 	rd_priority = int(get_setting('rd.priority', '10'))
-	return {'easynews': en_priority, 'real-debrid': rd_priority, 'premiumize.me': pm_priority, 'alldebrid': ad_priority, 'offcloud': oc_priority,
-			'rd_cloud': rd_priority, 'pm_cloud': pm_priority, 'ad_cloud': ad_priority, 'oc_cloud': oc_priority, 'folders': 0}
+	return {'real-debrid': rd_priority, 'premiumize.me': pm_priority, 'alldebrid': ad_priority, 'offcloud': oc_priority, 'torbox': tb_priority,
+			'easynews': en_priority, 'rd_cloud': rd_priority, 'pm_cloud': pm_priority, 'ad_cloud': ad_priority, 'oc_cloud': oc_priority, 'tb_cloud': tb_priority, 'folders': 0}
 
 def sort_to_top(provider):
 	return get_setting({'folders': 'results.sort_folders_first', 'rd_cloud': 'results.sort_rdcloud_first', 'pm_cloud': 'results.sort_pmcloud_first',
-						'ad_cloud': 'results.sort_adcloud_first', 'oc_cloud': 'results.sort_occloud_first'}[provider]) == 'true'
+						'ad_cloud': 'results.sort_adcloud_first', 'oc_cloud': 'results.sort_occloud_first', 'tb_cloud': 'results.sort_tbcloud_first'}[provider]) == 'true'
 
 def auto_resume(media_type):
 	auto_resume = get_setting('auto_resume_%s' % media_type)
@@ -265,7 +266,7 @@ def scraping_settings():
 	highlight_type = int(get_setting('highlight.type', '0'))
 	hoster_highlight, torrent_highlight = '', ''
 	easynews_highlight, debrid_cloud_highlight, folders_highlight = '', '', ''
-	rd_highlight, pm_highlight, ad_highlight, oc_highlight = '', '', '', ''
+	rd_highlight, pm_highlight, ad_highlight, oc_highlight, tb_highlight = '', '', '', '', ''
 	highlight_4K, highlight_1080P, highlight_720P, highlight_SD = '', '', '', ''
 	if highlight_type in (0, 1):
 		easynews_highlight = provider_color('easynews', 'limegreen')
@@ -279,15 +280,16 @@ def scraping_settings():
 			pm_highlight = provider_color('pm', 'orangered')
 			ad_highlight = provider_color('ad', 'goldenrod')
 			oc_highlight = provider_color('oc', 'dodgerblue')
+			tb_highlight = provider_color('tb', 'lightgreen')
 	else:
 		highlight_4K = get_setting('scraper_4k_highlight', 'fuchsia')
 		highlight_1080P = get_setting('scraper_1080p_highlight', 'lawngreen')
 		highlight_720P = get_setting('scraper_720p_highlight', 'gold')
 		highlight_SD = get_setting('scraper_SD_highlight', 'lightsaltegray')
-	return {'highlight_type': highlight_type, 'hoster_highlight': hoster_highlight, 'torrent_highlight': torrent_highlight,'real-debrid': rd_highlight, 'premiumize': pm_highlight,
-			'alldebrid': ad_highlight, 'offcloud': oc_highlight, 'rd_cloud': debrid_cloud_highlight, 'pm_cloud': debrid_cloud_highlight, 'ad_cloud': debrid_cloud_highlight, 'oc_cloud': oc_highlight,
-			'easynews': easynews_highlight, 'folders': folders_highlight, '4k': highlight_4K, '1080p': highlight_1080P, '720p': highlight_720P, 'sd': highlight_SD,
-			'cam': highlight_SD, 'tele': highlight_SD, 'scr': highlight_SD}
+	return {'highlight_type': highlight_type, 'hoster_highlight': hoster_highlight, 'torrent_highlight': torrent_highlight, 'folders': folders_highlight,
+			'real-debrid': rd_highlight, 'premiumize': pm_highlight, 'alldebrid': ad_highlight, 'offcloud': oc_highlight, 'torbox': tb_highlight,
+			'rd_cloud': debrid_cloud_highlight, 'pm_cloud': debrid_cloud_highlight, 'ad_cloud': debrid_cloud_highlight, 'oc_cloud': oc_highlight, 'easynews': easynews_highlight,
+			'4k': highlight_4K, '1080p': highlight_1080P, '720p': highlight_720P, 'sd': highlight_SD, 'cam': highlight_SD, 'tele': highlight_SD, 'scr': highlight_SD}
 
 def get_fanart_data():
 	return get_setting('get_fanart_data') == 'true'
