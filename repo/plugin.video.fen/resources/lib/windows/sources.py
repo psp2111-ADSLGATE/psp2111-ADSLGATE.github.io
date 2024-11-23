@@ -157,12 +157,13 @@ class SourcesResults(BaseDialog):
 								else: set_property('source_type', 'UNCACHED')
 								set_property('highlight', 'FF7C7C7C')
 							else:
+								cache_flag = 'UNCHECKED' if provider == 'REAL-DEBRID' else 'CACHED'
 								if highlight_type == 0: key = 'torrent_highlight'
 								elif highlight_type == 1: key = provider_lower
 								else: key = basic_quality
 								set_property('highlight', self.info_highlights_dict[key])
-								if pack: set_property('source_type', 'CACHED [B]PACK[/B]')
-								else: set_property('source_type', 'CACHED')
+							if pack: set_property('source_type', '%s [B]PACK[/B]' % cache_flag)
+							else: set_property('source_type', '%s' % cache_flag)
 						else:
 							if highlight_type == 0: key = 'hoster_highlight'
 							elif highlight_type == 1: key = provider_lower

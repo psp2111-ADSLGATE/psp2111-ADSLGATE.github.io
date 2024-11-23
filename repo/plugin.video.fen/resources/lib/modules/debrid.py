@@ -53,28 +53,7 @@ def cached_check(hash_list, cached_hashes, debrid):
 	return cached_list, unchecked_list
 
 def RD_check(hash_list, cached_hashes):
-	cached_hashes, unchecked_hashes = cached_check(hash_list, cached_hashes, 'rd')
-	if unchecked_hashes:
-		results = RealDebridAPI().check_cache(unchecked_hashes)
-		if results:
-			cached_append = cached_hashes.append
-			process_list = []
-			process_append = process_list.append
-			try:
-				for h in unchecked_hashes:
-					cached = 'False'
-					try:
-						if h in results:
-							info = results[h]
-							if isinstance(info, dict) and len(info.get('rd')) > 0:
-								cached_append(h)
-								cached = 'True'
-					except: pass
-					process_append((h, cached))
-			except:
-				for i in unchecked_hashes: process_append((i, 'False'))
-			add_to_local_cache(process_list, 'rd')
-	return cached_hashes
+	return hash_list
 
 def PM_check(hash_list, cached_hashes):
 	cached_hashes, unchecked_hashes = cached_check(hash_list, cached_hashes, 'pm')
