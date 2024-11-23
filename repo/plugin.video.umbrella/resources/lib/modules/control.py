@@ -13,7 +13,7 @@ import xbmcvfs
 #import xml.etree.ElementTree as ET
 from threading import Thread
 from xml.dom.minidom import parse as mdParse
-from urllib.parse import unquote, unquote_plus
+from urllib.parse import unquote_plus
 from re import sub as re_sub
 
 # Kodi JSON-RPC API endpoint
@@ -95,6 +95,7 @@ favouritesFile = joinPath(dataPath, 'favourites.db')
 plexSharesFile = joinPath(dataPath, 'plexshares.db')
 trailer = 'plugin://plugin.video.youtube/play/?video_id=%s'
 subtitlesPath = joinPath(dataPath, 'subtitles')
+watchedcacheFile = joinPath(dataPath, 'watched.db')
 
 def getKodiVersion(full=False):
 	if full: return xbmc.getInfoLabel("System.BuildVersion")
@@ -250,6 +251,10 @@ def addonPoster():
 	return 'DefaultVideo.png'
 
 def addonFanart():
+	custom_bg = setting('custombg')
+	if custom_bg:
+		if custom_bg is None or custom_bg == '': pass
+		else: return custom_bg
 	theme = appearance()
 	art = artPath()
 	if not (art is None and theme in ('-', '')): return joinPath(art, 'fanart.jpg')
@@ -379,6 +384,7 @@ def cancelPlayback():
 	playlist.clear()
 	resolve(int(argv[1]), False, item(offscreen=True))
 	closeOk()
+	homeWindow.clearProperty('umbrella.window_keep_alive')
 
 def apiLanguage(ret_name=None):
 	langDict = {'Arabic Saudi Arabia': 'ar-SA', 'Bulgarian': 'bg', 'Chinese': 'zh', 'Croatian': 'hr', 'Czech': 'cs', 'Danish': 'da', 'Dutch': 'nl', 'English': 'en', 'Finnish': 'fi',
@@ -438,6 +444,19 @@ def getProviderHighlightColor(sourcename):
 	colorString = setting(source)
 	return colorString
 
+def getProviderColors():
+	return {
+		'useproviders': True if setting('sources.highlightmethod') == '1' else False,
+		'defaultcolor': setting('sources.highlight.color'),
+		'realdebrid': getProviderHighlightColor('real-debrid'),
+		'alldebrid': getProviderHighlightColor('alldebrid'),
+		'premiumize': getProviderHighlightColor('premiumize.me'),
+		'easynews': getProviderHighlightColor('easynews'),
+		'plexshare': getProviderHighlightColor('plexshare'),
+		'gdrive': getProviderHighlightColor('gdrive'),
+		'filepursuit': getProviderHighlightColor('filepursuit')
+	}
+
 def getColorPicker(params):
 	#will need to open a window here.
 	from resources.lib.windows.colorpick import ColorPick
@@ -451,7 +470,7 @@ def showColorPicker(current_setting):
 	chosen_color = getColorPicker({'current_setting': current_setting, 'current_value': current_value})
 	if chosen_color:
 		homeWindow.setProperty('umbrella.updateSettings', 'false')
-		setSetting(current_setting+'.display', str('[COLOR=%s]%s[/COLOR]' % (chosen_color, chosen_color)))
+		setSetting(current_setting+'.display', str('[COLOR%s]%s[/COLOR]' % (chosen_color, chosen_color)))
 		homeWindow.setProperty('umbrella.updateSettings', 'true')
 		setSetting(current_setting, str('%s' % (chosen_color)))
 
@@ -483,6 +502,29 @@ def refresh_debugReversed(): # called from service "onSettingsChanged" to clear 
 		homeWindow.setProperty('umbrella.debug.reversed', setting('debug.reversed'))
 		execute('RunPlugin(plugin://plugin.video.umbrella/?action=tools_clearLogFile)')
 
+def refresh_contextProperties():
+	for prop in (
+		'context.umbrella.addtoLibrary',
+		'context.umbrella.addtoFavourite',
+		'context.umbrella.playTrailer',
+		'context.umbrella.playTrailerSelect',
+		'context.umbrella.traktManager',
+		'context.umbrella.clearProviders',
+		'context.umbrella.clearBookmark',
+		'context.umbrella.rescrape',
+		'context.umbrella.playFromHere',
+		'context.umbrella.autoPlay',
+		'context.umbrella.sourceSelect',
+		'context.umbrella.findSimilar',
+		'context.umbrella.browseSeries',
+		'context.umbrella.browseEpisodes'
+	): homeWindow.setProperty(prop, setting(prop, 'false'))
+	highlight_color = setting('highlight.color')
+	if setting('context.useUmbrellaContext') != 'true': prefix = ''
+	else: prefix = '[B][COLOR %s]Umbrella[/COLOR][/B] - ' % highlight_color
+	homeWindow.setProperty('context.umbrella.showUmbrella', prefix)
+	homeWindow.setProperty('context.umbrella.highlightcolor', highlight_color)
+
 def metadataClean(metadata):
 	if not metadata: return metadata
 	allowed = ('genre', 'country', 'year', 'episode', 'season', 'sortepisode', 'sortseason', 'episodeguide', 'showlink',
@@ -502,9 +544,8 @@ def set_info(item, meta, setUniqueIDs=None, resumetime='', fileNameandPath=None)
 				info_tag.setUniqueIDs(setUniqueIDs)
 			#log('unique id title:%s imdb:%s filenameandpath: %s'%(meta_get('title'), setUniqueIDs.get('imdb'), fileNameandPath), 1)
 			if fileNameandPath:
-				info_tag.setPath(unquote(fileNameandPath))
-			if fileNameandPath:
-				info_tag.setFilenameAndPath(unquote(fileNameandPath))
+				info_tag.setPath(fileNameandPath)
+				info_tag.setFilenameAndPath(fileNameandPath)
 			if meta_get('title') == None:
 				info_title = item.getLabel()
 			else:
@@ -551,7 +592,6 @@ def set_info(item, meta, setUniqueIDs=None, resumetime='', fileNameandPath=None)
 				info_tag.setEpisode(convert_type(int, meta_get('episode')))
 				info_tag.setSeason(convert_type(int, meta_get('season')))
 			info_tag.setCast([xbmc.Actor(name=item['name'], role=item['role'], thumbnail=item['thumbnail']) for item in meta_get('castandart', [])])
-			#info_tag.setCast([xbmc_actor(name=item['name'], role=item['role'], thumbnail=item['thumbnail']) for item in meta_get('castandart', [])])
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
@@ -579,21 +619,11 @@ def to_list(item_str):
 		item_str = [item_str]
 	return item_str
 
-def darkColor(color):
-	try:
-		compareColor = color[2:]
-		import math
-		rgbColor = tuple(int(compareColor[i:i+2], 16)  for i in (0, 2, 4))
-		[r,g,b]=rgbColor
-		hsp = math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
-		if (hsp>127.5):
-			return 'light'
-		else:
-			return 'dark'
-	except:
-		from resources.lib.modules import log_utils
-		log_utils.error()
-		return 'dark'
+def isDarkColor(hex):
+	if len(hex) == 8: hex = hex[2:]
+	r, g, b = tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+	hsp = (0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b)) ** 0.5
+	return False if (hsp > 127.5) else True
 
 def reload_addon():
     disable_enable_addon()
@@ -685,7 +715,7 @@ def syncAccounts():
 		log_utils.error()
 
 
-def checkPlayNextEpisodes():
+def checkPlayNextEpisodes(): #no longer being called due to not really needing this setting set.
 	try:
 		if setting('enable.playnext') == 'true': #we have to check for the episodes settings now
 			nextEpisode = jsloads(jsonrpc('{"jsonrpc":"2.0", "method":"Settings.GetSettingValue", "params":{"setting":"videoplayer.autoplaynextitem"}, "id":1}'))
@@ -715,6 +745,15 @@ def removeCorruptSettings():
 		from resources.lib.modules import log_utils
 		log_utils.error()
 
+def setSettingsDict(update_dict):
+	if not isinstance(update_dict, dict): return
+	len_items = len(update_dict)
+	if len_items > 1: homeWindow.setProperty('umbrella.updateSettings', 'false')
+	for idx, (key, val) in enumerate(update_dict.items(), 1):
+		if idx == len_items: homeWindow.setProperty('umbrella.updateSettings', 'true')
+		try: setSetting(key, val)
+		except: pass
+
 def setContextColors():
 	#tell me i cannot do some shit again.
 	try:
@@ -725,9 +764,7 @@ def setContextColors():
 
 def checkModules():
 	if setting('provider.external.enabled') == 'false':
-		homeWindow.setProperty('umbrella.updateSettings', 'false')
 		setSetting('external_provider.name', '')
-		homeWindow.setProperty('umbrella.updateSettings', 'true')
 		setSetting('external_provider.module', '')
 
 def backToMain(folder):

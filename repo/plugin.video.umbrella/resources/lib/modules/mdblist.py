@@ -19,10 +19,11 @@ mdblist_api = getSetting('mdblist.api')
 mdblist_baseurl = 'https://mdblist.com/api'
 mdblist_top_list ='/lists/top?apikey='
 mdblist_user_list ='/lists/user/?apikey='
+mdblist_page_limit = '&limit=%s' % getSetting('page.item.limit')
 session = requests.Session()
 retries = Retry(total=4, backoff_factor=0.3, status_forcelist=[429, 500, 502, 503, 504, 520, 521, 522, 524, 530])
 session.mount('https://mdblist.com/api', HTTPAdapter(max_retries=retries, pool_maxsize=100))
-highlight_color = control.setting('highlight.color')
+highlight_color = getSetting('highlight.color')
 
 artPath = control.artPath()
 iconLogos = getSetting('icon.logos') != 'Traditional'
@@ -88,15 +89,15 @@ def _map_list_items(response):
         items_append(item)
     return items
 def getMDBUserList(self, listType):
-	try:
-		response = session.get(mdblist_baseurl + mdblist_user_list + mdblist_api, timeout=20)
-		if isinstance(response, dict): 
-			log_utils.log(response.error, level=log_utils.LOGDEBUG)
-			return None
-		items = _map_user_list_items(response, listType)
-		return items
-	except: log_utils.error('get MDBList Error: ')
-	return None
+    try:
+        response = session.get(mdblist_baseurl + mdblist_user_list + mdblist_api + mdblist_page_limit, timeout=20)
+        if isinstance(response, dict): 
+            log_utils.log(response.error, level=log_utils.LOGDEBUG)
+            return None
+        items = _map_user_list_items(response, listType)
+        return items
+    except: log_utils.error('get MDBList Error: ')
+    return None
 def _map_user_list_items(response, listType):
     items = []
     items_append = items.append
@@ -104,7 +105,7 @@ def _map_user_list_items(response, listType):
     iconPath = control.joinPath(artPath, icon)
     jsonResponse = response.json()
     for i in jsonResponse:
-        if i.get('mediatype') == listType:
+        if i.get('mediatype') == listType or i.get('mediatype') == None:
             item = {}
             item['label'] = i.get('name')
             item['art'] = {'icon': f'{iconPath}'}

@@ -61,24 +61,32 @@ class Movies:
 		self.unairedcolor = getSetting('movie.unaired.identify')
 		self.useContainerTitles = getSetting('enable.containerTitles') == 'true'
 		self.highlight_color = getSetting('highlight.color')
-		self.tmdb_link = 'https://api.themoviedb.org'
-		self.tmdb_popular_link = 'https://api.themoviedb.org/3/movie/popular?api_key=%s&language=en-US&region=US&page=1'
-		self.tmdb_toprated_link = 'https://api.themoviedb.org/3/movie/top_rated?api_key=%s&page=1'
-		self.tmdb_upcoming_link = 'https://api.themoviedb.org/3/discover/movie?api_key=%s&language=en-US&region=US&primary_release_date.gte=%s&with_release_type=3|2|1&sort_by=popularity.desc&page=1' % ('%s', (self.date_time + timedelta(days=1)).strftime('%Y-%m-%d'))
-		self.tmdb_nowplaying_link = 'https://api.themoviedb.org/3/movie/now_playing?api_key=%s&language=en-US&region=US&page=1'
-		self.tmdb_boxoffice_link = 'https://api.themoviedb.org/3/discover/movie?api_key=%s&language=en-US&region=US&sort_by=revenue.desc&page=1'
-		self.tmdb_userlists_link = 'https://api.themoviedb.org/3/account/{account_id}/lists?api_key=%s&language=en-US&session_id=%s&page=1' % ('%s', self.tmdb_session_id) # used by library import only
-		self.tmdb_genre_link = 'https://api.themoviedb.org/3/discover/movie?api_key=%s&language=en-US&region=US&primary_release_date.lte=%s&with_genres=%s&sort_by=%s&page=1' % ('%s', self.today_date, '%s', self.tmdb_DiscoverSort())
-		self.tmdb_year_link = 'https://api.themoviedb.org/3/discover/movie?api_key=%s&language=en-US&region=US&primary_release_date.lte=%s&certification_country=US&primary_release_year=%s&sort_by=%s&page=1' % ('%s', self.today_date, '%s', self.tmdb_DiscoverSort())
-		self.tmdb_certification_link = 'https://api.themoviedb.org/3/discover/movie?api_key=%s&language=en-US&region=US&primary_release_date.lte=%s&certification_country=US&certification=%s&sort_by=%s&page=1' % ('%s', self.today_date, '%s', self.tmdb_DiscoverSort())
-		self.tmdb_recommendations = 'https://api.themoviedb.org/3/movie/%s/recommendations?api_key=%s&language=en-US&region=US&page=1'
-		self.tmdb_similar = 'https://api.themoviedb.org/3/movie/%s/similar?api_key=%s&language=en-US&region=US&page=1'
-		self.tmdb_discovery_this_month_link = 'https://api.themoviedb.org/3/discover/movie?api_key=%s&language=en-US&region=US&release_date.gte=%s&release_date.lte=%s&with_release_type=2|3&page=1'% ('%s', self.first_day_of_month.strftime('%Y-%m-%d'), datetime.now().replace(day=self.last_day_of_month).strftime('%Y-%m-%d'))
-		self.tmdb_discovery_this_month_released_link = 'https://api.themoviedb.org/3/discover/movie?api_key=%s&language=en-US&region=US&release_date.gte=%s&release_date.lte=%s&with_release_type=4|5&page=1'% ('%s', self.first_day_of_month.strftime('%Y-%m-%d'), datetime.now().replace(day=self.last_day_of_month).strftime('%Y-%m-%d'))
-		self.tmdb_discovery_released_link = 'https://api.themoviedb.org/3/discover/movie?api_key=%s&language=en-US&region=US&release_date.gte=%s&release_date.lte=%s&with_release_type=2|3&page=1'% ('%s', (self.yesterday_date-timedelta(days=30)).strftime('%Y-%m-%d'), self.yesterday_date.strftime('%Y-%m-%d'))
-		self.tmdb_recentday = 'https://api.themoviedb.org/3/trending/movie/day?api_key=%s&language=en-US&region=US&page=1'
-		self.tmdb_recentweek = 'https://api.themoviedb.org/3/trending/movie/week?api_key=%s&language=en-US&region=US&page=1'
-		self.search_tmdb_link = 'https://api.themoviedb.org/3/search/movie?api_key=%s&language=en-US&query=%s&region=US&page=1'% ('%s','%s')
+		use_tmdb = getSetting('tmdb.baseaddress') == 'true'
+		if use_tmdb:
+			tmdb_base = "https://api.tmdb.org"
+			self.tmdb_link = 'https://api.tmdb.org'
+		else:
+			tmdb_base = "https://api.themoviedb.org"
+			self.tmdb_link = 'https://api.themoviedb.org'
+		
+		self.tmdb_popular_link = tmdb_base+'/3/movie/popular?api_key=%s&language=en-US&region=US&page=1'
+		self.tmdb_toprated_link = tmdb_base+'/3/movie/top_rated?api_key=%s&page=1'
+		self.tmdb_upcoming_link = tmdb_base+'/3/discover/movie?api_key=%s&language=en-US&region=US&primary_release_date.gte=%s&with_release_type=3|2|1&sort_by=popularity.desc&page=1' % ('%s', (self.date_time + timedelta(days=1)).strftime('%Y-%m-%d'))
+		self.tmdb_nowplaying_link = tmdb_base+'/3/movie/now_playing?api_key=%s&language=en-US&region=US&page=1'
+		self.tmdb_boxoffice_link = tmdb_base+'/3/discover/movie?api_key=%s&language=en-US&region=US&sort_by=revenue.desc&page=1'
+		self.tmdb_userlists_link = tmdb_base+'/3/account/{account_id}/lists?api_key=%s&language=en-US&session_id=%s&page=1' % ('%s', self.tmdb_session_id) # used by library import only
+		self.tmdb_genre_link = tmdb_base+'/3/discover/movie?api_key=%s&language=en-US&region=US&primary_release_date.lte=%s&with_genres=%s&sort_by=%s&page=1' % ('%s', self.today_date, '%s', self.tmdb_DiscoverSort())
+		self.tmdb_year_link = tmdb_base+'/3/discover/movie?api_key=%s&language=en-US&region=US&primary_release_date.lte=%s&certification_country=US&primary_release_year=%s&sort_by=%s&page=1' % ('%s', self.today_date, '%s', self.tmdb_DiscoverSort())
+		self.tmdb_certification_link = tmdb_base+'/3/discover/movie?api_key=%s&language=en-US&region=US&primary_release_date.lte=%s&certification_country=US&certification=%s&sort_by=%s&page=1' % ('%s', self.today_date, '%s', self.tmdb_DiscoverSort())
+		self.tmdb_recommendations = tmdb_base+'/3/movie/%s/recommendations?api_key=%s&language=en-US&region=US&page=1'
+		self.tmdb_similar = tmdb_base+'/3/movie/%s/similar?api_key=%s&language=en-US&region=US&page=1'
+		self.tmdb_discovery_this_month_link = tmdb_base+'/3/discover/movie?api_key=%s&language=en-US&region=US&release_date.gte=%s&release_date.lte=%s&with_release_type=2|3&page=1'% ('%s', self.first_day_of_month.strftime('%Y-%m-%d'), datetime.now().replace(day=self.last_day_of_month).strftime('%Y-%m-%d'))
+		self.tmdb_discovery_this_month_released_link = tmdb_base+'/3/discover/movie?api_key=%s&language=en-US&region=US&release_date.gte=%s&release_date.lte=%s&with_release_type=4|5&page=1'% ('%s', self.first_day_of_month.strftime('%Y-%m-%d'), datetime.now().replace(day=self.last_day_of_month).strftime('%Y-%m-%d'))
+		self.tmdb_discovery_released_link = tmdb_base+'/3/discover/movie?api_key=%s&language=en-US&region=US&release_date.gte=%s&release_date.lte=%s&with_release_type=2|3&page=1'% ('%s', (self.yesterday_date-timedelta(days=30)).strftime('%Y-%m-%d'), self.yesterday_date.strftime('%Y-%m-%d'))
+		self.tmdb_recentday = tmdb_base+'/3/trending/movie/day?api_key=%s&language=en-US&region=US&page=1'
+		self.tmdb_recentweek = tmdb_base+'/3/trending/movie/week?api_key=%s&language=en-US&region=US&page=1'
+		self.search_tmdb_link = tmdb_base+'/3/search/movie?api_key=%s&language=en-US&query=%s&region=US&page=1'% ('%s','%s')
+		self.tmdb_person_search = tmdb_base+'/3/search/person?api_key=%s&query=%s&language=en-US&page=1&include_adult=true' % ('%s','%s')
 
 		self.imdb_link = 'https://www.imdb.com'
 		self.persons_link = 'https://www.imdb.com/search/name/?count=100&name='
@@ -107,12 +115,13 @@ class Movies:
 			self.language_link = 'https://www.imdb.com/search/title/?title_type=feature,tv_movie&num_votes=100,&production_status=released&primary_language=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbmovies'), self.genre_limit)
 			self.certification_link = 'https://www.imdb.com/search/title/?title_type=feature,tv_movie&num_votes=100,&production_status=released&certificates=%s&sort=%s&count=%s&start=1' % ('%s', self.imdb_sort(type='imdbmovies'), self.genre_limit)
 			self.imdbboxoffice_link = 'https://www.imdb.com/search/title/?title_type=feature,tv_movie&production_status=released&sort=boxoffice_gross_us,desc&count=%s&start=1' % self.genre_limit
-		self.imdbwatchlist_link = 'https://www.imdb.com/user/ur%s/watchlist?sort=date_added,desc' % self.imdb_user # only used to get users watchlist ID
+		self.imdbwatchlist_link = 'https://www.imdb.com/user/ur%s/watchlist/?sort=date_added,desc&title_type=feature' % self.imdb_user # only used to get users watchlist ID
 		self.imdbwatchlist2_link = 'https://www.imdb.com/list/%s/?view=detail&sort=%s&title_type=movie&start=1' % ('%s', self.imdb_sort(type='movies.watchlist'))
 		self.imdblists_link = 'https://www.imdb.com/user/ur%s/lists?tab=all&sort=mdfd&order=desc&filter=titles' % self.imdb_user
 		self.imdblist_link = 'https://www.imdb.com/list/%s/?view=detail&sort=%s&title_type=movie,short,video,tvShort,tvMovie,tvSpecial&start=1' % ('%s', self.imdb_sort())
 		self.imdbratings_link = 'https://www.imdb.com/user/ur%s/ratings?sort=your_rating,desc&mode=detail&start=1' % self.imdb_user # IMDb ratings does not take title_type so filter is in imdb_list() function
-		self.anime_link = 'https://www.imdb.com/search/keyword/?keywords=anime&title_type=movie,tvMovie&release_date=,date[0]&sort=moviemeter,asc&count=%s&start=1' % self.genre_limit
+		self.anime_link = 'https://www.imdb.com/search/title/?title_type=feature,tv_movie&keywords=anime-animation,anime'
+
 
 		self.trakt_link = 'https://api.trakt.tv'
 		self.search_link = 'https://api.trakt.tv/search/movie?limit=%s&page=1&query=' % self.search_page_limit
@@ -124,23 +133,33 @@ class Movies:
 		self.trakthistory_link = 'https://api.trakt.tv/users/me/history/movies?limit=%s&page=1' % self.page_limit
 		self.traktlist_link = 'https://api.trakt.tv/users/%s/lists/%s/items/movies?limit=%s&page=1' % ('%s', '%s', self.page_limit) # local pagination, limit and page used to advance, pulled from request
 		self.traktunfinished_link = 'https://api.trakt.tv/sync/playback/movies?limit=40'
-		self.traktanticipated_link = 'https://api.trakt.tv/movies/anticipated?limit=%s&page=1' % self.page_limit 
-		self.trakttrending_link = 'https://api.trakt.tv/movies/trending?limit=%s&page=1' % self.page_limit
-		self.traktmostplayed_link = 'https://api.trakt.tv/movies/played/weekly?limit=%s&page=1' % self.page_limit
-		self.traktmostwatched_link = 'https://api.trakt.tv/movies/watched/weekly?limit=%s&page=1' % self.page_limit
-		self.trakt_genres = 'https://api.trakt.tv/genres/movies/'
+		self.traktanticipated_link = 'https://api.trakt.tv/movies/anticipated?limit=%s&page=1' % self.page_limit
 		if datetime.today().month > 6:
 			traktyears='years='+str(datetime.today().year)
 		else:
 			traktyears='years='+str(int(datetime.today().year-1))+'-'+str(datetime.today().year)
-		self.trakttrending_recent_link = 'https://api.trakt.tv/movies/trending?limit=%s&page=1&%s' % (self.page_limit, traktyears)
-		self.traktboxoffice_link = 'https://api.trakt.tv/movies/boxoffice' # Returns the top 10 grossing movies in the U.S. box office last weekend
-		self.traktpopular_link = 'https://api.trakt.tv/movies/popular?limit=%s&page=1' % self.page_limit
-		self.traktrecommendations_link = 'https://api.trakt.tv/recommendations/movies?limit=40'
+		if getSetting('trakt.useLanguage') == 'true':
+			self.trakttrending_link = 'https://api.trakt.tv/movies/trending?limit=%s&page=1&languages=%s' % (self.page_limit,self.lang)
+			self.traktmostplayed_link = 'https://api.trakt.tv/movies/played/weekly?limit=%s&page=1&languages=%s' % (self.page_limit,self.lang)
+			self.traktmostwatched_link = 'https://api.trakt.tv/movies/watched/weekly?limit=%s&page=1&languages=%s' % (self.page_limit,self.lang)
+			self.trakttrending_recent_link = 'https://api.trakt.tv/movies/trending?limit=%s&page=1&%s' % (self.page_limit, traktyears)
+			self.traktboxoffice_link = 'https://api.trakt.tv/movies/boxoffice?languages=%s' % self.lang # Returns the top 10 grossing movies in the U.S. box office last weekend
+			self.traktpopular_link = 'https://api.trakt.tv/movies/popular?limit=%s&page=1&languages=%s' % (self.page_limit, self.lang)
+			self.traktrecommendations_link = 'https://api.trakt.tv/recommendations/movies?limit=40&languages=%s' % self.lang
+			self.trakt_similiar = 'https://api.trakt.tv/movies/%s/related?limit=%s&page=1&languages=%s' % ('%s', self.page_limit, self.lang)
+		else:
+			self.trakttrending_link = 'https://api.trakt.tv/movies/trending?limit=%s&page=1' % self.page_limit
+			self.traktmostplayed_link = 'https://api.trakt.tv/movies/played/weekly?limit=%s&page=1' % self.page_limit
+			self.traktmostwatched_link = 'https://api.trakt.tv/movies/watched/weekly?limit=%s&page=1' % self.page_limit
+			self.trakttrending_recent_link = 'https://api.trakt.tv/movies/trending?limit=%s&page=1&%s' % (self.page_limit, traktyears)
+			self.traktboxoffice_link = 'https://api.trakt.tv/movies/boxoffice' # Returns the top 10 grossing movies in the U.S. box office last weekend
+			self.traktpopular_link = 'https://api.trakt.tv/movies/popular?limit=%s&page=1' % self.page_limit
+			self.traktrecommendations_link = 'https://api.trakt.tv/recommendations/movies?limit=40'
+			self.trakt_similiar = 'https://api.trakt.tv/movies/%s/related?limit=%s&page=1' % ('%s', self.page_limit)
+		self.trakt_genres = 'https://api.trakt.tv/genres/movies/'
 		self.trakt_popularLists_link = 'https://api.trakt.tv/lists/popular?limit=%s&page=1' % self.page_limit
 		self.trakt_trendingLists_link = 'https://api.trakt.tv/lists/trending?limit=%s&page=1' % self.page_limit
-		self.trakt_similiar = 'https://api.trakt.tv/movies/%s/related?limit=%s&page=1' % ('%s', self.page_limit)
-		self.mbdlist_list_items = 'https://mdblist.com/api/lists/%s/items?apikey=%s&limit=%s&page=1' % ('%s', mdblist.mdblist_api, self.page_limit)
+		self.mbdlist_list_items = 'https://mdblist.com/api/lists/%s/items?apikey=%s&page=1' % ('%s', mdblist.mdblist_api)
 		self.simkltrendingtoday_link = 'https://api.simkl.com/movies/trending/today?client_id=%s&extended=tmdb' % '%s'
 		self.simkltrendingweek_link = 'https://api.simkl.com/movies/trending/week?client_id=%s&extended=tmdb' % '%s'
 		self.simkltrendingmonth_link = 'https://api.simkl.com/movies/trending/month?client_id=%s&extended=tmdb'% '%s'
@@ -259,8 +278,8 @@ class Movies:
 	def getMBDTopLists(self, create_directory=True, folderName=''): 
 		self.list = []
 		try:
-			self.list = cache.get(self.mbd_top_lists, 6)
-			#self.list = self.mbd_top_lists()
+
+			self.list = cache.get(self.mbd_top_lists, self.mdblist_hours)
 			if self.list is None: self.list = []
 			if create_directory: self.addDirectory(self.list, folderName=folderName)
 			return self.list
@@ -292,10 +311,9 @@ class Movies:
 		self.list = []
 		try:
 			self.list = cache.get(self.mbd_user_lists, self.mdblist_hours)
-			#self.list = self.mbd_user_lists()
 			if self.list is None: self.list = []
-			if create_directory: self.addDirectory(self.list, folderName=folderName)
-			return self.list
+			return self.addDirectory(self.list, folderName=folderName)
+
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
@@ -337,38 +355,6 @@ class Movies:
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
-	def getMBDTopLists(self, create_directory=True, folderName=''): 
-		self.list = []
-		try:
-			#self.list = cache.get(self.mbd_top_lists, 0)
-			self.list = self.mbd_top_lists()
-			if self.list is None: self.list = []
-			if create_directory: self.addDirectory(self.list, folderName=folderName)
-			return self.list
-		except:
-			from resources.lib.modules import log_utils
-			log_utils.error()
-	def mbd_top_lists(self):
-		try:
-			listType = 'movie'
-			items = mdblist.getMDBTopList(self, listType)
-			next = ''
-		except:
-			from resources.lib.modules import log_utils
-			log_utils.error()
-		for item in items:
-			try:
-				list_name = item.get('params', {}).get('list_name', '')
-				list_id = item.get('params', {}).get('list_id', '')
-				list_owner = item.get('unique_ids', {}).get('user', '')
-				list_count = item.get('params', {}).get('list_count', '')
-				list_url = self.mbdlist_list_items % (list_id)
-				label = '%s - (%s)' % (list_name, list_count)
-				self.list.append({'name': label, 'url': list_url, 'list_owner': list_owner, 'list_name': list_name, 'list_id': list_id, 'context': list_url, 'next': next, 'image': 'mdblist.png', 'icon': 'mdblist.png', 'action': 'movies&folderName=%s' % quote_plus(list_name)})
-			except:
-				from resources.lib.modules import log_utils
-				log_utils.error()
-		return self.list
 
 	def mdb_list_items(self, url, create_directory=True, folderName=''):
 		self.list = []
@@ -396,11 +382,16 @@ class Movies:
 		if not self.list: return
 		self.sort() # sort before local pagination
 		total_pages = 1
+		if len(self.list) == int(self.page_limit):
+			useNext = False
+		else:
+			useNext = True
 		paginated_ids = [self.list[x:x + int(self.page_limit)] for x in range(0, len(self.list), int(self.page_limit))]
 		total_pages = len(paginated_ids)
 		self.list = paginated_ids[index]
 		try:
-			if int(q['limit']) != len(self.list): raise Exception()
+			if useNext == False: raise Exception()
+			if int(self.page_limit) != len(self.list): raise Exception()
 			if int(q['page']) == total_pages: raise Exception()
 			q.update({'page': str(int(q['page']) + 1)})
 			q = (urlencode(q)).replace('%2C', ',')
@@ -773,15 +764,25 @@ class Movies:
 		k.doModal()
 		q = k.getText().strip() if k.isConfirmed() else None
 		if not q: return control.closeAll()
-		url = self.persons_link + quote_plus(q)
+		#url = self.persons_link + quote_plus(q)
+		url = self.tmdb_person_search % ('%s', quote_plus(q))
 		control.closeAll()
 		control.execute('ActivateWindow(Videos,plugin://plugin.video.umbrella/?action=moviePersons&url=%s,return)' % (quote_plus(url)))
 
 	def persons(self, url, folderName=''):
-
 		if url is None: self.list = cache.get(self.imdb_person_list, 24, self.personlist_link)
+
 		else: self.list = cache.get(self.imdb_person_list, 1, url)
 		if self.list is None: self.list = []
+		if self.list:
+			for i in range(0, len(self.list)): self.list[i].update({'content': 'actors', 'icon': 'DefaultActor.png', 'action': 'movies&folderName=%s' % quote_plus(self.list[i]['name'])})
+		self.addDirectory(self.list, folderName=folderName)
+		return self.list
+
+	def persons_tmdb(self, url, folderName=''):
+		if url is None: return None
+		from resources.lib.indexers import tmdb
+		self.list = tmdb.Movies().actorSearch(url)
 		if self.list:
 			for i in range(0, len(self.list)): self.list[i].update({'content': 'actors', 'icon': 'DefaultActor.png', 'action': 'movies&folderName=%s' % quote_plus(self.list[i]['name'])})
 		self.addDirectory(self.list, folderName=folderName)
@@ -1038,12 +1039,16 @@ class Movies:
 			except:
 				q = dict(parse_qsl(urlsplit(url).query))
 			self.list = traktsync.fetch_collection('movies_collection')
+			useNext = True
 			if create_directory:
 				self.sort() # sort before local pagination
 				if getSetting('trakt.paginate.lists') == 'true' and self.list:
+					if len(self.list) == int(self.page_limit):
+						useNext = False
 					paginated_ids = [self.list[x:x + int(self.page_limit)] for x in range(0, len(self.list), int(self.page_limit))]
 					self.list = paginated_ids[index]
 			try:
+				if useNext == False: raise Exception()
 				if int(q['limit']) != len(self.list): raise Exception()
 				q.update({'page': str(int(q['page']) + 1)})
 				q = (urlencode(q)).replace('%2C', ',')
@@ -1068,12 +1073,16 @@ class Movies:
 			except:
 				q = dict(parse_qsl(urlsplit(url).query))
 			self.list = traktsync.fetch_watch_list('movies_watchlist')
+			useNext = True
 			if create_directory:
 				self.sort(type='movies.watchlist') # sort before local pagination
 				if getSetting('trakt.paginate.lists') == 'true' and self.list:
+					if len(self.list) == int(self.page_limit):
+						useNext = False
 					paginated_ids = [self.list[x:x + int(self.page_limit)] for x in range(0, len(self.list), int(self.page_limit))]
 					self.list = paginated_ids[index]
 			try:
+				if useNext == False: raise Exception()
 				if int(q['limit']) != len(self.list): raise Exception()
 				q.update({'page': str(int(q['page']) + 1)})
 				q = (urlencode(q)).replace('%2C', ',')
@@ -1247,12 +1256,15 @@ class Movies:
 		if not self.list: return
 		self.sort() # sort before local pagination
 		total_pages = 1
+		useNext = True
 		if getSetting('trakt.paginate.lists') == 'true':
+			if len(self.list) == int(self.page_limit):
+				useNext = False
 			paginated_ids = [self.list[x:x + int(self.page_limit)] for x in range(0, len(self.list), int(self.page_limit))]
 			total_pages = len(paginated_ids)
 			self.list = paginated_ids[index]
 		try:
-
+			if useNext == False: raise Exception()
 			if int(q['limit']) != len(self.list): raise Exception()
 			if int(q['page']) == total_pages: raise Exception()
 			q.update({'page': str(int(q['page']) + 1)})
@@ -1343,19 +1355,14 @@ class Movies:
 		try:
 			for i in re.findall(r'date\[(\d+)\]', url):
 				url = url.replace('date[%s]' % i, (self.date_time - timedelta(days=int(i))).strftime('%Y-%m-%d'))
-			def imdb_watchlist_id(url):
-				return client.parseDOM(client.request(url), 'meta', ret='content', attrs = {'property': 'pageId'})[0]
-			if url == self.imdbwatchlist_link:
-				url = cache.get(imdb_watchlist_id, 8640, url)
-				url = self.imdbwatchlist2_link % url
 			result = client.request(url).replace('\n', ' ')
 			items = client.parseDOM(result, 'div', attrs = {'class': '.+? lister-item'}) + client.parseDOM(result, 'div', attrs = {'class': 'lister-item .+?'})
 			items += client.parseDOM(result, 'div', attrs = {'class': 'list_item.+?'})
+			items += client.parseDOM(result, 'li', attrs = {'class': 'ipc-metadata-list-summary-item'})
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 			return
-
 		next = ''
 		try:
 			# HTML syntax error, " directly followed by attribute name. Insert space in between. parseDOM can otherwise not handle it.
@@ -1378,12 +1385,16 @@ class Movies:
 
 		for item in items:
 			try:
-				main_title = client.replaceHTMLCodes(client.parseDOM(item, 'a')[1])
-				title = main_title.split(' (')[0]
-				year = client.parseDOM(item, 'span', attrs = {'class': 'lister-item-year.+?'})
+				#main_title = client.replaceHTMLCodes(client.parseDOM(item, 'a')[1])
+				main_title = client.replaceHTMLCodes(client.parseDOM(item, 'h3')[0])
+				#title = main_title.split(' (')[0]
+				title = main_title.split('. ')[1]
+				#year = client.parseDOM(item, 'span', attrs = {'class': 'lister-item-year.+?'})
+				year = client.parseDOM(item, 'span', attrs ={'class': '.*?dli-title-metadata-item'})[0]
 				if not year: year = [main_title]
-				try: year = re.findall(r'(\d{4})', year[0])[0]
-				except: continue
+				#try: year = re.findall(r'(\d{4})', year[0])[0]
+				#except: continue
+				if not year: continue
 				if not comingSoon:
 					if int(year) > int((self.date_time).strftime('%Y')): continue
 				imdb = client.parseDOM(item, 'a', ret='href')[0]
@@ -1393,8 +1404,10 @@ class Movies:
 				if show or ('Episode:' in item): raise Exception() # Some lists contain TV shows.
 				rating = votes = ''
 				try:
-					rating = client.parseDOM(item, 'div', attrs = {'class': 'ratings-bar'})
-					rating = client.parseDOM(rating, 'strong')[0]
+					#rating = client.parseDOM(item, 'div', attrs = {'class': 'ratings-bar'})
+					#rating = client.parseDOM(rating, 'strong')[0]
+					ratingItem = client.parseDOM(item, 'div', attrs = {'class': '.*?dli-ratings-container'})
+					rating = re.findall(r'(?<=</svg>).*?(?=<span)', ratingItem[0])
 				except:
 					try:
 						rating = client.parseDOM(item, 'span', attrs = {'class': 'rating-rating'})
@@ -1404,7 +1417,9 @@ class Movies:
 						except:
 							try: rating = client.parseDOM(item, 'span', attrs = {'class': 'ipl-rating-star__rating'})[0]
 							except: rating = ''
-				try: votes = client.parseDOM(item, 'span', attrs = {'name': 'nv'})[0]
+				try: 
+					#votes = client.parseDOM(item, 'span', attrs = {'name': 'nv'})[0]
+					votes = re.findall(r'(?<=-->).*?(?=<)', ratingItem[0])[0]
 				except:
 					try: votes = client.parseDOM(item, 'div', ret='title', attrs = {'class': '.*?rating-list'})[0]
 					except:
@@ -1485,19 +1500,20 @@ class Movies:
 		list = []
 		try:
 			result = client.request(url)
-			items = client.parseDOM(result, 'li', attrs={'class': 'ipl-zebra-list__item user-list'})
+			items = client.parseDOM(result, 'li', attrs={'class': 'ipc-metadata-list-summary-item'})
 		except:
 			from resources.lib.modules import log_utils
 			log_utils.error()
 		for item in items:
 			try:
-				name = client.parseDOM(item, 'a')[0]
-				name = client.replaceHTMLCodes(name)
+				#name = client.parseDOM(item, 'a')[0]
+				#name = client.replaceHTMLCodes(name)
+				name = client.parseDOM(item, 'a', attrs={'class': 'ipc-metadata-list-summary-item__t'})[0]
 				url = client.parseDOM(item, 'a', ret='href')[0]
 				url = url.split('/list/', 1)[-1].strip('/')
 				url = self.imdblist_link % url
 				url = client.replaceHTMLCodes(url)
-				list.append({'name': name, 'url': url, 'context': url, 'image': 'imdb.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'movies&folderName=%' % name})
+				list.append({'name': name, 'url': url, 'context': url, 'image': 'imdb.png', 'icon': 'DefaultVideoPlaylists.png', 'action': 'movies&folderName=%s' % quote_plus(name)})
 			except:
 				from resources.lib.modules import log_utils
 				log_utils.error()
@@ -1639,9 +1655,6 @@ class Movies:
 							from resources.lib.modules import log_utils
 							log_utils.error()
 						try:
-							if control.setting('debug.level') == '1':
-								from resources.lib.modules import log_utils
-								log_utils.log('Getting Movies from cached database list.', level=log_utils.LOGDEBUG)
 							sameGenreMoviesSelect = dbcur.execute('''SELECT * FROM movies WHERE %s;'''% localCache).fetchall()
 							if not sameGenreMoviesSelect: 
 								return
@@ -1987,9 +2000,15 @@ class Movies:
 				meta.update({'code': imdb, 'imdbnumber': imdb, 'mediatype': 'movie', 'tag': [imdb, tmdb]})
 				try: meta.update({'genre': cleangenre.lang(meta['genre'], self.lang)})
 				except: pass
-
-				if self.prefer_tmdbArt: poster = meta.get('poster3') or meta.get('poster') or meta.get('poster2') or addonPoster
-				else: poster = meta.get('poster2') or meta.get('poster3') or meta.get('poster') or addonPoster
+				#since you are so bored you are reading my comments in my code from my test repo. below is how you do it correctly. when you figure out a variable it is important to actually apply it. you can fix yours by putting clearlogo in the art.update below or just copy what I did here. "i am mad about comments in your code" cannot wait for that one.
+				if self.prefer_tmdbArt: 
+					poster = meta.get('poster3') or meta.get('poster') or meta.get('poster2') or addonPoster
+					clearlogo = meta.get('tmdblogo') or meta.get('clearlogo','')
+					meta.update({'clearlogo': clearlogo})
+				else: 
+					poster = meta.get('poster2') or meta.get('poster3') or meta.get('poster') or addonPoster
+					clearlogo = meta.get('clearlogo') or meta.get('tmdblogo','')
+					meta.update({'clearlogo': clearlogo})
 				fanart = ''
 				if settingFanart:
 					if self.prefer_tmdbArt: fanart = meta.get('fanart3') or meta.get('fanart') or meta.get('fanart2') or addonFanart
@@ -2035,7 +2054,11 @@ class Movies:
 					cm.append((addToFavourites, 'RunPlugin(%s?action=add_favorite&meta=%s&content=%s)' % (sysaddon, sysmeta, 'movies')))
 				cm.append((findSimilarMenu, 'Container.Update(%s?action=movies&url=%s)' % (sysaddon, quote_plus('https://api.trakt.tv/movies/%s/related?limit=20&page=1,return' % imdb))))
 				if i.get('belongs_to_collection', ''):
-					cm.append(('Browse Collection', 'Container.Update(%s?action=collections&url=%s)' % (
+					if getSetting('tmdb.baseaddress') == 'true':
+						cm.append(('Browse Collection', 'Container.Update(%s?action=collections&url=%s)' % (
+							sysaddon, quote_plus('https://api.tmdb.org/3/collection/%s?api_key=%s&page=1,return' % (i['belongs_to_collection']['id'], self.tmdb_key)))))
+					else:
+						cm.append(('Browse Collection', 'Container.Update(%s?action=collections&url=%s)' % (
 							sysaddon, quote_plus('https://api.themoviedb.org/3/collection/%s?api_key=%s&page=1,return' % (i['belongs_to_collection']['id'], self.tmdb_key)))))
 				cm.append((playbackMenu, 'RunPlugin(%s?action=alterSources&url=%s&meta=%s)' % (sysaddon, sysurl, sysmeta)))
 				if not rescrape_useDefault:
@@ -2090,6 +2113,7 @@ class Movies:
 			except:
 				from resources.lib.modules import log_utils
 				log_utils.error()
+		
 		if next:
 			try:
 				if not items: raise Exception()
@@ -2100,7 +2124,8 @@ class Movies:
 				elif 'www.imdb.com/movies-coming-soon/' in url: page = '  [I](%s)[/I]' % re.search(r'(\d{4}-\d{2})', url).group(1)
 				else: page = '  [I](%s)[/I]' % url_params.get('page')
 				if 'None' in page: page = page.split('  [I]')[0]
-				nextMenu = '[COLOR skyblue]' + nextMenu + page + '[/COLOR]'
+				nextColor ='[COLOR %s]' % getSetting('highlight.color')
+				nextMenu = nextColor + nextMenu + page + '[/COLOR]'
 				u = urlparse(url).netloc.lower()
 				if u not in self.tmdb_link: url = '%s?action=moviePage&url=%s&folderName=%s' % (sysaddon, quote_plus(url), quote_plus(folderName))
 				elif u in self.tmdb_link: url = '%s?action=tmdbmoviePage&url=%s&folderName=%s' % (sysaddon, quote_plus(url), quote_plus(folderName))
@@ -2154,6 +2179,8 @@ class Movies:
 				url = '%s?action=%s' % (sysaddon, i['action'])
 				try: url += '&url=%s' % quote_plus(i['url'])
 				except: pass
+				try: url += '&folderName=%s' % quote_plus(name)
+				except: pass
 				cm = []
 				if (i.get('list_type', '') == 'traktPulicList') and self.traktCredentials:
 					liked = traktsync.fetch_liked_list(i['list_id'])
@@ -2190,7 +2217,8 @@ class Movies:
 			url_params = dict(parse_qsl(urlsplit(url).query))
 			nextMenu = getLS(32053)
 			page = '  [I](%s)[/I]' % url_params.get('page')
-			nextMenu = '[COLOR skyblue]' + nextMenu + page + '[/COLOR]'
+			nextColor = '[COLOR %s]' % getSetting('highlight.color')
+			nextMenu = nextColor +nextMenu + page  + '[/COLOR]'
 			icon = control.addonNext()
 			url = '%s?action=movies_PublicLists&url=%s' % (sysaddon, quote_plus(url))
 			item = control.item(label=nextMenu, offscreen=True)

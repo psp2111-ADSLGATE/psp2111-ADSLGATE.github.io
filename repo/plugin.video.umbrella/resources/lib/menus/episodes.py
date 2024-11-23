@@ -22,6 +22,7 @@ from resources.lib.modules.player import Bookmarks
 
 getLS = control.lang
 getSetting = control.setting
+KODI_VERSION = control.getKodiVersion()
 
 
 class Episodes:
@@ -36,6 +37,7 @@ class Episodes:
 		self.showunaired = getSetting('showunaired') == 'true'
 		self.unairedcolor = getSetting('unaired.identify')
 		self.showspecials = getSetting('tv.specials') == 'true'
+
 		self.highlight_color = control.setting('highlight.color')
 		self.date_time = datetime.now()
 		self.today_date = (self.date_time).strftime('%Y-%m-%d')
@@ -785,14 +787,14 @@ class Episodes:
 				log_utils.error()
 		return items
 
-	def episodeDirectory(self, items, unfinished=False, next=True, folderName=''):
+	def episodeDirectory(self, items, unfinished=False, next=True, playlist=False, folderName=''):
 		from sys import argv # some functions like ActivateWindow() throw invalid handle less this is imported here.
 		if self.useContainerTitles: control.setContainerName(folderName)
 		if not items: # with reuselanguageinvoker on an empty directory must be loaded, do not use sys.exit()
 			control.hide() ; control.notification(title=32326, message=33049)
 		sysaddon, syshandle = 'plugin://plugin.video.umbrella/', int(argv[1])
 		is_widget = 'plugin' not in control.infoLabel('Container.PluginName')
-		#if not is_widget: control.playlist.clear()
+		if not is_widget and not playlist: control.playlist.clear()
 		settingFanart = getSetting('fanart') == 'true'
 		addonPoster, addonFanart, addonBanner = control.addonPoster(), control.addonFanart(), control.addonBanner()
 
@@ -845,6 +847,7 @@ class Episodes:
 		from resources.lib.modules import favourites
 		favoriteItems = favourites.getFavourites(content='episode')
 		favoriteItems = [(x[0]) for x in favoriteItems]
+		if playlist: listitems = [] ; append = listitems.append
 		for i in items:
 			try:
 
@@ -854,7 +857,7 @@ class Episodes:
 					if not self.progress_showunaired and i.get('unaired', '') == 'true': continue
 				else:
 					if not self.showunaired and i.get('unaired', '') == 'true': continue
-
+				
 
 				tvshowtitle, title, imdb, tmdb, tvdb = i.get('tvshowtitle'), i.get('title'), i.get('imdb', ''), i.get('tmdb', ''), i.get('tvdb', '')
 				year, season, episode, premiered = i.get('year', ''), i.get('season'), i.get('episode'), i.get('premiered', '')
@@ -867,13 +870,20 @@ class Episodes:
 				
 				if 'label' not in i: i['label'] = title
 				if (not i['label'] or i['label'] == '0'): label = '%sx%02d . %s %s' % (season, int(episode), 'Episode', episode)
-				else: label = '%sx%02d . %s' % (season, int(episode), i['label'])
-				if isMultiList: label = '[COLOR %s]%s[/COLOR] - %s' % (self.highlight_color, tvshowtitle, label)
+				else: label = '%sx%02d. %s' % (season, int(episode), i['label'])
+				if is_widget:
+					labelProgress = label
+				else:
+					if isMultiList: label = '[COLOR %s]%s[/COLOR] - %s' % (self.highlight_color, tvshowtitle, label)
 				try: labelProgress = label + '[COLOR %s]  [%s][/COLOR]' % (self.highlight_color, str(round(float(i['progress']), 1)) + '%')
 				except: labelProgress = label
+				isUnaired = False
 				try:
-					if i['unaired'] == 'true': labelProgress = '[COLOR %s][I]%s[/I][/COLOR]' % (self.unairedcolor, labelProgress)
-				except: pass
+					if i['unaired'] == 'true': 
+						labelProgress = '[COLOR %s][I]%s[/I][/COLOR]' % (self.unairedcolor, labelProgress)
+						isUnaired = True
+				except: 
+					isUnaired = False
 				if i.get('traktHistory') is True: # uses Trakt lastplayed in utc
 					try:
 						air_datetime = tools.convert_time(stringTime=i.get('lastplayed', ''), zoneFrom='utc', zoneTo='local', formatInput='%Y-%m-%dT%H:%M:%S.000Z', formatOutput='%b %d %Y %I:%M %p', remove_zeroes=True)
@@ -933,13 +943,13 @@ class Episodes:
 						if airFormat == '0': air = airtime
 						elif airFormat == '1': air = airday
 						elif airFormat == '2': air = air = ' '.join(air)
-						if airLocation == '0' or airLocation == '1': air = '[COLOR skyblue][%s][/COLOR]' % air
+						#if airLocation == '0' or airLocation == '1': air = '[COLOR skyblue][%s][/COLOR]' % air
+						if airLocation == '0' or airLocation == '1': air = '[COLOR %s][%s][/COLOR]' % (self.highlight_color, air)
 						if airBold == 'true': air = '[B]%s[/B]' % str(air)
 						if airLocation == '0': labelProgress = '%s %s' % (air, labelProgress)
 						elif airLocation == '1': labelProgress = '%s %s' % (labelProgress, air)
 						elif airLocation == '2': meta['plot'] = '%s%s\r\n%s' % (airLabel, air, meta['plot'])
 						elif airLocation == '3': meta['plot'] = '%s\r\n%s%s' % (meta['plot'], airLabel, air)
-
 				if self.prefer_tmdbArt: poster = meta.get('poster3') or meta.get('poster') or meta.get('poster2') or addonPoster
 				else: poster = meta.get('poster2') or meta.get('poster3') or meta.get('poster') or addonPoster
 				season_poster = meta.get('season_poster') or poster
@@ -948,12 +958,16 @@ class Episodes:
 				if settingFanart:
 					if self.prefer_tmdbArt: fanart = meta.get('fanart3') or meta.get('fanart') or meta.get('fanart2') or addonFanart
 					else: fanart = meta.get('fanart2') or meta.get('fanart3') or meta.get('fanart') or addonFanart
-				thumb = meta.get('thumb') or landscape or fanart or season_poster
-				icon = meta.get('icon') or season_poster or poster
+				if isUnaired:
+					thumb = landscape or fanart or season_poster
+					icon = season_poster or poster
+				else:
+					thumb = meta.get('thumb') or landscape or fanart or season_poster
+					icon = meta.get('icon') or season_poster or poster
 				banner = meta.get('banner') or addonBanner
 				art = {}
 				art.update({'poster': season_poster, 'tvshow.poster': poster, 'season.poster': season_poster, 'fanart': fanart, 'icon': icon, 'thumb': thumb, 'banner': banner,
-						'clearlogo': meta.get('clearlogo', ''), 'tvshow.clearlogo': meta.get('clearlogo', ''), 'clearart': meta.get('clearart', ''), 'tvshow.clearart': meta.get('clearart', ''), 'landscape': thumb})
+						'tvshow.clearlogo': meta.get('clearlogo', ''), 'clearart': meta.get('clearart', ''), 'tvshow.clearart': meta.get('clearart', ''), 'landscape': thumb})
 				for k in ('metacache', 'poster2', 'poster3', 'fanart2', 'fanart3', 'banner2', 'banner3', 'trailer'): meta.pop(k, None)
 				meta.update({'poster': poster, 'fanart': fanart, 'banner': banner, 'thumb': thumb, 'icon': icon})
 				sysmeta, sysart, syslabelProgress = quote_plus(jsdumps(meta)), quote_plus(jsdumps(art)), quote_plus(labelProgress)
@@ -1028,7 +1042,7 @@ class Episodes:
 							try: count = getShowCount(getSeasonIndicators(imdb, tvdb)[1], imdb, tvdb) # if indicators and no matching imdb_id in watched items then it returns None and we use TMDb meta to avoid Trakt request
 							except: count = None
 							if count:
-								if control.getKodiVersion() >= 20:
+								if KODI_VERSION >= 20:
 									if int(count['watched']) > 0:
 										item.setProperties({'WatchedEpisodes': str(count['watched']), 'UnWatchedEpisodes': str(count['unwatched'])})
 									else:
@@ -1036,8 +1050,9 @@ class Episodes:
 								else:
 									item.setProperties({'WatchedEpisodes': str(count['watched']), 'UnWatchedEpisodes': str(count['unwatched'])})
 								item.setProperties({'TotalSeasons': str(meta.get('total_seasons', '')), 'TotalEpisodes': str(count['total'])})
+								item.setProperty('WatchedProgress', str(int(float(count['watched']) / float(count['total']) * 100)))
 							else:
-								if control.getKodiVersion() >= 20:
+								if KODI_VERSION >= 20:
 									item.setProperties({'UnWatchedEpisodes': str(meta.get('total_aired_episodes', ''))}) # for shows never watched
 								else:
 									item.setProperties({'WatchedEpisodes': '0', 'UnWatchedEpisodes': str(meta.get('total_aired_episodes', ''))}) # for shows never watched
@@ -1083,11 +1098,12 @@ class Episodes:
 					resumetime = ''
 				
 				control.set_info(item, meta, setUniqueIDs=setUniqueIDs, resumetime=resumetime)
-				if is_widget and control.getKodiVersion() > 19.5 and self.useFullContext != True:
+				if is_widget and KODI_VERSION > 19.5 and not self.useFullContext:
 					pass
 				else:
 					item.addContextMenuItems(cm)
-				control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
+				if playlist: append((url, item, isFolder))
+				else: control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
 			except:
 				from resources.lib.modules import log_utils
 				log_utils.error()
@@ -1104,14 +1120,17 @@ class Episodes:
 				else:
 					page = url_params.get('page')
 					page = '  [I](%s)[/I]' % page
-				nextMenu = '[COLOR skyblue]' + nextMenu + page + '[/COLOR]'
+				nextColor = '[COLOR %s]' % getSetting('highlight.color')
+				nextMenu = nextColor + nextMenu + page + '[/COLOR]'
 				if '/users/me/history/' in url: url = '%s?action=calendar&url=%s&folderName=%s' % (sysaddon, quote_plus(url), quote_plus(folderName))
 				item = control.item(label=nextMenu, offscreen=True)
 				icon = control.addonNext()
 				item.setArt({'icon': icon, 'thumb': icon, 'poster': icon, 'banner': icon})
 				item.setProperty ('SpecialSort', 'bottom')
-				control.addItem(handle=syshandle, url=url, listitem=item, isFolder=True)
+				if playlist: append((url, item, True))
+				else: control.addItem(handle=syshandle, url=url, listitem=item, isFolder=True)
 			except: pass
+		if playlist: return listitems
 		if isMultiList and multi_unwatchedEnabled: # Show multi episodes as show, in order to display unwatched count if enabled.
 			control.content(syshandle, 'tvshows')
 			control.directory(syshandle, cacheToDisc=False) # disable cacheToDisc so unwatched counts loads fresh data counts if changes made
@@ -1150,7 +1169,7 @@ class Episodes:
 				meta = dict({'plot': name})
 				control.set_info(item, meta)
 				is_widget = 'plugin' not in control.infoLabel('Container.PluginName')
-				if is_widget and control.getKodiVersion() > 19.5 and self.useFullContext != True:
+				if is_widget and KODI_VERSION > 19.5 and self.useFullContext != True:
 					pass
 				else:
 					item.addContextMenuItems(cm)

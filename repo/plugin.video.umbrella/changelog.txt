@@ -1,3 +1,119 @@
+[B]Update - v6.7.25 - November 23rd, 2024[/B]
+--[Change] Added workaround for RD. Thank you Peter.
+
+[B]Update - v6.7.24 - November 6th, 2024[/B]
+--[Change] Added language filter setting to several trakt lists. Enable in settings Trakt section.
+--[Workaround] Added workaround from Peter for RD returning empty hash lists.
+--[Logging] Logging added for when temp fix is used.
+
+[B]Update - v6.7.23 - October 16th, 2024[/B]
+--[Fix] Modified rescrape with all providers.
+
+[B]Update - v6.7.22 - October 8th, 2024[/B]
+--[Changes] Added code needed for comet debrid tokens.
+--[Changes] Removed several "open settings" entries due to kodi 21 opening settings to first page every time.
+
+[B]Update - v6.7.1 - September 13th, 2024[/B]
+--[Fix] Fixed MDBList to not be limited to 20 results.
+--[Fix] Fixed scraper dialog not showing correctly on TV Shows from library.
+--[Changes] Re-added the ability to use default kodi prompts for scraping dialog.
+
+[B]Update - v6.7.0 - August 23rd, 2024[/B]
+--[Fix] Please go to kodi settings and clear any settings set for "Play next video automatically". This is likely been set to "Episodes" previously by Umbrella.
+--[Fix] Playlist generation code changed for kodi 21.1 changes.
+--[Changes] Metahandler requirement removed and local tracking added from Infinity.
+--[Changes] Scraping windows and progress windows updated and changed. credit kodifitzwell
+--[Changes] Window monitor implemented.
+--[Changes] Episodes use a global variable instead of checking kodi version multiple times.
+--[Changes] Episodes handle playlists.
+--[Changes] Epsiodes use highlight color for next button text color.
+--[Changes] Added getProviderColors function to control. 
+--[Changes] Added refresh_contextProperties to control. 
+--[Changes] Modified darkColor function in control. 
+--[Changes] large amount of changes to the player module and how playlists are built for playnext. 
+--[Credit] A lot of the changes in this version come from infinity. credit and thanks to kodifitzwell
+--[Fix] TVShows tvshowDirectory function modified for situations where meta was not passed in so flatten function had no total seasons to compare to.
+--[Fix] Made changes to playnext using subtitles to return default time when no subtitles are found. thanks adam
+
+[B]Update - v6.6.64 - July 29th, 2024[/B]
+--[Fix] Fixed removed function from TMDb movie class.
+
+[B]Update - v6.6.63 - July 27th, 2024[/B]
+--[Fix] Changed set_info function to no longer unquote paths.
+--[Fix] Fixed bug where trakt lists with same number as limit still showed the next button.
+--[Change] Added ability to use tmdb.org for api calls instead of themoviedb.org.
+
+[B]Update - v6.6.62 - July 18th, 2024[/B]
+--[Fix] Fixed setting for building playlist for next season when playnext was not enabled.
+
+[B]Update - v6.6.61 - July 17th, 2024[/B]
+--[Fix] Fixed broken season flatten.
+
+[B]Update - v6.6.60 - July 17th, 2024[/B]
+--[Change] Added code to use season artwork for unreleased episodes. (discord poll)
+--[Change] Changed Actor search to use tmdb instead of imdb.
+
+[B]Update - v6.6.59 - July 10th, 2024[/B]
+--[Fix] Added code to catch blank values on clearlogo for seasons.
+
+[B]Update - v6.6.58 - July 8th, 2024[/B]
+--[Change] Added option to use custom background for addon fanart. General settings.
+--[Fix] Corrected anime section to new imdb website format and urls.
+
+[B]Update - v6.6.57 - June 19th, 2024[/B]
+--[Change] Changed confirmation popup text on cache clearing for new functions.
+
+[B]Update - v6.6.56 - June 9th, 2024[/B]
+--[Change] IMDb lists changed to show imdb in my tv and my movie sections if set to public.
+
+[B]Update - v6.6.55 - June 7th, 2024[/B]
+--[Change] Made change to clearlogo code to keep clear logo from show level.
+--[Change] Added clear fanart cache.
+
+[B]Update - v6.6.54 - May 24th, 2024[/B]
+--[Change] Made change to source_utils code to allow for more title options and less filtering.
+--[Fix] Corrected imdb lists.
+
+[B]Update - v6.6.53 - May 14th, 2024[/B]
+--[Fix] Change made to MDBList pagination code.
+
+[B]Update - v6.6.52 - May 14th, 2024[/B]
+--[Fix] Change made to database detection code.
+--[Fix] Change made to imdb movie lists.
+
+[B]Update - v6.6.51 - May 9th, 2024[/B]
+--[Fix] Removed code for pagination changes.
+
+[B]Update - v6.6.50 - May 8th, 2024[/B]
+--[Fix] Removed unused import.
+--[Settings] More changes for settings.
+--[Fix] Made changes to mdblist to allow for static lists with no list type to still show.
+--[Enhancement] Removed previous changes made for fanart.
+--[Change] Removed Title of Show from Episode Progress in widgets.
+--[Fix] Made changes to pagination for lists equal to the limit.
+--[Enhancement] Removed another unneeded file.
+--[Fix] Fixed 4k icon missing on some devices.
+--[Fix] Made change to resolve issues identifying MyVideos database on some systems.
+--[Fix] Removed subscene module and moved delete all function to tools.
+--[Enhancement] Changes to TMDb api url to add images. credit -onEMoAr
+--[Enhancement] Changes to Episodes, Seasons to include clearlogo. credit -onEMoAr
+--[Enhancement] Changes to Movies to include clearlogo correctly. credit -onEMoAr
+--[Enhancement] Changes made to allow user fanart background. credit -onEMoAr
+--[Fix] Changes made to control module for checking external modules. credit -onEMoAr
+--[Fix] Changes made to service module for settings module. credit -onEMoAr
+--[Enhancement] Changes made flatten tv shows. credit -onEMoAr
+--[Enhancement] Changes made to settings to accomodate changes.
+
+[B]Update - v6.6.48 - March 22nd, 2024[/B]
+--[Fix] Settings change to fix allowing resume from Trakt without Trakt scrobble.
+
+[B]Update - v6.6.47 - March 20th, 2024[/B]
+--[Fix] Removed subscene for subtitle options.
+--[Fix] Allow resume trakt setting to be set even when scrobble from umbrella is not set.
+--[Fix] Added adjustment for episode size being wrong from elfhosted and selfhosted.
+--[Enhancement] Re-added Languages IMDB.
+--[Change] Made default for all imdb lists 100 now.
+
 [B]Update - v6.6.46 - February 8th, 2024[/B]
 --[Fix] Changed settings that were reversed. ATVP and AV1
 --[Fix] Added fix for progress window causing issues when caching to real-debrid.

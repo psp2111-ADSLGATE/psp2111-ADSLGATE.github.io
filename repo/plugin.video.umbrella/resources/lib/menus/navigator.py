@@ -123,6 +123,8 @@ class Navigator:
 			self.addDirectoryItem(40493 if self.indexLabels else 32455, 'movieGenres&url=trakt_movie_genre&folderName=%s' % quote_plus(getLS(40493 if self.indexLabels else 32455)), 'trakt.png' if self.iconLogos else 'genres.png', 'DefaultGenre.png')
 		if getMenuEnabled('navi.movie.imdb.years'):
 			self.addDirectoryItem(32458 if self.indexLabels else 32457, 'movieYears&url=year&folderName=%s' % quote_plus(getLS(32458 if self.indexLabels else 32457)), 'imdb.png' if self.iconLogos else 'years.png', 'DefaultYear.png')
+		if getMenuEnabled('navi.movie.imdb.languages'):
+			self.addDirectoryItem(32462 if self.indexLabels else 32461, 'movieLanguages&folderName=%s' % quote_plus(getLS(32462 if self.indexLabels else 32461)), 'imdb.png' if self.iconLogos else 'languages.png', 'DefaultAddonLanguage.png')
 		if getMenuEnabled('navi.movie.tmdb.years'):
 			self.addDirectoryItem(32485 if self.indexLabels else 32457, 'movieYears&url=tmdb_year&folderName=%s' % quote_plus(getLS(32485 if self.indexLabels else 32457)), 'tmdb.png' if self.iconLogos else 'years.png', 'DefaultYear.png')
 		if getMenuEnabled('navi.movie.tmdb.certificates'):
@@ -360,23 +362,23 @@ class Navigator:
 		#-- Providers - 
 		#self.addDirectoryItem(32651, 'tools_cocoScrapersSettings', 'cocoscrapers.png', 'DefaultAddonService.png', isFolder=False)
 		#-- General - 0
-		self.addDirectoryItem(32043, 'tools_openSettings&query=0.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		self.addDirectoryItem(40525, 'tools_openSettings&query=0.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		#-- Sorting and Filtering - 4
-		self.addDirectoryItem(40162, 'tools_openSettings&query=6.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		##self.addDirectoryItem(40162, 'tools_openSettings&query=6.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		#-- Accounts - 7
-		self.addDirectoryItem(32044, 'tools_openSettings&query=10.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
-		self.addDirectoryItem(40452, 'tools_openSettings&query=11.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
-		self.addDirectoryItem(40124, 'tools_openSettings&query=12.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
-		self.addDirectoryItem(40123, 'tools_openSettings&query=8.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		##self.addDirectoryItem(32044, 'tools_openSettings&query=10.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		##self.addDirectoryItem(40452, 'tools_openSettings&query=11.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		##self.addDirectoryItem(40124, 'tools_openSettings&query=12.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		##self.addDirectoryItem(40123, 'tools_openSettings&query=8.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		if self.traktCredentials: self.addDirectoryItem(35057, 'tools_traktToolsNavigator&folderName=%s' % quote_plus(getLS(40461)), 'tools.png', 'DefaultAddonService.png', isFolder=True)
 		#-- Navigation - 1
-		self.addDirectoryItem(32362, 'tools_openSettings&query=1.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		##self.addDirectoryItem(32362, 'tools_openSettings&query=1.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		#-- Playback - 3
-		self.addDirectoryItem(32045, 'tools_openSettings&query=5.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		##self.addDirectoryItem(32045, 'tools_openSettings&query=5.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		#-- Downloads - 10
-		self.addDirectoryItem(32048, 'tools_openSettings&query=14.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		##self.addDirectoryItem(32048, 'tools_openSettings&query=14.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		#-- Subtitles - 11
-		self.addDirectoryItem(32046, 'tools_openSettings&query=15.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
+		##self.addDirectoryItem(32046, 'tools_openSettings&query=15.0', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		self.addDirectoryItem(32556, 'library_Navigator&folderName=%s' % quote_plus(getLS(32541)), 'tools.png', 'DefaultAddonService.png', isFolder=True)
 		self.addDirectoryItem(32049, 'tools_viewsNavigator', 'settings.png', 'DefaultAddonService.png', isFolder=True)
 		self.addDirectoryItem(32361, 'tools_resetViewTypes', 'settings.png', 'DefaultAddonService.png', isFolder=False)
@@ -420,6 +422,7 @@ class Navigator:
 		self.addDirectoryItem(32611, 'cache_clearSources', 'settings.png', 'DefaultAddonService.png', isFolder=False)
 		self.addDirectoryItem(32612, 'cache_clearMeta', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		self.addDirectoryItem(32613, 'cache_clearCache', 'settings.png', 'DefaultAddonService.png', isFolder=False)
+		self.addDirectoryItem(40519, 'cache_fanart', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		self.addDirectoryItem(40402, 'cache_clearMovieCache', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		self.addDirectoryItem(32614, 'cache_clearSearch', 'tools.png', 'DefaultAddonService.png', isFolder=False)
 		self.addDirectoryItem(32615, 'cache_clearBookmarks', 'settings.png', 'DefaultAddonService.png', isFolder=False)
@@ -428,7 +431,7 @@ class Navigator:
 
 	def library(self, folderName=''): # -- Library - 9
 		if self.useContainerTitles: control.setContainerName(folderName)
-		self.addDirectoryItem(32557, 'tools_openSettings&query=13.0', 'tools.png', 'DefaultAddonProgram.png', isFolder=False)
+		##self.addDirectoryItem(32557, 'tools_openSettings&query=13.0', 'tools.png', 'DefaultAddonProgram.png', isFolder=False)
 		self.addDirectoryItem(32558, 'library_update', 'library_update.png', 'DefaultAddonLibrary.png', isFolder=False)
 		self.addDirectoryItem(32676, 'library_clean', 'library_update.png', 'DefaultAddonLibrary.png', isFolder=False)
 		self.addDirectoryItem(32559, getSetting('library.movie'), 'movies.png', 'DefaultMovies.png', isAction=False)
@@ -484,7 +487,7 @@ class Navigator:
 			self.addDirectoryItem('All-Debrid: Transfers', 'ad_Transfers', 'alldebrid.png', 'DefaultAddonService.png')
 			self.addDirectoryItem('All-Debrid: Account Info', 'ad_AccountInfo', 'alldebrid.png', 'DefaultAddonService.png', isFolder=False)
 		else:
-			self.addDirectoryItem('[I]Please setup in Accounts[/I]', 'tools_openSettings&query=10.0', 'alldebrid.png', 'DefaultAddonService.png', isFolder=False)
+			self.addDirectoryItem('[I]Please setup in Settings.[/I]', 'tools_openSettings&query=10.0', 'alldebrid.png', 'DefaultAddonService.png', isFolder=False)
 		self.endDirectory()
 
 	def easynews_service(self, folderName=''):
@@ -493,7 +496,7 @@ class Navigator:
 			self.addDirectoryItem('Easy News: Search', 'en_Search', 'search.png', 'DefaultAddonsSearch.png')
 			self.addDirectoryItem('Easy News: Account Info', 'en_AccountInfo', 'easynews.png', 'DefaultAddonService.png', isFolder=False)
 		else:
-			self.addDirectoryItem('[I]Please setup in CocoScrapers[/I]', 'tools_cocoScrapersSettings&query=EasyNews', 'easynews.png', 'DefaultAddonService.png', isFolder=False)
+			self.addDirectoryItem('[I]Please setup in Settings.[/I]', 'tools_openSettings&query=10.0', 'easynews.png', 'DefaultAddonService.png', isFolder=False)
 		self.endDirectory()
 
 	def premiumize_service(self, folderName=''):
@@ -503,7 +506,7 @@ class Navigator:
 			self.addDirectoryItem('Premiumize: Transfers', 'pm_Transfers', 'premiumize.png', 'DefaultAddonService.png')
 			self.addDirectoryItem('Premiumize: Account Info', 'pm_AccountInfo', 'premiumize.png', 'DefaultAddonService.png', isFolder=False)
 		else:
-			self.addDirectoryItem('[I]Please setup in Accounts[/I]', 'tools_openSettings&query=10.1', 'premiumize.png', 'DefaultAddonService.png', isFolder=False)
+			self.addDirectoryItem('[I]Please setup in Settings.[/I]', 'tools_openSettings&query=10.1', 'premiumize.png', 'DefaultAddonService.png', isFolder=False)
 		self.endDirectory()
 
 	def realdebrid_service(self, folderName=''):
@@ -513,7 +516,7 @@ class Navigator:
 			self.addDirectoryItem('Real-Debrid: My Downloads', 'rd_MyDownloads&query=1', 'realdebrid.png', 'DefaultAddonService.png')
 			self.addDirectoryItem('Real-Debrid: Account Info', 'rd_AccountInfo', 'realdebrid.png', 'DefaultAddonService.png', isFolder=False )
 		else:
-			self.addDirectoryItem('[I]Please setup in Accounts[/I]', 'tools_openSettings&query=10.2', 'realdebrid.png', 'DefaultAddonService.png', isFolder=False)
+			self.addDirectoryItem('[I]Please setup in Settings.[/I]', 'tools_openSettings&query=10.2', 'realdebrid.png', 'DefaultAddonService.png', isFolder=False)
 		self.endDirectory()
 
 	def search(self, folderName=''):
@@ -573,6 +576,8 @@ class Navigator:
 					cache.cache_clear()
 					cache.cache_clear_search()
 					# cache.cache_clear_bookmarks()
+					from resources.lib.database import fanarttv_cache
+					fanarttv_cache.cache_clear()
 					return True
 				except:
 					from resources.lib.modules import log_utils
@@ -599,7 +604,7 @@ class Navigator:
 		if not control.yesnoDialog(getLS(32056), '', ''): return
 		try:
 			from resources.lib.database import cache
-			if cache.clearMovieCache(): control.notification(message=32092)
+			if cache.clearMovieCache(): control.notification(message=40520)
 			else: control.notification(message=33586)
 		except:
 			from resources.lib.modules import log_utils
@@ -622,6 +627,17 @@ class Navigator:
 		try:
 			from resources.lib.database import cache
 			if cache.cache_clear(): control.notification(message=32092)
+			else: control.notification(message=33586)
+		except:
+			from resources.lib.modules import log_utils
+			log_utils.error()
+
+	def clearFanart(self):
+		control.hide()
+		if not control.yesnoDialog(getLS(32056), '', ''): return
+		try:
+			from resources.lib.database import fanarttv_cache
+			if fanarttv_cache.cache_clear():control.notification(message=40518)
 			else: control.notification(message=33586)
 		except:
 			from resources.lib.modules import log_utils
