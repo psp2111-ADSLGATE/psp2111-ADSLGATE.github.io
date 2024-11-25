@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <onload>SetFocus(2000,0,absolute)</onload>
+    <controls>
+        <!-- Background -->
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>1080</height>
+            <texture colordiffuse="FF000000">fenlight_common/white.png</texture>
+            <animation effect="fade" end="80" time="120">WindowOpen</animation>
+        </control>
+        <control type="group">
+            <left>100</left>
+            <top>25</top>
+            <animation effect="fade" end="100" time="200">WindowOpen</animation>
+            <!-- Logo and Background-->
+            <control type="group">
+                <control type="image">
+                    <left>-2</left>
+                    <top>-2</top>
+                    <width>1724</width>
+                    <height>979</height>
+                    <texture colordiffuse="FFCCCCCC" border="30">fenlight_common/circle.png</texture>
+                </control>
+                <control type="image">
+                    <width>1720</width>
+                    <height>975</height>
+                    <texture colordiffuse="FF1F2020" border="30">fenlight_common/circle.png</texture>
+                </control>
+                <control type="image">
+                    <left>12</left>
+                    <top>12</top>
+                    <width>40</width>
+                    <height>40</height>
+                    <align>left</align>
+                    <aligny>top</aligny>
+                    <aspectratio aligny="top">keep</aspectratio>
+                    <texture colordiffuse="FFCCCCCC">fenlight_common/fenlight.png</texture>
+                </control>
+                <control type="label">
+                    <width max="1700">auto</width>
+                    <top>22</top>
+                    <left>0</left>
+                    <height>20</height>
+                    <font>font12</font> <!-- FENLIGHT_26 -->
+                    <textcolor>FFCCCCCC</textcolor>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <label>[UPPERCASE][B]FENLIGHT - SETTINGS[/B][/UPPERCASE]</label>
+                </control>
+            </control>
+            <control type="fixedlist" id="2000">
+                <animation effect="slide" end="0,-340" time="0" condition="Integer.IsEqual(Container(2000).NumItems,1) | Integer.IsEqual(Container(2000).NumItems,2)">Conditional</animation>
+                <animation effect="slide" end="0,-255" time="0" condition="Integer.IsEqual(Container(2000).NumItems,3) | Integer.IsEqual(Container(2000).NumItems,4)">Conditional</animation>
+                <animation effect="slide" end="0,-170" time="0" condition="Integer.IsEqual(Container(2000).NumItems,5) | Integer.IsEqual(Container(2000).NumItems,6)">Conditional</animation>
+                <animation effect="slide" end="0,-85" time="0" condition="Integer.IsEqual(Container(2000).NumItems,7) | Integer.IsEqual(Container(2000).NumItems,8)">Conditional</animation>
+                <left>20</left>
+                <top>100</top>
+                <width>470</width>
+                <height>765</height>
+                <onleft>10025</onleft>
+                <onright>SetFocus(2100,1,absolute)</onright>
+                <onup>2000</onup>
+                <ondown>2000</ondown>
+                <orientation>Vertical</orientation>
+                <focusposition>4</focusposition>
+                <movement>4</movement>
+                <scrolltime tween="cubic" easing="out">500</scrolltime>
+                <itemlayout height="85" width="470">
+                    <control type="label">
+                        <left>40</left>
+                        <width>390</width>
+                        <height>85</height>
+                        <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
+                        <font>font12</font> <!-- FENLIGHT_26 -->
+                        <textcolor>FFCCCCCC</textcolor>
+                        <aligny>center</aligny>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="85" width="470">
+                    <control type="image">
+                        <animation effect="fade" start="100" end="50" time="0" condition="!Control.HasFocus(2000)">Conditional</animation>
+                        <height>85</height>
+                        <width>470</width>
+                        <texture colordiffuse="FFCCCCCC" border="30">fenlight_common/circle.png</texture>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>390</width>
+                        <height>85</height>
+                        <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
+                        <font>font12</font> <!-- FENLIGHT_26 -->
+                        <textcolor>FF1F2020</textcolor>
+                        <aligny>center</aligny>
+                        <scroll>Control.HasFocus(2000)</scroll>
+                    </control>
+                </focusedlayout>
+                <content><!-- menu_settings --></content>
+            </control>
+            <control type="fixedlist" id="2100">
+                <animation effect="slide" end="0,-340" time="0" condition="Integer.IsEqual(Container(2100).NumItems,1) | Integer.IsEqual(Container(2100).NumItems,2)">Conditional</animation>
+                <animation effect="slide" end="0,-255" time="0" condition="Integer.IsEqual(Container(2100).NumItems,3) | Integer.IsEqual(Container(2100).NumItems,4)">Conditional</animation>
+                <animation effect="slide" end="0,-170" time="0" condition="Integer.IsEqual(Container(2100).NumItems,5) | Integer.IsEqual(Container(2100).NumItems,6)">Conditional</animation>
+                <animation effect="slide" end="0,-85" time="0" condition="Integer.IsEqual(Container(2100).NumItems,7) | Integer.IsEqual(Container(2100).NumItems,8)">Conditional</animation>
+                <left>520</left>
+                <top>100</top>
+                <width>1160</width>
+                <height>765</height>
+                <onleft>2000</onleft>
+                <onleft>SetFocus(2100,1,absolute)</onleft>
+                <onright>10025</onright>
+                <pagecontrol>10025</pagecontrol>
+                <orientation>Vertical</orientation>
+                <focusposition>4</focusposition>
+                <movement>4</movement>
+                <scrolltime tween="cubic" easing="out">500</scrolltime>
+                <itemlayout height="85" width="1160">
+                    <!-- SEPARATOR -->
+                    <control type="group">
+                        <visible>String.IsEqual(ListItem.Property(setting_type),separator)</visible>
+                        <control type="label">
+                            <left>40</left>
+                            <width>630</width>
+                            <height>85</height>
+                            <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
+                            <font>font12</font> <!-- FENLIGHT_26 -->
+                            <textcolor>FFCCCCCC</textcolor>
+                            <aligny>center</aligny>
+                            <align>center</align>
+                        </control>
+                        <control type="image">
+                            <top>70</top>
+                            <left>30</left>
+                            <height>2</height>
+                            <width>1100</width>
+                            <texture colordiffuse="FFCCCCCC">fenlight_common/white.png</texture>
+                        </control>
+                    </control>
+                    <!-- INFO ICON -->
+                    <control type="image">
+                        <visible>String.IsEqual(ListItem.Property(setting_type),info) + Control.HasFocus(2100)</visible>
+                        <top>27</top>
+                        <left>5</left>
+                        <width>30</width>
+                        <height>30</height>
+                        <texture colordiffuse="FFCCCCCC">fenlight_common/info.png</texture>
+                    </control>
+                    <!-- LABEL -->
+                    <control type="label">
+                        <visible>!String.IsEqual(ListItem.Property(setting_type),separator)</visible>
+                        <left>40</left>
+                        <width>630</width>
+                        <height>85</height>
+                        <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
+                        <font>font12</font> <!-- FENLIGHT_26 -->
+                        <textcolor>FFCCCCCC</textcolor>
+                        <aligny>center</aligny>
+                        <scroll>false</scroll>
+                    </control>
+                    <!-- BOOLEAN -->
+                    <control type="group">
+                        <visible>String.IsEqual(ListItem.Property(setting_type),boolean)</visible>
+                        <control type="image">
+                            <visible>String.IsEqual(ListItem.Property(setting_value),false)</visible>
+                            <top>0</top>
+                            <left>1030</left>
+                            <width>150</width>
+                            <align>right</align>
+                            <aligny>center</aligny>
+                            <aspectratio>keep</aspectratio>
+                            <texture colordiffuse="FFCCCCCC">fenlight_buttons/radio_button_off.png</texture>
+                        </control>
+                        <control type="image">
+                            <visible>String.IsEqual(ListItem.Property(setting_value),true)</visible>
+                            <top>0</top>
+                            <left>1030</left>
+                            <width>150</width>
+                            <align>right</align>
+                            <aligny>center</aligny>
+                            <aspectratio>keep</aspectratio>
+                            <texture colordiffuse="FFCCCCCC">fenlight_buttons/radio_button_on.png</texture>
+                        </control>
+                    </control>
+                    <!-- SETTING VALUE LABEL -->
+                    <control type="group">
+                        <visible>!String.IsEqual(ListItem.Property(setting_type),boolean)</visible>
+                        <!-- EMPTY LABEL -->
+                        <control type="label">
+                            <visible>String.IsEqual(ListItem.Property(setting_value),empty_setting)</visible>
+                            <left>700</left>
+                            <width>425</width>
+                            <height>85</height>
+                            <label>[B]...[/B]</label>
+                            <font>font12</font> <!-- FENLIGHT_26 -->
+                            <textcolor>FFCCCCCC</textcolor>
+                            <align>right</align>
+                            <aligny>center</aligny>
+                            <scroll>Control.HasFocus(100)</scroll>
+                        </control>
+                        <!-- LABEL -->
+                        <control type="label">
+                            <visible>!String.IsEqual(ListItem.Property(setting_value),empty_setting)</visible>
+                            <left>700</left>
+                            <width>425</width>
+                            <height>85</height>
+                            <label>[UPPERCASE][B]$INFO[ListItem.Property(setting_value)][/B][/UPPERCASE]</label>
+                            <font>font12</font> <!-- FENLIGHT_26 -->
+                            <textcolor>FFCCCCCC</textcolor>
+                            <align>right</align>
+                            <aligny>center</aligny>
+                            <scroll>Control.HasFocus(100)</scroll>
+                        </control>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="85" width="1160">
+                    <!-- HIGHLIGHT -->
+                    <control type="image">
+                        <visible>Control.HasFocus(2100)</visible>
+                        <height>85</height>
+                        <width>1160</width>
+                        <texture colordiffuse="FFCCCCCC" border="30">fenlight_common/circle.png</texture>
+                    </control>
+                    <!-- SEPARATOR -->
+                    <control type="group">
+                        <visible>String.IsEqual(ListItem.Property(setting_type),separator)</visible>
+                        <control type="label">
+                            <left>40</left>
+                            <width>630</width>
+                            <height>85</height>
+                            <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
+                            <font>font12</font> <!-- FENLIGHT_26 -->
+                            <textcolor>FFCCCCCC</textcolor>
+                            <aligny>center</aligny>
+                            <align>center</align>
+                        </control>
+                        <control type="image">
+                            <top>70</top>
+                            <left>30</left>
+                            <height>2</height>
+                            <width>1100</width>
+                            <texture colordiffuse="FFCCCCCC">fenlight_common/white.png</texture>
+                        </control>
+                    </control>
+                    <!-- INFO ICON -->
+                    <control type="image">
+                        <visible>String.IsEqual(ListItem.Property(setting_type),info) + Control.HasFocus(2100)</visible>
+                        <top>27</top>
+                        <left>5</left>
+                        <width>30</width>
+                        <height>30</height>
+                        <texture colordiffuse="FF1F2020">fenlight_common/info.png</texture>
+                    </control>
+                    <!-- LABEL -->
+                    <control type="group">
+                        <visible>!String.IsEqual(ListItem.Property(setting_type),separator)</visible>
+                        <control type="label">
+                            <visible>Control.HasFocus(2100)</visible>
+                            <left>40</left>
+                            <width>630</width>
+                            <height>85</height>
+                            <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
+                            <font>font12</font> <!-- FENLIGHT_26 -->
+                            <textcolor>FF1F2020</textcolor>
+                            <aligny>center</aligny>
+                            <scroll>Control.HasFocus(2100)</scroll>
+                        </control>
+                        <control type="label">
+                            <visible>!Control.HasFocus(2100)</visible>
+                            <left>40</left>
+                            <width>630</width>
+                            <height>85</height>
+                            <label>[UPPERCASE]$INFO[ListItem.Property(setting_label)][/UPPERCASE]</label>
+                            <font>font12</font> <!-- FENLIGHT_26 -->
+                            <textcolor>FFCCCCCC</textcolor>
+                            <aligny>center</aligny>
+                            <scroll>false</scroll>
+                        </control>
+                    </control>
+                    <!-- BOOLEAN -->
+                    <control type="group">
+                        <visible>String.IsEqual(ListItem.Property(setting_type),boolean)</visible>
+                        <control type="group">
+                            <visible>!Control.HasFocus(2100)</visible>
+                            <control type="image">
+                                <visible>String.IsEqual(ListItem.Property(setting_value),false)</visible>
+                                <top>0</top>
+                                <left>1030</left>
+                                <width>150</width>
+                                <align>right</align>
+                                <aligny>center</aligny>
+                                <aspectratio>keep</aspectratio>
+                                <texture colordiffuse="FFCCCCCC">fenlight_buttons/radio_button_off.png</texture>
+                            </control>
+                            <control type="image">
+                                <visible>String.IsEqual(ListItem.Property(setting_value),true)</visible>
+                                <top>0</top>
+                                <left>1030</left>
+                                <width>150</width>
+                                <align>right</align>
+                                <aligny>center</aligny>
+                                <aspectratio>keep</aspectratio>
+                                <texture colordiffuse="FFCCCCCC">fenlight_buttons/radio_button_on.png</texture>
+                            </control>
+                        </control>
+                        <control type="group">
+                            <visible>Control.HasFocus(2100)</visible>
+                            <control type="image">
+                                <visible>String.IsEqual(ListItem.Property(setting_value),false)</visible>
+                                <top>0</top>
+                                <left>1030</left>
+                                <width>150</width>
+                                <align>right</align>
+                                <aligny>center</aligny>
+                                <aspectratio>keep</aspectratio>
+                                <texture colordiffuse="FF1F2020">fenlight_buttons/radio_button_off.png</texture>
+                            </control>
+                            <control type="image">
+                                <visible>String.IsEqual(ListItem.Property(setting_value),true)</visible>
+                                <top>0</top>
+                                <left>1030</left>
+                                <width>150</width>
+                                <align>right</align>
+                                <aligny>center</aligny>
+                                <aspectratio>keep</aspectratio>
+                                <texture colordiffuse="FF1F2020">fenlight_buttons/radio_button_on.png</texture>
+                            </control>
+                        </control>
+                    </control>
+                    <!-- SETTING VALUE LABEL -->
+                    <control type="group">
+                        <visible>!String.IsEqual(ListItem.Property(setting_type),boolean)</visible>
+                        <!-- EMPTY LABEL -->
+                        <control type="group">
+                            <visible>String.IsEqual(ListItem.Property(setting_value),empty_setting)</visible>
+                            <control type="label">
+                                <visible>Control.HasFocus(2100)</visible>
+                                <left>700</left>
+                                <width>425</width>
+                                <height>85</height>
+                                <label>[B]...[/B]</label>
+                                <font>font12</font> <!-- FENLIGHT_26 -->
+                                <textcolor>FF1F2020</textcolor>
+                                <align>right</align>
+                                <aligny>center</aligny>
+                                <scroll>Control.HasFocus(2100)</scroll>
+                            </control>
+                            <control type="label">
+                                <visible>!Control.HasFocus(2100)</visible>
+                                <left>700</left>
+                                <width>425</width>
+                                <height>85</height>
+                                <label>[B]...[/B]</label>
+                                <font>font12</font> <!-- FENLIGHT_26 -->
+                                <textcolor>FFCCCCCC</textcolor>
+                                <align>right</align>
+                                <aligny>center</aligny>
+                                <scroll>false</scroll>
+                            </control>
+                        </control>
+                        <!-- SETTING VALUE LABEL -->
+                        <control type="group">
+                            <visible>!String.IsEqual(ListItem.Property(setting_value),empty_setting)</visible>
+                            <control type="label">
+                                <visible>Control.HasFocus(2100)</visible>
+                                <left>700</left>
+                                <width>425</width>
+                                <height>85</height>
+                                <label>[UPPERCASE][B]$INFO[ListItem.Property(setting_value)][/B][/UPPERCASE]</label>
+                                <font>font12</font> <!-- FENLIGHT_26 -->
+                                <textcolor>FF1F2020</textcolor>
+                                <align>right</align>
+                                <aligny>center</aligny>
+                                <scroll>Control.HasFocus(2100)</scroll>
+                            </control>
+                            <control type="label">
+                                <visible>!Control.HasFocus(2100)</visible>
+                                <left>700</left>
+                                <width>425</width>
+                                <height>85</height>
+                                <label>[UPPERCASE][B]$INFO[ListItem.Property(setting_value)][/B][/UPPERCASE]</label>
+                                <font>font12</font> <!-- FENLIGHT_26 -->
+                                <textcolor>FFCCCCCC</textcolor>
+                                <align>right</align>
+                                <aligny>center</aligny>
+                                <scroll>false</scroll>
+                            </control>
+                        </control>
+                    </control>
+                </focusedlayout>
+                <content><!-- content_settings --></content>
+            </control>
+            <control type="group">
+                <top>930</top>
+                <left>15</left>
+                <control type="image">
+                    <left>-2</left>
+                    <top>-2</top>
+                    <width>1689</width>
+                    <height>84</height>
+                    <texture colordiffuse="FFCCCCCC" border="30">fenlight_common/circle.png</texture>
+                </control>
+                <control type="image">
+                    <width>1685</width>
+                    <height>80</height>
+                    <texture colordiffuse="FF1F2020" border="30">fenlight_common/circle.png</texture>
+                </control>
+                <control type="label">
+                    <top>30</top>
+                    <left>30</left>
+                    <width>200</width>
+                    <height>20</height>
+                    <font>font12</font> <!-- FENLIGHT_26 -->
+                    <textcolor>FFCCCCCC</textcolor>
+                    <label>[UPPERCASE][B]INFO: [/B][/UPPERCASE]</label>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                </control>
+                <control type="group">
+                    <top>4</top>
+                    <left>115</left>
+                    <width>1530</width>
+                    <height>70</height>
+                    <control type="textbox">
+                        <font>font12</font> <!-- FENLIGHT_26 -->
+                        <align>left</align>
+                        <aligny>center</aligny>
+                        <textcolor>FFCCCCCC</textcolor>
+                        <label>$INFO[Container(2100).ListItem.Property(setting_description)]</label>
+                        <autoscroll time="7000" delay="15000" repeat="7000">true</autoscroll>
+                        <visible>Control.HasFocus(2100)</visible>
+                    </control>
+                    <control type="textbox">
+                        <font>font12</font> <!-- FENLIGHT_26 -->
+                        <align>left</align>
+                        <aligny>center</aligny>
+                        <textcolor>FFCCCCCC</textcolor>
+                        <label>$INFO[Container(2000).ListItem.Property(setting_label),All settings related to [UPPERCASE][B],[/B][/UPPERCASE] settings]</label>
+                        <autoscroll time="7000" delay="15000" repeat="7000">true</autoscroll>
+                        <visible>Control.HasFocus(2000)</visible>
+                    </control>
+                </control>
+            </control>
+            <control type="scrollbar" id="10025">
+                <top>100</top>
+                <left>1700</left>
+                <width>10</width>
+                <height>760</height>
+                <texturesliderbackground colordiffuse="FF302F2F">fenlight_common/white.png</texturesliderbackground>
+                <texturesliderbar colordiffuse="FF555556">fenlight_common/white.png</texturesliderbar>
+                <texturesliderbarfocus colordiffuse="FFCCCCCC">fenlight_common/white.png</texturesliderbarfocus>
+                <onleft>2100</onleft>
+                <onright>2000</onright>
+                <showonepage>false</showonepage>
+                <orientation>vertical</orientation>
+            </control>
+        </control>
+    </controls>
+</window>
