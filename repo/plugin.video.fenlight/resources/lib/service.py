@@ -185,7 +185,7 @@ class FenLightMonitor(xbmc.Monitor):
 		SyncSettings().run()
 		Thread(target=CustomFonts().run).start()
 		Thread(target=TraktMonitor().run).start()
-		# Thread(target=UpdateCheck().run).start()
+		Thread(target=UpdateCheck().run).start()
 		Thread(target=WidgetRefresher().run).start()
 		AutoStart().run()
 

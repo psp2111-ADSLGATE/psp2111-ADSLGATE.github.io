@@ -223,7 +223,7 @@ class RealDebridAPI:
 				self.delete_torrent(torrent_id)
 				return None
 			sleep(1000)
-			while elapsed_time <= 7 and not transfer_finished:
+			while elapsed_time <= 4 and not transfer_finished:
 				active_count = self.torrents_activeCount()
 				active_list = active_count['list']
 				elapsed_time += 1
@@ -278,7 +278,7 @@ class RealDebridAPI:
 				return None
 			sleep(1000)
 			elapsed_time, transfer_finished = 0, False
-			while elapsed_time <= 7 and not transfer_finished:
+			while elapsed_time <= 4 and not transfer_finished:
 				active_count = self.torrents_activeCount()
 				active_list = active_count['list']
 				elapsed_time += 1

@@ -5,7 +5,7 @@ import shutil
 import time
 import sqlite3 as database
 from zipfile import ZipFile
-from caches.settings_cache import set_setting
+from caches.settings_cache import get_setting, set_setting
 from modules.utils import string_alphanum_to_num, unzip
 from modules import kodi_utils 
 # logger = kodi_utils.logger
@@ -22,12 +22,7 @@ destination_check = translate_path('special://home/addons/plugin.video.fenlight/
 changelog_location = translate_path('special://home/addons/plugin.video.fenlight/resources/text/changelog.txt')
 downloads_icon = get_icon('downloads')
 addon_dir = 'plugin.video.fenlight'
-repo_location = 'tikipeter.github.io'
 zipfile_name = 'plugin.video.fenlight-%s.zip'
-versions_url = 'https://github.com/Tikipeter/%s/raw/main/packages/fen_light_version'
-changes_url = 'https://github.com/Tikipeter/%s/raw/main/packages/fen_light_changes'
-location_url = 'https://github.com/Tikipeter/%s/raw/main/packages/%s'
-contents_url = 'https://api.github.com/repos/Tikipeter/%s/contents/packages'
 heading_str = 'Fen Light Updater'
 error_str = 'Error'
 notification_occuring_str = 'Fen Light Update Occuring'
@@ -50,9 +45,12 @@ changes_heading_str = 'New Online Release (v.%s) Changelog'
 view_changes_str = 'Do you want to view the changelog for the new release before installing?'
 no_changes_str = 'You are running the current version of Fen Light.[CR][CR]There is no new version changelog to view.'
 
+def get_location(insert=''):
+	return 'https://github.com/%s/%s/raw/main/packages/%s' % (get_setting('fenlight.update.username'), get_setting('update.location'), insert)
+
 def get_versions():
 	try:
-		result = requests.get(versions_url % repo_location)
+		result = requests.get(get_location('fen_light_version'))
 		if result.status_code != 200: return None, None
 		online_version = result.text.replace('\n', '')
 		current_version = addon_version()
@@ -65,7 +63,7 @@ def get_changes(online_version=None):
 			current_version, online_version = get_versions()
 			if not version_check(current_version, online_version): return ok_dialog(heading=heading_str, text=no_changes_str)
 		show_busy_dialog()
-		result = requests.get(changes_url % repo_location)
+		result = requests.get(get_location('fen_light_changes'))
 		hide_busy_dialog()
 		if result.status_code != 200: return notification(error_str, icon=downloads_icon)
 		changes = result.text
@@ -95,7 +93,7 @@ def update_check(action=4):
 
 def rollback_check():
 	current_version = get_versions()[0]
-	url = contents_url % repo_location
+	url = 'https://api.github.com/repos/%s/%s/contents/packages' % ('Tikipeter', 'tikipeter.github.io')#(get_setting('update.username'), get_setting('update.location'))
 	show_busy_dialog()
 	results = requests.get(url)
 	hide_busy_dialog()
@@ -117,7 +115,7 @@ def update_addon(new_version, action):
 	notification_str = notification_rollback_str if action == 5 else notification_updating_str
 	notification(notification_str, icon=downloads_icon)
 	zip_name = zipfile_name % new_version
-	url = location_url % (repo_location, zip_name)
+	url = get_location('%s') % zip_name
 	show_busy_dialog()
 	result = requests.get(url, stream=True)
 	hide_busy_dialog()

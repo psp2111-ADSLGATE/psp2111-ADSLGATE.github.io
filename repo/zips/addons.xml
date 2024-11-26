@@ -249,7 +249,7 @@
             <fanart>fanart.png</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.12.6">
+</addon><addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.12.7">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
@@ -272,7 +272,7 @@
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="2.0.03">
+</addon><addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="2.0.04">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
@@ -295,7 +295,7 @@
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.pov" version="4.11.06" name="POV" provider-name="kodifitzwell">
+</addon><addon id="plugin.video.pov" version="4.11.07" name="POV" provider-name="kodifitzwell">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
@@ -357,7 +357,7 @@
             </item>
         </menu>
     </extension>
-</addon><addon id="plugin.video.seren" version="3.0.0.6~omega" name="Seren" provider-name="Nixgates">
+</addon><addon id="plugin.video.seren" version="3.0.0.7~omega" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
@@ -935,7 +935,7 @@
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="plugin.video.umbrella" name="Umbrella" provider-name="Umbrella" version="6.7.25">
+</addon><addon id="plugin.video.umbrella" name="Umbrella" provider-name="Umbrella" version="6.7.27">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" />
@@ -1116,8 +1116,8 @@
 			<screenshot>resources/screenshots/screenshot003.jpg</screenshot>
 		</assets>
 		<news>
-[B]Update - v6.7.25 - November 23rd, 2024[/B]
---[Change] Added workaround for RD. Thank you Peter.
+[B]Update - v6.7.27 - November 25th, 2024[/B]
+--[Change] AD
 		</news>
 	</extension>
 
