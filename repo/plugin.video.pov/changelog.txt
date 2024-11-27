@@ -10,6 +10,12 @@
 - nyaa in Sources/Torrents sourced from website.
 
   [COLOR dodgerblue][B]Version 4.12.01[/B][/COLOR]
+- Changed Real Debrid integration.
+  The only source that will return Real Debrid results is `realdebridio` and it is disabled
+  by default.  If you only have Real Debrid disable all others OR enable "display uncached"
+  and manually add those to cloud to view from there.  This relies on the `torrentio`
+  Real Debrid fix that tags results that are most likely cached, so there is a little logic to it
+  and the chance of it being cached is high.
 - Added zilean.
 - Changed mediafusion to "Direct Torrent" only.
 

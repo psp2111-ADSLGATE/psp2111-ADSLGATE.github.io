@@ -189,6 +189,7 @@
 			<setting id="mediafusion.packs" label="Include Show Packs" type="bool" default="false" subsetting="true" visible="eq(-1,true)" />
 		<setting id="provider.zilean" label="zilean (dmm)" type="bool" default="false" />
 		<setting id="provider.nyaaio" label="nyaaio (nyaasi/tokyotosho/anidex)" type="bool" default="false" />
+		<setting id="provider.realdebridio" label="realdebridio (pack capable)" type="bool" default="true" />
 		<setting id="provider.torrentio" label="torrentio (pack capable)" type="bool" default="true" />
 		<setting id="provider.animetosho" label="animetosho (pack capable)" type="bool" default="false" />
 		<setting id="provider.bitsearch" label="bitsearch (pack capable)" type="bool" default="false" />

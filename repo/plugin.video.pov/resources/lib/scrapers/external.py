@@ -17,13 +17,6 @@ pack_display, format_line, total_format = '%s (%s)', '%s[CR]%s[CR]%s', '[COLOR %
 int_format, ext_format = '[COLOR %s][B]Int: [/B][/COLOR]%s', '[COLOR %s][B]Ext: [/B][/COLOR]%s'
 ext_scr_format, unfinshed_import_format = '[COLOR %s][B]%s[/B][/COLOR]', '[COLOR red]+%s[/COLOR]'
 diag_format = '4K: %s | 1080p: %s | 720p: %s | SD: %s | %s: %s'
-debrid_hash_tuple = (
-	('Real-Debrid', 'rd_cached_hashes'),
-	('Premiumize.me', 'pm_cached_hashes'),
-	('AllDebrid', 'ad_cached_hashes'),
-	('Offcloud', 'oc_cached_hashes'),
-	('TorBox', 'tb_cached_hashes')
-)
 season_display, show_display = ls(32537), ls(32089)
 pack_check = (season_display, show_display)
 
@@ -206,6 +199,9 @@ class source:
 			uniqueHashes = set()
 			for provider in sources:
 				try:
+					if provider['provider'] == 'realdebridio':
+						yield provider
+						continue
 					url = provider['url'].lower()
 					if url not in uniqueURLs:
 						uniqueURLs.add(url)
@@ -219,29 +215,20 @@ class source:
 		if self.final_sources: self.final_sources = deque(_process(self.final_sources))
 
 	def process_filters(self):
-		def _process(result_list, target):
-			for item in result_list:
-				thread = Thread(target=target, args=(item,))
-				threads_append(thread)
-				thread.start()
 		def _process_torrents(item):
-			self.filter += [{**i, 'debrid':item} for i in torrent_sources if item == i.get('cache_provider')]
-			if self.display_uncached_torrents:
-				self.filter += [dict(i, **{'debrid':item}) for i in torrent_sources if 'Uncached' in i.get('cache_provider') and item in i.get('cache_provider')]
+			self.filter += [{**i, 'debrid': item} for i in torrent_sources if item == i.get('cache_provider')]
+			self.filter += [{**i, 'debrid': item} for i in torrent_sources if 'Uncached' in i.get('cache_provider') and item in i.get('cache_provider')] if self.display_uncached_torrents else []
 		def _process_hosters(item):
 			for k, v in item.items():
 				valid_hosters = [i for i in result_hosters if i in v]
-				self.filter += [dict(i, **{'debrid':k}) for i in hoster_sources if i['source'] in valid_hosters]
-		threads = []
-		threads_append = threads.append
+				self.filter += [{**i, 'debrid': k} for i in hoster_sources if i['source'] in valid_hosters]
 #		self.filter = []
 		self.filter = deque()
 		torrent_sources = self.process_torrents([i for i in self.final_sources if 'hash' in i])
 		hoster_sources = [i for i in self.final_sources if not 'hash' in i]
 		result_hosters = list(set([i['source'].lower() for i in hoster_sources]))
-		if self.debrid_torrents and torrent_sources: _process(self.debrid_torrents, _process_torrents)
-		if self.debrid_hosters and hoster_sources: _process(self.debrid_hosters, _process_hosters)
-		[i.join() for i in threads]
+		if self.debrid_torrents and torrent_sources: [_process_torrents(i) for i in self.debrid_torrents]
+		if self.debrid_hosters and hoster_sources: [_process_hosters(i) for i in self.debrid_hosters]
 		self.final_sources = self.filter
 
 	def process_sources(self, provider, sources):
@@ -260,7 +247,7 @@ class source:
 					try:
 						size = i_get('size')
 #						if 'package' in i and provider != 'torrentio':
-						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'nyaaio', 'comet', 'mediafusion'):
+						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'nyaaio', 'comet', 'mediafusion', 'realdebridio'):
 							if i_get('package') == 'season': divider = self.season_divider
 							else: divider = self.show_divider
 							size = float(size) / divider
@@ -284,16 +271,15 @@ class source:
 
 	def process_torrents(self, torrent_sources):
 		if not torrent_sources or not self.debrid_torrents: return []
-		hash_list = [i['hash'] for i in torrent_sources]
 		torrent_results = []
 		try:
-			hash_list = list(set(hash_list))
+			hash_list = list(set([i['hash'] for i in torrent_sources if i['provider'] != 'realdebridio']))
 			cached_hashes = DebridCheck(hash_list, self.background, self.debrid_torrents, self.meta, self.progress_dialog).run()
-			for item in debrid_hash_tuple:
-				if item[0] in self.debrid_torrents:
-					torrent_results += [{**i, 'cache_provider':item[0]} for i in torrent_sources if i['hash'] in cached_hashes[item[1]]]
-					if self.display_uncached_torrents:
-						torrent_results += [dict(i, **{'cache_provider':'Uncached %s' % item[0]}) for i in torrent_sources if not i['hash'] in cached_hashes[item[1]]]
+			for item in self.debrid_torrents:
+				_hashes = cached_hashes[item]
+				if item == 'Real-Debrid': torrent_results += [{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] == 'realdebridio']
+				else: torrent_results += [{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] != 'realdebridio' and i['hash'] in _hashes]
+				torrent_results += [{**i, 'cache_provider': 'Uncached %s' % item} for i in torrent_sources if not i['hash'] in _hashes] if self.display_uncached_torrents else []
 		except: notification(32574)
 		return torrent_results
 

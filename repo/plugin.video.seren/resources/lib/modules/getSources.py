@@ -1143,23 +1143,14 @@ class TorrentCacheCheck:
         self.threads.wait_completion()
 
     def _all_debrid_worker(self, torrent_list):
-
         try:
-            api = all_debrid.AllDebrid()
-
             if len(torrent_list) == 0:
                 return
-
-            cache_check = api.check_hash([i['hash'] for i in torrent_list])
-
-            if not cache_check:
-                return
-
-            for idx, i in enumerate(torrent_list):
+            
+            for i in torrent_list:
                 try:
-                    if cache_check['magnets'][idx]['instant'] is True:
-                        i['debrid_provider'] = 'all_debrid'
-                        self.store_torrent(i)
+                    i['debrid_provider'] = 'all_debrid'
+                    self.store_torrent(i)
                 except KeyError:
                     g.log(
                         "KeyError in AllDebrid Cache check worker. "
@@ -1171,7 +1162,6 @@ class TorrentCacheCheck:
             g.log_stacktrace()
 
     def _realdebrid_worker(self, torrent_list, info):
-
         try:
             for i in torrent_list:
                 with contextlib.suppress(KeyError):

@@ -15,11 +15,11 @@ get_setting, sleep, monitor, ls = kodi_utils.get_setting, kodi_utils.sleep, kodi
 show_busy_dialog, hide_busy_dialog, notification = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification
 rd_api, pm_api, ad_api, oc_api, tb_api = RealDebridAPI(), PremiumizeAPI(), AllDebridAPI(), OffcloudAPI(), TorBoxAPI()
 debrid_list = [
-	('Real-Debrid', 'rd', rd_api),
+	('Real-Debrid'  , 'rd', rd_api),
 	('Premiumize.me', 'pm', pm_api),
-	('AllDebrid', 'ad', ad_api),
-	('Offcloud', 'oc', oc_api),
-	('TorBox', 'tb', tb_api)
+	('AllDebrid'    , 'ad', ad_api),
+	('Offcloud'     , 'oc', oc_api),
+	('TorBox'       , 'tb', tb_api)
 ]
 format_line, plswait_str, checking_debrid_str, remaining_debrid_str = '%s[CR]%s[CR]%s', ls(32577), ls(32578), ls(32579)
 
@@ -111,13 +111,13 @@ class DebridCheck:
 			threads_append(thread)
 			thread.start()
 		dialog.join(self.timeout)
-		[debrid_cache.set_many(i[0], i[1]) for i in self.hashes_to_cache]
+		[debrid_cache.set_many(i[0], i[1]) for i in self.hashes_to_cache if i[1] != 'rd']
 		return {
-			'rd_cached_hashes': self.rd_cached_hashes,
-			'pm_cached_hashes': self.pm_cached_hashes,
-			'ad_cached_hashes': self.ad_cached_hashes,
-			'oc_cached_hashes': self.oc_cached_hashes,
-			'tb_cached_hashes': self.tb_cached_hashes
+			'Real-Debrid': self.rd_cached_hashes,
+			'Premiumize.me': self.pm_cached_hashes,
+			'AllDebrid': self.ad_cached_hashes,
+			'Offcloud': self.oc_cached_hashes,
+			'TorBox': self.tb_cached_hashes
 		}
 
 	def cached_check(self, debrid):

@@ -190,58 +190,94 @@ class RealDebridAPI:
 			torrent_id, match = None, False
 			extensions = supported_video_extensions()
 			extras_filtering_list = extras_filter()
-			torrent_files = self.check_hash(info_hash)
-			if not info_hash in torrent_files: return None
+#			torrent_files = self.check_hash(info_hash)
+#			if not info_hash in torrent_files: return None
 			torrent = self.add_magnet(magnet_url)
 			torrent_id = torrent['id']
-			torrent_files = torrent_files[info_hash]['rd']
-			vid_only = [item for item in torrent_files if self.video_only(item, extensions)]
-			remainder = [i for i in torrent_files if not i in vid_only]
-			torrent_files = vid_only + remainder
-			if season: torrent_files = [item for item in torrent_files if self.name_check(item, season, episode, seas_ep_filter)]
+			torrent_info = self.torrent_info(torrent_id)
+			torrent_files = torrent_info['files']
+			torrent_keys = [str(item['id']) for item in torrent_files if item['path'].lower().endswith(tuple(extensions))]
+			torrent_keys = ','.join(torrent_keys)
+			self.add_torrent_select(torrent_id, torrent_keys)
+			for ended in (1, 2, 3):
+				torrent_info = self.torrent_info(torrent_id)
+				if 'ended' in torrent_info: break
+				kodi_utils.sleep(1000)
 			else:
-				m2ts_check = self._m2ts_check(torrent_files)
-				if m2ts_check: m2ts_key, torrent_files = self._m2ts_key_value(torrent_files)
-				else: torrent_files = self.sort_cache_list([(item, max([i['filesize'] for i in item.values()])) for item in torrent_files])
+				self.delete_torrent(torrent_id)
+				return None
+			selected_files = [(idx, i) for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1])]
+			selected_files = sorted(selected_files, key=lambda x: x[1]['bytes'], reverse=True)
 			compare_title = re.sub(r'[^A-Za-z0-9]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-			for item in torrent_files:
-				try:
-					if not season and not m2ts_check:
-						item_values = self.sort_cache_list([(i['filename'], i['filesize']) for i in item.values()])
-						for value in item_values:
-							filename = re.sub(r'[^A-Za-z0-9-]+', '.', value.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-							filename_info = filename.replace(compare_title, '')
-							if any(x in filename for x in extras_filtering_list): continue
-					torrent_keys = item.keys()
-					if len(torrent_keys) == 0: continue
-					torrent_keys = ','.join(torrent_keys)
-					self.add_torrent_select(torrent_id, torrent_keys)
-					torrent_info = self.user_cloud_info(torrent_id)
-					if not torrent_info['links']: continue
-					if 'error' in torrent_info: continue
-					selected_files = [(idx, i) for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1])]
-					if season:
-						correct_files = []
-						correct_file_check = False
-						for value in selected_files:
-							correct_file_check = seas_ep_filter(season, episode, value[1]['path'])
-							if correct_file_check: correct_files.append(value[1]); break
-						if len(correct_files) == 0: continue
-						for i in correct_files:
-							compare_link = seas_ep_filter(season, episode, i['path'], split=True)
-							compare_link = re.sub(compare_title, '', compare_link)
-							if any(x in compare_link for x in extras_filtering_list): continue
-							else: match = True; break
-						if match: index = [i[0] for i in selected_files if i[1]['path'] == correct_files[0]['path']][0]; break
-					elif m2ts_check: match, index = True, [i[0] for i in selected_files if i[1]['id'] == m2ts_key][0]; break
-					else:
-						match = False
-						for value in selected_files:
-							filename = re.sub(r'[^A-Za-z0-9-]+', '.', value[1]['path'].rsplit('/', 1)[1].replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-							if any(x in filename for x in extras_filtering_list): continue
-							match, index = True, value[0]; break
-						if match: break
-				except Exception as e: kodi_utils.logger('loop exception', str(e))
+			match = False
+			if season:
+				correct_files = []
+				correct_file_check = False
+				for value in selected_files:
+					correct_file_check = seas_ep_filter(season, episode, value[1]['path'])
+					if correct_file_check: correct_files.append(value[1]); break
+				if len(correct_files) == 0: match = False
+				else:
+					for i in correct_files:
+						compare_link = seas_ep_filter(season, episode, i['path'], split=True)
+						compare_link = re.sub(compare_title, '', compare_link)
+						if any(x in compare_link for x in extras_filtering_list): continue
+						else: match = True; break
+				if match: index = [i[0] for i in selected_files if i[1]['path'] == correct_files[0]['path']][0]
+			else:
+				for value in selected_files:
+					filename = re.sub(r'[^A-Za-z0-9-]+', '.', value[1]['path'].rsplit('/', 1)[1].replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
+					filename = filename.replace(compare_title, '')
+					if any(x in filename for x in extras_filtering_list): continue
+					match, index = True, value[0]; break
+#			torrent_files = torrent_files[info_hash]['rd']
+#			vid_only = [item for item in torrent_files if self.video_only(item, extensions)]
+#			remainder = [i for i in torrent_files if not i in vid_only]
+#			torrent_files = vid_only + remainder
+#			if season: torrent_files = [item for item in torrent_files if self.name_check(item, season, episode, seas_ep_filter)]
+#			else:
+#				m2ts_check = self._m2ts_check(torrent_files)
+#				if m2ts_check: m2ts_key, torrent_files = self._m2ts_key_value(torrent_files)
+#				else: torrent_files = self.sort_cache_list([(item, max([i['filesize'] for i in item.values()])) for item in torrent_files])
+#			compare_title = re.sub(r'[^A-Za-z0-9]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
+#			for item in torrent_files:
+#				try:
+#					if not season and not m2ts_check:
+#						item_values = self.sort_cache_list([(i['filename'], i['filesize']) for i in item.values()])
+#						for value in item_values:
+#							filename = re.sub(r'[^A-Za-z0-9-]+', '.', value.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
+#							filename_info = filename.replace(compare_title, '')
+#							if any(x in filename for x in extras_filtering_list): continue
+#					torrent_keys = item.keys()
+#					if len(torrent_keys) == 0: continue
+#					torrent_keys = ','.join(torrent_keys)
+#					self.add_torrent_select(torrent_id, torrent_keys)
+#					torrent_info = self.user_cloud_info(torrent_id)
+#					if not torrent_info['links']: continue
+#					if 'error' in torrent_info: continue
+#					selected_files = [(idx, i) for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1])]
+#					if season:
+#						correct_files = []
+#						correct_file_check = False
+#						for value in selected_files:
+#							correct_file_check = seas_ep_filter(season, episode, value[1]['path'])
+#							if correct_file_check: correct_files.append(value[1]); break
+#						if len(correct_files) == 0: continue
+#						for i in correct_files:
+#							compare_link = seas_ep_filter(season, episode, i['path'], split=True)
+#							compare_link = re.sub(compare_title, '', compare_link)
+#							if any(x in compare_link for x in extras_filtering_list): continue
+#							else: match = True; break
+#						if match: index = [i[0] for i in selected_files if i[1]['path'] == correct_files[0]['path']][0]; break
+#					elif m2ts_check: match, index = True, [i[0] for i in selected_files if i[1]['id'] == m2ts_key][0]; break
+#					else:
+#						match = False
+#						for value in selected_files:
+#							filename = re.sub(r'[^A-Za-z0-9-]+', '.', value[1]['path'].rsplit('/', 1)[1].replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
+#							if any(x in filename for x in extras_filtering_list): continue
+#							match, index = True, value[0]; break
+#						if match: break
+#				except Exception as e: kodi_utils.logger('loop exception', str(e))
 			if match:
 				rd_link = torrent_info['links'][index]
 				file_url = self.unrestrict_link(rd_link)
@@ -262,20 +298,32 @@ class RealDebridAPI:
 			list_file_items = []
 			append = video_only_items.append
 			extensions = supported_video_extensions()
-			torrent_files = self.check_hash(info_hash)
-			if not info_hash in torrent_files: return None
+#			torrent_files = self.check_hash(info_hash)
+#			if not info_hash in torrent_files: return None
 			torrent = self.add_magnet(magnet_url)
 			torrent_id = torrent['id']
-			torrent_files = torrent_files[info_hash]['rd']
-			torrent_files = [item for item in torrent_files if self.video_only(item, extensions)]
-			for item in torrent_files:
-				torrent_keys = item.keys()
-				if len(torrent_keys) == 0: continue
-				append(torrent_keys)
-			video_only_items = max(video_only_items, key=len)
-			torrent_keys = ','.join(video_only_items)
+			torrent_info = self.torrent_info(torrent_id)
+			torrent_files = torrent_info['files']
+			torrent_keys = [str(item['id']) for item in torrent_files if item['path'].lower().endswith(tuple(extensions))]
+			torrent_keys = ','.join(torrent_keys)
 			self.add_torrent_select(torrent_id, torrent_keys)
-			torrent_info = self.user_cloud_info(torrent_id)
+			for ended in (1, 2, 3):
+				torrent_info = self.torrent_info(torrent_id)
+				if 'ended' in torrent_info: break
+				kodi_utils.sleep(1000)
+			else:
+				self.delete_torrent(torrent_id)
+				return None
+#			torrent_files = torrent_files[info_hash]['rd']
+#			torrent_files = [item for item in torrent_files if self.video_only(item, extensions)]
+#			for item in torrent_files:
+#				torrent_keys = item.keys()
+#				if len(torrent_keys) == 0: continue
+#				append(torrent_keys)
+#			video_only_items = max(video_only_items, key=len)
+#			torrent_keys = ','.join(video_only_items)
+#			self.add_torrent_select(torrent_id, torrent_keys)
+#			torrent_info = self.user_cloud_info(torrent_id)
 			list_file_items = [dict(i, **{'link':torrent_info['links'][idx]})  for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1])]
 			list_file_items = [{'link': i['link'], 'filename': i['path'].replace('/', ''), 'size': i['bytes']} for i in list_file_items]
 			self.delete_torrent(torrent_id)

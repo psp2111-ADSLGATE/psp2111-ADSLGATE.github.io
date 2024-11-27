@@ -295,7 +295,7 @@
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.pov" version="4.11.07" name="POV" provider-name="kodifitzwell">
+</addon><addon id="plugin.video.pov" version="4.11.08" name="POV" provider-name="kodifitzwell">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
@@ -357,7 +357,7 @@
             </item>
         </menu>
     </extension>
-</addon><addon id="plugin.video.seren" version="3.0.0.7~omega" name="Seren" provider-name="Nixgates">
+</addon><addon id="plugin.video.seren" version="3.0.0.8~omega" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
