@@ -12,6 +12,7 @@ info_icons_dict = {
 					'premiumize': translate_path(media_folder % 'providers/premiumize.png'),
 					'offcloud': translate_path(media_folder % 'providers/offcloud.png'),
 					'torbox': translate_path(media_folder % 'providers/torbox.png'),
+					'easydebrid': translate_path(media_folder % 'providers/easydebrid.png'),
 					'ad_cloud': translate_path(media_folder % 'providers/alldebrid.png'),
 					'rd_cloud': translate_path(media_folder % 'providers/realdebrid.png'),
 					'pm_cloud': translate_path(media_folder % 'providers/premiumize.png'),
@@ -121,7 +122,7 @@ class SourceResults(BaseDialog):
 					if not extra_info: extra_info = 'N/A'
 					extra_info = extra_info.rstrip('| ')
 					if scrape_provider == 'external':
-						source_site = upper(get('provider'))
+						source_site = upper(get('cache') if 'cache' in item else get('provider'))
 						provider = upper(get('debrid', source_site).replace('.me', ''))
 						provider_lower = lower(provider)
 						provider_icon = self.get_provider_and_path(provider_lower)[1]

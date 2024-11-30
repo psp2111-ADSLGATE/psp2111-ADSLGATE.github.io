@@ -1,6 +1,7 @@
 import re
 import requests
 from sys import exit as sysexit
+from threading import Thread
 from caches.main_cache import cache_object
 from modules import kodi_utils
 # logger = kodi_utils.logger
@@ -109,7 +110,13 @@ class AllDebridAPI:
 			correct_files = []
 			correct_files_append = correct_files.append
 			transfer_id = self.create_transfer(magnet_url)
-			transfer_info = self.list_transfer(transfer_id)
+			for ended in (1, 2, 3):
+				kodi_utils.sleep(500)
+				transfer_info = self.list_transfer(transfer_id)
+				if transfer_info['completionDate']: break
+			else:
+				Thread(target=self.delete_transfer, args=(transfer_id,)).start()
+				return None
 			valid_results = [i for i in transfer_info['links'] if any(i.get('filename').lower().endswith(x) for x in extensions) and not i.get('link', '') == '']
 			if valid_results:
 				if season:
@@ -123,7 +130,7 @@ class AllDebridAPI:
 						][0]
 						except: media_id = None
 				else: media_id = max(valid_results, key=lambda x: x.get('size')).get('link', None)
-			if not store_to_cloud: self.delete_transfer(transfer_id)
+			if not store_to_cloud: Thread(target=self.delete_transfer, args=(transfer_id,)).start()
 			if media_id:
 				file_url = self.unrestrict_link(media_id)
 				if not any(file_url.lower().endswith(x) for x in extensions): file_url = None
@@ -137,7 +144,13 @@ class AllDebridAPI:
 		try:
 			extensions = supported_video_extensions()
 			transfer_id = self.create_transfer(magnet_url)
-			transfer_info = self.list_transfer(transfer_id)
+			for ended in (1, 2, 3):
+				kodi_utils.sleep(500)
+				transfer_info = self.list_transfer(transfer_id)
+				if transfer_info['completionDate']: break
+			else:
+				self.delete_transfer(transfer_id)
+				return None
 			end_results = []
 			append = end_results.append
 			for item in transfer_info.get('links'):

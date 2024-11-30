@@ -6,6 +6,7 @@ from apis.premiumize_api import PremiumizeAPI
 from apis.alldebrid_api import AllDebridAPI
 from apis.offcloud_api import OffcloudAPI
 from apis.torbox_api import TorBoxAPI
+from apis.easydebrid_api import EasyDebridAPI
 from modules.utils import make_thread_list, chunks
 from modules.settings import display_sleep_time, enabled_debrids_check
 from modules import kodi_utils
@@ -13,13 +14,15 @@ from modules import kodi_utils
 
 get_setting, sleep, monitor, ls = kodi_utils.get_setting, kodi_utils.sleep, kodi_utils.monitor, kodi_utils.local_string
 show_busy_dialog, hide_busy_dialog, notification = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification
-rd_api, pm_api, ad_api, oc_api, tb_api = RealDebridAPI(), PremiumizeAPI(), AllDebridAPI(), OffcloudAPI(), TorBoxAPI()
+rd_api, pm_api, ad_api = RealDebridAPI(), PremiumizeAPI(), AllDebridAPI()
+oc_api, tb_api, ed_api = OffcloudAPI(), TorBoxAPI(), EasyDebridAPI()
 debrid_list = [
 	('Real-Debrid'  , 'rd', rd_api),
 	('Premiumize.me', 'pm', pm_api),
 	('AllDebrid'    , 'ad', ad_api),
 	('Offcloud'     , 'oc', oc_api),
-	('TorBox'       , 'tb', tb_api)
+	('TorBox'       , 'tb', tb_api),
+	('EasyDebrid'   , 'ed', ed_api)
 ]
 format_line, plswait_str, checking_debrid_str, remaining_debrid_str = '%s[CR]%s[CR]%s', ls(32577), ls(32578), ls(32579)
 
@@ -45,8 +48,8 @@ def manual_add_magnet_to_cloud(params):
 	result = function.create_transfer(params['magnet_url'])
 	function.clear_cache()
 	hide_busy_dialog()
-	if result == 'failed': notification(32575)
-	else: notification(32576)
+	if result: notification(32576)
+	else: notification(32575)
 
 class DebridCheck:
 	def __init__(self, hash_list, background, debrid_enabled, meta, progress_dialog):
@@ -59,7 +62,7 @@ class DebridCheck:
 		self.timeout = int(get_setting('scrapers.timeout.1', '10'))
 		self.processing_hashes = False
 		self.ad_cached_hashes, self.pm_cached_hashes, self.rd_cached_hashes = [], [], []
-		self.oc_cached_hashes, self.tb_cached_hashes = [], []
+		self.oc_cached_hashes, self.tb_cached_hashes, self.ed_cached_hashes = [], [], []
 		self.hashes_to_cache = []
 		self.hashes_to_cache_append = self.hashes_to_cache.append
 
@@ -104,7 +107,8 @@ class DebridCheck:
 			'Premiumize.me': self.PM_check,
 			'AllDebrid': self.AD_check,
 			'Offcloud': self.OC_check,
-			'TorBox': self.TB_check
+			'TorBox': self.TB_check,
+			'EasyDebrid': self.ED_check
 		}
 		for item in self.debrid_enabled:
 			thread = Thread(target=debrid_runners[item], name=item)
@@ -117,7 +121,8 @@ class DebridCheck:
 			'Premiumize.me': self.pm_cached_hashes,
 			'AllDebrid': self.ad_cached_hashes,
 			'Offcloud': self.oc_cached_hashes,
-			'TorBox': self.tb_cached_hashes
+			'TorBox': self.tb_cached_hashes,
+			'EasyDebrid': self.ed_cached_hashes
 		}
 
 	def cached_check(self, debrid):
@@ -129,7 +134,7 @@ class DebridCheck:
 	def RD_check(self):
 		self.rd_cached_hashes, unchecked_hashes = self.cached_check('rd')
 		if not unchecked_hashes: return
-		rd_cache = rd_api.check_cache(unchecked_hashes)
+		rd_cache = None # rd_api.check_cache(unchecked_hashes)
 		if not rd_cache: return
 		cached_append = self.rd_cached_hashes.append
 		process_list = []
@@ -170,7 +175,7 @@ class DebridCheck:
 	def AD_check(self):
 		self.ad_cached_hashes, unchecked_hashes = self.cached_check('ad')
 		if not unchecked_hashes: return
-		ad_cache = ad_api.check_cache(unchecked_hashes)
+		ad_cache = None # ad_api.check_cache(unchecked_hashes)
 		if not ad_cache: return
 		cached_append = self.ad_cached_hashes.append
 		process_list = []
@@ -226,4 +231,24 @@ class DebridCheck:
 		except:
 			for i in unchecked_hashes: process_append((i, 'False'))
 		self.hashes_to_cache_append((process_list, 'tb'))
+
+	def ED_check(self):
+		self.ed_cached_hashes, unchecked_hashes = self.cached_check('ed')
+		if not unchecked_hashes: return
+		ed_cache = ed_api.check_cache(unchecked_hashes)
+		if not ed_cache: return
+		cached_append = self.ed_cached_hashes.append
+		process_list = []
+		process_append = process_list.append
+		try:
+			ed_cache = ed_cache['cached']
+			for h, is_cached in zip(unchecked_hashes, ed_cache):
+				cached = 'False'
+				if is_cached:
+					cached_append(h)
+					cached = 'True'
+				process_append((h, cached))
+		except:
+			for i in unchecked_hashes: process_append((i, 'False'))
+		self.hashes_to_cache_append((process_list, 'ed'))
 

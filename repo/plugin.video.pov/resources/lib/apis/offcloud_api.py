@@ -1,6 +1,5 @@
 import re
 import requests
-from sys import exit as sysexit
 from threading import Thread
 from caches.main_cache import cache_object
 from modules import kodi_utils
@@ -39,18 +38,12 @@ class OffcloudAPI:
 		elif not params: params = {'key': self.api_key}
 		else: params['key'] = self.api_key
 		full_path = '%s%s' % (base_url, path)
-		r = session.request(method, full_path, params=params, json=data, timeout=timeout)
-		try: r.raise_for_status()
-		except Exception as e: kodi_utils.logger('offcloud error', str(e))
-		try: r = r.json()
-		except: r = {}
-		if 'not_available' in r:
-			reason = NOT_AVAILABLE.get(r.get('not_available'))
-			kodi_utils.notification(reason)
-		elif 'error' in r:
-			reason = '\n%s\n%s' % (r.get('error'), full_path)
-			kodi_utils.logger('offcloud error', reason)
-		return r
+		response = session.request(method, full_path, params=params, json=data, timeout=timeout)
+		try: response.raise_for_status()
+		except Exception as e: kodi_utils.logger('offcloud error', f"{e}\n{response.text}")
+		try: result = response.json()
+		except: result = {}
+		return result
 
 	def _GET(self, url):
 		return self._request('get', url)
@@ -87,6 +80,28 @@ class OffcloudAPI:
 		url = self.explore % request_id
 		return cache_object(self._GET, string, url, False, 0.5)
 
+	def user_cloud_clear(self):
+		if not kodi_utils.confirm_dialog(): return
+		files = self.user_cloud()
+		if not files: return
+		threads = []
+		append = threads.append
+		len_files = len(files)
+		progressBG = kodi_utils.progressDialogBG
+		progressBG.create('Offcloud', 'Clearing cloud files')
+		for count, req in enumerate(files, 1):
+			try:
+				i = Thread(target=self.delete_torrent, args=(req['requestId'],))
+				append(i)
+				i.start()
+				progressBG.update(int(count / len_files * 100), 'Deleting %s...' % req['fileName'])
+				kodi_utils.sleep(200)
+			except: pass
+		[i.join() for i in threads]
+		try: progressBG.close()
+		except: pass
+		self.clear_cache()
+
 	def torrent_info(self, request_id=''):
 		url = self.explore % request_id
 		return self._GET(url)
@@ -113,8 +128,8 @@ class OffcloudAPI:
 
 	def create_transfer(self, magnet_url):
 		result = self.add_magnet(magnet_url)
-		if result.get('status') not in ('created', 'downloaded'): return 'failed'
-		return result
+		if not result['status'] in ('created', 'downloaded'): return ''
+		return result.get('requestId', '')
 
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		from modules.source_utils import supported_video_extensions, seas_ep_filter, extras_filter
@@ -130,17 +145,20 @@ class OffcloudAPI:
 			torrent_id = torrent['requestId']
 			torrent_files = self.torrent_info(torrent_id)
 			if not isinstance(torrent_files, list): torrent_files = [single_file_torrent]
-			valid_results = [item for item in torrent_files if item.lower().endswith(tuple(extensions))]
-			if not valid_results: return None
+			torrent_files = [
+				{'url': item, 'filename': item.split('/')[-1], 'size': 0}
+				for item in torrent_files if item.lower().endswith(tuple(extensions))
+			]
+			if not torrent_files: return None
 			if season:
-				correct_files = [i for i in valid_results if seas_ep_filter(season, episode, i.split('/')[-1])]
-				if len(correct_files) == 1: file_url = correct_files[0]
-				else: file_url = [i for i in correct_files if not any(x in i for x in extras_filtering_list)][0]
+				torrent_files = [i for i in torrent_files if seas_ep_filter(season, episode, i['filename'])]
+				if not torrent_files: return None
 			else:
-				if self._m2ts_check(valid_results): self.delete_torrent(torrent_id) ; return None
-				if len(valid_results) == 1: file_url = valid_results[0]
-				else: file_url = [i for i in valid_results if not any(x in i for x in extras_filtering_list)][0]
-			return self.requote_uri(file_url) # requote, oc why give us a list of urls that may have spaces in name
+				if self._m2ts_check(torrent_files): self.delete_torrent(torrent_id) ; return None
+				torrent_files = [i for i in torrent_files if not any(x in i['filename'] for x in extras_filtering_list)]
+			file_key = torrent_files[0]['url']
+			file_url = self.requote_uri(file_key) # requote, oc why give us a list of urls that may have spaces in name
+			return file_url
 		except Exception as e:
 			kodi_utils.logger('main exception', str(e))
 			if torrent_id: self.delete_torrent(torrent_id)
@@ -154,13 +172,12 @@ class OffcloudAPI:
 			if not torrent['status'] == 'downloaded': return None
 			torrent_id = torrent['requestId']
 			torrent_files = self.torrent_info(torrent_id)
-			end_results = []
-			append = end_results.append
-			for item in torrent_files:
-				if item.lower().endswith(tuple(extensions)):
-					append({'link': self.requote_uri(item), 'filename': item.split('/')[-1], 'size': 0})
+			torrent_files = [
+				{'link': self.requote_uri(item), 'filename': item.split('/')[-1], 'size': 0}
+				for item in torrent_files if item.lower().endswith(tuple(extensions))
+			]
 			#self.delete_torrent(torrent_id) # cannot delete the torrent, play link will not persist, will return 502
-			return end_results
+			return torrent_files or None
 		except Exception:
 			if torrent_id: self.delete_torrent(torrent_id)
 			return None
@@ -169,37 +186,14 @@ class OffcloudAPI:
 		kodi_utils.show_busy_dialog()
 		result = self.create_transfer(magnet_url)
 		kodi_utils.hide_busy_dialog()
-		if result == 'failed': kodi_utils.ok_dialog(heading=32733, text=32574)
-		else: kodi_utils.ok_dialog(heading=32733, text=ls(32732) % 'Offcloud', top_space=True)
-		if result == 'downloaded': return True
-		return False
+		if result: kodi_utils.ok_dialog(heading=32733, text=ls(32732) % 'Offcloud', top_space=True)
+		else: return kodi_utils.ok_dialog(heading=32733, text=32574)
+		return True
 
 	def _m2ts_check(self, folder_items):
 		for item in folder_items:
-			if item.endswith('.m2ts'): return True
+			if item['filename'].endswith('.m2ts'): return True
 		return False
-
-	def user_cloud_clear(self):
-		if not kodi_utils.confirm_dialog(): return
-		files = self.user_cloud()
-		if not files: return
-		threads = []
-		append = threads.append
-		len_files = len(files)
-		progressBG = kodi_utils.progressDialogBG
-		progressBG.create('Offcloud', 'Clearing cloud files')
-		for count, req in enumerate(files, 1):
-			try:
-				i = Thread(target=self.delete_torrent, args=(req['requestId'],))
-				append(i)
-				i.start()
-				progressBG.update(int(count / len_files * 100), 'Deleting %s...' % req['fileName'])
-				kodi_utils.sleep(200)
-			except: pass
-		[i.join() for i in threads]
-		try: progressBG.close()
-		except: pass
-		self.clear_cache()
 
 	def auth(self):
 		username = kodi_utils.dialog.input('Offcloud Email:')

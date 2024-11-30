@@ -209,8 +209,9 @@ def provider_sort_ranks():
 	ad_priority = int(get_setting('ad.priority', '9'))
 	oc_priority = int(get_setting('oc.priority', '9'))
 	tb_priority = int(get_setting('tb.priority', '9'))
+	ed_priority = int(get_setting('ed.priority', '9'))
 	rd_priority = int(get_setting('rd.priority', '10'))
-	return {'real-debrid': rd_priority, 'premiumize.me': pm_priority, 'alldebrid': ad_priority, 'offcloud': oc_priority, 'torbox': tb_priority,
+	return {'real-debrid': rd_priority, 'premiumize.me': pm_priority, 'alldebrid': ad_priority, 'offcloud': oc_priority, 'torbox': tb_priority, 'easydebrid': ed_priority,
 			'easynews': en_priority, 'rd_cloud': rd_priority, 'pm_cloud': pm_priority, 'ad_cloud': ad_priority, 'oc_cloud': oc_priority, 'tb_cloud': tb_priority, 'folders': 0}
 
 def sort_to_top(provider):
@@ -266,7 +267,7 @@ def scraping_settings():
 	highlight_type = int(get_setting('highlight.type', '0'))
 	hoster_highlight, torrent_highlight = '', ''
 	easynews_highlight, debrid_cloud_highlight, folders_highlight = '', '', ''
-	rd_highlight, pm_highlight, ad_highlight, oc_highlight, tb_highlight = '', '', '', '', ''
+	rd_highlight, pm_highlight, ad_highlight, oc_highlight, tb_highlight, ed_highlight = '', '', '', '', '', ''
 	highlight_4K, highlight_1080P, highlight_720P, highlight_SD = '', '', '', ''
 	if highlight_type in (0, 1):
 		easynews_highlight = provider_color('easynews', 'limegreen')
@@ -281,13 +282,14 @@ def scraping_settings():
 			ad_highlight = provider_color('ad', 'goldenrod')
 			oc_highlight = provider_color('oc', 'dodgerblue')
 			tb_highlight = provider_color('tb', 'lightgreen')
+			ed_highlight = provider_color('ed', 'steelblue')
 	else:
 		highlight_4K = get_setting('scraper_4k_highlight', 'fuchsia')
 		highlight_1080P = get_setting('scraper_1080p_highlight', 'lawngreen')
 		highlight_720P = get_setting('scraper_720p_highlight', 'gold')
 		highlight_SD = get_setting('scraper_SD_highlight', 'lightsaltegray')
 	return {'highlight_type': highlight_type, 'hoster_highlight': hoster_highlight, 'torrent_highlight': torrent_highlight, 'folders': folders_highlight,
-			'real-debrid': rd_highlight, 'premiumize': pm_highlight, 'alldebrid': ad_highlight, 'offcloud': oc_highlight, 'torbox': tb_highlight,
+			'real-debrid': rd_highlight, 'premiumize': pm_highlight, 'alldebrid': ad_highlight, 'offcloud': oc_highlight, 'torbox': tb_highlight, 'easydebrid': ed_highlight,
 			'rd_cloud': debrid_cloud_highlight, 'pm_cloud': debrid_cloud_highlight, 'ad_cloud': debrid_cloud_highlight, 'oc_cloud': oc_highlight, 'easynews': easynews_highlight,
 			'4k': highlight_4K, '1080p': highlight_1080P, '720p': highlight_720P, 'sd': highlight_SD, 'cam': highlight_SD, 'tele': highlight_SD, 'scr': highlight_SD}
 

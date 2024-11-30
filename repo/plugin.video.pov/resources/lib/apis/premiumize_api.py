@@ -1,6 +1,7 @@
 import re
 import requests
 from sys import exit as sysexit
+from threading import Thread
 from caches.main_cache import cache_object
 from modules import kodi_utils
 # logger = kodi_utils.logger
@@ -111,15 +112,17 @@ class PremiumizeAPI:
 				file_url = max(valid_results, key=lambda x: int(x.get('size'))).get('link', None)
 				if not any(file_url.lower().endswith(x) for x in extensions): file_url = None
 			if file_url:
-				if store_to_cloud: self.create_transfer(magnet_url)
+				if store_to_cloud: Thread(target=self.create_transfer, args=(magnet_url,)).start()
 				return self.add_headers_to_url(file_url)
 		except: return None
 
 	def download_link_magnet_zip(self, magnet_url, info_hash):
 		try:
-			result = self.create_transfer(magnet_url)
-			if not 'status' in result or result['status'] != 'success': return None
-			transfer_id = result['id']
+#			result = self.create_transfer(magnet_url)
+#			if not 'status' in result or result['status'] != 'success': return None
+#			transfer_id = result['id']
+			transfer_id = self.create_transfer(magnet_url)
+			if not transfer_id: return None
 			transfers = self.transfers_list()['transfers']
 			folder_id = [i['folder_id'] for i in transfers if i['id'] == transfer_id][0]
 			result = self.zip_folder(folder_id)
@@ -169,10 +172,12 @@ class PremiumizeAPI:
 			return False
 		show_busy_dialog()
 		extensions = supported_video_extensions()
+#		transfer_id = self.create_transfer(magnet_url)
+#		if not transfer_id['status'] == 'success':
+#			return _return_failed(transfer_id.get('message'))
+#		transfer_id = transfer_id['id']
 		transfer_id = self.create_transfer(magnet_url)
-		if not transfer_id['status'] == 'success':
-			return _return_failed(transfer_id.get('message'))
-		transfer_id = transfer_id['id']
+		if not transfer_id: return _return_failed()
 		transfer_info = _transfer_info(transfer_id)
 		if not transfer_info: return _return_failed()
 		if pack:
@@ -240,7 +245,8 @@ class PremiumizeAPI:
 	def create_transfer(self, magnet):
 		data = {'src': magnet, 'folder_id': 0}
 		url = 'transfer/create'
-		return self._post(url, data)
+		response = self._post(url, data)
+		return response.get('id', '')
 
 	def delete_transfer(self, transfer_id):
 		data = {'id': transfer_id}

@@ -285,6 +285,15 @@ def routing(params):
 		elif mode == 'torbox.tb_revoke':
 			from apis.torbox_api import TorBoxAPI
 			TorBoxAPI().revoke_auth()
+	elif 'easydebrid' in mode:
+		if mode == 'easydebrid.ed_account_info':
+			pass
+		elif mode == 'easydebrid.ed_auth':
+			from apis.easydebrid_api import EasyDebridAPI
+			EasyDebridAPI().auth()
+		elif mode == 'easydebrid.ed_revoke':
+			from apis.easydebrid_api import EasyDebridAPI
+			EasyDebridAPI().revoke_auth()
 	elif '_settings' in mode:
 		if mode == 'open_settings':
 			from modules.kodi_utils import open_settings

@@ -21,8 +21,12 @@ class source:
 	hasEpisodes = True
 	_queue = queue.SimpleQueue()
 	def __init__(self):
-		debrid = 'realdebrid'
-		self.token = getSetting('rd.token', '')
+		services = {
+			'0': ('realdebrid', 'rd.token', 'RD+'), '1': ('alldebrid', 'ad.token', 'AD+')
+		}
+		debrid = getSetting('debridio.debrid', '0')
+		debrid, token, self.cache = services[debrid]
+		self.token  = getSetting(token, '')
 		params = f"/{debrid}={self.token}"
 		self.language = ['en']
 		self.base_link = "https://torrentio.strem.fun"
@@ -63,12 +67,12 @@ class source:
 			undesirables = source_utils.get_undesirables()
 			check_foreign_audio = source_utils.check_foreign_audio()
 		except:
-			source_utils.scraper_error('REALDEBRIDIO')
+			source_utils.scraper_error('DEBRIDIO')
 			return sources
 
 		for file in files:
 			try:
-				if not 'RD+' in file['name']: continue
+				if not self.cache in file['name']: continue
 				if 'url' in file: hash = requests.utils.urlparse(file['url']).path.split('/')[3]
 				else: hash = file['infoHash']
 				file_title = file['title'].split('\n')
@@ -106,10 +110,10 @@ class source:
 				except: dsize = 0
 				info = ' | '.join(info)
 
-				append({'provider': 'realdebridio', 'source': 'torrent', 'seeders': seeders, 'hash': hash, 'name': name, 'name_info': name_info, 'quality': quality,
-							'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True, 'size': dsize})
+				append({'provider': 'debridio', 'source': 'torrent', 'seeders': seeders, 'hash': hash, 'name': name, 'name_info': name_info, 'quality': quality,
+							'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True, 'size': dsize, 'cache': self.cache})
 			except:
-				source_utils.scraper_error('REALDEBRIDIO')
+				source_utils.scraper_error('DEBRIDIO')
 		return sources
 
 	def sources_packs(self, data, hostDict, search_series=False, total_seasons=None, bypass_filter=False):
@@ -131,12 +135,12 @@ class source:
 			undesirables = source_utils.get_undesirables()
 			check_foreign_audio = source_utils.check_foreign_audio()
 		except:
-			source_utils.scraper_error('REALDEBRIDIO')
+			source_utils.scraper_error('DEBRIDIO')
 			return sources
 
 		for file in files:
 			try:
-				if not 'RD+' in file['name']: continue
+				if not self.cache in file['name']: continue
 				if 'url' in file: hash = requests.utils.urlparse(file['url']).path.split('/')[3]
 				else: hash = file['infoHash']
 				file_title = file['title'].split('\n')
@@ -182,12 +186,12 @@ class source:
 				except: dsize = 0
 				info = ' | '.join(info)
 
-				item = {'provider': 'realdebridio', 'source': 'torrent', 'seeders': seeders, 'hash': hash, 'name': name, 'name_info': name_info, 'quality': quality,
-							'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True, 'size': dsize, 'package': package}
+				item = {'provider': 'debridio', 'source': 'torrent', 'seeders': seeders, 'hash': hash, 'name': name, 'name_info': name_info, 'quality': quality,
+							'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True, 'size': dsize, 'package': package, 'cache': self.cache}
 				if search_series: item.update({'last_season': last_season})
 				elif episode_start: item.update({'episode_start': episode_start, 'episode_end': episode_end}) # for partial season packs
 				sources_append(item)
 			except:
-				source_utils.scraper_error('REALDEBRIDIO')
+				source_utils.scraper_error('DEBRIDIO')
 		return sources
 

@@ -168,7 +168,7 @@
 		<setting id="ext_dialog_highlight" label="32168" type="action" default="cyan" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_dialog_color_choice&amp;setting=external)" />
 	</category>
 	<!-- Sources -->
-	<category label="Sources">
+	<category label="32830">
 		<setting label="External Scrapers (RIP Venom)" type="lsep" />
 		<setting id="provider.external" label="Enable" type="bool" default="true" />
 		<setting id="filter.foreign.single.audio" label="Remove identified Foreign single audio sources" type="bool" default="true" />
@@ -182,14 +182,13 @@
 			<setting id="comet.url" label="Comet url" type="text" default="https://comet.elfhosted.com" subsetting="true" enable="false" visible="eq(-1,true)" />
 			<setting id="comet.indexers" label="Comet indexers" type="text" default="" subsetting="true" enable="false" visible="eq(-2,true)" />
 			<setting id="comet.langs" label="Comet languages" type="text" default="All" subsetting="true" enable="false" visible="eq(-3,true)" />
-			<setting id="comet.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" lvalues="32054|32061|32063|32075" visible="eq(-4,true)" />
+			<setting id="comet.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" lvalues="32054|32061|32063|32078|32079" visible="eq(-4,true)" />
 			<setting label="Configure" type="action" subsetting="true" visible="eq(-5,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=comet_configure)" />
 		<setting id="provider.knightcrawler" label="knightcrawler (torrentio/dmm)" type="bool" default="false" />
 		<setting id="provider.mediafusion" label="mediafusion" type="bool" default="false" />
 			<setting id="mediafusion.packs" label="Include Show Packs" type="bool" default="false" subsetting="true" visible="eq(-1,true)" />
 		<setting id="provider.zilean" label="zilean (dmm)" type="bool" default="false" />
 		<setting id="provider.nyaaio" label="nyaaio (nyaasi/tokyotosho/anidex)" type="bool" default="false" />
-		<setting id="provider.realdebridio" label="realdebridio (pack capable)" type="bool" default="true" />
 		<setting id="provider.torrentio" label="torrentio (pack capable)" type="bool" default="true" />
 		<setting id="provider.animetosho" label="animetosho (pack capable)" type="bool" default="false" />
 		<setting id="provider.bitsearch" label="bitsearch (pack capable)" type="bool" default="false" />
@@ -209,21 +208,6 @@
 	</category>
 	<!-- Provider Accounts -->
 	<category label="32455">
-		<!-- Real Debrid -->
-		<setting label="32054" type="lsep" />
-		<setting id="rd.token" label="rd token" type="text" default="" visible="false" />
-		<setting id="rd.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
-		<setting id="rd.username" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
-		<setting id="rd.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
-		<setting id="rd.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
-		<setting id="store_torrent.real-debrid" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
-		<setting id="provider.rd_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32098]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
-			<setting id="rd_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
-			<setting id="check.rd_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
-			<setting id="results.sort_rdcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
-		<setting id="rd.priority" label="32011" type="slider" default="10" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
-		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_revoke)" />
 		<!-- Premiumize -->
 		<setting label="32061" type="lsep" />
 		<setting id="pm.token" label="pm token" type="text" default="" visible="false" />
@@ -239,21 +223,15 @@
 		<setting id="pm.priority" label="32011" type="slider" default="8" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
 		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_auth)" />
 		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_revoke)" />
-		<!-- All Debrid -->
-		<setting label="32063" type="lsep" />
-		<setting id="ad.token" label="ad token" type="text" default="" visible="false" />
-		<setting id="ad.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
-		<setting id="ad.account_id" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
-		<setting id="ad.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
-		<setting id="ad.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
-		<setting id="store_torrent.alldebrid" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
-		<setting id="provider.ad_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32099]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
-			<setting id="ad_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
-			<setting id="check.ad_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
-			<setting id="results.sort_adcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
-		<setting id="ad.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
-		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_revoke)" />
+		<!-- EasyDebrid -->
+		<setting label="EasyDebrid" type="lsep" />
+		<setting id="ed.token" label="key" type="text" default="" visible="false" />
+		<setting id="ed.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+		<setting id="ed.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+		<setting id="ed.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+		<setting id="ed.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-3,true)+!eq(-4,)" />
+		<setting label="Authorize" type="action" visible="eq(-5,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_auth)" />
+		<setting label="Revoke" type="action" visible="!eq(-6,)" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_revoke)" />
 		<!-- Offcloud -->
 		<setting label="Offcloud" type="lsep" />
 		<setting id="oc.token" label="key" type="text" default="" visible="false" />
@@ -292,6 +270,41 @@
 		<setting id="check.easynews" label="32104" type="bool" default="false" visible="eq(-7,true)+!eq(-5,)" />
 		<setting id="en.priority" label="32011" type="slider" default="7" option="int" range="1,1,10" visible="eq(-8,true)+!eq(-6,)" />
 		<!--setting id="easynews.api_version" label="33007" type="enum" default="0" lvalues="33008|33009" visible="!eq(-2,)" /-->
+	</category>
+	<category label="32455">
+		<setting label="32830" type="lsep" />
+		<setting id="provider.debridio" label="torrentio debrid+ (pack capable)" type="bool" default="true" />
+			<setting id="debridio.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" lvalues="32054|32063" visible="eq(-1,true)" />
+		<!-- Real Debrid -->
+		<setting label="32054" type="lsep" />
+		<setting id="rd.token" label="rd token" type="text" default="" visible="false" />
+		<setting id="rd.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+		<setting id="rd.username" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+		<setting id="rd.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+		<setting id="rd.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
+		<setting id="store_torrent.real-debrid" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
+		<setting id="provider.rd_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32098]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
+			<setting id="rd_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
+			<setting id="check.rd_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
+			<setting id="results.sort_rdcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
+		<setting id="rd.priority" label="32011" type="slider" default="10" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
+		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_auth)" />
+		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_revoke)" />
+		<!-- All Debrid -->
+		<setting label="32063" type="lsep" />
+		<setting id="ad.token" label="ad token" type="text" default="" visible="false" />
+		<setting id="ad.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+		<setting id="ad.account_id" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+		<setting id="ad.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+		<setting id="ad.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
+		<setting id="store_torrent.alldebrid" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
+		<setting id="provider.ad_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32099]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
+			<setting id="ad_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
+			<setting id="check.ad_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
+			<setting id="results.sort_adcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
+		<setting id="ad.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
+		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_auth)" />
+		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_revoke)" />
 	</category>
 	<!-- Trakt -->
 	<category label="32454">

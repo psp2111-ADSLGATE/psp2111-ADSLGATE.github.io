@@ -302,9 +302,7 @@ msgctxt "#32074"
 msgid "Include Trakt Watchlist"
 msgstr ""
 
-msgctxt "#32075"
-msgid "TorBox"
-msgstr ""
+# msgctxt "32075"
 
 msgctxt "#32076"
 msgid "Include Airdate in Title"
@@ -314,9 +312,13 @@ msgctxt "#32077"
 msgid "Single Episode Airdate Format"
 msgstr ""
 
-# msgctxt "32078"
+msgctxt "#32078"
+msgid "TorBox"
+msgstr ""
 
-# msgctxt "32079"
+msgctxt "#32079"
+msgid "EasyDebrid"
+msgstr ""
 
 msgctxt "#32080"
 msgid "Unwatched Color"

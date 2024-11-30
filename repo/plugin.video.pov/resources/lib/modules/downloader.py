@@ -41,7 +41,7 @@ def runner(params):
 		try:
 			debrid_files, debrid_function = Sources().debridPacks(provider, params['name'], params['magnet_url'], params['info_hash'], download=True)
 			pack_choices = [dict(params, **{'pack_files':item}) for item in debrid_files]
-			icon = {'Real-Debrid': 'realdebrid.png', 'Premiumize.me': 'premiumize.png', 'AllDebrid': 'alldebrid.png', 'Offcloud': 'offcloud.png', 'TorBox': 'torbox.png'}[provider]
+			icon = {'Real-Debrid': 'realdebrid.png', 'Premiumize.me': 'premiumize.png', 'AllDebrid': 'alldebrid.png', 'Offcloud': 'offcloud.png', 'TorBox': 'torbox.png', 'EasyDebrid': 'easydebrid.png'}[provider]
 		except: return kodi_utils.notification(32692)
 		default_icon = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/%s' % icon)
 		chosen_list = select_pack_item(pack_choices, params['highlight'], default_icon)

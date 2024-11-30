@@ -11,10 +11,9 @@ base_url = 'https://api.real-debrid.com/rest/1.0/'
 auth_url = 'https://api.real-debrid.com/oauth/v2/'
 device_url = 'device/code?%s'
 credentials_url = 'device/credentials?%s'
-timeout = 45.0
+timeout = 28.0
 session = requests.Session()
-retry = requests.adapters.Retry(total=None, status=1, status_forcelist=(429, 502, 503, 504), raise_on_status=False)
-session.mount('https://api.real-debrid.com', requests.adapters.HTTPAdapter(max_retries=retry))
+session.mount('https://api.real-debrid.com', requests.adapters.HTTPAdapter(max_retries=1))
 
 class RealDebridAPI:
 	def __init__(self):
@@ -151,10 +150,10 @@ class RealDebridAPI:
 			torrent_keys = [str(item['id']) for item in files if item['path'].lower().endswith(tuple(extensions))]
 			torrent_keys = ','.join(torrent_keys)
 			self.add_torrent_select(torrent_id, torrent_keys)
-			return 'success'
+			return torrent_id
 		except:
 			self.delete_torrent(torrent_id)
-			return 'failed'
+			return ''
 
 	def add_torrent_select(self, torrent_id, file_ids):
 		self.clear_cache()
@@ -194,42 +193,6 @@ class RealDebridAPI:
 #			if not info_hash in torrent_files: return None
 			torrent = self.add_magnet(magnet_url)
 			torrent_id = torrent['id']
-			torrent_info = self.torrent_info(torrent_id)
-			torrent_files = torrent_info['files']
-			torrent_keys = [str(item['id']) for item in torrent_files if item['path'].lower().endswith(tuple(extensions))]
-			torrent_keys = ','.join(torrent_keys)
-			self.add_torrent_select(torrent_id, torrent_keys)
-			for ended in (1, 2, 3):
-				torrent_info = self.torrent_info(torrent_id)
-				if 'ended' in torrent_info: break
-				kodi_utils.sleep(1000)
-			else:
-				self.delete_torrent(torrent_id)
-				return None
-			selected_files = [(idx, i) for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1])]
-			selected_files = sorted(selected_files, key=lambda x: x[1]['bytes'], reverse=True)
-			compare_title = re.sub(r'[^A-Za-z0-9]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-			match = False
-			if season:
-				correct_files = []
-				correct_file_check = False
-				for value in selected_files:
-					correct_file_check = seas_ep_filter(season, episode, value[1]['path'])
-					if correct_file_check: correct_files.append(value[1]); break
-				if len(correct_files) == 0: match = False
-				else:
-					for i in correct_files:
-						compare_link = seas_ep_filter(season, episode, i['path'], split=True)
-						compare_link = re.sub(compare_title, '', compare_link)
-						if any(x in compare_link for x in extras_filtering_list): continue
-						else: match = True; break
-				if match: index = [i[0] for i in selected_files if i[1]['path'] == correct_files[0]['path']][0]
-			else:
-				for value in selected_files:
-					filename = re.sub(r'[^A-Za-z0-9-]+', '.', value[1]['path'].rsplit('/', 1)[1].replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-					filename = filename.replace(compare_title, '')
-					if any(x in filename for x in extras_filtering_list): continue
-					match, index = True, value[0]; break
 #			torrent_files = torrent_files[info_hash]['rd']
 #			vid_only = [item for item in torrent_files if self.video_only(item, extensions)]
 #			remainder = [i for i in torrent_files if not i in vid_only]
@@ -278,6 +241,40 @@ class RealDebridAPI:
 #							match, index = True, value[0]; break
 #						if match: break
 #				except Exception as e: kodi_utils.logger('loop exception', str(e))
+			torrent_info = self.torrent_info(torrent_id)
+			torrent_keys = [str(item['id']) for item in torrent_info['files'] if item['path'].lower().endswith(tuple(extensions))]
+			torrent_keys = ','.join(torrent_keys)
+			self.add_torrent_select(torrent_id, torrent_keys)
+			for ended in (1, 2, 3):
+				kodi_utils.sleep(500)
+				torrent_info = self.torrent_info(torrent_id)
+				if 'ended' in torrent_info: break
+			else:
+				Thread(target=self.delete_torrent, args=(torrent_id,)).start()
+				return None
+			selected_files = [(idx, i) for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1])]
+			selected_files = sorted(selected_files, key=lambda x: x[1]['bytes'], reverse=True)
+			compare_title = re.sub(r'[^A-Za-z0-9]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
+			if season:
+				correct_files = []
+				correct_file_check = False
+				for value in selected_files:
+					correct_file_check = seas_ep_filter(season, episode, value[1]['path'])
+					if correct_file_check: correct_files.append(value[1]); break
+				if len(correct_files) == 0: match = False
+				else:
+					for i in correct_files:
+						compare_link = seas_ep_filter(season, episode, i['path'], split=True)
+						compare_link = re.sub(compare_title, '', compare_link)
+						if any(x in compare_link for x in extras_filtering_list): continue
+						else: match = True; break
+				if match: index = [i[0] for i in selected_files if i[1]['path'] == correct_files[0]['path']][0]
+			else:
+				for value in selected_files:
+					filename = re.sub(r'[^A-Za-z0-9-]+', '.', value[1]['path'].rsplit('/', 1)[1].replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
+					filename = filename.replace(compare_title, '')
+					if any(x in filename for x in extras_filtering_list): continue
+					match, index = True, value[0]; break
 			if match:
 				rd_link = torrent_info['links'][index]
 				file_url = self.unrestrict_link(rd_link)
@@ -302,18 +299,6 @@ class RealDebridAPI:
 #			if not info_hash in torrent_files: return None
 			torrent = self.add_magnet(magnet_url)
 			torrent_id = torrent['id']
-			torrent_info = self.torrent_info(torrent_id)
-			torrent_files = torrent_info['files']
-			torrent_keys = [str(item['id']) for item in torrent_files if item['path'].lower().endswith(tuple(extensions))]
-			torrent_keys = ','.join(torrent_keys)
-			self.add_torrent_select(torrent_id, torrent_keys)
-			for ended in (1, 2, 3):
-				torrent_info = self.torrent_info(torrent_id)
-				if 'ended' in torrent_info: break
-				kodi_utils.sleep(1000)
-			else:
-				self.delete_torrent(torrent_id)
-				return None
 #			torrent_files = torrent_files[info_hash]['rd']
 #			torrent_files = [item for item in torrent_files if self.video_only(item, extensions)]
 #			for item in torrent_files:
@@ -324,6 +309,17 @@ class RealDebridAPI:
 #			torrent_keys = ','.join(video_only_items)
 #			self.add_torrent_select(torrent_id, torrent_keys)
 #			torrent_info = self.user_cloud_info(torrent_id)
+			torrent_info = self.torrent_info(torrent_id)
+			torrent_keys = [str(item['id']) for item in torrent_info['files'] if item['path'].lower().endswith(tuple(extensions))]
+			torrent_keys = ','.join(torrent_keys)
+			self.add_torrent_select(torrent_id, torrent_keys)
+			for ended in (1, 2, 3):
+				kodi_utils.sleep(500)
+				torrent_info = self.torrent_info(torrent_id)
+				if 'ended' in torrent_info: break
+			else:
+				self.delete_torrent(torrent_id)
+				return None
 			list_file_items = [dict(i, **{'link':torrent_info['links'][idx]})  for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1])]
 			list_file_items = [{'link': i['link'], 'filename': i['path'].replace('/', ''), 'size': i['bytes']} for i in list_file_items]
 			self.delete_torrent(torrent_id)

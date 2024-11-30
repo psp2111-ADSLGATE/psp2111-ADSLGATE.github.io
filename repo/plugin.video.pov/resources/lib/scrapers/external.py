@@ -199,7 +199,7 @@ class source:
 			uniqueHashes = set()
 			for provider in sources:
 				try:
-					if provider['provider'] == 'realdebridio':
+					if provider['provider'] == 'debridio':
 						yield provider
 						continue
 					url = provider['url'].lower()
@@ -247,7 +247,7 @@ class source:
 					try:
 						size = i_get('size')
 #						if 'package' in i and provider != 'torrentio':
-						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'nyaaio', 'comet', 'mediafusion', 'realdebridio'):
+						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'nyaaio', 'comet', 'mediafusion', 'debridio'):
 							if i_get('package') == 'season': divider = self.season_divider
 							else: divider = self.show_divider
 							size = float(size) / divider
@@ -273,12 +273,12 @@ class source:
 		if not torrent_sources or not self.debrid_torrents: return []
 		torrent_results = []
 		try:
-			hash_list = list(set([i['hash'] for i in torrent_sources if i['provider'] != 'realdebridio']))
+			hash_list = list(set([i['hash'] for i in torrent_sources if i['provider'] != 'debridio']))
 			cached_hashes = DebridCheck(hash_list, self.background, self.debrid_torrents, self.meta, self.progress_dialog).run()
 			for item in self.debrid_torrents:
 				_hashes = cached_hashes[item]
-				if item == 'Real-Debrid': torrent_results += [{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] == 'realdebridio']
-				else: torrent_results += [{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] != 'realdebridio' and i['hash'] in _hashes]
+				if item in ('Real-Debrid', 'AllDebrid'): torrent_results += [{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] == 'debridio']
+				else: torrent_results += [{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] != 'debridio' and i['hash'] in _hashes]
 				torrent_results += [{**i, 'cache_provider': 'Uncached %s' % item} for i in torrent_sources if not i['hash'] in _hashes] if self.display_uncached_torrents else []
 		except: notification(32574)
 		return torrent_results

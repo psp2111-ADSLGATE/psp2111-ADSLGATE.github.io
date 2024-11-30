@@ -177,6 +177,10 @@ def clear_cache(cache_type, silent=False):
 		if not _confirm(): return
 		from apis.torbox_api import TorBoxAPI
 		success = TorBoxAPI().clear_cache()
+	elif cache_type == 'ed_cloud':
+		if not _confirm(): return
+		from apis.easydebrid_api import EasyDebridAPI
+		success = EasyDebridAPI().clear_cache()
 	elif cache_type == 'folders':
 		from caches.main_cache import main_cache
 		main_cache.delete_all_folderscrapers()
@@ -200,7 +204,8 @@ def clear_all_cache():
 			('pm_cloud', '%s %s' % (ls(32061), ls(32524))),
 			('ad_cloud', '%s %s' % (ls(32063), ls(32524))),
 			('oc_cloud', '%s %s' % ('Offcloud', ls(32524))),
-			('tb_cloud', '%s %s' % ('TorBox', ls(32524)))
+			('tb_cloud', '%s %s' % ('TorBox', ls(32524))),
+			('ed_cloud', '%s %s' % ('EasyDebrid', ls(32524)))
 	)
 	kodi_utils.progressDialog.create('POV', '')
 	for count, (cache_type, cache_label) in enumerate(caches, 1):

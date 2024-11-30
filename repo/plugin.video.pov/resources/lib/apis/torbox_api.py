@@ -1,14 +1,11 @@
-import re
 import requests
-from sys import exit as sysexit
-from threading import Thread
 from caches.main_cache import cache_object
 from modules import kodi_utils
 # logger = kodi_utils.logger
 
 ls, get_setting, set_setting = kodi_utils.local_string, kodi_utils.get_setting, kodi_utils.set_setting
 base_url = 'https://api.torbox.app/v1/api'
-timeout = 10.0
+timeout = 28.0
 session = requests.Session()
 session.mount(base_url, requests.adapters.HTTPAdapter(max_retries=1))
 
@@ -28,12 +25,12 @@ class TorBoxAPI:
 		if not self.api_key: return
 		session.headers['Authorization'] = 'Bearer %s' % self.api_key
 		full_path = '%s%s' % (base_url, path)
-		r = session.request(method, full_path, params=params, json=json, data=data, timeout=timeout)
-		try: r.raise_for_status()
-		except Exception as e: kodi_utils.logger('torbox error', f"{e}\n{r.json()}")
-		try: r = r.json()
-		except: r = {}
-		return r
+		response = session.request(method, full_path, params=params, json=json, data=data, timeout=timeout)
+		try: response.raise_for_status()
+		except Exception as e: kodi_utils.logger('torbox error', f"{e}\n{response.text}")
+		try: result = response.json()
+		except: result = {}
+		return result
 
 	def _GET(self, url, params=None):
 		return self._request('get', url, params=params)
@@ -53,6 +50,12 @@ class TorBoxAPI:
 		string = 'pov_tb_user_cloud_%s' % request_id
 		url = self.explore % request_id
 		return cache_object(self._GET, string, url, False, 0.5)
+
+	def user_cloud_clear(self):
+		if not kodi_utils.confirm_dialog(): return
+		data = {'all': True, 'operation': 'delete'}
+		self._POST(self.remove, json=data)
+		self.clear_cache()
 
 	def torrent_info(self, request_id=''):
 		url = self.explore % request_id
@@ -81,8 +84,8 @@ class TorBoxAPI:
 
 	def create_transfer(self, magnet_url):
 		result = self.add_magnet(magnet_url)
-		if not result['success']: return 'failed'
-		return result
+		if not result['success']: return ''
+		return result['data'].get('torrent_id', '')
 
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		from modules.source_utils import supported_video_extensions, seas_ep_filter, extras_filter
@@ -97,20 +100,21 @@ class TorBoxAPI:
 			if not torrent['success']: return None
 			torrent_id = torrent['data']['torrent_id']
 			torrent_files = self.torrent_info(torrent_id)
-			torrent_files = [(i['id'], i['short_name'], i['size']) for i in torrent_files['data']['files']]
-			vid_only = [item for item in torrent_files if item[1].lower().endswith(tuple(extensions))]
-			remainder = [i for i in torrent_files if i not in vid_only]
-			torrent_files = vid_only + remainder
+			torrent_files = [
+				{'url': '%d,%d' % (torrent_id, item['id']), 'filename': item['short_name'], 'size': item['size']}
+				for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))
+			]
 			if not torrent_files: return None
 			if season:
-				torrent_files = [i for i in torrent_files if seas_ep_filter(season, episode, i[1])]
+				torrent_files = [i for i in torrent_files if seas_ep_filter(season, episode, i['filename'])]
 				if not torrent_files: return None
 			else:
 				if self._m2ts_check(torrent_files): self.delete_torrent(torrent_id) ; return None
-				else: torrent_files.sort(key=lambda k: k[2], reverse=True)
-			file_key = [i[0] for i in torrent_files if not any(x in i[1] for x in extras_filtering_list)][0]
-			file_link = self.unrestrict_link('%d,%d' % (torrent_id, file_key))
-			return file_link
+				torrent_files = [i for i in torrent_files if not any(x in i['filename'] for x in extras_filtering_list)]
+				torrent_files.sort(key=lambda k: k['size'], reverse=True)
+			file_key = torrent_files[0]['url']
+			file_url = self.unrestrict_link(file_key)
+			return file_url
 		except Exception as e:
 			kodi_utils.logger('main exception', str(e))
 			if torrent_id: self.delete_torrent(torrent_id)
@@ -123,15 +127,13 @@ class TorBoxAPI:
 			torrent = self.add_magnet(magnet_url)
 			if not torrent['success']: return None
 			torrent_id = torrent['data']['torrent_id']
-			torrent_files = torrent_files = self.torrent_info(torrent_id)
-			torrent_files = [(i['id'], i['short_name'], i['size']) for i in torrent_files['data']['files']]
-			end_results = []
-			append = end_results.append
-			for item in torrent_files:
-				if item[1].lower().endswith(tuple(extensions)):
-					append({'link': '%d,%d' % (torrent_id, item[0]), 'filename': item[1], 'size': item[2]})
+			torrent_files = self.torrent_info(torrent_id)
+			torrent_files = [
+				{'link': '%d,%d' % (torrent_id, item['id']), 'filename': item['short_name'], 'size': item['size']}
+				for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))
+			]
 			#self.delete_torrent(torrent_id) # untested if link will play if torrent deleted
-			return end_results
+			return torrent_files or None
 		except Exception:
 			if torrent_id: self.delete_torrent(torrent_id)
 			return None
@@ -140,27 +142,20 @@ class TorBoxAPI:
 		kodi_utils.show_busy_dialog()
 		result = self.create_transfer(magnet_url)
 		kodi_utils.hide_busy_dialog()
-		if result == 'failed': kodi_utils.ok_dialog(heading=32733, text=32574)
-		else: kodi_utils.ok_dialog(heading=32733, text=ls(32732) % 'TorBox', top_space=True)
-		if 'torrent_id' in result['data']: return True
-		return False
+		if result: kodi_utils.ok_dialog(heading=32733, text=ls(32732) % 'TorBox', top_space=True)
+		else: return kodi_utils.ok_dialog(heading=32733, text=32574)
+		return True
 
 	def _m2ts_check(self, folder_items):
 		for item in folder_items:
-			if item[1].endswith('.m2ts'): return True
+			if item['filename'].endswith('.m2ts'): return True
 		return False
-
-	def user_cloud_clear(self):
-		if not kodi_utils.confirm_dialog(): return
-		data = {'all': True, 'operation': 'delete'}
-		self._POST(self.remove, json=data)
-		self.clear_cache()
 
 	def auth(self):
 		api_key = kodi_utils.dialog.input('TorBox API Key:')
 		if not api_key: return
 		self.api_key = api_key
-		r = self._GET('/user/me')
+		r = self.account_info()
 		customer = r['data']['customer']
 		set_setting('tb.token', api_key)
 		set_setting('tb.account_id', customer)
