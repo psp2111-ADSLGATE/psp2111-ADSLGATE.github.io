@@ -57,24 +57,26 @@ class EasyDebridAPI:
 		try:
 			file_url, match = None, False
 			extensions = supported_video_extensions()
-			extras_filtering_list = extras_filter()
+			extras_filtering_list = tuple(i for i in extras_filter() if not i in title.lower())
 			check = self.check_cache_single(info_hash)
 			match = 'cached' in check and check['cached'][0]
 			if not match: return None
 			torrent = self.add_magnet(magnet_url)
 			torrent_files = torrent['files']
-			torrent_files = [item for item in torrent_files if item['filename'].lower().endswith(tuple(extensions))]
-			if not torrent_files: return None
+			selected_files = [item for item in torrent_files if item['filename'].lower().endswith(tuple(extensions))]
+			if not selected_files: return None
 			if season:
-				torrent_files = [i for i in torrent_files if seas_ep_filter(season, episode, i['filename'])]
-				if not torrent_files: return None
+				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
 			else:
-				if self._m2ts_check(torrent_files): return None
-				torrent_files = [i for i in torrent_files if not any(x in i['filename'] for x in extras_filtering_list)]
-				torrent_files.sort(key=lambda k: k['size'], reverse=True)
-			file_url = torrent_files[0]['url']
+				if self._m2ts_check(selected_files): raise Exception('_m2ts_check failed')
+				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
+				selected_files.sort(key=lambda k: k['size'], reverse=True)
+			if not selected_files: return None
+			file_url = selected_files[0]['url']
 			return file_url
-		except: return None
+		except Exception as e:
+			kodi_utils.logger('main exception', str(e))
+			return None
 
 	def display_magnet_pack(self, magnet_url, info_hash):
 		from modules.source_utils import supported_video_extensions

@@ -288,7 +288,7 @@ def scraping_settings():
 		highlight_1080P = get_setting('scraper_1080p_highlight', 'lawngreen')
 		highlight_720P = get_setting('scraper_720p_highlight', 'gold')
 		highlight_SD = get_setting('scraper_SD_highlight', 'lightsaltegray')
-	return {'highlight_type': highlight_type, 'hoster_highlight': hoster_highlight, 'torrent_highlight': torrent_highlight, 'folders': folders_highlight,
+	return {'uncached': 'dimgray', 'highlight_type': highlight_type, 'hoster_highlight': hoster_highlight, 'torrent_highlight': torrent_highlight, 'folders': folders_highlight,
 			'real-debrid': rd_highlight, 'premiumize': pm_highlight, 'alldebrid': ad_highlight, 'offcloud': oc_highlight, 'torbox': tb_highlight, 'easydebrid': ed_highlight,
 			'rd_cloud': debrid_cloud_highlight, 'pm_cloud': debrid_cloud_highlight, 'ad_cloud': debrid_cloud_highlight, 'oc_cloud': oc_highlight, 'easynews': easynews_highlight,
 			'4k': highlight_4K, '1080p': highlight_1080P, '720p': highlight_720P, 'sd': highlight_SD, 'cam': highlight_SD, 'tele': highlight_SD, 'scr': highlight_SD}

@@ -464,8 +464,8 @@ class Sources():
 		for item in default_internal_scrapers: clear_property('%s.internal_results' % item)
 		for item in self.get_folderscraper_info(): clear_property('%s.internal_results' % item[0])
 
-	def _make_progress_dialog(self):
-		self.progress_dialog = create_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', meta=self.meta)
+	def _make_progress_dialog(self, monitor='off'):
+		self.progress_dialog = create_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', meta=self.meta, monitor=monitor)
 		Thread(target=self.progress_dialog.run).start()
 
 	def _kill_progress_dialog(self):
@@ -542,7 +542,7 @@ class Sources():
 				if not self.load_action:
 					progressBG = kodi_utils.progressDialogBG
 					progressBG.create('POV', 'POV loading...')
-				else: self._make_progress_dialog()
+				else: self._make_progress_dialog(monitor='on')
 			self.url = None
 			total_items = len(items)
 			for count, item in enumerate(items, 1):
@@ -571,11 +571,13 @@ class Sources():
 				except: pass
 #			self._kill_progress_dialog()
 			if not background:
-				if self.progress_dialog: self._kill_progress_dialog()
+#				if self.progress_dialog: self._kill_progress_dialog()
+				if self.progress_dialog: pass
 				else: progressBG.close()
 			if background: return self.url
 			if self.caching_confirmed: return self.resolve_sources(self.url, self.meta, cache_item=True)
-			return POVPlayer().run(self.url)
+			try: return POVPlayer().run(self.url)
+			finally: kodi_utils.clear_property('pov.progress_is_alive')
 		except: pass
 
 	def resolve_sources(self, item, meta, cache_item=False):
@@ -588,6 +590,7 @@ class Sources():
 					url = self.resolve_cached_torrents(cache_provider, item['url'], item['hash'], title, season, episode)
 					return url
 				if 'Uncached' in cache_provider:
+					kodi_utils.clear_property('pov.progress_is_alive')
 					if cache_item:
 						if not 'package' in item: title, season, episode  = None, None, None
 						url = self.resolve_uncached_torrents(item['debrid'], item['url'], item['hash'], title, season, episode)

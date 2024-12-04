@@ -4,18 +4,22 @@
 - elfhosted.com for community instances.
 
 - torrentio debrid+ in My Services, sourced from torrentio results with RD+/AD+ tag.
+- mediafusion debrid+ in My Services, sourced from mediafusion results with debrid token.
 - nyaaio in Sources/Torrents, sourced from torrentio anime results with filters disabled.
 - nyaa in Sources/Torrents sourced from website results.
 
   [COLOR dodgerblue][B]Version 4.12.01[/B][/COLOR]
+- Changed Real Debrid/All Debrid integration.
+  Only two sources that will return results, `torrentio debrid+` and `mediafusion debrid+`.
+  This relies on the `torrentio` and `mediafusion` internal caches, so there is a little
+  logic and the chance of it being cached is high.  If you only have either debrid, disable
+  all others OR enable "display uncached" and manually add those to cloud to view from there.
+- Fixed All Debrid no results.  Clear External Scrapers Cache after switching debrid provider.
+- EXPERIMENTAL: changed Full-Screen playback window, if errors occur change setting
+  Playback/Loading Progress to Background.  One service in particular seems to cause
+  kodi to "freeze", causing pause in the animation.
 - [COLOR chartreuse]Added EasyDebrid as a debrid provider.[/COLOR]
 - Minor refactoring for each debrid, report anything that I might have broke.
-- Changed Real Debrid/All Debrid integration.
-  The only source that will return results is `torrentio debrid+` and it is disabled
-  by default.  If you only have either debrid disable all others OR enable "display uncached"
-  and manually add those to cloud to view from there.  This relies on the `torrentio`
-  debrid fix that tags results that are most likely cached, so there is a little logic to it
-  and the chance of it being cached is high.
 - Added zilean.
 - Changed mediafusion to "Direct Torrent" only.
 

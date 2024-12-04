@@ -165,15 +165,15 @@ class Downloader:
 					from indexers.alldebrid import resolve_ad
 					url = resolve_ad(self.params)
 				elif 'torbox' in self.action:
-					from indexers.torbox import resolve_tb
+					from indexers.torbox import resolve_tb, add_headers_to_url
 					url = resolve_tb(self.params)
+					url = add_headers_to_url(url)
 				elif 'premiumize' in self.action:
 					from apis.premiumize_api import PremiumizeAPI
 					url = PremiumizeAPI().add_headers_to_url(url)
 				elif 'easynews' in self.action:
 					from indexers.easynews import resolve_easynews
 					url = resolve_easynews(self.params)
-		if 'torbox' in url: url += '|User-Agent=Mozilla%2F5.0'
 		try: headers = dict(parse_qsl(url.rsplit('|', 1)[1]))
 		except: headers = dict('')
 		try: url = url.split('|')[0]

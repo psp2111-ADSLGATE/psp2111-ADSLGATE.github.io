@@ -57,3 +57,15 @@ class Comet(Hosted):
 		config_dict = json.loads(next(values, []))
 		return config_dict
 
+class MFDebrid(Hosted):
+	base_url = 'https://mediafusion.elfhosted.com'
+
+	def configure(self):
+		try:
+			url = dialog.input(f"{self.base_url} manifest url")
+			params = url.replace(self.base_url, '').replace('manifest.json', '').strip('/')
+			if not params: return
+			setSetting(f"{self.name.lower()}.token", str(params))
+		except:
+			from fenom import log_utils
+			log_utils.error()

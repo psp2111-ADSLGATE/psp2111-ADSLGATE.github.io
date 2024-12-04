@@ -115,7 +115,7 @@ class DebridCheck:
 			threads_append(thread)
 			thread.start()
 		dialog.join(self.timeout)
-		[debrid_cache.set_many(i[0], i[1]) for i in self.hashes_to_cache if i[1] != 'rd']
+		[debrid_cache.set_many(i[0], i[1]) for i in self.hashes_to_cache]
 		return {
 			'Real-Debrid': self.rd_cached_hashes,
 			'Premiumize.me': self.pm_cached_hashes,

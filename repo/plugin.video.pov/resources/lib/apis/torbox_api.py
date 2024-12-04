@@ -1,4 +1,5 @@
 import requests
+from threading import Thread
 from caches.main_cache import cache_object
 from modules import kodi_utils
 # logger = kodi_utils.logger
@@ -19,6 +20,7 @@ class TorBoxAPI:
 	cloud = '/torrents/createtorrent'
 
 	def __init__(self):
+		self.user_agent = 'Mozilla/5.0'
 		self.api_key = get_setting('tb.token')
 
 	def _request(self, method, path, params=None, json=None, data=None):
@@ -37,6 +39,12 @@ class TorBoxAPI:
 
 	def _POST(self, url, params=None, json=None, data=None):
 		return self._request('post', url, params=params, json=json, data=data)
+
+	def add_headers_to_url(self, url):
+		return url + '|' + kodi_utils.urlencode(self.headers())
+
+	def headers(self):
+		return {'User-Agent': self.user_agent}
 
 	def account_info(self):
 		return self._GET(self.stats)
@@ -92,7 +100,7 @@ class TorBoxAPI:
 		try:
 			file_url, match = None, False
 			extensions = supported_video_extensions()
-			extras_filtering_list = extras_filter()
+			extras_filtering_list = tuple(i for i in extras_filter() if not i in title.lower())
 			check = self.check_cache_single(info_hash)
 			match = info_hash in [i['hash'] for i in check['data']]
 			if not match: return None
@@ -100,20 +108,21 @@ class TorBoxAPI:
 			if not torrent['success']: return None
 			torrent_id = torrent['data']['torrent_id']
 			torrent_files = self.torrent_info(torrent_id)
-			torrent_files = [
+			selected_files = [
 				{'url': '%d,%d' % (torrent_id, item['id']), 'filename': item['short_name'], 'size': item['size']}
 				for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))
 			]
-			if not torrent_files: return None
+			if not selected_files: return None
 			if season:
-				torrent_files = [i for i in torrent_files if seas_ep_filter(season, episode, i['filename'])]
-				if not torrent_files: return None
+				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
 			else:
-				if self._m2ts_check(torrent_files): self.delete_torrent(torrent_id) ; return None
-				torrent_files = [i for i in torrent_files if not any(x in i['filename'] for x in extras_filtering_list)]
-				torrent_files.sort(key=lambda k: k['size'], reverse=True)
-			file_key = torrent_files[0]['url']
+				if self._m2ts_check(selected_files): raise Exception('_m2ts_check failed')
+				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
+				selected_files.sort(key=lambda k: k['size'], reverse=True)
+			if not selected_files: return None
+			file_key = selected_files[0]['url']
 			file_url = self.unrestrict_link(file_key)
+#			if not store_to_cloud: Thread(target=self.delete_torrent, args=(torrent_id,)).start()
 			return file_url
 		except Exception as e:
 			kodi_utils.logger('main exception', str(e))
@@ -132,7 +141,7 @@ class TorBoxAPI:
 				{'link': '%d,%d' % (torrent_id, item['id']), 'filename': item['short_name'], 'size': item['size']}
 				for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))
 			]
-			#self.delete_torrent(torrent_id) # untested if link will play if torrent deleted
+#			self.delete_torrent(torrent_id)
 			return torrent_files or None
 		except Exception:
 			if torrent_id: self.delete_torrent(torrent_id)

@@ -9,7 +9,7 @@ from modules.kodi_utils import notification, sleep, delete_file, rename_file
 
 base_url = 'https://rest.opensubtitles.org/search'
 user_agent = {'User-Agent': 'TemporaryUserAgent'}
-timeout = 3.05
+timeout = 5.05
 
 class OpenSubtitlesAPI:
 	def search(self, query, imdb_id, language, season=None, episode=None):

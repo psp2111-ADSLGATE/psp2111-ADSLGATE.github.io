@@ -362,4 +362,7 @@ def routing(params):
 	elif mode == 'comet_configure':
 		from fenom.hosted import Comet
 		Comet().configure()
+	elif mode == 'mfdebrid_configure':
+		from fenom.hosted import MFDebrid
+		MFDebrid().configure()
 

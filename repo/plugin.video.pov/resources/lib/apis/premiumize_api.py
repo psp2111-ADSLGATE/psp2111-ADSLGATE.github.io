@@ -88,33 +88,27 @@ class PremiumizeAPI:
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		from modules.source_utils import supported_video_extensions, seas_ep_filter, extras_filter
 		try:
-			file_url = None
-			correct_files = []
-			append = correct_files.append
+			file_url, match = None, False
 			extensions = supported_video_extensions()
-			extras_filtering_list = extras_filter()
-			result = self.instant_transfer(magnet_url)
-			if not 'status' in result or result['status'] != 'success': return None
-			valid_results = [i for i in result.get('content') if any(i.get('path').lower().endswith(x) for x in extensions) and not i.get('link', '') == '']
-			if len(valid_results) == 0: return
+			extras_filtering_list = tuple(i for i in extras_filter() if not i in title.lower())
+			torrent = self.instant_transfer(magnet_url)
+			match = 'status' in torrent and torrent['status'] == 'success'
+			if not match: return None
+			torrent_files = torrent['content']
+			selected_files = [item for item in torrent_files if item['path'].lower().endswith(tuple(extensions))]
+			if not selected_files: return None
 			if season:
-				episode_title = re.sub(r'[^A-Za-z0-9-]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-				for item in valid_results:
-					if seas_ep_filter(season, episode, item['path'].split('/')[-1]): append(item)
-					if len(correct_files) == 0: continue
-					for i in correct_files:
-						compare_link = seas_ep_filter(season, episode, i['path'], split=True)
-						compare_link = re.sub(episode_title, '', compare_link)
-						if not any(x in compare_link for x in extras_filtering_list):
-							file_url = i['link']
-							break
+				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['path'].split('/')[-1])]
 			else:
-				file_url = max(valid_results, key=lambda x: int(x.get('size'))).get('link', None)
-				if not any(file_url.lower().endswith(x) for x in extensions): file_url = None
-			if file_url:
-				if store_to_cloud: Thread(target=self.create_transfer, args=(magnet_url,)).start()
-				return self.add_headers_to_url(file_url)
-		except: return None
+				selected_files = [i for i in selected_files if not any(x in i['path'].split('/')[-1] for x in extras_filtering_list)]
+				selected_files.sort(key=lambda k: k['size'], reverse=True)
+			if not selected_files: return None
+			file_url = selected_files[0]['link']
+			if store_to_cloud: Thread(target=self.create_transfer, args=(magnet_url,)).start()
+			return self.add_headers_to_url(file_url)
+		except Exception as e:
+			kodi_utils.logger('main exception', str(e))
+			return None
 
 	def download_link_magnet_zip(self, magnet_url, info_hash):
 		try:
@@ -135,18 +129,15 @@ class PremiumizeAPI:
 	def display_magnet_pack(self, magnet_url, info_hash):
 		from modules.source_utils import supported_video_extensions
 		try:
-			end_results = []
-			append = end_results.append
 			extensions = supported_video_extensions()
-			result = self.instant_transfer(magnet_url)
-			if not 'status' in result or result['status'] != 'success': return None
-			for item in result.get('content'):
-				if any(item.get('path').lower().endswith(x) for x in extensions) and not item.get('link', '') == '':
-					try: path = item['path'].split('/')[-1]
-					except: path = item['path']
-					append({'link': item['link'], 'filename': path, 'size': item['size']})
-			return end_results
-		except: return None
+			torrent = self.instant_transfer(magnet_url)
+			torrent_files = [
+				{'link': item['link'], 'filename': item['path'].split('/')[-1], 'size': item['size']}
+				for item in torrent['content'] if item['path'].lower().endswith(tuple(extensions))
+			]
+			return torrent_files or None
+		except Exception:
+			return None
 
 	def add_uncached_torrent(self, magnet_url, pack=False):
 		from modules.kodi_utils import show_busy_dialog, hide_busy_dialog

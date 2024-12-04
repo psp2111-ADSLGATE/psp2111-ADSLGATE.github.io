@@ -195,12 +195,19 @@ class source:
 
 	def process_duplicates(self):
 		def _process(sources):
-			uniqueURLs = set()
-			uniqueHashes = set()
+			uniqueURLs, uniqueHashes = set(), set()
+			debridURLs, debridHashes = set(), set()
 			for provider in sources:
 				try:
-					if provider['provider'] == 'debridio':
-						yield provider
+					if provider['provider'] in ('tidebrid', 'mfdebrid'):
+						url = provider['url'].lower()
+						if url not in debridURLs:
+							debridURLs.add(url)
+							if 'hash' in provider:
+								if provider['hash'] not in debridHashes:
+									debridHashes.add(provider['hash'])
+									yield provider
+							else: yield provider
 						continue
 					url = provider['url'].lower()
 					if url not in uniqueURLs:
@@ -247,7 +254,7 @@ class source:
 					try:
 						size = i_get('size')
 #						if 'package' in i and provider != 'torrentio':
-						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'nyaaio', 'comet', 'mediafusion', 'debridio'):
+						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'nyaaio', 'comet', 'mediafusion', 'tidebrid', 'mfdebrid'):
 							if i_get('package') == 'season': divider = self.season_divider
 							else: divider = self.show_divider
 							size = float(size) / divider
@@ -273,13 +280,20 @@ class source:
 		if not torrent_sources or not self.debrid_torrents: return []
 		torrent_results = []
 		try:
-			hash_list = list(set([i['hash'] for i in torrent_sources if i['provider'] != 'debridio']))
+			_debrids = ('tidebrid', 'mfdebrid')
+			hash_list = list(set([i['hash'] for i in torrent_sources if i['provider'] not in _debrids]))
 			cached_hashes = DebridCheck(hash_list, self.background, self.debrid_torrents, self.meta, self.progress_dialog).run()
 			for item in self.debrid_torrents:
 				_hashes = cached_hashes[item]
-				if item in ('Real-Debrid', 'AllDebrid'): torrent_results += [{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] == 'debridio']
-				else: torrent_results += [{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] != 'debridio' and i['hash'] in _hashes]
-				torrent_results += [{**i, 'cache_provider': 'Uncached %s' % item} for i in torrent_sources if not i['hash'] in _hashes] if self.display_uncached_torrents else []
+				if item in ('Real-Debrid', 'AllDebrid'): torrent_results += [
+					{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] in _debrids
+				]
+				else: torrent_results += [
+					{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] not in _debrids and i['hash'] in _hashes
+				]
+				if self.display_uncached_torrents: torrent_results += [
+					{**i, 'cache_provider': 'Uncached %s' % item} for i in torrent_sources if i['provider'] not in _debrids and not i['hash'] in _hashes
+				]
 		except: notification(32574)
 		return torrent_results
 

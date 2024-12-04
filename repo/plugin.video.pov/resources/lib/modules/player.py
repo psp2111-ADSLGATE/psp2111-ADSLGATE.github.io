@@ -19,7 +19,7 @@ fanart_empty = kodi_utils.translate_path('special://home/addons/plugin.video.pov
 class POVPlayer(kodi_utils.xbmc_player):
 	def __init__ (self):
 		kodi_utils.xbmc_player.__init__(self)
-		self.set_resume, self.set_watched = 5, 90
+		self.set_resume, self.set_watched, self.playback_event = 5, 90, None
 		self.media_marked, self.subs_searched, self.nextep_info_gathered = False, False, False
 		self.nextep_started, self.random_continual_started = False, False
 		self.autoplay_next_episode, self.play_random_continual = False, False
@@ -145,7 +145,8 @@ class POVPlayer(kodi_utils.xbmc_player):
 			if not self.play_random_continual and self.autoscrape_nextep: self.autoscrape_next_episode = 'random' not in self.meta
 			if not self.play_random_continual and self.autoplay_nextep: self.autoplay_next_episode = 'random' not in self.meta
 			if self.autoplay_nextep and self.autoscrape_nextep: self.autoscrape_next_episode = False
-		while not self.isPlayingVideo(): kodi_utils.sleep(100)
+#		while not self.isPlayingVideo(): kodi_utils.sleep(100)
+		while not self.playback_event: kodi_utils.sleep(100)
 		kodi_utils.close_all_dialog()
 		if self.volume_check: kodi_utils.volume_checker(get_setting('volumecheck.percent', '100'))
 		kodi_utils.sleep(1000)
@@ -249,12 +250,18 @@ class POVPlayer(kodi_utils.xbmc_player):
 		except: pass
 
 	def onAVStarted(self):
-		try: kodi_utils.close_all_dialog()
-		except: pass
+		kodi_utils.clear_property('pov.progress_is_alive')
+		self.playback_event = True
+#		try: kodi_utils.close_all_dialog()
+#		except: pass
 
 	def onPlayBackStarted(self):
-		try: kodi_utils.close_all_dialog()
+		try: kodi_utils.hide_busy_dialog()
 		except: pass
+
+	def onPlayBackStopped(self):
+		kodi_utils.clear_property('pov.progress_is_alive')
+		self.playback_event = 'stop'
 
 class Subtitles(kodi_utils.xbmc_player):
 	def __init__(self):

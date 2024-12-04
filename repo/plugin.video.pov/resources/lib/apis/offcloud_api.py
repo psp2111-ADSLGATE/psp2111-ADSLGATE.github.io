@@ -136,7 +136,7 @@ class OffcloudAPI:
 		try:
 			file_url, match = None, False
 			extensions = supported_video_extensions()
-			extras_filtering_list = extras_filter()
+			extras_filtering_list = tuple(i for i in extras_filter() if not i in title.lower())
 			match = info_hash in self.check_cache([info_hash]).get('cachedItems', [])
 			if not match: return None
 			torrent = self.add_magnet(magnet_url)
@@ -145,18 +145,18 @@ class OffcloudAPI:
 			torrent_id = torrent['requestId']
 			torrent_files = self.torrent_info(torrent_id)
 			if not isinstance(torrent_files, list): torrent_files = [single_file_torrent]
-			torrent_files = [
+			selected_files = [
 				{'url': item, 'filename': item.split('/')[-1], 'size': 0}
 				for item in torrent_files if item.lower().endswith(tuple(extensions))
 			]
-			if not torrent_files: return None
+			if not selected_files: return None
 			if season:
-				torrent_files = [i for i in torrent_files if seas_ep_filter(season, episode, i['filename'])]
-				if not torrent_files: return None
+				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
 			else:
-				if self._m2ts_check(torrent_files): self.delete_torrent(torrent_id) ; return None
-				torrent_files = [i for i in torrent_files if not any(x in i['filename'] for x in extras_filtering_list)]
-			file_key = torrent_files[0]['url']
+				if self._m2ts_check(selected_files): raise Exception('_m2ts_check failed')
+				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
+			if not selected_files: return None
+			file_key = selected_files[0]['url']
 			file_url = self.requote_uri(file_key) # requote, oc why give us a list of urls that may have spaces in name
 			return file_url
 		except Exception as e:
@@ -176,7 +176,7 @@ class OffcloudAPI:
 				{'link': self.requote_uri(item), 'filename': item.split('/')[-1], 'size': 0}
 				for item in torrent_files if item.lower().endswith(tuple(extensions))
 			]
-			#self.delete_torrent(torrent_id) # cannot delete the torrent, play link will not persist, will return 502
+#			self.delete_torrent(torrent_id) # cannot delete the torrent, play link will not persist, will return 502
 			return torrent_files or None
 		except Exception:
 			if torrent_id: self.delete_torrent(torrent_id)
