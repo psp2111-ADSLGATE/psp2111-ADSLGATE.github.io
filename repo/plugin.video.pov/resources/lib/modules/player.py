@@ -147,7 +147,7 @@ class POVPlayer(kodi_utils.xbmc_player):
 			if self.autoplay_nextep and self.autoscrape_nextep: self.autoscrape_next_episode = False
 #		while not self.isPlayingVideo(): kodi_utils.sleep(100)
 		while not self.playback_event: kodi_utils.sleep(100)
-		kodi_utils.close_all_dialog()
+#		kodi_utils.close_all_dialog()
 		if self.volume_check: kodi_utils.volume_checker(get_setting('volumecheck.percent', '100'))
 		kodi_utils.sleep(1000)
 		while self.isPlayingVideo():
@@ -252,8 +252,8 @@ class POVPlayer(kodi_utils.xbmc_player):
 	def onAVStarted(self):
 		kodi_utils.clear_property('pov.progress_is_alive')
 		self.playback_event = True
-#		try: kodi_utils.close_all_dialog()
-#		except: pass
+		try: kodi_utils.close_all_dialog()
+		except: pass
 
 	def onPlayBackStarted(self):
 		try: kodi_utils.hide_busy_dialog()

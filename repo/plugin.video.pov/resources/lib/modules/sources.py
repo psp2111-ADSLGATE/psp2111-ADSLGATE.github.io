@@ -464,8 +464,15 @@ class Sources():
 		for item in default_internal_scrapers: clear_property('%s.internal_results' % item)
 		for item in self.get_folderscraper_info(): clear_property('%s.internal_results' % item[0])
 
-	def _make_progress_dialog(self, monitor='off'):
-		self.progress_dialog = create_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', meta=self.meta, monitor=monitor)
+	def _monitor(self):
+		kodi_utils.set_property('pov.progress_is_alive', 'true')
+		while kodi_utils.get_property('pov.progress_is_alive') == 'true': sleep(200)
+		try: self.progress_dialog.close()
+		except: pass
+
+	def _make_progress_dialog(self, monitor=False):
+		if monitor: Thread(target=self._monitor).start()
+		self.progress_dialog = create_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', meta=self.meta)
 		Thread(target=self.progress_dialog.run).start()
 
 	def _kill_progress_dialog(self):
@@ -521,7 +528,9 @@ class Sources():
 
 	def play_file(self, results, source={}, autoplay=False, background=False):
 		def _uncached_confirm(item):
-			if not confirm_dialog(text=ls(32831) % item['debrid'].upper()): return None
+			if not confirm_dialog(text=ls(32831) % item['debrid'].upper()):
+				kodi_utils.clear_property('pov.progress_is_alive')
+				return None
 			self.caching_confirmed = True
 			return item
 		try:
@@ -542,7 +551,7 @@ class Sources():
 				if not self.load_action:
 					progressBG = kodi_utils.progressDialogBG
 					progressBG.create('POV', 'POV loading...')
-				else: self._make_progress_dialog(monitor='on')
+				else: self._make_progress_dialog(monitor=True)
 			self.url = None
 			total_items = len(items)
 			for count, item in enumerate(items, 1):
@@ -575,9 +584,10 @@ class Sources():
 				if self.progress_dialog: pass
 				else: progressBG.close()
 			if background: return self.url
-			if self.caching_confirmed: return self.resolve_sources(self.url, self.meta, cache_item=True)
-			try: return POVPlayer().run(self.url)
-			finally: kodi_utils.clear_property('pov.progress_is_alive')
+			if self.caching_confirmed:
+				kodi_utils.clear_property('pov.progress_is_alive')
+				return self.resolve_sources(self.url, self.meta, cache_item=True)
+			return POVPlayer().run(self.url)
 		except: pass
 
 	def resolve_sources(self, item, meta, cache_item=False):
@@ -590,13 +600,12 @@ class Sources():
 					url = self.resolve_cached_torrents(cache_provider, item['url'], item['hash'], title, season, episode)
 					return url
 				if 'Uncached' in cache_provider:
-					kodi_utils.clear_property('pov.progress_is_alive')
 					if cache_item:
 						if not 'package' in item: title, season, episode  = None, None, None
 						url = self.resolve_uncached_torrents(item['debrid'], item['url'], item['hash'], title, season, episode)
 						if not url: return None
 						if url == 'cache_pack_success': return
-						return POVPlayer().run(url)
+#						return POVPlayer().run(url)
 					else:
 						url = 'uncached'
 						return url
@@ -637,7 +646,7 @@ class Sources():
 		else: pack = False
 		if debrid_function().add_uncached_torrent(item_url, pack):
 			if pack: return 'cache_pack_success'
-			return self.resolve_cached_torrents(debrid_provider, item_url, _hash, title, season, episode)
+#			return self.resolve_cached_torrents(debrid_provider, item_url, _hash, title, season, episode)
 		else: return None
 
 	def resolve_debrid(self, debrid_provider, item_provider, item_url):
@@ -669,7 +678,7 @@ class Sources():
 				url = url_dl
 			elif scrape_provider == 'tb_cloud':
 				from apis.torbox_api import TorBoxAPI
-				url = TorBoxAPIAPI().unrestrict_link(item_id)
+				url = TorBoxAPI().unrestrict_link(item_id)
 			elif scrape_provider == 'folders':
 				if url_dl.endswith('.strm'):
 					from modules.kodi_utils import open_file

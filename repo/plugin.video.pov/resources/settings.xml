@@ -276,11 +276,11 @@
 		<setting label="External Scrapers (RIP Venom)" type="lsep" />
 		<setting id="provider.external" label="Enable" type="bool" default="true" />
 		<setting label="32830" type="lsep" />
-		<setting id="provider.tidebrid" label="torrentio debrid+" type="bool" default="true" />
+		<setting id="provider.tidebrid" label="torrentio debrid+" type="bool" default="false" />
 			<setting id="tidebrid.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" lvalues="32054|32063" visible="eq(-1,true)" />
-		<setting id="provider.mfdebrid" label="mediafusion debrid+" type="bool" default="true" />
+		<setting id="provider.mfdebrid" label="mediafusion debrid+" type="bool" default="false" />
 			<setting id="mfdebrid.token" label="" type="text" default="" subsetting="true" visible="false" />
-			<setting id="mfdebrid.packs" label="Include Show Packs" type="bool" default="true" subsetting="true" visible="eq(-2,true)" />
+			<setting id="mfdebrid.packs" label="Include Show Packs" type="bool" default="false" subsetting="true" visible="eq(-2,true)" />
 			<setting label="Configure" type="action" subsetting="true" visible="eq(-3,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=mfdebrid_configure)" />
 		<!-- Real Debrid -->
 		<setting label="32054" type="lsep" />

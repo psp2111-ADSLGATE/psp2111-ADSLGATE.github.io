@@ -1,7 +1,6 @@
-from threading import Thread
 from windows import BaseDialog
 from modules.settings import get_art_provider, get_fanart_data
-from modules.kodi_utils import translate_path, clear_property, get_property, set_property, sleep
+from modules.kodi_utils import translate_path
 # from modules.kodi_utils import logger
 
 class YesNoProgressMedia(BaseDialog):
@@ -16,19 +15,15 @@ class YesNoProgressMedia(BaseDialog):
 		self.false_button = kwargs.get('false_button', '')
 		self.focus_button = kwargs.get('focus_button', 10)
 		self.percent = float(kwargs.get('percent', 0))
-		self.monitor = kwargs.get('monitor', False) == 'on'
 		self.make_items()
 		self.set_properties()
 
 	def onInit(self):
 		if self.enable_buttons: self.allow_buttons()
-		set_property('pov.progress_is_alive', 'true')
-		if self.monitor: Thread(target= self._monitor).start()
 
 	def run(self):
 		self.doModal()
 		self.clearProperties()
-		clear_property('pov.progress_is_alive')
 		return self.selected
 
 	def iscanceled(self):
@@ -70,10 +65,5 @@ class YesNoProgressMedia(BaseDialog):
 		try:
 			self.getControl(2000).setText(content)
 			self.getControl(5000).setPercent(percent)
-		except: pass
-
-	def _monitor(self):
-		while get_property('pov.progress_is_alive') == 'true': sleep(200)
-		try: self.close()
 		except: pass
 
