@@ -145,11 +145,12 @@ class POVPlayer(kodi_utils.xbmc_player):
 			if not self.play_random_continual and self.autoscrape_nextep: self.autoscrape_next_episode = 'random' not in self.meta
 			if not self.play_random_continual and self.autoplay_nextep: self.autoplay_next_episode = 'random' not in self.meta
 			if self.autoplay_nextep and self.autoscrape_nextep: self.autoscrape_next_episode = False
-#		while not self.isPlayingVideo(): kodi_utils.sleep(100)
 		while not self.playback_event: kodi_utils.sleep(100)
-#		kodi_utils.close_all_dialog()
-		if self.volume_check: kodi_utils.volume_checker(get_setting('volumecheck.percent', '100'))
-		kodi_utils.sleep(1000)
+		if self.isPlayingVideo():
+			kodi_utils.close_all_dialog()
+			if self.volume_check: kodi_utils.volume_checker(get_setting('volumecheck.percent', '100'))
+			if not self.subs_searched: self.run_subtitles()
+			kodi_utils.sleep(1000)
 		while self.isPlayingVideo():
 			try:
 				kodi_utils.sleep(1000)
@@ -172,7 +173,6 @@ class POVPlayer(kodi_utils.xbmc_player):
 						if not self.nextep_started and self.autoscrape_nextep:
 							self.run_scrape_next_ep()
 			except: pass
-			if not self.subs_searched: self.run_subtitles()
 		if not self.media_marked: self.media_watched_marker()
 		ws.clear_local_bookmarks()
 

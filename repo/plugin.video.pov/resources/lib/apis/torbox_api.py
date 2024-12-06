@@ -122,7 +122,7 @@ class TorBoxAPI:
 			if not selected_files: return None
 			file_key = selected_files[0]['url']
 			file_url = self.unrestrict_link(file_key)
-#			if not store_to_cloud: Thread(target=self.delete_torrent, args=(torrent_id,)).start()
+			if not store_to_cloud: Thread(target=self.delete_torrent, args=(torrent_id,)).start()
 			return file_url
 		except Exception as e:
 			kodi_utils.logger('main exception', str(e))
@@ -141,7 +141,7 @@ class TorBoxAPI:
 				{'link': '%d,%d' % (torrent_id, item['id']), 'filename': item['short_name'], 'size': item['size']}
 				for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))
 			]
-#			self.delete_torrent(torrent_id)
+			self.delete_torrent(torrent_id)
 			return torrent_files or None
 		except Exception:
 			if torrent_id: self.delete_torrent(torrent_id)

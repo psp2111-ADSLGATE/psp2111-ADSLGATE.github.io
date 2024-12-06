@@ -1,5 +1,5 @@
 import json, re, requests
-from fenom.control import dialog, multiselectDialog, setSetting
+from fenom.control import dialog, multiselectDialog, yesnoDialog, setSetting
 
 
 timeout = 3.05
@@ -59,10 +59,13 @@ class Comet(Hosted):
 
 class MFDebrid(Hosted):
 	base_url = 'https://mediafusion.elfhosted.com'
+	pattern = 'eJwBgAB__2dbCdT5Q5G5Jn7YYQvl49ENMrgdhgjWKsnbKfpMOEJObL36zaawUMsRvuJT93CI5vs5GLM8zhYLXbE0UEJi2hDwpSmq0yht-fJ50y1bD4DODYrraN1LEXX9A_FYPfi-iq9iCWJVDc_Q-EKfHIHhOsndT6Vv5PE1IR5LypAuviTvUytA9g=='
+	amble = 'Use custom manifest?[CR][CR]Select No to use Direct Torrent configuration. The cached status of direct torrents is unchecked.'
 
 	def configure(self):
 		try:
-			url = dialog.input(f"{self.base_url} manifest url")
+			if yesnoDialog(self.amble): url = dialog.input(f"{self.base_url} manifest url")
+			else: url = self.pattern
 			params = url.replace(self.base_url, '').replace('manifest.json', '').strip('/')
 			if not params: return
 			setSetting(f"{self.name.lower()}.token", str(params))

@@ -119,9 +119,10 @@ class SourceResults(BaseDialog):
 					try: name = upper(get('URLName', 'N/A'))
 					except: name = 'N/A'
 					pack = get('package', 'false') in pack_check
-					if pack: extra_info = '[B]%s[/B] | %s' % (upper(get('package')), get('extraInfo', ''))
-					else: extra_info = get('extraInfo', 'N/A')
-					if not extra_info: extra_info = 'N/A'
+#					if pack: extra_info = '[B]PACK[/B] | %s' % get('extraInfo', '')
+#					else: extra_info = get('extraInfo', 'N/A')
+#					if not extra_info: extra_info = 'N/A'
+					extra_info = get('extraInfo', '') or 'N/A'
 					extra_info = extra_info.rstrip('| ')
 					if scrape_provider == 'external':
 						source_site = upper(get('cache') if 'cache' in item else get('provider'))
@@ -140,10 +141,11 @@ class SourceResults(BaseDialog):
 								if highlight_type == 0: key = 'torrent_highlight'
 								elif highlight_type == 1: key = provider_lower
 								else: key = basic_quality
+								status = 'UNCHECKED' if get('cache') in ('TI', 'MF') else 'CACHED'
 								set_property('tikiskins.source_type',
-									'CACHED [B]PACK[/B]'
+									'%s [B]%s[/B]' % (status, upper(get('package')))
 									if pack else
-									'CACHED')
+									'%s' % status)
 								set_property('tikiskins.highlight', self.info_highlights_dict[key])
 						else:
 							if highlight_type == 0: key = 'hoster_highlight'

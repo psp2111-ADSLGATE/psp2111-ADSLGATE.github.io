@@ -251,7 +251,7 @@
 		<setting id="tb.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
 		<setting id="tb.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
 		<setting id="tb.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
-		<setting id="store_torrent.torbox" label="32060" type="bool" default="false" visible="false" />
+		<setting id="store_torrent.torbox" label="32060" type="bool" default="false" visible="eq(-3,true)+!eq(-4,)" />
 		<setting id="provider.tb_cloud" label="$ADDON[plugin.video.pov 32450] TB Cloud" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
 			<setting id="tb_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-5,true)+!eq(-6,)" />
 			<setting id="check.tb_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-6,true)+!eq(-7,)" />
@@ -277,7 +277,7 @@
 		<setting id="provider.external" label="Enable" type="bool" default="true" />
 		<setting label="32830" type="lsep" />
 		<setting id="provider.tidebrid" label="torrentio debrid+" type="bool" default="false" />
-			<setting id="tidebrid.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" lvalues="32054|32063" visible="eq(-1,true)" />
+			<setting id="tidebrid.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" values="Real Debrid|All Debrid|Direct" visible="eq(-1,true)" />
 		<setting id="provider.mfdebrid" label="mediafusion debrid+" type="bool" default="false" />
 			<setting id="mfdebrid.token" label="" type="text" default="" subsetting="true" visible="false" />
 			<setting id="mfdebrid.packs" label="Include Show Packs" type="bool" default="false" subsetting="true" visible="eq(-2,true)" />

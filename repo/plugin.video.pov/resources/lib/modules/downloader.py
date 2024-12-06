@@ -142,6 +142,9 @@ class Downloader:
 			if self.action == 'meta.single':
 				source = json.loads(self.source)
 				url = Sources().resolve_sources(source, self.meta)
+				if 'torbox' in url:
+					from apis.torbox_api import TorBoxAPI
+					url = TorBoxAPI().add_headers_to_url(url)
 			elif self.action == 'meta.pack':
 				if self.provider == 'Real-Debrid':
 					from apis.real_debrid_api import RealDebridAPI as debrid_function
@@ -149,10 +152,15 @@ class Downloader:
 					from apis.premiumize_api import PremiumizeAPI as debrid_function
 				elif self.provider == 'AllDebrid':
 					from apis.alldebrid_api import AllDebridAPI as debrid_function
+				elif self.provider == 'TorBox':
+					from apis.torbox_api import TorBoxAPI as debrid_function
 				url = self.params_get('pack_files')['link']
-				if self.provider in ('Real-Debrid', 'AllDebrid', 'TorBox'):
+				if self.provider in ('Real-Debrid', 'AllDebrid'):
 					url = debrid_function().unrestrict_link(url)
 				elif self.provider == 'Premiumize.me':
+					url = debrid_function().add_headers_to_url(url)
+				elif self.provider == 'TorBox':
+					url = debrid_function().unrestrict_link(url)
 					url = debrid_function().add_headers_to_url(url)
 		else:
 			if self.action.startswith('cloud'):
@@ -165,9 +173,10 @@ class Downloader:
 					from indexers.alldebrid import resolve_ad
 					url = resolve_ad(self.params)
 				elif 'torbox' in self.action:
-					from indexers.torbox import resolve_tb, add_headers_to_url
+					from apis.torbox_api import TorBoxAPI
+					from indexers.torbox import resolve_tb
 					url = resolve_tb(self.params)
-					url = add_headers_to_url(url)
+					url = TorBoxAPI().add_headers_to_url(url)
 				elif 'premiumize' in self.action:
 					from apis.premiumize_api import PremiumizeAPI
 					url = PremiumizeAPI().add_headers_to_url(url)

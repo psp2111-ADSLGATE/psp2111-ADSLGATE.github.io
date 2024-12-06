@@ -22,12 +22,12 @@ class source:
 	_queue = queue.SimpleQueue()
 	def __init__(self):
 		services = {
-			'0': ('realdebrid', 'rd.token', 'RD+'), '1': ('alldebrid', 'ad.token', 'AD')
+			'0': ('realdebrid', 'rd.token', 'RD+'), '1': ('alldebrid', 'ad.token', 'AD'), '2': ('', '', '')
 		}
 		debrid = getSetting('tidebrid.debrid', '0')
 		debrid, token, self.cache = services[debrid]
-		self.token  = getSetting(token, '')
-		params = f"/{debrid}={self.token}"
+		token = getSetting(token, '') if debrid else ''
+		params = f"/{debrid}={token}" if token else ''
 		self.language = ['en']
 		self.base_link = "https://torrentio.strem.fun"
 		self.movieSearch_link = f"{params}/stream/movie/%s.json"
@@ -38,7 +38,6 @@ class source:
 	def sources(self, data, hostDict):
 		sources = []
 		if not data: return sources
-		if not self.token: return sources
 		append = sources.append
 		try:
 			title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
@@ -72,7 +71,7 @@ class source:
 
 		for file in files:
 			try:
-				if not self.cache in file['name']: continue
+				if self.cache and not self.cache in file['name']: continue
 				if 'url' in file: hash = requests.utils.urlparse(file['url']).path.split('/')[3]
 				else: hash = file['infoHash']
 				file_title = file['title'].split('\n')
@@ -111,7 +110,7 @@ class source:
 				info = ' | '.join(info)
 
 				append({'provider': 'tidebrid', 'source': 'torrent', 'seeders': seeders, 'hash': hash, 'name': name, 'name_info': name_info, 'quality': quality,
-							'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True, 'size': dsize, 'cache': self.cache})
+							'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True, 'size': dsize, 'cache': self.cache or 'TI'})
 			except:
 				source_utils.scraper_error('TIDEBRID')
 		return sources
@@ -119,7 +118,6 @@ class source:
 	def sources_packs(self, data, hostDict, search_series=False, total_seasons=None, bypass_filter=False):
 		sources = []
 		if not data: return sources
-		if not self.token: return sources
 		sources_append = sources.append
 		try:
 			title = data['tvshowtitle'].replace('&', 'and').replace('Special Victims Unit', 'SVU').replace('/', ' ')
@@ -140,7 +138,7 @@ class source:
 
 		for file in files:
 			try:
-				if not self.cache in file['name']: continue
+				if self.cache and not self.cache in file['name']: continue
 				if 'url' in file: hash = requests.utils.urlparse(file['url']).path.split('/')[3]
 				else: hash = file['infoHash']
 				file_title = file['title'].split('\n')
@@ -187,7 +185,7 @@ class source:
 				info = ' | '.join(info)
 
 				item = {'provider': 'tidebrid', 'source': 'torrent', 'seeders': seeders, 'hash': hash, 'name': name, 'name_info': name_info, 'quality': quality,
-							'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True, 'size': dsize, 'package': package, 'cache': self.cache}
+							'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True, 'size': dsize, 'package': package, 'cache': self.cache or 'TI'}
 				if search_series: item.update({'last_season': last_season})
 				elif episode_start: item.update({'episode_start': episode_start, 'episode_end': episode_end}) # for partial season packs
 				sources_append(item)

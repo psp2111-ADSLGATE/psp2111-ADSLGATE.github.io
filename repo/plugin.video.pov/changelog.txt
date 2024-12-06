@@ -9,7 +9,11 @@
 - nyaa in Sources/Torrents sourced from website results.
 
   [COLOR dodgerblue][B]Version 4.12.01[/B][/COLOR]
-- Fix for TB Cloud Storage.  Thanks Reddit/Discord users!
+- Added TorBox "Add Resovled Torrents to Cloud".
+  This is disabled by default for consistency with other debrid services.  Disabled means
+  that after receiving a resolved link from the service, the torrent will be deleted from
+  the users cloud.
+- Fix for TorBox Cloud Storage.  Thanks Reddit/Discord users!
 - Changed Real Debrid/All Debrid integration.
   Only two sources that will return results, `torrentio debrid+` and `mediafusion debrid+`.
   This relies on the `torrentio` and `mediafusion` internal caches, so there is a little

@@ -17,8 +17,9 @@ class source:
 	hasEpisodes = True
 	_queue = queue.SimpleQueue()
 	def __init__(self):
-		self.cache = 'MF+'
-		self.params = getSetting('mfdebrid.token', '')
+		direct = 'eJwBgAB__2dbCdT5Q5G5Jn7YYQvl49ENMrgdhgjWKsnbKfpMOEJObL36zaawUMsRvuJT93CI5vs5GLM8zhYLXbE0UEJi2hDwpSmq0yht-fJ50y1bD4DODYrraN1LEXX9A_FYPfi-iq9iCWJVDc_Q-EKfHIHhOsndT6Vv5PE1IR5LypAuviTvUytA9g=='
+		self.params = getSetting('mfdebrid.token', direct)
+		self.cache = 'MF' if self.params == direct else 'MF+'
 		self.language = ['en']
 		self.base_link = "https://mediafusion.elfhosted.com"
 		self.movieSearch_link = f"/{self.params}/stream/movie/%s.json"
