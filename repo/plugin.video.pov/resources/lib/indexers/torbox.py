@@ -21,8 +21,8 @@ def tb_torrent_cloud():
 				cm = []
 				cm_append = cm.append
 				display = '%02d | [B]%s[/B] | [I]%s [/I]' % (count, folder_str, clean_file_name(normalize(item['name'])).upper())
-				url_params = {'mode': 'torbox.browse_tb_cloud', 'folder_id': item['id']}
-				delete_params = {'mode': 'torbox.delete', 'folder_id': item['id']}
+				url_params = {'mode': 'torbox.browse_tb_cloud', 'folder_id': item['id'], 'media_type': item['media_type']}
+				delete_params = {'mode': 'torbox.delete', 'folder_id': item['id'], 'media_type': item['media_type']}
 				cm_append(('[B]%s %s[/B]' % (delete_str, folder_str.capitalize()), 'RunPlugin(%s)' % build_url(delete_params)))
 				url = build_url(url_params)
 				listitem = make_listitem()
@@ -32,14 +32,18 @@ def tb_torrent_cloud():
 				yield (url, listitem, True)
 			except: pass
 	cloud_folders = TorBox.user_cloud()
-	folders = [i for i in cloud_folders['data'] if i['download_finished']]
+	usenet_folders = TorBox.user_cloud_usenet()
+	folders_torrent = [{**i, 'media_type': 'torrent'} for i in cloud_folders['data'] if i['download_finished']]
+	folders_usenet = [{**i, 'media_type': 'usenet'} for i in usenet_folders['data'] if i['download_finished']]
+	folders = folders_torrent + folders_usenet
+	folders.sort(key=lambda k: k['updated_at'], reverse=True)
 	__handle__ = int(sys.argv[1])
 	kodi_utils.add_items(__handle__, list(_builder()))
 	kodi_utils.set_content(__handle__, 'files')
 	kodi_utils.end_directory(__handle__)
 	kodi_utils.set_view_mode('view.premium')
 
-def browse_tb_cloud(folder_id):
+def browse_tb_cloud(folder_id, media_type):
 	def _builder():
 		for count, item in enumerate(video_files, 1):
 			try:
@@ -47,11 +51,11 @@ def browse_tb_cloud(folder_id):
 				name = clean_file_name(item['short_name']).upper()
 				size = float(int(item['size']))/1073741824
 				display = '%02d | [B]%s[/B] | %.2f GB | [I]%s [/I]' % (count, file_str, size, name)
-				url_params = {'mode': 'torbox.resolve_tb', 'url': '%d,%d' % (int(folder_id), item['id']), 'play': 'true'}
-				url = build_url(url_params)
-				down_file_params = {'mode': 'downloader', 'url': '%d,%d' % (int(folder_id), item['id']),
-									'name': name, 'action': 'cloud.torbox', 'image': default_tb_icon}
+				params = {'url': '%d,%d' % (int(folder_id), item['id']), 'media_type': item['media_type']}
+				url_params = {'mode': 'torbox.resolve_tb', 'play': 'true', **params}
+				down_file_params = {'mode': 'downloader', 'action': 'cloud.torbox', 'name': name, 'image': default_tb_icon, **params}
 				cm.append((down_str,'RunPlugin(%s)' % build_url(down_file_params)))
+				url = build_url(url_params)
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
@@ -59,24 +63,27 @@ def browse_tb_cloud(folder_id):
 				listitem.setInfo('video', {})
 				yield (url, listitem, False)
 			except: pass
-	torrent_files = TorBox.user_cloud_info(folder_id)
-	video_files = [i for i in torrent_files['data']['files'] if i['short_name'].lower().endswith(tuple(extensions))]
+	if media_type == 'usenet': files = TorBox.user_cloud_info_usenet(folder_id)
+	else: files = TorBox.user_cloud_info(folder_id)
+	video_files = [{**i, 'media_type': media_type} for i in files['data']['files'] if i['short_name'].lower().endswith(tuple(extensions))]
 	__handle__ = int(sys.argv[1])
 	kodi_utils.add_items(__handle__, list(_builder()))
 	kodi_utils.set_content(__handle__, 'files')
 	kodi_utils.end_directory(__handle__)
 	kodi_utils.set_view_mode('view.premium')
 
-def tb_delete(folder_id):
+def tb_delete(folder_id, media_type):
 	if not kodi_utils.confirm_dialog(): return
-	result = TorBox.delete_torrent(folder_id)
+	if media_type == 'usenet': result = TorBox.delete_usenet(folder_id)
+	else: result = TorBox.delete_torrent(folder_id)
 	if not result['success']: return kodi_utils.notification(32574)
 	TorBox.clear_cache()
 	kodi_utils.container_refresh()
 
 def resolve_tb(params):
-	file_id = params['url']
-	resolved_link = TorBox.unrestrict_link(file_id)
+	file_id, media_type = params['url'], params['media_type']
+	if media_type == 'usenet': resolved_link = TorBox.unrestrict_usenet(file_id)
+	else: resolved_link = TorBox.unrestrict_link(file_id)
 	if params.get('play', 'false') != 'true': return resolved_link
 	from modules.player import POVPlayer
 	POVPlayer().run(resolved_link, 'video')

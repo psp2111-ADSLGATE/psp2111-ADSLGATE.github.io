@@ -54,6 +54,7 @@ class source:
 			except: return self.sources
 			for item in my_cloud_files['data']:
 				if not item['download_finished']: continue
+				if not self.folder_query in clean_title(normalize(item['name'])): continue
 				for file in item['files']:
 					if not file['short_name'].endswith(tuple(extensions)): continue
 					match = False

@@ -250,7 +250,7 @@ class Movies:
 				videoinfo.setResumePoint(float(resumetime) or float(progress))
 				videoinfo.setStudios((meta_get('studio'),))
 				videoinfo.setTagLine(meta_get('tagline'))
-				videoinfo.setTitle(title)
+				videoinfo.setTitle(rootname if self.include_year_in_title else title)
 				videoinfo.setTrailer(meta_get('trailer'))
 				videoinfo.setVotes(meta_get('votes'))
 				videoinfo.setWriters(meta_get('writer').split(', '))

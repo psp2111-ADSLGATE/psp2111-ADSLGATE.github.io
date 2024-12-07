@@ -269,7 +269,7 @@ def routing(params):
 			tb_torrent_cloud()
 		elif mode == 'torbox.browse_tb_cloud':
 			from indexers.torbox import browse_tb_cloud
-			browse_tb_cloud(params_get('folder_id'))
+			browse_tb_cloud(params_get('folder_id'), params_get('media_type'))
 		elif mode == 'torbox.resolve_tb':
 			from indexers.torbox import resolve_tb
 			resolve_tb(params)
@@ -278,7 +278,7 @@ def routing(params):
 			tb_account_info()
 		elif mode == 'torbox.delete':
 			from indexers.torbox import tb_delete
-			tb_delete(params_get('folder_id'))
+			tb_delete(params_get('folder_id'), params_get('media_type'))
 		elif mode == 'torbox.tb_auth':
 			from apis.torbox_api import TorBoxAPI
 			TorBoxAPI().auth()

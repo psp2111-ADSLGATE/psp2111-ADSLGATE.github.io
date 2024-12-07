@@ -483,31 +483,22 @@ class Sources():
 		self.progress_dialog = None
 
 	def debridPacks(self, debrid_provider, name, magnet_url, info_hash, highlight=None, download=False):
-		if debrid_provider == 'Real-Debrid':
-			from apis.real_debrid_api import RealDebridAPI as debrid_function
-			icon = 'realdebrid.png'
-		elif debrid_provider == 'Premiumize.me':
-			from apis.premiumize_api import PremiumizeAPI as debrid_function
-			icon = 'premiumize.png'
-		elif debrid_provider == 'AllDebrid':
-			from apis.alldebrid_api import AllDebridAPI as debrid_function
-			icon = 'alldebrid.png'
-		elif debrid_provider == 'Offcloud':
-			from apis.offcloud_api import OffcloudAPI as debrid_function
-			icon = 'offcloud.png'
-		elif debrid_provider == 'TorBox':
-			from apis.torbox_api import TorBoxAPI as debrid_function
-			icon = 'torbox.png'
-		elif debrid_provider == 'EasyDebrid':
-			from apis.easydebrid_api import EasyDebridAPI as debrid_function
-			icon = 'easydebrid.png'
 		show_busy_dialog()
+		debrid_function = self.import_debrid(debrid_provider)
 		try: debrid_files = debrid_function().display_magnet_pack(magnet_url, info_hash)
 		except: debrid_files = None
 		hide_busy_dialog()
 		if not debrid_files: return notification(32574)
 		debrid_files.sort(key=lambda k: k['filename'].lower())
 		if download: return debrid_files, debrid_function
+		icon = {
+			'Real-Debrid': 'realdebrid.png',
+			'Premiumize.me': 'premiumize.png',
+			'AllDebrid': 'alldebrid.png',
+			'Offcloud': 'offcloud.png',
+			'TorBox': 'torbox.png',
+			'EasyDebrid': 'easydebrid.png'
+		}.get(debrid_provider) or 'pov.png'
 		default_debrid_icon = translate_path('special://home/addons/plugin.video.pov/resources/media/%s' % icon)
 		list_items = [
 			{'line1': '%.2f GB | %s' % (float(item['size'])/1073741824, clean_file_name(item['filename']).upper()), 'icon': default_debrid_icon}
@@ -563,7 +554,9 @@ class Sources():
 							if self.progress_dialog and self.progress_dialog.iscanceled(): break
 							elif monitor.abortRequested(): break
 							name = item['name'].replace('.', ' ').replace('-', ' ').upper()
-							line1 = ' | '.join((item.get('cache_provider', ''), item.get('provider', ''))).upper()
+							if item.get('scrape_provider') == 'external':
+								line1 = ' | '.join((item.get('cache_provider', ''), item.get('provider', ''))).upper()
+							else: line1 = item.get('scrape_provider', '').upper()
 							line2 = ' | '.join((item.get('size_label', ''), item.get('extraInfo', '')))
 							percent = int((total_items-count)/total_items*100)
 #							self.progress_dialog.update(main_line % ('', name, ''), percent)
@@ -615,8 +608,7 @@ class Sources():
 				return url
 			if item.get('debrid') in ('Real-Debrid', 'Premiumize.me', 'AllDebrid') and not item['source'].lower() == 'torrent':
 				url = self.resolve_debrid(item['debrid'], item['provider'], item['url'])
-				if url is not None: return url
-				else: return None
+				return url
 			else:
 				url = item['url']
 				return url

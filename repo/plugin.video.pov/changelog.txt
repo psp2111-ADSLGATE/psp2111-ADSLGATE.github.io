@@ -9,6 +9,9 @@
 - nyaa in Sources/Torrents sourced from website results.
 
   [COLOR dodgerblue][B]Version 4.12.01[/B][/COLOR]
+- Added completed TorBox usenet to Torbox Cloud Storage.
+  Playback links from TorBox are still problematic.  Check the kodi.log before complaints
+  the addon does not work.
 - Added TorBox "Add Resovled Torrents to Cloud".
   This is disabled by default for consistency with other debrid services.  Disabled means
   that after receiving a resolved link from the service, the torrent will be deleted from

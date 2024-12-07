@@ -104,7 +104,8 @@ class POVPlayer(kodi_utils.xbmc_player):
 				listitem.setProperty('IsPlayable', 'true')
 				kodi_utils.set_resolvedurl(int(argv[1]), listitem)
 			else: self.play(url, listitem)
-			self.monitor()
+			while not self.playback_event: kodi_utils.sleep(100)
+			if self.isPlayingVideo(): self.monitor()
 		except: return
 
 	def bookmarkPOV(self):
@@ -140,17 +141,15 @@ class POVPlayer(kodi_utils.xbmc_player):
 		return percent if choice is True else bookmark if choice is False else 'cancel'
 
 	def monitor(self):
+		kodi_utils.close_all_dialog()
 		if self.media_type == 'episode':
 			self.play_random_continual = 'random_continual' in self.meta
 			if not self.play_random_continual and self.autoscrape_nextep: self.autoscrape_next_episode = 'random' not in self.meta
 			if not self.play_random_continual and self.autoplay_nextep: self.autoplay_next_episode = 'random' not in self.meta
 			if self.autoplay_nextep and self.autoscrape_nextep: self.autoscrape_next_episode = False
-		while not self.playback_event: kodi_utils.sleep(100)
-		if self.isPlayingVideo():
-			kodi_utils.close_all_dialog()
-			if self.volume_check: kodi_utils.volume_checker(get_setting('volumecheck.percent', '100'))
-			if not self.subs_searched: self.run_subtitles()
-			kodi_utils.sleep(1000)
+		if self.volume_check: kodi_utils.volume_checker(get_setting('volumecheck.percent', '100'))
+		if not self.subs_searched: self.run_subtitles()
+		kodi_utils.sleep(1000)
 		while self.isPlayingVideo():
 			try:
 				kodi_utils.sleep(1000)

@@ -12,10 +12,14 @@ session.mount(base_url, requests.adapters.HTTPAdapter(max_retries=1))
 
 class TorBoxAPI:
 	download = '/torrents/requestdl'
+	download_usenet = '/usenet/requestdl'
 	remove = '/torrents/controltorrent'
+	remove_usenet = '/usenet/controlusenetdownload'
 	stats = '/user/me'
 	history = '/torrents/mylist'
 	explore = '/torrents/mylist?id=%s'
+	history_usenet = '/usenet/mylist'
+	explore_usenet = '/usenet/mylist?id=%s'
 	cache = '/torrents/checkcached'
 	cloud = '/torrents/createtorrent'
 
@@ -54,15 +58,26 @@ class TorBoxAPI:
 		url = self.history
 		return cache_object(self._GET, string, url, False, 0.5)
 
+	def user_cloud_usenet(self):
+		string = 'pov_tb_user_cloud_usenet'
+		url = self.history_usenet
+		return cache_object(self._GET, string, url, False, 0.5)
+
 	def user_cloud_info(self, request_id=''):
 		string = 'pov_tb_user_cloud_%s' % request_id
 		url = self.explore % request_id
+		return cache_object(self._GET, string, url, False, 0.5)
+
+	def user_cloud_info_usenet(self, request_id=''):
+		string = 'pov_tb_user_cloud_usenet_%s' % request_id
+		url = self.explore_usenet % request_id
 		return cache_object(self._GET, string, url, False, 0.5)
 
 	def user_cloud_clear(self):
 		if not kodi_utils.confirm_dialog(): return
 		data = {'all': True, 'operation': 'delete'}
 		self._POST(self.remove, json=data)
+		self._POST(self.remove_usenet, json=data)
 		self.clear_cache()
 
 	def torrent_info(self, request_id=''):
@@ -73,10 +88,20 @@ class TorBoxAPI:
 		data = {'torrent_id': request_id, 'operation': 'delete'}
 		return self._POST(self.remove, json=data)
 
+	def delete_usenet(self, request_id=''):
+		data = {'usenet_id': request_id, 'operation': 'delete'}
+		return self._POST(self.remove_usenet, json=data)
+
 	def unrestrict_link(self, file_id):
 		torrent_id, file_id = file_id.split(',')
 		params = {'token': self.api_key, 'torrent_id': torrent_id, 'file_id': file_id}
 		try: return self._GET(self.download, params=params)['data']
+		except: return None
+
+	def unrestrict_usenet(self, file_id):
+		usenet_id, file_id = file_id.split(',')
+		params = {'token': self.api_key, 'usenet_id': usenet_id, 'file_id': file_id, 'user_ip': True}
+		try: return self._GET(self.download_usenet, params=params)['data']
 		except: return None
 
 	def add_magnet(self, magnet):

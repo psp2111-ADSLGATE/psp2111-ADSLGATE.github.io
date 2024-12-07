@@ -1,4 +1,5 @@
 import json, re, requests
+from urllib.parse import urlparse
 from fenom.control import dialog, multiselectDialog, yesnoDialog, setSetting
 
 
@@ -57,18 +58,28 @@ class Comet(Hosted):
 		config_dict = json.loads(next(values, []))
 		return config_dict
 
-class MFDebrid(Hosted):
+class Mediafusion(Hosted):
 	base_url = 'https://mediafusion.elfhosted.com'
-	pattern = 'eJwBgAB__2dbCdT5Q5G5Jn7YYQvl49ENMrgdhgjWKsnbKfpMOEJObL36zaawUMsRvuJT93CI5vs5GLM8zhYLXbE0UEJi2hDwpSmq0yht-fJ50y1bD4DODYrraN1LEXX9A_FYPfi-iq9iCWJVDc_Q-EKfHIHhOsndT6Vv5PE1IR5LypAuviTvUytA9g=='
+	pattern = 'eJwB4AEf_lnXQtODtVEQPYTzN5RH5ekzdON8j6UfgBIzKmwW1uMrQleG82Nq_AC3GmUVA0XDSiL2WzX3HgB6X6dyaNXQNui09IcpCE6JVfVcio7wjtL6a4dB64mBGFk4NCKxpZgr6J5D2tdURTyVdv15lJV0RUXp6OT-ojBKt13ldML-KPFFRe7KuHRwUhN7LF3bY7mdunCw88dpH7Il5HTZkZqVrrb4bu7RlsvgtSFs8bW-JP3emhHG37wen3PFG2OsK0kO1BYN0INshwF8nXnHX6dLnZO-lL7Ec7NsMpvsvnTJYRka6tPEZRQx3bFyMXXA8j2RgVUYxPbC6YSoamWp1Gd9MVPdY_kO8oftLC3jh1o3PdcTmuigdAtH0O6nkmBc3q8vye5Xp72GNnBgLXfGAhBqUv1bd9PvIu61_w-PL6Ch2JWRu9WuGVoY4ctbFJmqnwGXf-4x-0m50J-CaWxVE-c1ekOW7TTRGnpb1voDYWzVzqhcQBt7H9Fx9-DtXuFAxUi8Trxef3JKcSC3AoHXBEkkNAcOWoe7zXPEERcmFhriI4QRZBGjIih_o0lNRiyuoZFO9qmU28eKVbadfcKoIuqQmiFb5oNTPDsM3QXE0g0Hr8HM43URPStEh1B2TkfnuiKQ_rO2850='
 	amble = 'Use custom manifest?[CR][CR]Select No to use Direct Torrent configuration. The cached status of direct torrents is unchecked.'
 
 	def configure(self):
 		try:
-			if yesnoDialog(self.amble): url = dialog.input(f"{self.base_url} manifest url")
-			else: url = self.pattern
-			params = url.replace(self.base_url, '').replace('manifest.json', '').strip('/')
-			if not params: return
+			if yesnoDialog(self.amble):
+				url = dialog.input(f"Enter manifest url:")
+				u = urlparse(url)
+				scheme, netloc, path = u.scheme, u.netloc, u.path
+				url = '%s://%s' % (scheme, netloc) if scheme and netloc else ''
+				path = path if path else ''
+			else: url, path = self.base_url, self.pattern
+			params = path.replace(self.base_url, '').replace('manifest.json', '').strip('/')
+			setSetting(f"{self.name.lower()}.url", str(url))
 			setSetting(f"{self.name.lower()}.token", str(params))
 		except:
 			from fenom import log_utils
 			log_utils.error()
+
+class MFDebrid(Mediafusion):
+	base_url = ''
+	pattern = ''
+

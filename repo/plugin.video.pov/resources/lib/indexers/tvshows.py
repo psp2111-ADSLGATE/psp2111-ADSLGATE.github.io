@@ -238,7 +238,7 @@ class TVShows:
 				videoinfo.setRating(meta_get('rating'))
 				videoinfo.setStudios((meta_get('studio'),))
 				videoinfo.setTagLine(meta_get('tagline'))
-				videoinfo.setTitle(title)
+				videoinfo.setTitle(rootname if self.include_year_in_title else title)
 				videoinfo.setTrailer(meta_get('trailer'))
 				videoinfo.setTvShowStatus(meta_get('status'))
 				videoinfo.setTvShowTitle(title)

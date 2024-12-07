@@ -169,7 +169,7 @@
 	</category>
 	<!-- Sources -->
 	<category label="32830">
-		<setting label="External Scrapers (RIP Venom)" type="lsep" />
+		<setting label="32118" type="lsep" />
 		<setting id="provider.external" label="Enable" type="bool" default="true" />
 		<setting id="filter.foreign.single.audio" label="Remove identified Foreign single audio sources" type="bool" default="true" />
 		<setting id="filter.undesirables" label="Remove Undesirables" type="bool" default="false" />
@@ -177,9 +177,9 @@
 			<setting label="Remove User Undesirables" type="action" subsetting="true" visible="eq(-2,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=undesirablesUserRemove)" />
 		<setting id="debug.enabled" label="Enable Debug" type="bool" default="false" />
 		<setting id="debug.location" label="Logging Location" type="enum" default="1" enable="eq(-1,true)" values="Kodi Log|Addon Log" visible="eq(-1,true)" />
-		<setting label="Torrents" type="lsep" />
+		<setting label="32830" type="lsep" />
 		<setting id="provider.comet" label="comet" type="bool" default="false" />
-			<setting id="comet.url" label="Comet url" type="text" default="https://comet.elfhosted.com" subsetting="true" enable="false" visible="eq(-1,true)" />
+			<setting id="comet.url" label="Comet url" type="text" default="" subsetting="true" enable="false" visible="eq(-1,true)" />
 			<setting id="comet.indexers" label="Comet indexers" type="text" default="" subsetting="true" enable="false" visible="eq(-2,true)" />
 			<setting id="comet.langs" label="Comet languages" type="text" default="All" subsetting="true" enable="false" visible="eq(-3,true)" />
 			<setting id="comet.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" lvalues="32054|32061|32063|32078|32079" visible="eq(-4,true)" />
@@ -273,15 +273,16 @@
 		<!--setting id="easynews.api_version" label="33007" type="enum" default="0" lvalues="33008|33009" visible="!eq(-2,)" /-->
 	</category>
 	<category label="32455">
-		<setting label="External Scrapers (RIP Venom)" type="lsep" />
+		<setting label="32118" type="lsep" />
 		<setting id="provider.external" label="Enable" type="bool" default="true" />
 		<setting label="32830" type="lsep" />
-		<setting id="provider.tidebrid" label="torrentio debrid+" type="bool" default="false" />
+		<setting id="provider.tidebrid" label="torrentio debrid+" type="bool" default="true" />
 			<setting id="tidebrid.debrid" label="Debrid Provider" type="enum" default="0" subsetting="true" values="Real Debrid|All Debrid|Direct" visible="eq(-1,true)" />
-		<setting id="provider.mfdebrid" label="mediafusion debrid+" type="bool" default="false" />
+		<setting id="provider.mfdebrid" label="mediafusion debrid+" type="bool" default="true" />
 			<setting id="mfdebrid.token" label="" type="text" default="" subsetting="true" visible="false" />
-			<setting id="mfdebrid.packs" label="Include Show Packs" type="bool" default="false" subsetting="true" visible="eq(-2,true)" />
-			<setting label="Configure" type="action" subsetting="true" visible="eq(-3,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=mfdebrid_configure)" />
+			<setting id="mfdebrid.url" label="Mediafusion url" type="text" default="" subsetting="true" enable="false" visible="eq(-2,true)" />
+			<setting id="mfdebrid.packs" label="Include Show Packs" type="bool" default="true" subsetting="true" visible="eq(-3,true)" />
+			<setting label="Configure" type="action" subsetting="true" visible="eq(-4,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=mfdebrid_configure)" />
 		<!-- Real Debrid -->
 		<setting label="32054" type="lsep" />
 		<setting id="rd.token" label="rd token" type="text" default="" visible="false" />

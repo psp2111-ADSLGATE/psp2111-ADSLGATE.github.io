@@ -196,16 +196,16 @@ class source:
 	def process_duplicates(self):
 		def _process(sources):
 			uniqueURLs, uniqueHashes = set(), set()
-			debridURLs, debridHashes = set(), set()
+			cachedURLs, cachedHashes = set(), set()
 			for provider in sources:
 				try:
 					if provider['provider'] in ('tidebrid', 'mfdebrid'):
 						url = provider['url'].lower()
-						if url not in debridURLs:
-							debridURLs.add(url)
+						if url not in cachedURLs:
+							cachedURLs.add(url)
 							if 'hash' in provider:
-								if provider['hash'] not in debridHashes:
-									debridHashes.add(provider['hash'])
+								if provider['hash'] not in cachedHashes:
+									cachedHashes.add(provider['hash'])
 									yield provider
 							else: yield provider
 						continue
