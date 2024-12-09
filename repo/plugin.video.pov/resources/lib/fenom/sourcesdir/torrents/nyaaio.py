@@ -9,6 +9,7 @@ import re, requests, queue
 from fenom import source_utils
 
 #SERVER_ERROR = ('521 Origin Down', 'No results returned', 'Connection Time-out', 'Database maintenance')
+headers = {'User-Agent': 'Mozilla/5.0'}
 
 
 class source:
@@ -22,8 +23,8 @@ class source:
 		self.base_link = "https://torrentio.strem.fun"
 		# self.movieSearch_link = '/language=english/stream/movie/%s.json'
 		# self.tvSearch_link = '/language=english/stream/series/%s:%s:%s.json'
-		self.movieSearch_link = '/providers=nyaasi,tokyotosho,anidex/stream/movie/%s.json'
-		self.tvSearch_link = '/providers=nyaasi,tokyotosho,anidex/stream/series/%s:%s:%s.json'
+		self.movieSearch_link = '/providers=horriblesubs,nyaasi,tokyotosho,anidex,comando,bludv,torrent9,ilcorsaronero,mejortorrent,wolfmax4k,cinecalidad/stream/movie/%s.json'
+		self.tvSearch_link = '/providers=horriblesubs,nyaasi,tokyotosho,anidex,comando,bludv,torrent9,ilcorsaronero,mejortorrent,wolfmax4k,cinecalidad/stream/series/%s:%s:%s.json'
 		self.min_seeders = 0
 # Currently supports YTS(+), EZTV(+), RARBG(+), 1337x(+), ThePirateBay(+), KickassTorrents(+), TorrentGalaxy(+), HorribleSubs(+), NyaaSi(+), NyaaPantsu(+), Rutor(+), Comando(+), ComoEuBaixo(+), Lapumia(+), OndeBaixa(+), Torrent9(+).
 
@@ -48,7 +49,7 @@ class source:
 				hdlr = year
 			# log_utils.log('url = %s' % url)
 			try:
-				results = requests.get(url, timeout=5) # client.request(url, timeout=5)
+				results = requests.get(url, headers=headers, timeout=5) # client.request(url, timeout=5)
 #				if not results or any(value in results for value in SERVER_ERROR): return sources
 				files = results.json()['streams'] # jsloads(results)['streams']
 			except: files = []
@@ -116,7 +117,7 @@ class source:
 			year = data['year']
 			season = data['season']
 			url = '%s%s' % (self.base_link, self.tvSearch_link % (imdb, season, data['episode']))
-#			results = requests.get(url, timeout=5) # client.request(url, timeout=5)
+#			results = requests.get(url, headers=headers, timeout=5) # client.request(url, timeout=5)
 #			if not results or any(value in results for value in SERVER_ERROR): return sources
 			files = self._queue.get(timeout=6) # jsloads(results)['streams']
 			_INFO = re.compile(r'👤.*')

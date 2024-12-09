@@ -22,7 +22,8 @@ def sources(specified_folders=None, ret_all=False):
 				if is_pkg: continue
 				if ret_all or enabledCheck(module_name):
 					try:
-						module = loader.find_module(module_name).load_module(module_name)
+#						module = loader.find_module(module_name).load_module(module_name)
+						module = loader.find_spec(module_name).loader.load_module(module_name)
 						append((module_name, module.source))
 					except Exception as e:
 						if debug:

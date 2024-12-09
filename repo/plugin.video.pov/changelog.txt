@@ -9,6 +9,15 @@
 - nyaa in Sources/Torrents sourced from website results.
 
   [COLOR dodgerblue][B]Version 4.12.01[/B][/COLOR]
+- Changed Mediafusion Debrid+ Configure for easier set up.
+  Authorize your debrid service first, 3 modes are offered.
+  1. Select No to use Direct Torrent setting.  The cached status of direct torrents is unchecked.
+  2. Select Yes and enter the base url (or use the default), then be prompted for which
+  debrid service to use.  Only "cached" results will be returned.
+  3. Select Yes and enter the complete manifest url and the addon will parse the required
+  parts for configuration.
+- Changed `nyaaio` scraper to include more of the foreign language sources from torrentio
+  and disabled title check.
 - Added completed TorBox usenet to Torbox Cloud Storage.
   Playback links from TorBox are still problematic.  Check the kodi.log before complaints
   the addon does not work.

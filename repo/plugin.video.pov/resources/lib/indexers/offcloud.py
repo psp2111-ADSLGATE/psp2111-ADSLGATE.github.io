@@ -28,17 +28,14 @@ def oc_torrent_cloud():
 					# need to complete downloader for zip filenames, oc head request does not give Content-Length header
 #					zip = Offcloud.requote_uri(Offcloud.build_zip(server, request_id, folder_name))
 					url_params = {'mode': 'offcloud.browse_oc_cloud', 'folder_id': request_id}
-#					down_file_params = {'mode': 'downloader', 'action': 'archive',
-#										'name': folder_name, 'url': zip, 'image': default_oc_icon}
+#					down_file_params = {'mode': 'downloader', 'action': 'archive', 'name': folder_name, 'url': zip, 'image': default_oc_icon}
 					cm_append(('[B]%s %s[/B]' % (delete_str, folder_str.capitalize()), 'RunPlugin(%s)' % build_url(delete_params)))
 #					cm.append((down_str,'RunPlugin(%s)' % build_url(down_file_params)))
 				else:
 					display = '%02d | [B]%s[/B] | [I]%s [/I]' % (count, file_str, clean_file_name(normalize(folder_name)).upper())
 					link = Offcloud.requote_uri(Offcloud.build_url(server, request_id, folder_name))
-#					url_params = {'mode': 'offcloud.resolve_oc', 'url': link, 'play': 'true'}
-					url_params = {'mode': 'media_play', 'url': link, 'media_type': 'video'}
-					down_file_params = {'mode': 'downloader', 'action': 'cloud.offcloud_direct',
-										'name': folder_name, 'url': link, 'image': default_oc_icon}
+					url_params = {'mode': 'offcloud.resolve_oc', 'url': link, 'play': 'true'}
+					down_file_params = {'mode': 'downloader', 'action': 'cloud.offcloud_direct', 'name': folder_name, 'url': link, 'image': default_oc_icon}
 					cm_append(('[B]%s %s[/B]' % (delete_str, file_str.capitalize()), 'RunPlugin(%s)' % build_url(delete_params)))
 					cm.append((down_str,'RunPlugin(%s)' % build_url(down_file_params)))
 				url = build_url(url_params)
@@ -65,12 +62,10 @@ def browse_oc_cloud(folder_id):
 				name = clean_file_name(name).upper()
 				link = Offcloud.requote_uri(item)
 				display = '%02d | [B]%s[/B] | [I]%s [/I]' % (count, file_str, name)
-#				url_params = {'mode': 'offcloud.resolve_oc', 'url': link, 'play': 'true'}
-				url_params = {'mode': 'media_play', 'url': link, 'media_type': 'video'}
-				url = build_url(url_params)
-				down_file_params = {'mode': 'downloader', 'action': 'cloud.offcloud_direct',
-									'name': name, 'url': link, 'image': default_oc_icon}
+				url_params = {'mode': 'offcloud.resolve_oc', 'url': link, 'play': 'true'}
+				down_file_params = {'mode': 'downloader', 'action': 'cloud.offcloud_direct', 'name': name, 'url': link, 'image': default_oc_icon}
 				cm.append((down_str,'RunPlugin(%s)' % build_url(down_file_params)))
+				url = build_url(url_params)
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)

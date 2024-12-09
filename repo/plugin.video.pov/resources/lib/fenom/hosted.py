@@ -1,6 +1,6 @@
 import json, re, requests
 from urllib.parse import urlparse
-from fenom.control import dialog, multiselectDialog, yesnoDialog, setSetting
+from fenom.control import dialog, multiselectDialog, selectDialog, yesnoDialog, setSetting, setting as getSetting
 
 
 timeout = 3.05
@@ -58,20 +58,44 @@ class Comet(Hosted):
 		config_dict = json.loads(next(values, []))
 		return config_dict
 
+
 class Mediafusion(Hosted):
-	base_url = 'https://mediafusion.elfhosted.com'
-	pattern = 'eJwB4AEf_lnXQtODtVEQPYTzN5RH5ekzdON8j6UfgBIzKmwW1uMrQleG82Nq_AC3GmUVA0XDSiL2WzX3HgB6X6dyaNXQNui09IcpCE6JVfVcio7wjtL6a4dB64mBGFk4NCKxpZgr6J5D2tdURTyVdv15lJV0RUXp6OT-ojBKt13ldML-KPFFRe7KuHRwUhN7LF3bY7mdunCw88dpH7Il5HTZkZqVrrb4bu7RlsvgtSFs8bW-JP3emhHG37wen3PFG2OsK0kO1BYN0INshwF8nXnHX6dLnZO-lL7Ec7NsMpvsvnTJYRka6tPEZRQx3bFyMXXA8j2RgVUYxPbC6YSoamWp1Gd9MVPdY_kO8oftLC3jh1o3PdcTmuigdAtH0O6nkmBc3q8vye5Xp72GNnBgLXfGAhBqUv1bd9PvIu61_w-PL6Ch2JWRu9WuGVoY4ctbFJmqnwGXf-4x-0m50J-CaWxVE-c1ekOW7TTRGnpb1voDYWzVzqhcQBt7H9Fx9-DtXuFAxUi8Trxef3JKcSC3AoHXBEkkNAcOWoe7zXPEERcmFhriI4QRZBGjIih_o0lNRiyuoZFO9qmU28eKVbadfcKoIuqQmiFb5oNTPDsM3QXE0g0Hr8HM43URPStEh1B2TkfnuiKQ_rO2850='
 	amble = 'Use custom manifest?[CR][CR]Select No to use Direct Torrent configuration. The cached status of direct torrents is unchecked.'
+#	https://mediafusion.elfhosted.com/docs#/user_data/encrypt_user_data_encrypt_user_data_post
+	base_url = 'https://mediafusion.elfhosted.com'
+	encr_url = 'https://mediafusion.elfhosted.com/encrypt-user-data'
+#	pattern = {"enable_catalogs":False,"max_streams_per_resolution":99,"torrent_sorting_priority":[],"certification_filter":["Disable"],"nudity_filter":["Disable"]}
+	pattern = 'eJwBYACf_4hAkZJe85krAoD5hN50-2M0YuyGmgswr-cis3uap4FNnLMvSfOc4e1IcejWJmykujTnWAlQKRi9cct5k3IRqhu-wFBnDoe_QmwMjJI3FnQtFNp2u3jDo23THEEgKXHYqTMrLos='
+	params = {"streaming_provider":{"token":"","service":"","only_show_cached_streams":True},"enable_catalogs":False,"max_streams_per_resolution":99,"torrent_sorting_priority":[],"certification_filter":["Disable"],"nudity_filter":["Disable"]}
+	services_list = ['Real Debrid', 'Premiumize', 'All Debrid', 'TorBox', 'Direct']
+	services_dict = {
+		0: ('realdebrid', 'rd.token'),
+		1: ('premiumize', 'pm.token'),
+		2: ('alldebrid', 'ad.token'),
+		3: ('torbox', 'tb.token'),
+		4: ('', '')
+	}
 
 	def configure(self):
 		try:
 			if yesnoDialog(self.amble):
-				url = dialog.input(f"Enter manifest url:")
+				url = dialog.input(f"Enter manifest url:", defaultt=self.base_url)
 				u = urlparse(url)
 				scheme, netloc, path = u.scheme, u.netloc, u.path
 				url = '%s://%s' % (scheme, netloc) if scheme and netloc else ''
 				path = path if path else ''
-			else: url, path = self.base_url, self.pattern
+			else: url, path = '', ''
+			if url and not path:
+				debrid = selectDialog(self.services_list)
+				if debrid < 0: return
+				debrid, token = self.services_dict[debrid]
+				if not (debrid and token): return
+				token = getSetting(token)
+				self.params['streaming_provider'] = {
+					'token': token, 'service': debrid, 'only_show_cached_streams': True
+				}
+				path = requests.post(self.encr_url, json=self.params, timeout=timeout)
+				path = path.json()['encrypted_str']
 			params = path.replace(self.base_url, '').replace('manifest.json', '').strip('/')
 			setSetting(f"{self.name.lower()}.url", str(url))
 			setSetting(f"{self.name.lower()}.token", str(params))
@@ -79,7 +103,12 @@ class Mediafusion(Hosted):
 			from fenom import log_utils
 			log_utils.error()
 
+
 class MFDebrid(Mediafusion):
-	base_url = ''
-	pattern = ''
+	services_list = ['Real Debrid', 'All Debrid', 'Direct']
+	services_dict = {
+		0: ('realdebrid', 'rd.token'),
+		1: ('alldebrid', 'ad.token'),
+		2: ('', '')
+	}
 
