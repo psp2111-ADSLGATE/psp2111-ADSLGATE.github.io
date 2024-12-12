@@ -96,10 +96,10 @@ def tb_account_info():
 		body = []
 		append = body.append
 		append('[B]Email[/B]: %s' % account_info['email'])
-		append('[B]customer[/B]: %s' % account_info['customer'])
+		append('[B]Customer[/B]: %s' % account_info['customer'])
 		append('[B]Plan[/B]: %s' % plans[account_info['plan']])
 		append('[B]Expires[/B]: %s' % account_info['premium_expires_at'])
-		append('[B]Downloaded[/B]: {:,}'.format(account_info['total_downloaded']))
+		append('[B]Downloaded[/B]: %s' % account_info['total_downloaded'])
 		kodi_utils.hide_busy_dialog()
 		return kodi_utils.show_text('TorBox'.upper(), '\n\n'.join(body), font_size='large')
 	except: kodi_utils.hide_busy_dialog()

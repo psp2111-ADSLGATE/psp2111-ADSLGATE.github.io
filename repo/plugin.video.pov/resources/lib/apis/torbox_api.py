@@ -17,8 +17,8 @@ class TorBoxAPI:
 	remove_usenet = '/usenet/controlusenetdownload'
 	stats = '/user/me'
 	history = '/torrents/mylist'
-	explore = '/torrents/mylist?id=%s'
 	history_usenet = '/usenet/mylist'
+	explore = '/torrents/mylist?id=%s'
 	explore_usenet = '/usenet/mylist?id=%s'
 	cache = '/torrents/checkcached'
 	cloud = '/torrents/createtorrent'
@@ -53,33 +53,6 @@ class TorBoxAPI:
 	def account_info(self):
 		return self._GET(self.stats)
 
-	def user_cloud(self):
-		string = 'pov_tb_user_cloud'
-		url = self.history
-		return cache_object(self._GET, string, url, False, 0.5)
-
-	def user_cloud_usenet(self):
-		string = 'pov_tb_user_cloud_usenet'
-		url = self.history_usenet
-		return cache_object(self._GET, string, url, False, 0.5)
-
-	def user_cloud_info(self, request_id=''):
-		string = 'pov_tb_user_cloud_%s' % request_id
-		url = self.explore % request_id
-		return cache_object(self._GET, string, url, False, 0.5)
-
-	def user_cloud_info_usenet(self, request_id=''):
-		string = 'pov_tb_user_cloud_usenet_%s' % request_id
-		url = self.explore_usenet % request_id
-		return cache_object(self._GET, string, url, False, 0.5)
-
-	def user_cloud_clear(self):
-		if not kodi_utils.confirm_dialog(): return
-		data = {'all': True, 'operation': 'delete'}
-		self._POST(self.remove, json=data)
-		self._POST(self.remove_usenet, json=data)
-		self.clear_cache()
-
 	def torrent_info(self, request_id=''):
 		url = self.explore % request_id
 		return self._GET(url)
@@ -94,7 +67,7 @@ class TorBoxAPI:
 
 	def unrestrict_link(self, file_id):
 		torrent_id, file_id = file_id.split(',')
-		params = {'token': self.api_key, 'torrent_id': torrent_id, 'file_id': file_id}
+		params = {'token': self.api_key, 'torrent_id': torrent_id, 'file_id': file_id, 'user_ip': True}
 		try: return self._GET(self.download, params=params)['data']
 		except: return None
 
@@ -198,9 +171,37 @@ class TorBoxAPI:
 
 	def revoke_auth(self):
 		if not kodi_utils.confirm_dialog(): return
+		self.api_key = ''
 		set_setting('tb.token', '')
 		set_setting('tb.account_id', '')
 		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
+
+	def user_cloud(self):
+		string = 'pov_tb_user_cloud'
+		url = self.history
+		return cache_object(self._GET, string, url, False, 0.5)
+
+	def user_cloud_usenet(self):
+		string = 'pov_tb_user_cloud_usenet'
+		url = self.history_usenet
+		return cache_object(self._GET, string, url, False, 0.5)
+
+	def user_cloud_info(self, request_id=''):
+		string = 'pov_tb_user_cloud_%s' % request_id
+		url = self.explore % request_id
+		return cache_object(self._GET, string, url, False, 0.5)
+
+	def user_cloud_info_usenet(self, request_id=''):
+		string = 'pov_tb_user_cloud_usenet_%s' % request_id
+		url = self.explore_usenet % request_id
+		return cache_object(self._GET, string, url, False, 0.5)
+
+	def user_cloud_clear(self):
+		if not kodi_utils.confirm_dialog(): return
+		data = {'all': True, 'operation': 'delete'}
+		self._POST(self.remove, json=data)
+		self._POST(self.remove_usenet, json=data)
+		self.clear_cache()
 
 	def clear_cache(self):
 		try:

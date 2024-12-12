@@ -11,13 +11,6 @@ timeout = 3.05
 session = requests.Session()
 session.mount(base_url, requests.adapters.HTTPAdapter(max_retries=1))
 
-NOT_AVAILABLE = {
-	'premium': 'User must purchase a premium downloading addon for this download',
-	'links': 'User must purchase a Link increase addon for this download',
-	'proxy': 'User must purchase a proxy downloading addon for this download',
-	'video': 'User must purchase a video sharing site support addon for this download'
-}
-
 class OffcloudAPI:
 	download = 'https://%s.offcloud.com/cloud/download/%s/%s'
 	zip = 'https://%s.offcloud.com/cloud/zip/%s/%s.zip'
@@ -70,45 +63,9 @@ class OffcloudAPI:
 	def account_info(self):
 		return self._GET(self.stats)
 
-	def user_cloud(self):
-		string = 'pov_oc_user_cloud'
-		url = self.history
-		return cache_object(self._GET, string, url, False, 0.5)
-
-	def user_cloud_info(self, request_id=''):
-		string = 'pov_oc_user_cloud_%s' % request_id
-		url = self.explore % request_id
-		return cache_object(self._GET, string, url, False, 0.5)
-
-	def user_cloud_clear(self):
-		if not kodi_utils.confirm_dialog(): return
-		files = self.user_cloud()
-		if not files: return
-		threads = []
-		append = threads.append
-		len_files = len(files)
-		progressBG = kodi_utils.progressDialogBG
-		progressBG.create('Offcloud', 'Clearing cloud files')
-		for count, req in enumerate(files, 1):
-			try:
-				i = Thread(target=self.delete_torrent, args=(req['requestId'],))
-				append(i)
-				i.start()
-				progressBG.update(int(count / len_files * 100), 'Deleting %s...' % req['fileName'])
-				kodi_utils.sleep(200)
-			except: pass
-		[i.join() for i in threads]
-		try: progressBG.close()
-		except: pass
-		self.clear_cache()
-
 	def torrent_info(self, request_id=''):
 		url = self.explore % request_id
 		return self._GET(url)
-
-	def torrent_status(self, request_id=''):
-		data = {'requestId': request_id}
-		return self._POST(self.status, data=data)
 
 	def delete_torrent(self, request_id=''):
 		params = {'key': self.api_key}
@@ -218,6 +175,38 @@ class OffcloudAPI:
 		set_setting('oc.token', '')
 		set_setting('oc.account_id', '')
 		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
+
+	def user_cloud(self):
+		string = 'pov_oc_user_cloud'
+		url = self.history
+		return cache_object(self._GET, string, url, False, 0.5)
+
+	def user_cloud_info(self, request_id=''):
+		string = 'pov_oc_user_cloud_%s' % request_id
+		url = self.explore % request_id
+		return cache_object(self._GET, string, url, False, 0.5)
+
+	def user_cloud_clear(self):
+		if not kodi_utils.confirm_dialog(): return
+		files = self.user_cloud()
+		if not files: return
+		threads = []
+		append = threads.append
+		len_files = len(files)
+		progressBG = kodi_utils.progressDialogBG
+		progressBG.create('Offcloud', 'Clearing cloud files')
+		for count, req in enumerate(files, 1):
+			try:
+				i = Thread(target=self.delete_torrent, args=(req['requestId'],))
+				append(i)
+				i.start()
+				progressBG.update(int(count / len_files * 100), 'Deleting %s...' % req['fileName'])
+				kodi_utils.sleep(200)
+			except: pass
+		[i.join() for i in threads]
+		try: progressBG.close()
+		except: pass
+		self.clear_cache()
 
 	def clear_cache(self):
 		try:

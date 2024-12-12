@@ -27,12 +27,6 @@ class CheckSettingsFile:
 #			__addon__.setSetting('version_number', addon_version)
 			__addon__.setSetting('kodi_menu_cache', 'true')
 			kodi_utils.sleep(500)
-		if get_setting('provider.debridio') == 'true':
-			provider = get_setting('debridio.debrid')
-			set_setting('provider.tidebrid', 'true')
-			set_setting('tidebrid.debrid', str(provider))
-			kodi_utils.sleep(500)
-			kodi_utils.clean_settings()
 		make_settings_dict()
 		set_property('pov_kodi_menu_cache', get_setting('kodi_menu_cache'))
 		return logger('POV', 'CheckSettingsFile Service Finished')

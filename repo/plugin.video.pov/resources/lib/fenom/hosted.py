@@ -1,5 +1,4 @@
 import json, re, requests
-from urllib.parse import urlparse
 from fenom.control import dialog, multiselectDialog, selectDialog, yesnoDialog, setSetting, setting as getSetting
 
 
@@ -80,7 +79,7 @@ class Mediafusion(Hosted):
 		try:
 			if yesnoDialog(self.amble):
 				url = dialog.input(f"Enter manifest url:", defaultt=self.base_url)
-				u = urlparse(url)
+				u = requests.utils.urlparse(url)
 				scheme, netloc, path = u.scheme, u.netloc, u.path
 				url = '%s://%s' % (scheme, netloc) if scheme and netloc else ''
 				path = path if path else ''
@@ -96,7 +95,7 @@ class Mediafusion(Hosted):
 				}
 				path = requests.post(self.encr_url, json=self.params, timeout=timeout)
 				path = path.json()['encrypted_str']
-			params = path.replace(self.base_url, '').replace('manifest.json', '').strip('/')
+			params = path.replace(url, '').replace('manifest.json', '').strip('/')
 			setSetting(f"{self.name.lower()}.url", str(url))
 			setSetting(f"{self.name.lower()}.token", str(params))
 		except:

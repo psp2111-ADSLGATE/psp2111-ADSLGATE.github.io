@@ -112,6 +112,7 @@ class EasyDebridAPI:
 
 	def revoke_auth(self):
 		if not kodi_utils.confirm_dialog(): return
+		self.api_key = ''
 		set_setting('ed.token', '')
 		set_setting('ed.account_id', '')
 		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
