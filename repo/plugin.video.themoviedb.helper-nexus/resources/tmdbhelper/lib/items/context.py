@@ -5,18 +5,18 @@ from tmdbhelper.lib.addon.plugin import get_setting
 
 
 CONTEXT_MENU_ITEMS = {
-    # Browse Lists
-    '$ADDON[plugin.video.themoviedb.helper 32235]': {
-        'command': 'RunScript(plugin.video.themoviedb.helper,related_lists,{})',
-        'setting': 'contextmenu_related_lists',
-        'episode': {'tmdb_type': 'tv', 'tmdb_id': '{tmdb_id}', 'season': '{season}', 'episode': '{episode}'},
-        'other': {'tmdb_type': '{tmdb_type}', 'tmdb_id': '{tmdb_id}'}
-    },
     # Trakt Options
     '$ADDON[plugin.video.themoviedb.helper 32295]': {
         'command': 'RunScript(plugin.video.themoviedb.helper,sync_trakt,{})',
         'setting': 'contextmenu_sync_trakt',
         'episode': {'tmdb_type': '{tmdb_type}', 'tmdb_id': '{tmdb_id}', 'season': '{season}', 'episode': '{episode}'},
+        'other': {'tmdb_type': '{tmdb_type}', 'tmdb_id': '{tmdb_id}'}
+    },
+    # Browse Lists
+    '$ADDON[plugin.video.themoviedb.helper 32235]': {
+        'command': 'RunScript(plugin.video.themoviedb.helper,related_lists,{})',
+        'setting': 'contextmenu_related_lists',
+        'episode': {'tmdb_type': 'tv', 'tmdb_id': '{tmdb_id}', 'season': '{season}', 'episode': '{episode}'},
         'other': {'tmdb_type': '{tmdb_type}', 'tmdb_id': '{tmdb_id}'}
     },
     # Manage Artwork

@@ -8,7 +8,8 @@
 - nyaaio in Sources/Torrents, sourced from torrentio anime results with filters disabled.
 - nyaa in Sources/Torrents sourced from website results.
 
-  [COLOR dodgerblue][B]Version 4.12.01[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.12.*[/B][/COLOR]
+- Minor refactoring for each debrid, report anything that I might have broke.
 - Changed Mediafusion Debrid+ Configure for easier set up.
   Authorize your debrid service first, 3 modes are offered.
   1. Select No to use Direct Torrent setting.  The cached status of direct torrents is unchecked.
@@ -16,6 +17,11 @@
   debrid service to use.  Only "cached" results will be returned.
   3. Select Yes and enter the complete manifest url and the addon will parse the required
   parts for configuration.
+- Changed Real Debrid/All Debrid integration.
+  Only two sources that will return results, `torrentio debrid+` and `mediafusion debrid+`.
+  This relies on the `torrentio` and `mediafusion` internal caches, so there is a little
+  logic and the chance of it being cached is high.  If you only have either debrid, disable
+  all others OR enable "display uncached" and manually add those to cloud to view from there.
 - Changed `nyaaio` scraper to include more of the foreign language sources from torrentio
   and disabled title check.
 - Added completed TorBox usenet to Torbox Cloud Storage.
@@ -26,28 +32,22 @@
   that after receiving a resolved link from the service, the torrent will be deleted from
   the users cloud.
 - Fix for TorBox Cloud Storage.  Thanks Reddit/Discord users!
-- Changed Real Debrid/All Debrid integration.
-  Only two sources that will return results, `torrentio debrid+` and `mediafusion debrid+`.
-  This relies on the `torrentio` and `mediafusion` internal caches, so there is a little
-  logic and the chance of it being cached is high.  If you only have either debrid, disable
-  all others OR enable "display uncached" and manually add those to cloud to view from there.
 - Fixed All Debrid no results.  Clear External Scrapers Cache after switching debrid provider.
 - EXPERIMENTAL: changed Full-Screen playback window, if errors occur change setting
   Playback/Loading Progress to Background.  One service in particular seems to cause
   kodi to "freeze", causing pause in the animation.
 - [COLOR chartreuse]Added EasyDebrid as a debrid provider.[/COLOR]
-- Minor refactoring for each debrid, report anything that I might have broke.
 - Added zilean.
 - Changed mediafusion to "Direct Torrent" only.
 
-  [COLOR dodgerblue][B]Version 4.11.01[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.11.*[/B][/COLOR]
 - [COLOR chartreuse]Added TorBox as a debrid provider.[/COLOR]
 - Added torbox cloud scraper and enabled context menu download options.
 - Added meta_language iso:pt-BR, name:Portuguese (Brazil).
 - Added meta_language iso:es-MX, name:Spanish (Mexico).
 - Added animetosho
 
-  [COLOR dodgerblue][B]Version 4.10.01[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.10.*[/B][/COLOR]
 - Enabled piratebay as default, disabled bitsearch.
 - Changed custom season/episode scraping.
 - Changed scrape and resolve to respect Playback/Loading Progress settings.
@@ -58,19 +58,19 @@
 - Added setting "AV1 Files Filter".
 - Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.09.01[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.09.*[/B][/COLOR]
 - Added setting "Include Unaired Items in Trakt Watchlists".
 - "Continual Play Random" now utilizes "Autoplay Next Episode" popup.
 - Moved TVShows "Play Random" to "Options..." context menu because it was too sparse.
 - Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.08.01[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.08.*[/B][/COLOR]
 - Fix for Real Debrid api changes.
 - Added torrentdownload.
 - Removed magnetdl.
 - Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.07.01[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.07.*[/B][/COLOR]
 - Added small Anime menu courtesy of Simkl.  From root context menu, Edit and
   "Restore" menu or "Check" menu for new items.
 - Changed request timeout for Real Debrid because random items like "The Office (US)" take
@@ -79,14 +79,14 @@
 - Added "Disable" as option for "Jump To... List Navigation."
 - Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.05.01[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.05.*[/B][/COLOR]
 - Added "watchedprogress".
 - Fixed "Set Watched in Kodi Library..."  This was broke a long time ago, guess only
   one user who reported it.
 - Settings changes.
 - Added "Loading progress / Background Dialog or Background Image" setting to Playback.
 
-  [COLOR dodgerblue][B]Version 4.04.01[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.04.*[/B][/COLOR]
 - [COLOR chartreuse]NOTICE: Trakt re-authorization required with 4.04.01 release.[/COLOR]
   Trakt will not work without due to separating api keys for each addon in repo.
 - Added "Trending Recent" to Movies/TV Shows.  These lists include titles from this/last year.
@@ -97,7 +97,7 @@
 - Fixed "Browse" options in widget context menu.
 - Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.03.01[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.03.*[/B][/COLOR]
 - Fixed search Movies Collection (TMDb).  This was broke a long time ago, guess no one uses.
 - Other changes/fixes.
 

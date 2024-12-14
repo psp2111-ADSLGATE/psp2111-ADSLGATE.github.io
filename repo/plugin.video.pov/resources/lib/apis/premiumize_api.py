@@ -18,65 +18,41 @@ class PremiumizeAPI:
 		self.user_agent = 'POV for Kodi'
 		self.token = get_setting('pm.token')
 
-	def auth(self):
-		data = {'client_id': self.client_id, 'response_type': 'device_code'}
-		url = 'https://www.premiumize.me/token'
-		response = session.post(url, data=data, timeout=timeout).json()
-		device_code = response['device_code']
-		expires_in = int(response['expires_in'])
-		sleep_interval = int(response['interval'])
-		data = {'client_id': self.client_id, 'code': device_code, 'grant_type': 'device_code'}
-		try:
-			qr_url = '&data=%s' % requests.utils.quote(response['verification_uri'])
-			qr_icon = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&qzone=1%s' % qr_url
-			kodi_utils.notification(response['verification_uri'], icon=qr_icon, time=15000)
-		except: pass
-		line = '%s[CR]%s[CR]%s'
-		dialog_text = line % (ls(32517), ls(32700) % response.get('verification_uri'), ls(32701) % response.get('user_code'))
-		progressDialog = kodi_utils.progressDialog
-		progressDialog.create('POV', dialog_text)
-		self.token = ''
-		time_passed = expires_in
-		while not self.token and not progressDialog.iscanceled() and time_passed:
-			progressDialog.update(int(time_passed / expires_in * 100))
-			kodi_utils.sleep(1000)
-			time_passed -= 1
-			if time_passed % sleep_interval: continue
-			response = session.post(url, data=data, timeout=timeout).json()
-			if 'error' in response: continue
-			try: self.token = str(response['access_token'])
-			except: kodi_utils.ok_dialog(text=32574, top_space=True)
-		try: progressDialog.close()
-		except: pass
-		if self.token:
-			kodi_utils.sleep(1000)
-			account_info = self.account_info()
-			set_setting('pm.account_id', str(account_info['customer_id']))
-			set_setting('pm.token', self.token)
-			kodi_utils.notification('%s %s' % (ls(32576), ls(32061)))
-			return True
-		return False
+	def _get(self, url, data={}):
+		if self.token == '': return None
+		headers = {'User-Agent': self.user_agent, 'Authorization': 'Bearer %s' % self.token}
+		url = base_url + url
+		response = session.get(url, data=data, headers=headers, timeout=timeout)
+		try: return response.json()
+		except: return response.text
+
+	def _post(self, url, data={}):
+		if self.token == '' and not 'token' in url: return None
+		headers = {'User-Agent': self.user_agent, 'Authorization': 'Bearer %s' % self.token}
+		if not 'token' in url: url = base_url + url
+		response = session.post(url, data=data, headers=headers, timeout=timeout)
+		try: return response.json()
+		except: return response.text
+
+	def add_headers_to_url(self, url):
+		return url + '|' + kodi_utils.urlencode(self.headers())
+
+	def headers(self):
+		return {'User-Agent': self.user_agent, 'Authorization': 'Bearer %s' % self.token}
 
 	def account_info(self):
 		url = 'account/info'
 		response = self._post(url)
 		return response
 
-	def check_cache(self, hashes):
-		url = 'cache/check'
-		data = {'items[]': hashes}
-		response = self._post(url, data)
-		return response
+	def transfers_list(self):
+		url = 'transfer/list'
+		return self._get(url)
 
-	def check_single_magnet(self, hash_string):
-		cache_info = self.check_cache(hash_string)['response']
-		return cache_info[0]
-
-	def zip_folder(self, folder_id):
-		url = 'zip/generate'
-		data = {'folders[]': folder_id}
-		response = self._post(url, data)
-		return response
+	def delete_transfer(self, transfer_id):
+		data = {'id': transfer_id}
+		url = 'transfer/delete'
+		return self._post(url, data)
 
 	def unrestrict_link(self, link):
 		data = {'src': link}
@@ -84,6 +60,27 @@ class PremiumizeAPI:
 		response = self._post(url, data)
 		try: return self.add_headers_to_url(response['content'][0]['link'])
 		except: return None
+
+	def check_single_magnet(self, hash_string):
+		cache_info = self.check_cache(hash_string)['response']
+		return cache_info[0]
+
+	def check_cache(self, hashes):
+		url = 'cache/check'
+		data = {'items[]': hashes}
+		response = self._post(url, data)
+		return response
+
+	def instant_transfer(self, magnet_url):
+		url = 'transfer/directdl'
+		data = {'src': magnet_url}
+		return self._post(url, data)
+
+	def create_transfer(self, magnet):
+		data = {'src': magnet, 'folder_id': 0}
+		url = 'transfer/create'
+		response = self._post(url, data)
+		return response.get('id', '')
 
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		from modules.source_utils import supported_video_extensions, seas_ep_filter, extras_filter
@@ -95,47 +92,36 @@ class PremiumizeAPI:
 			match = 'status' in torrent and torrent['status'] == 'success'
 			if not match: return None
 			torrent_files = torrent['content']
-			selected_files = [item for item in torrent_files if item['path'].lower().endswith(tuple(extensions))]
+			selected_files = [
+				{'link': i['link'], 'filename': i['path'].split('/')[-1], 'size': i['size']}
+				for i in torrent_files if i['path'].lower().endswith(tuple(extensions))
+			]
 			if not selected_files: return None
 			if season:
-				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['path'].split('/')[-1])]
+				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
 			else:
-				selected_files = [i for i in selected_files if not any(x in i['path'].split('/')[-1] for x in extras_filtering_list)]
+				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
 				selected_files.sort(key=lambda k: k['size'], reverse=True)
 			if not selected_files: return None
-			file_url = selected_files[0]['link']
+			file_key = selected_files[0]['link']
+			file_url = self.add_headers_to_url(file_key)
 			if store_to_cloud: Thread(target=self.create_transfer, args=(magnet_url,)).start()
-			return self.add_headers_to_url(file_url)
+			return file_url
 		except Exception as e:
 			kodi_utils.logger('main exception', str(e))
 			return None
-
-	def download_link_magnet_zip(self, magnet_url, info_hash):
-		try:
-#			result = self.create_transfer(magnet_url)
-#			if not 'status' in result or result['status'] != 'success': return None
-#			transfer_id = result['id']
-			transfer_id = self.create_transfer(magnet_url)
-			if not transfer_id: return None
-			transfers = self.transfers_list()['transfers']
-			folder_id = [i['folder_id'] for i in transfers if i['id'] == transfer_id][0]
-			result = self.zip_folder(folder_id)
-			if result['status'] == 'success':
-				return result['location']
-			else: return None
-		except:
-			pass
 
 	def display_magnet_pack(self, magnet_url, info_hash):
 		from modules.source_utils import supported_video_extensions
 		try:
 			extensions = supported_video_extensions()
 			torrent = self.instant_transfer(magnet_url)
+			if not 'status' in torrent and not torrent['status'] == 'success': return None
 			torrent_files = [
 				{'link': item['link'], 'filename': item['path'].split('/')[-1], 'size': item['size']}
 				for item in torrent['content'] if item['path'].lower().endswith(tuple(extensions))
 			]
-			return torrent_files or None
+			return torrent_files
 		except Exception:
 			return None
 
@@ -203,28 +189,27 @@ class PremiumizeAPI:
 		hide_busy_dialog()
 		return True
 
-	def user_cloud(self, folder_id=None):
-		if folder_id:
-			string = 'pov_pm_user_cloud_%s' % folder_id
-			url = 'folder/list?id=%s' % folder_id
-		else:
-			string = 'pov_pm_user_cloud_root'
-			url = 'folder/list'
-		return cache_object(self._get, string, url, False, 0.5)
+	def zip_folder(self, folder_id):
+		url = 'zip/generate'
+		data = {'folders[]': folder_id}
+		response = self._post(url, data)
+		return response
 
-	def user_cloud_all(self):
-		string = 'pov_pm_user_cloud_all_files'
-		url = 'item/listall'
-		return cache_object(self._get, string, url, False, 0.5)
-
-	def transfers_list(self):
-		url = 'transfer/list'
-		return self._get(url)
-
-	def instant_transfer(self, magnet_url):
-		url = 'transfer/directdl'
-		data = {'src': magnet_url}
-		return self._post(url, data)
+	def download_link_magnet_zip(self, magnet_url, info_hash):
+		try:
+#			result = self.create_transfer(magnet_url)
+#			if not 'status' in result or result['status'] != 'success': return None
+#			transfer_id = result['id']
+			transfer_id = self.create_transfer(magnet_url)
+			if not transfer_id: return None
+			transfers = self.transfers_list()['transfers']
+			folder_id = [i['folder_id'] for i in transfers if i['id'] == transfer_id][0]
+			result = self.zip_folder(folder_id)
+			if result['status'] == 'success':
+				return result['location']
+			else: return None
+		except:
+			pass
 
 	def rename_cache_item(self, file_type, file_id, new_name):
 		if file_type == 'folder': url = 'folder/rename'
@@ -232,17 +217,6 @@ class PremiumizeAPI:
 		data = {'id': file_id , 'name': new_name}
 		response = self._post(url, data)
 		return response['status']
-
-	def create_transfer(self, magnet):
-		data = {'src': magnet, 'folder_id': 0}
-		url = 'transfer/create'
-		response = self._post(url, data)
-		return response.get('id', '')
-
-	def delete_transfer(self, transfer_id):
-		data = {'id': transfer_id}
-		url = 'transfer/delete'
-		return self._post(url, data)
 
 	def delete_object(self, object_type, object_id):
 		data = {'id': object_id}
@@ -271,33 +245,64 @@ class PremiumizeAPI:
 		except: pass
 		return hosts_dict
 
-	def add_headers_to_url(self, url):
-		return url + '|' + kodi_utils.urlencode(self.headers())
-
-	def headers(self):
-		return {'User-Agent': self.user_agent, 'Authorization': 'Bearer %s' % self.token}
-
-	def _get(self, url, data={}):
-		if self.token == '': return None
-		headers = {'User-Agent': self.user_agent, 'Authorization': 'Bearer %s' % self.token}
-		url = base_url + url
-		response = session.get(url, data=data, headers=headers, timeout=timeout)
-		try: return response.json()
-		except: return response.text
-
-	def _post(self, url, data={}):
-		if self.token == '' and not 'token' in url: return None
-		headers = {'User-Agent': self.user_agent, 'Authorization': 'Bearer %s' % self.token}
-		if not 'token' in url: url = base_url + url
-		response = session.post(url, data=data, headers=headers, timeout=timeout)
-		try: return response.json()
-		except: return response.text
+	def auth(self):
+		data = {'client_id': self.client_id, 'response_type': 'device_code'}
+		url = 'https://www.premiumize.me/token'
+		response = session.post(url, data=data, timeout=timeout).json()
+		device_code = response['device_code']
+		expires_in = int(response['expires_in'])
+		sleep_interval = int(response['interval'])
+		data = {'client_id': self.client_id, 'code': device_code, 'grant_type': 'device_code'}
+		try:
+			qr_url = '&data=%s' % requests.utils.quote(response['verification_uri'])
+			qr_icon = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&qzone=1%s' % qr_url
+			kodi_utils.notification(response['verification_uri'], icon=qr_icon, time=15000)
+		except: pass
+		line = '%s[CR]%s[CR]%s'
+		dialog_text = line % (ls(32517), ls(32700) % response.get('verification_uri'), ls(32701) % response.get('user_code'))
+		progressDialog = kodi_utils.progressDialog
+		progressDialog.create('POV', dialog_text)
+		self.token = ''
+		time_passed = expires_in
+		while not self.token and not progressDialog.iscanceled() and time_passed:
+			progressDialog.update(int(time_passed / expires_in * 100))
+			kodi_utils.sleep(1000)
+			time_passed -= 1
+			if time_passed % sleep_interval: continue
+			response = session.post(url, data=data, timeout=timeout).json()
+			if 'error' in response: continue
+			try: self.token = str(response['access_token'])
+			except: kodi_utils.ok_dialog(text=32574, top_space=True)
+		try: progressDialog.close()
+		except: pass
+		if self.token:
+			kodi_utils.sleep(1000)
+			account_info = self.account_info()
+			set_setting('pm.account_id', str(account_info['customer_id']))
+			set_setting('pm.token', self.token)
+			kodi_utils.notification('%s %s' % (ls(32576), ls(32061)))
+			return True
+		return False
 
 	def revoke_auth(self):
 		if not kodi_utils.confirm_dialog(): return
 		set_setting('pm.account_id', '')
 		set_setting('pm.token', '')
 		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
+
+	def user_cloud(self, folder_id=None):
+		if folder_id:
+			string = 'pov_pm_user_cloud_%s' % folder_id
+			url = 'folder/list?id=%s' % folder_id
+		else:
+			string = 'pov_pm_user_cloud_root'
+			url = 'folder/list'
+		return cache_object(self._get, string, url, False, 0.5)
+
+	def user_cloud_all(self):
+		string = 'pov_pm_user_cloud_all_files'
+		url = 'item/listall'
+		return cache_object(self._get, string, url, False, 0.5)
 
 	def clear_cache(self):
 		try:

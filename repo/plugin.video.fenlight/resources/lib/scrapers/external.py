@@ -6,7 +6,7 @@ from threading import Thread
 from caches.external_cache import external_cache
 from caches.settings_cache import get_setting
 from modules import kodi_utils, source_utils
-from modules.debrid import RD_check, PM_check, AD_check, query_local_cache
+from modules.debrid import RD_check, PM_check, AD_check, OC_check, ED_check ,TB_check, query_local_cache
 from modules.utils import clean_file_name
 # logger = kodi_utils.logger
 
@@ -16,7 +16,8 @@ notification, hide_busy_dialog = kodi_utils.notification, kodi_utils.hide_busy_d
 int_window_prop = 'fenlight.internal_results.%s'
 pack_display = '%s (%s)'
 pack_check = ('Season', 'Show')
-debrid_runners = {'Real-Debrid': ('Real-Debrid', RD_check), 'Premiumize.me': ('Premiumize.me', PM_check), 'AllDebrid': ('AllDebrid', AD_check)}
+debrid_runners = {'Real-Debrid': ('Real-Debrid', RD_check), 'Premiumize.me': ('Premiumize.me', PM_check), 'AllDebrid': ('AllDebrid', AD_check),
+'Offcloud': ('Offcloud', OC_check), 'EasyDebrid': ('EasyDebrid', ED_check), 'TorBox': ('TorBox', TB_check)}
 sd_check = ('SD', 'CAM', 'TELE', 'SYNC')
 correct_pack_sizes = ('torrentio', 'knightcrawler', 'comet')
 

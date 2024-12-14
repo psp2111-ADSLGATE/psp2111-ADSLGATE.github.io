@@ -168,13 +168,15 @@ def get_trailer(v, iso_639_1=None):
 
 
 def get_external_ids(v):
-    unique_ids = {}
-    if v.get('imdb_id'):
-        unique_ids['imdb'] = v['imdb_id']
-    if v.get('tvdb_id'):
-        unique_ids['tvdb'] = v['tvdb_id']
-    if v.get('id'):
-        unique_ids['tmdb'] = v['id']
+
+    def _get_key_name(key):
+        if key == 'id':
+            return 'tmdb'
+        if key.endswith('_id'):
+            return key[:-3]
+        return key
+
+    unique_ids = {_get_key_name(key): value for key, value in v.items() if key and value}
     return unique_ids
 
 

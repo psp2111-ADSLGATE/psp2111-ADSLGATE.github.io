@@ -464,7 +464,7 @@ def _get_basedir_trakt():
     return [
         {
             'label': u'{{item_type}}{{space}}{}'.format(get_localized(32192)),
-            'types': ['movie', 'tv'],
+            'types': ['movie', 'tv', 'both'],
             'params': {'info': 'trakt_collection'},
             'path': PLUGINPATH,
             'sorting': True,
@@ -473,7 +473,7 @@ def _get_basedir_trakt():
                 'icon': f'{ADDONPATH}/resources/icons/trakt/watchlist.png'}},
         {
             'label': u'{{item_type}}{{space}}{}'.format(get_localized(1036)),
-            'types': ['movie', 'tv'],
+            'types': ['movie', 'tv', 'both'],
             'params': {'info': 'trakt_favorites'},
             'path': PLUGINPATH,
             'sorting': True,
@@ -482,7 +482,7 @@ def _get_basedir_trakt():
                 'icon': f'{ADDONPATH}/resources/icons/trakt/watchlist.png'}},
         {
             'label': u'{{item_type}}{{space}}{}'.format(get_localized(32193)),
-            'types': ['movie', 'tv', 'season', 'episode'],
+            'types': ['movie', 'tv', 'season', 'episode', 'both'],
             'params': {'info': 'trakt_watchlist'},
             'path': PLUGINPATH,
             'sorting': True,
@@ -491,7 +491,7 @@ def _get_basedir_trakt():
                 'icon': f'{ADDONPATH}/resources/icons/trakt/watchlist.png'}},
         {
             'label': u'{{item_type}}{{space}}{}'.format(get_localized(32456)),
-            'types': ['movie', 'tv', 'season', 'episode'],
+            'types': ['movie', 'tv', 'season', 'episode', 'both'],
             'params': {'info': 'trakt_watchlist_released'},
             'path': PLUGINPATH,
             'sorting': True,
@@ -500,7 +500,7 @@ def _get_basedir_trakt():
                 'icon': f'{ADDONPATH}/resources/icons/trakt/watchlist.png'}},
         {
             'label': u'{{item_type}}{{space}}{}'.format(get_localized(32457)),
-            'types': ['movie', 'tv', 'season', 'episode'],
+            'types': ['movie', 'tv', 'season', 'episode', 'both'],
             'params': {'info': 'trakt_watchlist_anticipated'},
             'path': PLUGINPATH,
             'sorting': True,
@@ -509,7 +509,7 @@ def _get_basedir_trakt():
                 'icon': f'{ADDONPATH}/resources/icons/trakt/watchlist.png'}},
         {
             'label': u'{}{{space}}{{item_type}}'.format(get_localized(32194)),
-            'types': ['movie', 'tv'],
+            'types': ['movie', 'tv', 'both'],
             'params': {'info': 'trakt_history'},
             'path': PLUGINPATH,
             'art': {

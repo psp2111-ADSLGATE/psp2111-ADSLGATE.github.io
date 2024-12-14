@@ -77,16 +77,16 @@ class TorBoxAPI:
 		try: return self._GET(self.download_usenet, params=params)['data']
 		except: return None
 
-	def add_magnet(self, magnet):
-		data = {'magnet': magnet, 'seed': 3, 'allow_zip': False}
-		return self._POST(self.cloud, data=data)
-
 	def check_cache_single(self, hash):
 		return self._GET(self.cache, params={'hash': hash, 'format': 'list'})
 
 	def check_cache(self, hashlist):
 		data = {'hashes': hashlist}
 		return self._POST(self.cache, params={'format': 'list'}, json=data)
+
+	def add_magnet(self, magnet):
+		data = {'magnet': magnet, 'seed': 3, 'allow_zip': False}
+		return self._POST(self.cloud, data=data)
 
 	def create_transfer(self, magnet_url):
 		result = self.add_magnet(magnet_url)
@@ -107,8 +107,8 @@ class TorBoxAPI:
 			torrent_id = torrent['data']['torrent_id']
 			torrent_files = self.torrent_info(torrent_id)
 			selected_files = [
-				{'url': '%d,%d' % (torrent_id, item['id']), 'filename': item['short_name'], 'size': item['size']}
-				for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))
+				{'link': '%d,%d' % (torrent_id, i['id']), 'filename': i['short_name'], 'size': i['size']}
+				for i in torrent_files['data']['files'] if i['short_name'].lower().endswith(tuple(extensions))
 			]
 			if not selected_files: return None
 			if season:
@@ -118,13 +118,13 @@ class TorBoxAPI:
 				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
 				selected_files.sort(key=lambda k: k['size'], reverse=True)
 			if not selected_files: return None
-			file_key = selected_files[0]['url']
+			file_key = selected_files[0]['link']
 			file_url = self.unrestrict_link(file_key)
 			if not store_to_cloud: Thread(target=self.delete_torrent, args=(torrent_id,)).start()
 			return file_url
 		except Exception as e:
 			kodi_utils.logger('main exception', str(e))
-			if torrent_id: self.delete_torrent(torrent_id)
+			if torrent_id: Thread(target=self.delete_torrent, args=(torrent_id,)).start()
 			return None
 
 	def display_magnet_pack(self, magnet_url, info_hash):
@@ -140,7 +140,7 @@ class TorBoxAPI:
 				for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))
 			]
 			self.delete_torrent(torrent_id)
-			return torrent_files or None
+			return torrent_files
 		except Exception:
 			if torrent_id: self.delete_torrent(torrent_id)
 			return None

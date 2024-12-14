@@ -1,5 +1,11 @@
 [COLOR darkgoldenrod]GOD BLESS HIM AND KEEP HIM SAFE.[/COLOR]
 
+[COLOR dodgerblue][B]Version 2.0.05[/B][/COLOR]
+- Added OffCloud suppport. Big thanks to kodifitzwell who allowed me to steal a large portion of his code.
+- Added Easydebrid suppport. Big thanks to kodifitzwell who allowed me to steal a large portion of his code.
+- Added TorBox suppport. Big thanks to kodifitzwell who allowed me to steal a large portion of his code. Big thanks also to [B]DaleAlanC[/B] for lending me their account.
+- Other changes/fixes.
+
 [COLOR dodgerblue][B]Version 2.0.04[/B][/COLOR]
 - AD fix.
 - Reinstate Upload Manager, but I have disabled the Rollback Feature.

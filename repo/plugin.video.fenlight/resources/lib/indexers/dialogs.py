@@ -433,8 +433,8 @@ def set_language_filter_choice(params):
 
 def enable_scrapers_choice(params={}):
 	icon = params.get('icon', None) or get_icon('fenlight')
-	scrapers = ['external', 'easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'folders']
-	cloud_scrapers = {'rd_cloud': 'rd.enabled', 'pm_cloud': 'pm.enabled', 'ad_cloud': 'ad.enabled'}
+	scrapers = ['external', 'easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders']
+	cloud_scrapers = {'rd_cloud': 'rd.enabled', 'pm_cloud': 'pm.enabled', 'ad_cloud': 'ad.enabled', 'oc_cloud': 'oc.enabled', 'tb_cloud': 'tb.enabled'}
 	preselect = [scrapers.index(i) for i in active_internal_scrapers()]
 	list_items = [{'line1': item, 'icon': icon} for item in scraper_names]
 	kwargs = {'items': json.dumps(list_items), 'multi_choice': 'true', 'preselect': preselect}

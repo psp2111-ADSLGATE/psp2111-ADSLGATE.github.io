@@ -10,7 +10,6 @@ RealDebrid = RealDebridAPI()
 extensions = source_utils.supported_video_extensions()
 internal_results, check_title, clean_title, get_aliases_titles = source_utils.internal_results, source_utils.check_title, source_utils.clean_title, source_utils.get_aliases_titles
 get_file_info, release_info_format, seas_ep_filter = source_utils.get_file_info, source_utils.release_info_format, source_utils.seas_ep_filter
-command = 'SELECT id, data from maincache where id LIKE %s'
 
 class source:
 	def __init__(self):

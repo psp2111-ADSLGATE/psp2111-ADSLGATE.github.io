@@ -26,17 +26,19 @@ autoplay_next_episode, autoscrape_next_episode, limit_resolve = settings.autopla
 auto_episode_group, preferred_autoplay, debrid_enabled = settings.auto_episode_group, settings.preferred_autoplay, debrid.debrid_enabled
 get_progress_status_movie, get_bookmarks_movie, erase_bookmark = watched_status.get_progress_status_movie, watched_status.get_bookmarks_movie, watched_status.erase_bookmark
 get_progress_status_episode, get_bookmarks_episode = watched_status.get_progress_status_episode, watched_status.get_bookmarks_episode
-internal_include_list = ['easynews', 'pm_cloud', 'rd_cloud', 'ad_cloud']
+internal_include_list = ['easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud']
 external_exclude_list = ['easynews', 'gdrive', 'library', 'filepursuit', 'plexshare']
 sd_check = ('SD', 'CAM', 'TELE', 'SYNC')
 rd_info, pm_info, ad_info = ('apis.real_debrid_api', 'RealDebridAPI'), ('apis.premiumize_api', 'PremiumizeAPI'), ('apis.alldebrid_api', 'AllDebridAPI')
+oc_info, ed_info, tb_info = ('apis.offcloud_api', 'OffcloudAPI'), ('apis.easydebrid_api', 'EasyDebridAPI'), ('apis.torbox_api', 'TorBoxAPI')
 debrids = {'Real-Debrid': rd_info, 'rd_cloud': rd_info, 'rd_browse': rd_info, 'Premiumize.me': pm_info, 'pm_cloud': pm_info, 'pm_browse': pm_info,
-			'AllDebrid': ad_info, 'ad_cloud': ad_info, 'ad_browse': ad_info}
-debrid_providers = ('Real-Debrid', 'Premiumize.me', 'AllDebrid')
-debrid_token_dict = {'Real-Debrid': 'rd.token' , 'Premiumize.me': 'pm.token' , 'AllDebrid': 'ad.token'}
+			'AllDebrid': ad_info, 'ad_cloud': ad_info, 'ad_browse': ad_info, 'Offcloud': oc_info, 'oc_cloud': oc_info, 'oc_browse': oc_info,
+			'EasyDebrid': ed_info, 'ed_cloud': ed_info, 'ed_browse': ed_info, 'TorBox': tb_info, 'tb_cloud': tb_info, 'tb_browse': tb_info}
+debrid_providers = ('Real-Debrid', 'Premiumize.me', 'AllDebrid', 'Offcloud', 'EasyDebrid', 'TorBox')
+debrid_token_dict = {'Real-Debrid': 'rd.token', 'Premiumize.me': 'pm.token', 'AllDebrid': 'ad.token', 'Offcloud': 'oc.token', 'EasyDebrid': 'ed.token', 'TorBox': 'tb.token'}
 quality_ranks = {'4K': 1, '1080p': 2, '720p': 3, 'SD': 4, 'SCR': 5, 'CAM': 5, 'TELE': 5}
-cloud_scrapers, folder_scrapers = ('rd_cloud', 'pm_cloud', 'ad_cloud'), ('folder1', 'folder2', 'folder3', 'folder4', 'folder5')
-default_internal_scrapers = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'folders')
+cloud_scrapers, folder_scrapers = ('rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud'), ('folder1', 'folder2', 'folder3', 'folder4', 'folder5')
+default_internal_scrapers = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders')
 main_line = '%s[CR]%s[CR]%s'
 int_window_prop = 'fenlight.internal_results.%s'
 scraper_timeout = 25
@@ -566,7 +568,8 @@ class Sources():
 
 	def debridPacks(self, debrid_provider, name, magnet_url, info_hash, download=False):
 		show_busy_dialog()
-		debrid_info = {'Real-Debrid': 'rd_browse', 'Premiumize.me': 'pm_browse', 'AllDebrid': 'ad_browse'}[debrid_provider]
+		debrid_info = {'Real-Debrid': 'rd_browse', 'Premiumize.me': 'pm_browse', 'AllDebrid': 'ad_browse',
+						'Offcloud': 'oc_browse', 'EasyDebrid': 'ed_browse', 'TorBox': 'tb_browse'}[debrid_provider]
 		debrid_function = self.debrid_importer(debrid_info)
 		try: debrid_files = debrid_function().display_magnet_pack(magnet_url, info_hash)
 		except: debrid_files = None
@@ -624,7 +627,6 @@ class Sources():
 			if not self.resolve_dialog_made: self._make_resolve_dialog()
 			if self.background: sleep(1000)
 			monitor = xbmc_monitor()
-			url = None
 			for count, item in enumerate(items, 1):
 				try:
 					hide_busy_dialog()
@@ -636,9 +638,10 @@ class Sources():
 						sleep(1500)
 						try: del player
 						except: pass
-					player = FenLightPlayer()
 					url, self.playback_successful, self.cancel_all_playback = None, None, False
 					self.playing_filename = item['name']
+					self.playing_item = item
+					player = FenLightPlayer()
 					try:
 						if self.progress_dialog.iscanceled() or monitor.abortRequested(): break
 						url = self.resolve_sources(item)
@@ -648,6 +651,7 @@ class Sources():
 							self.progress_dialog.update_resolver(percent=resolve_percent)
 							sleep(200)
 							player.run(url, self)
+						else: continue
 						if self.cancel_all_playback: break
 						if self.playback_successful: break
 						if count == len(items):
@@ -787,7 +791,7 @@ class Sources():
 				url = resolve_easynews({'url_dl': url_dl, 'play': 'false'})
 			else:
 				debrid_function = self.debrid_importer(scrape_provider)
-				if any(i in scrape_provider for i in ('rd_', 'ad_')):
+				if any(i in scrape_provider for i in ('rd_', 'ad_', 'tb_')):
 					url = debrid_function().unrestrict_link(item_id)
 				else:
 					if '_cloud' in scrape_provider: item_id = debrid_function().get_item_details(item_id)['link']

@@ -65,9 +65,9 @@ class CommonMonitorDetails(CommonContainerAPIs):
         try:
             return self._ib
         except AttributeError:
-            from tmdbhelper.lib.items.builder import ItemBuilder
             from tmdbhelper.lib.addon.plugin import get_setting
-            self._ib = ItemBuilder(tmdb_api=self.tmdb_api, ftv_api=self.ftv_api, trakt_api=self.trakt_api)
+            from tmdbhelper.lib.items.builder import ItemBuilderService
+            self._ib = ItemBuilderService(tmdb_api=self.tmdb_api, ftv_api=self.ftv_api, trakt_api=self.trakt_api)
             self._ib.ftv_api = self.ftv_api if get_setting('service_fanarttv_lookup') else None
             return self._ib
 
@@ -233,7 +233,7 @@ class CommonMonitorFunctions(PropertySetter, CommonMonitorDetails):
         self.properties = set()
         self.index_properties = set()
         self.property_prefix = 'ListItem'
-        super(CommonMonitorFunctions, self).__init__()
+        super().__init__()
 
     def clear_property(self, key):
         key = f'{self.property_prefix}.{key}'

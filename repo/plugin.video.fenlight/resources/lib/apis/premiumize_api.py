@@ -211,12 +211,12 @@ class PremiumizeAPI:
 		else:
 			string = 'pm_user_cloud_root'
 			url = 'folder/list'
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def user_cloud_all(self):
 		string = 'pm_user_cloud_all_files'
 		url = 'item/listall'
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def rename_cache_item(self, file_type, file_id, new_name):
 		if file_type == 'folder': url = 'folder/rename'
@@ -255,21 +255,7 @@ class PremiumizeAPI:
 		url = 'item/details'
 		data = {'id': item_id}
 		args = [url, data]
-		return cache_object(self._post, string, args, False, 24)
-
-	def get_hosts(self):
-		string = 'pm_valid_hosts'
-		url = 'services/list'
-		hosts_dict = {'Premiumize.me': []}
-		hosts = []
-		append = hosts.append
-		try:
-			result = cache_object(self._get, string, url, False, 168)
-			for x in result['directdl']:
-				for alias in result['aliases'][x]: append(alias)
-			hosts_dict['Premiumize.me'] = list(set(hosts))
-		except: pass
-		return hosts_dict
+		return cache_object(self._post, string, args, False, 0.5)
 
 	def add_headers_to_url(self, url):
 		return url + '|' + urlencode(self.headers())

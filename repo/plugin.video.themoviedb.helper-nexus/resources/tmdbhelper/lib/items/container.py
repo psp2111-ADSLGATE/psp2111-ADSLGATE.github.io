@@ -1,5 +1,5 @@
 from jurialmunkey.parser import try_int, boolean
-from tmdbhelper.lib.addon.consts import NO_LABEL_FORMATTING, REMOVE_EPISODE_COUNT
+from tmdbhelper.lib.addon.consts import NO_UNAIRED_LABEL, NO_UNAIRED_CHECK, REMOVE_EPISODE_COUNT
 from tmdbhelper.lib.addon.plugin import get_setting, executebuiltin, get_localized, get_condvisibility
 from tmdbhelper.lib.api.contains import CommonContainerAPIs
 from tmdbhelper.lib.addon.logger import TimerList
@@ -227,8 +227,9 @@ class Container(CommonContainerAPIs):
             li.set_episode_label()
 
             # Check if unaired and either apply special formatting or hide item depending on user settings
-            if self.format_episode_labels:
-                if not li.infoproperties.get('specialseason') and li.is_unaired(no_date=self.nodate_is_unaired):
+            if self.format_unaired_labels and not li.infoproperties.get('specialseason'):
+                is_unaired = li.is_unaired(no_date=self.nodate_is_unaired)
+                if self.remove_unaired_object and is_unaired:
                     return
 
             # Add details from Kodi library
@@ -281,7 +282,8 @@ class Container(CommonContainerAPIs):
         # Finalise listitems in parallel threads
         with TimerList(self.timer_lists, '--make', log_threshold=0.05, logging=self.log_timers):
             info = self.parent_params.get('info')
-            self.format_episode_labels = info not in NO_LABEL_FORMATTING
+            self.remove_unaired_object = info not in NO_UNAIRED_CHECK
+            self.format_unaired_labels = info not in NO_UNAIRED_LABEL
             self.remove_episode_counts = info in REMOVE_EPISODE_COUNT
             with ParallelThread(all_listitems, self._make_item) as pt:
                 item_queue = pt.queue

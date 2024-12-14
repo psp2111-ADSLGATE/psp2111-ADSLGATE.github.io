@@ -36,16 +36,16 @@ class EasyDebridAPI:
 	def account_info(self):
 		return self._GET(self.stats)
 
-	def add_magnet(self, magnet):
-		data = {'url': magnet}
-		return self._POST(self.download, json=data)
-
 	def check_cache_single(self, hash):
 		return self._POST(self.cache, json={'urls': [hash]})
 
 	def check_cache(self, hashlist):
 		data = {'urls': hashlist}
 		return self._POST(self.cache, json=data)
+
+	def add_magnet(self, magnet):
+		data = {'url': magnet}
+		return self._POST(self.download, json=data)
 
 	def create_transfer(self, magnet_url):
 		result = self.add_magnet(magnet_url)
@@ -63,7 +63,7 @@ class EasyDebridAPI:
 			if not match: return None
 			torrent = self.add_magnet(magnet_url)
 			torrent_files = torrent['files']
-			selected_files = [item for item in torrent_files if item['filename'].lower().endswith(tuple(extensions))]
+			selected_files = [i for i in torrent_files if i['filename'].lower().endswith(tuple(extensions))]
 			if not selected_files: return None
 			if season:
 				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
@@ -82,12 +82,13 @@ class EasyDebridAPI:
 		from modules.source_utils import supported_video_extensions
 		try:
 			extensions = supported_video_extensions()
-			torrent = self.add_magnet(magnet_url)
+			torrent = self.create_transfer(magnet_url)
+			if not torrent: return None
 			torrent_files = [
 				{'link': item['url'], 'filename': item['filename'], 'size': item['size']}
-				for item in torrent['files'] if item['filename'].lower().endswith(tuple(extensions))
+				for item in torrent if item['filename'].lower().endswith(tuple(extensions))
 			]
-			return torrent_files or None
+			return torrent_files
 		except Exception:
 			return None
 

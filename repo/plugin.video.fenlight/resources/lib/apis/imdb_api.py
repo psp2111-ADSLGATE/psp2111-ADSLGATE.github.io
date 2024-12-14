@@ -7,7 +7,7 @@ from caches.main_cache import cache_object
 from caches.settings_cache import get_setting
 from modules.dom_parser import parseDOM
 from modules.kodi_utils import sleep
-from modules.utils import remove_accents, replace_html_codes
+from modules.utils import remove_accents, replace_html_codes, normalize
 # from modules.kodi_utils import logger
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36 Edge/101.0.1210.53',

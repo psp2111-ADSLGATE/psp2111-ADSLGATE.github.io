@@ -44,6 +44,10 @@ class ListItemInfoGetter():
             self.get_infolabel('season', position),
             self.get_infolabel('episode', position),))
 
+    # ==========
+    # PROPERTIES
+    # ==========
+
     @property
     def cur_item(self):
         return self.get_item_identifier()
@@ -52,19 +56,51 @@ class ListItemInfoGetter():
     def cur_window(self):
         return get_current_window()
 
-    @property
+    @property  # CHANGED _cur_window
     def widget_id(self):
-        window_id = self.cur_window if get_condvisibility(CV_USE_LOCAL_CONTAINER) else None
+        window_id = self._cur_window if get_condvisibility(CV_USE_LOCAL_CONTAINER) else None
         return get_property('WidgetContainer', window_id=window_id, is_type=int)
 
-    @property
+    @property  # CHANGED _widget_id and assign
     def container(self):
-        widget_id = self.widget_id
-        return f'Container({widget_id}).' if widget_id else 'Container.'
+        return f'Container({self._widget_id}).' if self._widget_id else 'Container.'
+
+    @property  # CHANGED _container
+    def container_item(self):
+        return 'ListItem.' if get_condvisibility(CV_USE_LISTITEM) else f'{self._container}ListItem({{}}).'
 
     @property
-    def container_item(self):
-        return 'ListItem.' if get_condvisibility(CV_USE_LISTITEM) else f'{self.container}ListItem({{}}).'
+    def container_content(self):
+        return get_infolabel('Container.Content()')
+
+    # ==================
+    # COMPARISON METHODS
+    # ==================
+
+    def is_same_item(self, update=False):
+        self._cur_item = self.cur_item
+        if self._cur_item == self._pre_item:
+            return self._cur_item
+        if update:
+            self._pre_item = self._cur_item
+
+    def is_same_window(self, update=True):
+        self._cur_window = self.cur_window
+        if self._cur_window == self._pre_window:
+            return self._cur_window
+        if update:
+            self._pre_window = self._cur_window
+
+    # ================
+    # SETUP PROPERTIES
+    # ================
+
+    def setup_current_container(self):
+        """ Cache property getter return values for performance """
+        self._cur_window = self.cur_window
+        self._widget_id = self.widget_id
+        self._container = self.container
+        self._container_item = self.container_item
 
 
 class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
@@ -72,8 +108,6 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
         super(ListItemMonitorFunctions, self).__init__()
         self._cur_item = 0
         self._pre_item = 1
-        self._cur_folder = None
-        self._pre_folder = None
         self._cur_window = 0
         self._pre_window = 1
         self._cache = BasicCache(filename=f'QuickService.db')
@@ -85,7 +119,7 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
         self.property_prefix = 'ListItem'
         self._clearfunc_wp = {'func': None}
         self._clearfunc_lc = {'func': None}
-        self._readahead_li = get_setting('service_listitem_readahead')  # Allows readahead queue of next ListItems when idle
+        self._readahead_li = get_setting('service_listitem_read_ahead')  # Allows readahead queue of next ListItems when idle
         self._pre_artwork_thread = None
         self._baseitem_skindefaults = BaseItemSkinDefaults()
         self._parent = parent
@@ -95,41 +129,12 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
     # ==========
 
     @property
-    def cur_window(self):
-        return get_current_window()
-
-    @property
-    def cur_folder(self):
-        return str(('current_folder', self._container, self.container_content, self.numitems,))
-
-    @property
-    def container_content(self):
-        return get_infolabel('Container.Content()')
-
-    @property
-    def widget_id(self):
-        window_id = self._cur_window if get_condvisibility(CV_USE_LOCAL_CONTAINER) else None
-        return get_property('WidgetContainer', window_id=window_id, is_type=int)
-
-    @property
-    def container(self):
-        return f'Container({self._widget_id}).' if self._widget_id else 'Container.'
-
-    @property
-    def container_item(self):
-        return 'ListItem.' if get_condvisibility(CV_USE_LISTITEM) else f'{self._container}ListItem({{}}).'
-
-    @property
     def listcontainer_id(self):
         return int(get_infolabel('Skin.String(TMDbHelper.MonitorContainer)') or 0)
 
     @property
     def listcontainer(self):
         return self.get_listcontainer(self._cur_window, self._listcontainer_id)
-
-    @property
-    def numitems(self):
-        return get_infolabel(f'{self._container}NumItems')
 
     @property
     def baseitem_properties(self):
@@ -163,41 +168,13 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
 
     def setup_current_container(self):
         """ Cache property getter return values for performance """
-        self._cur_window = self.cur_window
+        super().setup_current_container()
         self._listcontainer_id = self.listcontainer_id
         self._listcontainer = self.listcontainer
-        self._widget_id = self.widget_id
-        self._container = self.container
-        self._container_item = self.container_item
 
     def setup_current_item(self):
         self._item = ListItemDetails(self, position=0)
         self._item.setup_current_listitem()
-
-    # ==================
-    # COMPARISON METHODS
-    # ==================
-
-    def is_same_item(self, update=False):
-        self._cur_item = self.cur_item
-        if self._cur_item == self._pre_item:
-            return self._cur_item
-        if update:
-            self._pre_item = self._cur_item
-
-    def is_same_folder(self, update=True):
-        self._cur_folder = self.cur_folder
-        if self._cur_folder == self._pre_folder:
-            return self._cur_folder
-        if update:
-            self._pre_folder = self._cur_folder
-
-    def is_same_window(self, update=True):
-        self._cur_window = self.cur_window
-        if self._cur_window == self._pre_window:
-            return self._cur_window
-        if update:
-            self._pre_window = self._cur_window
 
     # =========
     # FUNCTIONS
@@ -267,7 +244,7 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
             if _pre_item != self.cur_item:
                 return
 
-            self._parent.images_monitor.pre_item = _pre_item
+            self._parent.images_monitor._pre_item = _pre_item
 
             _listitem.setArt(_detailed['artwork'] or {}) if process_artwork else None
             _listitem.setProperties(_detailed['ratings'] or {}) if process_ratings else None
@@ -279,8 +256,9 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
     def on_finalise_winproperties(self, process_artwork=True, process_ratings=True):
         _item = self._item
         _item.get_additional_properties(self.baseitem_properties)
+        _pre_item = self._pre_item
 
-        if not self.is_same_item():
+        if _pre_item != self.cur_item:
             return
 
         # Proces artwork in a thread
@@ -290,9 +268,9 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
             _artwork_properties = set()
 
             with self._parent.mutex_lock:
-                if not self.is_same_item():
+                if _pre_item != self.cur_item:
                     return
-                self._parent.images_monitor.pre_item = self._cur_item
+                self._parent.images_monitor._pre_item = _pre_item
                 self.set_iter_properties(_artwork, SETMAIN_ARTWORK, property_object=_artwork_properties)
                 self.clear_property_list(SETMAIN_ARTWORK.difference(_artwork_properties))
 
@@ -302,7 +280,7 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
             _ratings_properties = set()
 
             with self._parent.mutex_lock:
-                if not self.is_same_item():
+                if _pre_item != self.cur_item:
                     return
                 self.set_iter_properties(_details.get('infoproperties', {}), SETPROP_RATINGS, property_object=_ratings_properties)
                 self.clear_property_list(SETPROP_RATINGS.difference(_ratings_properties))
@@ -382,7 +360,7 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
 
         # Check if the item has changed before retrieving details again
         if self.is_same_window(update=True) and self.is_same_item(update=True):
-            return self.on_readahead() if self._listcontainer else None
+            return self.on_readahead()
 
         # Ignore some special folders like next page and parent folder
         if (self.get_infolabel('Label') or '').lower().split(' (', 1)[0] in self._ignored_labels:
@@ -390,10 +368,6 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
 
         # Set a property for skins to check if item details are updating
         self.get_property('IsUpdating', 'True')
-
-        # Clear properties for clean slate if user opened a new directory and using window properties
-        # if not self._listcontainer and not self.is_same_folder(update=True):
-        #     self.on_exit(is_done=False)
 
         # Get the current listitem details for the details lookup
         self.setup_current_item()
@@ -425,11 +399,6 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
 
     def on_scroll(self):
         return
-        # self.setup_current_container()
-        # if self.is_same_item():
-        #     return
-        # if self._readahead_li:
-        #     return self.on_listitem()
 
     def on_exit(self, is_done=True):
 

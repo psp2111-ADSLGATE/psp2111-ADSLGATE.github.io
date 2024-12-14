@@ -75,13 +75,13 @@ class OffcloudAPI:
 		except: r = {}
 		return r
 
-	def add_magnet(self, magnet):
-		data = {'url': magnet}
-		return self._POST(self.cloud, data=data)
-
 	def check_cache(self, hashlist):
 		data = {'hashes': hashlist}
 		return self._POST(self.cache, data=data)
+
+	def add_magnet(self, magnet):
+		data = {'url': magnet}
+		return self._POST(self.cloud, data=data)
 
 	def create_transfer(self, magnet_url):
 		result = self.add_magnet(magnet_url)
@@ -103,8 +103,8 @@ class OffcloudAPI:
 			torrent_files = self.torrent_info(torrent_id)
 			if not isinstance(torrent_files, list): torrent_files = [single_file_torrent]
 			selected_files = [
-				{'url': item, 'filename': item.split('/')[-1], 'size': 0}
-				for item in torrent_files if item.lower().endswith(tuple(extensions))
+				{'link': i, 'filename': i.split('/')[-1], 'size': 0}
+				for i in torrent_files if i.lower().endswith(tuple(extensions))
 			]
 			if not selected_files: return None
 			if season:
@@ -113,7 +113,7 @@ class OffcloudAPI:
 				if self._m2ts_check(selected_files): raise Exception('_m2ts_check failed')
 				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
 			if not selected_files: return None
-			file_key = selected_files[0]['url']
+			file_key = selected_files[0]['link']
 			file_url = self.requote_uri(file_key) # requote, oc why give us a list of urls that may have spaces in name
 			return file_url
 		except Exception as e:
@@ -134,7 +134,7 @@ class OffcloudAPI:
 				for item in torrent_files if item.lower().endswith(tuple(extensions))
 			]
 #			self.delete_torrent(torrent_id) # cannot delete the torrent, play link will not persist, will return 502
-			return torrent_files or None
+			return torrent_files
 		except Exception:
 			if torrent_id: self.delete_torrent(torrent_id)
 			return None

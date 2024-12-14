@@ -17,76 +17,29 @@ class AllDebridAPI:
 	def __init__(self):
 		self.token = get_setting('ad.token')
 
-	def auth(self):
-		url = base_url + 'pin/get?agent=%s' % user_agent
-		response = session.get(url, timeout=timeout).json()
-		response = response['data']
-		expires_in = int(response['expires_in'])
-		sleep_interval = 5
-		poll_url = response['check_url']
+	def _get(self, url, url_append=''):
+		result = None
 		try:
-			qr_url = '&bgcolor=ffd700&data=%s' % requests.utils.quote(response['user_url'])
-			qr_icon = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&qzone=1%s' % qr_url
-			kodi_utils.notification(response['user_url'], icon=qr_icon, time=15000)
+			if self.token == '': return None
+			url = base_url + url + '?agent=%s&apikey=%s' % (user_agent, self.token) + url_append
+			result = session.get(url, timeout=timeout).json()
+			if result.get('status') == 'success' and 'data' in result: result = result['data']
 		except: pass
-		line = '%s[CR]%s[CR]%s'
-		dialog_text = line % (ls(32517), ls(32700) % response.get('base_url'), ls(32701) % response.get('pin'))
-		progressDialog = kodi_utils.progressDialog
-		progressDialog.create('POV', dialog_text)
-		self.token = ''
-		time_passed = expires_in
-		while not self.token and not progressDialog.iscanceled() and time_passed:
-			progressDialog.update(int(time_passed / expires_in * 100))
-			kodi_utils.sleep(1000)
-			time_passed -= 1
-			if time_passed % sleep_interval: continue
-			response = session.get(poll_url, timeout=timeout).json()
-			response = response['data']
-			if not response['activated']: continue
-			try: self.token = str(response['apikey'])
-			except: kodi_utils.ok_dialog(text=32574, top_space=True)
-		try: progressDialog.close()
+		return result
+
+	def _post(self, url, data={}):
+		result = None
+		try:
+			if self.token == '': return None
+			url = base_url + url + '?agent=%s&apikey=%s' % (user_agent, self.token)
+			result = session.post(url, data=data, timeout=timeout).json()
+			if result.get('status') == 'success' and 'data' in result: result = result['data']
 		except: pass
-		if self.token:
-			kodi_utils.sleep(1000)
-			account_info = self.account_info()
-			set_setting('ad.account_id', str(account_info['user']['username']))
-			set_setting('ad.token', self.token)
-			kodi_utils.notification('%s %s' % (ls(32576), ls(32063)))
-			return True
-		return False
+		return result
 
 	def account_info(self):
 		response = self._get('user')
 		return response
-
-	def check_cache(self, hashes):
-		data = {'magnets[]': hashes}
-		response = self._post('magnet/instant', data)
-		return response
-
-	def check_single_magnet(self, hash_string):
-		cache_info = self.check_cache(hash_string)['magnets'][0]
-		return cache_info['instant']
-
-	def user_cloud(self):
-		url = 'magnet/status'
-		string = 'pov_ad_user_cloud'
-		return cache_object(self._get, string, url, False, 0.5)
-
-	def unrestrict_link(self, link):
-		url = 'link/unlock'
-		url_append = '&link=%s' % link
-		response = self._get(url, url_append)
-		try: return response['link']
-		except: return None
-
-	def create_transfer(self, magnet):
-		url = 'magnet/upload'
-		url_append = '&magnet=%s' % magnet
-		result = self._get(url, url_append)
-		result = result['magnets'][0]
-		return result.get('id', '')
 
 	def list_transfer(self, transfer_id):
 		url = 'magnet/status'
@@ -102,41 +55,57 @@ class AllDebridAPI:
 		if result.get('success', False):
 			return True
 
+	def unrestrict_link(self, link):
+		url = 'link/unlock'
+		url_append = '&link=%s' % link
+		response = self._get(url, url_append)
+		try: return response['link']
+		except: return None
+
+	def check_single_magnet(self, hash_string):
+		cache_info = self.check_cache(hash_string)['magnets'][0]
+		return cache_info['instant']
+
+	def check_cache(self, hashes):
+		data = {'magnets[]': hashes}
+		response = self._post('magnet/instant', data)
+		return response
+
+	def create_transfer(self, magnet):
+		url = 'magnet/upload'
+		url_append = '&magnet=%s' % magnet
+		result = self._get(url, url_append)
+		result = result['magnets'][0]
+		return result.get('id', '')
+
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		from modules.source_utils import supported_video_extensions, seas_ep_filter, extras_filter
 		try:
-			file_url, media_id = None, None
+			file_url, match = None, False
 			extensions = supported_video_extensions()
-			correct_files = []
-			correct_files_append = correct_files.append
+			extras_filtering_list = tuple(i for i in extras_filter() if not i in title.lower())
 			transfer_id = self.create_transfer(magnet_url)
 			for ended in (1, 2, 3):
 				kodi_utils.sleep(500)
 				transfer_info = self.list_transfer(transfer_id)
 				if transfer_info['completionDate']: break
+			else: raise Exception('uncached magnet:\n%s' % magnet_url)
+			torrent_files = transfer_info['links']
+			selected_files = [i for i in torrent_files if i['filename'].lower().endswith(tuple(extensions))]
+			if not selected_files: return None
+			if season:
+				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
 			else:
-				Thread(target=self.delete_transfer, args=(transfer_id,)).start()
-				return None
-			valid_results = [i for i in transfer_info['links'] if any(i.get('filename').lower().endswith(x) for x in extensions) and not i.get('link', '') == '']
-			if valid_results:
-				if season:
-					correct_files = [i for i in valid_results if seas_ep_filter(season, episode, i['filename'])]
-					if correct_files:
-						episode_title = re.sub(r'[^A-Za-z0-9-]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-						try: media_id = [
-							i['link']
-							for i in correct_files
-							if not any(x in re.sub(episode_title, '', seas_ep_filter(season, episode, i['filename'], split=True)) for x in extras_filter())
-						][0]
-						except: media_id = None
-				else: media_id = max(valid_results, key=lambda x: x.get('size')).get('link', None)
+				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
+				selected_files.sort(key=lambda k: k['size'], reverse=True)
+			if not selected_files: return None
+			file_key = selected_files[0]['link']
+			file_url = self.unrestrict_link(file_key)
 			if not store_to_cloud: Thread(target=self.delete_transfer, args=(transfer_id,)).start()
-			if media_id:
-				file_url = self.unrestrict_link(media_id)
-				if not any(file_url.lower().endswith(x) for x in extensions): file_url = None
 			return file_url
-		except:
-			if transfer_id: self.delete_transfer(transfer_id)
+		except Exception as e:
+			kodi_utils.logger('main exception', str(e))
+			if transfer_id: Thread(target=self.delete_transfer, args=(transfer_id,)).start()
 			return None
 
 	def display_magnet_pack(self, magnet_url, info_hash):
@@ -148,16 +117,13 @@ class AllDebridAPI:
 				kodi_utils.sleep(500)
 				transfer_info = self.list_transfer(transfer_id)
 				if transfer_info['completionDate']: break
-			else:
-				self.delete_transfer(transfer_id)
-				return None
-			end_results = []
-			append = end_results.append
-			for item in transfer_info.get('links'):
-				if any(item.get('filename').lower().endswith(x) for x in extensions) and not item.get('link', '') == '':
-					append({'link': item['link'], 'filename': item['filename'], 'size': item['size']})
+			else: raise Exception('uncached magnet:\n%s' % magnet_url)
+			torrent_files = [
+				{'link': item['link'], 'filename': item['filename'], 'size': item['size']}
+				for item in transfer_info['links'] if item['filename'].lower().endswith(tuple(extensions))
+			]
 			self.delete_transfer(transfer_id)
-			return end_results
+			return torrent_files
 		except Exception:
 			if transfer_id: self.delete_transfer(transfer_id)
 			return None
@@ -238,31 +204,55 @@ class AllDebridAPI:
 		except: pass
 		return hosts_dict
 
-	def _get(self, url, url_append=''):
-		result = None
+	def auth(self):
+		url = base_url + 'pin/get?agent=%s' % user_agent
+		response = session.get(url, timeout=timeout).json()
+		response = response['data']
+		expires_in = int(response['expires_in'])
+		sleep_interval = 5
+		poll_url = response['check_url']
 		try:
-			if self.token == '': return None
-			url = base_url + url + '?agent=%s&apikey=%s' % (user_agent, self.token) + url_append
-			result = session.get(url, timeout=timeout).json()
-			if result.get('status') == 'success' and 'data' in result: result = result['data']
+			qr_url = '&bgcolor=ffd700&data=%s' % requests.utils.quote(response['user_url'])
+			qr_icon = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&qzone=1%s' % qr_url
+			kodi_utils.notification(response['user_url'], icon=qr_icon, time=15000)
 		except: pass
-		return result
-
-	def _post(self, url, data={}):
-		result = None
-		try:
-			if self.token == '': return None
-			url = base_url + url + '?agent=%s&apikey=%s' % (user_agent, self.token)
-			result = session.post(url, data=data, timeout=timeout).json()
-			if result.get('status') == 'success' and 'data' in result: result = result['data']
+		line = '%s[CR]%s[CR]%s'
+		dialog_text = line % (ls(32517), ls(32700) % response.get('base_url'), ls(32701) % response.get('pin'))
+		progressDialog = kodi_utils.progressDialog
+		progressDialog.create('POV', dialog_text)
+		self.token = ''
+		time_passed = expires_in
+		while not self.token and not progressDialog.iscanceled() and time_passed:
+			progressDialog.update(int(time_passed / expires_in * 100))
+			kodi_utils.sleep(1000)
+			time_passed -= 1
+			if time_passed % sleep_interval: continue
+			response = session.get(poll_url, timeout=timeout).json()
+			response = response['data']
+			if not response['activated']: continue
+			try: self.token = str(response['apikey'])
+			except: kodi_utils.ok_dialog(text=32574, top_space=True)
+		try: progressDialog.close()
 		except: pass
-		return result
+		if self.token:
+			kodi_utils.sleep(1000)
+			account_info = self.account_info()
+			set_setting('ad.account_id', str(account_info['user']['username']))
+			set_setting('ad.token', self.token)
+			kodi_utils.notification('%s %s' % (ls(32576), ls(32063)))
+			return True
+		return False
 
 	def revoke_auth(self):
 		if not kodi_utils.confirm_dialog(): return
 		set_setting('ad.account_id', '')
 		set_setting('ad.token', '')
 		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
+
+	def user_cloud(self):
+		url = 'magnet/status'
+		string = 'pov_ad_user_cloud'
+		return cache_object(self._get, string, url, False, 0.5)
 
 	def clear_cache(self):
 		try:

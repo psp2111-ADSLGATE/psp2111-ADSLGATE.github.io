@@ -31,7 +31,6 @@ def add_to_library(info, busy_spinner=True, library_adder=None, finished=True, *
     if not finished:
         return library_adder
     library_adder._finish()
-    del library_adder
 
 
 class LibraryAdder(LibraryCommonFunctions):

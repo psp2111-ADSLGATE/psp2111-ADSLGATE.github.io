@@ -10,7 +10,7 @@ set_property, clear_property, get_visibility, hide_busy_dialog, xbmc_actor = ku.
 xbmc_player, execute_builtin, sleep = ku.xbmc_player, ku.execute_builtin, ku.sleep
 make_listitem, volume_checker, get_infolabel, xbmc_monitor = ku.make_listitem, ku.volume_checker, ku.get_infolabel, ku.xbmc_monitor
 close_all_dialog, notification, poster_empty, fanart_empty = ku.close_all_dialog, ku.notification, ku.empty_poster, ku.get_addon_fanart()
-auto_resume, auto_nextep_settings = st.auto_resume, st.auto_nextep_settings
+auto_resume, auto_nextep_settings, store_resolved_to_cloud = st.auto_resume, st.auto_nextep_settings, st.store_resolved_to_cloud
 set_bookmark, mark_movie, mark_episode = ws.set_bookmark, ws.mark_movie, ws.mark_episode
 total_time_errors = ('0.0', '', 0.0, None)
 set_resume, set_watched = 5, 90
@@ -102,6 +102,7 @@ class FenLightPlayer(xbmc_player):
 			hide_busy_dialog()
 			if not self.media_marked: self.media_watched_marker()
 			self.clear_playback_properties()
+			self.clear_playing_item()
 		except:
 			hide_busy_dialog()
 			self.sources_object.playback_successful = False
@@ -222,6 +223,7 @@ class FenLightPlayer(xbmc_player):
 			self.playing_filename = self.sources_object.playing_filename
 			self.media_marked, self.nextep_info_gathered = False, False
 			self.playback_successful, self.cancel_all_playback = None, False
+			self.playing_item = self.sources_object.playing_item
 
 	def set_playback_properties(self):
 		try:
@@ -235,6 +237,13 @@ class FenLightPlayer(xbmc_player):
 		clear_property('fenlight.window_stack')
 		clear_property('script.trakt.ids')
 		clear_property('subs.player_filename')
+
+	def clear_playing_item(self):
+		if self.playing_item['cache_provider'] == 'Offcloud':
+			if self.playing_item.get('direct_debrid_link', False): return
+			if store_resolved_to_cloud('Offcloud', 'package' in self.playing_item): return
+			from apis.offcloud_api import OffcloudAPI
+			OffcloudAPI().clear_played_torrent(self.playing_item)
 
 	def run_error(self):
 		try: self.sources_object.playback_successful = False

@@ -169,6 +169,57 @@ def routing(sys):
 		if mode == 'alldebrid.delete':
 			from indexers.alldebrid import ad_delete
 			return ad_delete(params.get('id'))
+	if 'offcloud' in mode:
+		if mode == 'offcloud.oc_cloud':
+			from indexers.offcloud import oc_cloud
+			return oc_cloud()
+		if mode == 'offcloud.browse_oc_cloud':
+			from indexers.offcloud import browse_oc_cloud
+			return browse_oc_cloud(_get('folder_id'))
+		if mode == 'offcloud.resolve_oc':
+			from indexers.offcloud import resolve_oc
+			return resolve_oc(params)
+		if mode == 'offcloud.oc_account_info':
+			from indexers.offcloud import oc_account_info
+			return oc_account_info()
+		if mode == 'offcloud.authenticate':
+			from apis.offcloud_api import OffcloudAPI
+			return OffcloudAPI().auth()
+		if mode == 'offcloud.revoke_authentication':
+			from apis.offcloud_api import OffcloudAPI
+			return OffcloudAPI().revoke()
+		if mode == 'offcloud.delete':
+			from indexers.offcloud import oc_delete
+			return oc_delete(params.get('folder_id'))
+	if 'easydebrid' in mode:
+		if mode == 'easydebrid.authenticate':
+			from apis.easydebrid_api import EasyDebridAPI
+			return EasyDebridAPI().auth()
+		if mode == 'easydebrid.revoke_authentication':
+			from apis.easydebrid_api import EasyDebridAPI
+			return EasyDebridAPI().revoke()
+	if 'torbox' in mode:
+		if mode == 'torbox.tb_cloud':
+			from indexers.torbox import tb_cloud
+			return tb_cloud()
+		if mode == 'torbox.browse_tb_cloud':
+			from indexers.torbox import browse_tb_cloud
+			return browse_tb_cloud(_get('folder_id'))
+		if mode == 'torbox.resolve_tb':
+			from indexers.torbox import resolve_tb
+			return resolve_tb(params)
+		if mode == 'torbox.tb_account_info':
+			from indexers.torbox import tb_account_info
+			return tb_account_info()
+		if mode == 'torbox.authenticate':
+			from apis.torbox_api import TorBoxAPI
+			return TorBoxAPI().auth()
+		if mode == 'torbox.revoke_authentication':
+			from apis.torbox_api import TorBoxAPI
+			return TorBoxAPI().revoke()
+		if mode == 'torbox.delete':
+			from indexers.torbox import tb_delete
+			return tb_delete(params.get('folder_id'))
 	if '_cache' in mode:
 		from caches import base_cache
 		if mode == 'clear_cache':

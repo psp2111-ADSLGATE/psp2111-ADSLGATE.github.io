@@ -11,10 +11,10 @@ results_window_numbers_dict = {'List': 2000, 'Rows': 2001, 'WideList': 2002}
 default_action_dict = {'0': 'play', '1': 'cancel', '2': 'pause'}
 paginate_dict = {True: 'fenlight.paginate.limit_widgets', False: 'fenlight.paginate.limit_addon'}
 nextep_sort_key_dict = {0: 'last_played', 1: 'first_aired', 2: 'name'}
-prescrape_scrapers_tuple = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'folders')
-sort_to_top_dict = {'folders': 'fenlight.results.sort_folders_first', 'rd_cloud': 'fenlight.results.sort_rdcloud_first',
-					'pm_cloud': 'fenlight.results.sort_pmcloud_first', 'ad_cloud': 'fenlight.results.sort_adcloud_first'}
-internal_scrapers_clouds_list = [('rd', 'provider.rd_cloud'), ('pm', 'provider.pm_cloud'), ('ad', 'provider.ad_cloud')]
+prescrape_scrapers_tuple = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders')
+sort_to_top_dict = {'folders': 'fenlight.results.sort_folders_first', 'rd_cloud': 'fenlight.results.sort_rdcloud_first', 'pm_cloud': 'fenlight.results.sort_pmcloud_first',
+					'ad_cloud': 'fenlight.results.sort_adcloud_first', 'oc_cloud': 'fenlight.results.sort_occloud_first', 'tb_cloud': 'fenlight.results.sort_tbcloud_first'}
+internal_scrapers_clouds_list = [('rd', 'provider.rd_cloud'), ('pm', 'provider.pm_cloud'), ('ad', 'provider.ad_cloud'), ('oc', 'provider.oc_cloud'), ('tb', 'provider.tb_cloud')]
 
 def tmdb_api_key():
 	return get_setting('fenlight.tmdb_api', '')
@@ -227,8 +227,11 @@ def provider_sort_ranks():
 	rd_priority = int(get_setting('fenlight.rd.priority', '8'))
 	ad_priority = int(get_setting('fenlight.ad.priority', '9'))
 	pm_priority = int(get_setting('fenlight.pm.priority', '10'))
-	return {'easynews': en_priority, 'real-debrid': rd_priority, 'premiumize.me': pm_priority, 'alldebrid': ad_priority,
-			'rd_cloud': rd_priority, 'pm_cloud': pm_priority, 'ad_cloud': ad_priority, 'folders': 0}
+	oc_priority = int(get_setting('fenlight.oc.priority', '10'))
+	ed_priority = int(get_setting('fenlight.ed.priority', '10'))
+	tb_priority = int(get_setting('fenlight.tb.priority', '10'))
+	return {'easynews': en_priority, 'real-debrid': rd_priority, 'premiumize.me': pm_priority, 'alldebrid': ad_priority, 'offcloud': oc_priority, 'easydebrid': ed_priority,
+			'torbox': tb_priority, 'rd_cloud': rd_priority, 'pm_cloud': pm_priority, 'ad_cloud': ad_priority, 'oc_cloud': oc_priority, 'tb_cloud': tb_priority, 'folders': 0}
 
 def sort_to_top(provider):
 	return get_setting(sort_to_top_dict[provider]) == 'true'
@@ -253,14 +256,18 @@ def scraping_settings():
 		rd_highlight = get_setting('fenlight.provider.rd_highlight', 'FF3C9900')
 		pm_highlight = get_setting('fenlight.provider.pm_highlight', 'FFFF3300')
 		ad_highlight = get_setting('fenlight.provider.ad_highlight', 'FFE6B800')
+		oc_highlight = get_setting('fenlight.provider.oc_highlight', 'FF008EB2')
+		ed_highlight = get_setting('fenlight.provider.ed_highlight', 'FF3233FF')
+		tb_highlight = get_setting('fenlight.provider.tb_highlight', 'FF01662A')
 	else:
 		highlight_4K = get_setting('fenlight.scraper_4k_highlight', 'FFFF00FE')
 		highlight_1080P = get_setting('fenlight.scraper_1080p_highlight', 'FFE6B800')
 		highlight_720P = get_setting('fenlight.scraper_720p_highlight', 'FF3C9900')
 		highlight_SD = get_setting('fenlight.scraper_SD_highlight', 'FF0166FF')
-	return {'highlight_type': highlight_type,'real-debrid': rd_highlight, 'premiumize': pm_highlight, 'alldebrid': ad_highlight, 'rd_cloud': debrid_cloud_highlight,
-			'pm_cloud': debrid_cloud_highlight, 'ad_cloud': debrid_cloud_highlight, 'easynews': easynews_highlight, 'folders': folders_highlight,
-			'4k': highlight_4K, '1080p': highlight_1080P, '720p': highlight_720P, 'sd': highlight_SD}
+	return {'highlight_type': highlight_type, 'real-debrid': rd_highlight, 'premiumize': pm_highlight, 'alldebrid': ad_highlight,
+			'offcloud': oc_highlight, 'easydebrid': ed_highlight, 'torbox': tb_highlight, 'rd_cloud': debrid_cloud_highlight,
+			'pm_cloud': debrid_cloud_highlight, 'ad_cloud': debrid_cloud_highlight, 'oc_cloud': debrid_cloud_highlight, 'tb_cloud': debrid_cloud_highlight,
+			'easynews': easynews_highlight, 'folders': folders_highlight, '4k': highlight_4K, '1080p': highlight_1080P, '720p': highlight_720P, 'sd': highlight_SD}
 
 def omdb_api_key():
 	return get_setting('fenlight.omdb_api', 'empty_setting')

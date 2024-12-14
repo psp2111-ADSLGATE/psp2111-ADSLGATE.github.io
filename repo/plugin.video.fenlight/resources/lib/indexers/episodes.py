@@ -197,9 +197,6 @@ def build_single_episode(list_type, params={}):
 			else: seas_ep = ''
 			bookmarks = get_bookmarks_episode(tmdb_id, season, watched_db)
 			progress = get_progress_status_episode(bookmarks, episode)
-			if unwatched_info:
-				total_unwatched = get_watched_status_tvshow(watched_info_tvshow(watched_db).get(string(tmdb_id), None), meta_get('total_aired_eps'))[2]
-				set_properties({'watchedepisodes': '1', 'unwatchedepisodes': string(total_unwatched)})
 			if not list_type_starts_with('next_'): playcount = get_watched_status_episode(watched_info, (season, episode))
 			if list_type_starts_with('next_'):
 				if include_airdate:
@@ -229,8 +226,13 @@ def build_single_episode(list_type, params={}):
 												'tmdb_id': tmdb_id, 'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': title})))
 				else: cm_append(('[B]Mark Watched %s[/B]' % watched_title, run_plugin % build_url({'mode': 'watched_status.mark_episode', 'action': 'mark_as_watched',
 												'tmdb_id': tmdb_id, 'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': title})))
-				if progress: cm_append(('[B]Clear Progress[/B]', run_plugin % build_url({'mode': 'watched_status.erase_bookmark', 'media_type': 'episode', 'tmdb_id': tmdb_id,
+				if progress:
+					cm_append(('[B]Clear Progress[/B]', run_plugin % build_url({'mode': 'watched_status.erase_bookmark', 'media_type': 'episode', 'tmdb_id': tmdb_id,
 												'season': season, 'episode': episode, 'refresh': 'true'})))
+				if unwatched_info:
+					total_aired_eps = meta_get('total_aired_eps')
+					total_unwatched = get_watched_status_tvshow(watched_info_tvshow(watched_db).get(string(tmdb_id), None), total_aired_eps)[2]
+					if total_aired_eps != total_unwatched: set_properties({'watchedepisodes': '1', 'unwatchedepisodes': string(total_unwatched)})
 			cm_append(('[B]Browse[/B]', window_command % build_url({'mode': 'build_season_list', 'tmdb_id': tmdb_id})))
 			if is_external:
 				cm_append(('[B]Refresh Widgets[/B]', run_plugin % build_url({'mode': 'refresh_widgets'})))

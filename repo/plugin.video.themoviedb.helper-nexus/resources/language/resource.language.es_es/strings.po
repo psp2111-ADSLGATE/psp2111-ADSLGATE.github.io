@@ -2179,7 +2179,7 @@ msgstr "Quitar en progreso"
 #: /resources/settings.xml
 msgctxt "#32418"
 msgid "Adds text to the start of the MPAA rating. For example if set to 'Rated' a 'PG' rating is displayed as 'Rated PG'. Cached items will need to be refreshed."
-msgstr "Agrega texto al inicio de la clasificación MPAA. Por ejemplo, si se establece en "Clasificado", una clasificación "PG" se muestra como "Clasificado PG". Será necesario actualizar los elementos almacenados en caché."
+msgstr "Agrega texto al inicio de la clasificación MPAA. Por ejemplo, si se establece en 'Clasificado', una clasificación 'PG' se muestra como 'Clasificado PG'. Será necesario actualizar los elementos almacenados en caché."
 
 #: /resources/settings.xml
 msgctxt "#32419"

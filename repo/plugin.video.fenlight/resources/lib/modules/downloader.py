@@ -22,10 +22,11 @@ confirm_dialog, ok_dialog, build_url, get_visibility = kodi_utils.confirm_dialog
 sleep, set_category, poster_empty, select_dialog = kodi_utils.sleep, kodi_utils.set_category, kodi_utils.empty_poster, kodi_utils.select_dialog
 get_property, set_property, clear_property = kodi_utils.get_property, kodi_utils.set_property, kodi_utils.clear_property
 set_view_mode, make_listitem, list_dirs = kodi_utils.set_view_mode, kodi_utils.make_listitem, kodi_utils.list_dirs
+fanart = kodi_utils.get_addon_fanart()
 sources = Sources()
 ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
+icons = {'Real-Debrid': 'realdebrid', 'Premiumize.me': 'premiumize', 'AllDebrid': 'alldebrid', 'Offcloud': 'offcloud', 'Easydebrid': 'easydebrid', 'Torbox': 'torbox'}
 levels =['../../../..', '../../..', '../..', '..']
-fanart = kodi_utils.get_addon_fanart()
 status_property_string = 'fenlight.download_status.%s'
 
 def runner(params):
@@ -42,7 +43,7 @@ def runner(params):
 		try:
 			debrid_files, debrid_function = sources.debridPacks(provider, params['name'], params['magnet_url'], params['info_hash'], download=True)
 			pack_choices = [dict(params, **{'pack_files':item}) for item in debrid_files]
-			icon = {'Real-Debrid': 'realdebrid', 'Premiumize.me': 'premiumize', 'AllDebrid': 'alldebrid'}[provider]
+			icon = icons[provider]
 		except: return notification('No URL found for Download. Pick another Source.')
 		default_icon = get_icon(icon)
 		chosen_list = select_pack_item(pack_choices, default_icon)
@@ -52,7 +53,6 @@ def runner(params):
 		image = meta.get('poster') or poster_empty
 		default_name = '%s (%s)' % (clean_file_name(get_title(meta)), get_year(meta))
 		default_foldername = kodi_dialog().input('Title', defaultt=default_name)
-		
 		multi_downloads = []
 		multi_downloads_append = multi_downloads.append
 		for item in chosen_list:
@@ -178,6 +178,9 @@ class Downloader:
 				source = json.loads(self.source)
 				if source.get('scrape_provider', '') == 'easynews': source['url_dl'] = source['down_url']
 				url = sources.resolve_sources(source, meta=self.meta)
+				if 'torbox' in url:
+					from apis.torbox_api import TorBoxAPI
+					url = TorBoxAPI().add_headers_to_url(url)
 			elif self.action == 'meta.pack':
 				if self.provider == 'Real-Debrid':
 					from apis.real_debrid_api import RealDebridAPI as debrid_function
@@ -185,10 +188,15 @@ class Downloader:
 					from apis.premiumize_api import PremiumizeAPI as debrid_function
 				elif self.provider == 'AllDebrid':
 					from apis.alldebrid_api import AllDebridAPI as debrid_function
+				elif self.provider == 'TorBox':
+					from apis.torbox_api import TorBoxAPI as debrid_function
 				url = self.params_get('pack_files')['link']
 				if self.provider in ('Real-Debrid', 'AllDebrid'):
 					url = debrid_function().unrestrict_link(url)
 				elif self.provider == 'Premiumize.me':
+					url = debrid_function().add_headers_to_url(url)
+				elif self.provider == 'TorBox':
+					url = debrid_function().unrestrict_link(url)
 					url = debrid_function().add_headers_to_url(url)
 		else:
 			if self.action.startswith('cloud'):
@@ -203,6 +211,11 @@ class Downloader:
 				elif 'premiumize' in self.action:
 					from apis.premiumize_api import PremiumizeAPI
 					url = PremiumizeAPI().add_headers_to_url(url)
+				elif 'torbox' in self.action:
+					from apis.torbox_api import TorBoxAPI
+					from indexers.torbox import resolve_tb
+					url = resolve_tb(self.params)
+					url = TorBoxAPI().add_headers_to_url(url)
 				elif 'easynews' in self.action:
 					from indexers.easynews import resolve_easynews
 					url = resolve_easynews(self.params)

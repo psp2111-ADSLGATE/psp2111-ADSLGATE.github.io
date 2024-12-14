@@ -57,7 +57,6 @@ class _EventLoop():
 
     def _on_exit(self):
         if self.xbmc_monitor.abortRequested():
-            del self.xbmc_monitor
             return
 
         # Clear our properties

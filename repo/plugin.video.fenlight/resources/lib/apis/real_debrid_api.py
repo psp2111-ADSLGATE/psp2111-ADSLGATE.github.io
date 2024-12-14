@@ -130,7 +130,7 @@ class RealDebridAPI:
 	def user_cloud(self):
 		string = 'rd_user_cloud'
 		url = 'torrents?limit=500'
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def user_cloud_check(self):
 		url = 'torrents?limit=500'
@@ -139,12 +139,12 @@ class RealDebridAPI:
 	def downloads(self):
 		string = 'rd_downloads'
 		url = 'downloads?limit=500'
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def user_cloud_info(self, file_id):
 		string = 'rd_user_cloud_info_%s' % file_id
 		url = 'torrents/info/%s' % file_id
-		return cache_object(self._get, string, url, False, 2)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def user_cloud_info_check(self, file_id):
 		url = 'torrents/info/%s' % file_id
@@ -200,22 +200,14 @@ class RealDebridAPI:
 		response = requests.delete(base_url + url, timeout=timeout)
 		return response
 
-	def get_hosts(self):
-		string = 'rd_valid_hosts'
-		url = 'hosts/domains'
-		hosts_dict = {'Real-Debrid': []}
-		try:
-			result = cache_object(self._get, string, url, False, 48)
-			hosts_dict['Real-Debrid'] = result
-		except: pass
-		return hosts_dict
-
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		compare_title = re.sub(r'[^A-Za-z0-9]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
 		elapsed_time, transfer_finished = 0, False
 		extensions = supported_video_extensions()
+		torrent_id = None
 		try:
 			torrent = self.add_magnet(magnet_url)
+			if 'error' in torrent: return None
 			torrent_id = torrent['id']
 			self.add_torrent_select(torrent_id, 'all')
 			torrent_info = self.user_cloud_info_check(torrent_id)

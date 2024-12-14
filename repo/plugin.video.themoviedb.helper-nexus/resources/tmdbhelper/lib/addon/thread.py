@@ -21,7 +21,6 @@ def has_property_lock(property_name, timeout=5, polling=0.05):
         timeexp = get_timestamp(timeend)
     if not timeexp:
         kodi_log(f'{property_name} Timeout!', 1)
-    del monitor
     return True
 
 

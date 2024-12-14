@@ -114,7 +114,7 @@ class _ListItem(object):
     def episode(self):
         return
 
-    def is_unaired(self, format_label=None, check_hide_settings=True, no_date=True):
+    def is_unaired(self, format_label=None, no_date=True):
         return
 
     def unaired_bool(self):
@@ -285,7 +285,7 @@ class _Collection(_ListItem):
 
 
 class _Video(_ListItem):
-    def is_unaired(self, format_label=u'[COLOR=ffcc0000][I]{}[/I][/COLOR]', check_hide_settings=True, no_date=True):
+    def is_unaired(self, format_label=u'[COLOR=ffcc0000][I]{}[/I][/COLOR]', no_date=True):
         try:
             if not is_unaired_timestamp(self.infolabels.get('premiered'), no_date):
                 return
@@ -293,8 +293,6 @@ class _Video(_ListItem):
                 self.label = format_label.format(self.label)
         except Exception as exc:
             kodi_log(f'Error: {exc}', 1)
-        if not check_hide_settings:
-            return True
         return self.unaired_bool()
 
     def _set_params_reroute_default(self):
@@ -305,7 +303,7 @@ class _Video(_ListItem):
         else:
             self.params['info'] = 'related'
         self.is_folder = False
-        self.context_menu.insert(0, (
+        self.context_menu.insert(5, (
             '$ADDON[plugin.video.themoviedb.helper 32322]',
             f'RunPlugin({self.get_url()}&ignore_default=true)',))
 

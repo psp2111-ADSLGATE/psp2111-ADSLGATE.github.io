@@ -683,9 +683,9 @@
                     <default>False</default>
                     <control type="toggle"/>
                 </setting>
-                <setting id="service_listitem_readahead" type="boolean" label="32480" help="">
+                <setting id="service_listitem_read_ahead" type="boolean" label="32480" help="">
                     <level>0</level>
-                    <default>True</default>
+                    <default>false</default>
                     <control type="toggle"/>
                 </setting>
                 <setting id="recache_kodidb" type="action" label="32467" help="">

@@ -61,13 +61,10 @@ class ServiceMonitor(Poller):
 
     def _on_exit(self):
         self.cron_job.exit = True
+        self.images_monitor.exit = True
         if not self.update_monitor.abortRequested():
             get_property('ServiceStarted', clear_property=True)
             get_property('ServiceStop', clear_property=True)
-        del self.images_monitor
-        del self.player_monitor
-        del self.update_monitor
-        del self.listitem_funcs
 
 
 def restart_service_monitor():

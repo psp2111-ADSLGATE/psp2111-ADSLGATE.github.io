@@ -12,9 +12,9 @@ hide_busy_dialog, addon_fanart, empty_poster = kodi_utils.hide_busy_dialog, kodi
 get_icon, img_url = kodi_utils.get_icon, kodi_utils.img_url
 
 resume_dict = {10: 'resume', 11: 'start_over', 12: 'cancel'}
-info_icons_dict = {'easynews': get_icon('provider_easynews'), 'alldebrid': get_icon('provider_alldebrid'),
-				'real-debrid': get_icon('provider_realdebrid'), 'premiumize': get_icon('provider_premiumize'), 'ad_cloud': get_icon('provider_alldebrid'),
-				'rd_cloud': get_icon('provider_realdebrid'), 'pm_cloud': get_icon('provider_premiumize')}
+info_icons_dict = {'easynews': get_icon('easynews'), 'alldebrid': get_icon('alldebrid'), 'real-debrid': get_icon('realdebrid'), 'premiumize': get_icon('premiumize'),
+'offcloud': get_icon('offcloud'), 'easydebrid': get_icon('easydebrid'), 'torbox': get_icon('torbox'), 'ad_cloud': get_icon('alldebrid'), 'rd_cloud': get_icon('realdebrid'),
+'pm_cloud': get_icon('premiumize'), 'oc_cloud': get_icon('offcloud'), 'tb_cloud': get_icon('torbox')}
 info_quality_dict = {'4k': get_icon('flag_4k'), '1080p': get_icon('flag_1080p'), '720p': get_icon('flag_720p'), 'sd': get_icon('flag_sd')}
 quality_choices = ('4K', '1080P', '720P', 'SD', 'CAM/SCR/TELE')
 prerelease_values, prerelease_key = ('CAM', 'SCR', 'TELE'), 'CAM/SCR/TELE'
@@ -150,7 +150,8 @@ class SourcesResults(BaseDialog):
 							else: set_properties({'source_type': 'UNCACHED'})
 							set_properties({'highlight': 'FF7C7C7C'})
 						else:
-							cache_flag = '[B]CACHED[/B]' if provider == 'PREMIUMIZE' else 'UNCHECKED'
+							# cache_flag = '[B]CACHED[/B]' if provider in ('PREMIUMIZE', 'OFFCLOUD', 'EASYDEBRID', 'TORBOX') else 'UNCHECKED'
+							cache_flag = 'UNCHECKED' if provider in ('REAL-DEBRID', 'ALLDEBRID') else '[B]CACHED[/B]'
 							if highlight_type == 0: key = provider_lower
 							else: key = basic_quality
 							set_properties({'highlight': self.info_highlights_dict[key]})
