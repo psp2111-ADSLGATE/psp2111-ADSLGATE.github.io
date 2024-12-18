@@ -20,9 +20,9 @@ class source:
 			if not enabled_debrids_check('tb'): return internal_results(self.scrape_provider, self.sources)
 			self.scrape_results = []
 			title_filter = filter_by_name(self.scrape_provider)
-			self.media_type, title = info.get('media_type'), info.get('title')
+			media_type, title = info.get('media_type'), info.get('title')
 			self.year, self.season, self.episode = int(info.get('year')), info.get('season'), info.get('episode')
-			if self.media_type == 'episode': self.seas_ep_query_list = source_utils.seas_ep_query_list(self.season, self.episode)
+			if media_type == 'episode': self.seas_ep_query_list = source_utils.seas_ep_query_list(self.season, self.episode)
 			self.folder_query, self.year_query_list = clean_title(normalize(title)), tuple(map(str, range(self.year - 1, self.year + 2)))
 			self._scrape_cloud()
 			if not self.scrape_results: return internal_results(self.scrape_provider, self.sources)
@@ -30,14 +30,14 @@ class source:
 			def _process():
 				for item in self.scrape_results:
 					try:
-						file_name = item['filename']
+						file_name = item['short_name']
 						if title_filter and not check_title(title, file_name, self.aliases, self.year, self.season, self.episode): continue
 						file_dl, size = item['url'], round(float(int(item['size']))/1073741824, 2)
-						URLName = clean_file_name(file_name).replace('html', ' ').replace('+', ' ').replace('-', ' ')
+						direct_debrid_link, URLName = item['mediatype'] == 'usenet', clean_file_name(file_name).replace('html', ' ').replace('+', ' ').replace('-', ' ')
 						video_quality, details = get_file_info(name_info=release_info_format(file_name))
 						source_item = {'name': file_name, 'title': file_name, 'URLName': URLName, 'quality': video_quality, 'size': size, 'size_label': '%.2f GB' % size,
 									'extraInfo': details, 'url_dl': file_dl, 'id': file_dl, 'downloads': False, 'direct': True, 'source': self.scrape_provider,
-									'scrape_provider': self.scrape_provider}
+									'scrape_provider': self.scrape_provider, 'direct_debrid_link': direct_debrid_link}
 						yield source_item
 					except: pass
 			self.sources = list(_process())
@@ -50,19 +50,31 @@ class source:
 	def _scrape_cloud(self):
 		try:
 			results_append = self.scrape_results.append
-			try: my_cloud_files = TorBox.user_cloud()
-			except: return self.sources
-			for item in my_cloud_files['data']:
-				if not item['download_finished']: continue
-				if not self.folder_query in clean_title(normalize(item['name'])): continue
-				for file in item['files']:
-					if not file['short_name'].endswith(tuple(extensions)): continue
-					match = False
-					normalized = normalize(file['short_name'])
-					filename = clean_title(normalized)
-					if self.media_type == 'movie':
-						if any(x in filename for x in self.year_query_list) and self.folder_query in filename: match = True
-					elif seas_ep_filter(self.season, self.episode, normalized): match = True
-					if match: results_append({'filename': normalized, 'url': '%d,%d' % (item['id'], file['id']), 'size': file['size']})
+			try: files_torents = [
+				{**file, 'url': '%d,%d' % (i['id'], file['id']), 'folder_name': i['name'], 'mediatype': 'torent'}
+				for i in TorBox.user_cloud() for file in i['files'] if i['download_finished']
+			]
+			except: files_torents = []
+			try: files_usenets = [
+				{**file, 'url': '%d,%d' % (i['id'], file['id']), 'folder_name': i['name'], 'mediatype': 'usenet'}
+				for i in TorBox.user_cloud_usenet() for file in i['files'] if i['download_finished']
+			]
+			except: files_usenets = []
+			for file in files_torents + files_usenets:
+				if not file['short_name'].lower().endswith(tuple(extensions)): continue
+				foldername = clean_title(normalize(file['folder_name']))
+				normalized = normalize(file['short_name'])
+				filename = clean_title(normalized)
+				if not (
+					self.folder_query in foldername
+					or
+					self.folder_query in filename
+				): continue
+				if not (
+					any(x in filename for x in self.seas_ep_query_list)
+					if self.season else
+					any(x in filename for x in self.year_query_list) and self.folder_query in filename
+				): continue
+				results_append(file)
 		except: return
 

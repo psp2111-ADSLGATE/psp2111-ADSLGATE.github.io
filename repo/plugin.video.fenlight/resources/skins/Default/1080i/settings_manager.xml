@@ -2037,10 +2037,10 @@
                       <item>
                           <visible>Container(2000).HasFocus(60)</visible>
                           <property name="setting_label">Include Pre-Release Results (CAM/SCR/TELE)</property>
-                          <property name="setting_type">boolean</property>
-                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.include_prerelease_results)]</property>
-                          <property name="setting_description">Enable this and Fen Light will include CAMS, SCR and TELE results through the filter</property>
-                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_boolean&amp;setting_id=include_prerelease_results)</onclick>
+                          <property name="setting_type">action</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.filter.include_prerelease_name)]</property>
+                          <property name="setting_description">Choose how to handle Pre-Release source results. They can be INCLUDED or EXCLUDED</property>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_from_list&amp;setting_id=filter.include_prerelease)</onclick>
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(60)</visible>
@@ -2078,9 +2078,9 @@
                           <visible>Container(2000).HasFocus(60)</visible>
                           <property name="setting_label">AI Enhanced/Upscaled Files Filter</property>
                           <property name="setting_type">action</property>
-                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.filter_enhanced_upscaled_name)]</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.filter.enhanced_upscaled_name)]</property>
                           <property name="setting_description">Choose how to handle AI Enhanced/Upscaled source results. They can be INCLUDED or EXCLUDED</property>
-                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_from_list&amp;setting_id=filter_enhanced_upscaled)</onclick>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_from_list&amp;setting_id=filter.enhanced_upscaled)</onclick>
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(60)</visible>
@@ -2183,6 +2183,15 @@
                           <property name="setting_value">[COLOR $INFO[Window(10000).Property(fenlight.provider.ed_highlight)]]$INFO[Window(10000).Property(fenlight.provider.ed_highlight)][/COLOR]</property>
                           <property name="setting_description">Choose Easy Debrid color</property>
                           <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=scraper_color_choice&amp;setting_id=provider.ed_highlight)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(60)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(fenlight.highlight.type),0)</visible>
+                          <property name="setting_label">    - TorBox Color</property>
+                          <property name="setting_type">action</property>
+                          <property name="setting_value">[COLOR $INFO[Window(10000).Property(fenlight.provider.tb_highlight)]]$INFO[Window(10000).Property(fenlight.provider.tb_highlight)][/COLOR]</property>
+                          <property name="setting_description">Choose TorBox color</property>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=scraper_color_choice&amp;setting_id=provider.tb_highlight)</onclick>
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(60)</visible>

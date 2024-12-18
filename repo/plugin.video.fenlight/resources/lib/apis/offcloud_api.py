@@ -31,14 +31,13 @@ class OffcloudAPI:
 	def auth(self):
 		username = kodi_dialog().input('Enter Email:')
 		password = kodi_dialog().input('Enter Password:')
-		if not all((username, password)): return self.ok_message('You need a valid Email & Password to Off Cloud')
-		
+		if not all((username, password)): return self.ok_message('You need a valid Email & Password for Off Cloud')
 		try:
 			url = base_url + login
 			response = session.post(url, data={'username': username, 'password': password}, timeout=timeout).json()
 			url = base_url + key
 			response = session.post(url, timeout=timeout).json()
-			token = response.get('apiKey')
+			token = response['apiKey']
 			set_setting('oc.token', token)
 			set_setting('oc.enabled', 'true')
 			message = 'Success'
@@ -53,7 +52,7 @@ class OffcloudAPI:
 	def user_cloud(self):
 		url = history
 		string = 'oc_user_cloud'
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def user_cloud_check(self):
 		url = history
@@ -62,7 +61,7 @@ class OffcloudAPI:
 	def user_cloud_info(self, request_id=''):
 		string = 'oc_user_cloud_%s' % request_id
 		url = explore % request_id
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def account_info(self):
 		return self._get(stats)
@@ -91,7 +90,7 @@ class OffcloudAPI:
 
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		try:
-			file_url, match = None, False
+			file_url, match, torrent_id = None, False, None
 			extensions = supported_video_extensions()
 			torrent = self.add_magnet(magnet_url)
 			if not torrent['status'] == 'downloaded': return None
@@ -117,6 +116,7 @@ class OffcloudAPI:
 	def display_magnet_pack(self, magnet_url, info_hash):
 		from modules.source_utils import supported_video_extensions
 		try:
+			torrent_id = None
 			extensions = supported_video_extensions()
 			torrent = self.add_magnet(magnet_url)
 			if not torrent['status'] == 'downloaded': return None

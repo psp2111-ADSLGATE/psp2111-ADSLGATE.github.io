@@ -96,7 +96,7 @@ def preferred_autoplay():
 	return setting.split(', ')
 
 def include_prerelease_results():
-	return get_setting('fenlight.include_prerelease_results', 'true') == 'true'
+	return int(get_setting('fenlight.filter.include_prerelease', '0')) == 0
 
 def auto_play(media_type):
 	return get_setting('fenlight.auto_play_%s' % media_type, 'false') == 'true'
@@ -248,7 +248,8 @@ def scraping_settings():
 		highlight = get_setting('fenlight.scraper_single_highlight', 'FF008EB2')
 		return {'highlight_type': 1, '4k': highlight, '1080p': highlight, '720p': highlight, 'sd': highlight}
 	easynews_highlight, debrid_cloud_highlight, folders_highlight = '', '', ''
-	rd_highlight, pm_highlight, ad_highlight, highlight_4K, highlight_1080P, highlight_720P, highlight_SD = '', '', '', '', '', '', ''
+	rd_highlight, pm_highlight, ad_highlight, oc_highlight, ed_highlight, tb_highlight = '', '', '', '', '', ''
+	highlight_4K, highlight_1080P, highlight_720P, highlight_SD = '', '', '', ''
 	if highlight_type == 0:
 		easynews_highlight = get_setting('fenlight.provider.easynews_highlight', 'FF00B3B2')
 		debrid_cloud_highlight = get_setting('fenlight.provider.debrid_cloud_highlight', 'FF7A01CC')

@@ -162,6 +162,7 @@ class AllDebridAPI:
 	def display_magnet_pack(self, magnet_url, info_hash):
 		from modules.source_utils import supported_video_extensions
 		try:
+			transfer_id = None
 			extensions = supported_video_extensions()
 			transfer_id = self.create_transfer(magnet_url)
 			elapsed_time, transfer_finished = 0, False
@@ -189,69 +190,6 @@ class AllDebridAPI:
 				if transfer_id: self.delete_transfer(transfer_id)
 			except: pass
 			return None
-
-	def add_uncached(self, magnet_url, pack=False):
-		def _return_failed(message='Error', cancelled=False):
-			try: progressDialog.close()
-			except Exception: pass
-			hide_busy_dialog()
-			sleep(500)
-			if cancelled:
-				if confirm_dialog(text='Continue Transfer in Background?'): ok_dialog(heading='Fen Light Cloud Transfer', text='Saving Result to the All Debrid Cloud')
-				else: self.delete_transfer(transfer_id)
-			else: ok_dialog(heading='Fen Cloud Transfer', text=message)
-			return False
-		show_busy_dialog()
-		monitor = xbmc_monitor()
-		transfer_id = self.create_transfer(magnet_url)
-		if not transfer_id: return _return_failed()
-		transfer_info = self.list_transfer(transfer_id)
-		if not transfer_info: return _return_failed()
-		if pack:
-			self.clear_cache(clear_hashes=False)
-			hide_busy_dialog()
-			ok_dialog(text='Saving Result to the All Debrid Cloud')
-			return True
-		interval = 5
-		line = '%s[CR]%s[CR]%s'
-		line1 = 'Saving Result to the All Debrid Cloud...'
-		line2 = transfer_info['filename']
-		line3 = transfer_info['status']
-		status_code = transfer_info['statusCode']
-		progressDialog = progress_dialog('Fen Light Cloud Transfer', icon)
-		progressDialog.update(line % (line1, line2, line3), 0)
-		while not status_code == 4:
-			sleep(1000 * interval)
-			transfer_info = self.list_transfer(transfer_id)
-			status_code = transfer_info['statusCode']
-			file_size = transfer_info['size']
-			line2 = transfer_info['filename']
-			if status_code == 1:
-				download_speed = round(float(transfer_info['downloadSpeed']) / (1000**2), 2)
-				progress = int(float(transfer_info['downloaded']) / file_size * 100) if file_size > 0 else 0
-				line3 = 'Downloading at %s MB/s from %s peers, %s%% of %sGB completed' \
-						% (download_speed, transfer_info['seeders'], progress, round(float(file_size) / (1000 ** 3), 2))
-			elif status_code == 3:
-				upload_speed = round(float(transfer_info['uploadSpeed']) / (1000 ** 2), 2)
-				progress = int(float(transfer_info['uploaded']) / file_size * 100) if file_size > 0 else 0
-				line3 = 'Uploading at %s MB/s, %s%% of %s GB completed' % (upload_speed, progress, round(float(file_size) / (1000 ** 3), 2))
-			else:
-				line3 = transfer_info['status']
-				progress = 0
-			progressDialog.update(line % (line1, line2, line3), progress)
-			if monitor.abortRequested() == True: return
-			try:
-				if progressDialog.iscanceled():
-					return _return_failed('Cancelled', cancelled=True)
-			except Exception:
-				pass
-			if 5 <= status_code <= 10:
-				return _return_failed()
-		sleep(1000 * interval)
-		try: progressDialog.close()
-		except: pass
-		hide_busy_dialog()
-		return True
 
 	def _get(self, url, url_append=''):
 		result = None

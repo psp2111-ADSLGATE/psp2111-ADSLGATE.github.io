@@ -505,11 +505,9 @@ class Extras(BaseDialog):
 		return value
 
 	def make_tvshow_browse_params(self):
-		total_seasons = self.meta_get('total_seasons')
 		all_episodes = default_all_episodes()
-		show_all_episodes = True if all_episodes in (1, 2) else False
-		if show_all_episodes:
-			if all_episodes == 1 and total_seasons > 1: url_params = {'mode': 'build_season_list', 'tmdb_id': self.tmdb_id}
+		if all_episodes:
+			if all_episodes == 1 and self.meta_get('total_seasons') > 1: url_params = {'mode': 'build_season_list', 'tmdb_id': self.tmdb_id}
 			else: url_params = {'mode': 'build_episode_list', 'tmdb_id': self.tmdb_id, 'season': 'all'}
 		else: url_params = {'mode': 'build_season_list', 'tmdb_id': self.tmdb_id}
 		return url_params

@@ -8,13 +8,17 @@ from modules.kodi_utils import make_session, kodi_dialog, ok_dialog, notificatio
 # from modules.kodi_utils import logger
 
 base_url = 'https://api.torbox.app/v1/api/'
+stats = 'user/me'
 download = 'torrents/requestdl'
 remove = 'torrents/controltorrent'
-stats = 'user/me'
 history = 'torrents/mylist'
 explore = 'torrents/mylist?id=%s'
 cache = 'torrents/checkcached'
 cloud = 'torrents/createtorrent'
+download_usenet = 'usenet/requestdl'
+remove_usenet = 'usenet/controlusenetdownload'
+history_usenet = 'usenet/mylist'
+explore_usenet = 'usenet/mylist?id=%s'
 user_agent = 'Mozilla/5.0'
 timeout = 20.0
 session = make_session(base_url)
@@ -47,17 +51,28 @@ class TorBoxAPI:
 	def user_cloud(self):
 		string = 'tb_user_cloud'
 		url = history
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
+
+	def user_cloud_usenet(self):
+		string = 'tb_user_cloud_usenet'
+		url = history_usenet
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def user_cloud_info(self, request_id=''):
 		string = 'tb_user_cloud_%s' % request_id
 		url = explore % request_id
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
+
+	def user_cloud_info_usenet(self, request_id=''):
+		string = 'tb_user_cloud_usenet_%s' % request_id
+		url = explore_usenet % request_id
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def user_cloud_clear(self):
 		if not confirm_dialog(): return
 		data = {'all': True, 'operation': 'delete'}
 		self._post(remove, json=data)
+		self._post(remove_usenet, json=data)
 		self.clear_cache()
 
 	def torrent_info(self, request_id=''):
@@ -68,10 +83,20 @@ class TorBoxAPI:
 		data = {'torrent_id': request_id, 'operation': 'delete'}
 		return self._post(remove, json=data)
 
+	def delete_usenet(self, request_id=''):
+		data = {'usenet_id': request_id, 'operation': 'delete'}
+		return self._post(remove_usenet, json=data)
+
 	def unrestrict_link(self, file_id):
 		torrent_id, file_id = file_id.split(',')
 		data = {'token': self.token, 'torrent_id': torrent_id, 'file_id': file_id}
 		try: return self._get(download, data=data)['data']
+		except: return None
+
+	def unrestrict_usenet(self, file_id):
+		usenet_id, file_id = file_id.split(',')
+		params = {'token': self.token, 'usenet_id': usenet_id, 'file_id': file_id, 'user_ip': True}
+		try: return self._get(download_usenet, params=params)['data']
 		except: return None
 
 	def add_magnet(self, magnet):
@@ -92,7 +117,7 @@ class TorBoxAPI:
 
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		try:
-			file_url, match = None, False
+			file_url, match, torrent_id = None, False, None
 			extensions = supported_video_extensions()
 			extras_filtering_list = tuple(i for i in EXTRAS if not i in title.lower())
 			torrent = self.add_magnet(magnet_url)
@@ -105,7 +130,7 @@ class TorBoxAPI:
 			if season:
 				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
 			else:
-				if self._m2ts_check(selected_files): raise Exception('_m2ts_check failed')
+				if self._m2ts_check(selected_files): return None
 				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
 				selected_files.sort(key=lambda k: k['size'], reverse=True)
 			if not selected_files: return None
@@ -120,6 +145,7 @@ class TorBoxAPI:
 	def display_magnet_pack(self, magnet_url, info_hash):
 		from modules.source_utils import supported_video_extensions
 		try:
+			torrent_id = None
 			extensions = supported_video_extensions()
 			torrent = self.add_magnet(magnet_url)
 			if not torrent['success']: return None
@@ -133,18 +159,10 @@ class TorBoxAPI:
 			if torrent_id: self.delete_torrent(torrent_id)
 			return None
 
-	def add_uncached_torrent(self, magnet_url, pack=False):
-		result = self.create_transfer(magnet_url)
-		if result: ok_dialog(heading='Cloud Transfer', text='Saving Torrent to the TorBox Cloud', top_space=True)
-		else: return ok_dialog(heading='Cloud Transfer', text='Error')
-
 	def _m2ts_check(self, folder_items):
 		for item in folder_items:
 			if item['filename'].endswith('.m2ts'): return True
 		return False
-
-	def ok_message(self, message='An Error Occurred'):
-		return ok_dialog(text=message)
 
 	def auth(self):
 		api_key = kodi_dialog().input('TorBox API Key:')
@@ -157,7 +175,7 @@ class TorBoxAPI:
 			set_setting('tb.enabled', 'true')
 			message = 'Success'
 		except: message = 'An Error Occurred'
-		self.ok_message(message)
+		ok_dialog(text=message)
 
 	def revoke(self):
 		if not confirm_dialog(): return

@@ -14,15 +14,15 @@ from modules import kodi_utils
 
 get_setting, sleep, monitor, ls = kodi_utils.get_setting, kodi_utils.sleep, kodi_utils.monitor, kodi_utils.local_string
 show_busy_dialog, hide_busy_dialog, notification = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification
-rd_api, pm_api, ad_api = RealDebridAPI(), PremiumizeAPI(), AllDebridAPI()
-oc_api, tb_api, ed_api = OffcloudAPI(), TorBoxAPI(), EasyDebridAPI()
+RealDebrid, Premiumize, AllDebrid = RealDebridAPI(), PremiumizeAPI(), AllDebridAPI()
+Offcloud, TorBox, EasyDebrid = OffcloudAPI(), TorBoxAPI(), EasyDebridAPI()
 debrid_list = [
-	('Real-Debrid'  , 'rd', rd_api),
-	('Premiumize.me', 'pm', pm_api),
-	('AllDebrid'    , 'ad', ad_api),
-	('Offcloud'     , 'oc', oc_api),
-	('TorBox'       , 'tb', tb_api),
-	('EasyDebrid'   , 'ed', ed_api)
+	('Real-Debrid'  , 'rd', RealDebrid),
+	('Premiumize.me', 'pm', Premiumize),
+	('AllDebrid'    , 'ad', AllDebrid),
+	('Offcloud'     , 'oc', Offcloud),
+	('TorBox'       , 'tb', TorBox),
+	('EasyDebrid'   , 'ed', EasyDebrid)
 ]
 format_line, plswait_str, checking_debrid_str, remaining_debrid_str = '%s[CR]%s[CR]%s', ls(32577), ls(32578), ls(32579)
 
@@ -134,7 +134,7 @@ class DebridCheck:
 	def RD_check(self):
 		self.rd_cached_hashes, unchecked_hashes = self.cached_check('rd')
 		if not unchecked_hashes: return
-		rd_cache = None # rd_api.check_cache(unchecked_hashes)
+		rd_cache = None # RealDebrid.check_cache(unchecked_hashes)
 		if not rd_cache: return
 		cached_append = self.rd_cached_hashes.append
 		process_list = []
@@ -155,7 +155,7 @@ class DebridCheck:
 	def PM_check(self):
 		self.pm_cached_hashes, unchecked_hashes = self.cached_check('pm')
 		if not unchecked_hashes: return
-		pm_cache = pm_api.check_cache(unchecked_hashes)
+		pm_cache = Premiumize.check_cache(unchecked_hashes)
 		if not pm_cache: return
 		cached_append = self.pm_cached_hashes.append
 		process_list = []
@@ -175,7 +175,7 @@ class DebridCheck:
 	def AD_check(self):
 		self.ad_cached_hashes, unchecked_hashes = self.cached_check('ad')
 		if not unchecked_hashes: return
-		ad_cache = None # ad_api.check_cache(unchecked_hashes)
+		ad_cache = None # AllDebrid.check_cache(unchecked_hashes)
 		if not ad_cache: return
 		cached_append = self.ad_cached_hashes.append
 		process_list = []
@@ -195,7 +195,7 @@ class DebridCheck:
 	def OC_check(self):
 		self.oc_cached_hashes, unchecked_hashes = self.cached_check('oc')
 		if not unchecked_hashes: return
-		oc_cache = oc_api.check_cache(unchecked_hashes)
+		oc_cache = Offcloud.check_cache(unchecked_hashes)
 		if not oc_cache: return
 		cached_append = self.oc_cached_hashes.append
 		process_list = []
@@ -215,13 +215,13 @@ class DebridCheck:
 	def TB_check(self):
 		self.tb_cached_hashes, unchecked_hashes = self.cached_check('tb')
 		if not unchecked_hashes: return
-		tb_cache = tb_api.check_cache(unchecked_hashes)
+		tb_cache = TorBox.check_cache(unchecked_hashes)
 		if not tb_cache: return
 		cached_append = self.tb_cached_hashes.append
 		process_list = []
 		process_append = process_list.append
 		try:
-			tb_cache = [i['hash'] for i in tb_cache['data']]
+			tb_cache = [i['hash'] for i in tb_cache]
 			for h in unchecked_hashes:
 				cached = 'False'
 				if h in tb_cache:
@@ -235,7 +235,7 @@ class DebridCheck:
 	def ED_check(self):
 		self.ed_cached_hashes, unchecked_hashes = self.cached_check('ed')
 		if not unchecked_hashes: return
-		ed_cache = ed_api.check_cache(unchecked_hashes)
+		ed_cache = EasyDebrid.check_cache(unchecked_hashes)
 		if not ed_cache: return
 		cached_append = self.ed_cached_hashes.append
 		process_list = []

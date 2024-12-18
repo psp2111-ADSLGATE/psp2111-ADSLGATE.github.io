@@ -29,13 +29,15 @@ class TorBoxAPI:
 
 	def _request(self, method, path, params=None, json=None, data=None):
 		if not self.api_key: return
+		result = None
 		session.headers['Authorization'] = 'Bearer %s' % self.api_key
 		full_path = '%s%s' % (base_url, path)
-		response = session.request(method, full_path, params=params, json=json, data=data, timeout=timeout)
-		try: response.raise_for_status()
+		try:
+			response = session.request(method, full_path, params=params, json=json, data=data, timeout=timeout)
+			response.raise_for_status()
+			result = response.json()
+			if result.get('success') and 'data' in result: result = result['data']
 		except Exception as e: kodi_utils.logger('torbox error', f"{e}\n{response.text}")
-		try: result = response.json()
-		except: result = {}
 		return result
 
 	def _GET(self, url, params=None):
@@ -68,14 +70,12 @@ class TorBoxAPI:
 	def unrestrict_link(self, file_id):
 		torrent_id, file_id = file_id.split(',')
 		params = {'token': self.api_key, 'torrent_id': torrent_id, 'file_id': file_id, 'user_ip': True}
-		try: return self._GET(self.download, params=params)['data']
-		except: return None
+		return self._GET(self.download, params=params)
 
 	def unrestrict_usenet(self, file_id):
 		usenet_id, file_id = file_id.split(',')
 		params = {'token': self.api_key, 'usenet_id': usenet_id, 'file_id': file_id, 'user_ip': True}
-		try: return self._GET(self.download_usenet, params=params)['data']
-		except: return None
+		return self._GET(self.download_usenet, params=params)
 
 	def check_cache_single(self, hash):
 		return self._GET(self.cache, params={'hash': hash, 'format': 'list'})
@@ -90,8 +90,8 @@ class TorBoxAPI:
 
 	def create_transfer(self, magnet_url):
 		result = self.add_magnet(magnet_url)
-		if not result['success']: return ''
-		return result['data'].get('torrent_id', '')
+		if not result: return ''
+		return result.get('torrent_id', '')
 
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		from modules.source_utils import supported_video_extensions, seas_ep_filter, extras_filter
@@ -100,15 +100,15 @@ class TorBoxAPI:
 			extensions = supported_video_extensions()
 			extras_filtering_list = tuple(i for i in extras_filter() if not i in title.lower())
 			check = self.check_cache_single(info_hash)
-			match = info_hash in [i['hash'] for i in check['data']]
+			match = info_hash in [i['hash'] for i in check]
 			if not match: return None
 			torrent = self.add_magnet(magnet_url)
-			if not torrent['success']: return None
-			torrent_id = torrent['data']['torrent_id']
+			if not torrent: return None
+			torrent_id = torrent['torrent_id']
 			torrent_files = self.torrent_info(torrent_id)
 			selected_files = [
 				{'link': '%d,%d' % (torrent_id, i['id']), 'filename': i['short_name'], 'size': i['size']}
-				for i in torrent_files['data']['files'] if i['short_name'].lower().endswith(tuple(extensions))
+				for i in torrent_files['files'] if i['short_name'].lower().endswith(tuple(extensions))
 			]
 			if not selected_files: return None
 			if season:
@@ -132,12 +132,12 @@ class TorBoxAPI:
 		try:
 			extensions = supported_video_extensions()
 			torrent = self.add_magnet(magnet_url)
-			if not torrent['success']: return None
-			torrent_id = torrent['data']['torrent_id']
+			if not torrent: return None
+			torrent_id = torrent['torrent_id']
 			torrent_files = self.torrent_info(torrent_id)
 			torrent_files = [
 				{'link': '%d,%d' % (torrent_id, item['id']), 'filename': item['short_name'], 'size': item['size']}
-				for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))
+				for item in torrent_files['files'] if item['short_name'].lower().endswith(tuple(extensions))
 			]
 			self.delete_torrent(torrent_id)
 			return torrent_files
@@ -162,8 +162,8 @@ class TorBoxAPI:
 		api_key = kodi_utils.dialog.input('TorBox API Key:')
 		if not api_key: return
 		self.api_key = api_key
-		r = self.account_info()
-		customer = r['data']['customer']
+		result = self.account_info()
+		customer = result['customer']
 		set_setting('tb.token', api_key)
 		set_setting('tb.account_id', customer)
 		kodi_utils.notification('%s %s' % (ls(32576), 'TorBox'))

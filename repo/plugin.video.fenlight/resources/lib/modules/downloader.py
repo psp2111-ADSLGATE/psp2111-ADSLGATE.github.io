@@ -25,7 +25,7 @@ set_view_mode, make_listitem, list_dirs = kodi_utils.set_view_mode, kodi_utils.m
 fanart = kodi_utils.get_addon_fanart()
 sources = Sources()
 ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
-icons = {'Real-Debrid': 'realdebrid', 'Premiumize.me': 'premiumize', 'AllDebrid': 'alldebrid', 'Offcloud': 'offcloud', 'Easydebrid': 'easydebrid', 'Torbox': 'torbox'}
+icons = {'Real-Debrid': 'realdebrid', 'Premiumize.me': 'premiumize', 'AllDebrid': 'alldebrid', 'Offcloud': 'offcloud', 'EasyDebrid': 'easydebrid', 'Torbox': 'torbox'}
 levels =['../../../..', '../../..', '../..', '..']
 status_property_string = 'fenlight.download_status.%s'
 

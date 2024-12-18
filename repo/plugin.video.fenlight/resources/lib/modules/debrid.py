@@ -13,7 +13,7 @@ from modules.settings import enabled_debrids_check, authorized_debrid_check
 show_busy_dialog, hide_busy_dialog, notification = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification
 debrid_list = [('Real-Debrid', 'rd'), ('Premiumize.me', 'pm'), ('AllDebrid', 'ad'), ('Offcloud', 'oc'), ('EasyDebrid', 'ed'), ('TorBox', 'tb')]
 debrid_list_modules = [('Real-Debrid', RealDebridAPI), ('Premiumize.me', PremiumizeAPI), ('AllDebrid', AllDebridAPI),
-						('Offcloud', OffcloudAPI), ('EasyDebrid', EasyDebridAPI), ('TorBoxAPI', TorBoxAPI)]
+						('Offcloud', OffcloudAPI), ('EasyDebrid', EasyDebridAPI), ('TorBox', TorBoxAPI)]
 
 def debrid_enabled():
 	return [i[0] for i in debrid_list if enabled_debrids_check(i[1])]

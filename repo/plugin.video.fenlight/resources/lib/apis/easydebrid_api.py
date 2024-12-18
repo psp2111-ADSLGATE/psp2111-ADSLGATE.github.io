@@ -12,6 +12,7 @@ base_url = 'https://easydebrid.com/api/v1/'
 download = 'link/generate'
 stats = 'user/details'
 cache = 'link/lookup'
+user_agent = 'Fen Light for Kodi'
 timeout = 20.0
 session = make_session(base_url)
 
@@ -23,16 +24,14 @@ class EasyDebridAPI:
 
 	def _get(self, url, data={}):
 		if self.token in ('empty_setting', ''): return None
-		headers = {'Authorization': 'Bearer %s' % self.token}
 		url = base_url + url
-		response = session.get(url, data=data, headers=headers, timeout=timeout)
+		response = session.get(url, data=data, headers=self.headers(), timeout=timeout)
 		return response.json()
 
 	def _post(self, url, params=None, json=None, data=None):
 		if self.token in ('empty_setting', '') and not 'token' in url: return None
-		headers = {'Authorization': 'Bearer %s' % self.token}
 		url = base_url + url
-		response = session.post(url, params=params, json=json, data=data, headers=headers, timeout=timeout)
+		response = session.post(url, params=params, json=json, data=data, headers=self.headers(), timeout=timeout)
 		return response.json()
 
 	def account_info(self):
@@ -70,7 +69,7 @@ class EasyDebridAPI:
 				torrent_files = [i for i in torrent_files if not any(x in i['filename'] for x in EXTRAS)]
 				torrent_files.sort(key=lambda k: k['size'], reverse=True)
 			file_url = torrent_files[0]['url']
-			return file_url
+			return self.add_headers_to_url(file_url)
 		except: return None
 
 	def display_magnet_pack(self, magnet_url, info_hash):
@@ -86,10 +85,7 @@ class EasyDebridAPI:
 		return url + '|' + urlencode(self.headers())
 
 	def headers(self):
-		return {'Authorization': 'Bearer %s' % self.token}
-
-	def add_uncached_torrent(self, magnet_url, pack=False):
-		return ok_dialog(heading='Cloud Transfer', text='Unsupported Action')
+		return {'User-Agent': user_agent, 'Authorization': 'Bearer %s' % self.token}
 
 	def _m2ts_check(self, folder_items):
 		for item in folder_items:

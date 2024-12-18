@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import json
-from threading import Thread
 from windows.base_window import BaseDialog, select_dialog, ok_dialog
 from modules.source_utils import source_filters
 from modules.settings import provider_sort_ranks
@@ -110,8 +109,8 @@ class SourcesResults(BaseDialog):
 				return self.close()
 			chosen_source = json.loads(chosen_listitem.getProperty('source'))
 			if 'Uncached' in chosen_source.get('cache_provider', ''):
-				from modules.sources import Sources
-				return Thread(target=Sources().resolve_uncached, args=(chosen_source['debrid'], chosen_source['url'], 'package' in chosen_source)).start()
+				from modules.debrid import manual_add_magnet_to_cloud
+				return manual_add_magnet_to_cloud({'mode': 'manual_add_magnet_to_cloud', 'provider': chosen_source['debrid'], 'magnet_url': chosen_source['url']})
 			self.selected = ('play', chosen_source)
 			return self.close()
 		elif action in self.context_actions:
@@ -230,13 +229,13 @@ class SourcesResults(BaseDialog):
 		if not uncached and scrape_provider != 'folders':
 			down_file_params = {'mode': 'downloader.runner', 'action': 'meta.single', 'name': self.meta.get('rootname', ''), 'source': source,
 								'url': None, 'provider': scrape_provider, 'meta': meta_json}
-		if 'package' in item and not uncached:
+		if 'package' in item and not uncached and cache_provider != 'EasyDebrid':
 			down_pack_params = {'mode': 'downloader.runner', 'action': 'meta.pack', 'name': self.meta.get('rootname', ''), 'source': source, 'url': None,
 								'provider': cache_provider, 'meta': meta_json, 'magnet_url': magnet_url, 'info_hash': info_hash}
 		if provider_source == 'torrent' and not uncached:
 			browse_pack_params = {'mode': 'debrid.browse_packs', 'provider': cache_provider, 'name': name,
 								'magnet_url': magnet_url, 'info_hash': info_hash}
-			add_magnet_to_cloud_params = {'mode': 'manual_add_magnet_to_cloud', 'provider': cache_provider, 'magnet_url': magnet_url}
+			if cache_provider != 'EasyDebrid': add_magnet_to_cloud_params = {'mode': 'manual_add_magnet_to_cloud', 'provider': cache_provider, 'magnet_url': magnet_url}
 		choices_append(('Info', 'results_info'))
 		if add_magnet_to_cloud_params: choices_append(('Add to Cloud', add_magnet_to_cloud_params))
 		if browse_pack_params: choices_append(('Browse', browse_pack_params))

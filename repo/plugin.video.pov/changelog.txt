@@ -8,7 +8,10 @@
 - nyaaio in Sources/Torrents, sourced from torrentio anime results with filters disabled.
 - nyaa in Sources/Torrents sourced from website results.
 
-  [COLOR dodgerblue][B]Version 4.12.*[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.12[/B][/COLOR]
+- Rewrite tb_cloud scaper to include completed TorBox usenet.
+  If reporting an issue, include screenshot of TorBox website from the "download" option
+  for the item (which should include the item name and file list).
 - Minor refactoring for each debrid, report anything that I might have broke.
 - Changed Mediafusion Debrid+ Configure for easier set up.
   Authorize your debrid service first, 3 modes are offered.
@@ -40,14 +43,14 @@
 - Added zilean.
 - Changed mediafusion to "Direct Torrent" only.
 
-  [COLOR dodgerblue][B]Version 4.11.*[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.11[/B][/COLOR]
 - [COLOR chartreuse]Added TorBox as a debrid provider.[/COLOR]
 - Added torbox cloud scraper and enabled context menu download options.
 - Added meta_language iso:pt-BR, name:Portuguese (Brazil).
 - Added meta_language iso:es-MX, name:Spanish (Mexico).
 - Added animetosho
 
-  [COLOR dodgerblue][B]Version 4.10.*[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.10[/B][/COLOR]
 - Enabled piratebay as default, disabled bitsearch.
 - Changed custom season/episode scraping.
 - Changed scrape and resolve to respect Playback/Loading Progress settings.
@@ -56,37 +59,33 @@
 - Added torrentquest.
 - Added setting "Size Sort Order".
 - Added setting "AV1 Files Filter".
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.09.*[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.09[/B][/COLOR]
 - Added setting "Include Unaired Items in Trakt Watchlists".
 - "Continual Play Random" now utilizes "Autoplay Next Episode" popup.
 - Moved TVShows "Play Random" to "Options..." context menu because it was too sparse.
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.08.*[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.08[/B][/COLOR]
 - Fix for Real Debrid api changes.
 - Added torrentdownload.
 - Removed magnetdl.
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.07.*[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.07[/B][/COLOR]
 - Added small Anime menu courtesy of Simkl.  From root context menu, Edit and
   "Restore" menu or "Check" menu for new items.
 - Changed request timeout for Real Debrid because random items like "The Office (US)" take
   30+ sec to complete.  For this to work, the setting Results/Scraper Timeout also needs
   to be increased to 30+ sec.  Thanks to insight from comment in Venom source code.
 - Added "Disable" as option for "Jump To... List Navigation."
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.05.*[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.05[/B][/COLOR]
 - Added "watchedprogress".
 - Fixed "Set Watched in Kodi Library..."  This was broke a long time ago, guess only
   one user who reported it.
 - Settings changes.
 - Added "Loading progress / Background Dialog or Background Image" setting to Playback.
 
-  [COLOR dodgerblue][B]Version 4.04.*[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.04[/B][/COLOR]
 - [COLOR chartreuse]NOTICE: Trakt re-authorization required with 4.04.01 release.[/COLOR]
   Trakt will not work without due to separating api keys for each addon in repo.
 - Added "Trending Recent" to Movies/TV Shows.  These lists include titles from this/last year.
@@ -95,25 +94,16 @@
 - Added "Release Date" to Collection/Watchlist sort options.
 - Fixed Discover export options.
 - Fixed "Browse" options in widget context menu.
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.03.*[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.03[/B][/COLOR]
 - Fixed search Movies Collection (TMDb).  This was broke a long time ago, guess no one uses.
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 4.02.24[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.02[/B][/COLOR]
 - Fixed Autoplay Next Expisode.
-
-  [COLOR dodgerblue][B]Version 4.02.23[/B][/COLOR]
 - Added "Autoscrape Next Episode (source select)."  There will be no window, but
   this setting uses the same activation parameters as "Auto Play / Autoplay Next Episode."
   Leave those as default or enable the setting and customize, but be sure to then
   disable "Auto Play / Autoplay Next Episode" as those settings will take precedence.
-
-  [COLOR dodgerblue][B]Version 4.02.21[/B][/COLOR]
-- Other changes/fixes.
-
-  [COLOR dodgerblue][B]Version 4.02.19[/B][/COLOR]
 - Added "Clear Cloud Storage" for Offcloud.
 - Changed bitsearch scraper to request one page with limit=50 rather than two requests
   with default page limit=~20.
@@ -122,53 +112,33 @@
   4k,1080,720,SD results rather than mostly 4k results.
 - bitlord, eztv, glodls, torrentdownload, likely to be removed in next version.
 - Added meta_language iso:ar-SA, name:Arabic Saudi Arabia.
-- Other changes/fixes.
-
-  [COLOR dodgerblue][B]Version 4.02.17[/B][/COLOR]
 - Added two torrentio alternatives.
 - Fixed Offcloud user cloud scraper quality count.
 - Removed Furk.
-- Other changes/fixes.
-
-  [COLOR dodgerblue][B]Version 4.02.15[/B][/COLOR]
 - Enabled "Use Torrent Services" in settings to disable debrid service but allow access to
   cloud from "My Services" menu.
 - Fixed Offcloud "Authorize/Revoke" missing.
-- Other changes/fixes.
-
-  [COLOR dodgerblue][B]Version 4.02.14[/B][/COLOR]
 - Added Offcloud cloud scraper to search existing items in user cloud.  Offcloud api
   does not provide file metadata, do not report zero size files.
 - Fixed Offcloud resolver for single file torrents.
-- Other changes/fixes.
-
-  [COLOR dodgerblue][B]Version 4.02.13[/B][/COLOR]
 - Added more logging for Offcloud error responses.
 - Disabled playback for certain file types from Offcloud because their api is not friendly.
 
-  [COLOR dodgerblue][B]Version 4.01.31[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 4.01[/B][/COLOR]
 - [COLOR chartreuse]Added Offcloud as a debrid provider.[/COLOR]
   Offcloud seems to yield most results when torrentio also enabled.
 - Added magnetdl,rutor to the torrentio search links.
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 3.12.29[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 3.12[/B][/COLOR]
 - Changed "title sort" for lists reported by reddit user.
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 3.12.0[/B][/COLOR]
-- Other changes/fixes.
-
-  [COLOR dodgerblue][B]Version 3.9.0[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 3.09[/B][/COLOR]
 - Fixed "Clear All Cache" not removing some data from cache.
 - Fixed missing "Discover Help" text.
 - Icon changes. If icons are missing, "Reset" menu from menu editor.
-- Other changes/fixes
 
-  [COLOR dodgerblue][B]Version 3.8.4[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 3.08[/B][/COLOR]
 - Revert threading code as fix for previous update that broke in Android.
-
-  [COLOR dodgerblue][B]Version 3.8.0[/B][/COLOR]
 - [COLOR chartreuse]Trakt lists now support mixed Movies/TVShows/Seasons/Episodes,
   i.e. "The Essential X-Files Episodes" and "Star Wars Canon timeline."[/COLOR]
   Even if you do not choose to "Paginate Lists When Possible," enable this setting and
@@ -179,24 +149,22 @@
   I do not use Trakt, but I do use these lists.
 - Changed default sources to bitsearch, torrentio, and eztv.
 - Some cosmetic changes to custom windows.
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 3.5.0[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 3.05[/B][/COLOR]
 - Fixed issue with resume in Kodi 20 Nexus.
 
-  [COLOR dodgerblue][B]Version 3.3.0[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 3.03[/B][/COLOR]
 - Fixed issue with adding non folder menu items to main menus and resulting busy spinners.
   Thanks for the insight from [COLOR dodgerblue]Tikipeter[/COLOR].
 - Fixed occasional busy spinners that started with Kodi 20 Nexus and one occasional
   empty results window from way back.
-- Other changes/fixes.
 
-  [COLOR dodgerblue][B]Version 3.2.0[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 3.02[/B][/COLOR]
 - [COLOR chartreuse]Added back user defined undesirables through comma separated list. See "Sources" settings.
   Example: define "8ch,7ch,atmos,hqcam" to filter out these terms.[/COLOR]
 - Added more Kodi 20 Nexus changes.
 
-  [COLOR dodgerblue][B]Version 3.1.0[/B][/COLOR]
+  [COLOR dodgerblue][B]Version 3.01[/B][/COLOR]
 - Added rudimentary fix for Kodi 20 Nexus release, incomplete but will cut down some of the
   warning messages. Tested only with Kodi 19.5/20 in Windows 10. New requirements seem
   over-engineered, but people are desperate for 1000s list items so it is apparently needed

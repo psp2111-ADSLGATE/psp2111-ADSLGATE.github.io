@@ -19,8 +19,8 @@ def tb_cloud():
 				cm = []
 				cm_append = cm.append
 				display = '%02d | [B]FOLDER[/B] | [I]%s [/I]' % (count, clean_file_name(normalize(item['name'])).upper())
-				url_params = {'mode': 'torbox.browse_tb_cloud', 'folder_id': item['id']}
-				delete_params = {'mode': 'torbox.delete', 'folder_id': item['id']}
+				url_params = {'mode': 'torbox.browse_tb_cloud', 'folder_id': item['id'], 'media_type': item['media_type']}
+				delete_params = {'mode': 'torbox.delete', 'folder_id': item['id'], 'media_type': item['media_type']}
 				cm_append(('[B]Delete Folder[/B]', 'RunPlugin(%s)' % build_url(delete_params)))
 				url = build_url(url_params)
 				listitem = make_listitem()
@@ -29,8 +29,11 @@ def tb_cloud():
 				listitem.setArt({'icon': default_tb_icon, 'poster': default_tb_icon, 'thumb': default_tb_icon, 'fanart': fanart, 'banner': default_tb_icon})
 				yield (url, listitem, True)
 			except: pass
-	torents_folders = TorBox.user_cloud()
-	folders = [i for i in torents_folders['data'] if i['download_finished']]
+	torrents_folders, usenets_folders = TorBox.user_cloud(), TorBox.user_cloud_usenet()
+	folders_torrents = [{**i, 'media_type': 'torrent'} for i in torrents_folders['data'] if i['download_finished']]
+	folders_usenets = [{**i, 'media_type': 'usenet'} for i in usenets_folders['data'] if i['download_finished']]
+	folders = folders_torrents + folders_usenets
+	
 	folders.sort(key=lambda k: k['updated_at'], reverse=True)
 	handle = int(sys.argv[1])
 	add_items(handle, list(_builder()))
@@ -38,7 +41,7 @@ def tb_cloud():
 	end_directory(handle)
 	set_view_mode('view.premium')
 
-def browse_tb_cloud(folder_id):
+def browse_tb_cloud(folder_id, media_type):
 	def _builder():
 		for count, item in enumerate(video_files, 1):
 			try:
@@ -47,8 +50,8 @@ def browse_tb_cloud(folder_id):
 				size = float(int(item['size']))/1073741824
 				display = '%02d | [B]FILE[/B] | %.2f GB | [I]%s [/I]' % (count, size, name)
 				url_link = '%d,%d' % (int(folder_id), item['id'])
-				url_params = {'mode': 'torbox.resolve_tb', 'play': 'true', 'url': url_link}
-				down_file_params = {'mode': 'downloader.runner', 'name': name, 'url': url_link, 'action': 'cloud.torbox', 'image': default_tb_icon}
+				url_params = {'mode': 'torbox.resolve_tb', 'play': 'true', 'url': url_link, 'media_type': item['media_type']}
+				down_file_params = {'mode': 'downloader.runner', 'name': name, 'url': url_link, 'media_type': item['media_type'], 'action': 'cloud.torbox', 'image': default_tb_icon}
 				cm.append(('[B]Download File[/B]','RunPlugin(%s)' % build_url(down_file_params)))
 				url = build_url(url_params)
 				listitem = make_listitem()
@@ -58,24 +61,27 @@ def browse_tb_cloud(folder_id):
 				listitem.setInfo('video', {})
 				yield (url, listitem, False)
 			except: pass
-	files = TorBox.user_cloud_info(folder_id)
-	video_files = [i for i in files['data']['files'] if i['short_name'].lower().endswith(tuple(extensions))]
+	if media_type == 'torrent': files = TorBox.user_cloud_info(folder_id)
+	else: files = TorBox.user_cloud_info_usenet(folder_id)
+	video_files = [{**i, 'media_type': media_type} for i in files['data']['files'] if i['short_name'].lower().endswith(tuple(extensions))]
 	handle = int(sys.argv[1])
 	add_items(handle, list(_builder()))
 	set_content(handle, 'files')
 	end_directory(handle)
 	set_view_mode('view.premium')
 
-def tb_delete(folder_id):
+def tb_delete(folder_id, media_type):
 	if not confirm_dialog(): return
-	result = TorBox.delete_torrent(folder_id)
+	if media_type == 'torrent': result = TorBox.delete_torrent(folder_id)
+	else: result = TorBox.delete_usenet(folder_id)
 	if not result['success']: return notification('Error')
 	TorBox.clear_cache()
 	execute_builtin('Container.Refresh')
 
 def resolve_tb(params):
-	file_id = params['url']
-	resolved_link = TorBox.unrestrict_link(file_id)
+	file_id, media_type = params['url'], params['media_type']
+	if media_type == 'torrent': resolved_link = TorBox.unrestrict_link(file_id)
+	else: resolved_link = TorBox.unrestrict_usenet(file_id)
 	if params.get('play', 'false') != 'true': return resolved_link
 	from modules.player import FenLightPlayer
 	FenLightPlayer().run(resolved_link, 'video')

@@ -132,7 +132,7 @@ def build_trakt_list(params):
 		while not queue.empty():
 			target, *args = queue.get()
 			target(*args)
-	__handle__, is_widget = int(sys.argv[1]), kodi_utils.external_browse()
+	__handle__, _queue, is_widget = int(sys.argv[1]), Queue(), kodi_utils.external_browse()
 	user, slug, name = params.get('user'), params.get('slug'), params.get('name')
 	list_type, list_id = params.get('list_type'), params.get('list_id')
 	letter, page = params.get('new_letter', 'None'), int(params.get('new_page', '1'))
@@ -143,7 +143,6 @@ def build_trakt_list(params):
 	movies, tvshows = Movies({'id_type': 'trakt_dict'}), TVShows({'id_type': 'trakt_dict'})
 	episodes, seasons = Episodes({'id_type': 'trakt_dict'}), Seasons({'id_type': 'trakt_dict'})
 	maxsize = min(len(process_list), int(kodi_utils.get_setting('pov.max_threads', '100')))
-	_queue = Queue()
 	for p, tag in enumerate(process_list, 1):
 		mtype = tag['type']
 		if   mtype == 'movie':
@@ -172,8 +171,8 @@ def build_trakt_list(params):
 		kodi_utils.add_dir(__handle__, url, jump2_str, iconImage=item_jump, isFolder=False)
 	kodi_utils.add_items(__handle__, items)
 	if total_pages > page:
-		page += 1
-		url = {'mode': 'build_trakt_list', 'user': user, 'slug': slug, 'name': name, 'list_id': list_id, 'new_page': page, 'new_letter': letter, 'list_type': list_type}
+		url = {'mode': 'build_trakt_list', 'user': user, 'slug': slug, 'name': name, 'list_id': list_id,
+				'new_page': page + 1, 'new_letter': letter, 'list_type': list_type}
 		kodi_utils.add_dir(__handle__, url, nextpage_str)
 	kodi_utils.set_category(__handle__, name)
 	kodi_utils.set_content(__handle__, content)

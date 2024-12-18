@@ -281,8 +281,8 @@ def scraping_settings():
 			pm_highlight = provider_color('pm', 'orangered')
 			ad_highlight = provider_color('ad', 'goldenrod')
 			oc_highlight = provider_color('oc', 'dodgerblue')
-			tb_highlight = provider_color('tb', 'lightgreen')
-			ed_highlight = provider_color('ed', 'steelblue')
+			tb_highlight = provider_color('tb', 'darkseagreen')
+			ed_highlight = provider_color('ed', 'cornflowerblue')
 	else:
 		highlight_4K = get_setting('scraper_4k_highlight', 'fuchsia')
 		highlight_1080P = get_setting('scraper_1080p_highlight', 'lawngreen')
