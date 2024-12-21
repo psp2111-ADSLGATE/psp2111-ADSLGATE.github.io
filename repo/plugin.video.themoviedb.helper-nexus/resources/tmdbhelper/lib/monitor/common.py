@@ -12,8 +12,10 @@ import json
 
 SETMAIN = {
     'label', 'tmdb_id', 'imdb_id', 'folderpath', 'filenameandpath'}
+SETMAIN_ALTERED = {
+    'cropimage', 'cropimage.original', 'blurimage', 'blurimage.original',
+    'desaturateimage', 'desaturateimage.original', 'colorsimage', 'colorsimage.original'}
 SETMAIN_ARTWORK = {
-    'cropimage', 'cropimage.original', 'blurimage', 'blurimage.original', 'desaturateimage', 'desaturateimage.original', 'colorsimage', 'colorsimage.original',
     'icon', 'poster', 'thumb', 'fanart', 'discart', 'clearart', 'clearlogo', 'landscape', 'banner', 'keyart',
     'season.poster', 'season.thumb', 'season.fanart', 'season.discart', 'season.clearart', 'season.clearlogo', 'season.landscape', 'season.banner', 'season.keyart',
     'tvshow.poster', 'tvshow.thumb', 'tvshow.fanart', 'tvshow.discart', 'tvshow.clearart', 'tvshow.clearlogo', 'tvshow.landscape', 'tvshow.banner', 'tvshow.keyart'}
@@ -283,7 +285,8 @@ class CommonMonitorFunctions(PropertySetter, CommonMonitorDetails):
                 k for k in list(dictionary)
                 if k not in self.properties
                 and k not in SETPROP_RATINGS
-                and k not in SETMAIN_ARTWORK)
+                and k not in SETMAIN_ARTWORK
+                and k not in SETMAIN_ALTERED)
 
             for k in keys:
                 if k not in dictionary:

@@ -3,6 +3,7 @@ import io
 import xbmcvfs
 import colorsys
 import hashlib
+import random
 from xbmc import getCacheThumbName, skinHasImage, Monitor, sleep
 from tmdbhelper.lib.addon.plugin import get_infolabel, get_setting, get_condvisibility, ADDONDATA
 from tmdbhelper.lib.monitor.propertysetter import PropertySetter
@@ -350,6 +351,93 @@ class ImageFunctions(Thread, PropertySetter):
             return ''
 
 
+class ImageArtworkGetter():
+    def __init__(self, parent, source, prebuilt_artwork=None):
+        self._parent = parent
+        self._source = source
+        self.prebuilt_artwork = prebuilt_artwork
+
+    @property
+    def infolabels(self):
+        try:
+            return self._infolabels
+        except AttributeError:
+            self._infolabels = self.get_infolabels()
+            return self._infolabels
+
+    def get_infolabels(self):
+        if not self._source:
+            return ARTWORK_LOOKUP_TABLE.get('thumb')
+        return ARTWORK_LOOKUP_TABLE.get(self._source, self._source.split("|"))
+
+    @property
+    def built_artwork(self):
+        try:
+            return self._built_artwork
+        except AttributeError:
+            self._built_artwork = self.get_built_artwork()
+            return self._built_artwork
+
+    def get_built_artwork(self):
+        return self.prebuilt_artwork or self._parent.get_builtartwork()
+
+    @property
+    def artwork(self):
+        try:
+            return self._artwork
+        except AttributeError:
+            self._artwork = self.get_artwork()
+            return self._artwork
+
+    def get_artwork(self):
+        return next((j for j in (self.get_artwork_item(i) for i in self.infolabels) if j), None)
+
+    @property
+    def artwork_fallback(self):
+        try:
+            return self._artwork_fallback
+        except AttributeError:
+            self._artwork_fallback = self.get_artwork_fallback()
+            return self._artwork_fallback
+
+    def get_artwork_fallback(self):
+        return next((j for j in (self.get_artwork_item(i, prebuilt=True) for i in self.infolabels) if j), None)
+
+    def get_artwork_item(self, item, prebuilt=False):
+
+        def _get_artwork_item(i, x=''):
+            if not prebuilt:
+                return self._parent.get_infolabel(i.format(x=x))
+            if not i.startswith('art('):
+                return
+            return self.built_artwork.get(i.format(x=x)[4:-1])
+
+        # Check if we're getting a random x position item e.g. "Art(fanart{x})"
+        if '{x}' not in item:
+            return _get_artwork_item(item)
+
+        # If we cant get the base item e.g. "Art(fanart)" then unlikely we have extra art so exit now
+        artwork0 = _get_artwork_item(item)
+        if not artwork0:
+            return
+
+        # If we can't get the first extra item e.g. "Art(fanart1)" then unlikely we'd have "Art(fanart2)" etc. so just return "Art(fanart)"
+        artwork1 = _get_artwork_item(item, x=1)
+        if not artwork1:
+            return artwork0
+
+        # Build a list of available artworks that the item has
+        artworks = [artwork0, artwork1]
+        for x in range(2, 9):
+            artwork = _get_artwork_item(item, x=x)
+            if not artwork:
+                break
+            artworks.append(artwork)
+
+        # Then choose an artwork from the available artworks list at random
+        return random.choice(artworks)
+
+
 class ImageManipulations(PropertySetter):
     def get_infolabel(self, info):
         return get_infolabel(f'ListItem.{info}')
@@ -361,48 +449,16 @@ class ImageManipulations(PropertySetter):
         source = source or ''
         source = source.lower()
 
-        def _get_artwork_infolabel(_infolabels):
-            for i in _infolabels:
-                artwork = self.get_infolabel(i)
-                if not artwork:
-                    continue
-                return artwork
-
-        def _get_artwork_fallback(_infolabels, _built_artwork):
-            for i in _infolabels:
-                if not i.startswith('art('):
-                    continue
-                artwork = _built_artwork.get(i[4:-1])
-                if not artwork:
-                    continue
-                return artwork
-
-        def _get_artwork(_source):
-            if _source:
-                _infolabels = ARTWORK_LOOKUP_TABLE.get(_source, _source.split("|"))
-            else:
-                _infolabels = ARTWORK_LOOKUP_TABLE.get('thumb')
-
-            artwork = _get_artwork_infolabel(_infolabels)
-
-            if artwork or not build_fallback:
-                return artwork
-
-            nonlocal built_artwork
-
-            built_artwork = built_artwork or self.get_builtartwork()
-            if not built_artwork:
-                return
-
-            return _get_artwork_fallback(_infolabels, built_artwork)
-
         for _source in source.split("||"):
-            artwork = _get_artwork(_source)
-            if not artwork:
+            img_get = ImageArtworkGetter(self, _source, prebuilt_artwork=built_artwork)
+            if img_get.artwork:
+                return img_get.artwork
+            if not build_fallback or not img_get.built_artwork:
                 continue
-            return artwork
+            if img_get.artwork_fallback:
+                return img_get.artwork_fallback
 
-    def get_image_manipulations(self, use_winprops=False, built_artwork=None):
+    def get_image_manipulations(self, use_winprops=False, built_artwork=None, allow_list=('crop', 'blur', 'desaturate', 'colors', )):
         images = {}
 
         _manipulations = (
@@ -435,6 +491,8 @@ class ImageManipulations(PropertySetter):
                 or self.get_property('Colors.Fallback')},)
 
         for i in _manipulations:
+            if i['method'] not in allow_list:
+                continue
             if not i['active']():
                 continue
             imgfunc = ImageFunctions(method=i['method'], is_thread=False, artwork=i['images']())

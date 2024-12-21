@@ -2,7 +2,7 @@ import xbmcgui
 from tmdbhelper.lib.addon.plugin import get_infolabel, get_condvisibility, get_localized, get_setting, get_skindir
 from tmdbhelper.lib.addon.logger import kodi_try_except
 from jurialmunkey.window import get_property, get_current_window
-from tmdbhelper.lib.monitor.common import CommonMonitorFunctions, SETMAIN_ARTWORK, SETPROP_RATINGS
+from tmdbhelper.lib.monitor.common import CommonMonitorFunctions, SETMAIN_ARTWORK, SETPROP_RATINGS, SETMAIN_ALTERED
 from tmdbhelper.lib.monitor.itemdetails import ListItemDetails
 from tmdbhelper.lib.monitor.readahead import ListItemReadAhead, READAHEAD_CHANGED
 from tmdbhelper.lib.monitor.baseitem import BaseItemSkinDefaults
@@ -264,13 +264,14 @@ class ListItemMonitorFunctions(CommonMonitorFunctions, ListItemInfoGetter):
         # Proces artwork in a thread
         def _process_artwork():
             _artwork = _item.get_builtartwork()
-            _artwork.update(_item.get_image_manipulations(built_artwork=_artwork, use_winprops=False))
             _artwork_properties = set()
 
+            if _pre_item != self.cur_item:
+                return
+
             with self._parent.mutex_lock:
-                if _pre_item != self.cur_item:
-                    return
-                self._parent.images_monitor._pre_item = _pre_item
+                self._parent.images_monitor.remote_artwork[_pre_item] = _artwork.copy()
+                self._parent.images_monitor.update_artwork(check_set=True)
                 self.set_iter_properties(_artwork, SETMAIN_ARTWORK, property_object=_artwork_properties)
                 self.clear_property_list(SETMAIN_ARTWORK.difference(_artwork_properties))
 
