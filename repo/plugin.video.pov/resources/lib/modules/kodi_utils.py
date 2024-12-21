@@ -166,7 +166,7 @@ def widget_refresh():
 def container_refresh():
 	return execute_builtin('Container.Refresh')
 
-def ok_dialog(heading='POV', text='', highlight='royalblue', ok_label=local_string(32839), top_space=False):
+def ok_dialog(heading='POV', text='', highlight='dodgerblue', ok_label=local_string(32839), top_space=False):
 #	from windows import open_window
 	if isinstance(heading, int): heading = local_string(heading)
 	if isinstance(text, int): text = local_string(text)
@@ -176,7 +176,7 @@ def ok_dialog(heading='POV', text='', highlight='royalblue', ok_label=local_stri
 #	return open_window(('windows.select_ok', 'OK'), 'select_ok.xml', **kwargs)
 	return xbmcgui.Dialog().ok(heading, text)
 
-def confirm_dialog(heading='POV', text='', highlight='royalblue', ok_label=local_string(32839), cancel_label=local_string(32840), top_space=False, default_control=11):
+def confirm_dialog(heading='POV', text='', highlight='dodgerblue', ok_label=local_string(32839), cancel_label=local_string(32840), top_space=False, default_control=11):
 #	from windows import open_window
 	if isinstance(heading, int): heading = local_string(heading)
 	if isinstance(text, int): text = local_string(text)

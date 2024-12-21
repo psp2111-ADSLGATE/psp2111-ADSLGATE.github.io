@@ -12,7 +12,7 @@ class Select(BaseDialog):
 		self.multi_choice = self.kwargs.get('multi_choice', 'false')
 		self.preselect = self.kwargs.get('preselect', [])
 		self.multi_line = self.kwargs.get('multi_line', 'false')
-		self.highlight = self.kwargs.get('highlight', 'royalblue')
+		self.highlight = self.kwargs.get('highlight', 'dodgerblue')
 		self.items = json.loads(self.kwargs['items'])
 		self.heading = self.kwargs.get('heading', '')
 		self.context_active_action = self.kwargs.get('context_active_action', '')

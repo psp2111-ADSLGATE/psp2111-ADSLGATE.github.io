@@ -1,5 +1,5 @@
 import sys
-from queue import Queue
+from queue import SimpleQueue
 from threading import Thread
 from apis import trakt_api
 from indexers.episodes import Episodes
@@ -128,11 +128,11 @@ def get_trakt_trending_popular_lists(params):
 	kodi_utils.set_view_mode('view.main')
 
 def build_trakt_list(params):
-	def _thread_target(queue):
-		while not queue.empty():
-			target, *args = queue.get()
+	def _thread_target(q):
+		while not q.empty():
+			target, *args = q.get()
 			target(*args)
-	__handle__, _queue, is_widget = int(sys.argv[1]), Queue(), kodi_utils.external_browse()
+	__handle__, _queue, is_widget = int(sys.argv[1]), SimpleQueue(), kodi_utils.external_browse()
 	user, slug, name = params.get('user'), params.get('slug'), params.get('name')
 	list_type, list_id = params.get('list_type'), params.get('list_id')
 	letter, page = params.get('new_letter', 'None'), int(params.get('new_page', '1'))

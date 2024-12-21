@@ -40,6 +40,16 @@ class PremiumizeAPI:
 	def headers(self):
 		return {'User-Agent': self.user_agent, 'Authorization': 'Bearer %s' % self.token}
 
+	@property
+	def days_remaining(self):
+		import datetime
+		try:
+			account_info = self.account_info()
+			expires = datetime.datetime.fromtimestamp(account_info['premium_until'])
+			days_remaining = (expires - datetime.datetime.today()).days
+		except: days_remaining = None
+		return days_remaining
+
 	def account_info(self):
 		url = 'account/info'
 		response = self._post(url)

@@ -25,7 +25,7 @@
                 </control>
                 <control type="image">
                     <height>100</height>
-                    <texture colordiffuse="royalblue">gradients/gradient-underlayer-horizontal-flipped.png</texture>
+                    <texture colordiffuse="dodgerblue">gradients/gradient-underlayer-horizontal-flipped.png</texture>
                 </control>
                 <control type="image">
                     <left>15</left>

@@ -54,6 +54,19 @@ class RealDebridAPI:
 		url = 'torrents/activeCount'
 		return self._get(url)
 
+	@property
+	def days_remaining(self):
+		import datetime
+		try:
+			account_info = self.account_info()
+#			FormatDateTime = "%Y-%m-%dT%H:%M:%S.%fZ"
+#			try: expires = datetime.datetime.strptime(account_info['expiration'], FormatDateTime)
+#			except: expires = datetime.datetime(*(time.strptime(account_info['expiration'], FormatDateTime)[0:6]))
+#			days_remaining = (expires - datetime.datetime.today()).days
+			days_remaining = int(account_info['premium']/86400)
+		except: days_remaining = None
+		return days_remaining
+
 	def account_info(self):
 		url = 'user'
 		return self._get(url)

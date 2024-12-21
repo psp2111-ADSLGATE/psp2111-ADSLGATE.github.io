@@ -31,11 +31,14 @@ class OffcloudAPI:
 		elif not params: params = {'key': self.api_key}
 		else: params['key'] = self.api_key
 		full_path = '%s%s' % (base_url, path)
-		response = session.request(method, full_path, params=params, json=data, timeout=timeout)
-		try: response.raise_for_status()
-		except Exception as e: kodi_utils.logger('offcloud error', f"{e}\n{response.text}")
-		try: result = response.json()
-		except: result = {}
+		try:
+			response, result = None, None
+			response = session.request(method, full_path, params=params, json=data, timeout=timeout)
+			response.raise_for_status()
+			result = response.json()
+		except Exception as e: kodi_utils.logger('offcloud error',
+			f"{e}\n{full_path}\n{response.text}" if response else f"{e}\n{full_path}"
+		)
 		return result
 
 	def _GET(self, url):

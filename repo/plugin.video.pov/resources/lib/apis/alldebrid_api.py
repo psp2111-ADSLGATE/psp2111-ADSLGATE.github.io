@@ -37,6 +37,16 @@ class AllDebridAPI:
 		except: pass
 		return result
 
+	@property
+	def days_remaining(self):
+		import datetime
+		try:
+			account_info = self.account_info()['user']
+			expires = datetime.datetime.fromtimestamp(account_info['premiumUntil'])
+			days_remaining = (expires - datetime.datetime.today()).days
+		except: days_remaining = None
+		return days_remaining
+
 	def account_info(self):
 		response = self._get('user')
 		return response

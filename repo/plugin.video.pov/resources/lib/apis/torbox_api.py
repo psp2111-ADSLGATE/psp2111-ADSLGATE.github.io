@@ -29,15 +29,17 @@ class TorBoxAPI:
 
 	def _request(self, method, path, params=None, json=None, data=None):
 		if not self.api_key: return
-		result = None
 		session.headers['Authorization'] = 'Bearer %s' % self.api_key
 		full_path = '%s%s' % (base_url, path)
 		try:
+			response, result = None, None
 			response = session.request(method, full_path, params=params, json=json, data=data, timeout=timeout)
 			response.raise_for_status()
 			result = response.json()
 			if result.get('success') and 'data' in result: result = result['data']
-		except Exception as e: kodi_utils.logger('torbox error', f"{e}\n{response.text}")
+		except Exception as e: kodi_utils.logger('torbox error',
+			f"{e}\n{full_path}\n{response.text}" if response else f"{e}\n{full_path}"
+		)
 		return result
 
 	def _GET(self, url, params=None):
@@ -51,6 +53,17 @@ class TorBoxAPI:
 
 	def headers(self):
 		return {'User-Agent': self.user_agent}
+
+	@property
+	def days_remaining(self):
+		import datetime
+		try:
+			account_info = self.account_info()
+			date_string = account_info['premium_expires_at'][:10]
+			expires = datetime.datetime.strptime(date_string, '%Y-%m-%d')
+			days_remaining = (expires - datetime.datetime.today()).days
+		except: days_remaining = None
+		return days_remaining
 
 	def account_info(self):
 		return self._GET(self.stats)
@@ -69,12 +82,12 @@ class TorBoxAPI:
 
 	def unrestrict_link(self, file_id):
 		torrent_id, file_id = file_id.split(',')
-		params = {'token': self.api_key, 'torrent_id': torrent_id, 'file_id': file_id, 'user_ip': True}
+		params = {'token': self.api_key, 'torrent_id': torrent_id, 'file_id': file_id, 'user_ip': 'true'}
 		return self._GET(self.download, params=params)
 
 	def unrestrict_usenet(self, file_id):
 		usenet_id, file_id = file_id.split(',')
-		params = {'token': self.api_key, 'usenet_id': usenet_id, 'file_id': file_id, 'user_ip': True}
+		params = {'token': self.api_key, 'usenet_id': usenet_id, 'file_id': file_id, 'user_ip': 'true'}
 		return self._GET(self.download_usenet, params=params)
 
 	def check_cache_single(self, hash):

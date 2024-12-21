@@ -91,7 +91,7 @@
                     <label>[B]$INFO[Window.Property(tikiskins.source_progress.true_button)][/B]</label>
                     <font>font12</font>
                     <textcolor>FFB7B4BB</textcolor>
-                    <focusedcolor>royalblue</focusedcolor>
+                    <focusedcolor>dodgerblue</focusedcolor>
                     <texturefocus colordiffuse="FFCCCCCC">common/white.png</texturefocus>
                     <texturenofocus colordiffuse="FF302F2F">common/white.png</texturenofocus>
                     <align>center</align>
@@ -106,7 +106,7 @@
                     <label>[B]$INFO[Window.Property(tikiskins.source_progress.false_button)][/B]</label>
                     <font>font12</font>
                     <textcolor>FFB7B4BB</textcolor>
-                    <focusedcolor>royalblue</focusedcolor>
+                    <focusedcolor>dodgerblue</focusedcolor>
                     <texturefocus colordiffuse="FFCCCCCC">common/white.png</texturefocus>
                     <texturenofocus colordiffuse="FF302F2F">common/white.png</texturenofocus>
                     <align>center</align>

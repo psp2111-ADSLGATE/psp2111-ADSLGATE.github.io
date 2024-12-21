@@ -222,8 +222,9 @@
 			<setting id="check.pm_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
 			<setting id="results.sort_pmcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
 		<setting id="pm.priority" label="32011" type="slider" default="8" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
-		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_revoke)" />
+		<setting id="pm.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-10,true)+!eq(-11,)" />
+		<setting label="Authorize" type="action" visible="eq(-12,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_auth)" />
+		<setting label="Revoke" type="action" visible="!eq(-13,)" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_revoke)" />
 		<!-- EasyDebrid -->
 		<setting label="EasyDebrid" type="lsep" />
 		<setting id="ed.token" label="key" type="text" default="" visible="false" />
@@ -231,8 +232,9 @@
 		<setting id="ed.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
 		<setting id="ed.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
 		<setting id="ed.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-3,true)+!eq(-4,)" />
-		<setting label="Authorize" type="action" visible="eq(-5,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-6,)" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_revoke)" />
+		<setting id="ed.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-4,true)+!eq(-5,)" />
+		<setting label="Authorize" type="action" visible="eq(-6,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_auth)" />
+		<setting label="Revoke" type="action" visible="!eq(-7,)" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_revoke)" />
 		<!-- Offcloud -->
 		<setting label="Offcloud" type="lsep" />
 		<setting id="oc.token" label="key" type="text" default="" visible="false" />
@@ -258,8 +260,9 @@
 			<setting id="check.tb_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-6,true)+!eq(-7,)" />
 			<setting id="results.sort_tbcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-7,true)+!eq(-8,)" />
 		<setting id="tb.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-8,true)+!eq(-9,)" />
-		<setting label="Authorize" type="action" visible="eq(-10,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-11,)" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_revoke)" />
+		<setting id="tb.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-9,true)+!eq(-10,)" />
+		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_auth)" />
+		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_revoke)" />
 		<!-- Easynews -->
 		<setting label="32070" type="lsep" />
 		<setting id="provider.easynews" label="32055" type="bool" default="false" />
@@ -297,8 +300,9 @@
 			<setting id="check.rd_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
 			<setting id="results.sort_rdcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
 		<setting id="rd.priority" label="32011" type="slider" default="10" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
-		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_revoke)" />
+		<setting id="rd.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-10,true)+!eq(-11,)" />
+		<setting label="Authorize" type="action" visible="eq(-12,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_auth)" />
+		<setting label="Revoke" type="action" visible="!eq(-13,)" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_revoke)" />
 		<!-- All Debrid -->
 		<setting label="32063" type="lsep" />
 		<setting id="ad.token" label="ad token" type="text" default="" visible="false" />
@@ -312,8 +316,9 @@
 			<setting id="check.ad_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
 			<setting id="results.sort_adcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
 		<setting id="ad.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
-		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_revoke)" />
+		<setting id="ad.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-10,true)+!eq(-11,)" />
+		<setting label="Authorize" type="action" visible="eq(-12,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_auth)" />
+		<setting label="Revoke" type="action" visible="!eq(-13,)" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_revoke)" />
 	</category>
 	<!-- Trakt -->
 	<category label="32454">

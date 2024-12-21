@@ -38,11 +38,14 @@
                     <texture>pov.png</texture>
                 </control>
                 <control type="label">
+                    <centerleft>50%</centerleft>
+                    <width max="952">auto</width>
                     <height>100</height>
                     <font>font12</font>
                     <textcolor>FFCCCCCC</textcolor>
                     <align>center</align>
                     <aligny>center</aligny>
+                    <scroll>true</scroll>
                     <label>[UPPERCASE][B]$INFO[Window.Property(tikiskins.dialog.heading)][/B][/UPPERCASE]</label>
                 </control>
             </control>

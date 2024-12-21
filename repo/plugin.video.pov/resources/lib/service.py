@@ -129,36 +129,36 @@ class TraktMonitor:
 class PremAccntNotification:
 	def run(self):
 		logger('POV', 'Debrid Account Expiry Notification Service Starting')
-		duration = 7
 		if get_setting('ad.account_id') != '':
-			from apis.alldebrid_api import AllDebridAPI
-			account_info = AllDebridAPI().account_info()['user']
-			if account_info:
-				if not account_info['isSubscribed']:
-					expires = datetime.datetime.fromtimestamp(account_info['premiumUntil'])
-					days_remaining = (expires - datetime.datetime.today()).days
-					if days_remaining <= duration:
-						kodi_utils.notification('AllDebrid expires in %s days' % days_remaining)
+			if limit := int(get_setting('ad.expires', '7')):
+				from apis.alldebrid_api import AllDebridAPI
+				days_remaining = AllDebridAPI().days_remaining
+				if not days_remaining is None and days_remaining <= limit:
+					kodi_utils.notification('AllDebrid expires in %s days' % days_remaining)
 		if get_setting('pm.account_id') != '':
-			from apis.premiumize_api import PremiumizeAPI
-			account_info = PremiumizeAPI().account_info()
-			if account_info:
-				try: expires = datetime.datetime.fromtimestamp(account_info['premium_until'])
-				except: expires = datetime.datetime.today()
-				days_remaining = (expires - datetime.datetime.today()).days
-				if days_remaining <= duration:
+			if limit := int(get_setting('pm.expires', '7')):
+				from apis.premiumize_api import PremiumizeAPI
+				days_remaining = PremiumizeAPI().days_remaining
+				if not days_remaining is None and days_remaining <= limit:
 					kodi_utils.notification('Premiumize.me expires in %s days' % days_remaining)
 		if get_setting('rd.username') != '':
-			from apis.real_debrid_api import RealDebridAPI
-			account_info = RealDebridAPI().account_info()
-			if account_info:
-#				FormatDateTime = "%Y-%m-%dT%H:%M:%S.%fZ"
-#				try: expires = datetime.datetime.strptime(account_info['expiration'], FormatDateTime)
-#				except: expires = datetime.datetime(*(time.strptime(account_info['expiration'], FormatDateTime)[0:6]))
-				try: days_remaining = int(account_info['premium'])/86400
-				except: days_remaining = 0
-				if days_remaining <= duration:
-					kodi_utils.notification('Real-Debrid expires in %.1f days' % days_remaining)
+			if limit := int(get_setting('rd.expires', '7')):
+				from apis.real_debrid_api import RealDebridAPI
+				days_remaining = RealDebridAPI().days_remaining
+				if not days_remaining is None and days_remaining <= limit:
+					kodi_utils.notification('Real-Debrid expires in %s days' % days_remaining)
+		if get_setting('ed.account_id') != '':
+			if limit := int(get_setting('ed.expires', '7')):
+				from apis.easydebrid_api import EasyDebridAPI
+				days_remaining = EasyDebridAPI().days_remaining
+				if not days_remaining is None and days_remaining <= limit:
+					kodi_utils.notification('EasyDebrid expires in %s days' % days_remaining)
+		if get_setting('tb.account_id') != '':
+			if limit := int(get_setting('tb.expires', '7')):
+				from apis.torbox_api import TorBoxAPI
+				days_remaining = TorBoxAPI().days_remaining
+				if not days_remaining is None and days_remaining <= limit:
+					kodi_utils.notification('TorBox expires in %s days' % days_remaining)
 		return logger('POV', 'Debrid Account Expiry Notification Service Finished')
 
 class CheckUndesirablesDatabase:
