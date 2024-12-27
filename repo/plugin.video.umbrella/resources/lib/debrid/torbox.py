@@ -24,6 +24,8 @@ class TorBox:
 	explore = '/torrents/mylist?id=%s'
 	cache = '/torrents/checkcached'
 	cloud = '/torrents/createtorrent'
+	queued = '/torrents/getqueued'
+	removeQueued = '/torrents/controlqueued'
 
 	def __init__(self):
 		self.name = 'TorBox'
@@ -66,6 +68,10 @@ class TorBox:
 	def delete_torrent(self, request_id=''):
 		data = {'torrent_id': request_id, 'operation': 'delete'}
 		return self._POST(self.remove, json=data)
+
+	def delete_torrent_queued(self, request_id=''):
+		data = {'torrent_id': request_id, 'operation': 'delete'}
+		return self._POST(self.removeQueued, json=data)
 
 	def unrestrict_link(self, file_id):
 		torrent_id, file_id = file_id.split(',')
@@ -141,12 +147,78 @@ class TorBox:
 			return None
 
 	def add_uncached_torrent(self, magnet_url, pack=False):
+		def _return_failed(message=getLS(33586)):
+			try: self.progressDialog.close()
+			except: pass
+			self.delete_torrent(transfer_id)
+			control.hide()
+			control.sleep(500)
+			control.okDialog(title=getLS(40018), message=message)
+			return False
 		control.busy()
-		result = self.create_transfer(magnet_url)
+		transfer_id = self.create_transfer(magnet_url)
+		if not transfer_id: return _return_failed()
+		transfer_info = self.list_transfer(transfer_id)
+		if not transfer_info: return _return_failed()
+		interval = 5
+		line = '%s\n%s\n%s'
+		line1 = '%s...' % (getLS(40017) % getLS(40529))
+		line2 = transfer_info['name']
+		if transfer_info['download_state'] == 'metaDL':
+			line3 = 'Downloading torrent metadata from TorBox'
+		else:
+			line3 = transfer_info['download_state']
+		if control.setting('dialogs.useumbrelladialog') == 'true':
+			self.progressDialog = control.getProgressWindow(getLS(40018), None, 0)
+			self.progressDialog.set_controls()
+			self.progressDialog.update(0, line % (line1, line2, line3))
+		else:
+			self.progressDialog = control.progressDialog
+			self.progressDialog.create(getLS(40018), line % (line1, line2, line3))
+		while not transfer_info['download_state'] == 'completed':
+			control.sleep(1000 * interval)
+			transfer_info = self.list_transfer(transfer_id)
+			file_size = transfer_info['size']
+			line2 = transfer_info['name']
+			if transfer_info['download_state'] == 'downloading':
+				download_speed = round(float(transfer_info['download_speed']) / (1000**2), 2)
+				progress = int(float(transfer_info['total_downloaded']) / file_size * 100) if file_size > 0 else 0
+				line3 = getLS(40016) % (download_speed, transfer_info['seeds'], progress, round(float(file_size) / (1000 ** 3), 2))
+			elif transfer_info['download_state'] == 'uploading':
+				upload_speed = round(float(transfer_info['upload_speed']) / (1000 ** 2), 2)
+				progress = int(float(transfer_info['total_uploaded']) / file_size * 100) if file_size > 0 else 0
+				line3 = getLS(40015) % (upload_speed, progress, round(float(file_size) / (1000 ** 3), 2))
+			elif transfer_info['download_state'] == 'stalledDL':
+				line3 = 'Downloading is currently stalled. There are no seeds.'
+				progress = int(float(transfer_info['total_downloaded']) / file_size * 100) if file_size > 0 else 0
+			else:
+				if transfer_info['download_state'] == 'metaDL':
+					line3 = 'Downloading torrent metadata from TorBox'
+				else:
+					line3 = transfer_info['download_state']
+				progress = 0
+			self.progressDialog.update(progress, line % (line1, line2, line3))
+			if control.monitor.abortRequested(): return sysexit()
+			try:
+				if self.progressDialog.iscanceled():
+					if control.yesnoDialog('Delete TorBox download also?', 'No will continue the download', 'but close dialog','TorBox','No','Yes'):
+						return _return_failed(getLS(40014))
+					else:
+						self.progressDialog.close()
+						control.hide()
+						return False
+			except: pass
+		control.sleep(1000 * interval)
+		try: self.progressDialog.close()
+		except: pass
 		control.hide()
-		if result: control.okDialog(title='default', message=getLS(40017) % 'TorBox')
-		else: return control.okDialog(title=getLS(40018), message=getLS(33586))
 		return True
+
+	def list_transfer(self, transferid):
+		torrent_info = self.torrent_info(transferid)
+		torrent_info = torrent_info['data']
+		return torrent_info
+
 
 	def _m2ts_check(self, folder_items):
 		for item in folder_items:
@@ -157,13 +229,17 @@ class TorBox:
 		api_key = control.dialog.input('TorBox API Key:')
 		if not api_key: return
 		self.api_key = api_key
-		r = self.account_info()
-		customer = r['data']['customer']
-		control.setSetting('torboxtoken', api_key)
-		control.setSetting('torbox.username', customer)
-		control.notification(message='TorBox succesfully authorized', icon=tb_icon)
-		control.openSettings('10.4', 'plugin.video.umbrella')
-		return True
+		try:
+			r = self.account_info()
+			customer = r['data']['customer']
+			control.setSetting('torboxtoken', api_key)
+			control.setSetting('torbox.username', customer)
+			control.notification(message='TorBox succesfully authorized', icon=tb_icon)
+			control.openSettings('10.4', 'plugin.video.umbrella')
+			return True
+		except:
+			control.openSettings('10.4', 'plugin.video.umbrella')
+			return control.notification(message='Error Authorizing TorBox', icon=tb_icon)
 
 	def remove_auth(self):
 		try:
@@ -253,9 +329,69 @@ class TorBox:
 		control.content(syshandle, 'files')
 		control.directory(syshandle, cacheToDisc=True)
 
-	def delete_user_torrent(self, request_id, name):
-		if not control.yesnoDialog(getLS(40050) % '?\n' + name, '', ''): return
+	def delete_user_torrent(self, request_id, name, multi=False):
+		if multi == False:
+			if not control.yesnoDialog(getLS(40050) % '?\n' + name, '', ''): return
 		result = self.delete_torrent(request_id)
 		if result['success']:
 			control.notification(message='TorBox: %s was removed' % name, icon=tb_icon)
-			control.refresh()
+			if not multi: control.refresh()
+
+	def delete_queued_torrent(self, request_id, name, multi=False):
+		if multi == False:
+			if not control.yesnoDialog(getLS(40050) % '?\n' + name, '', ''): return
+		result = self.delete_torrent(request_id)
+		if result['success']:
+			control.notification(message='TorBox: %s was removed' % name, icon=tb_icon)
+			if not multi: control.refresh()
+
+	def queued_torrents(self):
+		url = self.queued
+		return self._GET(url)
+
+	def delete_all_user_torrents(self):
+		files = self.user_cloud().get('data', [])
+		que_files = self.queued_torrents().get('data', [])
+		list_len = int(len(files)) + int(len(que_files))
+		if list_len < 1: return control.notification(title='Torbox', message='No Files found to remove.', icon=tb_icon)
+		threads = []
+		append = threads.append
+		len_files = len(files)
+		len_que_files = len(que_files)
+		progressBG = control.progressDialogBG
+		progressBG.create('TorBox', 'Clearing cloud files')
+		for count, req in enumerate(files, 1):
+			try:
+				i = Thread(target=self.delete_torrent, args=(req['id'],))
+				append(i)
+				i.start()
+				progressBG.update(int(count / len_files * 100), 'Deleting %s...' % req['name'])
+				control.sleep(200)
+			except: pass
+		for count, req in enumerate(que_files, 1):
+			try:
+				i = Thread(target=self.delete_torrent, args=(req['id'],))
+				append(i)
+				i.start()
+				progressBG.update(int(count / len_que_files * 100), 'Deleting %s...' % req['name'])
+				control.sleep(200)
+			except: pass
+		[i.join() for i in threads]
+		try: progressBG.close()
+		except: pass
+
+	def delete_active_torrents(self, data):
+		if not control.yesnoDialog(getLS(40543), '', ''): return
+		data = data.get('data',[])
+		for torrent in data:
+			name = torrent.get('name','Unknown')
+			request_id = torrent.get('id')
+			self.delete_user_torrent(request_id, name, multi=True)
+
+	def delete_queued_torrents(self, data):
+		if not control.yesnoDialog(getLS(40544), '', ''): return
+		data = data.get('data',[])
+		for torrent in data:
+			name = torrent.get('name','Unknown')
+			request_id = torrent.get('id')
+			self.delete_torrent(request_id, name, multi=True)

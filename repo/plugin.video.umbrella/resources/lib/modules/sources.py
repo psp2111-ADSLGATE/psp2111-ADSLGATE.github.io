@@ -791,7 +791,7 @@ class Sources:
 							log_utils.log('preResolve failed for : next_sources[i]=%s' % str(next_sources[i]), level=log_utils.LOGWARNING)
 						continue
 					# if not any(x in url.lower() for x in video_extensions):
-					if not any(x in url.lower() for x in video_extensions) and 'plex.direct:' not in url:
+					if not any(x in url.lower() for x in video_extensions) and 'plex.direct:' not in url and 'torbox' not in url:
 						if self.debuglog:
 							log_utils.log('preResolve Playback not supported for (sourcesAutoPlay()): %s' % url, level=log_utils.LOGWARNING)
 						continue
@@ -1272,7 +1272,7 @@ class Sources:
 					if control.monitor.abortRequested(): return sysexit()
 					url = self.sourcesResolve(items[i])
 					# if not any(x in url.lower() for x in video_extensions):
-					if not any(x in url.lower() for x in video_extensions) and 'plex.direct:' not in url:
+					if not any(x in url.lower() for x in video_extensions) and 'plex.direct:' not in url and 'torbox' not in url:
 						log_utils.log('Playback not supported for (sourcesAutoPlay()): %s' % url, level=log_utils.LOGWARNING)
 						continue
 					if url:
@@ -1459,7 +1459,9 @@ class Sources:
 					control.cancelPlayback()
 					control.sleep(200)
 					plugin = 'plugin://plugin.video.umbrella/'
-					select = getSetting('play.mode.movie') if self.mediatype == 'movie' else getSetting('play.mode.tv')
+					if not episode: mediatype = 'movie'
+					else: mediatype = 'episode'
+					select = getSetting('play.mode.movie') if mediatype == 'movie' else getSetting('play.mode.tv')
 					systitle, sysmeta = quote_plus(title), quote_plus(jsdumps(self.meta))
 					if tvshowtitle:
 						url = '%s?action=rescrapeAuto&title=%s&year=%s&imdb=%s&tmdb=%s&tvdb=%s&season=%s&episode=%s&tvshowtitle=%s&premiered=%s&meta=%s&select=%s' % (

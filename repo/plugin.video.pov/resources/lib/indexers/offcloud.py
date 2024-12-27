@@ -73,7 +73,7 @@ def browse_oc_cloud(folder_id):
 				listitem.setInfo('video', {})
 				yield (url, listitem, False)
 			except: pass
-	torrent_files = Offcloud.user_cloud_info(folder_id)
+	torrent_files = Offcloud.user_cloud(folder_id)
 	video_files = [i for i in torrent_files if i.lower().endswith(tuple(extensions))]
 	__handle__ = int(sys.argv[1])
 	kodi_utils.add_items(__handle__, list(_builder()))

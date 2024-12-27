@@ -82,12 +82,12 @@ class TorBoxAPI:
 
 	def unrestrict_link(self, file_id):
 		torrent_id, file_id = file_id.split(',')
-		params = {'token': self.api_key, 'torrent_id': torrent_id, 'file_id': file_id, 'user_ip': 'true'}
+		params = {'token': self.api_key, 'torrent_id': torrent_id, 'file_id': file_id}
 		return self._GET(self.download, params=params)
 
 	def unrestrict_usenet(self, file_id):
 		usenet_id, file_id = file_id.split(',')
-		params = {'token': self.api_key, 'usenet_id': usenet_id, 'file_id': file_id, 'user_ip': 'true'}
+		params = {'token': self.api_key, 'usenet_id': usenet_id, 'file_id': file_id}
 		return self._GET(self.download_usenet, params=params)
 
 	def check_cache_single(self, hash):
@@ -189,25 +189,19 @@ class TorBoxAPI:
 		set_setting('tb.account_id', '')
 		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
 
-	def user_cloud(self):
-		string = 'pov_tb_user_cloud'
-		url = self.history
-		return cache_object(self._GET, string, url, False, 0.5)
+	def user_cloud(self, request_id=None, check_cache=True):
+		string = 'pov_tb_user_cloud_info_%s' % request_id if request_id else 'pov_tb_user_cloud'
+		url = self.explore % request_id if request_id else self.history
+		if check_cache: result = cache_object(self._GET, string, url, False, 0.5)
+		else: result = self._GET(url)
+		return result
 
-	def user_cloud_usenet(self):
-		string = 'pov_tb_user_cloud_usenet'
-		url = self.history_usenet
-		return cache_object(self._GET, string, url, False, 0.5)
-
-	def user_cloud_info(self, request_id=''):
-		string = 'pov_tb_user_cloud_%s' % request_id
-		url = self.explore % request_id
-		return cache_object(self._GET, string, url, False, 0.5)
-
-	def user_cloud_info_usenet(self, request_id=''):
-		string = 'pov_tb_user_cloud_usenet_%s' % request_id
-		url = self.explore_usenet % request_id
-		return cache_object(self._GET, string, url, False, 0.5)
+	def user_cloud_usenet(self, request_id=None, check_cache=True):
+		string = 'pov_tb_user_cloud_usenet_info_%s' % request_id if request_id else 'pov_tb_user_cloud_usenet'
+		url = self.explore_usenet % request_id if request_id else self.history_usenet
+		if check_cache: result = cache_object(self._GET, string, url, False, 0.5)
+		else: result = self._GET(url)
+		return result
 
 	def user_cloud_clear(self):
 		if not kodi_utils.confirm_dialog(): return
@@ -220,21 +214,47 @@ class TorBoxAPI:
 		try:
 			if not kodi_utils.path_exists(kodi_utils.maincache_db): return True
 			from caches.debrid_cache import DebridCache
+			user_cloud_success, user_cloud_usenet_success = False, False
 			dbcon = kodi_utils.database.connect(kodi_utils.maincache_db)
 			dbcur = dbcon.cursor()
 			# USER CLOUD
 			try:
-				dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_tb_user_cloud',))
-				kodi_utils.clear_property('pov_tb_user_cloud')
-				dbcon.commit()
-				user_cloud_success = True
+				dbcur.execute("""SELECT data FROM maincache WHERE id=?""", ('pov_tb_user_cloud',))
+				try:
+					user_cloud_cache = eval(dbcur.fetchone()[0])
+					user_cloud_info_caches = [i['id'] for i in user_cloud_cache]
+				except: user_cloud_success = True
+				if not user_cloud_success:
+					dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_tb_user_cloud',))
+					kodi_utils.clear_property("pov_tb_user_cloud")
+					for i in user_cloud_info_caches:
+						dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_tb_user_cloud_info_%s' % i,))
+						kodi_utils.clear_property("pov_tb_user_cloud_info_%s" % i)
+					dbcon.commit()
+					user_cloud_success = True
 			except: user_cloud_success = False
+			# USER CLOUD
+			try:
+				dbcur.execute("""SELECT data FROM maincache WHERE id=?""", ('pov_tb_user_cloud_usenet',))
+				try:
+					user_cloud_cache = eval(dbcur.fetchone()[0])
+					user_cloud_info_caches = [i['id'] for i in user_cloud_cache]
+				except: user_cloud_usenet_success = True
+				if not user_cloud_usenet_success:
+					dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_tb_user_cloud_usenet',))
+					kodi_utils.clear_property("pov_tb_user_cloud_usenet")
+					for i in user_cloud_info_caches:
+						dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_tb_user_cloud_usenet_info_%s' % i,))
+						kodi_utils.clear_property("pov_tb_user_cloud_usenet_info_%s" % i)
+					dbcon.commit()
+					user_cloud_usenet_success = True
+			except: user_cloud_usenet_success = False
 			# HASH CACHED STATUS
 			try:
 				DebridCache().clear_debrid_results('tb')
 				hash_cache_status_success = True
 			except: hash_cache_status_success = False
 		except: return False
-		if False in (user_cloud_success, hash_cache_status_success): return False
+		if False in (user_cloud_success, user_cloud_usenet_success, hash_cache_status_success): return False
 		return True
 

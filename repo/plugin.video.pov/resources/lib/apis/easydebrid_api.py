@@ -4,6 +4,7 @@ from modules import kodi_utils
 
 ls, get_setting, set_setting = kodi_utils.local_string, kodi_utils.get_setting, kodi_utils.set_setting
 base_url = 'https://easydebrid.com/api/v1'
+ip_url, ip_key = 'https://api.ipify.org?format=json', 'ip'
 timeout = 10.0
 session = requests.Session()
 session.mount(base_url, requests.adapters.HTTPAdapter(max_retries=1))
@@ -57,6 +58,11 @@ class EasyDebridAPI:
 		return self._POST(self.cache, json=data)
 
 	def add_magnet(self, magnet):
+		try:
+			response = requests.get(ip_url, timeout=2.0)
+			result = response.json()[ip_key] if ip_key else response.text
+			if result: session.headers['X-Forwarded-For'] = result
+		except: pass
 		data = {'url': magnet}
 		return self._POST(self.download, json=data)
 

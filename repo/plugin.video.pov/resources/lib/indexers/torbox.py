@@ -31,10 +31,11 @@ def tb_torrent_cloud():
 				listitem.setArt({'icon': default_tb_icon, 'poster': default_tb_icon, 'thumb': default_tb_icon, 'fanart': fanart, 'banner': default_tb_icon})
 				yield (url, listitem, True)
 			except: pass
-	torents_folders, usenets_folders = TorBox.user_cloud(), TorBox.user_cloud_usenet()
-	folders_torents = [{**i, 'mediatype': 'torent'} for i in torents_folders if i['download_finished']]
-	folders_usenets = [{**i, 'mediatype': 'usenet'} for i in usenets_folders if i['download_finished']]
-	folders = folders_torents + folders_usenets
+	folders = []
+	try: folders += [{**i, 'mediatype': 'torent'} for i in TorBox.user_cloud() if i['download_finished']]
+	except: pass
+	try: folders += [{**i, 'mediatype': 'usenet'} for i in TorBox.user_cloud_usenet() if i['download_finished']]
+	except: pass
 	folders.sort(key=lambda k: k['updated_at'], reverse=True)
 	__handle__ = int(sys.argv[1])
 	kodi_utils.add_items(__handle__, list(_builder()))
@@ -62,8 +63,8 @@ def browse_tb_cloud(folder_id, media_type):
 				listitem.setInfo('video', {})
 				yield (url, listitem, False)
 			except: pass
-	if media_type == 'usenet': files = TorBox.user_cloud_info_usenet(folder_id)
-	else: files = TorBox.user_cloud_info(folder_id)
+	if media_type == 'usenet': files = TorBox.user_cloud_usenet(folder_id)
+	else: files = TorBox.user_cloud(folder_id)
 	video_files = [
 		{**i, 'url': '%d,%d' % (int(folder_id), i['id']), 'mediatype': media_type}
 		for i in files['files'] if i['short_name'].lower().endswith(tuple(extensions))

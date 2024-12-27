@@ -9,6 +9,8 @@
 - nyaa in Sources/Torrents sourced from website results.
 
   [COLOR dodgerblue][B]Version 4.12[/B][/COLOR]
+- Refactored Offcloud/TorBox cloud scrapers.
+- Completed clear cache for Offcloud/TorBox.
 - Added "Premium Expires Notification (days)" for each debrid (0 disables check).
 - Rewrite tb_cloud scaper to include completed TorBox usenet.
   If reporting an issue, include screenshot of TorBox website from the "download" option

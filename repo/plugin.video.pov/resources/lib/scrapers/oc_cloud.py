@@ -18,7 +18,7 @@ class source:
 	def results(self, info):
 		try:
 			if not enabled_debrids_check('oc'): return internal_results(self.scrape_provider, self.sources)
-			self.scrape_results = []
+			self.folder_results, self.scrape_results = [], []
 			title_filter = filter_by_name(self.scrape_provider)
 			self.media_type, title = info.get('media_type'), info.get('title')
 			self.year, self.season, self.episode = int(info.get('year')), info.get('season'), info.get('episode')
@@ -47,42 +47,43 @@ class source:
 		internal_results(self.scrape_provider, self.sources)
 		return self.sources
 
+	def _scrape_folders(self, folder_info, results):
+		try: results += [
+			{'filename': i.split('/')[-1], 'url': i, 'folder_name': folder_info['fileName']}
+			for i in Offcloud.user_cloud(folder_info['requestId'], check_cache=False)
+		]
+		except: pass
+
 	def _scrape_cloud(self):
 		try:
+			results_append = self.scrape_results.append
 			threads = []
 			append = threads.append
-			results_append = self.scrape_results.append
-			try: my_cloud_files = Offcloud.user_cloud()
+			try: my_cloud_files = Offcloud.user_cloud(check_cache=False)
 			except: return self.sources
 			for item in my_cloud_files:
+				if not self.folder_query in clean_title(normalize(item['fileName'])): continue
 				if item['status'] != 'downloaded': continue
 				if item['isDirectory']:
-					append(i := Thread(target=self._scrape_folders, args=(item['requestId'],)))
+					append(i := Thread(target=self._scrape_folders, args=(item, self.folder_results)))
 					i.start()
 				else:
-					if not item['fileName'].endswith(tuple(extensions)): continue
-					match = False
-					normalized = normalize(item['fileName'])
+					url = Offcloud.build_url(item['server'], item['requestId'], item['fileName'])
+					self.folder_results.append({'filename': item['fileName'], 'url': url, 'folder_name': ''})
+			[i.join() for i in threads]
+			if not self.folder_results: return self.sources
+			for item in self.folder_results:
+				try:
+					if not item['filename'].lower().endswith(tuple(extensions)): continue
+					formalized = normalize(item['folder_name'])
+					foldername = clean_title(formalized)
+					normalized = normalize(item['filename'])
 					filename = clean_title(normalized)
 					if self.media_type == 'movie':
-						if any(x in filename for x in self.year_query_list) and self.folder_query in filename: match = True
-					elif seas_ep_filter(self.season, self.episode, normalized): match = True
-					if match: results_append({'filename': normalized, 'url': Offcloud.build_url(item['server'], item['requestId'], item['fileName'])})
-			for i in threads: i.join()
-		except: return
-
-	def _scrape_folders(self, folder_info):
-		try:
-			results_append = self.scrape_results.append
-			torrent_info = Offcloud.torrent_info(folder_info)
-			for item in torrent_info:
-				if not item.endswith(tuple(extensions)): continue
-				match = False
-				normalized = normalize(item.split('/')[-1])
-				filename = clean_title(normalized)
-				if self.media_type == 'movie':
-					if any(x in filename for x in self.year_query_list) and self.folder_query in filename: match = True
-				elif seas_ep_filter(self.season, self.episode, normalized): match = True
-				if match: results_append({'filename': normalized, 'url': item})
-		except: return
+						if not any(x in filename for x in self.year_query_list): continue
+					elif not seas_ep_filter(self.season, self.episode, normalized): continue
+					if not (self.folder_query in filename or self.folder_query in foldername): continue
+					results_append({'filename': normalized, 'url': item['url']})
+				except: pass
+		except: pass
 

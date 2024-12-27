@@ -4,7 +4,7 @@ import random
 import hashlib
 import unicodedata
 import _strptime  # fix bug in python import
-from queue import Queue
+from queue import SimpleQueue
 from html.parser import HTMLParser
 from importlib import import_module
 from datetime import datetime, timedelta, date
@@ -16,7 +16,7 @@ days_translate = {'Monday': 32971, 'Tuesday': 32972, 'Wednesday': 32973, 'Thursd
 class TaskPool:
 	def __init__(self, maxsize=None):
 		self.maxsize = maxsize or int(get_setting('pov.max_threads', '100'))
-		self._queue = Queue()
+		self._queue = SimpleQueue()
 
 	def _thread_target(self, queue, target):
 		while not queue.empty(): target(*queue.get())

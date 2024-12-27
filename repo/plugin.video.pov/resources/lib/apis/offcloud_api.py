@@ -7,7 +7,7 @@ from modules import kodi_utils
 
 ls, get_setting, set_setting = kodi_utils.local_string, kodi_utils.get_setting, kodi_utils.set_setting
 base_url = 'https://offcloud.com/api'
-timeout = 3.05
+timeout = 10.0
 session = requests.Session()
 session.mount(base_url, requests.adapters.HTTPAdapter(max_retries=1))
 
@@ -179,19 +179,16 @@ class OffcloudAPI:
 		set_setting('oc.account_id', '')
 		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
 
-	def user_cloud(self):
-		string = 'pov_oc_user_cloud'
-		url = self.history
-		return cache_object(self._GET, string, url, False, 0.5)
-
-	def user_cloud_info(self, request_id=''):
-		string = 'pov_oc_user_cloud_%s' % request_id
-		url = self.explore % request_id
-		return cache_object(self._GET, string, url, False, 0.5)
+	def user_cloud(self, request_id=None, check_cache=True):
+		string = 'pov_oc_user_cloud_info_%s' % request_id if request_id else 'pov_oc_user_cloud'
+		url = self.explore % request_id if request_id else self.history
+		if check_cache: result = cache_object(self._GET, string, url, False, 0.5)
+		else: result = self._GET(url)
+		return result
 
 	def user_cloud_clear(self):
 		if not kodi_utils.confirm_dialog(): return
-		files = self.user_cloud()
+		files = self.user_cloud(check_cache=False)
 		if not files: return
 		threads = []
 		append = threads.append
@@ -215,14 +212,24 @@ class OffcloudAPI:
 		try:
 			if not kodi_utils.path_exists(kodi_utils.maincache_db): return True
 			from caches.debrid_cache import DebridCache
+			user_cloud_success = False
 			dbcon = kodi_utils.database.connect(kodi_utils.maincache_db)
 			dbcur = dbcon.cursor()
 			# USER CLOUD
 			try:
-				dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_oc_user_cloud',))
-				kodi_utils.clear_property('pov_oc_user_cloud')
-				dbcon.commit()
-				user_cloud_success = True
+				dbcur.execute("""SELECT data FROM maincache WHERE id=?""", ('pov_oc_user_cloud',))
+				try:
+					user_cloud_cache = eval(dbcur.fetchone()[0])
+					user_cloud_info_caches = [i['requestId'] for i in user_cloud_cache]
+				except: user_cloud_success = True
+				if not user_cloud_success:
+					dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_oc_user_cloud',))
+					kodi_utils.clear_property('pov_oc_user_cloud')
+					for i in user_cloud_info_caches:
+						dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_oc_user_cloud_info_%s' % i,))
+						kodi_utils.clear_property("pov_oc_user_cloud_info_%s" % i)
+					dbcon.commit()
+					user_cloud_success = True
 			except: user_cloud_success = False
 			# HASH CACHED STATUS
 			try:
