@@ -13,7 +13,7 @@ from __future__ import absolute_import, division, unicode_literals
 from traceback import format_stack
 
 from ..abstract_plugin import AbstractPlugin
-from ...compatibility import urlsplit, xbmcplugin
+from ...compatibility import parse_qsl, urlsplit, xbmcplugin
 from ...constants import (
     BUSY_FLAG,
     CONTAINER_FOCUS,
@@ -21,6 +21,7 @@ from ...constants import (
     CONTAINER_POSITION,
     CONTENT_TYPE,
     PATHS,
+    PLAY_FORCED,
     PLAYLIST_PATH,
     PLAYLIST_POSITION,
     PLUGIN_SLEEPING,
@@ -141,11 +142,11 @@ class XbmcPlugin(AbstractPlugin):
                 if max_wait_time < 0:
                     context.log_error('Multiple busy dialogs active'
                                       ' - Unable to restart playback')
+                    command = playlist_player.play_playlist_item(position,
+                                                                 defer=True)
                     result, post_run_action = self.uri_action(
                         context,
-                        'command://Playlist.PlayOffset({type},{position})'
-                        .format(type='video',
-                                position=(position - 1)),
+                        command,
                     )
                     succeeded = False
                     continue
@@ -171,6 +172,7 @@ class XbmcPlugin(AbstractPlugin):
         settings = context.get_settings()
         if settings.setup_wizard_enabled():
             provider.run_wizard(context)
+        show_fanart = settings.fanart_selection()
 
         try:
             if route:
@@ -201,14 +203,17 @@ class XbmcPlugin(AbstractPlugin):
                 result = [
                     CommandItem(
                         name=context.localize('page.back'),
-                        command='Action(ParentDir)',
+                        command='Action(Back)',
                         context=context,
                         image='DefaultFolderBack.png',
                         plot=context.localize('page.empty'),
                     )
                 ]
 
-            show_fanart = settings.fanart_selection()
+            force_resolve = provider.RESULT_FORCE_RESOLVE
+            if not options.pop(force_resolve, False):
+                force_resolve = False
+
             items = [
                 self._LIST_ITEM_MAP[item.__class__.__name__](
                     context,
@@ -217,38 +222,28 @@ class XbmcPlugin(AbstractPlugin):
                     focused=focused,
                 )
                 for item in result
-                if item.__class__.__name__ in self._LIST_ITEM_MAP
+                if self.classify_list_item(item, options, force_resolve)
             ]
             item_count = len(items)
 
-            if options.get(provider.RESULT_FORCE_RESOLVE):
-                result = result[0]
-            else:
-                result = None
+            if force_resolve:
+                result = options.get(force_resolve)
 
         if result and result.__class__.__name__ in self._PLAY_ITEM_MAP:
-            uri = result.get_uri()
-
-            if result.playable:
+            if options.get(provider.RESULT_FORCE_PLAY) or not result.playable:
+                result, post_run_action = self.uri_action(
+                    context,
+                    result.get_uri()
+                )
+            else:
                 item = self._PLAY_ITEM_MAP[result.__class__.__name__](
                     context,
                     result,
-                    show_fanart=context.get_settings().fanart_selection(),
+                    show_fanart=show_fanart,
                 )
-                uri = result.get_uri()
-                result = xbmcplugin.addDirectoryItem(handle,
-                                                     url=uri,
-                                                     listitem=item)
-                if route:
-                    playlist_player = context.get_playlist_player()
-                    playlist_player.play_item(item=uri, listitem=item)
-                else:
-                    xbmcplugin.setResolvedUrl(handle,
-                                              succeeded=result,
-                                              listitem=item)
-
-            else:
-                result, post_run_action = self.uri_action(context, uri)
+                xbmcplugin.setResolvedUrl(
+                    handle, succeeded=True, listitem=item
+                )
 
         if item_count:
             context.apply_content()
@@ -271,16 +266,34 @@ class XbmcPlugin(AbstractPlugin):
                 ui.clear_property(CONTENT_TYPE)
 
                 if not options or options.get(provider.RESULT_FALLBACK, True):
-                    result, post_run_action = self.uri_action(
-                        context,
-                        context.get_parent_uri(params={
-                            'window_fallback': True,
-                            'window_replace': True,
-                            'window_return': False,
-                        }),
-                    )
+                    if (context.is_plugin_folder()
+                            and context.is_plugin_path(
+                                context.get_infolabel('Container.FolderPath')
+                            )):
+                        _, _post_run_action = self.uri_action(
+                            context,
+                            context.get_parent_uri(params={
+                                'window_fallback': True,
+                                'window_replace': True,
+                                'window_return': False,
+                            }),
+                        )
+                    else:
+                        _, _post_run_action = self.uri_action(
+                            context,
+                            'command://Action(Back)',
+                        )
+                    if post_run_action and _post_run_action:
+                        post_run_action = (post_run_action, _post_run_action)
+                    else:
+                        post_run_action = _post_run_action
+
             cache_to_disc = False
             update_listing = True
+
+        if ui.pop_property(PLAY_FORCED):
+            context.set_path(PATHS.PLAY)
+            return self.run(provider, context, focused=focused)
 
         xbmcplugin.endOfDirectory(
             handle,
@@ -293,21 +306,25 @@ class XbmcPlugin(AbstractPlugin):
         if container and position:
             context.send_notification(CONTAINER_FOCUS, [container, position])
 
-        if post_run_action:
+        if isinstance(post_run_action, tuple):
+            self.post_run(context, ui, *post_run_action)
+        elif post_run_action:
             self.post_run(context, ui, post_run_action)
         return succeeded
 
     @staticmethod
-    def post_run(context, ui, action, timeout=30):
-        while ui.busy_dialog_active():
-            timeout -= 1
-            if timeout < 0:
-                context.log_error('Multiple busy dialogs active'
-                                  ' - Post run action unable to execute')
-                break
-            context.sleep(1)
-        else:
-            context.execute(action)
+    def post_run(context, ui, *actions, **kwargs):
+        timeout = kwargs.get('timeout', 30)
+        for action in actions:
+            while ui.busy_dialog_active():
+                timeout -= 1
+                if timeout < 0:
+                    context.log_error('Multiple busy dialogs active'
+                                      ' - Post run action unable to execute')
+                    break
+                context.sleep(1)
+            else:
+                context.execute(action)
 
     @staticmethod
     def uri_action(context, uri):
@@ -323,17 +340,43 @@ class XbmcPlugin(AbstractPlugin):
             action = uri
             result = True
 
-        elif context.is_plugin_path(uri, PATHS.PLAY):
+        elif uri.startswith('PlayMedia('):
             context.log_debug('Redirecting for playback: |{0}|'.format(uri))
-            action = 'PlayMedia({0}, playlist_time_hint=1)'.format(uri)
-            result = False
+            action = uri
+            result = True
+
+        elif uri.startswith('RunPlugin('):
+            context.log_debug('Running plugin: |{0}|'.format(uri))
+            action = uri
+            result = True
+
+        elif context.is_plugin_path(uri, PATHS.PLAY):
+            _uri = urlsplit(uri)
+            params = dict(parse_qsl(_uri.query, keep_blank_values=True))
+            if params.get('action') == 'list':
+                context.log_debug('Redirecting to: |{0}|'.format(uri))
+                action = context.create_uri(
+                    (PATHS.ROUTE, _uri.path.rstrip('/')),
+                    params,
+                    run=True,
+                )
+                result = False
+            else:
+                context.log_debug('Redirecting for playback: |{0}|'.format(uri))
+                action = context.create_uri(
+                    (_uri.path.rstrip('/'),),
+                    params,
+                    play=True,
+                )
+                result = True
 
         elif context.is_plugin_path(uri):
             context.log_debug('Redirecting to: |{0}|'.format(uri))
-            uri = urlsplit(uri)
+            _uri = urlsplit(uri)
             action = context.create_uri(
-                (PATHS.ROUTE, uri.path.rstrip('/') or PATHS.HOME),
-                uri.query,
+                (PATHS.ROUTE, _uri.path.rstrip('/') or PATHS.HOME),
+                _uri.query,
+                parse_params=True,
                 run=True,
             )
             result = False
@@ -343,3 +386,14 @@ class XbmcPlugin(AbstractPlugin):
             result = False
 
         return result, action
+
+    def classify_list_item(self, item, options, force_resolve):
+        item_type = item.__class__.__name__
+        listitem_type = self._LIST_ITEM_MAP.get(item_type)
+        if force_resolve and item_type in self._PLAY_ITEM_MAP:
+            options.setdefault(force_resolve, item)
+        if listitem_type:
+            if listitem_type == directory_listitem:
+                return item.available
+            return True
+        return False

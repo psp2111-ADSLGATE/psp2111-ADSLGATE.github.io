@@ -193,13 +193,13 @@ class RealDebrid:
 
 	def user_torrents(self):
 		try:
-			url = 'torrents'
+			url = 'torrents?limit=1000'
 			return self._get(url)
 		except: log_utils.error()
 
 	def user_downloads(self):
 		try:
-			url = 'downloads'
+			url = 'downloads?limit=1000'
 			return self._get(url)
 		except: log_utils.error()
 
@@ -399,7 +399,7 @@ class RealDebrid:
 				self.delete_torrent(torrent_id)
 				return None
 			control.sleep(1000)
-			while elapsed_time <= 7 and not transfer_finished:
+			while elapsed_time <= 4 and not transfer_finished:
 				active_count = self.torrents_activeCount()
 				active_list = active_count['list']
 				elapsed_time += 1
@@ -467,7 +467,7 @@ class RealDebrid:
 				return None
 			control.sleep(1000)
 			elapsed_time, transfer_finished = 0, False
-			while elapsed_time <= 7 and not transfer_finished:
+			while elapsed_time <= 4 and not transfer_finished:
 				active_count = self.torrents_activeCount()
 				active_list = active_count['list']
 				elapsed_time += 1

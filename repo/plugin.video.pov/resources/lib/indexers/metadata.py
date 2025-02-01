@@ -122,43 +122,15 @@ def tvshow_meta(id_type, media_id, user_info, current_date):
 	return meta
 
 def season_episodes_meta(season, meta, user_info):
-	metacache = MetaCache()
-	metacache_get, metacache_set = metacache.get, metacache.set
-	media_id, data = meta['tmdb_id'], None
-	string = '%s_%s' % (media_id, season)
-	data = metacache_get('season', 'tmdb_id', string)
-	if data: return data
-	try:
-		if meta['status'] in finished_show_check or meta['total_seasons'] > int(season): expiration = EXPIRES_182_DAYS
-		else: expiration = EXPIRES_4_DAYS
-		image_resolution = user_info.get('image_resolution', backup_resolutions)
-		data = season_episodes_details(media_id, season, user_info['language'], user_info['tmdb_api'])['episodes']
-		data = build_episodes_meta(data, image_resolution)
-		metacache_set('season', 'tmdb_id', data, expiration, string)
-	except: pass
-	return data
-
-def all_episodes_meta(meta, user_info, Thread):
-	def _get_tmdb_episodes(season):
-		try: data.extend(season_episodes_meta(season, meta, user_info))
-		except: pass
-	try:
-		data = []
-#		threads = [Thread(target=_get_tmdb_episodes, args=(i['season_number'],)) for i in meta['season_data']]
-#		[i.start() for i in threads]
-		threads = list(make_thread_list(_get_tmdb_episodes, (i['season_number'] for i in meta['season_data']), Thread))
-		[i.join() for i in threads]
-	except: pass
-	return data
-
-def build_episodes_meta(data, image_resolution):
 	def _process():
 		for ep_data in data:
 			writer, director, guest_stars = '', '', []
 			ep_data_get = ep_data.get
 			title, plot, premiered = ep_data_get('name'), ep_data_get('overview'), ep_data_get('air_date')
-			season, episode = ep_data_get('season_number'), ep_data_get('episode_number')
+			season, episode, ep_type = ep_data_get('season_number'), ep_data_get('episode_number'), ep_data_get('episode_type')
 			rating, votes, still_path = ep_data_get('vote_average'), ep_data_get('vote_count'), ep_data_get('still_path', None)
+			ep_type = ep_details.get(ep_type) or ep_details.get(episode) or ep_type or ''
+			if ep_type == 'mid_season_finale': ep_details[episode + 1] = 'mid_season_premiere'
 			if still_path: thumb = tmdb_image_base % (still_resolution, still_path)
 			else: thumb = None
 			guest_stars_list = ep_data_get('guest_stars', None)
@@ -175,9 +147,39 @@ def build_episodes_meta(data, image_resolution):
 				try: director = [i['name'] for i in crew if i['job'] == 'Director'][0]
 				except: pass
 			yield {'writer': writer, 'director': director, 'guest_stars': guest_stars, 'mediatype': 'episode', 'title': title, 'plot': plot,
-					'premiered': premiered, 'season': season, 'episode': episode, 'rating': rating, 'votes': votes, 'thumb': thumb}
-	still_resolution, profile_resolution = image_resolution['still'], image_resolution['profile']
-	return list(_process())
+					'premiered': premiered, 'season': season, 'episode': episode, 'episode_type': ep_type, 'rating': rating, 'votes': votes, 'thumb': thumb}
+	metacache = MetaCache()
+	metacache_get, metacache_set = metacache.get, metacache.set
+	media_id, data = meta['tmdb_id'], None
+	string = '%s_%s' % (media_id, season)
+	data = metacache_get('season', 'tmdb_id', string)
+	if data: return data
+	try:
+		show_ended, total_seasons = meta['status'] in finished_show_check, meta['total_seasons']
+		expiration = EXPIRES_182_DAYS if show_ended or total_seasons > int(season) else EXPIRES_4_DAYS
+		premiere = 'series_premiere' if int(season) == 1 else 'season_premiere'
+		finale = 'series_finale' if show_ended and int(season) == total_seasons else 'season_finale'
+		ep_details = {1: premiere, 'mid_season': 'mid_season_finale', 'finale': finale}
+		image_resolution = user_info.get('image_resolution', backup_resolutions)
+		still_resolution, profile_resolution = image_resolution['still'], image_resolution['profile']
+		data = season_episodes_details(media_id, season, user_info['language'], user_info['tmdb_api'])['episodes']
+		data = list(_process())
+		metacache_set('season', 'tmdb_id', data, expiration, string)
+	except: pass
+	return data
+
+def all_episodes_meta(meta, user_info, Thread):
+	def _get_tmdb_episodes(season):
+		try: data.extend(season_episodes_meta(season, meta, user_info))
+		except: pass
+	try:
+		data = []
+#		threads = [Thread(target=_get_tmdb_episodes, args=(i['season_number'],)) for i in meta['season_data']]
+#		[i.start() for i in threads]
+		threads = list(make_thread_list(_get_tmdb_episodes, (i['season_number'] for i in meta['season_data']), Thread))
+		[i.join() for i in threads]
+	except: pass
+	return data
 
 def movie_meta_external_id(external_source, external_id):
 	return movie_external(external_source, external_id)
@@ -231,7 +233,7 @@ def build_movie_meta(data, user_info, fanarttv_data=None):
 	title, original_title = data_get('title'), data_get('original_title')
 	try: english_title = [i['data']['title'] for i in data_get('translations')['translations'] if i['iso_639_1'] == 'en'][0]
 	except: english_title = None
-	try: year = str(data_get('release_date').split('-')[0])
+	try: year = str(data_get('release_date').split('-')[0] or 0)
 	except: year = ''
 	try: duration = int(data_get('runtime', '90') * 60)
 	except: duration = 0
@@ -321,7 +323,7 @@ def build_tvshow_meta(data, user_info, fanarttv_data=None):
 	title, original_title = data_get('name'), data_get('original_name')
 	try: english_title = [i['data']['name'] for i in data_get('translations')['translations'] if i['iso_639_1'] == 'en'][0]
 	except: english_title = None
-	try: year = str(data_get('first_air_date').split('-')[0]) or ''
+	try: year = str(data_get('first_air_date').split('-')[0] or 0)
 	except: year = ''
 	try: duration = min(data_get('episode_run_time')) * 60
 	except: duration = 0

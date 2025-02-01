@@ -24,6 +24,7 @@ metacache_db   = translatePath('special://profile/addon_data/plugin.video.pov/me
 debridcache_db = translatePath('special://profile/addon_data/plugin.video.pov/debridcache.db')
 external_db    = translatePath('special://profile/addon_data/plugin.video.pov/providerscache2.db')
 databases_path = translatePath('special://profile/addon_data/plugin.video.pov/')
+fanart_default = 'special://home/addons/plugin.video.pov/fanart.png'
 current_dbs    = ('debridcache.db', 'favourites.db', 'maincache.db', 'metacache.db', 'navigator.db', 'providerscache2.db',
 					'traktcache4.db', 'views.db', 'watched.db', 'fenomcache.db', 'fenomundesirables.db', 'settings.xml')
 myvideos_db_paths = {18: '116', 19: '119', 20: '121', 21: '131'}
@@ -34,7 +35,7 @@ tvshow_dict_removals = ('tmdblogo', 'fanart_added', 'cast', 'poster', 'rootname'
 						'fanart', 'banner', 'clearlogo', 'clearart', 'landscape', 'discart', 'original_title', 'english_title',
 						'extra_info', 'alternative_titles', 'country_codes', 'fanarttv_fanart', 'fanarttv_poster', 'fanart2', 'poster2',
 						'total_episodes', 'total_seasons', 'total_aired_eps', 'season_summary', 'season_data')
-episode_dict_removals = ('thumb', 'guest_stars')
+episode_dict_removals = ('thumb', 'guest_stars', 'episode_type')
 
 def logger(heading, function):
 	xbmc.log('>> %s <<: %s' % (heading, function), 1)
@@ -50,6 +51,12 @@ def clear_property(prop):
 
 def addon(addon_id='plugin.video.pov'):
 	return Addon(id=addon_id)
+
+def addon_fanart():
+	fanart = get_setting('fanart_image')
+	if 'special://' in fanart: fanart = translate_path(fanart)
+	elif 'fanart.png' == fanart: fanart = translate_path(fanart_default)
+	return fanart
 
 def addon_installed(addon_id):
 	return get_visibility('System.HasAddon(%s)' % addon_id)
@@ -230,9 +237,9 @@ def set_view(view_type):
 	view_id = str(current_window_id().getFocusId())
 	dbcon = database.connect(views_db, timeout=40.0, isolation_level=None)
 	dbcur = dbcon.cursor()
-	dbcur.execute('''PRAGMA synchronous = OFF''')
-	dbcur.execute('''PRAGMA journal_mode = OFF''')
-	dbcur.execute("INSERT OR REPLACE INTO views VALUES (?, ?)", (view_type, view_id))
+	dbcur.execute("""PRAGMA synchronous = OFF""")
+	dbcur.execute("""PRAGMA journal_mode = OFF""")
+	dbcur.execute("""INSERT OR REPLACE INTO views VALUES (?, ?)""", (view_type, view_id))
 	set_view_property(view_type, view_id)
 	notification(get_infolabel('Container.Viewmode').upper(), 1500)
 
@@ -242,9 +249,9 @@ def set_view_property(view_type, view_id):
 def set_view_properties():
 	dbcon = database.connect(views_db, timeout=40.0, isolation_level=None)
 	dbcur = dbcon.cursor()
-	dbcur.execute('''PRAGMA synchronous = OFF''')
-	dbcur.execute('''PRAGMA journal_mode = OFF''')
-	dbcur.execute("SELECT * FROM views")
+	dbcur.execute("""PRAGMA synchronous = OFF""")
+	dbcur.execute("""PRAGMA journal_mode = OFF""")
+	dbcur.execute("""SELECT * FROM views""")
 	view_ids = dbcur.fetchall()
 	for item in view_ids: set_property('pov_%s' % item[0], item[1])
 
@@ -256,7 +263,7 @@ def set_view_mode(view_type, content='files'):
 		try:
 			dbcon = database.connect(views_db, timeout=40.0, isolation_level=None)
 			dbcur = dbcon.cursor()
-			dbcur.execute("SELECT view_id FROM views WHERE view_type = ?", (str(view_type),))
+			dbcur.execute("""SELECT view_id FROM views WHERE view_type = ?""", (str(view_type),))
 			view_id = dbcur.fetchone()[0]
 		except: return
 	try:
@@ -267,6 +274,26 @@ def set_view_mode(view_type, content='files'):
 			else: return
 		if view_id: execute_builtin('Container.SetViewMode(%s)' % view_id)
 	except: return
+
+def clear_view(view_type):
+	if not confirm_dialog(): return
+	try:
+		dbcon = database.connect(views_db, timeout=40.0, isolation_level=None)
+		dbcur = dbcon.cursor()
+		dbcur.execute("""PRAGMA synchronous = OFF""")
+		dbcur.execute("""PRAGMA journal_mode = OFF""")
+		dbcur.execute("""SELECT view_type FROM views""")
+		for item in dbcur.fetchall():
+			dbcur.execute("""DELETE FROM views WHERE view_type = ?""", (item[0],))
+			clear_property('pov_%s' % item[0])
+		kodi_db = translate_path('special://home/userdata/Database/ViewModes6.db')
+		dbcon = database.connect(kodi_db)
+		dbcur = dbcon.cursor()
+		dbcur.execute("""DELETE FROM view WHERE path LIKE 'plugin://plugin.video.pov/%'""")
+		dbcur.connection.commit()
+		dbcur.connection.close()
+	except: return notification(32574, 1500)
+	notification(32576, 1500)
 
 def timeIt(func):
 	# Thanks to 123Venom
@@ -316,14 +343,14 @@ def focus_index(index, sleep_time=100):
 
 def clean_settings_window_properties():
 	clear_property('pov_settings')
-	notification(32576, 2000)
+	notification(32576, 1500)
 
 def fetch_kodi_imagecache(image):
 	result = None
 	try:
 		dbcon = database.connect(translate_path('special://database/Textures13.db'), timeout=40.0)
 		dbcur = dbcon.cursor()
-		dbcur.execute("SELECT cachedurl FROM texture WHERE url = ?", (image,))
+		dbcur.execute("""SELECT cachedurl FROM texture WHERE url = ?""", (image,))
 		result = dbcur.fetchone()[0]
 	except: pass
 	return result
@@ -454,8 +481,8 @@ def clean_settings():
 			line3 = local_string(32813) % len(removed_settings)
 #			progressDialog.update(percent, '[CR]%s[CR]%s' % (line2, line3))
 #			sleep(500)
-		except: notification(32574, 2000)
-		notification(line3, 2000) if removed_settings else notification(32576, 2000)
+		except: notification(32574, 1500)
+		notification(line3, 1500) if removed_settings else notification(32576, 1500)
 #	progressDialog.close()
 
 def new_settings():
@@ -501,8 +528,8 @@ def new_settings():
 			content += '\n</settings>'
 			with open_file(settings_xml, 'w') as xml_file: xml_file.write(content)
 			line3 = local_string(32813) % len(current_settings)
-		except: notification(32574, 2000)
-		notification(line3, 2000) if current_settings else notification(32576, 2000)
+		except: notification(32574, 1500)
+		notification(line3, 1500) if current_settings else notification(32576, 1500)
 
 def upload_logfile():
 	# Thanks 123Venom

@@ -49,6 +49,8 @@ def routing(params):
 			dialogs.favorites_choice(params)
 		elif mode == 'trakt_manager_choice':
 			dialogs.trakt_manager_choice(params)
+		elif mode == 'mdb_manager_choice':
+			dialogs.mdb_manager_choice(params)
 		elif mode == 'folder_scraper_manager_choice':
 			dialogs.folder_scraper_manager_choice()
 		elif mode == 'set_language_filter_choice':
@@ -80,6 +82,10 @@ def routing(params):
 		if 'build_trakt_list' in mode:
 			from modules.utils import manual_function_import
 			function = manual_function_import('indexers.trakt', mode.split('.')[-1])
+			function(params)
+		elif 'build_mdb_list' in mode:
+			from modules.utils import manual_function_import
+			function = manual_function_import('indexers.mdblist', mode.split('.')[-1])
 			function(params)
 		elif mode == 'build_movie_list':
 			from indexers.movies import Movies
@@ -266,7 +272,7 @@ def routing(params):
 	elif 'torbox' in mode:
 		if mode == 'torbox.tb_torrent_cloud':
 			from indexers.torbox import tb_torrent_cloud
-			tb_torrent_cloud()
+			tb_torrent_cloud(params_get('media_type'))
 		elif mode == 'torbox.browse_tb_cloud':
 			from indexers.torbox import browse_tb_cloud
 			browse_tb_cloud(params_get('folder_id'), params_get('media_type'))
@@ -330,6 +336,8 @@ def routing(params):
 			kodi_utils.choose_view(params['view_type'], params_get('content', ''))
 		elif mode == 'set_view':
 			kodi_utils.set_view(params['view_type'])
+		elif mode == 'clear_view':
+			kodi_utils.clear_view(params['view_type'])
 	##EXTRA modes##
 	elif mode == 'get_search_term':
 		from indexers.history import get_search_term
@@ -359,9 +367,6 @@ def routing(params):
 	elif mode == 'undesirablesUserRemove':
 		from caches.undesirables_cache import undesirablesUserRemove
 		undesirablesUserRemove()
-	elif mode == 'comet_configure':
-		from fenom.hosted import Comet
-		Comet().configure()
 	elif mode == 'mfdebrid_configure':
 		from fenom.hosted import MFDebrid
 		MFDebrid().configure()

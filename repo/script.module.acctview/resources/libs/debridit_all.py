@@ -1,6 +1,9 @@
 import xbmc
 import xbmcaddon
 import xbmcgui
+import os.path
+import xbmcvfs
+import json
 import os
 import time
 import sqlite3
@@ -11,25 +14,21 @@ from resources.libs.common.config import CONFIG
 from resources.libs.common import logging
 from resources.libs.common import tools
 from resources.libs.common import var
+translatePath = xbmcvfs.translatePath
+addons = translatePath('special://home/addons/')
 
 ORDER = ['seren',
          'fen',
          'fenlt',
-         'affen',
-         'ezra',
          'coal',
          'pov',
          'umb',
          'infinity',
          'dradis',
-         'taz',
          'shadow',
          'ghost',
          'base',
-         'unleashed',
          'chains',
-         'twisted',
-         'md',
          'asgard',
          'patriot',
          'blackl',
@@ -37,6 +36,7 @@ ORDER = ['seren',
          'aliunde',
          'nightlite',
          'otaku',
+         'realx',
          'acctmgr',
          'allact',
          'myact',
@@ -77,7 +77,7 @@ DEBRIDID = {
         'saved'    : 'fenlt',
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight'),
         'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_fanart.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_fanart2.jpg'),
         'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'fenlt'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.fenlight/databases', 'settings.db'),
         'default_rd'  : 'rd.account_id',
@@ -85,34 +85,6 @@ DEBRIDID = {
         'default_ad'  : 'ad.account_id',
         'data'     : [],
         'activate' : 'Addon.OpenSettings(plugin.video.fenlight)'},
-    'affen': {
-        'name'     : 'afFENity',
-        'plugin'   : 'plugin.video.affenity',
-        'saved'    : 'affen',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.affenity'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.affenity/resources/media/', 'affenity_icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.affenity/resources/media/', 'affenity_fanart.png'),
-        'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'affen'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.affenity/databases', 'settings.db'),
-        'default_rd'  : 'rd.account_id',
-        'default_pm'  : 'pm.account_id',
-        'default_ad'  : 'ad.account_id',
-        'data'     : [],
-        'activate' : 'Addon.OpenSettings(plugin.video.affenity)'},
-    'ezra': {
-        'name'     : 'Ezra',
-        'plugin'   : 'plugin.video.ezra',
-        'saved'    : 'ezra',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.ezra'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.ezra', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.ezra', 'fanart.png'),
-        'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'ezra'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.ezra', 'settings.xml'),
-        'default_rd'  : 'rd.username',
-        'default_pm'  : 'pm.account_id',
-        'default_ad'  : 'ad.account_id',
-        'data'     : [],
-        'activate' : 'Addon.OpenSettings(plugin.video.ezra)'},
     'coal': {
         'name'     : 'The Coalition',
         'plugin'   : 'plugin.video.coalition',
@@ -161,7 +133,7 @@ DEBRIDID = {
         'saved'    : 'infinity',
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity'),
         'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media/', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity', 'fanart.jpg'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media', 'fanart.png'),
         'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'infinity'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.infinity', 'settings.xml'),
         'default_rd'  : 'realdebridusername',
@@ -183,20 +155,6 @@ DEBRIDID = {
         'default_ad'  : 'alldebrid.username',
         'data'     : [],
         'activate' : 'Addon.OpenSettings(plugin.video.dradis)'},
-    'taz': {
-        'name'     : 'Taz19',
-        'plugin'   : 'plugin.video.taz19',
-        'saved'    : 'taz',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.taz19'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.taz19', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.taz19', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'taz'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.taz19', 'settings.xml'),
-        'default_rd'  : 'rd.client_id',
-        'default_pm'  : 'pm.account_id',
-        'default_ad'  : 'ad.account_id',
-        'data'     : [],
-        'activate' : 'Addon.OpenSettings(plugin.video.taz19)'},
     'shadow': {
         'name'     : 'Shadow',
         'plugin'   : 'plugin.video.shadow',
@@ -239,20 +197,6 @@ DEBRIDID = {
         'default_ad'  : 'alldebrid.username',
         'data'     : [],
         'activate' : 'Addon.OpenSettings(plugin.video.ghost)'},
-    'unleashed': {
-        'name'     : 'Unleashed',
-        'plugin'   : 'plugin.video.unleashed',
-        'saved'    : 'unleashed',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.unleashed'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.unleashed', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.unleashed', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'unleashed'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.unleashed', 'settings.xml'),
-        'default_rd'  : 'rd.client_id',
-        'default_pm'  : 'premiumize.token',
-        'default_ad'  : 'alldebrid.username',
-        'data'     : [],
-        'activate' : 'Addon.OpenSettings(plugin.video.unleashed)'},
     'chains': {
         'name'     : 'Chains Reaction',
         'plugin'   : 'plugin.video.thechains',
@@ -267,34 +211,6 @@ DEBRIDID = {
         'default_ad'  : 'alldebrid.username',
         'data'     : [],
         'activate' : 'Addon.OpenSettings(plugin.video.thechains)'},
-    'twisted': {
-        'name'     : 'Twisted',
-        'plugin'   : 'plugin.video.twisted',
-        'saved'    : 'twisted',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.twisted'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.twisted', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.twisted', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'twisted'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.twisted', 'settings.xml'),
-        'default_rd'  : 'rd.client_id',
-        'default_pm'  : 'premiumize.token',
-        'default_ad'  : 'alldebrid.username',
-        'data'     : [],
-        'activate' : 'Addon.OpenSettings(plugin.video.twisted)'},
-    'md': {
-        'name'     : 'Magic Dragon',
-        'plugin'   : 'plugin.video.magicdragon',
-        'saved'    : 'md',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.magicdragon'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.magicdragon', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.magicdragon', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.DEBRIDFOLD, 'md'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.magicdragon', 'settings.xml'),
-        'default_rd'  : 'rd.client_id',
-        'default_pm'  : 'premiumize.token',
-        'default_ad'  : 'alldebrid.username',
-        'data'     : [],
-        'activate' : 'Addon.OpenSettings(plugin.video.magicdragon)'},
     'asgard': {
         'name'     : 'Asgard',
         'plugin'   : 'plugin.video.asgard',
@@ -393,6 +309,18 @@ DEBRIDID = {
         'default_ad'  : 'alldebrid.username',
         'data'     : [],
         'activate' : 'Addon.OpenSettings(plugin.video.otaku)'},
+    'realx': {
+        'name'     : 'Realizer',
+        'plugin'   : 'plugin.video.realizerx',
+        'saved'    : 'realx',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.realizerx'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.realizerx', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.realizerx', 'fanart.png'),
+        'file'     : os.path.join(CONFIG.DEBRIDFOLD_RD, 'realx'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.realizerx', 'rdauth.json'),
+        'default'  : '',
+        'data'     : [],
+        'activate' : 'Addon.OpenSettings(plugin.video.realizerx)'},
     'acctmgr': {
         'name'     : 'Account Manager',
         'plugin'   : 'script.module.accountmgr',
@@ -486,12 +414,12 @@ def debrid_user_rd(who):
             except:
                 xbmc.log('%s: Debridit_all_rd Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
-        elif os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
+            '''elif os.path.exists(DEBRIDID[who]['path']) and name == 'afFENity':
             try:
                 conn = create_conn(var.affen_settings_db)
                 with conn:
                     cur = conn.cursor()
-                    cur.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('rd.token',))
+                    cur.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('rd.token',))
                     auth = cur.fetchone()
                     user_data = str(auth)
 
@@ -502,12 +430,24 @@ def debrid_user_rd(who):
                     cur.close()
             except:
                 xbmc.log('%s: Debridit_all_rd afFENity Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
+                pass'''
+        elif os.path.exists(DEBRIDID[who]['path']) and name == 'Realizer':
+            try:
+                with open(var.chkset_realx_json) as r:
+                    data = json.load(r)
+                    chk_auth_realx = data['token']
+                    if not str(var.chk_accountmgr_tk_rd) == str(chk_auth_realx) or str(chk_auth_realx) == '':
+                        user_rd = None
+                    else:
+                        user_rd = str(chk_auth_realx)
+            except:
+                xbmc.log('%s: Debridit_all_rd Realizer Failed!' % var.amgr, xbmc.LOGINFO)
+                pass 
         else:
             if os.path.exists(DEBRIDID[who]['path']):
                 try:
                     add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                    user_rd = add.getSetting(DEBRIDID[who]['default'])
+                    user_rd = add.getSetting(DEBRIDID[who]['default_rd'])
                 except:
                     pass
     return user_rd
@@ -555,7 +495,7 @@ def debrid_user_pm(who):
             if os.path.exists(DEBRIDID[who]['path']):
                 try:
                     add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                    user_pm = add.getSetting(DEBRIDID[who]['default'])
+                    user_pm = add.getSetting(DEBRIDID[who]['default_pm'])
                 except:
                     pass
     return user_pm
@@ -603,7 +543,7 @@ def debrid_user_ad(who):
             if os.path.exists(DEBRIDID[who]['path']):
                 try:
                     add = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
-                    user_ad = add.getSetting(DEBRIDID[who]['default'])
+                    user_ad = add.getSetting(DEBRIDID[who]['default_ad'])
                 except:
                     pass
     return user_ad
@@ -657,28 +597,31 @@ def update_debrid(do, who):
     icon = DEBRIDID[who]['icon']
 
     if do == 'update':
-        if not user == '':
-            try:
-                root = ElementTree.Element(saved)
-                
-                for setting in data:
-                    debrid = ElementTree.SubElement(root, 'debrid')
-                    id = ElementTree.SubElement(debrid, 'id')
-                    id.text = setting
-                    value = ElementTree.SubElement(debrid, 'value')
-                    value.text = addonid.getSetting(setting)
-                  
-                tree = ElementTree.ElementTree(root)
-                tree.write(file)
-                
-                user = addonid.getSetting(default)
-                CONFIG.set_setting(saved, user)
-                
-                logging.log('Debrid Info Saved for {0}'.format(name), level=xbmc.LOGINFO)
-            except Exception as e:
-                logging.log("[Debrid Info] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+        if name == 'Fen Light':
+            pass
         else:
-            logging.log('Debrid Info Not Registered for {0}'.format(name))
+            if not user == '':
+                try:
+                    root = ElementTree.Element(saved)
+                    
+                    for setting in data:
+                        debrid = ElementTree.SubElement(root, 'debrid')
+                        id = ElementTree.SubElement(debrid, 'id')
+                        id.text = setting
+                        value = ElementTree.SubElement(debrid, 'value')
+                        value.text = addonid.getSetting(setting)
+                      
+                    tree = ElementTree.ElementTree(root)
+                    tree.write(file)
+                    
+                    user = addonid.getSetting(default)
+                    CONFIG.set_setting(saved, user)
+                    
+                    logging.log('Debrid Info Saved for {0}'.format(name), level=xbmc.LOGINFO)
+                except Exception as e:
+                    logging.log("[Debrid Info] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+            else:
+                logging.log('Debrid Info Not Registered for {0}'.format(name))
     elif do == 'restore':
         if os.path.exists(file):
             tree = ElementTree.parse(file)
@@ -789,7 +732,12 @@ def import_list(who):
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]Debrid Info: Imported![/COLOR]'.format(CONFIG.COLOR2))
 
-def open_settings_debrid(who):
+def settings(who):
+    user = None
+    user = DEBRIDID[who]['name']
+    return user
+
+def open_settings(who):
     addonid = tools.get_addon_by_id(DEBRIDID[who]['plugin'])
     addonid.openSettings()
 

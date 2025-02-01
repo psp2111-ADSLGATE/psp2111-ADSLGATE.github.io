@@ -2,6 +2,7 @@
 import json
 import time
 from threading import Thread
+import itertools
 from windows.base_window import open_window, create_window
 from caches.episode_groups_cache import episode_groups_cache
 from caches.settings_cache import get_setting
@@ -597,10 +598,9 @@ class Sources():
 			if not self.limit_resolve: 
 				source_index = results.index(source)
 				results.remove(source)
-				leading_index = max(source_index-3, 0)
-				items_prev = results[leading_index:source_index]
-				trailing_index = 7 - len(items_prev)
-				items_next = results[source_index:source_index+trailing_index]
+				items_prev = results[:source_index]
+				items_prev.reverse()
+				items_next = results[source_index:]
 				items = items + items_next + items_prev
 			processed_items = []
 			processed_items_append = processed_items.append
@@ -635,7 +635,7 @@ class Sources():
 					self.progress_dialog.update_resolver(text=item['resolve_display'])
 					self.progress_dialog.busy_spinner()
 					if count > 1:
-						sleep(1500)
+						sleep(200)
 						try: del player
 						except: pass
 					url, self.playback_successful, self.cancel_all_playback = None, None, False

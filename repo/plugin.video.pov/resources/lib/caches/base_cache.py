@@ -12,8 +12,8 @@ class BaseCache:
 		self._set_PRAGMAS()
 
 	def _set_PRAGMAS(self):
-		self.dbcur.execute('''PRAGMA synchronous = OFF''')
-		self.dbcur.execute('''PRAGMA journal_mode = OFF''')
+		self.dbcur.execute("""PRAGMA synchronous = OFF""")
+		self.dbcur.execute("""PRAGMA journal_mode = OFF""")
 
 	def _get_timestamp(self, date_time):
 		return int(time.mktime(date_time.timetuple()))

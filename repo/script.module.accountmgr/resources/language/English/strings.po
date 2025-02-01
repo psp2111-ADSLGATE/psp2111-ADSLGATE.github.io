@@ -531,3 +531,42 @@ msgstr ""
 msgctxt "#40114"
 msgid "Total TV Watched = [B]%s[/B]"
 msgstr ""
+
+msgctxt "#40115"
+msgid "Offcloud UserID"
+msgstr ""
+
+msgctxt "#40116"
+msgid "TorBox API"
+msgstr ""
+
+msgctxt "#40117"
+msgid "-- Last Backup Completed --"
+msgstr ""
+
+msgctxt "#40118"
+msgid "[COLOR FFA0C12C] -- Authorization Help --[/COLOR]"
+msgstr ""
+
+msgctxt "#40119"
+msgid "[COLOR FFA0C12C]-- View Supported External Scrapers --[/COLOR]"
+msgstr ""
+
+msgctxt "#40120"
+msgid "[COLOR FFA0C12C]-- View Supported TorBox Add-ons --[/COLOR]"
+msgstr ""
+
+msgctxt "#40121"
+msgid "[COLOR FFA0C12C]-- View Supported Add-ons --[/COLOR]"
+msgstr ""
+
+msgctxt "#40122"
+msgid "[COLOR FFA0C12C]-- View Supported Easy Debrid Add-ons --[/COLOR]"
+msgstr ""
+
+
+
+
+
+
+

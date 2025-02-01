@@ -33,7 +33,7 @@ def search_trakt_lists(params):
 				user, username = list_info['user']['ids']['slug'], list_info['user']['username']
 				display = '[B]%s[/B] | [I](x%s) - %s[/I]' % (name.upper(), str(item_count), username)
 				plot = '[B]Link[/B]: [I]%s[/I][CR][CR][B]Likes[/B]: %s' % (list_info['share_link'], list_info['likes'])
-				url = build_url({'mode': 'build_trakt_list', 'user': user, 'slug': slug, 'list_id': list_id})
+				url = build_url({'mode': 'build_trakt_list', 'user': user, 'slug': slug, 'list_id': list_id, 'name': name})
 				cm_append((add2menu_str, 'RunPlugin(%s)' % build_url({'mode': 'menu_editor.add_external', 'name': name, 'iconImage': 'trakt.png'})))
 				cm_append((add2folder_str, 'RunPlugin(%s)' % build_url({'mode': 'menu_editor.shortcut_folder_add_item', 'name': name, 'iconImage': 'trakt.png'})))
 				cm_append((likelist_str, 'RunPlugin(%s)' % build_url({'mode': 'trakt.trakt_like_a_list', 'user': user, 'list_slug': slug})))
@@ -68,7 +68,7 @@ def get_trakt_lists(params):
 				if list_type == 'liked_lists': item = item['list']
 				name, user, slug, list_id = item['name'], item['user']['ids']['slug'], item['ids']['slug'], item['ids']['trakt']
 				item_count, privacy = item.get('item_count', None), item['privacy'] == 'private'
-				url = build_url({'mode': 'build_trakt_list', 'user': user, 'slug': slug, 'list_id': list_id, 'list_type': list_type})
+				url = build_url({'mode': 'build_trakt_list', 'user': user, 'slug': slug, 'list_id': list_id, 'list_type': list_type, 'name': name})
 				if list_type == 'liked_lists':
 					display = '%s (x%s) - [I]%s[/I]' % (name, item_count, user) if item_count else '%s - [I]%s[/I]' % (name, user)
 					cm_append((unlikelist_str, 'RunPlugin(%s)' % build_url({'mode': 'trakt.trakt_unlike_a_list', 'user': user, 'list_slug': slug})))
@@ -106,7 +106,7 @@ def get_trakt_trending_popular_lists(params):
 				likes, share_link, item_count = item['likes'], item['share_link'], item.get('item_count', '?')
 				display = '[B]%s[/B] | [I](x%s) - %s[/I]' % (name, item_count, user)
 				plot = '[B]Link[/B]: [I]%s[/I][CR][CR][B]Likes[/B]: %s' % (share_link, likes)
-				url = build_url({'mode': 'build_trakt_list', 'user': user, 'slug': slug, 'list_id': list_id, 'list_type': 'user_lists', 'name': name})
+				url = build_url({'mode': 'build_trakt_list', 'user': user, 'slug': slug, 'list_id': list_id, 'name': name})
 				cm_append((add2menu_str, 'RunPlugin(%s)' % build_url({'mode': 'menu_editor.add_external', 'name': name, 'iconImage': 'trakt.png'})))
 				cm_append((add2folder_str, 'RunPlugin(%s)' % build_url({'mode': 'menu_editor.shortcut_folder_add_item', 'name': name, 'iconImage': 'trakt.png'})))
 				cm_append((likelist_str, 'RunPlugin(%s)' % build_url({'mode': 'trakt.trakt_like_a_list', 'user': user, 'list_slug': slug})))
@@ -139,32 +139,29 @@ def build_trakt_list(params):
 	results = trakt_api.get_trakt_list_contents(list_type, list_id, user, slug)
 	if paginate(): process_list, total_pages = paginate_list(results, page, letter, page_limit())
 	else: process_list, total_pages = results, 1
-	process_dict = {'movies': 0, 'tvshows': 0, 'seasons': 0, 'episodes': 0}
 	movies, tvshows = Movies({'id_type': 'trakt_dict'}), TVShows({'id_type': 'trakt_dict'})
 	episodes, seasons = Episodes({'id_type': 'trakt_dict'}), Seasons({'id_type': 'trakt_dict'})
-	maxsize = min(len(process_list), int(kodi_utils.get_setting('pov.max_threads', '100')))
-	for p, tag in enumerate(process_list, 1):
+	for idx, tag in enumerate(process_list, 1):
 		mtype = tag['type']
 		if   mtype == 'movie':
-			process_dict['movies'] += 1
-			_queue.put((movies.build_movie_content, p, tag[mtype]['ids']))
+			_queue.put((movies.build_movie_content, idx, tag[mtype]['ids']))
 		elif mtype == 'show':
-			process_dict['tvshows'] += 1
-			_queue.put((tvshows.build_tvshow_content, p, tag[mtype]['ids']))
+			_queue.put((tvshows.build_tvshow_content, idx, tag[mtype]['ids']))
 		elif mtype == 'episode':
-			process_dict['episodes'] += 1
 			params = {'media_ids': {'tmdb': tag['show']['ids']['tmdb']}, 'season': tag['episode']['season'], 'episode': tag['episode']['number']}
-			_queue.put((episodes.build_episode_content, p, params))
+			_queue.put((episodes.build_episode_content, idx, params))
 		elif mtype == 'season':
-			process_dict['seasons'] += 1
-			params = {'tmdb_id': tag['show']['ids']['tmdb'], 'season': tag['season']['number'], 'sort': p}
+			params = {'tmdb_id': tag['show']['ids']['tmdb'], 'season': tag['season']['number'], 'sort': idx}
 			_queue.put((seasons.build_season_list, params))
+	maxsize = min(_queue.qsize(), int(kodi_utils.get_setting('pov.max_threads', '100')))
 	threads = [Thread(target=_thread_target, args=(_queue,)) for i in range(maxsize)]
 	[i.start() for i in threads]
 	[i.join() for i in threads]
 	items = movies.items + tvshows.items + episodes.items + seasons.items
 	items.sort(key=lambda k: int(k[1].getProperty('pov_sort_order')))
-	content, total = max(process_dict.items(), key=lambda k: k[1])
+	content, total = max(
+		('movies', movies), ('tvshows', tvshows), ('seasons', seasons), ('episodes', episodes), key=lambda k: len(k[1].items)
+	)
 	if total_pages > 2 and not is_widget and nav_jump_use_alphabet():
 		url = {'mode': 'build_navigate_to_page', 'transfer_mode': 'build_trakt_list', 'media_type': 'Media', 'name': name,
 				'user': user, 'slug': slug, 'list_id': list_id, 'current_page': page, 'total_pages': total_pages, 'list_type': list_type}

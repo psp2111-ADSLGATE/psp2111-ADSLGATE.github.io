@@ -179,13 +179,13 @@ def clear_media_results_database():
 	from modules.kodi_utils import clear_property, database, maincache_db
 	dbcon = database.connect(maincache_db, timeout=40.0, isolation_level=None)
 	dbcur = dbcon.cursor()
-	dbcur.execute('''PRAGMA synchronous = OFF''')
-	dbcur.execute('''PRAGMA journal_mode = OFF''')
-	dbcur.execute("SELECT id FROM maincache WHERE id LIKE 'pov_EASYNEWS_SEARCH_%'")
+	dbcur.execute("""PRAGMA synchronous = OFF""")
+	dbcur.execute("""PRAGMA journal_mode = OFF""")
+	dbcur.execute("""SELECT id FROM maincache WHERE id LIKE 'pov_EASYNEWS_SEARCH_%'""")
 	easynews_results = [str(i[0]) for i in dbcur.fetchall()]
 	if not easynews_results: return 'success'
 	try:
-		dbcur.execute("DELETE FROM maincache WHERE id LIKE 'pov_EASYNEWS_SEARCH_%'")
+		dbcur.execute("""DELETE FROM maincache WHERE id LIKE 'pov_EASYNEWS_SEARCH_%'""")
 		for i in easynews_results: clear_property(i)
 		return 'success'
 	except: return 'failed'

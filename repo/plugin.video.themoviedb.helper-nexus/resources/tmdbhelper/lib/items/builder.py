@@ -2,7 +2,7 @@ import re
 from tmdbhelper.lib.items.artselect import _ArtworkSelector
 from tmdbhelper.lib.addon.plugin import get_setting
 from tmdbhelper.lib.items.listitem import ListItem
-from tmdbhelper.lib.files.bcache import BasicCacheMem, BasicCacheServiceMem
+from tmdbhelper.lib.files.bcache import BasicCache, BasicCacheMem, BasicCacheServiceMem
 from tmdbhelper.lib.api.tmdb.api import TMDb
 from tmdbhelper.lib.api.fanarttv.api import FanartTV
 from tmdbhelper.lib.addon.tmdate import set_timestamp, get_timestamp
@@ -38,7 +38,7 @@ BACKFILL_BLACKLIST = ['poster']
 
 
 class ItemBuilder(_ArtworkSelector):
-    _basiccache = BasicCacheMem
+    _basiccachemem = BasicCacheMem
 
     def __init__(self, tmdb_api=None, ftv_api=None, trakt_api=None, cache_only=False, log_timers=False, timer_lists: dict = None):
         self.parent_tv = {}
@@ -46,7 +46,7 @@ class ItemBuilder(_ArtworkSelector):
         self.tmdb_api = tmdb_api or TMDb()
         self.ftv_api = ftv_api or FanartTV()
         self.trakt_api = trakt_api
-        self._cache = self._basiccache(filename='ItemBuilder.db')
+        self._cache = self.factory_basic_cache()(filename='ItemBuilder.db')
         self._regex = re.compile(r'({})'.format('|'.join(IMAGEPATH_ALL)))
         self.parent_params = None
         self.cache_only = cache_only
@@ -54,7 +54,11 @@ class ItemBuilder(_ArtworkSelector):
         self.log_timers = log_timers
         self._yy = 0
         self.override = False if self.tmdb_api.iso_language == 'en' else True  # Override titles with TMDb translated data
-        # self.__dict__.update(kwargs)
+
+    def factory_basic_cache(self):
+        if get_setting('mem_cache_level', 'int') == 0:  # Anything above 0 is mem cache for items (1=Items, 2=Always)
+            return BasicCache
+        return self._basiccachemem
 
     def _timestamp(self, days=14):
         return set_timestamp(days * 24 * 3600)
@@ -284,4 +288,4 @@ class ItemBuilder(_ArtworkSelector):
 
 
 class ItemBuilderService(ItemBuilder):
-    _basiccache = BasicCacheServiceMem
+    _basiccachemem = BasicCacheServiceMem  # Use a different mem cache queue level for service to write out more frequently since it runs continuously

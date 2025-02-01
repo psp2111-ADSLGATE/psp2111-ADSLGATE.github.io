@@ -1,5 +1,6 @@
 
-How To Sync Your Data:
+How To Authorize:
 
-1. Add your data into the appropriate field(s).
-2. Choose 'Sync Add-ons' to sync your data with installed Add-ons.
+1. Enter your login credentials or API key into the appropriate field(s).
+2. Ensure the data you entered is correct.
+3. Choose 'Authorize' to sync your data with installed Add-ons.

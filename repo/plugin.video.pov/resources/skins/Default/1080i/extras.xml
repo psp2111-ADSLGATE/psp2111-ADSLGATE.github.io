@@ -231,6 +231,118 @@
                     <visible>!String.IsEmpty(Window.Property(tikiskins.extras.next_aired_episode))</visible>
                 </control>
             </control>
+            <!-- Ratings -->
+            <control type="grouplist">
+                <top>150</top>
+                <left>25</left>
+                <width max="1150">auto</width>
+                <height>50</height>
+                <itemgap>0</itemgap>
+                <orientation>horizontal</orientation>
+                <align>center</align>
+                <control type="image">
+                    <height>50</height>
+                    <width>60</width>
+                    <aspectratio>keep</aspectratio>
+                    <texture>providers/imdb.png</texture>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.imdb))</visible>
+                </control>
+                <control type="label">
+                    <height>50</height>
+                    <width>90</width>
+                    <font>font40</font>
+                    <textcolor>FFCCCCCC</textcolor>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                    <label>$INFO[Window.Property(tikiskins.extras.rating.imdb),[B],[/B]]</label>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.imdb))</visible>
+                </control>
+                <control type="image">
+                    <height>40</height>
+                    <width>60</width>
+                    <aspectratio>keep</aspectratio>
+                    <texture>providers/metacritic.png</texture>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.metacritic))</visible>
+                </control>
+                <control type="label">
+                    <height>50</height>
+                    <width>90</width>
+                    <font>font40</font>
+                    <textcolor>FFCCCCCC</textcolor>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                    <label>$INFO[Window.Property(tikiskins.extras.rating.metacritic),[B],[/B]]</label>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.metacritic))</visible>
+                </control>
+                <control type="image">
+                    <height>40</height>
+                    <width>60</width>
+                    <aspectratio>keep</aspectratio>
+                    <texture>providers/tomatoes.png</texture>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.tomatoes))</visible>
+                </control>
+                <control type="label">
+                    <height>50</height>
+                    <width>90</width>
+                    <font>font40</font>
+                    <textcolor>FFCCCCCC</textcolor>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                    <label>$INFO[Window.Property(tikiskins.extras.rating.tomatoes),[B],[/B]]</label>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.tomatoes))</visible>
+                </control>
+                <control type="image">
+                    <height>40</height>
+                    <width>60</width>
+                    <aspectratio>keep</aspectratio>
+                    <texture>providers/mdblist.png</texture>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.mdblist))</visible>
+                </control>
+                <control type="label">
+                    <height>50</height>
+                    <width>90</width>
+                    <font>font40</font>
+                    <textcolor>FFCCCCCC</textcolor>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                    <label>$INFO[Window.Property(tikiskins.extras.rating.mdblist),[B],[/B]]</label>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.mdblist))</visible>
+                </control>
+                <control type="image">
+                    <height>40</height>
+                    <width>60</width>
+                    <aspectratio>keep</aspectratio>
+                    <texture>providers/trakt.png</texture>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.trakt))</visible>
+                </control>
+                <control type="label">
+                    <height>50</height>
+                    <width>90</width>
+                    <font>font40</font>
+                    <textcolor>FFCCCCCC</textcolor>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                    <label>$INFO[Window.Property(tikiskins.extras.rating.trakt),[B],[/B]]</label>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.trakt))</visible>
+                </control>
+                <control type="image">
+                    <height>40</height>
+                    <width>60</width>
+                    <aspectratio>keep</aspectratio>
+                    <texture>providers/tmdb.png</texture>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.tmdb))</visible>
+                </control>
+                <control type="label">
+                    <height>50</height>
+                    <width>90</width>
+                    <font>font40</font>
+                    <textcolor>FFCCCCCC</textcolor>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                    <label>$INFO[Window.Property(tikiskins.extras.rating.tmdb),[B],[/B]]</label>
+                    <visible>!String.IsEmpty(Window.Property(tikiskins.extras.rating.tmdb))</visible>
+                </control>
+            </control>
         </control>
         <!-- Body -->
         <control type="grouplist">

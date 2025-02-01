@@ -44,7 +44,7 @@ def preferred_autoplay_choice(params):
 		return (new_default, clear_choice)
 	def _param_choices(choice):
 		used_filters = [i['value'] for i in choices if not i['value'].startswith('Choose')]
-		unused_filters = [i for i in source_filters if not i[1] in used_filters]
+		unused_filters = [i for i in filters_choice if not i[1] in used_filters]
 		param_list_items = [{'line1': i[0], 'line2': i[1]} for i in unused_filters]
 		param_kwargs = {'items': json.dumps(param_list_items), 'multi_line': 'true', 'heading': 'Choose Sort to Top Params for Autoplay', 'narrow_window': 'true'}
 		param_choice = select_dialog(unused_filters, **param_kwargs)
@@ -55,6 +55,7 @@ def preferred_autoplay_choice(params):
 		new_settings = [i['value'] for i in choices if not i['value'].startswith('Choose')]
 		if not new_settings: set_setting('preferred_autoplay', 'empty_setting')
 		else: set_setting('preferred_autoplay', ', '.join(new_settings))
+	filters_choice = [(i[0], i[1].replace('[B]', '').replace('[/B]', '')) for i in source_filters]
 	choices = params.get('choices') or _beginning_choices()
 	list_items = [{'line1': i['name'], 'line2': i['value']} for i in choices]
 	kwargs = {'items': json.dumps(list_items), 'multi_line': 'true', 'heading': 'Choose Sort to Top Params for Autoplay', 'narrow_window': 'true'}

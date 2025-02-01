@@ -5,9 +5,9 @@ from modules.kodi_utils import container_refresh, favorites_db
 # from modules.kodi_utils import logger
 
 INSERT_FAV = 'INSERT INTO favourites VALUES (?, ?, ?)'
-DELETE_FAV = 'DELETE FROM favourites where db_type=? and tmdb_id=?'
-SELECT_FAV = 'SELECT tmdb_id, title FROM favourites WHERE db_type=?'
-CLEAR_FAV = 'DELETE FROM favourites WHERE db_type=?'
+DELETE_FAV = 'DELETE FROM favourites where db_type = ? and tmdb_id = ?'
+SELECT_FAV = 'SELECT tmdb_id, title FROM favourites WHERE db_type = ?'
+CLEAR_FAV = 'DELETE FROM favourites WHERE db_type = ?'
 
 class Favourites(BaseCache):
 	db_file = favorites_db
@@ -34,7 +34,7 @@ class Favourites(BaseCache):
 	def clear_favourites(self, media_type):
 		try:
 			self.dbcur.execute(CLEAR_FAV, (media_type,))
-			self.dbcur.execute('VACUUM')
+			self.dbcur.execute("""VACUUM""")
 			return True
 		except: return False
 

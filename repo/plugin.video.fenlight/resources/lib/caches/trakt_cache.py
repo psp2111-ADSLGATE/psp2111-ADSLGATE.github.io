@@ -102,6 +102,7 @@ def clear_daily_cache():
 	clear_trakt_calendar()
 	clear_trakt_list_contents_data('my_lists')
 	clear_trakt_list_contents_data('liked_lists')
+	clear_trakt_list_contents_data('user_lists')
 
 def clear_trakt_hidden_data(list_type):
 	string = 'trakt_hidden_items_%s' % list_type

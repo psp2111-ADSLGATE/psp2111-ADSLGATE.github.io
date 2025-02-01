@@ -1,34 +1,28 @@
 
 1.  Seren                   
 2.  Fen
-3.  Fen Light
-4.  afFENity                  
-5.  Ezra
-6.  The Coalition
-7.  POV                     
-8.  Umbrella
-9.  Infinity
-10. Dradis
-11. Taz19            
-12. Shadow              
-13. Ghost
-14. Base                 
-15. Unleashed             
-16. Chain Reaction
-17. Twisted
-18. Magic Dragon
-19. Asgard
-20. Patriot
-21. Black Lightning
-22. M.E.T.V
-23. Aliunde K19
-24. Nightwing Lite
-25. Otaku
-26. Realizer
-27. Premiumizer
-28. All Accounts
-29. My Accounts
-30. ResolveURL			
+3.  Fen Light                
+4.  The Coalition
+5.  POV                     
+6.  Umbrella
+7.  Infinity
+8.  Dradis         
+9.  Shadow              
+10. Ghost
+11. Base                           
+12. Chain Reaction
+13. Asgard
+14. Patriot
+15. Black Lightning
+16. M.E.T.V
+17. Aliunde K19
+18. Nightwing Lite
+19. Otaku
+20. Realizer
+21. Premiumizer
+22. All Accounts
+23. My Accounts
+24. ResolveURL			
 						
 						
 						

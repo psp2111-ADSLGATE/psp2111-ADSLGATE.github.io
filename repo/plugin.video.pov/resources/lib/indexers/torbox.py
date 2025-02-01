@@ -14,7 +14,7 @@ folder_str, file_str, delete_str, down_str = ls(32742).upper(), ls(32743).upper(
 extensions = supported_video_extensions()
 TorBox = TorBoxAPI()
 
-def tb_torrent_cloud():
+def tb_torrent_cloud(media_type):
 	def _builder():
 		for count, item in enumerate(folders, 1):
 			try:
@@ -32,9 +32,10 @@ def tb_torrent_cloud():
 				yield (url, listitem, True)
 			except: pass
 	folders = []
-	try: folders += [{**i, 'mediatype': 'torent'} for i in TorBox.user_cloud() if i['download_finished']]
-	except: pass
-	try: folders += [{**i, 'mediatype': 'usenet'} for i in TorBox.user_cloud_usenet() if i['download_finished']]
+	if   media_type == 'usenet': function = TorBox.user_cloud_usenet
+	elif media_type == 'webdl': function = TorBox.user_cloud_webdl
+	else: function = TorBox.user_cloud
+	try: folders += [{**i, 'mediatype': media_type} for i in function() if i['download_finished']]
 	except: pass
 	folders.sort(key=lambda k: k['updated_at'], reverse=True)
 	__handle__ = int(sys.argv[1])
@@ -63,7 +64,8 @@ def browse_tb_cloud(folder_id, media_type):
 				listitem.setInfo('video', {})
 				yield (url, listitem, False)
 			except: pass
-	if media_type == 'usenet': files = TorBox.user_cloud_usenet(folder_id)
+	if   media_type == 'usenet': files = TorBox.user_cloud_usenet(folder_id)
+	elif media_type == 'webdl': files = TorBox.user_cloud_webdl(folder_id)
 	else: files = TorBox.user_cloud(folder_id)
 	video_files = [
 		{**i, 'url': '%d,%d' % (int(folder_id), i['id']), 'mediatype': media_type}
@@ -77,7 +79,8 @@ def browse_tb_cloud(folder_id, media_type):
 
 def tb_delete(folder_id, media_type):
 	if not kodi_utils.confirm_dialog(): return
-	if media_type == 'usenet': result = TorBox.delete_usenet(folder_id)
+	if   media_type == 'usenet': result = TorBox.delete_usenet(folder_id)
+	elif media_type == 'webdl': result = TorBox.delete_webdl(folder_id)
 	else: result = TorBox.delete_torrent(folder_id)
 	if not result: return kodi_utils.notification(32574)
 	TorBox.clear_cache()
@@ -85,7 +88,8 @@ def tb_delete(folder_id, media_type):
 
 def resolve_tb(params):
 	file_id, media_type = params['url'], params['media_type']
-	if media_type == 'usenet': resolved_link = TorBox.unrestrict_usenet(file_id)
+	if   media_type == 'usenet': resolved_link = TorBox.unrestrict_usenet(file_id)
+	elif media_type == 'webdl': resolved_link = TorBox.unrestrict_webdl(file_id)
 	else: resolved_link = TorBox.unrestrict_link(file_id)
 	if params.get('play', 'false') != 'true': return resolved_link
 	from modules.player import POVPlayer

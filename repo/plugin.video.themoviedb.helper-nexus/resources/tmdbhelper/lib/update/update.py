@@ -5,6 +5,7 @@ from tmdbhelper.lib.addon.plugin import get_setting, get_localized
 from jurialmunkey.parser import try_int
 from tmdbhelper.lib.files.futils import validify_filename, make_path, write_to_file, get_tmdb_id_nfo
 from tmdbhelper.lib.api.trakt.api import TraktAPI
+from tmdbhelper.lib.api.mdblist.api import MDbList
 from tmdbhelper.lib.addon.logger import kodi_log
 
 
@@ -125,17 +126,27 @@ def get_unique_folder(name, tmdb_id, basedir):
 
 
 def get_userlist(user_slug=None, list_slug=None, confirm=True, busy_spinner=True):
-    with BusyDialog(is_enabled=busy_spinner):
+
+    def get_userlist_path():
         if list_slug.startswith('watchlist'):
-            path = ['users', user_slug, list_slug]
-        else:
-            path = ['users', user_slug, 'lists', list_slug, 'items']
-        request = TraktAPI().get_response_json(*path)
+            return ['users', user_slug, list_slug]
+        return ['users', user_slug, 'lists', list_slug, 'items']
+
+    def get_userlist_list():
+        if user_slug == '__api_mdblist__':
+            return MDbList().get_custom_trakt_style_list(list_slug).get('items')
+        return TraktAPI().get_response_json(*get_userlist_path())
+
+    with BusyDialog(is_enabled=busy_spinner):
+        request = get_userlist_list()
+
     if not request:
         return
+
     if confirm:
         d_head = get_localized(32125)
         i_check_limits = check_overlimit(request)
+
         if i_check_limits:
             # List over limit so inform user that it is too large to add
             d_body = [
@@ -145,6 +156,7 @@ def get_userlist(user_slug=None, list_slug=None, confirm=True, busy_spinner=True
                 get_localized(32164).format(LIBRARY_ADD_LIMIT_TVSHOWS, LIBRARY_ADD_LIMIT_MOVIES)]
             Dialog().ok(d_head, '\n'.join(d_body))
             return
+
         elif isinstance(confirm, bool) or len(request) > confirm:
             # List is within limits so ask for confirmation before adding it
             d_body = [
@@ -154,4 +166,5 @@ def get_userlist(user_slug=None, list_slug=None, confirm=True, busy_spinner=True
                 get_localized(32126)]
             if not Dialog().yesno(d_head, '\n'.join(d_body)):
                 return
+
     return request

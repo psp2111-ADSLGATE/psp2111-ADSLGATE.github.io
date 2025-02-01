@@ -2591,6 +2591,21 @@ msgctxt "#32509"
 msgid "Use alternative TMDb API url"
 msgstr ""
 
+#: /resources/settings.xml
+msgctxt "#32510"
+msgid "Items only"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32511"
+msgid "Items"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32512"
+msgid "Cache disk reads to memory"
+msgstr ""
+
 msgctxt "#30030"
 msgid "Hindi (India)"
 msgstr ""

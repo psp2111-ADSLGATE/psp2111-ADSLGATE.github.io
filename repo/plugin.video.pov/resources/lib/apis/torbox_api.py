@@ -13,13 +13,17 @@ session.mount(base_url, requests.adapters.HTTPAdapter(max_retries=1))
 class TorBoxAPI:
 	download = '/torrents/requestdl'
 	download_usenet = '/usenet/requestdl'
+	download_webdl = '/webdl/requestdl'
 	remove = '/torrents/controltorrent'
 	remove_usenet = '/usenet/controlusenetdownload'
+	remove_webdl = '/webdl/controlwebdownload'
 	stats = '/user/me'
 	history = '/torrents/mylist'
 	history_usenet = '/usenet/mylist'
+	history_webdl = '/webdl/mylist'
 	explore = '/torrents/mylist?id=%s'
 	explore_usenet = '/usenet/mylist?id=%s'
+	explore_webdl = '/webdl/mylist?id=%s'
 	cache = '/torrents/checkcached'
 	cloud = '/torrents/createtorrent'
 
@@ -36,7 +40,8 @@ class TorBoxAPI:
 			response = session.request(method, full_path, params=params, json=json, data=data, timeout=timeout)
 			response.raise_for_status()
 			result = response.json()
-			if result.get('success') and 'data' in result: result = result['data']
+			if 'control' in path: result = result.get('success')
+			elif result.get('success') and 'data' in result: result = result['data']
 		except Exception as e: kodi_utils.logger('torbox error',
 			f"{e}\n{full_path}\n{response.text}" if response else f"{e}\n{full_path}"
 		)
@@ -80,6 +85,10 @@ class TorBoxAPI:
 		data = {'usenet_id': request_id, 'operation': 'delete'}
 		return self._POST(self.remove_usenet, json=data)
 
+	def delete_webdl(self, request_id=''):
+		data = {'webdl_id': request_id, 'operation': 'delete'}
+		return self._POST(self.remove_webdl, json=data)
+
 	def unrestrict_link(self, file_id):
 		torrent_id, file_id = file_id.split(',')
 		params = {'token': self.api_key, 'torrent_id': torrent_id, 'file_id': file_id}
@@ -90,6 +99,11 @@ class TorBoxAPI:
 		params = {'token': self.api_key, 'usenet_id': usenet_id, 'file_id': file_id}
 		return self._GET(self.download_usenet, params=params)
 
+	def unrestrict_webdl(self, file_id):
+		webdl_id, file_id = file_id.split(',')
+		params = {'token': self.api_key, 'web_id': webdl_id, 'file_id': file_id}
+		return self._GET(self.download_webdl, params=params)
+
 	def check_cache_single(self, hash):
 		return self._GET(self.cache, params={'hash': hash, 'format': 'list'})
 
@@ -98,7 +112,7 @@ class TorBoxAPI:
 		return self._POST(self.cache, params={'format': 'list'}, json=data)
 
 	def add_magnet(self, magnet):
-		data = {'magnet': magnet, 'seed': 3, 'allow_zip': False}
+		data = {'magnet': magnet, 'seed': 3, 'allow_zip': 'false'}
 		return self._POST(self.cloud, data=data)
 
 	def create_transfer(self, magnet_url):
@@ -203,6 +217,13 @@ class TorBoxAPI:
 		else: result = self._GET(url)
 		return result
 
+	def user_cloud_webdl(self, request_id=None, check_cache=True):
+		string = 'pov_tb_user_cloud_webdl_info_%s' % request_id if request_id else 'pov_tb_user_cloud_webdl'
+		url = self.explore_webdl % request_id if request_id else self.history_webdl
+		if check_cache: result = cache_object(self._GET, string, url, False, 0.5)
+		else: result = self._GET(url)
+		return result
+
 	def user_cloud_clear(self):
 		if not kodi_utils.confirm_dialog(): return
 		data = {'all': True, 'operation': 'delete'}
@@ -214,47 +235,30 @@ class TorBoxAPI:
 		try:
 			if not kodi_utils.path_exists(kodi_utils.maincache_db): return True
 			from caches.debrid_cache import DebridCache
-			user_cloud_success, user_cloud_usenet_success = False, False
+			user_cloud_success = False
 			dbcon = kodi_utils.database.connect(kodi_utils.maincache_db)
 			dbcur = dbcon.cursor()
 			# USER CLOUD
 			try:
-				dbcur.execute("""SELECT data FROM maincache WHERE id=?""", ('pov_tb_user_cloud',))
+				dbcur.execute("""SELECT id FROM maincache WHERE id LIKE ?""", ('pov_tb_user_cloud%',))
 				try:
-					user_cloud_cache = eval(dbcur.fetchone()[0])
-					user_cloud_info_caches = [i['id'] for i in user_cloud_cache]
-				except: user_cloud_success = True
+					user_cloud_cache = dbcur.fetchall()
+					user_cloud_cache = [i[0] for i in user_cloud_cache]
+				except:
+					user_cloud_success = True
 				if not user_cloud_success:
-					dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_tb_user_cloud',))
-					kodi_utils.clear_property("pov_tb_user_cloud")
-					for i in user_cloud_info_caches:
-						dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_tb_user_cloud_info_%s' % i,))
-						kodi_utils.clear_property("pov_tb_user_cloud_info_%s" % i)
+					for i in user_cloud_cache:
+						dbcur.execute("""DELETE FROM maincache WHERE id = ?""", (i,))
+						kodi_utils.clear_property(str(i))
 					dbcon.commit()
 					user_cloud_success = True
 			except: user_cloud_success = False
-			# USER CLOUD
-			try:
-				dbcur.execute("""SELECT data FROM maincache WHERE id=?""", ('pov_tb_user_cloud_usenet',))
-				try:
-					user_cloud_cache = eval(dbcur.fetchone()[0])
-					user_cloud_info_caches = [i['id'] for i in user_cloud_cache]
-				except: user_cloud_usenet_success = True
-				if not user_cloud_usenet_success:
-					dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_tb_user_cloud_usenet',))
-					kodi_utils.clear_property("pov_tb_user_cloud_usenet")
-					for i in user_cloud_info_caches:
-						dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_tb_user_cloud_usenet_info_%s' % i,))
-						kodi_utils.clear_property("pov_tb_user_cloud_usenet_info_%s" % i)
-					dbcon.commit()
-					user_cloud_usenet_success = True
-			except: user_cloud_usenet_success = False
 			# HASH CACHED STATUS
 			try:
 				DebridCache().clear_debrid_results('tb')
 				hash_cache_status_success = True
 			except: hash_cache_status_success = False
 		except: return False
-		if False in (user_cloud_success, user_cloud_usenet_success, hash_cache_status_success): return False
+		if False in (user_cloud_success, hash_cache_status_success): return False
 		return True
 

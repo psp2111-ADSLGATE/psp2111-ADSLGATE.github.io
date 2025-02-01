@@ -1,4 +1,4 @@
-# created by Venom for Fenomscrapers (updated 3-02-2022)
+# created by kodifitzwell for Fenomscrapers
 """
 	Fenomscrapers Project
 """
@@ -21,7 +21,7 @@ class source:
 			'0': 'eJwBEALv_d8eMwmPMAH0OOXgqXZzpTAH9uhPZsBEL1TTrsTvCkr9KCIE_v4o5VdGPIQ-WXA2Z1F4_nv6Zw7MJTgSKTC6_b6rX-n2HsC3gDQIY-io84c8sjWkEd-1N1V226k2xmFImQq7eSWeGRUHz6YTHb4_9Qck9uSUoRW3xfnRaTPbp6nOABwYaexvPxDqKEyYz3H1tNlpq_kbH3qSUawSoFeU88SVgFrVw9yuohW8TN5Bs-jGkU_tp83mOifx2nVPvX1br3g0GgpRbXNWpEOCv-pa_0kTTV8WPZ6LBG9gjKkjESaAMtGJEtYmKVbErU1bLV_nsVEIYKBiIMzGHdE67Q43H4_ejQP9sbzG6J4NSX9i3E96v4LBllpWKmpLI7H-DFJ0RmsAvwrNwWvIVBRKIn-hTuq6SuPMprrBnqd5ICi8D0Rw4wGRihV2ugcYBlueDe4nvHNoA6By1tzEDnFt-SUr8kzc6QE7J9csKZlWh1pOLYtMRvQmzq8gK1z_ZAxixtdYIQtBCjyoumZZzarhgwJOuCJmkkzDBISCVbQmYs1enWvlpCGzJ4-gfZVU-HUahEZGjAjFm3T0jqDOTmVhv8pVxenaX8Mtkm558ms7lgzyCC3M2S23C5J4XLQL2pLd_pwDOrq0Q7aMlehz09D8Rq1ELvJHwXqJlr7HLH2yYOlHBqrkMpT-JA1SJ5GqCdnHbnQa6lNW_-U=',
 			'1': 'eJwBEALv_SRpsWJ33q0gHCS8hCGKBJETkRM9pTk5EhKxL8qyUsYI55Y2-g06JIkKwTZVTcySesgP-mX4ddvfNe0G1MHDYfbmwDTUbLqi1Qg9vjTR982e5sBIyu81awv9iiBfqOYHb8ThqIRBPwtTFaKlC7OEANIv-dZmM7UuB8060VKCEnDxDZjDXIpOYBnB0nsI36QvRMS6fvONbB0fxDyLWOEY2J8t_Xz2TAl4y-GHip9rim-bYtlVgO1a_Tt_FtRAbl2u1OVEugwHanpBNn7qg79m4BRoWcksREhhiwMac9VwMZ2MLEc5eR205O-XuJFUBjBQspzjor1d5jSNp5J5_ObLC3TN4_sl3OCSnPfbKgwHv3GNYV78JzIu_JXzn90sotMNohe6qRrcSuKa-zUUcmn5hMZNPkMpjrS8YiZk204_Z4otuVeJwJxaY0gwA_Cr6PwYuwmUqvOerKqEtW5hMYFpdiwm5TMK9PIhgxYm5nmZtO4ZfMNujY6pKm6I4XwfQ4k64XxTgfRE_QKq8dadxVhjdsIlu9TiY5qZhvBAXqOWr111ejSJWqC_W_jDHLqX-CY-JF5bOKShNY7RrSp7qJdRhb5blVbWCYoUFkzQwU6CKdFVzUsclg9tSKq1lbV9G6ixKtyZYd1KpURpJpHLKJa_fom51ygsmDtM_-8lyZ-8up8oMMj37dGRRdxTPvfpKudrCccUCdg=',
 			'2': 'eJwBEALv_YYta-vqXeyplvsLdRa9_gxrLyIAUKZSldRcxYdL5hpgJHeZ4yTo2elnviHYziZulfHPkPYRIeNvbDbfcmzEy7KZ3ezdsLPAkst6Wieeje9MJXegkfn27I_lrDRad0A56yAq8Gkics8dFbW1AukN8DEwo0ZS_s9JqSyjaqpQJb2Kvhu9rGY03fAeRKFm6bLRjeEOZOa7VuRixNvKPTj3oJmGQ53cfFqdAHxV572MeroKe0x7MauQK2ZT2QHYPS6C2wJ6nH2y8yG724JcNUGywZNeCmvboJRySQ1Vi-sRkpzrNUq8zw5uGOQoJ7hdXC96Dik-_3CUpU3XTW-sCCCp-ifsY-mQFv8UmZZ1D-TTJlN_Jj1mUcGSkMj89mb3Xdwwb3C50aqGNgT4MbIgHUwZ_DLnBcadfSQ3FKzWvf1qRGKiu1IoINCubweYjQ-0ApWvtneOKITKsjkRs6y8NJFNaaS3eyXSx6D_PLwQkxjfhA9aYATnuO5pB23u8hINXA2IR-jPVbhxj3HBe4VfyZLmZMYcED7c-Bx_wsOPVMLYpnD90tUIICQaDvdISfMEbGkq9ggvKy0MYqrkZsaMWwnKOAaSm29toAmkaORMzxi2zJrOT6-nOIFpAv0P-tfS6KzHmAMKrnSogaByWPWVTUP-GeSW-Gd74_cbnnJk8FusX6PrH7wv_Z8qxpDw4n9y-o-SPUZRDUg=',
-			'3': 'eJwB4AEf_lnXQtODtVEQPYTzN5RH5ekzdON8j6UfgBIzKmwW1uMrQleG82Nq_AC3GmUVA0XDSiL2WzX3HgB6X6dyaNXQNui09IcpCE6JVfVcio7wjtL6a4dB64mBGFk4NCKxpZgr6J5D2tdURTyVdv15lJV0RUXp6OT-ojBKt13ldML-KPFFRe7KuHRwUhN7LF3bY7mdunCw88dpH7Il5HTZkZqVrrb4bu7RlsvgtSFs8bW-JP3emhHG37wen3PFG2OsK0kO1BYN0INshwF8nXnHX6dLnZO-lL7Ec7NsMpvsvnTJYRka6tPEZRQx3bFyMXXA8j2RgVUYxPbC6YSoamWp1Gd9MVPdY_kO8oftLC3jh1o3PdcTmuigdAtH0O6nkmBc3q8vye5Xp72GNnBgLXfGAhBqUv1bd9PvIu61_w-PL6Ch2JWRu9WuGVoY4ctbFJmqnwGXf-4x-0m50J-CaWxVE-c1ekOW7TTRGnpb1voDYWzVzqhcQBt7H9Fx9-DtXuFAxUi8Trxef3JKcSC3AoHXBEkkNAcOWoe7zXPEERcmFhriI4QRZBGjIih_o0lNRiyuoZFO9qmU28eKVbadfcKoIuqQmiFb5oNTPDsM3QXE0g0Hr8HM43URPStEh1B2TkfnuiKQ_rO2850='
+			'3': 'eJwBYACf_4hAkZJe85krAoD5hN50-2M0YuyGmgswr-cis3uap4FNnLMvSfOc4e1IcejWJmykujTnWAlQKRi9cct5k3IRqhu-wFBnDoe_QmwMjJI3FnQtFNp2u3jDo23THEEgKXHYqTMrLos='
 		}
 #		debrid = getSetting('mediafusion.debrid', '3')
 		params = services['3'] # services[debrid]
@@ -67,9 +67,8 @@ class source:
 		for file in files:
 			try:
 				if 'url' in file:
-					query = requests.utils.urlparse(file['url']).query
-					params = dict(i.split('=') for i in query.split('&'))
-					hash = params['info_hash']
+					path = requests.utils.urlparse(file['url']).path.split('/')
+					hash = path[path.index('stream') + 1]
 				else: hash = file['infoHash']
 				file_title = file['behaviorHints']['filename'].split('\n')
 				file_info = [x for x in file['description'].split('\n') if _INFO.match(x)][0]
@@ -136,9 +135,8 @@ class source:
 		for file in files:
 			try:
 				if 'url' in file:
-					query = requests.utils.urlparse(file['url']).query
-					params = dict(i.split('=') for i in query.split('&'))
-					hash = params['info_hash']
+					path = requests.utils.urlparse(file['url']).path.split('/')
+					hash = path[path.index('stream') + 1]
 				else: hash = file['infoHash']
 				file_title = file['description'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]

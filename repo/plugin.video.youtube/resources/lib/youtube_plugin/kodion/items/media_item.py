@@ -10,8 +10,8 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
-import re
 from datetime import date
+from re import compile as re_compile
 
 from . import BaseItem
 from ..compatibility import datetime_infolabel, to_str, unescape, urlencode
@@ -41,6 +41,8 @@ class MediaItem(BaseItem):
         self._premiered = None
         self._scheduled_start_utc = None
         self._year = None
+        self._season = None
+        self._episode = None
 
         self._genres = None
 
@@ -54,7 +56,6 @@ class MediaItem(BaseItem):
         self._plot = plot
         self._rating = None
         self._title = self.get_name()
-        self._track_number = None
 
         self._headers = None
         self._license_key = None
@@ -213,12 +214,6 @@ class MediaItem(BaseItem):
     def get_title(self):
         return self._title
 
-    def set_track_number(self, track_number):
-        self._track_number = int(track_number)
-
-    def get_track_number(self):
-        return self._track_number
-
     def set_headers(self, value):
         self._headers = value
 
@@ -335,6 +330,18 @@ class MediaItem(BaseItem):
     def playlist_item_id(self, value):
         self._playlist_item_id = value
 
+    def set_episode(self, episode):
+        self._episode = int(episode)
+
+    def get_episode(self):
+        return self._episode
+
+    def set_season(self, season):
+        self._season = int(season)
+
+    def get_season(self):
+        return self._season
+
 
 class AudioItem(MediaItem):
     _ALLOWABLE_MEDIATYPES = {CONTENT.AUDIO_TYPE, 'song', 'album', 'artist'}
@@ -376,7 +383,7 @@ class VideoItem(MediaItem):
                              'tvshow', 'season', 'episode',
                              'musicvideo'}
     _DEFAULT_MEDIATYPE = CONTENT.VIDEO_TYPE
-    _RE_IMDB = re.compile(
+    _RE_IMDB = re_compile(
         r'(http(s)?://)?www.imdb.(com|de)/title/(?P<imdbid>[t0-9]+)(/)?'
     )
 
@@ -402,9 +409,7 @@ class VideoItem(MediaItem):
                                         playlist_item_id,
                                         subscription_id)
         self._directors = None
-        self._episode = None
         self._imdb_id = None
-        self._season = None
 
     def add_directors(self, director):
         if director:
@@ -418,12 +423,6 @@ class VideoItem(MediaItem):
     def set_directors(self, directors):
         self._directors = list(directors)
 
-    def set_episode(self, episode):
-        self._episode = int(episode)
-
-    def get_episode(self):
-        return self._episode
-
     def set_imdb_id(self, url_or_id):
         re_match = self._RE_IMDB.match(url_or_id)
         if re_match:
@@ -433,9 +432,3 @@ class VideoItem(MediaItem):
 
     def get_imdb_id(self):
         return self._imdb_id
-
-    def set_season(self, season):
-        self._season = int(season)
-
-    def get_season(self):
-        return self._season

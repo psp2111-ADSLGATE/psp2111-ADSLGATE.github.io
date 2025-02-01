@@ -32,18 +32,6 @@ def get_supported_trakt():
 	windows.run()
 	del windows
 
-def get_supported_simkl():
-	accountmgr_path = addonPath()
-	accountmgr_version = addonVersion()
-	changelogfile = joinPath(supported_path, 'supported_simkl.txt')
-	r = open(changelogfile, 'r', encoding='utf-8', errors='ignore')
-	text = r.read()
-	r.close()
-	heading = '[B]Account Manager - Supported Simkl Add-ons[/B]'
-	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
-	windows.run()
-	del windows
-
 def get_supported_debrid():
 	accountmgr_path = addonPath()
 	accountmgr_version = addonVersion()
@@ -52,6 +40,30 @@ def get_supported_debrid():
 	text = r.read()
 	r.close()
 	heading = '[B]Account Manager - Supported Debrid Add-ons[/B]'
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+
+def get_supported_torbox():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	changelogfile = joinPath(supported_path, 'supported_torbox.txt')
+	r = open(changelogfile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager - Supported Torbox Add-ons[/B]'
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+
+def get_supported_easydebrid():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	changelogfile = joinPath(supported_path, 'supported_easydebrid.txt')
+	r = open(changelogfile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager - Supported Easy Debrid Add-ons[/B]'
 	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
 	windows.run()
 	del windows
@@ -100,6 +112,30 @@ def get_supported_meta():
 	text = r.read()
 	r.close()
 	heading = '[B]Account Manager - Supported Metadata Add-ons[/B]'
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+
+def get_supported_ext():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	changelogfile = joinPath(supported_path, 'supported_ext.txt')
+	r = open(changelogfile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager - Supported External Scrapers[/B]'
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+
+def get_supported_ext_addons():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	changelogfile = joinPath(supported_path, 'supported_ext_addons.txt')
+	r = open(changelogfile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager - Supported CocoScrapers Addons[/B]'
 	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
 	windows.run()
 	del windows

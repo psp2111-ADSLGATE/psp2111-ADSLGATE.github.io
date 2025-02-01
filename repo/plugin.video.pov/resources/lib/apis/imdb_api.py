@@ -317,7 +317,7 @@ def get_imdb(params):
 	elif action == 'imdb_movie_year':
 		result = session.get(url, timeout=timeout).json()
 		try:
-			result = result['d'][0]
+			result = next((i for i in result['d'] if 'y' in i)) # result['d'][0]
 			imdb_list = str(result['y'])
 		except: pass
 	elif action == 'imdb_parentsguide':
@@ -415,12 +415,12 @@ def clear_imdb_cache(silent=False):
 		if not path_exists(maincache_db): return True
 		dbcon = database.connect(maincache_db, timeout=40.0, isolation_level=None)
 		dbcur = dbcon.cursor()
-		dbcur.execute('''PRAGMA synchronous = OFF''')
-		dbcur.execute('''PRAGMA journal_mode = OFF''')
-		dbcur.execute("SELECT id FROM maincache WHERE id LIKE ?", ('imdb_%',))
+		dbcur.execute("""PRAGMA synchronous = OFF""")
+		dbcur.execute("""PRAGMA journal_mode = OFF""")
+		dbcur.execute("""SELECT id FROM maincache WHERE id LIKE ?""", ('imdb_%',))
 		imdb_results = [str(i[0]) for i in dbcur.fetchall()]
 		if not imdb_results: return True
-		dbcur.execute("DELETE FROM maincache WHERE id LIKE ?", ('imdb_%',))
+		dbcur.execute("""DELETE FROM maincache WHERE id LIKE ?""", ('imdb_%',))
 		for i in imdb_results: clear_property(i)
 		return True
 	except: return False

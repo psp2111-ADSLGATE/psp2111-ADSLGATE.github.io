@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.youtube" name="YouTube" version="7.1.1.6+unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
+<addon id="plugin.video.youtube" name="YouTube" version="7.2.0+beta.4.unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.27.1"/>
@@ -35,6 +35,7 @@
         <summary lang="eo">Aldonaĵo por YouTube</summary>
         <summary lang="es_ES">Complemento para YouTube</summary>
         <summary lang="es_MX">Complemento para YouTube</summary>
+        <summary lang="et_EE">YouTube lisamoodul</summary>
         <summary lang="fi_FI">YouTube-lisäosa</summary>
         <summary lang="fr_FR">Plugin pour YouTube</summary>
         <summary lang="he_IL">תוסף עבור YouTube</summary>
@@ -90,6 +91,7 @@
         <disclaimer lang="de_DE">Dieses Plugin ist nicht von Google befürwortet</disclaimer>
         <disclaimer lang="el_GR">Η παρούσα μικροεφαρμογή δεν έχει υϊοθετηθεί από την Google</disclaimer>
         <disclaimer lang="en_GB">This plugin is not endorsed by Google</disclaimer>
+        <disclaimer lang="eo">Tiu aldonaĵo ne estas aprobita de Google</disclaimer>
         <disclaimer lang="es_ES">Este add-on no está respaldado por Google</disclaimer>
         <disclaimer lang="es_MX">Este complemento no está respaldado por Google</disclaimer>
         <disclaimer lang="fi_FI">Google ei tue tätä lisäosaa</disclaimer>
@@ -110,33 +112,20 @@
         <disclaimer lang="vi_VN">Plugin này không được xác nhận bởi Google</disclaimer>
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
-    <news>## v7.1.1.6
+    <news>## v7.2.0+beta.4
 ### Fixed
-- Fix http server not listening on any interface if listen IP is 0.0.0.0
-- Standardise return type of LoginClient.refresh_token
-- Fix curl headers not being used when set on path of setResolvedUrl listitem
-- Fix HEAD requests to MPD manifests
-- Fix various Python2 incompatible changes
-- Properly distinguish between VP9 and VP9.2 with HDR info
-- Fix http server not running when script shows client IP
-- Fix not listing full stream details in selection dialog
-- Fix translated subtitles not being available for some videos
-- Fix labelling for auto dubbed audio tracks
-- Fix regressions in handling VP9.2 video streams
-- Fix error handling items without headers
-- Fix incorrectly determining Kodi release name
-- Fix search window history navigation when using direct links
-- Fix Python2/Android incompatibilty when checking CPU count
-- Fix method used to determine address of local network interface
-- Fix potential infinite loop with corrupted access_manager.json
-- Various improvements to multiple busy dialog crash workarounds
-- Fallback to search listing when search query is empty
-- Fix debug log string formatting error
-- Fix duplicated separators in context menu
-- Fix Kodi builtin using wrong playlist type
-- Ensure http server is started prior to creating MPD for playback
-- Fix shuffle play of playlists not working
-- Fix plugin category label not being applied if content type not set
-- Fix Kodi navigating to root path of Video window if plugin listing fails
-- Fix l</news></extension>
+- Fix repeated subtitle queries/prompts
+- Fix always using video playlist even for audio items
+- Improve error handling and http server shutdown/restart
+
+### Changed
+- Disable http server idle shutdown on Linux systems
+- Fetch last updated subscription feeds first and fetch playlists feeds in My Subscriptions
+- Hide empty/unavailable standard playlists in channels
+- Store date added to playlist for playlist items
+- Add indication to Next page item if listing has been filtered
+
+### New
+- Add "Play recently added" context menu item to playlists
+  - Will play all videos added to the playlist in the last day</news></extension>
 </addon>

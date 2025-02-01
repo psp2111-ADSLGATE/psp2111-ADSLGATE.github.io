@@ -21,13 +21,13 @@ from .methods import (
     loose_version,
     make_dirs,
     merge_dicts,
+    redact_auth,
     redact_ip,
     rm_dir,
     seconds_to_duration,
     select_stream,
     strip_html_from_text,
     to_unicode,
-    validate_ip_address,
     wait,
 )
 from .system_version import current_system_version
@@ -45,12 +45,12 @@ __all__ = (
     'loose_version',
     'make_dirs',
     'merge_dicts',
+    'redact_auth',
     'redact_ip',
     'rm_dir',
     'seconds_to_duration',
     'select_stream',
     'strip_html_from_text',
     'to_unicode',
-    'validate_ip_address',
     'wait',
 )

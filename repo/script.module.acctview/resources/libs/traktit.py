@@ -16,20 +16,15 @@ from resources.libs.common import var
 ORDER = ['seren',
          'fen',
          'fenlt',
-         'affen',
-         'ezra',
          'coal',
          'pov',
          'umbrella',
          'infinity',
          'dradis',
-         'taz',
          'shadow',
          'ghost',
          'base',
-         'unleashed',
          'chains',
-         'md',
          'asgard',
          'patriot',
          'blackl',
@@ -82,36 +77,12 @@ TRAKTID = {
         'saved'    : 'fenlt',
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight'),
         'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_fanart.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_fanart2.jpg'),
         'file'     : os.path.join(CONFIG.TRAKTFOLD, 'fenlt'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.fenlight/databases', 'settings.db'),
         'fenlt'    : '',
         'data'     : [],
         'activate' : 'Addon.OpenSettings(plugin.video.fenlight)'},
-    'affen': {
-        'name'     : 'afFENity',
-        'plugin'   : 'plugin.video.affenity',
-        'saved'    : 'affen',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.affenity'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.affenity/resources/media/', 'affenity_icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.affenity/resources/media/', 'affenity_fanart.png'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'affen'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.affenity/databases', 'settings.db'),
-        'fenlt'    : '',
-        'data'     : [],
-        'activate' : 'Addon.OpenSettings(plugin.video.affenity)'},
-    'ezra': {
-        'name'     : 'Ezra',
-        'plugin'   : 'plugin.video.ezra',
-        'saved'    : 'ezra',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.ezra'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.ezra', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.ezra', 'fanart.png'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'ezra_trakt'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.ezra', 'settings.xml'),
-        'default'  : 'trakt_user',
-        'data'     : ['trakt.expires', 'trakt.token', 'trakt_user', 'trakt.indicators_active','watched_indicators'],
-        'activate' : 'Addon.OpenSettings(plugin.video.ezra)'},
     'coal': {
         'name'     : 'The Coalition',
         'plugin'   : 'plugin.video.coalition',
@@ -154,7 +125,7 @@ TRAKTID = {
         'saved'    : 'infinity',
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity'),
         'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media/', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity', 'fanart.jpg'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media', 'fanart.png'),
         'file'     : os.path.join(CONFIG.TRAKTFOLD, 'infinity_trakt'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.infinity', 'settings.xml'),
         'default'  : 'trakt.user.name',
@@ -172,18 +143,6 @@ TRAKTID = {
         'default'  : 'trakt.username',
         'data'     : ['trakt.token', 'trakt.username', 'trakt.expires', 'trakt.refresh', 'trakt.isauthed'],
         'activate' : 'Addon.OpenSettings(plugin.video.dradis)'},
-    'taz': {
-        'name'     : 'Taz19',
-        'plugin'   : 'plugin.video.taz19',
-        'saved'    : 'taz',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.taz19'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.taz19', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.taz19', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'taz_trakt'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.taz19', 'settings.xml'),
-        'default'  : 'trakt_user',
-        'data'     : ['trakt.token', 'trakt_user', 'trakt.expires', 'trakt_indicators_active', 'watched_indicators'],
-        'activate' : 'Addon.OpenSettings(plugin.video.taz19)'},
     'shadow': {
         'name'     : 'Shadow',
         'plugin'   : 'plugin.video.shadow',
@@ -220,18 +179,6 @@ TRAKTID = {
         'default'  : 'trakt_access_token',
         'data'     : ['trakt_expires_at', 'trakt_refresh_token', 'trakt_access_token'],
         'activate' : 'Addon.OpenSettings(plugin.video.base)'},
-    'unleashed': {
-        'name'     : 'Unleashed',
-        'plugin'   : 'plugin.video.unleashed',
-        'saved'    : 'unleashed',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.unleashed'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.unleashed', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.unleashed', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'unleashed_trakt'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.unleashed', 'settings.xml'),
-        'default'  : 'trakt_access_token',
-        'data'     : ['trakt_expires_at', 'trakt_refresh_token', 'trakt_access_token'],
-        'activate' : 'Addon.OpenSettings(plugin.video.unleashed)'},
     'chains': {
         'name'     : 'Chains Reaction',
         'plugin'   : 'plugin.video.thechains',
@@ -244,18 +191,6 @@ TRAKTID = {
         'default'  : 'trakt_access_token',
         'data'     : ['trakt_expires_at', 'trakt_refresh_token', 'trakt_access_token'],
         'activate' : 'Addon.OpenSettings(plugin.video.thechains)'},
-    'md': {
-        'name'     : 'Magic Dragon',
-        'plugin'   : 'plugin.video.magicdragon',
-        'saved'    : 'md',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.magicdragon'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.magicdragon', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.magicdragon', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'md_trakt'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.magicdragon', 'settings.xml'),
-        'default'  : 'trakt_access_token',
-        'data'     : ['trakt_expires_at', 'trakt_refresh_token', 'trakt_access_token'],
-        'activate' : 'Addon.OpenSettings(plugin.video.magicdragon)'},
     'asgard': {
         'name'     : 'Asgard',
         'plugin'   : 'plugin.video.asgard',
@@ -349,8 +284,8 @@ TRAKTID = {
         'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.chainsgenocide', 'fanart.jpg'),
         'file'     : os.path.join(CONFIG.TRAKTFOLD, 'genocide_trakt'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.chainsgenocide', 'settings.xml'),
-        'default'  : 'trakt.user',
-        'data'     : ['trakt.authed', 'trakt.user', 'trakt.token' 'trakt.refresh', 'trakt.client_id', 'trakt.client_secret'],
+        'default'  : 'trakt.username',
+        'data'     : ['trakt.isauthed', 'trakt.user', 'trakt.token' 'trakt.refresh'],
         'activate' : 'Addon.OpenSettings(plugin.video.chainsgenocide)'},
     'absolution': {
         'name'     : 'Absolution',
@@ -533,12 +468,12 @@ def trakt_user(who):
             except:
                 xbmc.log('%s: Traktit Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
-        elif os.path.exists(TRAKTID[who]['path']) and name == 'afFENity': #Skip afFENity due to not having a settings.xml
+            '''elif os.path.exists(TRAKTID[who]['path']) and name == 'afFENity': #Skip afFENity due to not having a settings.xml
             try:
                 conn = create_conn(var.affen_settings_db)
                 with conn:
                     cur = conn.cursor()
-                    cur.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('trakt.token',))
+                    cur.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('trakt.token',))
                     auth = cur.fetchone()
                     user_data = str(auth)
 
@@ -549,7 +484,7 @@ def trakt_user(who):
                     cur.close()
             except:
                 xbmc.log('%s: Traktit afFENity Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
+                pass'''
         else:
             if os.path.exists(TRAKTID[who]['path']):
                 try:
@@ -654,26 +589,29 @@ def update_trakt(do, who):
     name = TRAKTID[who]['name']
     icon = TRAKTID[who]['icon']
     if do == 'update':
-        if not user == '':
-            try:
-                root = ElementTree.Element(saved)
-
-                for setting in data:
-                    trakt = ElementTree.SubElement(root, 'trakt')
-                    id = ElementTree.SubElement(trakt, 'id')
-                    id.text = setting
-                    value = ElementTree.SubElement(trakt, 'value')
-                    value.text = addonid.getSetting(setting)
-
-                tree = ElementTree.ElementTree(root)
-                tree.write(file)
-                user = addonid.getSetting(default)
-                CONFIG.set_setting(saved, user)
-                logging.log('Trakt Data Saved for {0}'.format(name), level=xbmc.LOGINFO)
-            except Exception as e:
-                logging.log("[Trakt Data] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+        if name == 'Fen Light':
+            pass
         else:
-            logging.log('Trakt Data Not Registered for {0}'.format(name))    
+            if not user == '':
+                try:
+                    root = ElementTree.Element(saved)
+
+                    for setting in data:
+                        trakt = ElementTree.SubElement(root, 'trakt')
+                        id = ElementTree.SubElement(trakt, 'id')
+                        id.text = setting
+                        value = ElementTree.SubElement(trakt, 'value')
+                        value.text = addonid.getSetting(setting)
+
+                    tree = ElementTree.ElementTree(root)
+                    tree.write(file)
+                    user = addonid.getSetting(default)
+                    CONFIG.set_setting(saved, user)
+                    logging.log('Trakt Data Saved for {0}'.format(name), level=xbmc.LOGINFO)
+                except Exception as e:
+                    logging.log("[Trakt Data] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+            else:
+                logging.log('Trakt Data Not Registered for {0}'.format(name))    
     elif do == 'restore':
         if os.path.exists(file):
             tree = ElementTree.parse(file)
@@ -715,7 +653,8 @@ def update_trakt(do, who):
         xbmc.executebuiltin('Container.Refresh()')
     elif do == 'wipeaddon':
         logging.log('{0} SETTINGS: {1}'.format(name, settings))
-        if name == 'Fen Light' or name == 'afFENity':
+        if name == 'Fen Light':
+        #if name == 'Fen Light' or name == 'afFENity':
             pass
         else:
             if os.path.exists(settings):
@@ -786,6 +725,11 @@ def import_list(who):
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]Trakt Data: Imported![/COLOR]'.format(CONFIG.COLOR2))
 
-def open_settings_trakt(who):
+def settings(who):
+    user = None
+    user = TRAKTID[who]['name']
+    return user
+
+def open_settings(who):
     addonid = tools.get_addon_by_id(TRAKTID[who]['plugin'])
     addonid.openSettings()

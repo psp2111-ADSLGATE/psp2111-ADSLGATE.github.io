@@ -15,14 +15,11 @@ from resources.libs.common import var
 
 ORDER = ['fen',
          'fenlt',
-         'affen',
-         'ezra',
          'coal',
          'pov',
          'umb',
          'infinity',
          'dradis',
-         'taz',
          'thecrew',
          'acctmgr',
          'allact',
@@ -36,7 +33,7 @@ EASYID = {
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fen'),
         'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fen/resources/media/', 'fen_icon.png'),
         'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.fen/resources/media/', 'fen_fanart.png'),
-        'file'     : os.path.join(CONFIG.EASYFOLD, 'fen_noneasy'),
+        'file'     : os.path.join(CONFIG.EASYFOLD, 'fen_easy'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.fen', 'settings.xml'),
         'default'  : 'easynews_user',
         'data'     : ['provider.easynews', 'easynews_user', 'easynews_password', 'easynews.use_custom_farm', 'easynews.server_name', 'easynews.title_filter', 'easynews.filter_lang', 'en.priority', 'easynews.lang_filters', 'check.easynews'],
@@ -47,36 +44,12 @@ EASYID = {
         'saved'    : 'fenlt',
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight'),
         'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_fanart.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_fanart2.jpg'),
         'file'     : os.path.join(CONFIG.EASYFOLD, 'fenlt_easy'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.fenlight/databases', 'settings.db'),
-        'default'    : '',
+        'default'  : '',
         'data'     : [],
         'activate' : 'Addon.OpenSettings(plugin.video.fenlight)'},
-    'affen': {
-        'name'     : 'afFENity',
-        'plugin'   : 'plugin.video.affenity',
-        'saved'    : 'affen',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.affenity'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.affenity/resources/media/', 'affenity_icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.affenity/resources/media/', 'affenity_fanart.png'),
-        'file'     : os.path.join(CONFIG.EASYFOLD, 'affen_easy'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.affenity/databases', 'settings.db'),
-        'default'    : '',
-        'data'     : [],
-        'activate' : 'Addon.OpenSettings(plugin.video.affenity)'},
-    'ezra': {
-        'name'     : 'Ezra',
-        'plugin'   : 'plugin.video.ezra',
-        'saved'    : 'ezra',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.ezra'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.ezra', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.ezra', 'fanart.png'),
-        'file'     : os.path.join(CONFIG.EASYFOLD, 'ezra_easy'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.ezra', 'settings.xml'),
-        'default'  : 'easynews_user',
-        'data'     : ['provider.easynews', 'easynews_user',  'easynews_password', 'easynews.title_filter', 'easynews.filter_lang', 'en.priority', 'easynews.lang_filters', 'easynews_moderation', 'check.easynews'],
-        'activate' : 'Addon.OpenSettings(plugin.video.ezra)'},
     'coal': {
         'name'     : 'The Coalition',
         'plugin'   : 'plugin.video.coalition',
@@ -119,7 +92,7 @@ EASYID = {
         'saved'    : 'infinity',
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity'),
         'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media/', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity', 'fanart.jpg'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media', 'fanart.png'),
         'file'     : os.path.join(CONFIG.EASYFOLD, 'infinity_easy'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.infinity', 'settings.xml'),
         'default'  : 'easynews.user',
@@ -137,18 +110,6 @@ EASYID = {
         'default'  : 'easynews.username',
         'data'     : ['easynews.username', 'easynews.password', 'easynews.priority'],
         'activate' : 'Addon.OpenSettings(plugin.video.dradis)'},
-    'taz': {
-        'name'     : 'Taz19',
-        'plugin'   : 'plugin.video.taz19',
-        'saved'    : 'taz',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.taz19'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.taz19', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.taz19', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.EASYFOLD, 'taz_easy'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.taz19', 'settings.xml'),
-        'default'  : 'easynews_user',
-        'data'     : ['easynews_user', 'easynews_password', 'en.priority'],
-        'activate' : 'Addon.OpenSettings(plugin.video.taz19)'},
    'thecrew': {
         'name'     : 'The Crew',
         'plugin'   : 'plugin.video.thecrew',
@@ -234,12 +195,12 @@ def easy_user(who):
             except:
                 xbmc.log('%s: Easyit Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
-        elif os.path.exists(EASYID[who]['path']) and name == 'afFENity':
+            '''elif os.path.exists(EASYID[who]['path']) and name == 'afFENity':
             try:
                 conn = create_conn(var.affen_settings_db)
                 with conn:
                     cur = conn.cursor()
-                    cur.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('easynews_user',))
+                    cur.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('easynews_user',))
                     auth = cur.fetchone()
                     user_data = str(auth)
 
@@ -250,7 +211,7 @@ def easy_user(who):
                     cur.close()
             except:
                 xbmc.log('%s: Easyit afFENity Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
+                pass'''
         else:
             if os.path.exists(EASYID[who]['path']):
                 try:
@@ -310,26 +271,31 @@ def update_easy(do, who):
     icon = EASYID[who]['icon']
 
     if do == 'update':
-        try:
-            root = ElementTree.Element(saved)
-            
-            for setting in data:
-                easy = ElementTree.SubElement(root, 'easy')
-                id = ElementTree.SubElement(easy, 'id')
-                id.text = setting
-                value = ElementTree.SubElement(easy, 'value')
-                value.text = addonid.getSetting(setting)
-              
-            tree = ElementTree.ElementTree(root)
-            tree.write(file)
-            
-            user = addonid.getSetting(default)
-            CONFIG.set_setting(saved, user)
-            
-            logging.log('Easynews Info Saved for {0}'.format(name), level=xbmc.LOGINFO)
-        except Exception as e:
-            logging.log("[Easynews Info] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
-
+        if name == 'Fen Light':
+            pass
+        else:
+            if not user == '':
+                try:
+                    root = ElementTree.Element(saved)
+                    
+                    for setting in data:
+                        easy = ElementTree.SubElement(root, 'easy')
+                        id = ElementTree.SubElement(easy, 'id')
+                        id.text = setting
+                        value = ElementTree.SubElement(easy, 'value')
+                        value.text = addonid.getSetting(setting)
+                      
+                    tree = ElementTree.ElementTree(root)
+                    tree.write(file)
+                    
+                    user = addonid.getSetting(default)
+                    CONFIG.set_setting(saved, user)
+                    
+                    logging.log('Easynews Info Saved for {0}'.format(name), level=xbmc.LOGINFO)
+                except Exception as e:
+                    logging.log("[Easynews Info] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+            else:
+                logging.log('OffCloud Info Not Registered for {0}'.format(name))
     elif do == 'restore':
         if os.path.exists(file):
             tree = ElementTree.parse(file)
@@ -371,21 +337,25 @@ def update_easy(do, who):
         xbmc.executebuiltin('Container.Refresh()')
     elif do == 'wipeaddon':
         logging.log('{0} SETTINGS: {1}'.format(name, settings))
-        if os.path.exists(settings):
-            try:
-                tree = ElementTree.parse(settings)
-                root = tree.getroot()
-                
-                for setting in root.findall('setting'):
-                    if setting.attrib['id'] in data:
-                        logging.log('Removing Setting: {0}'.format(setting.attrib))
-                        root.remove(setting)
-                            
-                tree.write(settings)
-                
-            except Exception as e:
-                logging.log("[Easynews Info] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
-        xbmc.executebuiltin('Container.Refresh()')
+        if name == 'Fen Light':
+        #if name == 'Fen Light' or name == 'afFENity':
+            pass
+        else:
+            if os.path.exists(settings):
+                try:
+                    tree = ElementTree.parse(settings)
+                    root = tree.getroot()
+                    
+                    for setting in root.findall('setting'):
+                        if setting.attrib['id'] in data:
+                            logging.log('Removing Setting: {0}'.format(setting.attrib))
+                            root.remove(setting)
+                                
+                    tree.write(settings)
+                    
+                except Exception as e:
+                    logging.log("[Easynews Info] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+            xbmc.executebuiltin('Container.Refresh()')
     
 def auto_update(who):
     if who == 'all':
@@ -440,6 +410,11 @@ def import_list(who):
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]Easynews Info: Imported![/COLOR]'.format(CONFIG.COLOR2))
 
-def open_settings_easy(who):
+def settings(who):
+    user = None
+    user = EASYID[who]['name']
+    return user
+
+def open_settings(who):
     addonid = tools.get_addon_by_id(EASYID[who]['plugin'])
     addonid.openSettings()

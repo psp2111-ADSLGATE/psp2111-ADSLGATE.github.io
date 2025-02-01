@@ -160,7 +160,7 @@ def execute_nextep(meta, nextep_settings):
 			kodi_utils.set_property('pov_total_autoplays', str(current_number))
 			if open_window(('windows.next_episode', 'NextEpisode'), 'next_episode.xml', meta=nextep_meta, function='confirm'): return True
 			else:
-				kodi_utils.notification(32736, 2000)
+				kodi_utils.notification(32736, 1500)
 				return False
 		else:
 			current_number += 1

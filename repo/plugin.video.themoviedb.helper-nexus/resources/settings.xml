@@ -685,7 +685,7 @@
                 </setting>
                 <setting id="service_listitem_read_ahead" type="boolean" label="32480" help="">
                     <level>0</level>
-                    <default>false</default>
+                    <default>False</default>
                     <control type="toggle"/>
                 </setting>
                 <setting id="recache_kodidb" type="action" label="32467" help="">
@@ -941,10 +941,17 @@
                         <heading>32472</heading>
                     </control>
                 </setting>
-                <setting id="use_mem_cache" type="boolean" label="32465" help="32464">
+                <setting id="mem_cache_level" type="integer" label="32512" help="32464">
                     <level>0</level>
-                    <default>False</default>
-                    <control type="toggle"/>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="13170">0</option>
+                            <option label="32511">1</option>
+                            <option label="20422">2</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="integer"/>
                 </setting>
                 <setting id="delete_cache" type="action" label="32386" help="">
                     <level>0</level>

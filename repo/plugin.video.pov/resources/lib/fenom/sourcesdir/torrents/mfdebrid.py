@@ -1,4 +1,4 @@
-# created by Venom for Fenomscrapers (updated 3-02-2022)
+# created by kodifitzwell for Fenomscrapers
 """
 	Fenomscrapers Project
 """
@@ -18,8 +18,8 @@ class source:
 	_queue = queue.SimpleQueue()
 	def __init__(self):
 		direct = 'eJwBYACf_4hAkZJe85krAoD5hN50-2M0YuyGmgswr-cis3uap4FNnLMvSfOc4e1IcejWJmykujTnWAlQKRi9cct5k3IRqhu-wFBnDoe_QmwMjJI3FnQtFNp2u3jDo23THEEgKXHYqTMrLos='
-		self.params = getSetting('mfdebrid.token') or direct
-		self.cache = 'MF' if self.params == direct else 'MF+'
+		token = getSetting('mfdebrid.token')
+		self.params, self.cache = (token, 'MF+') if token else (direct, 'MF')
 		self.language = ['en']
 		self.base_link = getSetting('mfdebrid.url') or "https://mediafusion.elfhosted.com"
 		self.movieSearch_link = f"/{self.params}/stream/movie/%s.json"
@@ -29,7 +29,6 @@ class source:
 	def sources(self, data, hostDict):
 		sources = []
 		if not data: return sources
-		if not self.params: return sources
 		append = sources.append
 		try:
 			title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
@@ -63,9 +62,8 @@ class source:
 		for file in files:
 			try:
 				if 'url' in file:
-					query = requests.utils.urlparse(file['url']).query
-					params = dict(i.split('=') for i in query.split('&'))
-					hash = params['info_hash']
+					path = requests.utils.urlparse(file['url']).path.split('/')
+					hash = path[path.index('stream') + 1]
 				else: hash = file['infoHash']
 				file_title = file['behaviorHints']['filename'].split('\n')
 				file_info = [x for x in file['description'].split('\n') if _INFO.match(x)][0]
@@ -111,7 +109,6 @@ class source:
 	def sources_packs(self, data, hostDict, search_series=False, total_seasons=None, bypass_filter=False):
 		sources = []
 		if not data: return sources
-		if not self.params: return sources
 		if not getSetting('mfdebrid.packs') == 'true': return sources
 		sources_append = sources.append
 		try:
@@ -133,9 +130,8 @@ class source:
 		for file in files:
 			try:
 				if 'url' in file:
-					query = requests.utils.urlparse(file['url']).query
-					params = dict(i.split('=') for i in query.split('&'))
-					hash = params['info_hash']
+					path = requests.utils.urlparse(file['url']).path.split('/')
+					hash = path[path.index('stream') + 1]
 				else: hash = file['infoHash']
 				file_title = file['description'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]

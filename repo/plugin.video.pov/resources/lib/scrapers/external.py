@@ -254,7 +254,7 @@ class source:
 					try:
 						size = i_get('size')
 #						if 'package' in i and provider != 'torrentio':
-						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'nyaaio', 'comet', 'mediafusion', 'tidebrid', 'mfdebrid'):
+						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'nyaaio', 'mediafusion', 'tidebrid', 'mfdebrid'):
 							if i_get('package') == 'season': divider = self.season_divider
 							else: divider = self.show_divider
 							size = float(size) / divider

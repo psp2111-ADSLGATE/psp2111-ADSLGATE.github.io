@@ -332,21 +332,21 @@ class PremiumizeAPI:
 					user_cloud_success = True
 				if not user_cloud_success:
 					for i in user_cloud_cache:
-						dbcur.execute("""DELETE FROM maincache WHERE id=?""", (i,))
+						dbcur.execute("""DELETE FROM maincache WHERE id = ?""", (i,))
 						clear_property(str(i))
 					dbcon.commit()
 					user_cloud_success = True
 			except: user_cloud_success = False
 			# DOWNLOAD LINKS
 			try:
-				dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_pm_transfers_list',))
-				clear_property("pov_pm_transfers_list")
+				dbcur.execute("""DELETE FROM maincache WHERE id = ?""", ('pov_pm_transfers_list',))
+				clear_property('pov_pm_transfers_list')
 				dbcon.commit()
 				download_links_success = True
 			except: download_links_success = False
 			# HOSTERS
 			try:
-				dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_pm_valid_hosts',))
+				dbcur.execute("""DELETE FROM maincache WHERE id = ?""", ('pov_pm_valid_hosts',))
 				clear_property('pov_pm_valid_hosts')
 				dbcon.commit()
 				dbcon.close()

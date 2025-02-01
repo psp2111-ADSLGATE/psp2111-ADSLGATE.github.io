@@ -9,7 +9,7 @@ from caches.settings_cache import get_setting, set_setting
 from modules.utils import copy2clip
 from modules.source_utils import supported_video_extensions, seas_ep_filter, EXTRAS
 from modules import kodi_utils
-logger = kodi_utils.logger
+# logger = kodi_utils.logger
 
 sleep, confirm_dialog, ok_dialog, xbmc_monitor = kodi_utils.sleep, kodi_utils.confirm_dialog, kodi_utils.ok_dialog, kodi_utils.xbmc_monitor
 progress_dialog, get_icon, notification = kodi_utils.progress_dialog, kodi_utils.get_icon, kodi_utils.notification
@@ -214,7 +214,7 @@ class RealDebridAPI:
 			if not torrent_info['links'] or 'error' in torrent_info:
 				self.delete_torrent(torrent_id)
 				return None
-			sleep(1000)
+			sleep(200)
 			while elapsed_time <= 4 and not transfer_finished:
 				active_count = self.torrents_activeCount()
 				active_list = active_count['list']
@@ -242,6 +242,7 @@ class RealDebridAPI:
 						else: match = True; break
 				if match: index = [i[0] for i in selected_files if i[1]['path'] == correct_files[0]['path']][0]
 			else:
+				if self._m2ts_check(selected_files): self.delete_torrent(torrent_id) ; return None
 				for value in selected_files:
 					filename = re.sub(r'[^A-Za-z0-9-]+', '.', value[1]['path'].rsplit('/', 1)[1].replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
 					filename_info = filename.replace(compare_title, '')
@@ -299,20 +300,9 @@ class RealDebridAPI:
 		return [i[0] for i in sorted_list]
 
 	def _m2ts_check(self, folder_details):
-		for item in folder_details:
-			if any(i['filename'].endswith('.m2ts') for i in item.values()): return True
+		for idx, item in folder_details:
+			if item['path'].endswith('.m2ts'): return True
 		return False
-
-	def _m2ts_key_value(self, torrent_files):
-		total_max_size, total_min_length = 0, 10000000000
-		for item in torrent_files:
-			max_filesize, item_length = max([i['filesize'] for i in item.values()]), len(item)
-			if max_filesize >= total_max_size:
-				if item_length < total_min_length:
-					total_max_size, total_min_length = max_filesize, item_length
-					dict_item = item
-					key = int([k for k,v in iter(item.items()) if v['filesize'] == max_filesize][0])
-
 
 	def _get(self, url):
 		original_url = url

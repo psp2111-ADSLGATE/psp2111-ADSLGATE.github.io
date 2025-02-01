@@ -13,11 +13,38 @@ from resources.libs.common import logging
 from resources.libs.common import tools
 from resources.libs.common import var
 
-ORDER = ['pov',
+ORDER = ['fenlt',
+         'umb',
+         'pov',
+         'infin',
          'dradis',
          'acctmgr']
 
 OFFCID = {
+    'fenlt': {
+        'name'     : 'Fen Light',
+        'plugin'   : 'plugin.video.fenlight',
+        'saved'    : 'fenlt',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.fenlight/resources/media/', 'fenlight_fanart2.jpg'),
+        'file'     : os.path.join(CONFIG.OFFCFOLD, 'fenlt_offc'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.fenlight/databases', 'settings.db'),
+        'default'  : '',
+        'data'     : [],
+        'activate' : 'Addon.OpenSettings(plugin.video.fenlight)'},
+    'umb': {
+        'name'     : 'Umbrella',
+        'plugin'   : 'plugin.video.umbrella',
+        'saved'    : 'umb',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.umbrella'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.umbrella', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.umbrella', 'fanart.png'),
+        'file'     : os.path.join(CONFIG.OFFCFOLD, 'umb_offc'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.umbrella', 'settings.xml'),
+        'default'  : 'offcloudtoken',
+        'data'     : ['offcloudtoken', 'offcloud_enable', 'offcloud.username', 'offcloud.priority', 'oc_cloud.enabled',],
+        'activate' : 'Addon.OpenSettings(plugin.video.umbrella)'},
     'pov': {
         'name'     : 'POV',
         'plugin'   : 'plugin.video.pov',
@@ -30,6 +57,18 @@ OFFCID = {
         'default'  : 'oc.token',
         'data'     : ['oc.token', 'oc.account_id', 'oc.enabled', 'oc.torrent.enabled', 'provider.oc_cloud', 'oc_cloud.title_filter', 'check.oc_cloud', 'results.sort_occloud_first', 'oc.priority'],
         'activate' : 'Addon.OpenSettings(plugin.video.pov)'},
+    'infin': {
+        'name'     : 'Infinity',
+        'plugin'   : 'plugin.video.infinity',
+        'saved'    : 'infin',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media', 'fanart.png'),
+        'file'     : os.path.join(CONFIG.OFFCFOLD, 'infinity_offc'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.infinity', 'settings.xml'),
+        'default'  : 'offcloudtoken',
+        'data'     : ['offcloudtoken', 'offcloud.username', 'offcloud.enable', 'oc_cloud.enabled', 'offcloud.priority'],
+        'activate' : 'Addon.OpenSettings(plugin.video.infinity)'},
     'dradis': {
         'name'     : 'Dradis',
         'plugin'   : 'plugin.video.dradis',
@@ -56,16 +95,49 @@ OFFCID = {
         'activate' : 'Addon.OpenSettings(script.module.accountmgr)'}
 }
 
+def create_conn(db_file):
+    try:
+        conn = None
+        try:
+            conn = sqlite3.connect(db_file)
+        except Error as e:
+            print(e)
+
+        return conn
+    except:
+        xbmc.log('%s: offit.py Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
 def offc_user(who):
-    user = None
+    user_oc = None
     if OFFCID[who]:
-        if os.path.exists(OFFCID[who]['path']):
-            try:
-                add = tools.get_addon_by_id(OFFCID[who]['plugin'])
-                user = add.getSetting(OFFCID[who]['default'])
-            except:
-                pass
-    return user
+       name = OFFCID[who]['name']
+       if os.path.exists(OFFCID[who]['path']) and name == 'Fen Light':
+           try:
+               # Create database connection
+               conn = create_conn(var.fenlt_settings_db)
+               with conn:
+                   cur = conn.cursor()
+                   cur.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('oc.token',)) #Get setting to compare
+                   auth = cur.fetchone()
+                   user_data = str(auth)
+
+                   if user_data == "('empty_setting',)" or user_data == "('',)" or user_data == '' or user_data == None: #Check if addon is authorized
+                       user_oc = None #Return if not authorized
+                   else:
+                       user_oc = user_data #Return if authorized
+                   cur.close()
+           except:
+               xbmc.log('%s: Offcit Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
+               pass
+       else:
+           if os.path.exists(OFFCID[who]['path']):
+               try:
+                   add = tools.get_addon_by_id(OFFCID[who]['plugin'])
+                   user_oc = add.getSetting(OFFCID[who]['default'])
+               except:
+                   pass
+    return user_oc
     
 def offc_it(do, who):
     if not os.path.exists(CONFIG.ADDON_DATA):
@@ -116,28 +188,31 @@ def update_offc(do, who):
     icon = OFFCID[who]['icon']
 
     if do == 'update':
-        if not user == '':
-            try:
-                root = ElementTree.Element(saved)
-                
-                for setting in data:
-                    offc = ElementTree.SubElement(root, 'offc')
-                    id = ElementTree.SubElement(offc, 'id')
-                    id.text = setting
-                    value = ElementTree.SubElement(offc, 'value')
-                    value.text = addonid.getSetting(setting)
-                  
-                tree = ElementTree.ElementTree(root)
-                tree.write(file)
-                
-                user = addonid.getSetting(default)
-                CONFIG.set_setting(saved, user)
-                
-                logging.log('OffCloud Info Saved for {0}'.format(name), level=xbmc.LOGINFO)
-            except Exception as e:
-                logging.log("[OffCloud Info] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+        if name == 'Fen Light':
+            pass
         else:
-            logging.log('OffCloud Info Not Registered for {0}'.format(name))
+            if not user == '':
+                try:
+                    root = ElementTree.Element(saved)
+                    
+                    for setting in data:
+                        offc = ElementTree.SubElement(root, 'offc')
+                        id = ElementTree.SubElement(offc, 'id')
+                        id.text = setting
+                        value = ElementTree.SubElement(offc, 'value')
+                        value.text = addonid.getSetting(setting)
+                      
+                    tree = ElementTree.ElementTree(root)
+                    tree.write(file)
+                    
+                    user = addonid.getSetting(default)
+                    CONFIG.set_setting(saved, user)
+                    
+                    logging.log('OffCloud Info Saved for {0}'.format(name), level=xbmc.LOGINFO)
+                except Exception as e:
+                    logging.log("[OffCloud Info] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+            else:
+                logging.log('OffCloud Info Not Registered for {0}'.format(name))
     elif do == 'restore':
         if os.path.exists(file):
             tree = ElementTree.parse(file)
@@ -179,21 +254,25 @@ def update_offc(do, who):
         xbmc.executebuiltin('Container.Refresh()')
     elif do == 'wipeaddon':
         logging.log('{0} SETTINGS: {1}'.format(name, settings))
-        if os.path.exists(settings):
-            try:
-                tree = ElementTree.parse(settings)
-                root = tree.getroot()
-                
-                for setting in root.findall('setting'):
-                    if setting.attrib['id'] in data:
-                        logging.log('Removing Setting: {0}'.format(setting.attrib))
-                        root.remove(setting)
-                            
-                tree.write(settings)
-                
-            except Exception as e:
-                logging.log("[OffCloud Info] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
-        xbmc.executebuiltin('Container.Refresh()')
+        if name == 'Fen Light':
+        #if name == 'Fen Light' or name == 'afFENity':
+            pass
+        else:
+            if os.path.exists(settings):
+                try:
+                    tree = ElementTree.parse(settings)
+                    root = tree.getroot()
+                    
+                    for setting in root.findall('setting'):
+                        if setting.attrib['id'] in data:
+                            logging.log('Removing Setting: {0}'.format(setting.attrib))
+                            root.remove(setting)
+                                
+                    tree.write(settings)
+                    
+                except Exception as e:
+                    logging.log("[OffCloud Info] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+            xbmc.executebuiltin('Container.Refresh()')
 
 def auto_update(who):
     if who == 'all':
@@ -248,6 +327,11 @@ def import_list(who):
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]OffCloud Info: Imported![/COLOR]'.format(CONFIG.COLOR2))
 
-def open_settings_offc(who):
+def settings(who):
+    user = None
+    user = OFFCID[who]['name']
+    return user
+
+def open_settings(who):
     addonid = tools.get_addon_by_id(OFFCID[who]['plugin'])
     addonid.openSettings()

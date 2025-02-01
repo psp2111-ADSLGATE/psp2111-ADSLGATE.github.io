@@ -467,7 +467,7 @@ class Sources:
 						control.sleep(200)
 					if not self.url: continue
 					# if not any(x in self.url.lower() for x in video_extensions):
-					if not any(x in self.url.lower() for x in video_extensions) and 'plex.direct:' not in self.url and 'torbox' not in self.url:
+					if not any(x in self.url.lower() for x in video_extensions) and 'plex.direct:' not in self.url and 'torbox' not in self.url and 'tb-cdn' not in self.url and 'plugin://plugin.video.composite_for_plex' not in self.url:
 						log_utils.log('Playback not supported for (playItem()): %s' % self.url, level=log_utils.LOGWARNING)
 						continue
 					if homeWindow.getProperty('umbrella.window_keep_alive') != 'true':
@@ -791,7 +791,7 @@ class Sources:
 							log_utils.log('preResolve failed for : next_sources[i]=%s' % str(next_sources[i]), level=log_utils.LOGWARNING)
 						continue
 					# if not any(x in url.lower() for x in video_extensions):
-					if not any(x in url.lower() for x in video_extensions) and 'plex.direct:' not in url and 'torbox' not in url:
+					if not any(x in self.url.lower() for x in video_extensions) and 'plex.direct:' not in self.url and 'torbox' not in self.url and 'tb-cdn' not in self.url and 'plugin://plugin.video.composite_for_plex' not in self.url:
 						if self.debuglog:
 							log_utils.log('preResolve Playback not supported for (sourcesAutoPlay()): %s' % url, level=log_utils.LOGWARNING)
 						continue
@@ -1272,7 +1272,7 @@ class Sources:
 					if control.monitor.abortRequested(): return sysexit()
 					url = self.sourcesResolve(items[i])
 					# if not any(x in url.lower() for x in video_extensions):
-					if not any(x in url.lower() for x in video_extensions) and 'plex.direct:' not in url and 'torbox' not in url:
+					if not any(x in self.url.lower() for x in video_extensions) and 'plex.direct:' not in self.url and 'torbox' not in self.url and 'tb-cdn' not in self.url and 'plugin://plugin.video.composite_for_plex' not in self.url:
 						log_utils.log('Playback not supported for (sourcesAutoPlay()): %s' % url, level=log_utils.LOGWARNING)
 						continue
 					if url:
@@ -1357,7 +1357,7 @@ class Sources:
 		try:
 			if provider in ('Real-Debrid', 'RD'):
 				from resources.lib.debrid.realdebrid import RealDebrid as debrid_function
-			elif provider in ('Premiumize.me', 'PM'):
+			elif provider in ('Premiumize', 'PM'):
 				from resources.lib.debrid.premiumize import Premiumize as debrid_function
 			elif provider in ('AllDebrid', 'AD'):
 				from resources.lib.debrid.alldebrid import AllDebrid as debrid_function
@@ -1379,23 +1379,31 @@ class Sources:
 			display_list = ['%02d | [B]%.2f GB[/B] | [I]%s[/I]' % (count, i['size'], i['filename'].upper()) for count, i in enumerate(debrid_files, 1)]
 			control.hide()
 			chosen = control.selectDialog(display_list, heading=name)
-			if chosen < 0: return None
+			if chosen < 0: 
+				if provider in ('TorBox', 'TB'):
+					if not getSetting('torbox.saveToCloud') == 'true':
+						torrent_id = debrid_files[0].get('link').split(',')[0]
+						debrid_function().delete_torrent(torrent_id)
+				return None
 			if control.condVisibility("Window.IsActive(source_results.xml)"): # close "source_results.xml" here after selection is made and valid
 				control.closeAll()
 			control.busy()
 			chosen_result = debrid_files[chosen]
 			if provider in ('Real-Debrid', 'RD'):
 				self.url = debrid_function().unrestrict_link(chosen_result['link'])
-			elif provider in ('Premiumize.me', 'PM'):
+			elif provider in ('Premiumize', 'PM'):
 				self.url = debrid_function().add_headers_to_url(chosen_result['link'])
 			elif provider in ('AllDebrid', 'AD'):
 				self.url = debrid_function().unrestrict_link(chosen_result['link'])
 			elif provider in ('Offcloud', 'OC'):
 				self.url = chosen_result['link']
 			elif provider in ('EasyDebrid', 'ED'):
-				self.url = debrid_function().unrestrict_link(chosen_result['link'])
+				self.url = chosen_result['link']
 			elif provider in ('TorBox', 'TB'):
 				self.url = debrid_function().unrestrict_link(chosen_result['link'])
+				if not getSetting('torbox.saveToCloud') == 'true':
+					torrent_id = chosen_result.get('link').split(',')[0]
+					debrid_function().delete_torrent(torrent_id)
 			from resources.lib.modules import player
 			meta = jsloads(unquote(homeWindow.getProperty(self.metaProperty).replace('%22', '\\"'))) # needed for CM "showDebridPack" action
 			title = meta['tvshowtitle']
@@ -1672,6 +1680,8 @@ class Sources:
 			# cached = cached['magnets']
 			count = 0
 			for i in torrent_List:
+				if 'package' in i: i.update({'source': 'unchecked (pack) torrent'})
+				else: i.update({'source': 'unchecked'})
 				# if 'error' in cached[count]: # list index out of range
 				# 	count += 1
 				# 	continue
@@ -1681,7 +1691,6 @@ class Sources:
 				# else:
 				# 	if 'package' in i: i.update({'source': 'cached (pack) torrent'})
 				# 	else: i.update({'source': 'cached torrent'})
-				i.update({'source': 'unchecked'})
 				count += 1
 			return torrent_List
 		except: log_utils.error()
@@ -1710,14 +1719,13 @@ class Sources:
 			cached = EasyDebrid().check_cache(hashList)
 			if not cached: return None
 			cached = cached['cached']
+			cached_torrent_list = []
 			for i, is_cached in zip(torrent_List, cached):
 				if i['hash'].lower() and is_cached:
 					if 'package' in i: i.update({'source': 'cached (pack) torrent'})
 					else: i.update({'source': 'cached torrent'})
-				else:
-					if 'package' in i: i.update({'source': 'uncached (pack) torrent'})
-					else: i.update({'source': 'uncached torrent'})
-			return torrent_List
+					cached_torrent_list.append(i)
+			return cached_torrent_list
 		except: log_utils.error()
 
 	def tb_cache_chk_list(self, torrent_List, hashList):
@@ -1760,7 +1768,8 @@ class Sources:
 		if len(torrent_List) == 0: return
 		try:
 			for i in torrent_List:
-				i.update({'source': 'unchecked'})
+				if 'package' in i: i.update({'source': 'unchecked (pack) torrent'})
+				else: i.update({'source': 'unchecked'})
 			return torrent_List
 		except: log_utils.error()
 

@@ -2,7 +2,7 @@
 import sys
 from modules import kodi_utils, settings
 from modules.metadata import tvshow_meta
-from modules.utils import get_datetime, adjust_premiered_date
+from modules.utils import get_datetime, adjust_premiered_date, make_thread_list
 from modules.watched_status import get_database, watched_info_season, get_watched_status_season, get_progress_status_season
 # logger = kodi_utils.logger
 
@@ -29,6 +29,7 @@ def build_season_list(params):
 				season_name = item_get('name', None)
 				season_special = season_number == 0
 				title = item_get('name', None) or season_name_str % season_number
+				if custom_order is not None: title = '%s - %s' % (show_title, title)
 				poster = tmdb_poster % poster_path if poster_path is not None else show_poster
 				thumb = poster or show_landscape or show_fanart
 				try: year = air_date.split('-')[0]
@@ -93,14 +94,26 @@ def build_season_list(params):
 	episode_run_time, season_data, total_seasons = meta_get('duration'), meta_get('season_data'), meta_get('total_seasons')
 	show_poster, show_fanart = meta_get('poster') or poster_empty, meta_get('fanart') or fanart_empty
 	show_clearlogo, show_landscape = meta_get('clearlogo') or '', meta_get('landscape') or ''
+	custom_order = params.get('custom_order', None)
 	if show_specials(): season_data.sort(key=lambda i: (i['season_number'] == 0, i['season_number']))
+	elif custom_order is not None: season_data = [i for i in season_data if i['season_number'] == params['season']]
 	else:
 		season_data = [i for i in season_data if not i['season_number'] == 0]
 		season_data.sort(key=lambda k: k['season_number'])
 	watched_info = watched_info_season(tmdb_id, get_database(watched_indicators))
-	add_items(handle, list(_process()))
+	list_items = list(list(_process()))
+	if custom_order is not None: return (list_items[0], custom_order)
+	add_items(handle, list_items)
 	category_name = show_title
 	set_content(handle, content_type)
 	set_category(handle, category_name)
 	end_directory(handle, cacheToDisc=False if is_external else True)
 	set_view_mode(view_mode, content_type, is_external)
+
+def single_seasons(seasons_list):
+	def _process(item): season_results_append(build_season_list(item))
+	season_results = []
+	season_results_append = season_results.append
+	threads = make_thread_list(_process, seasons_list)
+	[i.join() for i in threads]
+	return [i for i in season_results if i]

@@ -143,7 +143,7 @@ class DialogSelectPreselectedItems():
             return self.list_items.index(value)
 
     def get_preselected_output(self):
-        preselected_index = self.get_preselected_value(self.preselected_values)
+        preselected_index = self.get_preselected_value(self.preselected_values[0])
         if preselected_index is None:
             return self.empty
         return preselected_index

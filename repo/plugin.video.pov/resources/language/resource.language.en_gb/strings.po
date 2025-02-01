@@ -302,7 +302,9 @@ msgctxt "#32074"
 msgid "Include Trakt Watchlist"
 msgstr ""
 
-# msgctxt "32075"
+msgctxt "#32075"
+msgid "Most Favorited This Week"
+msgstr ""
 
 msgctxt "#32076"
 msgid "Include Airdate in Title"

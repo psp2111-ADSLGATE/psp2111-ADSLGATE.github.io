@@ -3,7 +3,7 @@ from modules.kodi_utils import sleep, confirm_dialog, close_all_dialog, trakt_db
 
 timeout = 60
 SELECT = 'SELECT id FROM trakt_data'
-DELETE = 'DELETE FROM trakt_data WHERE id=?'
+DELETE = 'DELETE FROM trakt_data WHERE id = ?'
 DELETE_LIKE = 'DELETE FROM trakt_data WHERE id LIKE "%s"'
 WATCHED_INSERT = 'INSERT OR IGNORE INTO watched_status VALUES (?, ?, ?, ?, ?, ?)'
 WATCHED_DELETE = 'DELETE FROM watched_status WHERE db_type = ?'
@@ -40,15 +40,15 @@ class TraktWatched:
 
 	def _delete(self, command, args):
 		self.dbcur.execute(command, args)
-		self.dbcur.execute('VACUUM')
+		self.dbcur.execute("""VACUUM""")
 
 	def _connect_database(self):
 		self.dbcon = database.connect(trakt_db, timeout=timeout, isolation_level=None)
 
 	def _set_PRAGMAS(self):
 		self.dbcur = self.dbcon.cursor()
-		self.dbcur.execute('''PRAGMA synchronous = OFF''')
-		self.dbcur.execute('''PRAGMA journal_mode = OFF''')
+		self.dbcur.execute("""PRAGMA synchronous = OFF""")
+		self.dbcur.execute("""PRAGMA journal_mode = OFF""")
 
 class TraktCache:
 	def get(self, string):
@@ -81,9 +81,9 @@ class TraktCache:
 
 	def set_PRAGMAS(self, dbcon):
 		dbcur = dbcon.cursor()
-		dbcur.execute('''PRAGMA synchronous = OFF''')
-		dbcur.execute('''PRAGMA journal_mode = OFF''')
-		dbcur.execute('''PRAGMA mmap_size = 268435456''')
+		dbcur.execute("""PRAGMA synchronous = OFF""")
+		dbcur.execute("""PRAGMA journal_mode = OFF""")
+		dbcur.execute("""PRAGMA mmap_size = 268435456""")
 		return dbcur
 
 _cache = TraktCache()
@@ -101,7 +101,7 @@ def reset_activity(latest_activities):
 	try:
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
-		dbcur.execute('SELECT data FROM trakt_data WHERE id=?', (string,))
+		dbcur.execute(TC_BASE_GET, (string,))
 		cached_data = dbcur.fetchone()
 		if cached_data: cached_data = eval(cached_data[0])
 		else: cached_data = default_activities()
@@ -166,7 +166,7 @@ def clear_all_trakt_cache_data(silent=False, refresh=True):
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
 		for table in ('trakt_data', 'progress', 'watched_status'): dbcur.execute(BASE_DELETE % table)
-		dbcur.execute('VACUUM')
+		dbcur.execute("""VACUUM""")
 		if refresh:
 			from threading import Thread
 			from apis.trakt_api import trakt_sync_activities

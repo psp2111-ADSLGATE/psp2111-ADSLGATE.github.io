@@ -77,7 +77,21 @@ def _get_item_info(item, item_type=None, params_def=None):
     return base_item
 
 
-def _get_configured(items, permitted_types=None):
+def _get_trakt_style_item_info(item, item_type=None, params_def=None):
+    base_item = {}
+    base_item['rank'] = item.get('rank') or ''
+    base_item['type'] = item_type
+    main_item = base_item.setdefault(item_type, {})
+    main_item['title'] = item.get('title') or ''
+    main_item['year'] = item.get('release_year') or ''
+    uids_item = main_item.setdefault('ids', {})
+    uids_item['imdb'] = item.get('imdb_id') or ''
+    uids_item['tvdb'] = item.get('tvdb_id') or ''
+    uids_item['tmdb'] = item.get('id') or ''
+    return base_item
+
+
+def _get_configured(items, permitted_types=None, trakt_style=False):
     configured = {'items': []}
     configured_items_append = configured['items'].append
 
@@ -87,7 +101,8 @@ def _get_configured(items, permitted_types=None):
         if permitted_types and i_type not in permitted_types:
             continue
 
-        item = _get_item_info(i, item_type=i_type, params_def=PARAMS_DEF.get(i_type))
+        func = _get_trakt_style_item_info if trakt_style else _get_item_info
+        item = func(i, item_type=i_type, params_def=PARAMS_DEF.get(i_type))
 
         if not item:
             continue
@@ -172,6 +187,11 @@ class MDbList(RequestAPI):
         response, next_page = _get_paginated(response, limit=limit or 250, page=page)
         items = _map_list(response)
         return items if not next_page else items + next_page
+
+    def get_custom_trakt_style_list(self, list_id):
+        path = f'lists/{list_id}/items'
+        response = self._get_request_sc(path, cache_refresh=True)
+        return _get_configured(response, permitted_types=['movie', 'show'], trakt_style=True)
 
     def get_custom_list(self, list_id, page=1, limit: int = None):
         path = f'lists/{list_id}/items'

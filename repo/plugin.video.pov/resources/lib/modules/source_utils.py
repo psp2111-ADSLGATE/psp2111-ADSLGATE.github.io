@@ -99,9 +99,6 @@ def normalize(title):
 		return string(title)
 	except: return title
 
-def _ext_scrapers_notice(status):
-	kodi_utils.notification(status, 2500)
-
 def toggle_all(folder, setting, silent=False):
 	try:
 		sourcelist = scraper_names(folder)
@@ -109,10 +106,10 @@ def toggle_all(folder, setting, silent=False):
 			source_setting = 'provider.' + i
 			fenom_setSetting(source_setting, setting)
 		if silent: return
-		return _ext_scrapers_notice(32576)
+		return kodi_utils.notification(32576, 1500)
 	except:
 		if silent: return
-		return _ext_scrapers_notice(32574)
+		return kodi_utils.notification(32574, 1500)
 
 def enable_disable(folder):
 	try:
@@ -128,8 +125,8 @@ def enable_disable(folder):
 		for i in all_sources:
 			if i in chosen: fenom_setSetting('provider.' + i, 'true')
 			else: fenom_setSetting('provider.' + i, 'false')
-		return _ext_scrapers_notice(32576)
-	except: return _ext_scrapers_notice(32574)
+		return kodi_utils.notification(32576, 1500)
+	except: return kodi_utils.notification(32574, 1500)
 
 def set_default_scrapers():
 	all_scrapers = scraper_names('all')
@@ -192,65 +189,6 @@ def get_filename_match(title, url, name=None):
 				break
 	except: pass
 	return title_match
-
-def clear_scrapers_cache(silent=False):
-	from modules.cache_utils import clear_cache
-	for item in ('internal_scrapers', 'external_scrapers'): clear_cache(item, silent=True)
-	if not silent: kodi_utils.notification(32576)
-
-def clear_and_rescrape(media_type, meta, season=None, episode=None):
-	from caches.providers_cache import ExternalProvidersCache
-	from modules.sources import Sources
-	kodi_utils.show_busy_dialog()
-	deleted = ExternalProvidersCache().delete_cache_single(media_type, str(meta['tmdb_id']))
-	kodi_utils.hide_busy_dialog()
-	if not deleted: return kodi_utils.notification(32574)
-	play_params = {'mode': 'play_media', 'tmdb_id': meta['tmdb_id'], 'autoplay': 'False'}
-	if media_type == 'movie': play_params.update({'media_type': 'movie'})
-	else: play_params.update({'media_type': 'episode', 'season': season, 'episode': episode})
-	Sources().playback_prep(play_params)
-
-def rescrape_with_disabled(media_type, meta, season=None, episode=None):
-	from modules.sources import Sources
-	play_params = {'mode': 'play_media', 'tmdb_id': meta['tmdb_id'], 'disabled_ignored': 'true', 'prescrape': 'false'}
-	if media_type == 'movie': play_params.update({'media_type': 'movie'})
-	else: play_params.update({'media_type': 'episode', 'season': season, 'episode': episode})
-	Sources().playback_prep(play_params)
-
-def scrape_with_filters_ignored(media_type, meta, season=None, episode=None):
-	from modules.sources import Sources
-	play_params = {'mode': 'play_media', 'tmdb_id': meta['tmdb_id'], 'ignore_scrape_filters': 'true'}
-	if media_type == 'movie': play_params.update({'media_type': 'movie'})
-	else: play_params.update({'media_type': 'episode', 'season': season, 'episode': episode})
-	Sources().playback_prep(play_params)
-
-def scrape_with_custom_values(media_type, meta, season=None, episode=None):
-	from windows import open_window
-	from modules.sources import Sources
-	ls = kodi_utils.local_string
-	play_params = {'mode': 'play_media', 'tmdb_id': meta['tmdb_id']}
-	if media_type in ('movie', 'movies'): play_params.update({'media_type': 'movie'})
-	else: play_params.update({'media_type': 'episode', 'season': season, 'episode': episode})
-	custom_title = kodi_utils.dialog.input(ls(32228), defaultt=meta['title'])
-	if not custom_title: return
-	play_params['custom_title'] = custom_title
-	if media_type in ('movie', 'movies'):
-		custom_year = kodi_utils.dialog.input('%s (%s)' % (ls(32543), ls(32669)), type=kodi_utils.numeric_input, defaultt=str(meta['year']))
-		if custom_year: play_params.update({'custom_year': custom_year})
-	else:
-		custom_season = kodi_utils.dialog.input('%s (%s)' % (ls(32537).title(), ls(32669)), type=kodi_utils.numeric_input, defaultt=str(season))
-		custom_episode = kodi_utils.dialog.input('%s (%s)' % (ls(32203).title(), ls(32669)), type=kodi_utils.numeric_input, defaultt=str(episode))
-		if custom_season and custom_episode: play_params.update({'custom_season': custom_season, 'custom_episode': custom_episode})
-	kwargs = {'meta': meta, 'enable_buttons': True, 'true_button': ls(32824), 'false_button': ls(32828), 'focus_button': 11}
-	choice = open_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', text='%s?' % ls(32006), **kwargs)
-	if choice is None: return
-	if choice: play_params['disabled_ignored'] = 'true'
-	choice = open_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', text=ls(32808), **kwargs)
-	if choice is None: return
-	if choice:
-		play_params['ignore_scrape_filters'] = 'true'
-		kodi_utils.set_property('fs_filterless_search', 'true')
-	Sources().playback_prep(play_params)
 
 def supported_video_extensions():
 	supported_video_extensions = kodi_utils.supported_media().split('|')

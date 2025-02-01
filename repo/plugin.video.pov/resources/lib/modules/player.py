@@ -323,7 +323,7 @@ class Subtitles(kodi_utils.xbmc_player):
 				chosen_sub = kodi_utils.select_dialog(choices, **kwargs)
 				self.pause()
 				if not chosen_sub:
-					_notification(32736, 2000)
+					_notification(32736, 1500)
 					return False
 			else:
 				try: chosen_sub = [i for i in result if i['MovieReleaseName'].lower() in video_path.lower() and i['SubLanguageID'] == search_language and i['SubSumCD'] == '1'][0]

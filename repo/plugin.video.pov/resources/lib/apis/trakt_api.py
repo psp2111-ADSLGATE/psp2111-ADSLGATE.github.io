@@ -82,6 +82,11 @@ def trakt_movies_most_watched(page_no):
 	url = {'path': 'movies/watched/weekly/%s', 'params': {'limit': 20}, 'page': page_no}
 	return cache_object(get_trakt, string, url, json=False, expiration=EXPIRES_2_DAYS)
 
+def trakt_movies_most_favorited(page_no):
+	string = 'trakt_movies_most_favorited_%s' % page_no
+	url = {'path': 'movies/favorited/weekly/%s', 'params': {'limit': 20}, 'page': page_no}
+	return cache_object(get_trakt, string, url, json=False, expiration=EXPIRES_2_DAYS)
+
 def trakt_recommendations(media_type):
 	string = 'trakt_recommendations_%s' % media_type
 	url = {'path': '/recommendations/%s', 'path_insert': media_type, 'with_auth': True, 'params': {'limit': 50}, 'pagination': False}
@@ -102,6 +107,11 @@ def trakt_tv_trending_recent(page_no):
 def trakt_tv_most_watched(page_no):
 	string = 'trakt_tv_most_watched_%s' % page_no
 	url = {'path': 'shows/watched/weekly/%s', 'params': {'limit': 20}, 'page': page_no}
+	return cache_object(get_trakt, string, url, json=False, expiration=EXPIRES_2_DAYS)
+
+def trakt_tv_most_favorited(page_no):
+	string = 'trakt_tv_most_favorited_%s' % page_no
+	url = {'path': 'shows/favorited/weekly/%s', 'params': {'limit': 20}, 'page': page_no}
 	return cache_object(get_trakt, string, url, json=False, expiration=EXPIRES_2_DAYS)
 
 def trakt_tv_certifications(certification, page_no):

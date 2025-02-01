@@ -113,6 +113,7 @@ class Episodes:
 			except: return
 			item_get = item.get
 			season, episode, ep_name = item_get('season'), item_get('episode'), item_get('title')
+			props['episode_type'] = item_get('episode_type')
 			str_season_zfill2, str_episode_zfill2 = string(season).zfill(1), string(episode).zfill(2)
 			orig_premiered = item_get('premiered')
 			episode_date, premiered = adjust_premiered_date_function(orig_premiered, self.adjust_hours)

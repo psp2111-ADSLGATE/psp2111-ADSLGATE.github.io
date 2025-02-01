@@ -205,6 +205,7 @@ media_lists = (
 	"'tmdb%'",
 	"'trakt%'",
 	"'simkl%'",
+	"'mdb%'",
 	"'imdb%'",
 	"'people%'",
 	"'pov%'",

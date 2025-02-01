@@ -139,8 +139,10 @@ def build_episode_list(params):
 
 def build_single_episode(list_type, params={}):
 	def _get_category_name():
-		cat_name = category_name_dict[list_type]
-		if isinstance(cat_name, dict): cat_name = cat_name[params.get('recently_aired')]
+		try:
+			cat_name = category_name_dict[list_type]
+			if isinstance(cat_name, dict): cat_name = cat_name[params.get('recently_aired')]
+		except: cat_name = 'Episodes'
 		return cat_name
 	def _process(_position, ep_data):
 		try:
@@ -154,6 +156,7 @@ def build_single_episode(list_type, params={}):
 			set_properties = listitem.setProperties
 			orig_season, orig_episode = ep_data_get('season'), ep_data_get('episode')
 			unwatched = ep_data_get('unwatched', False)
+			_position = ep_data_get('custom_order', _position)
 			tmdb_id, tvdb_id, imdb_id, title, show_year = meta_get('tmdb_id'), meta_get('tvdb_id'), meta_get('imdb_id'), meta_get('title'), meta_get('year') or '2050'
 			season_data = meta_get('season_data')
 			watched_info = watched_info_episode(meta_get('tmdb_id'), watched_db)
@@ -259,10 +262,10 @@ def build_single_episode(list_type, params={}):
 							'season.poster': season_poster, 'tvshow.poster': show_poster, 'tvshow.clearlogo': show_clearlogo})
 			set_properties({'fenlight.extras_params': extras_params, 'fenlight.options_params': options_params, 'episode_type': episode_type})
 			item_list_append({'list_items': (url_params, listitem, False), 'first_aired': premiered, 'name': '%s - %sx%s' % (title, str_season_zfill2, str_episode_zfill2),
-							'unaired': unaired, 'last_played': ep_data_get('last_played', resinsert), 'sort_order': string(_position), 'unwatched': ep_data_get('unwatched')})
+							'unaired': unaired, 'last_played': ep_data_get('last_played', resinsert), 'sort_order': _position, 'unwatched': ep_data_get('unwatched')})
 		except: pass
 	handle, is_external, is_home, category_name = int(sys.argv[1]), external(), home(), 'Episodes'
-	item_list, airing_today, unwatched = [], [], []
+	item_list, airing_today, unwatched, return_results = [], [], [], False
 	resinsert = ''
 	item_list_append = item_list.append
 	window_command = 'ActivateWindow(Videos,%s,return)' if is_external else 'Container.Update(%s)'
@@ -295,7 +298,7 @@ def build_single_episode(list_type, params={}):
 			data += unwatched
 	elif list_type == 'episode.progress': data = get_in_progress_episodes()
 	elif list_type == 'episode.recently_watched': data = get_recently_watched('episode')
-	else:#episode.trakt
+	elif list_type == 'episode.trakt':
 		recently_aired = params.get('recently_aired', None)
 		data = trakt_get_my_calendar(recently_aired, get_datetime())
 		list_type = 'episode.trakt_recently_aired' if recently_aired else 'episode.trakt_calendar'
@@ -308,10 +311,13 @@ def build_single_episode(list_type, params={}):
 		else:
 			try: data = sorted(data, key=lambda i: (i['sort_title'], i.get('first_aired', '2100-12-31')), reverse=True)
 			except: data = sorted(data, key=lambda i: i['sort_title'], reverse=True)
+	else: data, return_results = sorted(params, key=lambda i: i['custom_order']), True
 	list_type_compare = list_type.split('episode.')[1]
 	list_type_starts_with = list_type_compare.startswith
 	threads = list(make_thread_list_enumerate(_process, data))
 	[i.join() for i in threads]
+	if return_results:
+		return [(i['list_items'], i['sort_order']) for i in item_list]
 	if list_type_starts_with('next_'):
 		def func(function):
 			if sort_key == 'name': return title_key(function)

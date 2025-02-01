@@ -55,8 +55,7 @@ class Config:
         self.HOME = xbmcvfs.translatePath('special://home/')
         self.TEMP = xbmcvfs.translatePath('special://temp/')
         self.MASTERPROFILE = xbmcvfs.translatePath('special://masterprofile/')
-        self.PROFILE = xbmcvfs.translatePath('special://profile/')
-        self.USERDATA = xbmcvfs.translatePath('special://userdata/')
+        self.USERDATA = xbmcvfs.translatePath('special://profile/')
         self.DATABASE = xbmcvfs.translatePath('special://database/')
         self.THUMBNAILS = xbmcvfs.translatePath('special://thumbnails/')
         self.LOGPATH = xbmcvfs.translatePath('special://logpath/')
@@ -75,10 +74,13 @@ class Config:
         self.DEBRIDFOLD_RD = os.path.join(self.PLUGIN_DATA_BACKUP, 'realdebrid')
         self.DEBRIDFOLD_PM = os.path.join(self.PLUGIN_DATA_BACKUP, 'premiumize')
         self.DEBRIDFOLD_AD = os.path.join(self.PLUGIN_DATA_BACKUP, 'alldebrid')
+        self.TBFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'torbox')
+        self.EDFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'easydebrid')
         self.OFFCFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'offcloud')
         self.EASYFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'easynews')
         self.FILEFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'filepursuit')
         self.METAFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'meta')
+        self.EXTFOLD = os.path.join(self.PLUGIN_DATA_BACKUP, 'extproviders')
         self.LOGINFOLD = os.path.join(self.PLUGIN_DATA, 'login')
         
     def init_settings(self):

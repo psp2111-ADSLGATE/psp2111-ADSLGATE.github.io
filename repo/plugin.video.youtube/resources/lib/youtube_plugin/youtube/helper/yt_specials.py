@@ -12,7 +12,7 @@ from __future__ import absolute_import, division, unicode_literals
 
 from . import UrlResolver, UrlToItemConverter, tv, utils, v3
 from ...kodion import KodionException
-from ...kodion.constants import CONTENT
+from ...kodion.constants import CONTENT, PATHS
 from ...kodion.items import DirectoryItem, UriItem
 from ...kodion.utils import strip_html_from_text
 
@@ -47,32 +47,29 @@ def _process_related_videos(provider, context, client):
     return v3.response_to_items(provider, context, json_data)
 
 
-def _process_parent_comments(provider, context, client):
-    context.set_content(CONTENT.LIST_CONTENT)
-
-    video_id = context.get_param('video_id', '')
-    if not video_id:
-        return []
-
-    json_data = client.get_parent_comments(
-        video_id=video_id, page_token=context.get_param('page_token', '')
-    )
-
-    if not json_data:
+def _process_comments(provider, context, client):
+    params = context.get_params()
+    video_id = params.get('video_id')
+    parent_id = params.get('parent_id')
+    if not video_id and not parent_id:
         return False
-    return v3.response_to_items(provider, context, json_data)
 
+    context.set_content(CONTENT.LIST_CONTENT,
+                        sub_type='comments',
+                        category_label=params.get('item_name', video_id))
 
-def _process_child_comments(provider, context, client):
-    context.set_content(CONTENT.LIST_CONTENT)
-
-    parent_id = context.get_param('parent_id', '')
-    if not parent_id:
-        return []
-
-    json_data = client.get_child_comments(
-        parent_id=parent_id, page_token=context.get_param('page_token', '')
-    )
+    if video_id:
+        json_data = client.get_parent_comments(
+            video_id=video_id,
+            page_token=params.get('page_token', ''),
+        )
+    elif parent_id:
+        json_data = client.get_child_comments(
+            parent_id=parent_id,
+            page_token=context.get_param('page_token', ''),
+        )
+    else:
+        json_data = None
 
     if not json_data:
         return False
@@ -88,26 +85,57 @@ def _process_recommendations(provider, context, client):
         client.get_recommended_for_home,
         function_cache.ONE_HOUR,
         _refresh=params.get('refresh'),
-        visitor=params.get('visitor', ''),
-        page_token=params.get('page_token', ''),
-        click_tracking=params.get('click_tracking', ''),
+        visitor=params.get('visitor'),
+        page_token=params.get('page_token'),
+        click_tracking=params.get('click_tracking'),
+        offset=params.get('offset'),
     )
 
-    if not json_data:
-        return False
-    return v3.response_to_items(provider, context, json_data)
+    if json_data:
+        def filler(json_data, remaining):
+            page_token = json_data.get('nextPageToken')
+            if not page_token:
+                return None
+
+            json_data = function_cache.run(
+                client.get_recommended_for_home,
+                function_cache.ONE_HOUR,
+                _refresh=params.get('refresh'),
+                visitor=json_data.get('visitorData'),
+                page_token=page_token,
+                click_tracking=json_data.get('clickTracking'),
+                remaining=remaining,
+            )
+            json_data['_filler'] = filler
+            return json_data
+
+        json_data['_filler'] = filler
+        return v3.response_to_items(provider, context, json_data)
+    return False
 
 
 def _process_trending(provider, context, client):
     context.set_content(CONTENT.VIDEO_CONTENT)
 
     json_data = client.get_trending_videos(
-        page_token=context.get_param('page_token', '')
+        page_token=context.get_param('page_token')
     )
 
-    if not json_data:
-        return False
-    return v3.response_to_items(provider, context, json_data)
+    if json_data:
+        def filler(json_data, _remaining):
+            page_token = json_data.get('nextPageToken')
+            if not page_token:
+                return None
+
+            json_data = client.get_trending_videos(
+                page_token=page_token,
+            )
+            json_data['_filler'] = filler
+            return json_data
+
+        json_data['_filler'] = filler
+        return v3.response_to_items(provider, context, json_data)
+    return False
 
 
 def _process_browse_channels(provider, context, client):
@@ -222,16 +250,15 @@ def _process_description_links(provider, context):
         for channel_id in channel_ids:
             channel_item = DirectoryItem(
                 name='',
-                uri=context.create_uri(('channel', channel_id,), item_params),
+                uri=context.create_uri(
+                    (PATHS.CHANNEL, channel_id,),
+                    item_params,
+                ),
                 channel_id=channel_id,
             )
             channel_id_dict[channel_id] = channel_item
 
-        channel_item_dict = {}
-        utils.update_channel_infos(provider,
-                                   context,
-                                   channel_id_dict,
-                                   channel_items_dict=channel_item_dict)
+        utils.update_channel_items(provider, context, channel_id_dict)
 
         # clean up - remove empty entries
         return [channel_item
@@ -249,17 +276,20 @@ def _process_description_links(provider, context):
         for playlist_id in playlist_ids:
             playlist_item = DirectoryItem(
                 name='',
-                uri=context.create_uri(('playlist', playlist_id,), item_params),
+                uri=context.create_uri(
+                    (PATHS.PLAYLIST, playlist_id,),
+                    item_params,
+                ),
                 playlist_id=playlist_id,
             )
             playlist_id_dict[playlist_id] = playlist_item
 
-        channel_item_dict = {}
-        utils.update_playlist_infos(provider,
+        channel_items_dict = {}
+        utils.update_playlist_items(provider,
                                     context,
                                     playlist_id_dict,
-                                    channel_items_dict=channel_item_dict)
-        utils.update_fanarts(provider, context, channel_item_dict)
+                                    channel_items_dict=channel_items_dict)
+        utils.update_channel_info(provider, context, channel_items_dict)
 
         # clean up - remove empty entries
         return [playlist_item
@@ -298,37 +328,48 @@ def _process_saved_playlists_tv(provider, context, client):
 def _process_my_subscriptions(provider, context, client, filtered=False):
     context.set_content(CONTENT.VIDEO_CONTENT)
 
+    logged_in = provider.is_logged_in()
+    params = context.get_params()
+    refresh = params.get('refresh')
+
     with context.get_ui().create_progress_dialog(
             heading=context.localize('my_subscriptions.loading'),
-            message=context.localize('please_wait'),
+            message=context.localize('channels'),
             background=True,
-            message_template=(
-                    '{wait} {{current}}/{{total}}'.format(
-                        wait=context.localize('please_wait'),
-                    )
-            ),
     ) as progress_dialog:
-        params = context.get_params()
         json_data = client.get_my_subscriptions(
             page_token=params.get('page', 1),
-            logged_in=provider.is_logged_in(),
+            logged_in=logged_in,
             do_filter=filtered,
-            refresh=params.get('refresh'),
+            refresh=refresh,
             progress_dialog=progress_dialog,
         )
 
-        if not json_data:
-            return False
-        return v3.response_to_items(
-            provider,
-            context,
-            json_data,
-            progress_dialog=progress_dialog,
-        )
+        if json_data:
+            def filler(json_data, _remaining):
+                page_token = json_data.get('nextPageToken')
+                if not page_token:
+                    return None
+
+                json_data = client.get_my_subscriptions(
+                    page_token=json_data.get('nextPageToken'),
+                    logged_in=logged_in,
+                    do_filter=filtered,
+                    refresh=refresh,
+                    use_cache=True,
+                    progress_dialog=progress_dialog,
+                )
+                json_data['_filler'] = filler
+                return json_data
+
+            json_data['_filler'] = filler
+            return v3.response_to_items(provider, context, json_data)
+    return False
 
 
-def process(provider, context, re_match):
-    category = re_match.group('category')
+def process(provider, context, re_match=None, category=None):
+    if re_match and category is None:
+        category = re_match.group('category')
 
     # required for provider.is_logged_in()
     client = provider.get_client(context)
@@ -373,11 +414,8 @@ def process(provider, context, re_match):
     if category == 'description_links':
         return _process_description_links(provider, context)
 
-    if category == 'parent_comments':
-        return _process_parent_comments(provider, context, client)
-
-    if category == 'child_comments':
-        return _process_child_comments(provider, context, client)
+    if category.endswith('_comments'):
+        return _process_comments(provider, context, client)
 
     if category == 'saved_playlists':
         return _process_saved_playlists_tv(provider, context, client)

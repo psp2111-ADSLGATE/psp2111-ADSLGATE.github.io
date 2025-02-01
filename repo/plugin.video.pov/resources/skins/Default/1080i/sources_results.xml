@@ -182,7 +182,7 @@
                                 <control type="image">
                                     <width>1300</width>
                                     <height>110</height>
-                                    <texture colordiffuse="$INFO[ListItem.Property(tikiskins.highlight)]">gradients/gradient-diffuse-horizontal.png</texture>
+                                    <texture flipx="true" colordiffuse="$INFO[ListItem.Property(tikiskins.highlight)]">gradients/gradient-diffuse-horizontal.png</texture>
                                 </control>
                             </control>
                             <control type="group">
@@ -196,7 +196,7 @@
                                     <textcolor>FFdedad1</textcolor>
                                     <align>left</align>
                                     <aligny>bottom</aligny>
-                                    <label>[COLOR $INFO[ListItem.Property(tikiskins.highlight)]][B]$INFO[ListItem.Property(tikiskins.quality)][/B][/COLOR]</label>
+                                    <label>[B]$INFO[ListItem.Property(tikiskins.quality)][/B]</label>
                                 </control>
                                 <control type="label">
                                     <top>35</top>
@@ -204,7 +204,7 @@
                                     <textcolor>FFdedad1</textcolor>
                                     <align>left</align>
                                     <aligny>top</aligny>
-                                    <label>[COLOR $INFO[ListItem.Property(tikiskins.highlight)]][B]$INFO[ListItem.Property(tikiskins.provider)][/B][/COLOR]</label>
+                                    <label>[B]$INFO[ListItem.Property(tikiskins.provider)][/B]</label>
                                 </control>
                             </control>
                             <control type="image">

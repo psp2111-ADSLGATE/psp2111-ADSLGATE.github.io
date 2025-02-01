@@ -175,12 +175,14 @@ class Downloader:
 		url = self.params_get('url')
 		if url in (None, 'None', ''):
 			if self.action == 'meta.single':
-				source = json.loads(self.source)
-				if source.get('scrape_provider', '') == 'easynews': source['url_dl'] = source['down_url']
-				url = sources.resolve_sources(source, meta=self.meta)
-				if 'torbox' in url:
-					from apis.torbox_api import TorBoxAPI
-					url = TorBoxAPI().add_headers_to_url(url)
+				try:
+					source = json.loads(self.source)
+					if source.get('scrape_provider', '') == 'easynews': source['url_dl'] = source['down_url']
+					url = sources.resolve_sources(source, meta=self.meta)
+					if 'torbox' in url:
+						from apis.torbox_api import TorBoxAPI
+						url = TorBoxAPI().add_headers_to_url(url)
+				except: pass
 			elif self.action == 'meta.pack':
 				if self.provider == 'Real-Debrid':
 					from apis.real_debrid_api import RealDebridAPI as debrid_function

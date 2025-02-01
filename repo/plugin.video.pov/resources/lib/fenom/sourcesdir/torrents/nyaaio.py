@@ -1,4 +1,4 @@
-# created by Venom for Fenomscrapers (updated 3-02-2022)
+# created by kodifitzwell for Fenomscrapers
 """
 	Fenomscrapers Project
 """

@@ -24,7 +24,7 @@ DIRECTORY_PROPERTIES_BASIC = ["title", "art", "file", "fanart"]
 DIRECTORY_PROPERTIES_VIDEO = [
     "genre", "year", "rating", "playcount", "director", "trailer", "tagline", "plot", "plotoutline", "originaltitle", "lastplayed", "writer",
     "studio", "mpaa", "country", "premiered", "runtime", "set", "streamdetails", "top250", "votes", "firstaired", "season", "episode", "showtitle",
-    "tvshowid", "setid", "sorttitle", "thumbnail", "uniqueid", "dateadded", "customproperties"]
+    "tvshowid", "setid", "sorttitle", "thumbnail", "uniqueid", "dateadded", "resume", "customproperties"]
 
 DIRECTORY_PROPERTIES_MUSIC = [
     "artist", "albumartist", "genre", "year", "rating", "album", "track", "duration", "lastplayed", "studio", "mpaa",
@@ -71,6 +71,7 @@ INFOLABEL_MAP = {
     "album": "album",
     "track": "tracknumber",
     "duration": "duration",
+    "runtime": "duration",
     "playcount": "playcount",
     "director": "director",
     "trailer": "trailer",
@@ -153,6 +154,17 @@ class MetaItemJSONRPC():
     def infoproperties(self):
         infoproperties = {INFOPROPERTY_MAP[k]: str(v) for k, v in self.meta.items() if v and k in INFOPROPERTY_MAP and v != -1}
         infoproperties.update({k: str(v) for k, v in (self.meta.get('customproperties') or {}).items()})
+        infoproperties.update(self.resume)
+        return infoproperties
+
+    @property
+    def resume(self):
+        resume = self.meta.get('resume') or {}
+        infoproperties = {}
+        if resume.get('total'):
+            infoproperties['resumetime'] = resume.get('position') or 0
+            infoproperties['totaltime'] = resume.get('total')
+            infoproperties['percentplayed'] = int(infoproperties['resumetime'] / infoproperties['totaltime'] * 100)
         return infoproperties
 
     @property
@@ -280,6 +292,7 @@ class ListItemJSONRPC():
         if self.library == 'video':
             self._info_tag.set_unique_ids(self.uniqueids)
             self._info_tag.set_stream_details(self.streamdetails)
+            self._info_tag.set_resume_point(self.infoproperties, resume_key='resumetime', total_key='totaltime')
 
         self._listitem.setProperties(self.infoproperties)
         return self._listitem
@@ -632,7 +645,12 @@ class ListSetFilterDir(Container):
 
 
 class ListGetFilterDir(Container):
-    def get_directory(self, paths=None, library=None, no_label_dupes=False, dbtype=None, sort_by=None, sort_how=None, randomise=False, fallback=False, names=None, **kwargs):
+    def get_directory(
+            self, paths=None, library=None, no_label_dupes=False, dbtype=None,
+            sort_by=None, sort_how=None, randomise=False, fallback=False, names=None,
+            window_prop=None, window_id=None,
+            **kwargs
+    ):
         if not paths:
             return
 
@@ -644,10 +662,13 @@ class ListGetFilterDir(Container):
         mediatypes = {}
         added_items = []
         all_filters = get_filters(**kwargs)
+        all_statistics_filters = get_filters(filter_prefix='stats_', **kwargs)
         directory_properties = DIRECTORY_PROPERTIES_BASIC
         directory_properties += {
             'video': DIRECTORY_PROPERTIES_VIDEO,
             'music': DIRECTORY_PROPERTIES_MUSIC}.get(library) or []
+
+        statistics = {}
 
         def _make_item(i, path_name=None):
             if not i:
@@ -657,9 +678,14 @@ class ListGetFilterDir(Container):
             listitem_jsonrpc.infolabels['title'] = listitem_jsonrpc.label
             listitem_jsonrpc.infoproperties['widget'] = path_name or listitem_jsonrpc.infoproperties.get('widget') or ''
 
-            for _, filters in all_filters.items():
+            for fname, filters in all_filters.items():
                 if is_excluded({'infolabels': listitem_jsonrpc.infolabels, 'infoproperties': listitem_jsonrpc.infoproperties}, **filters):
                     return
+
+            for fname, filters in all_statistics_filters.items():
+                if not is_excluded({'infolabels': listitem_jsonrpc.infolabels, 'infoproperties': listitem_jsonrpc.infoproperties}, **filters):
+                    statistics.setdefault(fname, 0)
+                    statistics[fname] += 1
 
             if listitem_jsonrpc.mediatype:
                 mediatypes[listitem_jsonrpc.mediatype] = mediatypes.get(listitem_jsonrpc.mediatype, 0) + 1
@@ -738,6 +764,14 @@ class ListGetFilterDir(Container):
         plugin_category = ''
         container_content = f'{max(mediatypes, key=lambda key: mediatypes[key])}s' if mediatypes else ''
         self.add_items(items, container_content=container_content, plugin_category=plugin_category)
+
+        if not statistics:
+            return
+
+        window_prop = window_prop or 'Statistics'
+
+        for k, v in statistics.items():
+            set_to_windowprop(v, k, window_prop, window_id)
 
 
 class ListGetContainerLabels(Container):

@@ -451,8 +451,19 @@ def trakt_lists_with_media(media_type, imdb_id):
 
 def get_trakt_list_contents(list_type, user, slug, with_auth):
 	def _process(params):
-		return [{'media_ids': i[i['type']]['ids'], 'title': i[i['type']]['title'], 'type': i['type'], 'order': c} \
-				for c, i in enumerate(get_trakt(params)) if i['type'] in ('movie', 'show')]	
+		results = []
+		results_append = results.append
+		for c, i in enumerate(get_trakt(params)):
+			try:
+				_type = i['type']
+				if _type in ('movie', 'show'): data = {'media_ids': i[_type]['ids'], 'title': i[_type]['title'], 'type': _type, 'order': c}
+				elif _type == 'season':
+					data = {'tmdb_id': i['show']['ids']['tmdb'], 'season': i[_type]['number'], 'type': _type, 'custom_order': c}
+				elif _type == 'episode':
+					data = {'media_ids': i['show']['ids'], 'title': i['show']['title'], 'type': _type, 'season': i[_type]['season'], 'episode': i[_type]['number'], 'custom_order': c}
+				results_append(data)
+			except: pass
+		return results
 	string = 'trakt_list_contents_%s_%s_%s' % (list_type, user, slug)
 	if user == 'Trakt Official': params = {'path': 'lists/%s/items', 'path_insert': slug, 'params': {'extended':'full'}, 'method': 'sort_by_headers'}
 	else: params = {'path': 'users/%s/lists/%s/items', 'path_insert': (user, slug), 'params': {'extended':'full'}, 'with_auth': with_auth, 'method': 'sort_by_headers'}
@@ -779,7 +790,7 @@ def trakt_sync_activities(force_update=False):
 	if force_update: clear_all_trakt_cache_data(silent=True, refresh=False)
 	elif _check_daily_expiry():
 		clear_daily_cache()
-		set_setting('trakt.next_daily_clear', str(int(time.time()) + (12*3600)))
+		set_setting('trakt.next_daily_clear', str(int(time.time()) + (24*3600)))
 	if not trakt_user_active and not force_update: return 'no account'
 	try: latest = trakt_get_activity()
 	except: return 'failed'

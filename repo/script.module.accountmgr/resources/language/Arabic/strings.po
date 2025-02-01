@@ -458,8 +458,8 @@ msgid "[COLOR FFA0C12C]-- Disable ONLY if you do not use Trakt --[/COLOR]"
 msgstr "[COLOR FFA0C12C]-- عطلها إذا كنت لا تستخدم Trakt --[/COLOR]"
 
 msgctxt "#40094"
-msgid "[COLOR FFA0C12C]-- Auto-Sync supported add-ons at start-up --[/COLOR]"
-msgstr "[COLOR FFA0C12C]-- لتفعيل المزامنة التلقائية للاضافات المثبتة حديثاً --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Enable to auto-sync supported add-ons at start-up --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- المزامنة التلقائية عند بدء التشغيل --[/COLOR]"
 
 msgctxt "#40097"
 msgid "[COLOR FFA0C12C]-- Restore default settings prior to using Account Manager --[/COLOR]"
@@ -467,27 +467,27 @@ msgstr "[COLOR FFA0C12C]-- [COLOR FFFF0000]تحذير![/COLOR] استخدمها 
 
 msgctxt "#40098"
 msgid "[COLOR FFA0C12C]-- View Supported Trakt Add-ons --[/COLOR]"
-msgstr "[COLOR FFA0C12C]-- عرض الاضافات الداعمة لـTrakt --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الاضافات الداعمة لـTrakt --[/COLOR]"
 
 msgctxt "#40099"
 msgid "[COLOR FFA0C12C]-- View Supported Debrid Add-ons --[/COLOR]"
-msgstr "[COLOR FFA0C12C]-- عرض الاضافات الداعمة لـDebrid --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الاضافات الداعمة لـDebrid --[/COLOR]"
 
 msgctxt "#40100"
 msgid "[COLOR FFA0C12C]-- View Supported OffCloud Add-ons --[/COLOR]"
-msgstr "[COLOR FFA0C12C]-- عرض الاضافات الداعمة لـOffCloud --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الاضافات الداعمة لـOffCloud --[/COLOR]"
 
 msgctxt "#40101"
 msgid "[COLOR FFA0C12C]-- View Supported Easynews Add-ons --[/COLOR]"
-msgstr "[COLOR FFA0C12C]-- عرض الاضافات الداعمة لـEasynews --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الاضافات الداعمة لـEasynews --[/COLOR]"
 
 msgctxt "#40102"
 msgid "[COLOR FFA0C12C]-- View Supported FilePursuit Add-ons --[/COLOR]"
-msgstr "[COLOR FFA0C12C]-- عرض الاضافات الداعمة لـFilePursuit --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الاضافات الداعمة لـFilePursuit --[/COLOR]"
 
 msgctxt "#40103"
 msgid "[COLOR FFA0C12C]-- View Supported Metadata Add-ons --[/COLOR]"
-msgstr "[COLOR FFA0C12C]-- عرض الاضافات الداعمة لـ خدمات البيانات التعريفية --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الاضافات الداعمة لـ خدمات البيانات التعريفية --[/COLOR]"
 
 msgctxt "#40104"
 msgid "[COLOR FFA0C12C]-- View Changelog --[/COLOR]"
@@ -532,3 +532,31 @@ msgstr ""
 msgctxt "#40114"
 msgid "Total TV Watched = [B]%s[/B]"
 msgstr ""
+
+msgctxt "#40116"
+msgid "TorBox API"
+msgstr ""
+
+msgctxt "#40117"
+msgid "-- Last Backup Completed --"
+msgstr "-- تاريخ آخر نسخة احتياطية --"
+
+msgctxt "#40118"
+msgid "[COLOR FFA0C12C] -- Authorization Help --[/COLOR]"
+msgstr ""
+
+msgctxt "#40119"
+msgid "[COLOR FFA0C12C]-- View Supported External Scrapers --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الاضافات الداعمة لمحرك البحث --[/COLOR]"
+
+msgctxt "#40120"
+msgid "[COLOR FFA0C12C]-- View Supported TorBox Add-ons --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الاضافات الداعمة لـTorBox --[/COLOR]"
+
+msgctxt "#40121"
+msgid "[COLOR FFA0C12C]-- View Supported Add-ons --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الإضافات المدعومة --[/COLOR]"
+
+msgctxt "#40122"
+msgid "[COLOR FFA0C12C]-- View Supported Easy Debrid Add-ons --[/COLOR]"
+msgstr "[COLOR FFA0C12C]-- استعراض الاضافات الداعمة لـEasy Debrid --[/COLOR]"

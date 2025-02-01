@@ -5,7 +5,7 @@ from caches.meta_cache import cache_function
 from modules.kodi_utils import get_setting
 # from modules.kodi_utils import logger
 
-EXPIRES_2_DAYS, EXPIRES_1_WEEK, EXPIRES_1_MONTH = 48, 168, 672
+EXPIRES_2_DAYS = 48
 API_KEY = get_setting('simkl_api')
 base_url = 'https://api.simkl.com'
 timeout = 3.05
@@ -43,7 +43,7 @@ def summary(position, sid, collector, media='anime'):
 	try:
 		string = 'simkl_%s_id_%s' % (media, sid)
 		url = '%s/%s/%s?extended=full' % (base_url, media, sid)
-		result = cache_function(call_simkl, string, url, EXPIRES_1_WEEK, json=False)
+		result = cache_function(call_simkl, string, url, json=False)
 		if result is None: return
 		imdb = result.get('ids').get('imdb') if result.get('ids').get('imdb') else ''
 		tmdb = result.get('ids').get('tmdb') if result.get('ids').get('tmdb') else ''

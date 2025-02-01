@@ -441,9 +441,9 @@ class Discover:
 		string = 'pov_discover_%s_%%' % media_type
 		dbcon = database.connect(kodi_utils.maincache_db, timeout=40.0, isolation_level=None)
 		dbcur = dbcon.cursor()
-		dbcur.execute('''PRAGMA synchronous = OFF''')
-		dbcur.execute('''PRAGMA journal_mode = OFF''')
-		dbcur.execute("SELECT id, data FROM maincache WHERE id LIKE ? ORDER BY rowid DESC", (string,))
+		dbcur.execute("""PRAGMA synchronous = OFF""")
+		dbcur.execute("""PRAGMA journal_mode = OFF""")
+		dbcur.execute("""SELECT id, data FROM maincache WHERE id LIKE ? ORDER BY rowid DESC""", (string,))
 		history = dbcur.fetchall()
 		if not display: return [i[0] for i in history]
 		data = [eval(i[1]) for i in history]
@@ -666,7 +666,7 @@ def set_history(media_type, name, query):
 def remove_from_history(params):
 	dbcon = database.connect(kodi_utils.maincache_db)
 	dbcur = dbcon.cursor()
-	dbcur.execute("DELETE FROM maincache WHERE id=?", (params['data_id'],))
+	dbcur.execute("""DELETE FROM maincache WHERE id = ?""", (params['data_id'],))
 	dbcon.commit()
 	kodi_utils.clear_property(params['data_id'])
 	kodi_utils.container_refresh()

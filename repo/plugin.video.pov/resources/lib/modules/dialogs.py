@@ -1,5 +1,4 @@
 import json
-from windows import open_window
 from indexers import metadata
 from modules import kodi_utils, source_utils, settings
 from modules.cache_utils import clear_cache
@@ -42,7 +41,7 @@ def genres_choice(media_type, genres, poster, return_genres=False):
 	genre_list = _process_dicts(genres, genre_action)
 	if return_genres: return genre_list
 	if len(genre_list) == 0:
-		notification(32760, 2500)
+		notification(32760, 1500)
 		return None
 	mode = 'build_%s_list' % meta_type
 	list_items = [{'line1': i['genre'], 'icon': poster} for i in genre_list]
@@ -56,7 +55,7 @@ def imdb_keywords_choice(media_type, imdb_id, poster):
 	keywords_info = imdb_keywords(imdb_id)
 	if len(keywords_info) == 0:
 		hide_busy_dialog()
-		notification(32760, 2500)
+		notification(32760, 1500)
 		return None
 	meta_type = 'movie' if media_type == 'movies' else 'tvshow'
 	mode = 'build_%s_list' % meta_type
@@ -89,12 +88,26 @@ def trakt_manager_choice(params):
 	kwargs = {'items': json.dumps(list_items), 'heading': ls(32198).replace('[B]', '').replace('[/B]', '')}
 	choice = select_dialog([i[1] for i in choices], **kwargs)
 	if choice is None: return
-	if choice == 'Add':
-		from apis.trakt_api import trakt_add_to_list
-		trakt_add_to_list(params)
-	else:
-		from apis.trakt_api import trakt_remove_from_list
-		trakt_remove_from_list(params)
+	from apis.trakt_api import trakt_add_to_list, trakt_remove_from_list
+	if choice == 'Add': trakt_add_to_list(params)
+	else: trakt_remove_from_list(params)
+
+def mdb_manager_choice(params):
+	if not get_setting('mdblist.token', ''): return notification(32760, 3500)
+	from apis.mdblist_api import mdb_userlists, mdb_list_items, mdb_modify_list
+	icon = translate_path('special://home/addons/plugin.video.pov/resources/media/mdblist.png')
+	choices = [(item['name'], str(item['id']), str(item['items'])) for item in mdb_userlists() if not item['dynamic']]
+	if not choices: return
+	list_items = [{'line1': item[0], 'line2': '%s items' % item[2],'icon': icon} for item in choices]
+	kwargs = {'items': json.dumps(list_items), 'heading': 'MDBLIST MANAGER', 'enumerate': 'false', 'multi_line': 'true'}
+	choice = select_dialog([(i[1], i[0]) for i in choices], **kwargs)
+	if choice is None: return
+	list_items = (True for item in mdb_list_items(choice[0], None) if item['imdb_id'] == params['imdb_id'])
+	action, message = ('remove', 'Remove from') if next(list_items, False) else ('add', 'Add to')
+	if not confirm_dialog(text='%s %s list?' % (message, choice[1]), top_space=True): return
+	if mdb_modify_list(choice[0], params, action): notification(32576)
+	else: notification(32574)
+	if action == 'remove': container_refresh()
 
 def playback_choice(content, poster, meta):
 	items = [{'line': ls(32014), 'function': 'clear_and_rescrape'},
@@ -105,10 +118,10 @@ def playback_choice(content, poster, meta):
 	kwargs = {'items': json.dumps(list_items), 'heading': ls(32174)}
 	choice = select_dialog([i['function'] for i in items], **kwargs)
 	if choice is None: return
-	if choice == 'clear_and_rescrape': source_utils.clear_and_rescrape(content, meta)
-	elif choice == 'rescrape_with_disabled': source_utils.rescrape_with_disabled(content, meta)
-	elif choice == 'scrape_with_filters_ignored': source_utils.scrape_with_filters_ignored(content, meta)
-	else: source_utils.scrape_with_custom_values(content, meta)
+	if choice == 'clear_and_rescrape': clear_and_rescrape(content, meta)
+	elif choice == 'rescrape_with_disabled': rescrape_with_disabled(content, meta)
+	elif choice == 'scrape_with_filters_ignored': scrape_with_filters_ignored(content, meta)
+	else: scrape_with_custom_values(content, meta)
 
 def set_quality_choice(quality_setting):
 	include = ls(32188)
@@ -331,7 +344,6 @@ def meta_language_choice():
 	kwargs = {'items': json.dumps(list_items), 'heading': ls(32145), 'enumerate': 'false', 'multi_choice': 'false', 'multi_line': 'false'}
 	list_choose = select_dialog(langs, **kwargs)
 	if list_choose is None: return None
-#	from modules.cache_utils import clear_cache
 	chosen_language, chosen_language_display = list_choose['iso'], list_choose['name']
 	set_setting('meta_language', chosen_language)
 	set_setting('meta_language_display', chosen_language_display)
@@ -378,12 +390,12 @@ def external_scrapers_choice():
 		(all_scrapers_base, enable_string_base % '', {'mode': 'toggle_all', 'folder': 'all', 'setting': 'true'}),
 		(all_scrapers_base, disable_string_base % '', {'mode': 'toggle_all', 'folder': 'all', 'setting': 'false'}),
 		(all_scrapers_base, enable_disable_string_base % '', {'mode': 'enable_disable', 'folder': 'all'}),
-#		(debrid_scrapers_base, enable_string_base % hosters_string, {'mode': 'toggle_all', 'folder': 'hosters', 'setting': 'true'}),
-#		(debrid_scrapers_base, disable_string_base % hosters_string, {'mode': 'toggle_all', 'folder': 'hosters', 'setting': 'false'}),
-#		(debrid_scrapers_base, enable_disable_string_base % hosters_string, {'mode': 'enable_disable', 'folder': 'hosters'}),
-#		(torrent_scrapers_base, enable_string_base % torrent_string, {'mode': 'toggle_all', 'folder': 'torrents', 'setting': 'true'}),
-#		(torrent_scrapers_base, disable_string_base % torrent_string, {'mode': 'toggle_all', 'folder': 'torrents', 'setting': 'false'}),
-#		(torrent_scrapers_base, enable_disable_string_base % torrent_string, {'mode': 'enable_disable', 'folder': 'torrents'})
+		(debrid_scrapers_base, enable_string_base % hosters_string, {'mode': 'toggle_all', 'folder': 'hosters', 'setting': 'true'}),
+		(debrid_scrapers_base, disable_string_base % hosters_string, {'mode': 'toggle_all', 'folder': 'hosters', 'setting': 'false'}),
+		(debrid_scrapers_base, enable_disable_string_base % hosters_string, {'mode': 'enable_disable', 'folder': 'hosters'}),
+		(torrent_scrapers_base, enable_string_base % torrent_string, {'mode': 'toggle_all', 'folder': 'torrents', 'setting': 'true'}),
+		(torrent_scrapers_base, disable_string_base % torrent_string, {'mode': 'toggle_all', 'folder': 'torrents', 'setting': 'false'}),
+		(torrent_scrapers_base, enable_disable_string_base % torrent_string, {'mode': 'enable_disable', 'folder': 'torrents'})
 	]
 	list_items = [{'line1': item[0], 'line2': item[1], 'icon': icon} for item in tools_menu]
 	kwargs = {'items': json.dumps(list_items), 'heading': 'POV', 'enumerate': 'false', 'multi_choice': 'false', 'multi_line': 'true'}
@@ -464,10 +476,10 @@ def options_menu(params, meta=None):
 	kwargs = {'items': json.dumps(list_items), 'heading': heading, 'enumerate': 'false', 'multi_choice': 'false', 'multi_line': multi_line}
 	choice = select_dialog([i[2] for i in listing], **kwargs)
 	if choice in (None, 'save_and_exit'): return
-	elif choice == 'clear_and_rescrape': return source_utils.clear_and_rescrape(content, meta, season, episode)
-	elif choice == 'rescrape_with_disabled': return source_utils.rescrape_with_disabled(content, meta, season, episode)
-	elif choice == 'scrape_with_filters_ignored': return source_utils.scrape_with_filters_ignored(content, meta, season, episode)
-	elif choice == 'scrape_with_custom_values': return source_utils.scrape_with_custom_values(content, meta, season, episode)
+	elif choice == 'clear_and_rescrape': return clear_and_rescrape(content, meta, season, episode)
+	elif choice == 'rescrape_with_disabled': return rescrape_with_disabled(content, meta, season, episode)
+	elif choice == 'scrape_with_filters_ignored': return scrape_with_filters_ignored(content, meta, season, episode)
+	elif choice == 'scrape_with_custom_values': return scrape_with_custom_values(content, meta, season, episode)
 	elif choice == 'toggle_autoplay': set_setting('auto_play_%s' % content, autoplay_toggle)
 	elif choice == 'toggle_autoplay_next': set_setting('autoplay_next_episode', autoplay_next_toggle)
 	elif choice == 'enable_scrapers': enable_scrapers_choice()
@@ -483,8 +495,8 @@ def options_menu(params, meta=None):
 	elif choice == 'clear_media_cache': return refresh_cached_meta(meta)
 	elif choice == 'toggle_torrents_display_uncached': set_setting('torrent.display.uncached', uncached_torrents_toggle)
 	elif choice == 'clear_trakt_cache': return clear_cache('trakt')
-	elif choice == 'clear_scrapers_cache': return source_utils.clear_scrapers_cache()
-	elif choice == 'open_external_scrapers_choice': return external_scrapers_choice()
+	elif choice == 'clear_scrapers_cache': return clear_scrapers_cache()
+	elif choice == 'open_external_scrapers_choice': return source_utils.enable_disable('all')
 #	elif choice == 'open_scraper_settings': return execute_builtin('Addon.OpenSettings(script.module.fenomscrapers)')
 	elif choice == 'open_pov_settings': return kodi_utils.open_settings('0.0')
 	if choice == 'clear_trakt_cache' and content in ('movie', 'tvshow', 'season', 'episode'): container_refresh()
@@ -494,9 +506,10 @@ def options_menu(params, meta=None):
 	options_menu(params, meta=meta)
 
 def extras_menu(params):
+	from windows import open_window
 	function = metadata.movie_meta if params['media_type'] == 'movie' else metadata.tvshow_meta
 	meta = function('tmdb_id', params['tmdb_id'], settings.metadata_user_info(), get_datetime())
-	open_window(['windows.extras', 'Extras'], 'extras.xml', meta=meta, is_widget=params.get('is_widget', 'false'), is_home=params.get('is_home', 'false'))
+	open_window(('windows.extras', 'Extras'), 'extras.xml', meta=meta, is_widget=params.get('is_widget', 'false'), is_home=params.get('is_home', 'false'))
 
 def media_extra_info(media_type, meta):
 	extra_info = meta.get('extra_info', None)
@@ -556,7 +569,7 @@ def refresh_cached_meta(meta):
 		media_type, tmdb_id = meta['mediatype'], meta['tmdb_id']
 		MetaCache().delete(media_type, 'tmdb_id', tmdb_id, meta)
 		if media_type == 'tvshow': MetaCache().delete_all_seasons_memory_cache(tmdb_id)
-		kodi_utils.notification(32576, 2000)
+		kodi_utils.notification(32576, 1500)
 		kodi_utils.container_refresh()
 	except: kodi_utils.notification(32574)
 
@@ -586,4 +599,61 @@ def build_navigate_to_page(params):
 				'media_type': params.get('media_type', ''), 'query': params.get('query', ''), 'actor_id': params.get('actor_id', ''),
 				'user': params.get('user', ''), 'slug': params.get('slug', ''), 'list_id': params.get('list_id', '')}
 	execute_builtin('Container.Update(%s)' % build_url(url_params))
+
+def clear_scrapers_cache(silent=False):
+	for item in ('internal_scrapers', 'external_scrapers'): clear_cache(item, silent=True)
+	if not silent: notification(32576)
+
+def clear_and_rescrape(media_type, meta, season=None, episode=None):
+	from caches.providers_cache import ExternalProvidersCache
+	from modules.sources import Sources
+	show_busy_dialog()
+	deleted = ExternalProvidersCache().delete_cache_single(media_type, str(meta['tmdb_id']))
+	hide_busy_dialog()
+	if not deleted: return notification(32574)
+	play_params = {'mode': 'play_media', 'tmdb_id': meta['tmdb_id'], 'autoplay': 'False'}
+	if media_type == 'movie': play_params.update({'media_type': 'movie'})
+	else: play_params.update({'media_type': 'episode', 'season': season, 'episode': episode})
+	Sources().playback_prep(play_params)
+
+def rescrape_with_disabled(media_type, meta, season=None, episode=None):
+	from modules.sources import Sources
+	play_params = {'mode': 'play_media', 'tmdb_id': meta['tmdb_id'], 'disabled_ignored': 'true', 'prescrape': 'false'}
+	if media_type == 'movie': play_params.update({'media_type': 'movie'})
+	else: play_params.update({'media_type': 'episode', 'season': season, 'episode': episode})
+	Sources().playback_prep(play_params)
+
+def scrape_with_filters_ignored(media_type, meta, season=None, episode=None):
+	from modules.sources import Sources
+	play_params = {'mode': 'play_media', 'tmdb_id': meta['tmdb_id'], 'ignore_scrape_filters': 'true'}
+	if media_type == 'movie': play_params.update({'media_type': 'movie'})
+	else: play_params.update({'media_type': 'episode', 'season': season, 'episode': episode})
+	Sources().playback_prep(play_params)
+
+def scrape_with_custom_values(media_type, meta, season=None, episode=None):
+	from windows import open_window
+	from modules.sources import Sources
+	play_params = {'mode': 'play_media', 'tmdb_id': meta['tmdb_id']}
+	if media_type in ('movie', 'movies'): play_params.update({'media_type': 'movie'})
+	else: play_params.update({'media_type': 'episode', 'season': season, 'episode': episode})
+	custom_title = kodi_utils.dialog.input(ls(32228), defaultt=meta['title'])
+	if not custom_title: return
+	play_params['custom_title'] = custom_title
+	if media_type in ('movie', 'movies'):
+		custom_year = kodi_utils.dialog.input('%s (%s)' % (ls(32543), ls(32669)), type=kodi_utils.numeric_input, defaultt=str(meta['year']))
+		if custom_year: play_params.update({'custom_year': custom_year})
+	else:
+		custom_season = kodi_utils.dialog.input('%s (%s)' % (ls(32537).title(), ls(32669)), type=kodi_utils.numeric_input, defaultt=str(season))
+		custom_episode = kodi_utils.dialog.input('%s (%s)' % (ls(32203).title(), ls(32669)), type=kodi_utils.numeric_input, defaultt=str(episode))
+		if custom_season and custom_episode: play_params.update({'custom_season': custom_season, 'custom_episode': custom_episode})
+	kwargs = {'meta': meta, 'enable_buttons': True, 'true_button': ls(32824), 'false_button': ls(32828), 'focus_button': 11}
+	choice = open_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', text='%s?' % ls(32006), **kwargs)
+	if choice is None: return
+	if choice: play_params['disabled_ignored'] = 'true'
+	choice = open_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', text=ls(32808), **kwargs)
+	if choice is None: return
+	if choice:
+		play_params['ignore_scrape_filters'] = 'true'
+		set_property('fs_filterless_search', 'true')
+	Sources().playback_prep(play_params)
 

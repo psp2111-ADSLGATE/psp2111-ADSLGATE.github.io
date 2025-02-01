@@ -35,7 +35,7 @@ class ImagesMonitor(Thread, ListItemInfoGetter, ImageManipulations, Poller):
     def on_listitem(self):
         with self._parent.mutex_lock:
             self.setup_current_container()
-            if self.is_same_item(update=True) and self._idle_cycle < self.idle_cycles:
+            if self.is_same_window(update=True) and self.is_same_item(update=True) and self._idle_cycle < self.idle_cycles:
                 self._idle_cycle += 1
                 return
             self._idle_cycle = 0

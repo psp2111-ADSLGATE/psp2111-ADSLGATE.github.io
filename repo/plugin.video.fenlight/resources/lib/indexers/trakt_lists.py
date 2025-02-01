@@ -6,6 +6,8 @@ from threading import Thread
 from apis import trakt_api
 from indexers.movies import Movies
 from indexers.tvshows import TVShows
+from indexers.seasons import single_seasons
+from indexers.episodes import build_single_episode
 from modules import kodi_utils
 from modules.utils import paginate_list
 from modules.settings import paginate, page_limit
@@ -193,8 +195,11 @@ def get_trakt_lists_with_media(params):
 	set_view_mode('view.main')
 
 def build_trakt_list(params):
-	def _process(function, _list):
-		item_list_extend(function(_list).worker())
+	def _process(function, _list, _type):
+		if not _list['list']: return
+		if _type in ('movies', 'tvshows'): item_list_extend(function(_list).worker())
+		elif _type == 'seasons': item_list_extend(function(_list['list']))
+		else: item_list_extend(function('episode.trakt_list', _list['list']))
 	def _paginate_list(data, page_no, paginate_start):
 		if use_result: total_pages = 1
 		elif paginate_enabled:
@@ -206,8 +211,8 @@ def build_trakt_list(params):
 	handle, is_external, is_home, content, list_name = int(sys.argv[1]), external(), home(), 'movies', params.get('list_name')
 	try:
 		threads, item_list = [], []
-		user, slug, list_type = '', '', ''
 		item_list_extend = item_list.extend
+		user, slug, list_type = '', '', ''
 		paginate_enabled = paginate(is_home)
 		use_result = 'result' in params
 		page_no, paginate_start = int(params.get('new_page', '1')), int(params.get('paginate_start', '0'))
@@ -218,11 +223,17 @@ def build_trakt_list(params):
 			with_auth = list_type == 'my_lists'
 			result = get_trakt_list_contents(list_type, user, slug, with_auth)
 		process_list, total_pages, paginate_start = _paginate_list(result, page_no, paginate_start)
-		movie_list = {'list': [(i['order'], i['media_ids']) for i in process_list if i['type'] == 'movie'], 'id_type': 'trakt_dict', 'custom_order': 'true'}
-		tvshow_list = {'list': [(i['order'], i['media_ids']) for i in process_list if i['type'] == 'show'], 'id_type': 'trakt_dict', 'custom_order': 'true'}
-		content = 'movies' if len(movie_list['list']) > len(tvshow_list['list']) else 'tvshows'
-		for item in ((Movies, movie_list), (TVShows, tvshow_list)):
-			if not item[1]['list']: continue
+		all_movies = [i for i in process_list if i['type'] == 'movie']
+		all_tvshows = [i for i in process_list if i['type'] == 'show']
+		all_seasons = [i for i in process_list if i['type'] == 'season']
+		all_episodes = [i for i in process_list if i['type'] == 'episode']
+		movie_list = {'list': [(i['order'], i['media_ids']) for i in all_movies], 'id_type': 'trakt_dict', 'custom_order': 'true'}
+		tvshow_list = {'list': [(i['order'], i['media_ids']) for i in all_tvshows], 'id_type': 'trakt_dict', 'custom_order': 'true'}
+		season_list = {'list': all_seasons}
+		episode_list = {'list': all_episodes}
+		content = max([('movies', len(all_movies)), ('tvshows', len(all_tvshows)), ('seasons', len(all_seasons)), ('episodes', len(all_episodes))], key=lambda k: k[1])[0]
+		for item in ((Movies, movie_list, 'movies'), (TVShows, tvshow_list, 'tvshows'),
+					(single_seasons, season_list, 'seasons'), (build_single_episode, episode_list, 'episodes')):
 			threaded_object = Thread(target=_process, args=item)
 			threaded_object.start()
 			threads.append(threaded_object)

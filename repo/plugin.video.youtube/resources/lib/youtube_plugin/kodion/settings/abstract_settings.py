@@ -17,8 +17,8 @@ from ..utils import (
     current_system_version,
     get_kodi_setting_bool,
     get_kodi_setting_value,
-    validate_ip_address,
 )
+from ..network.http_server import validate_ip_address
 
 
 class AbstractSettings(object):
@@ -137,15 +137,15 @@ class AbstractSettings(object):
         if value is not None:
             return self.set_bool(SETTINGS.ALTERNATIVE_PLAYER_WEB_URLS, value)
         if (self.support_alternative_player()
-                and not self.alternative_player_adaptive()):
+                and not self.alternative_player_mpd()):
             return self.get_bool(SETTINGS.ALTERNATIVE_PLAYER_WEB_URLS, False)
         return False
 
-    def alternative_player_adaptive(self, value=None):
+    def alternative_player_mpd(self, value=None):
         if value is not None:
-            return self.set_bool(SETTINGS.ALTERNATIVE_PLAYER_ADAPTIVE, value)
+            return self.set_bool(SETTINGS.ALTERNATIVE_PLAYER_MPD, value)
         if self.support_alternative_player():
-            return self.get_bool(SETTINGS.ALTERNATIVE_PLAYER_ADAPTIVE, False)
+            return self.get_bool(SETTINGS.ALTERNATIVE_PLAYER_MPD, False)
         return False
 
     def use_isa(self, value=None):
@@ -388,10 +388,10 @@ class AbstractSettings(object):
 
     def live_stream_type(self, value=None):
         if self.use_isa():
-            default = 2
+            default = 3
             setting = SETTINGS.LIVE_STREAMS + '.1'
         else:
-            default = 0
+            default = 1
             setting = SETTINGS.LIVE_STREAMS + '.2'
         if value is not None:
             return self.set_int(setting, value)
@@ -428,7 +428,7 @@ class AbstractSettings(object):
         return port
 
     def httpd_listen(self, value=None):
-        default = '0.0.0.0'
+        default = '127.0.0.1'
 
         if value is None:
             ip_address = self.get_string(SETTINGS.HTTPD_LISTEN, default)
@@ -457,6 +457,11 @@ class AbstractSettings(object):
         if value is not None:
             return self.set_bool(SETTINGS.HTTPD_IDLE_SLEEP, value)
         return self.get_bool(SETTINGS.HTTPD_IDLE_SLEEP, True)
+
+    def httpd_stream_redirect(self, value=None):
+        if value is not None:
+            return self.set_bool(SETTINGS.HTTPD_STREAM_REDIRECT, value)
+        return self.get_bool(SETTINGS.HTTPD_STREAM_REDIRECT, False)
 
     def api_config_page(self):
         return self.get_bool(SETTINGS.API_CONFIG_PAGE, False)
@@ -573,32 +578,44 @@ class AbstractSettings(object):
         'premieres': True,
         'completed': True,
         'vod': True,
+        'custom': None,
     }
 
     def item_filter(self, update=None, override=None):
-        types = dict.fromkeys(
-            self.get_string_list(SETTINGS.HIDE_VIDEOS)
-            if override is None else
-            override,
-            False
-        )
-        types = dict(self._DEFAULT_FILTER, **types)
+        if override is None:
+            override = self.get_string_list(SETTINGS.HIDE_VIDEOS)
+            override = dict.fromkeys(override, False)
+            override['custom'] = (self.get_string(SETTINGS.FILTER_LIST)
+                                  .split(','))
+        elif isinstance(override, (list, tuple)):
+            _override = {'custom': []}
+            for value in override:
+                if value in self._DEFAULT_FILTER:
+                    _override[value] = False
+                else:
+                    _override['custom'].append(value)
+            override = _override
+        types = dict(self._DEFAULT_FILTER, **override)
+
         if update:
             if 'live_folder' in update:
-                if 'live_folder' in types:
-                    types.update(update)
-                else:
-                    types.update({
+                if 'live_folder' not in types:
+                    update.update({
+                        'vod': False,
                         'upcoming': True,
                         'upcoming_live': True,
                         'live': True,
                         'premieres': True,
                         'completed': True,
                     })
-                types['vod'] = False
-            else:
-                types.update(update)
+            types.update(update)
+
         return types
+
+    def shorts_duration(self, value=None):
+        if value is not None:
+            return self.set_int(SETTINGS.SHORTS_DURATION, value)
+        return self.get_int(SETTINGS.SHORTS_DURATION, 60)
 
     def show_detailed_description(self, value=None):
         if value is not None:

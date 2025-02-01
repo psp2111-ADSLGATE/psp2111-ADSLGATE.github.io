@@ -119,10 +119,6 @@ class SourcesResults(BaseDialog):
 			if choice:
 				if isinstance(choice, dict): return self.execute_code(run_plugin_str % self.build_url(choice))
 				if choice == 'results_info': return self.open_window(('windows.sources', 'SourcesInfo'), 'sources_info.xml', item=chosen_listitem)
-		elif action in self.closing_actions:
-			if self.filter_applied: return self.clear_filter()
-			self.selected = (None, '')
-			return self.close()
 
 	def make_items(self, filtered_list=None):
 		def builder(results):
@@ -149,7 +145,6 @@ class SourcesResults(BaseDialog):
 							else: set_properties({'source_type': 'UNCACHED'})
 							set_properties({'highlight': 'FF7C7C7C'})
 						else:
-							# cache_flag = '[B]CACHED[/B]' if provider in ('PREMIUMIZE', 'OFFCLOUD', 'EASYDEBRID', 'TORBOX') else 'UNCHECKED'
 							cache_flag = 'UNCHECKED' if provider in ('REAL-DEBRID', 'ALLDEBRID') else '[B]CACHED[/B]'
 							if highlight_type == 0: key = provider_lower
 							else: key = basic_quality

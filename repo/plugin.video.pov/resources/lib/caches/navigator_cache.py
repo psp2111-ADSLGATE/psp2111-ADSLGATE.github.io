@@ -6,7 +6,7 @@ from modules.kodi_utils import get_property, set_property, clear_property, navig
 main_menus = default_menus.main_menus
 GET_LIST = 'SELECT list_contents FROM navigator WHERE list_name = ? AND list_type = ?'
 SET_LIST = 'INSERT OR REPLACE INTO navigator VALUES (?, ?, ?)'
-DELETE_LIST = 'DELETE FROM navigator WHERE list_name=? and list_type=?'
+DELETE_LIST = 'DELETE FROM navigator WHERE list_name = ? and list_type = ?'
 GET_FOLDERS = 'SELECT list_name, list_contents FROM navigator WHERE list_type = ?'
 GET_FOLDER_CONTENTS = 'SELECT list_contents FROM navigator WHERE list_name = ? AND list_type = ?'
 prop_dict = {'default': 'pov_%s_default', 'edited': 'pov_%s_edited', 'shortcut_folder': 'pov_%s_shortcut_folder'}
@@ -39,7 +39,7 @@ class NavigatorCache(BaseCache):
 	def delete_list(self, list_name, list_type):
 		self.dbcur.execute(DELETE_LIST, (list_name, list_type))
 		self.delete_memory_cache(list_name, list_type)
-		self.dbcon.execute('VACUUM')
+		self.dbcon.execute("""VACUUM""")
 
 	def get_memory_cache(self, list_name, list_type):
 		try: return eval(get_property(self._get_list_prop(list_type) % list_name))

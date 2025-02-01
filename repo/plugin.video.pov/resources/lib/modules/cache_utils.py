@@ -101,15 +101,15 @@ def clean_databases(current_time=None, database_check=True, silent=False):
 		try:
 			dbcon = database.connect(db)
 			dbcur = dbcon.cursor()
-			dbcur.execute('''PRAGMA synchronous = OFF''')
-			dbcur.execute('''PRAGMA journal_mode = OFF''')
+			dbcur.execute("""PRAGMA synchronous = OFF""")
+			dbcur.execute("""PRAGMA journal_mode = OFF""")
 			dbcur.execute(sql, (current_time,))
 			dbcon.commit()
-			dbcur.execute('VACUUM')
+			dbcur.execute("""VACUUM""")
 		except: pass
 	limit_metacache_database()
 	remove_old_packages()
-	if not silent: kodi_utils.notification(32576, 2000)
+	if not silent: kodi_utils.notification(32576, 1500)
 
 def limit_metacache_database(max_size=50):
 	with kodi_utils.open_file(metacache_db) as f: s = f.size()
@@ -117,13 +117,13 @@ def limit_metacache_database(max_size=50):
 	if size < max_size: return
 	dbcon = database.connect(metacache_db)
 	dbcur = dbcon.cursor()
-	dbcur.execute('''PRAGMA synchronous = OFF''')
-	dbcur.execute('''PRAGMA journal_mode = OFF''')
-	dbcur.execute('DELETE FROM metadata WHERE ROWID IN (SELECT ROWID FROM metadata ORDER BY ROWID DESC LIMIT -1 OFFSET 4000)')
-	dbcur.execute('DELETE FROM function_cache WHERE ROWID IN (SELECT ROWID FROM function_cache ORDER BY ROWID DESC LIMIT -1 OFFSET 100)')
-	dbcur.execute('DELETE FROM season_metadata WHERE ROWID IN (SELECT ROWID FROM season_metadata ORDER BY ROWID DESC LIMIT -1 OFFSET 100)')
+	dbcur.execute("""PRAGMA synchronous = OFF""")
+	dbcur.execute("""PRAGMA journal_mode = OFF""")
+	dbcur.execute("""DELETE FROM metadata WHERE ROWID IN (SELECT ROWID FROM metadata ORDER BY ROWID DESC LIMIT -1 OFFSET 4000)""")
+	dbcur.execute("""DELETE FROM function_cache WHERE ROWID IN (SELECT ROWID FROM function_cache ORDER BY ROWID DESC LIMIT -1 OFFSET 100)""")
+	dbcur.execute("""DELETE FROM season_metadata WHERE ROWID IN (SELECT ROWID FROM season_metadata ORDER BY ROWID DESC LIMIT -1 OFFSET 100)""")
 	dbcon.commit()
-	dbcon.execute('VACUUM')
+	dbcon.execute("""VACUUM""")
 
 def get_current_time():
 	import time, datetime
@@ -188,7 +188,7 @@ def clear_cache(cache_type, silent=False):
 		if not _confirm(): return
 		from caches.main_cache import main_cache
 		main_cache.delete_all_lists()
-	if not silent and success: kodi_utils.notification(32576, 2000)
+	if not silent and success: kodi_utils.notification(32576, 1500)
 
 def clear_all_cache():
 	if not kodi_utils.confirm_dialog(): return
@@ -213,6 +213,6 @@ def clear_all_cache():
 			kodi_utils.progressDialog.update(int(count / len(caches) * 100), line % (ls(32816), cache_label))
 			clear_cache(cache_type, silent=True)
 			kodi_utils.sleep(200)
-		except: kodi_utils.notification(32574, 2000)
+		except: kodi_utils.notification(32574, 1500)
 	kodi_utils.progressDialog.close()
 

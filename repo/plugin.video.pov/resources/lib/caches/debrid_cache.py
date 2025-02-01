@@ -5,9 +5,9 @@ from modules.kodi_utils import debridcache_db
 
 GET_MANY = 'SELECT * FROM debrid_data WHERE hash in (%s)'
 SET_MANY = 'INSERT INTO debrid_data VALUES (?, ?, ?, ?)'
-REMOVE_MANY = 'DELETE FROM debrid_data WHERE hash=?'
+REMOVE_MANY = 'DELETE FROM debrid_data WHERE hash = ?'
 CLEAR = 'DELETE FROM debrid_data'
-CLEAR_DEBRID = 'DELETE FROM debrid_data WHERE debrid=?'
+CLEAR_DEBRID = 'DELETE FROM debrid_data WHERE debrid = ?'
 
 class DebridCache(BaseCache):
 	db_file = debridcache_db
@@ -26,7 +26,7 @@ class DebridCache(BaseCache):
 
 	def set_many(self, hash_list, debrid):
 		try:
-			expires = self._get_timestamp(datetime.now() + timedelta(days=1))
+			expires = self._get_timestamp(datetime.now() + timedelta(hours=24))
 			insert_list = [(i[0], debrid, i[1], expires) for i in hash_list]
 			self.dbcur.executemany(SET_MANY, insert_list)
 		except: pass
@@ -40,14 +40,14 @@ class DebridCache(BaseCache):
 	def clear_database(self):
 		try:
 			self.dbcur.execute(CLEAR)
-			self.dbcur.execute('VACUUM')
+			self.dbcur.execute("""VACUUM""")
 			return 'success'
 		except: return 'failure'
 
 	def clear_debrid_results(self, debrid):
 		try:
 			self.dbcur.execute(CLEAR_DEBRID, (debrid,))
-			self.dbcur.execute('VACUUM')
+			self.dbcur.execute("""VACUUM""")
 			return True
 		except: return False
 

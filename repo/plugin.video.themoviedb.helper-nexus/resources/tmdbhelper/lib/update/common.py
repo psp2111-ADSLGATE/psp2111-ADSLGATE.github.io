@@ -26,6 +26,7 @@ class LibraryCommonFunctions():
 
     def add_userlist(self, user_slug=None, list_slug=None, confirm=True, force=False, **kwargs):
         request = get_userlist(user_slug=user_slug, list_slug=list_slug, confirm=confirm, busy_spinner=self.busy_spinner)
+
         if not request:
             return
         i_total = len(request)

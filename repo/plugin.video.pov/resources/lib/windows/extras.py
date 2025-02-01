@@ -2,7 +2,7 @@ import json
 from threading import Thread
 from datetime import datetime, timedelta
 from windows import BaseDialog
-from apis import tmdb_api, imdb_api
+from apis import tmdb_api, imdb_api, mdblist_api
 from caches import watched_cache as ws
 from indexers import people, metadata
 from indexers.images import Images
@@ -186,23 +186,32 @@ class Extras(BaseDialog):
 	def make_reviews(self):
 		if not reviews_id in self.enabled_lists: return
 		def builder():
-			for count, item in enumerate(data, 1):
+			for count, item in enumerate(reviews, 1):
 				try:
 					listitem = self.make_listitem()
-					if item['spoiler']: content = (
+					provider = mdblist_api.review_provider_id[item['provider_id']].upper()
+					updated_at = item['updated_at'] or 'NA'
+					rating = item['rating'] or 'NA'
+					if 'spoiler' in item and item['spoiler']: content = (
 						'[B][COLOR red][%s][/COLOR][CR]%02d. [I]%s - %s - %s[/I][/B]\n\n%s'
-						% (spoiler, count, item['rating'], item['date'], item['title'], item['content'])
+						% (spoiler, count, provider, rating, updated_at, item['content'])
 					)
 					else: content = (
 						'[B]%02d. [I]%s - %s - %s[/I][/B]\n\n%s'
-						% (count, item['rating'], item['date'], item['title'], item['content'])
+						% (count, provider, rating, updated_at, item['content'])
 					)
 					listitem.setProperty('tikiskins.extras.text', content)
 					yield listitem
 				except: pass
 		try:
 			spoiler = ls(32985).upper()
-			data = imdb_api.imdb_reviews(self.imdb_id)
+			data = mdblist_api.mdb_media_info(self.imdb_id, self.media_type)
+			ratings, reviews = data['ratings'], data['reviews']
+			sources = ('imdb', 'metacritic', 'tomatoes', 'trakt', 'tmdb')
+			ratings = {i['source']: str(i['value']) for i in ratings if i['value'] and i['source'] in sources}
+			ratings['mdblist'] = str(data['score'] or '')
+			for k, v in ratings.items(): self.setProperty('tikiskins.extras.rating.%s' % k, v)
+			reviews.sort(key=lambda k: k['updated_at'] or '', reverse=True)
 			item_list = list(builder())
 			self.setProperty('tikiskins.extras.imdb_reviews.number', '(x%02d)' % len(item_list))
 			self.item_action_dict[reviews_id] = 'tikiskins.extras.text'

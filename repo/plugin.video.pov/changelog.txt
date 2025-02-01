@@ -3,18 +3,30 @@
 - Fen, Venom, Mr-Kodi.
 - elfhosted.com for community instances.
 
-- torrentio debrid+ in My Services, sourced from torrentio results with RD+/AD+ tag.
-- mediafusion debrid+ in My Services, sourced from mediafusion results with debrid token.
+- torrentio debrid+ in My Services, sourced from torrentio "cached" results.
+- mediafusion debrid+ in My Services, sourced from mediafusion "cached" results.
 - nyaaio in Sources/Torrents, sourced from torrentio anime results with filters disabled.
 - nyaa in Sources/Torrents sourced from website results.
 
+  [COLOR dodgerblue][B]Version 5.02[/B][/COLOR]
+- Added Ratings/Reviews to Extras window with valid MDBList API Key.
+- Added MDBList Manager to context menu.
+- Added MDBList to My Lists.  Insert API Key in Settings/My Lists.
+
   [COLOR dodgerblue][B]Version 4.12[/B][/COLOR]
+- Removed aiostreams.
+- Added "Reset All Views" to Set Views menu.
+- Added setting "Custom Fanart Image", affects most main menu items.
+- Added aiostreams.
+- Removed comet.
+- Rewrite tb_cloud scraper to include completed TorBox usenet and web download.
+- Fix for format change in mediafusion results.
+- Added "Most Favorited This Week" for Movies/TVShows.
+  From the context menu restore to default or check for new items.
+- Added episode_type property.
 - Refactored Offcloud/TorBox cloud scrapers.
 - Completed clear cache for Offcloud/TorBox.
 - Added "Premium Expires Notification (days)" for each debrid (0 disables check).
-- Rewrite tb_cloud scaper to include completed TorBox usenet.
-  If reporting an issue, include screenshot of TorBox website from the "download" option
-  for the item (which should include the item name and file list).
 - Minor refactoring for each debrid, report anything that I might have broke.
 - Changed Mediafusion Debrid+ Configure for easier set up.
   Authorize your debrid service first, 3 modes are offered.

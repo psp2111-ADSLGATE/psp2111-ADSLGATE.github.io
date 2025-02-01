@@ -9,7 +9,7 @@ BASE_SET = 'INSERT OR REPLACE INTO %s(id, data, expires) VALUES (?, ?, ?)'
 BASE_DELETE = 'DELETE FROM %s WHERE id = ?'
 LIKE_SELECT = 'SELECT id from maincache where id LIKE %s'
 LIKE_DELETE = 'DELETE FROM maincache WHERE id LIKE %s'
-DELETE = 'DELETE FROM maincache WHERE id=?'
+DELETE = 'DELETE FROM maincache WHERE id = ?'
 ALL_LIST_ADD = ' OR id LIKE '
 
 class MainCache(BaseCache):
@@ -82,7 +82,7 @@ class MainCache(BaseCache):
 					self.dbcur.execute(DELETE, (str(item[0]),))
 					self.delete_memory_cache(str(item[0]))
 				except: pass
-			self.dbcon.execute('VACUUM')
+			self.dbcon.execute("""VACUUM""")
 		except: pass
 
 	def delete_all_folderscrapers(self):
@@ -91,7 +91,7 @@ class MainCache(BaseCache):
 		if not remove_list: return 'success'
 		try:
 			self.dbcur.execute(LIKE_DELETE % "'pov_FOLDERSCRAPER_%'")
-			self.dbcon.execute('VACUUM')
+			self.dbcon.execute("""VACUUM""")
 			for item in remove_list: self.delete_memory_cache(str(item))
 		except: pass
 

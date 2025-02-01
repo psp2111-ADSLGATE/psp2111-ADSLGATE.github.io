@@ -217,17 +217,16 @@ class OffcloudAPI:
 			dbcur = dbcon.cursor()
 			# USER CLOUD
 			try:
-				dbcur.execute("""SELECT data FROM maincache WHERE id=?""", ('pov_oc_user_cloud',))
+				dbcur.execute("""SELECT id FROM maincache WHERE id LIKE ?""", ('pov_oc_user_cloud%',))
 				try:
-					user_cloud_cache = eval(dbcur.fetchone()[0])
-					user_cloud_info_caches = [i['requestId'] for i in user_cloud_cache]
-				except: user_cloud_success = True
+					user_cloud_cache = dbcur.fetchall()
+					user_cloud_cache = [i[0] for i in user_cloud_cache]
+				except:
+					user_cloud_success = True
 				if not user_cloud_success:
-					dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_oc_user_cloud',))
-					kodi_utils.clear_property('pov_oc_user_cloud')
-					for i in user_cloud_info_caches:
-						dbcur.execute("""DELETE FROM maincache WHERE id=?""", ('pov_oc_user_cloud_info_%s' % i,))
-						kodi_utils.clear_property("pov_oc_user_cloud_info_%s" % i)
+					for i in user_cloud_cache:
+						dbcur.execute("""DELETE FROM maincache WHERE id = ?""", (i,))
+						kodi_utils.clear_property(str(i))
 					dbcon.commit()
 					user_cloud_success = True
 			except: user_cloud_success = False

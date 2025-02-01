@@ -157,6 +157,7 @@ class Seasons:
 					item_get = item.get
 					season, episode, ep_name = item_get('season'), item_get('episode'), item_get('title')
 					premiered, cast = item_get('premiered'), show_cast + item_get('guest_stars', [])
+					props['episode_type'] = item_get('episode_type')
 					episode_date, premiered = adjust_premiered_date_function(premiered, adjust_hours)
 					playcount, overlay = get_watched_status_episode(watched_info, string(tmdb_id), season, episode)
 					resumetime, progress = get_resumetime(bookmarks, tmdb_id, season, episode)

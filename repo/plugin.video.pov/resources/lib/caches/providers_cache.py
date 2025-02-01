@@ -6,7 +6,7 @@ from modules.kodi_utils import external_db
 SELECT_RESULTS = 'SELECT results, expires FROM results_data WHERE provider = ? AND db_type = ? AND tmdb_id = ? AND title = ? AND year = ? AND season = ? AND episode = ?'
 DELETE_RESULTS = 'DELETE FROM results_data WHERE provider = ? AND db_type = ? AND tmdb_id = ? AND title = ? AND year = ? AND season = ? AND episode = ?'
 INSERT_RESULTS = 'INSERT OR REPLACE INTO results_data VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
-SINGLE_DELETE = 'DELETE FROM results_data WHERE db_type=? AND tmdb_id=?'
+SINGLE_DELETE = 'DELETE FROM results_data WHERE db_type = ? AND tmdb_id = ?'
 FULL_DELETE = 'DELETE FROM results_data'
 
 class ExternalProvidersCache(BaseCache):
@@ -25,8 +25,7 @@ class ExternalProvidersCache(BaseCache):
 
 	def set(self, source, media_type, tmdb_id, title, year, season, episode, results, expire_time):
 		try:
-			expiration = timedelta(hours=expire_time)
-			expires = self._get_timestamp(datetime.now() + expiration)
+			expires = self._get_timestamp(datetime.now() + timedelta(hours=expire_time))
 			self.dbcur.execute(INSERT_RESULTS, (source, media_type, tmdb_id, title, year, season, episode, repr(results), int(expires)))
 		except: pass
 
@@ -37,14 +36,14 @@ class ExternalProvidersCache(BaseCache):
 	def delete_cache(self):
 		try:
 			self.dbcur.execute(FULL_DELETE, ())
-			self.dbcur.execute('VACUUM')
+			self.dbcur.execute("""VACUUM""")
 			return 'success'
 		except: return 'failure'
 
 	def delete_cache_single(self, media_type, tmdb_id):
 		try:
 			self.dbcur.execute(SINGLE_DELETE, (media_type, tmdb_id))
-			self.dbcur.execute('VACUUM')
+			self.dbcur.execute("""VACUUM""")
 			return True
 		except: return False
 

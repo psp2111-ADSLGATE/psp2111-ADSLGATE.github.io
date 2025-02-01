@@ -147,32 +147,32 @@ def connect_trakt_fenlt(conn, setting):
         conn.commit()
         cur.close()
     except:
-        xbmc.log('%s: Databit_db Trakt Failed!' % var.amgr, xbmc.LOGINFO)
+        xbmc.log('%s: Databit_db Fen Light Trakt Failed!' % var.amgr, xbmc.LOGINFO)
         pass
 
     
-######################### Affenity Trakt #########################
+'''######################### Affenity Trakt #########################
 def connect_trakt_affen(conn, setting):
     try:
         # Update settings database
-        trakt_token = ''' UPDATE settings
+        trakt_token = '''''' UPDATE settings
                   SET setting_value = ?
-                  WHERE setting_id = ?'''
-        trakt_user = ''' UPDATE settings
+                  WHERE setting_id = ?''''''
+        trakt_user = '''''' UPDATE settings
                   SET setting_value = ?
-                  WHERE setting_id = ?'''
-        trakt_refresh = ''' UPDATE settings
+                  WHERE setting_id = ?''''''
+        trakt_refresh = '''''' UPDATE settings
                   SET setting_value = ?
-                  WHERE setting_id = ?'''
-        trakt_expires = ''' UPDATE settings
+                  WHERE setting_id = ?''''''
+        trakt_expires = '''''' UPDATE settings
                   SET setting_value = ?
-                  WHERE setting_id = ?'''
-        trakt_watched_indicators = ''' UPDATE settings
+                  WHERE setting_id = ?''''''
+        trakt_watched_indicators = '''''' UPDATE settings
                   SET setting_value = ?
-                  WHERE setting_id = ?'''
-        trakt_watched_indicators_name = ''' UPDATE settings
+                  WHERE setting_id = ?''''''
+        trakt_watched_indicators_name = '''''' UPDATE settings
                   SET setting_value = ?
-                  WHERE setting_id = ?'''
+                  WHERE setting_id = ?''''''
 
         cur = conn.cursor()
         cur.execute(trakt_token, setting)
@@ -184,9 +184,67 @@ def connect_trakt_affen(conn, setting):
         conn.commit()
         cur.close()
     except:
-        xbmc.log('%s: Databit_db Trakt Failed!' % var.amgr, xbmc.LOGINFO)
-        pass
+        xbmc.log('%s: Databit_db Affenity Trakt Failed!' % var.amgr, xbmc.LOGINFO)
+        pass'''
 
+######################### Torbox #########################
+def connect_tb(conn, setting):
+    try:
+        # Update settings database
+        tb_enable = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        tb_token = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+
+        cur = conn.cursor()
+        cur.execute(tb_enable, setting)
+        cur.execute(tb_token, setting)
+        conn.commit()
+        cur.close()
+    except:
+        xbmc.log('%s: Databit_db TorBox Failed!' % var.amgr, xbmc.LOGINFO)
+
+######################### Easy Debrid #########################
+def connect_ed(conn, setting):
+    try:
+        # Update settings database
+        ed_enable = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        ed_token = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+
+        cur = conn.cursor()
+        cur.execute(ed_enable, setting)
+        cur.execute(ed_token, setting)
+        conn.commit()
+        cur.close()
+    except:
+        xbmc.log('%s: Databit_db Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+
+######################### Offcloud #########################
+def connect_oc(conn, setting):
+    try:
+        # Update settings database
+        oc_enable = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        oc_token = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+
+        cur = conn.cursor()
+        cur.execute(oc_enable, setting)
+        cur.execute(oc_token, setting)
+        conn.commit()
+        cur.close()
+    except:
+        xbmc.log('%s: Databit_db Offcloud Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
 ######################### Easynews #########################
 def connect_easy(conn, setting):
     try:
@@ -228,26 +286,50 @@ def connect_meta_fenlt(conn, setting):
         conn.commit()
         cur.close()
     except:
-        xbmc.log('%s: Databit_db Metadata Failed!' % var.amgr, xbmc.LOGINFO)
+        xbmc.log('%s: Databit_db Fen Light Metadata Failed!' % var.amgr, xbmc.LOGINFO)
         pass
     
-######################### Affenity Metadata #########################
+'''######################### Affenity Metadata #########################
 def connect_meta_affen(conn, setting):
     try:
         # Update settings database
-        omdb_api = ''' UPDATE settings
+        omdb_api = '''''' UPDATE settings
                   SET setting_value = ?
-                  WHERE setting_id = ?'''
+                  WHERE setting_id = ?''''''
 
         cur = conn.cursor()
         cur.execute(omdb_api, setting)
         conn.commit()
         cur.close()
     except:
-        xbmc.log('%s: Databit_db Metadata Failed!' % var.amgr, xbmc.LOGINFO)
-        pass
+        xbmc.log('%s: Databit_db Affenity Metadata Failed!' % var.amgr, xbmc.LOGINFO)
+        pass'''
 
     
+######################### External Providers #########################
+def connect_ext(conn, setting):
+    try:
+        # Update settings database
+        ext_enable = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        ext_user = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+        ext_pass = ''' UPDATE settings
+                  SET setting_value = ?
+                  WHERE setting_id = ?'''
+
+        cur = conn.cursor()
+        cur.execute(ext_enable, setting)
+        cur.execute(ext_user, setting)
+        cur.execute(ext_pass, setting)
+        conn.commit()
+        cur.close()
+    except:
+        xbmc.log('%s: Ext_db Auth Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+
 
 ########################################################################
 ########################################################################
@@ -519,7 +601,7 @@ def backup_fenlt_ad():
 
 
 
-#######################################################################
+'''#######################################################################
 #######################################################################
 ############################# AfFENity RD #############################
 
@@ -532,63 +614,63 @@ def restore_affen_rd():
         cur_p = conn_p.cursor()
         cur_t = conn_t.cursor()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('rd.enabled',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('rd.enabled',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'rd.enabled',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'rd.enabled',))
 
         conn_t.commit()
         
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('rd.token',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('rd.token',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'rd.token',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'rd.token',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('rd.account_id',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('rd.account_id',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'rd.account_id',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'rd.account_id',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('rd.client_id',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('rd.client_id',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'rd.client_id',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'rd.client_id',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('rd.refresh',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('rd.refresh',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'rd.refresh',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'rd.refresh',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('rd.secret',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('rd.secret',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'rd.secret',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'rd.secret',))
 
         conn_t.commit()
         cur_t.close()
@@ -646,33 +728,33 @@ def restore_affen_pm():
         cur_p = conn_p.cursor()
         cur_t = conn_t.cursor()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('pm.enabled',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('pm.enabled',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'pm.enabled',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'pm.enabled',))
 
         conn_t.commit()
         
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('pm.token',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('pm.token',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'pm.token',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'pm.token',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('pm.account_id',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('pm.account_id',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'pm.account_id',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'pm.account_id',))
 
         conn_t.commit()
         cur_t.close()
@@ -727,33 +809,33 @@ def restore_affen_ad():
         cur_p = conn_p.cursor()
         cur_t = conn_t.cursor()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('ad.enabled',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('ad.enabled',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'ad.enabled',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'ad.enabled',))
 
         conn_t.commit()
         
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('ad.token',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('ad.token',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'ad.token',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'ad.token',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('ad.account_id',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('ad.account_id',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'ad.account_id',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'ad.account_id',))
 
         conn_t.commit()
         cur_t.close()
@@ -791,7 +873,7 @@ def backup_affen_ad():
 #            os.unlink(os.path.join(var.ad_backup_affen))
 #        except OSError:
 #            xbmc.log('%s: Databit_db Delete afFENity AD Failed!' % var.amgr, xbmc.LOGINFO)
-#            pass
+#            pass'''
 
 
     
@@ -932,7 +1014,7 @@ def backup_fenlt_trakt():
         
 
 
-##########################################################################
+'''##########################################################################
 ##########################################################################
 ############################# afFENity Trakt #############################
     
@@ -946,63 +1028,63 @@ def restore_affen_trakt():
         cur_p = conn_p.cursor()
         cur_t = conn_t.cursor()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('trakt.token',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('trakt.token',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'trakt.token',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'trakt.token',))
 
         conn_t.commit()
         
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('trakt.user',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('trakt.user',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'trakt.user',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'trakt.user',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('trakt.refresh',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('trakt.refresh',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'trakt.refresh',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'trakt.refresh',))
 
         conn_t.commit()
         
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('trakt.expires',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('trakt.expires',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'trakt.expires',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'trakt.expires',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('watched_indicators',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('watched_indicators',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'watched_indicators',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'watched_indicators',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('watched_indicators_name',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('watched_indicators_name',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'watched_indicators_name',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'watched_indicators_name',))
 
         conn_t.commit()
         cur_t.close()
@@ -1043,7 +1125,217 @@ def backup_affen_trakt():
 #            os.unlink(os.path.join(var.trakt_backup_affen))
 #        except OSError:
 #            xbmc.log('%s: Databit_db Delete afFENity Trakt Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass'''
+
+
+
+##########################################################################
+##########################################################################
+########################### Fen Light TorBox ###########################
+    
+############################ Restore TorBox ############################
+def restore_fenlt_tb():
+    try:
+        conn_p = create_conn(var.tb_backup_fenlt)
+        conn_t = create_conn(var.fenlt_settings_db)
+
+        cur_p = conn_p.cursor()
+        cur_t = conn_t.cursor()
+
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('tb.enable',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'tb.enable',))
+
+        conn_t.commit()
+        
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('tb.token',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'tb.token',))
+
+        conn_t.commit()
+        cur_t.close()
+        cur_p.close()
+    except:
+        xbmc.log('%s: Databit_db Restore Fen Light TorBox Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+############################ Revoke TorBox ############################
+def revoke_fenlt_tb():
+    try:
+        # Create database connection
+        conn = create_conn(var.fenlt_settings_db)
+        with conn:
+            connect_tb(conn, ('false', 'tb.enabled'))
+            connect_tb(conn, ('empty_setting', 'tb.token'))
+    except:
+        xbmc.log('%s: Databit_db Revoke Fen Light TorBox Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+############################ Backup TorBox ############################
+def backup_fenlt_tb():
+    if os.path.exists(os.path.join(var.fenlt_settings_db)) and os.path.exists(os.path.join(var.tb_backup)):
+        try:
+            xbmcvfs.copy(os.path.join(var.fenlt_settings_db), os.path.join(var.tb_backup_fenlt))
+        except:
+            xbmc.log('%s: Databit_db Backup Fen Light TorBox Failed!' % var.amgr, xbmc.LOGINFO)
+            pass
+
+############################ Delete TorBox Backup ############################
+#def delete_fenlt_tb():
+#    if os.path.exists(os.path.join(var.tb_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.tb_backup_fenlt))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete Fen Light TorBox Failed!' % var.amgr, xbmc.LOGINFO)
 #            pass
+
+
+
+#############################################################################
+#############################################################################
+########################### Fen Light Easy Debrid ###########################
+    
+############################ Restore Easy Debrid ############################
+def restore_fenlt_ed():
+    try:
+        conn_p = create_conn(var.ed_backup_fenlt)
+        conn_t = create_conn(var.fenlt_settings_db)
+
+        cur_p = conn_p.cursor()
+        cur_t = conn_t.cursor()
+
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('ed.enable',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'ed.enable',))
+
+        conn_t.commit()
+        
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('ed.token',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'ed.token',))
+
+        conn_t.commit()
+        cur_t.close()
+        cur_p.close()
+    except:
+        xbmc.log('%s: Databit_db Restore Fen Light Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+############################ Revoke Easy Debrid ############################
+def revoke_fenlt_ed():
+    try:
+        # Create database connection
+        conn = create_conn(var.fenlt_settings_db)
+        with conn:
+            connect_ed(conn, ('false', 'ed.enabled'))
+            connect_ed(conn, ('empty_setting', 'ed.token'))
+    except:
+        xbmc.log('%s: Databit_db Revoke Fen Light Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+############################ Backup Easy Debrid ############################
+def backup_fenlt_ed():
+    if os.path.exists(os.path.join(var.fenlt_settings_db)) and os.path.exists(os.path.join(var.ed_backup)):
+        try:
+            xbmcvfs.copy(os.path.join(var.fenlt_settings_db), os.path.join(var.ed_backup_fenlt))
+        except:
+            xbmc.log('%s: Databit_db Backup Fen Light Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+            pass
+
+############################ Delete Easy Debrid ############################
+#def delete_fenlt_ed():
+#    if os.path.exists(os.path.join(var.ed_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.ed_backup_fenlt))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete Fen Light Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
+
+
+##########################################################################
+##########################################################################
+########################### Fen Light Offcloud ###########################
+    
+############################ Restore Offcloud ############################
+def restore_fenlt_oc():
+    try:
+        conn_p = create_conn(var.offc_backup_fenlt)
+        conn_t = create_conn(var.fenlt_settings_db)
+
+        cur_p = conn_p.cursor()
+        cur_t = conn_t.cursor()
+
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('oc.enable',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'oc.enable',))
+
+        conn_t.commit()
+        
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('oc.token',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'oc.token',))
+
+        conn_t.commit()
+        cur_t.close()
+        cur_p.close()
+    except:
+        xbmc.log('%s: Databit_db Restore Fen Light Offcloud Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+############################ Revoke Offcloud ############################
+def revoke_fenlt_oc():
+    try:
+        # Create database connection
+        conn = create_conn(var.fenlt_settings_db)
+        with conn:
+            connect_oc(conn, ('false', 'oc.enabled'))
+            connect_oc(conn, ('empty_setting', 'oc.token'))
+    except:
+        xbmc.log('%s: Databit_db Revoke Fen Light Offcloud Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+############################ Backup Offcloud ############################
+def backup_fenlt_oc():
+    if os.path.exists(os.path.join(var.fenlt_settings_db)) and os.path.exists(os.path.join(var.offc_backup)):
+        try:
+            xbmcvfs.copy(os.path.join(var.fenlt_settings_db), os.path.join(var.offc_backup_fenlt))
+        except:
+            xbmc.log('%s: Databit_db Backup Fen Light Offcloud Failed!' % var.amgr, xbmc.LOGINFO)
+            pass
+
+############################ Delete Offcloud Backup ############################
+#def delete_fenlt_oc():
+#    if os.path.exists(os.path.join(var.offc_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.offc_backup_fenlt))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete Fen Light Offcloud Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
+
 
 
 
@@ -1101,7 +1393,7 @@ def revoke_fenlt_easy():
         # Create database connection
         conn = create_conn(var.fenlt_settings_db)
         with conn:
-            connect_easy(conn, ('empty_setting', 'provider.easynews'))
+            connect_easy(conn, ('false', 'provider.easynews'))
             connect_easy(conn, ('empty_setting', 'easynews_user'))
             connect_easy(conn, ('empty_setting', 'easynews_password'))
     except:
@@ -1128,7 +1420,7 @@ def backup_fenlt_easy():
 
 
 
-##########################################################################
+'''##########################################################################
 ##########################################################################
 ########################### afFENity Easynews ############################
     
@@ -1141,33 +1433,33 @@ def restore_affen_easy():
         cur_p = conn_p.cursor()
         cur_t = conn_t.cursor()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('provider.easynews',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('provider.easynews',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'provider.easynews',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'provider.easynews',))
 
         conn_t.commit()
         
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('easynews_user',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('easynews_user',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'easynews_user',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'easynews_user',))
 
         conn_t.commit()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('easynews_password',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('easynews_password',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'easynews_password',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'easynews_password',))
 
         conn_t.commit()
         cur_t.close()
@@ -1205,7 +1497,7 @@ def backup_affen_easy():
 #            os.unlink(os.path.join(var.easy_backup_affen))
 #        except OSError:
 #            xbmc.log('%s: Databit_db Delete afFENity Easynews Failed!' % var.amgr, xbmc.LOGINFO)
-#            pass
+#            pass'''
 
 
 
@@ -1281,7 +1573,7 @@ def backup_fenlt_meta():
 
 
 
-##########################################################################
+'''##########################################################################
 ##########################################################################
 ########################### afFENity Metadata ############################
     
@@ -1294,13 +1586,13 @@ def restore_affen_meta():
         cur_p = conn_p.cursor()
         cur_t = conn_t.cursor()
 
-        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('omdb_api',))
+        cur_p.execute(''''''SELECT setting_value FROM settings WHERE setting_id = ?'''''', ('omdb_api',))
         data = cur_p.fetchone()
         data_set = str(data)
         
         for char in char_remov:
             data_set = data_set.replace(char, "")
-            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'omdb_api',))
+            cur_t.execute(''''''UPDATE settings SET setting_value = ? WHERE setting_id = ?'''''', (data_set, 'omdb_api',))
 
         conn_t.commit()
         cur_t.close()
@@ -1336,5 +1628,86 @@ def backup_affen_meta():
 #            os.unlink(os.path.join(var.meta_backup_affen))
 #        except OSError:
 #            xbmc.log('%s: Databit_db Delete afFENity Metadata Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass'''
+
+
+
+#######################################################################################
+#######################################################################################
+########################### Fen Light External Providers ##############################
+    
+############################ Restore External Providers ###############################
+def restore_fenlt_ext():
+    try:
+        conn_p = create_conn(var.ext_backup_fenlt)
+        conn_t = create_conn(var.fenlt_settings_db)
+
+        cur_p = conn_p.cursor()
+        cur_t = conn_t.cursor()
+
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('provider.external',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'provider.external',))
+
+        conn_t.commit()
+        
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('external_scraper.name',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'external_scraper.name',))
+
+        conn_t.commit()
+
+        cur_p.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('external_scraper.module',))
+        data = cur_p.fetchone()
+        data_set = str(data)
+        
+        for char in char_remov:
+            data_set = data_set.replace(char, "")
+            cur_t.execute('''UPDATE settings SET setting_value = ? WHERE setting_id = ?''', (data_set, 'external_scraper.module',))
+
+        conn_t.commit()
+        cur_t.close()
+        cur_p.close()
+    except:
+        xbmc.log('%s: Databit_db Restore Fen Light Ext Providers Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+######################### Revoke Fen Light External Provider ###########################
+def revoke_fenlt_ext():
+    try:
+        # Create database connection
+        conn = create_conn(var.fenlt_settings_db)
+        with conn:
+            connect_ext(conn, ('false', 'provider.external'))
+            connect_ext(conn, ('empty_setting', 'external_scraper.name'))
+            connect_ext(conn, ('empty_setting', 'external_scraper.module'))
+    except:
+        xbmc.log('%s: Ext_db Revoke Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+    
+############################ Backup External Providers ##################################
+def backup_fenlt_ext():
+    if os.path.exists(os.path.join(var.fenlt_settings_db)) and os.path.exists(os.path.join(var.ext_backup)):
+        try:
+            xbmcvfs.copy(os.path.join(var.fenlt_settings_db), os.path.join(var.ext_backup_fenlt))
+        except:
+            xbmc.log('%s: Databit_db Backup Fen Light Ext Providers Failed!' % var.amgr, xbmc.LOGINFO)
+            pass
+
+############################ Delete External Providers Backup ############################
+#def delete_fenlt_ext():
+#    if os.path.exists(os.path.join(var.ext_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.ext_backup_fenlt))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete Fen Light Ext Providers Failed!' % var.amgr, xbmc.LOGINFO)
 #            pass
 

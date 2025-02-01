@@ -6,10 +6,9 @@ from modules import kodi_utils as k, settings as s
 tp, ls, build_url, notification, list_dirs = k.translate_path, k.local_string, k.build_url, k.notification, k.list_dirs
 make_listitem, add_item, end_directory, add_items = k.make_listitem, k.add_item, k.end_directory, k.add_items
 set_content, set_view_mode, set_sort_method, set_category = k.set_content, k.set_view_mode, k.set_sort_method, k.set_category
-download_directory, source_folders_directory = s.download_directory, s.source_folders_directory
-easynews_active, wi = s.easynews_active, s.watched_indicators
+easynews_active, download_directory, source_folders_directory = s.easynews_active, s.download_directory, s.source_folders_directory
 get_shortcut_folders, get_shortcut_folder_contents, = nc.get_shortcut_folders, nc.get_shortcut_folder_contents
-icon_directory, fanart = 'special://home/addons/plugin.video.pov/resources/media/%s', tp('special://home/addons/plugin.video.pov/fanart.png')
+icon_directory = 'special://home/addons/plugin.video.pov/resources/media/%s'
 _in_str, mov_str, tv_str, edit_str = ls(32484), ls(32028), ls(32029), ls(32705)
 browse_str, add_menu_str, s_folder_str = ls(32706), ls(32730), ls(32731)
 
@@ -36,7 +35,7 @@ class Navigator:
 					listitem.addContextMenuItems(cm)
 					yield (build_url(item), listitem, isFolder)
 				except: pass
-		__handle__ = int(sys.argv[1])
+		__handle__, fanart = int(sys.argv[1]), k.addon_fanart()
 		add_items(__handle__, list(build_main_lists()))
 		self._end_directory()
 
@@ -112,12 +111,14 @@ class Navigator:
 		self._add_item({'mode': 'clear_cache', 'cache': 'oc_cloud', 'name': clca_str }, 'offcloud.png', n_ins, False)
 
 	def torbox(self):
-		tb_str, clc_str = 'TorBox', 'Clear Cloud Storage',
-		cloud_str, ai_str = ls(32496), ls(32494)
+		tor_str, usenet_str, web_str = 'Torrent', 'Usenet', 'Web Download'
+		tb_str, cloud_str, ai_str = 'TorBox', ls(32496), ls(32494)
 		clca_str, n_ins = ls(32497) % tb_str, _in_str % (tb_str.upper(), '')
-		self._add_item({'mode': 'torbox.tb_torrent_cloud',          'name': cloud_str}, 'torbox.png', n_ins)
-		self._add_item({'mode': 'torbox.tb_account_info',           'name': ai_str   }, 'torbox.png', n_ins, False)
-		self._add_item({'mode': 'clear_cache', 'cache': 'tb_cloud', 'name': clca_str }, 'torbox.png', n_ins, False)
+		self._add_item({'mode': 'torbox.tb_torrent_cloud', 'media_type': 'torent', 'name': tor_str   }, 'torbox.png', n_ins)
+		self._add_item({'mode': 'torbox.tb_torrent_cloud', 'media_type': 'usenet', 'name': usenet_str}, 'torbox.png', n_ins)
+		self._add_item({'mode': 'torbox.tb_torrent_cloud', 'media_type': 'webdl',  'name': web_str   }, 'torbox.png', n_ins)
+		self._add_item({'mode': 'torbox.tb_account_info',                          'name': ai_str    }, 'torbox.png', n_ins, False)
+		self._add_item({'mode': 'clear_cache', 'cache': 'tb_cloud',                'name': clca_str  }, 'torbox.png', n_ins, False)
 
 	def favourites(self):
 		fav_str = ls(32453)
@@ -130,11 +131,12 @@ class Navigator:
 
 	def my_content(self):
 		trakt_str, imdb_str, coll_str, wlist_str, ls_str = ls(32037), ls(32064), ls(32499), ls(32500), ls(32501)
-		t_n_ins, i_n_ins = _in_str % (trakt_str.upper(), ''), _in_str % (imdb_str.upper(), '')
-		t_str, user_str, l_str, ai_str = ls(32037), ls(32065), ls(32501), ls(32494)
+		t_n_ins, i_n_ins, m_n_ins = _in_str % (trakt_str.upper(), ''), _in_str % (imdb_str.upper(), ''), _in_str % ('MDBList'.upper(), '')
+		t_str, user_str, l_str, ai_str, ml_str = ls(32037), ls(32065), ls(32501), ls(32494), ls(32454)
 		tu_str, pu_str = '%s %s %s' % (ls(32458), user_str, l_str), '%s %s %s' % (ls(32459), user_str, l_str)
 		sea_str, n_ins = '%s %s' % (ls(32477), l_str), _in_str % (t_str.upper(), '')
 		trakt_status = k.get_setting('trakt_user') not in ('', None)
+		mdblist_status = k.get_setting('mdblist.token') not in ('', None)
 		imdb_status = k.get_setting('imdb_user') not in ('', None)
 		if trakt_status:
 			self._add_item({'mode': 'navigator.trakt_collections'                                           , 'name': coll_str }, 'trakt.png', t_n_ins)
@@ -144,6 +146,10 @@ class Navigator:
 		self._add_item({'mode': 'build_trakt_list.get_trakt_trending_popular_lists', 'list_type': 'trending', 'name': tu_str }, 'trakt.png', n_ins)
 		self._add_item({'mode': 'build_trakt_list.get_trakt_trending_popular_lists', 'list_type': 'popular' , 'name': pu_str }, 'trakt.png', n_ins)
 		self._add_item({'mode': 'build_trakt_list.search_trakt_lists'                                       , 'name': sea_str}, 'trakt.png', n_ins)
+		if mdblist_status:
+			self._add_item({'mode': 'build_mdb_list.get_mdb_lists', 'list_type': 'my_lists' , 'name': ml_str }, 'mdblist.png', m_n_ins)
+			self._add_item({'mode': 'build_mdb_list.get_mdb_toplists'                       , 'name': pu_str }, 'mdblist.png', m_n_ins)
+			self._add_item({'mode': 'build_mdb_list.search_mdb_lists'                       , 'name': sea_str}, 'mdblist.png', m_n_ins)
 		if imdb_status:
 			self._add_item({'mode': 'navigator.imdb_watchlists', 'name': wlist_str}, 'imdb.png', i_n_ins)
 			self._add_item({'mode': 'navigator.imdb_lists',      'name': ls_str   }, 'imdb.png', i_n_ins)
@@ -272,7 +278,7 @@ class Navigator:
 		set_views_str, lists_str, root_str, movies_str = ls(32510), ls(32501), ls(32457), ls(32028)
 		tvshows_str, season_str, episode_str = ls(32029), ls(32537), ls(32506)
 		premium_files_str, ep_lists_str = ls(32485), '%s %s' % (episode_str, lists_str)
-		n_ins = _in_str % (set_views_str.upper(), '')
+		n_ins, reset_str = _in_str % (set_views_str.upper(), ''), 'Reset All Views'
 		self._add_item({'mode': 'choose_view', 'view_type': 'view.main', 'content': '', 'exclude_external': 'true'                , 'name': root_str         }, 'settings.png', n_ins)
 		self._add_item({'mode': 'choose_view', 'view_type': 'view.movies', 'content': 'movies', 'exclude_external': 'true'        , 'name': movies_str       }, 'settings.png', n_ins)
 		self._add_item({'mode': 'choose_view', 'view_type': 'view.tvshows', 'content': 'tvshows', 'exclude_external': 'true'      , 'name': tvshows_str      }, 'settings.png', n_ins)
@@ -280,6 +286,7 @@ class Navigator:
 		self._add_item({'mode': 'choose_view', 'view_type': 'view.episodes', 'content': 'episodes', 'exclude_external': 'true'    , 'name': episode_str      }, 'settings.png', n_ins)
 		self._add_item({'mode': 'choose_view', 'view_type': 'view.episode_lists', 'content': 'episodes','exclude_external': 'true', 'name': ep_lists_str     }, 'settings.png', n_ins)
 		self._add_item({'mode': 'choose_view', 'view_type': 'view.premium', 'content': 'files', 'exclude_external': 'true'        , 'name': premium_files_str}, 'settings.png', n_ins)
+		self._add_item({'mode': 'clear_view', 'view_type': 'all'                                                                  , 'name': reset_str        }, 'settings.png', n_ins, False)
 		self._end_directory()
 
 	def log_utils(self):
@@ -428,7 +435,7 @@ class Navigator:
 					listitem.setArt({'fanart': fanart})
 					yield (url, listitem, tup[1])
 				except: pass
-		__handle__ = int(sys.argv[1])
+		__handle__, fanart = int(sys.argv[1]), k.addon_fanart()
 		folder_path = self.params_get('folder_path')
 		sources_folders = self.params_get('sources_folders', None)
 		dirs, files = list_dirs(folder_path)
@@ -455,7 +462,7 @@ class Navigator:
 			_watched = get_watched_info_tv(watched_indicators)
 			_watched.sort(key=lambda x: (x[0], x[1], x[2]), reverse=True)
 			return [(i[0], i[3], i[4], [(i[1], i[2])]) for i in _watched if not (i[0] in seen or seen.add(i[0]))]
-		watched_indicators = wi()
+		watched_indicators = s.watched_indicators()
 		media_type = self.params_get('menu_type')
 		function = get_watched_info_movie if media_type == 'movie' else _convert_pov_watched_episodes_info
 		mode = 'build_movie_list' if media_type == 'movie' else 'build_tvshow_list'
@@ -477,13 +484,13 @@ class Navigator:
 
 	def shortcut_folders(self):
 		def _make_new_item():
-			icon = tp(icon_directory % 'new.png')
+			icon, art = tp(icon_directory % 'new.png'), tp(k.fanart_default)
 			display_name = '[I]%s...[/I]' % ls(32702)
 			url_params = {'mode': 'menu_editor.shortcut_folder_make'}
 			url = build_url(url_params)
 			listitem = make_listitem()
 			listitem.setLabel(display_name)
-			listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': icon})
+			listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': art, 'banner': icon})
 			add_item(__handle__, url, listitem, False)
 		def _builder():
 			short_str, delete_str = ls(32514), ls(32703)
@@ -505,7 +512,7 @@ class Navigator:
 					listitem.addContextMenuItems(cm)
 					yield (url, listitem, True)
 				except: pass
-		__handle__ = int(sys.argv[1])
+		__handle__, fanart = int(sys.argv[1]), k.addon_fanart()
 		_make_new_item()
 		folders = get_shortcut_folders()
 		if folders: add_items(__handle__, list(_builder()))
@@ -529,14 +536,14 @@ class Navigator:
 					listitem.addContextMenuItems(cm)
 					yield (url, listitem, isFolder)
 				except: pass
-		__handle__ = int(sys.argv[1])
+		__handle__, fanart = int(sys.argv[1]), k.addon_fanart()
 		list_name = self.params_get('name')
 		contents = get_shortcut_folder_contents(list_name)
 		add_items(__handle__, list(_process()))
 		self._end_directory()
 
 	def _add_item(self, url_params, iconImage='DefaultFolder.png', prefix='', isFolder=True, list_name=''):
-		__handle__ = int(sys.argv[1])
+		__handle__, fanart = int(sys.argv[1]), k.addon_fanart()
 		cm = []
 		cm_append = cm.append
 		icon = iconImage if 'network_id' in url_params else tp(icon_directory % iconImage)

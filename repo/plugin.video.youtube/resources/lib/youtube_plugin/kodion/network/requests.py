@@ -77,11 +77,11 @@ class BaseRequestsClass(Logger):
     ))
     atexit.register(_session.close)
 
-    def __init__(self, context, exc_type=None):
+    def __init__(self, context, exc_type=None, **kwargs):
         settings = context.get_settings()
-        self._verify = settings.verify_ssl()
-        self._timeout = settings.requests_timeout()
-        self._proxy = settings.proxy_settings()
+        self._verify = kwargs.get('verify_ssl') or settings.verify_ssl()
+        self._timeout = kwargs.get('timeout') or settings.requests_timeout()
+        self._proxy = kwargs.get('proxy_settings') or settings.proxy_settings()
 
         if isinstance(exc_type, tuple):
             self._default_exc = (RequestException,) + exc_type
@@ -190,7 +190,7 @@ class BaseRequestsClass(Logger):
                                   .format(exc=exc))
 
             if response_text:
-                response_text = ('Response:   {0}'
+                response_text = ('Response:  {0}'
                                  .format(response_text))
 
             if stack:

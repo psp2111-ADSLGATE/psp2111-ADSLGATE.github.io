@@ -2,36 +2,31 @@
 1.  Seren (Custom Trakt API Keys Only)
 2.  Fen
 3.  Fen Light
-4.  afFENity
-5.  Ezra
-6.  The Coalition
-7.  POV                  
-8.  Umbrella
-9.  Infinity
-10. Dradis
-11. Taz19
-12. Shadow
-13. Ghost
-14. Base
-15. Unleashed            
-16. Chain Reaction
-17. Magic Dragon
-18. Asgard
-19. Patriot
-20. Black Lightning
-21. Aliunde K19
-22. Nightwing Lite
-23. Homelander
-24. Quicksilver
-25. Chains Genocide
-26. Absolution       
-27. Shazam
-28. The Crew              
-29. Alvin
-30. Moria
-31. Nine Lives
-32. Scrubs V2
-33. TMDb Helper
-34. Trakt Add-on
-35. All Accounts
-36. My Accounts
+4.  The Coalition
+5.  POV                  
+6.  Umbrella
+7.  Infinity
+8.  Dradis
+9.  Shadow
+10. Ghost
+11. Base          
+12. Chain Reaction
+13. Asgard
+14. Patriot
+15. Black Lightning
+16. Aliunde K19
+17. Nightwing Lite
+18. Homelander
+19. Quicksilver
+20. Chains Genocide
+21. Absolution       
+22. Shazam
+23. The Crew              
+24. Alvin
+25. Moria
+26. Nine Lives
+27. Scrubs V2
+28. TMDb Helper
+29. Trakt Add-on
+30. All Accounts
+31. My Accounts

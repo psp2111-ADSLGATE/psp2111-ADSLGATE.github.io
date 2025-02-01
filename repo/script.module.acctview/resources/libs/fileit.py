@@ -39,7 +39,7 @@ FILEID = {
         'saved'    : 'infinity',
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity'),
         'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media/', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity', 'fanart.jpg'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.infinity/resources/media', 'fanart.png'),
         'file'     : os.path.join(CONFIG.FILEFOLD, 'infinity_file'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.infinity', 'settings.xml'),
         'default'  : 'filepursuit.api',
@@ -287,7 +287,12 @@ def import_list(who):
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]Filepursuit Info: Imported![/COLOR]'.format(CONFIG.COLOR2))
 
-def open_settings_filep(who):
+def settings(who):
+    user = None
+    user = FILEID[who]['name']
+    return user
+
+def open_settings(who):
     addonid = tools.get_addon_by_id(FILEID[who]['plugin'])
     addonid.openSettings()
 
