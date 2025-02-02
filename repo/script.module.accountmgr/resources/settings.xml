@@ -34,12 +34,10 @@
 		<setting id="trakt.client.id" type="text" visible="false" label="40089" default="" />
 		<setting id="trakt.client.secret" type="text" visible="false" label="40088" default="" />
 		<setting id="trakt.synclist" type="text" visible="false" label="" default="false" />
-		<setting type="action" label="إنشاء قائمة مزامنة" option="close" action="RunScript(script.module.accountmgr, action=traktSyncList)" visible="eq(-8,) + eq(-1,false)" />
-		<setting type="action" label="تحرير قائمة المزامنة" option="close" action="RunScript(script.module.accountmgr, action=traktSyncList)" visible="eq(-9,) + eq(-2,true)" />
-		<setting type="action" label="تحرير القائمة و إعادة المزامنة" option="close" action="RunScript(script.module.accountmgr, action=traktReSyncList)" visible="!eq(-10,) + eq(-3,true)" />
-		<setting type="action" label="إجراء المصادقة" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(-11,) + eq(-4,true)" />
-		<setting id="trakt.username" type="text" default="" label="40062" enable="false" visible="!eq(-12,)" />
-		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=traktAcct)" visible="!eq(-13,)" />
+		<setting type="action" label="تحرير قائمة الإضافات للمصادقة" option="close" action="RunScript(script.module.accountmgr, action=traktReSyncList)" visible="!eq(-8,) + eq(-1,true)" />
+		<setting type="action" label="إجراء المصادقة" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(-9,) + eq(-2,false)" />
+		<setting id="trakt.username" type="text" default="" label="40062" enable="false" visible="!eq(-10,)" />
+		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=traktAcct)" visible="!eq(-11,)" />
 
 		<setting type="lsep" label="TorBox" />
 		<setting id="torbox.enabled" type="bool" visible="true" label="تمكين" default="false" />
@@ -270,6 +268,7 @@
 		<setting id="ext_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="eq(-13,true)" />
 	</category>
 	<category label="تكوين النسخ الاحتياطية">
+		<setting type="lsep" label="خدمة النسخ الاحتياطي التلقائي بعد المصادقة" />
 		<setting id="backupenable" type="bool" visible="true" label="تفعيل النسخ الاحتياطي التلقائي" default="true" />
 		<setting type="lsep" label="40105" />
 		<setting type="lsep" label="تكوين مسار النسخ الاحتياطية" />
@@ -283,16 +282,17 @@
 		<setting id="checkAddonUpdates" type="bool" visible="false" label="Update Notification Service" default="false" />
 		<setting type="lsep" label="40094" />
       		<setting id="api.service" type="bool" visible="false" label="" default="" />
-      		<setting id="sync.rd.service"  type="bool" label="Real-Debrid" default="false"/>
-      		<setting id="sync.pm.service"  type="bool" label="Premiumize" default="false"/>
-      		<setting id="sync.ad.service"  type="bool" label="All-Debrid" default="false"/>
-      		<setting id="sync.torbox.service"  type="bool" label="TorBox" default="false"/>
-      		<setting id="sync.easyd.service"  type="bool" label="Easy Debrid" default="false"/>
-      		<setting id="sync.offc.service"  type="bool" label="OffCloud" default="false"/>
-      		<setting id="sync.easy.service"  type="bool" label="Easynews" default="false"/>
-      		<setting id="sync.filep.service"  type="bool" label="Filepursuit" default="false"/>
-      		<setting id="sync.metaservice" type="bool" label="خدمات البيانات التعريفية" default="false"/>
-      		<setting id="sync.extservice" type="bool" label="محركات البحث" default="false"/>
+      		<setting id="sync.tk.service"  type="bool" label="Trakt" visible="true" default="false"/>
+      		<setting id="sync.rd.service"  type="bool" label="Real-Debrid" visible="true" default="false"/>
+      		<setting id="sync.pm.service"  type="bool" label="Premiumize" visible="true" default="false"/>
+      		<setting id="sync.ad.service"  type="bool" label="All-Debrid" visible="true" default="false"/>
+      		<setting id="sync.torbox.service"  type="bool" label="TorBox" visible="true" default="false"/>
+      		<setting id="sync.easyd.service"  type="bool" label="Easy Debrid" visible="true" default="false"/>
+      		<setting id="sync.offc.service"  type="bool" label="OffCloud" visible="true" default="false"/>
+      		<setting id="sync.easy.service"  type="bool" label="Easynews" visible="true" default="false"/>
+      		<setting id="sync.filep.service"  type="bool" label="Filepursuit" visible="true" default="false"/>
+      		<setting id="sync.meta.service" type="bool" label="خدمات البيانات التعريفية" visible="true" default="false"/>
+      		<setting id="sync.ext.service" type="bool" label="محركات البحث" visible="true" default="false"/>
 	</category>
 	<category label="متقدم">
 		<setting type="lsep" visible="false" label="Persistent Trakt Keys For Builders" />

@@ -33,7 +33,7 @@ def traktSecret():
 
 #Trakt Sync List Paths
 synclist_file = os.path.join(user_path, 'addon_data/script.module.accountmgr/trakt_sync_list.json')
-synclist_backup = translatePath(backup_path) + 'trakt/trakt_sync_list.json'
+synclist_backup = translatePath(backup_path + 'trakt/trakt_sync_list.json')
 
 #Backup Trakt Sync List
 def backup_synclist():

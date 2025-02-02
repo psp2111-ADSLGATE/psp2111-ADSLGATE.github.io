@@ -13,9 +13,10 @@ addon_id = xbmcaddon.Addon().getAddonInfo('id')
 addon = xbmcaddon.Addon(addon_id)
 addoninfo = addon.getAddonInfo
 addon_data = translatePath(addon.getAddonInfo('profile'))
-file_path = addon_data + 'trakt_sync_list.json'
+synclist_dir = os.path.join(control.setting('backupfolder') + 'trakt/')
+file_path = translatePath(addon_data + 'trakt_sync_list.json')
 trakt_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.accountmgr').getAddonInfo('path'), 'resources', 'icons'), 'trakt.png')
-NAMES = ['Seren', 'Fen', 'Fen Light', 'The Coalition', 'POV', 'Umbrella', 'Infinity', 'Dradis', 'Shadow', 'Ghost', 'Base', 'Chain Reaction', 'Asgard', 'Patriot', 'Black Lightning', 'Aliunde K19', 'Nightwing Lite', 'Homelander', 'Quicksilver', 'CHains Genocide', 'Absolution', 'Shazam', 'The Crew', 'Alvin', 'Moria', 'Nine Lives', 'Scrubs V2', 'TMDb Helper', 'Trakt Addon', 'All Accounts', ' My Accounts']
+#NAMES = ['Seren', 'Fen', 'Fen Light', 'The Coalition', 'POV', 'Umbrella', 'Infinity', 'Dradis', 'Shadow', 'Ghost', 'Base', 'Chain Reaction', 'Asgard', 'Patriot', 'Black Lightning', 'Aliunde K19', 'Nightwing Lite', 'Homelander', 'Quicksilver', 'CHains Genocide', 'Absolution', 'Shazam', 'The Crew', 'Alvin', 'Moria', 'Nine Lives', 'Scrubs V2', 'TMDb Helper', 'Trakt Addon', 'All Accounts', ' My Accounts']
 
 class tk_list():
         def create_list(self):
@@ -96,14 +97,18 @@ class tk_list():
                 if dialog_select == None or dialog_select == preselect: #Quit if no changes made
                     control.notification('Account Manager', 'No Changes Made!', icon=trakt_icon)
                     quit()
-                    
-                addon_list = []
-                for x in dialog_select: #Create user selected list
-                    addon_list.append(menu[x])
+                else:
+                        msg = 'Would you like to keep these changes?'
+                        if control.yesnoDialog(msg):
+                                addon_list = []
+                                for x in dialog_select: #Create user selected list
+                                    addon_list.append(menu[x])
 
-                if not xbmcvfs.exists(addon_data):
-                    xbmcvfs.mkdir(addon_data)
-                with open(file_path, 'w') as synclist:
-                    json.dump({'addon_list': addon_list}, synclist, indent = 4) #Create json
-                    control.setSetting('trakt.synclist', 'true')
-                    control.notification('Account Manager', 'Trakt Sync List Saved!', icon=trakt_icon)
+                                if not xbmcvfs.exists(synclist_dir):
+                                    xbmcvfs.mkdir(synclist_dir)
+                                with open(file_path, 'w') as synclist:
+                                    json.dump({'addon_list': addon_list}, synclist, indent = 4) #Create json
+                                    control.setSetting('trakt.synclist', 'true')
+                                    control.notification('Account Manager', 'Trakt Sync List Saved!', icon=trakt_icon)
+                        else:
+                                quit()

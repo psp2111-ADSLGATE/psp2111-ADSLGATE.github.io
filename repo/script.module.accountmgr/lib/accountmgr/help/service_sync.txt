@@ -1,0 +1,13 @@
+
+
+All auto-sync startup services are disabled by default but are enabled after authorization of a service provider is complete (i.e. Trakt/Debrid). If you do not wish to have a service enabled then you can disable it here.
+
+
+SERVICE(s) ENABLED:
+- Any service enabled will allow supported add-ons that are not already authorized to be auto-synced at start-up.
+- If users whitelist Account Manager within their wizard all supported add-ons will be re-authorized after a build update/install. 
+
+SERVICE(s) DISABLED:
+- Any service disabled will not allow supported add-ons to be auto-synced at start-up.
+- If users update/install a build with Account Manager whitelisted only Account Manager will be authorized after the update/install. Users will be required to manually re-sync all services or enable the services you use here and restart Kodi.
+

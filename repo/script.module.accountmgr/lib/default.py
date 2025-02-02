@@ -74,12 +74,25 @@ elif action == 'traktAcct':
 	trakt.Trakt().account_info_to_dialog()
 
 elif action == 'traktAuth':
-	from accountmgr.modules.auth import trakt
-	trakt.Trakt().auth()
-	control.fenlt_chk()
-	xbmc.sleep(3000)
-	xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
-	os._exit(1)
+        if xbmcvfs.exists(var.synclist_file):
+                from accountmgr.modules.auth import trakt
+                trakt.Trakt().auth()
+                control.setSetting('sync.tk.service', 'true')
+                xbmc.sleep(3000)
+                xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
+                os._exit(1)
+        else:
+                msg = 'You have not created a list of add-ons to authorize![CR]Would you like to create your list now?'
+                if control.yesnoDialog(msg):
+                        from accountmgr.modules.sync import trakt_select
+                        trakt_select.tk_list().create_list()
+                        from accountmgr.modules.auth import trakt
+                        trakt.Trakt().auth()
+                        control.setSetting('sync.tk.service', 'true')
+                        xbmc.sleep(3000)
+                        xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
+                        os._exit(1)
+                                
 
 elif action == 'traktReSync': #Sync Trakt with installed add-ons
         from accountmgr.modules.sync import trakt_sync
@@ -103,18 +116,20 @@ elif action == 'traktSyncList':
 
 elif action == 'traktReSyncList':
 	from accountmgr.modules.sync import trakt_select
-	control.function_monitor(trakt_select.tk_list().create_list)
+	trakt_select.tk_list().create_list()
 	xbmc.sleep(1000)
-	from accountmgr.modules.sync import trakt_sync
-	notification('Account Manager', 'Sync in progress, please wait!', icon=trakt_icon)
-	xbmc.sleep(3000)
-	trakt_sync.Auth().trakt_auth()
-	xbmc.sleep(1000)
-	accountmgr.setSetting("api.service", "true") #Enable Trakt Service
-	notification('Account Manager', 'Sync Complete!', icon=trakt_icon)
-	xbmc.sleep(3000)
-	xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
-	os._exit(1)
+	msg = 'Your list has been updated![CR]Would you like to sync your changes now?'
+	if control.yesnoDialog(msg):
+                from accountmgr.modules.sync import trakt_sync
+                notification('Account Manager', 'Sync in progress, please wait!', icon=trakt_icon)
+                xbmc.sleep(3000)
+                trakt_sync.Auth().trakt_auth()
+                xbmc.sleep(1000)
+                accountmgr.setSetting("api.service", "true") #Enable Trakt Service
+                notification('Account Manager', 'Sync Complete!', icon=trakt_icon)
+                xbmc.sleep(3000)
+                xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
+                os._exit(1)
 	
 #Real-Debrid
 elif action == 'realdebridAcct':
@@ -124,6 +139,7 @@ elif action == 'realdebridAcct':
 elif action == 'realdebridAuth':
 	from accountmgr.modules.auth import realdebrid
 	control.function_monitor(realdebrid.RealDebrid().auth)
+	control.setSetting('sync.rd.service', 'true')
 
 elif action == 'realdebridReSync': #Sync Real-Debrid with installed add-ons
         notification('Account Manager', 'Sync in progress, please wait!', icon=rd_icon)
@@ -145,6 +161,7 @@ elif action == 'premiumizeAcct':
 elif action == 'premiumizeAuth':
 	from accountmgr.modules.auth import premiumize
 	control.function_monitor(premiumize.Premiumize().auth)
+	control.setSetting('sync.pm.service', 'true')
 
 elif action == 'premiumizeReSync': #Sync Premiumize with installed add-ons
         notification('Account Manager', 'Sync in progress, please wait!', icon=pm_icon)
@@ -166,6 +183,7 @@ elif action == 'alldebridAcct':
 elif action == 'alldebridAuth':
 	from accountmgr.modules.auth import alldebrid
 	control.function_monitor(alldebrid.AllDebrid().auth)
+	control.setSetting('sync.ad.service', 'true')
 
 elif action == 'alldebridReSync': #Sync All-Debrid with installed add-ons
         notification('Account Manager', 'Sync in progress, please wait!', icon=rd_icon)
@@ -183,6 +201,7 @@ elif action == 'alldebridRevoke':
 elif action == 'torboxAuth':
 	from accountmgr.modules.auth import torbox
 	control.function_monitor(torbox.Torbox().auth)
+	control.setSetting('sync.torbox.service', 'true')
 elif action == 'torboxRevoke':
 	from accountmgr.modules.auth import torbox
 	control.function_monitor(torbox.Torbox().revoke)
@@ -198,6 +217,7 @@ elif action == 'torboxReSync':
 elif action == 'easydebridAuth':
 	from accountmgr.modules.auth import easydebrid
 	control.function_monitor(easydebrid.Easydebrid().auth)
+	control.setSetting('sync.easyd.service', 'true')
 elif action == 'easydebridRevoke':
 	from accountmgr.modules.auth import easydebrid
 	control.function_monitor(easydebrid.Easydebrid().revoke)
@@ -213,6 +233,7 @@ elif action == 'easydebridReSync':
 elif action == 'offcloudAuth':
 	from accountmgr.modules.auth import offcloud
 	control.function_monitor(offcloud.Offcloud().auth)
+	control.setSetting('sync.offc.service', 'true')
 elif action == 'offcloudRevoke':
 	from accountmgr.modules.auth import offcloud
 	control.function_monitor(offcloud.Offcloud().revoke)
@@ -227,7 +248,8 @@ elif action == 'offcloudReSync':
 #Easynews
 elif action == 'easynewsAuth':
 	from accountmgr.modules.auth import easynews
-	control.function_monitor(easynews.Easynews().auth)                
+	control.function_monitor(easynews.Easynews().auth)
+	control.setSetting('sync.easy.service', 'true')
 elif action == 'easynewsReSync':                              
         notification('Account Manager', 'Sync in progress, please wait!', icon=easy_icon)
         xbmc.sleep(3000)
@@ -240,6 +262,7 @@ elif action == 'easynewsReSync':
 elif action == 'filepursuitAuth':
 	from accountmgr.modules.auth import filepursuit
 	control.function_monitor(filepursuit.Filepursuit().auth)
+	control.setSetting('sync.filep.service', 'true')
 elif action == 'filepursuitReSync':
         notification('Account Manager', 'Sync in progress, please wait!', icon=file_icon)
         xbmc.sleep(3000)
@@ -257,11 +280,12 @@ elif action == 'tmdbRevoke':
 	from accountmgr.modules.auth import tmdb
 	control.function_monitor(tmdb.Auth().revoke_session_id)
 
-elif action == 'metaReAuth':
+elif action == 'metaAuth':
 	if str(var.chk_accountmgr_fanart) != '' or str(var.chk_accountmgr_omdb) != '' or str(var.chk_accountmgr_mdb) != '' or str(var.chk_accountmgr_imdb) != '' or str(var.chk_accountmgr_tmdb) != '' or str(var.chk_accountmgr_tmdb_user) != '' or str(var.chk_accountmgr_tvdb) != '': #Skip sync if no meta account data in Account Manager
                 notification('Account Manager', 'Sync in progress, please wait!', icon=amgr_icon)
                 from accountmgr.modules.sync import meta_sync
                 meta_sync.Auth().meta_auth()
+                control.setSetting('sync.meta.service', 'true')
                 if var.setting('backupenable') == 'true': #Check if backup service is enabled
                         xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savemeta&name=all)') #Save Metadata               
                         xbmc.sleep(3000)
@@ -283,7 +307,31 @@ elif action == 'metaReSync':
                 xbmc.sleep(2000)
                 xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
                 os._exit(1)
-                
+
+#External Providers
+elif action == 'extAuth': #Sync external providers with installed add-ons
+        if not os.path.exists(var.chk_coco):
+                xbmcgui.Dialog().ok('Account Manager', 'No external scrapers are installed! Please install a supported scraper package and re-sync.')
+                xbmc.executebuiltin('Dialog.CLose(all,true)')
+                xbmc.executebuiltin("Addon.openSettings(script.module.accountmgr)")
+                quit()
+        else:
+                from accountmgr.modules.sync import ext_sync
+                accountmgr.setSetting("ext.provider", "CocoScrapers")
+                notification('Account Manager', 'Sync in progress, please wait!', icon=amgr_icon)
+                xbmc.sleep(3000)
+                control.function_monitor(ext_sync.Auth().ext_auth)
+                control.setSetting('sync.ext.service', 'true')
+                xbmc.sleep(1000)
+                notification('Account Manager', 'Sync Complete!', icon=amgr_icon)
+elif action == 'extReSync':                              
+        notification('Account Manager', 'Sync in progress, please wait!', icon=amgr_icon)
+        xbmc.sleep(3000)
+        from accountmgr.modules.sync import ext_sync
+        control.function_monitor(ext_sync.Auth().ext_auth)
+        xbmc.sleep(1000)
+        notification('Account Manager', 'Sync Complete!', icon=amgr_icon)
+        
 #Sync Multiple Debrid Accounts
 elif action == 'ReSyncAll': #Sync RD/PM/AD with installed add-ons
         #Real-Debrid
@@ -312,29 +360,6 @@ elif action == 'ReSyncAll': #Sync RD/PM/AD with installed add-ons
                 notification('Account Manager', 'All-Debrid Sync Complete!', icon=ad_icon)
 	if str(var.chk_accountmgr_tk_ad) == '': #If Account Mananger is not Authorized notify user
                 notification('Account Manager', 'All-Debrid NOT Authorized!', icon=ad_icon)
-	
-#External Providers
-elif action == 'extAuth': #Sync external providers with installed add-ons
-        if not os.path.exists(var.chk_coco):
-                xbmcgui.Dialog().ok('Account Manager', 'No external scrapers are installed! Please install a supported scraper package and re-sync.')
-                xbmc.executebuiltin('Dialog.CLose(all,true)')
-                xbmc.executebuiltin("Addon.openSettings(script.module.accountmgr)")
-                quit()
-        else:
-                from accountmgr.modules.sync import ext_sync
-                accountmgr.setSetting("ext.provider", "CocoScrapers")
-                notification('Account Manager', 'Sync in progress, please wait!', icon=amgr_icon)
-                xbmc.sleep(3000)
-                control.function_monitor(ext_sync.Auth().ext_auth)
-                xbmc.sleep(1000)
-                notification('Account Manager', 'Sync Complete!', icon=amgr_icon)
-elif action == 'extReSync':                              
-        notification('Account Manager', 'Sync in progress, please wait!', icon=amgr_icon)
-        xbmc.sleep(3000)
-        from accountmgr.modules.sync import ext_sync
-        control.function_monitor(ext_sync.Auth().ext_auth)
-        xbmc.sleep(1000)
-        notification('Account Manager', 'Sync Complete!', icon=amgr_icon)
 
 #View Supported Add-ons              
 elif action == 'ShowSupported_Trakt':
@@ -399,6 +424,10 @@ elif action == 'ShowHelpNonDebrid':
 	from accountmgr.help import help
 	help.get_nondebrid()
 
+elif action == 'ShowHelpServiceSync':
+	from accountmgr.help import help
+	help.get_service_sync()
+	
 elif action == 'ShowHelpCustom':
 	from accountmgr.help import help
 	help.get_custom()

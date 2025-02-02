@@ -457,7 +457,7 @@ msgid "[COLOR FFA0C12C]-- Disable ONLY if you do not use Trakt --[/COLOR]"
 msgstr ""
 
 msgctxt "#40094"
-msgid "[COLOR FFA0C12C]-- Enable to auto-sync supported add-ons at start-up --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Enable to auto-sync supported add-ons--[/COLOR]"
 msgstr ""
 
 msgctxt "#40097"
@@ -497,7 +497,7 @@ msgid "[COLOR FFA0C12C]-- Auto Backup data during authorization/sync actions--[/
 msgstr ""
 
 msgctxt "#40106"
-msgid "[COLOR FFA0C12C]-- Builders can add they own Custom Trakt keys here --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Builders can add their own Custom Trakt keys here --[/COLOR]"
 msgstr """
 
 msgctxt "#40107"
@@ -563,9 +563,6 @@ msgstr ""
 msgctxt "#40122"
 msgid "[COLOR FFA0C12C]-- View Supported Easy Debrid Add-ons --[/COLOR]"
 msgstr ""
-
-
-
 
 
 

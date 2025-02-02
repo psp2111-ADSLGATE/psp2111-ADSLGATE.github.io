@@ -54,6 +54,18 @@ def get_nondebrid():
 	windows.run()
 	del windows
 
+def get_service_sync():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	helpFile = joinPath(accountmgr_path, 'lib', 'accountmgr', 'help', 'service_sync.txt')
+	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager -  v%s - Auto-Sync Services Help[/B]' % (accountmgr_version)
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+	
 def get_custom():
 	accountmgr_path = addonPath()
 	accountmgr_version = addonVersion()

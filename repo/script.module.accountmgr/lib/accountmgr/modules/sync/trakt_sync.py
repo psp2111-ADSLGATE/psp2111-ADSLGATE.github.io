@@ -4,6 +4,7 @@ import os
 import json
 from pathlib import Path
 from libs.common import var
+from accountmgr.modules import control
 
 char_remov = ["'", ",", ")","("]
 
@@ -19,7 +20,7 @@ addon_id = xbmcaddon.Addon().getAddonInfo('id')
 addon = xbmcaddon.Addon(addon_id)
 addoninfo = addon.getAddonInfo
 addon_data = translatePath(addon.getAddonInfo('profile'))
-file_path = addon_data + 'trakt_sync_list.json'
+file_path = translatePath(addon_data + 'trakt_sync_list.json')
 
 class Auth:
     def trakt_auth(self):
@@ -109,6 +110,7 @@ class Auth:
                                         from accountmgr.modules.db import trakt_db
                                         trakt_db.auth_fenlt_trakt()
                                         var.remake_settings()
+                                        control.fenlt_chk()
                     except:
                             xbmc.log('%s: Fen Light Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                             pass
