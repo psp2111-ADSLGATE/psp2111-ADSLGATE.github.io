@@ -29,12 +29,12 @@
 		<setting id="trakt.token" type="text" visible="false" label="" default="" />
 		<setting id="trakt.refresh" type="text" visible="false" label="" default="" />
 		<setting id="trakt.expires" type="text" visible="false" label="" default="" />
-		<setting id="devuserkey.enabled" type="bool" visible="false" label="" default="true" />
-		<setting id="traktuserkey.enabled" type="bool" visible="false" label="40090" default="false" />
-		<setting id="trakt.client.id" type="text" visible="false" label="40089" default="" />
-		<setting id="trakt.client.secret" type="text" visible="false" label="40088" default="" />
+		<setting id="devuserkey.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="traktuserkey.enabled" type="bool" visible="false" label="40090" default="true" />
+		<setting id="trakt.client.id" type="text" visible="false" label="40089" default="20fdc5f7364aad2c6d0491652bffc16e2eb7be35b9572478049d54d9824cc4d0" />
+		<setting id="trakt.client.secret" type="text" visible="false" label="40088" default="3bd196ae0ce16d553d17cf5e3535ba3e65215cf8b5975a8dd9f2969ff0cd4592" />
 		<setting id="trakt.synclist" type="text" visible="false" label="" default="false" />
-		<setting type="action" label="تحرير قائمة الإضافات للمصادقة" option="close" action="RunScript(script.module.accountmgr, action=traktReSyncList)" visible="!eq(-8,) + eq(-1,true)" />
+		<setting type="action" label="تحرير قائمة الإضافات للمصادقة" option="close" action="RunScript(script.module.accountmgr, action=traktReSyncList)" visible="true" />
 		<setting type="action" label="إجراء المصادقة" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(-9,) + eq(-2,false)" />
 		<setting id="trakt.username" type="text" default="" label="40062" enable="false" visible="!eq(-10,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=traktAcct)" visible="!eq(-11,)" />
@@ -296,10 +296,10 @@
 	</category>
 	<category label="متقدم">
 		<setting type="lsep" visible="false" label="Persistent Trakt Keys For Builders" />
-		<setting id="traktuserkey.enabled" type="bool" visible="false" label="" default="false" />
-		<setting id="devuserkey.enabled" type="bool" visible="false" label="40107" default="true" />
-		<setting id="dev.client.id" type="text" option="hidden" visible="false" label="40089" default="20fdc5f7364aad2c6d0491652bffc16e2eb7be35b9572478049d54d9824cc4d0" />
-		<setting id="dev.client.secret" type="text" option="hidden" visible="false" label="40088" default="3bd196ae0ce16d553d17cf5e3535ba3e65215cf8b5975a8dd9f2969ff0cd4592" />
+		<setting id="traktuserkey.enabled" type="bool" visible="false" label="" default="true" />
+		<setting id="devuserkey.enabled" type="bool" visible="false" label="40107" default="false" />
+		<setting id="dev.client.id" type="text" option="hidden" visible="false" label="40089" default="" />
+		<setting id="dev.client.secret" type="text" option="hidden" visible="false" label="40088" default="" />
         	<setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpCustom)" visible="false" />
 		<setting type="lsep" label="إستعادة كل الاضافات الى الوضع الافتراضي" />
 		<setting type="action" label="إعادة تعيين الاضافات الى الاعدادات الافتراضية" option="close" action="RunScript(script.module.accountmgr, action=resetSettings)" visible="true" />
