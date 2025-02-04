@@ -9,4 +9,7 @@
     <description lang="en">Arctic Zephyr: From Ashes UI Audio Suite</description>
     <platform>all</platform>
   </extension>
+  <assets>
+	<icon>icon.png</icon>
+  </assets>
 </addon>

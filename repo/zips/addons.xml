@@ -1335,6 +1335,9 @@
     <description lang="en">Arctic Zephyr: From Ashes UI Audio Suite</description>
     <platform>all</platform>
   </extension>
+  <assets>
+	<icon>icon.png</icon>
+  </assets>
 </addon><addon id="script.autoruns" name="Autoruns" version="1.0.3" provider-name="fightnight, bittor7x0">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
