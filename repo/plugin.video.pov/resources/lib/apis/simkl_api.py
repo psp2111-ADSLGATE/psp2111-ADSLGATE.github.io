@@ -2,15 +2,14 @@ import requests
 from threading import Thread
 from caches.main_cache import cache_object
 from caches.meta_cache import cache_function
-from modules.kodi_utils import get_setting
-# from modules.kodi_utils import logger
+from modules import kodi_utils
 
 EXPIRES_2_DAYS = 48
-API_KEY = get_setting('simkl_api')
+API_KEY = kodi_utils.get_setting('simkl_api')
 base_url = 'https://api.simkl.com'
 timeout = 3.05
 session = requests.Session()
-retry = requests.adapters.Retry(total=None, status=1, status_forcelist=(429, 502, 503, 504), raise_on_status=False)
+retry = requests.adapters.Retry(total=None, status=1, status_forcelist=(429, 502, 503, 504))
 session.mount(base_url, requests.adapters.HTTPAdapter(pool_maxsize=100, max_retries=retry))
 
 def call_simkl(url):
@@ -18,11 +17,11 @@ def call_simkl(url):
 	try:
 		response = session.get(url, params=params, timeout=timeout)
 		response.raise_for_status()
-	except requests.exceptions.RequestException as e:
-		from modules.kodi_utils import logger
-		logger('simkl error', f"{e}\n{e.request.headers}\n{e.response.text}")
-	try: return response.json()
-	except: return None
+	except requests.exceptions.RequestException as e: kodi_utils.logger('simkl error',
+		f"{e}\n{e.response.text if response else e.request.url}")
+	try: result = response.json()
+	except: result = []
+	return result
 
 def simkl_list(url):
 	try:

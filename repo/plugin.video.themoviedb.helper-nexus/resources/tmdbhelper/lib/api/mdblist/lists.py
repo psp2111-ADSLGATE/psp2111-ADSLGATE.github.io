@@ -27,15 +27,12 @@ class ListLocal(Container):
         if not response:
             return
 
-        response = self.mdblist_api.get_custom_list_paginated(response, page=page or 1)
+        response = self.mdblist_api.get_paginated(response, page=page or 1)
 
         self.tmdb_cache_only = False
-        self.set_mixed_content(response)
+        self.set_mixed_content(response.paginated_items_dict)
 
-        # from tmdbhelper.lib.addon.logger import kodi_log
-        # kodi_log(f'OUTPUT: {response}', 1)
-
-        return response.get('items', []) + response.get('next_page', [])
+        return response.items + response.next_page
 
 
 class ListLists(Container):
@@ -56,14 +53,12 @@ class ListLists(Container):
 
 class ListCustom(Container):
     def get_items(self, list_id, page=None, **kwargs):
-        response = self.mdblist_api.get_custom_list(
-            page=page or 1,
-            list_id=list_id)
+        response = self.mdblist_api.get_custom_list(list_id, page=page or 1)
 
         self.tmdb_cache_only = False
-        self.set_mixed_content(response)
+        self.set_mixed_content(response.paginated_items_dict)
 
-        return response.get('items', []) + response.get('next_page', [])
+        return response.items + response.next_page
 
 
 class ListCustomSearch(Container):
@@ -76,7 +71,7 @@ class ListCustomSearch(Container):
             from tmdbhelper.lib.addon.plugin import encode_url
             self.container_update = f'{encode_url(PLUGINPATH, **kwargs)},replace'
         from xbmcplugin import SORT_METHOD_UNSORTED
-        items = self.mdblist_api.get_list_of_lists(path=f'lists/search?s={query}')
+        items = self.mdblist_api.get_list_of_lists_search(query)
         self.library = 'video'
         self.sort_methods = [{'sortMethod': SORT_METHOD_UNSORTED, 'label2Mask': '%U'}]  # Label2 Mask by Studio (i.e. User Name)
         return items

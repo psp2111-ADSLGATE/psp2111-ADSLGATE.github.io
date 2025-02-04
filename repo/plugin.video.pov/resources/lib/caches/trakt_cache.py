@@ -86,9 +86,8 @@ class TraktCache:
 		dbcur.execute("""PRAGMA mmap_size = 268435456""")
 		return dbcur
 
-_cache = TraktCache()
-
 def cache_trakt_object(function, string, url):
+	_cache = TraktCache()
 	cache = _cache.get(string)
 	if cache: return cache
 	result = function(url)
@@ -99,6 +98,7 @@ def reset_activity(latest_activities):
 	string = 'trakt_get_activity'
 	cached_data = None
 	try:
+		_cache = TraktCache()
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
 		dbcur.execute(TC_BASE_GET, (string,))
@@ -113,6 +113,7 @@ def reset_activity(latest_activities):
 def clear_trakt_hidden_data(list_type):
 	string = 'trakt_hidden_items_%s' % list_type
 	try:
+		_cache = TraktCache()
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
 		dbcur.execute(DELETE, (string,))
@@ -123,6 +124,7 @@ def clear_trakt_collection_watchlist_data(list_type, media_type):
 	if media_type in ('tvshows', 'shows'): media_type = 'tvshow'
 	string = 'trakt_%s_%s' % (list_type, media_type)
 	try:
+		_cache = TraktCache()
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
 		dbcur.execute(DELETE, (string,))
@@ -131,6 +133,7 @@ def clear_trakt_collection_watchlist_data(list_type, media_type):
 def clear_trakt_list_contents_data(list_type):
 	string = 'trakt_list_contents_' + list_type + '_%'
 	try:
+		_cache = TraktCache()
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
 		dbcur.execute(DELETE_LIKE % string)
@@ -139,6 +142,7 @@ def clear_trakt_list_contents_data(list_type):
 def clear_trakt_list_data(list_type):
 	string = 'trakt_%s' % list_type
 	try:
+		_cache = TraktCache()
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
 		dbcur.execute(DELETE, (string,))
@@ -146,6 +150,7 @@ def clear_trakt_list_data(list_type):
 
 def clear_trakt_calendar():
 	try:
+		_cache = TraktCache()
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
 		dbcur.execute(DELETE_LIKE % 'trakt_get_my_calendar_%')
@@ -154,6 +159,7 @@ def clear_trakt_calendar():
 def clear_trakt_recommendations(media_type):
 	string = 'trakt_recommendations_%s' % (media_type)
 	try:
+		_cache = TraktCache()
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
 		dbcur.execute(DELETE, (string,))
@@ -163,6 +169,7 @@ def clear_all_trakt_cache_data(silent=False, refresh=True):
 	try:
 		start = silent or confirm_dialog()
 		if not start: return False
+		_cache = TraktCache()
 		dbcon = _cache.connect_database()
 		dbcur = _cache.set_PRAGMAS(dbcon)
 		for table in ('trakt_data', 'progress', 'watched_status'): dbcur.execute(BASE_DELETE % table)

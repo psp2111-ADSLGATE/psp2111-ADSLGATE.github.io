@@ -1,278 +1,279 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-	<!-- General -->
-	<category label="32001">
-		<!-- General -->
-		<setting label="32001" type="lsep" />
-		<setting id="fanart_image" label="Fanart Image" type="image"  default="fanart.png"/>
-		<setting id="auto_start_pov" label="32017" type="bool" default="false" />
-		<setting id="widget_hide_watched" label="32465" type="bool" default="false" />
-		<setting id="kodi_menu_cache" label="32539" type="bool" default="true" />
-		<setting id="pov.max_threads" label="Maximum threads" type="slider" default="100" range="20,10,100" option="int" />
-		<!-- Watched Indicators -->
-		<setting label="32034" type="lsep" />
-		<setting id="trakt_indicators_active" label="trakt_indicators_active" type="text" default="false" visible="false" />
-		<setting id="watched_indicators" label="32035" type="enum" default="0" lvalues="32036|32037" visible="eq(-1,true)" />
-		<setting id="amble.indicators" label="32039" type="text" enable="false" visible="eq(-2,false)" />
-		<setting id="sync_kodi_library_watchstatus" label="32042" type="bool" default="false" />
-		<!-- Downloads -->
-		<setting label="32107" type="lsep" />
-		<setting id="movie_download_directory" label="32116" type="folder" default="special://profile/addon_data/plugin.video.pov/Movies Downloads/" />
-		<setting id="tvshow_download_directory" label="32117" type="folder" default="special://profile/addon_data/plugin.video.pov/TV Show Downloads/" />
-		<setting id="premium_download_directory" label="32210" type="folder" default="special://profile/addon_data/plugin.video.pov/Premium Downloads/" />
-		<setting id="image_download_directory" label="33005" type="folder" default="special://profile/addon_data/plugin.video.pov/Image Downloads/" />
-		<!-- UTC Time Offset -->
-		<setting label="32101" type="lsep" />
-		<setting id="datetime.offset" label="32045" type="slider" default="0" option="int" range="-15,1,15" />
-		<!-- Hidden -->
-		<setting id="trakt.refresh" type="text" default="" visible="false" />
-		<setting id="trakt.expires" type="text" default="" visible="false" />
-		<setting id="rd.refresh" type="text" default="" visible="false" />
-		<setting id="rd.client_id" type="text" default="" visible="false" />
-		<setting id="rd.secret" type="text" default="" visible="false" />
-		<setting id="results.sort_order" type="text" default="1" visible="false" />
-		<setting id="database.maintenance.due" type="text" default="0" visible="false" />
-		<setting id="reuse_language_invoker" type="text" default="true" visible="false" />
-		<setting id="folder1.display_name" type="text" default="Folder 1" visible="false" />
-		<setting id="folder1.movies_directory" type="text" default="None" visible="false" />
-		<setting id="folder1.tv_shows_directory" type="text" default="None" visible="false" />
-		<setting id="folder2.display_name" type="text" default="Folder 2" visible="false" />
-		<setting id="folder2.movies_directory" type="text" default="None" visible="false" />
-		<setting id="folder2.tv_shows_directory" type="text" default="None" visible="false" />
-		<setting id="folder3.display_name" type="text" default="Folder 3" visible="false" />
-		<setting id="folder3.movies_directory" type="text" default="None" visible="false" />
-		<setting id="folder3.tv_shows_directory" type="text" default="None" visible="false" />
-		<setting id="folder4.display_name" type="text" default="Folder 4" visible="false" />
-		<setting id="folder4.movies_directory" type="text" default="None" visible="false" />
-		<setting id="folder4.tv_shows_directory" type="text" default="None" visible="false" />
-		<setting id="folder5.display_name" type="text" default="Folder 5" visible="false" />
-		<setting id="folder5.movies_directory" type="text" default="None" visible="false" />
-		<setting id="folder5.tv_shows_directory" type="text" default="None" visible="false" />
-		<setting id="extras.enabled_menus" type="text" default="2050,2051,2052,2053,2054,2055,2056,2057,2058,2059,2060,2061,2062" visible="false" />
-	</category>
-	<!-- Next Episodes -->
-	<category label="Features">
-		<!-- Content and Sorting -->
-		<setting label="32071" type="lsep" />
-		<setting id="nextep.sort_type" label="32066" type="enum" default="0" lvalues="32226|32227|32228" />
-		<setting id="nextep.sort_order" label="32067" type="enum" default="0" lvalues="32225|32224" />
-		<setting id="nextep.sort_airing_today_to_top" label="32819" type="bool" default="false" />
-		<setting id="nextep.include_airdate" label="32076" type="bool" default="true" />
-		<setting id="nextep.include_unaired" label="32073" type="bool" default="true" />
-		<setting id="nextep.include_unwatched" label="32074" type="bool" default="false" />
-		<!-- Extras -->
-		<setting label="33038" type="lsep" />
-		<setting id="extras.open_action" label="32026" type="enum" default="0" lvalues="32965|32028|32029|32030" />
-		<setting id="extras.manage" label="32046" type="action" default="$ADDON[plugin.video.pov 32652]" action="RunPlugin(plugin://plugin.video.pov/?mode=extras_lists_choice)" />
-		<setting id="extras.enable_scrollbars" label="32846" type="bool" default="false" />
-		<setting id="extras.exclude_non_acting_roles" label="33040" type="bool" default="true" />
-	</category>
-	<!-- Navigation -->
-	<category label="32492">
-		<!-- Content -->
-		<setting label="32693" type="lsep" />
-		<setting id="include_year_in_title" label="32811" type="enum" default="0" lvalues="32027|32028|32029|32030" />
-		<setting id="default_all_episodes" label="32009" type="enum" default="1" lvalues="32013|32032|32033" />
-		<setting id="single_ep_display" label="32194" type="enum" default="0" lvalues="32201|32202|32203" />
-		<setting id="single_ep_format" label="32077" type="enum" default="2" lvalues="32229|32230|32231" />
-		<setting id="paginate.lists" label="32019" type="bool" default="true" />
-			<setting id="page_limit" label="32020" type="number" default="100" subsetting="true" visible="eq(-1,true)" />
-			<setting id="nav_jump" label="32021" type="enum" default="0" lvalues="32024|32022|32023" subsetting="true" visible="eq(-2,true)" />
-		<setting id="show_specials" label="32008" type="bool" default="false" />
-		<setting id="use_season_title" label="32010" type="bool" default="false" />
-		<setting id="show_unaired_watchlist" label="Include Unaired Items in Trakt Watchlists" type="bool" default="true" />
-		<setting id="show_unaired" label="32073" type="bool" default="true" />
-		<setting id="thumb_fanart" label="32088" type="bool" default="false" />
-		<!-- Sorting -->
-		<setting label="32694" type="lsep" />
-		<setting id="sort.progress" label="$ADDON[plugin.video.pov 32476] $ADDON[plugin.video.pov 32066]" type="enum" default="0" lvalues="32228|32226" />
-		<setting id="sort.watched" label="$ADDON[plugin.video.pov 32475] $ADDON[plugin.video.pov 32066]" type="enum" default="0" lvalues="32228|32226" />
-		<setting id="sort.collection" label="$ADDON[plugin.video.pov 32499] $ADDON[plugin.video.pov 32066]" type="enum" default="0" lvalues="32228|32223|32221" />
-		<setting id="sort.watchlist" label="$ADDON[plugin.video.pov 32500] $ADDON[plugin.video.pov 32066]" type="enum" default="0" lvalues="32228|32223|32221" />
-		<setting id="ignore_articles" label="32025" type="bool" default="true" />
-	</category>
-	<!-- Playback -->
-	<category label="32174">
-		<!-- Playback -->
-		<setting label="32028" type="lsep" />
-		<setting id="auto_play_movie" label="32175" type="bool" default="false" />
-		<setting id="autoplay_quality_movie" label="32834" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=autoplay_quality_movie)" />
-		<setting id="results_quality_movie" label="32176" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-2,false)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=results_quality_movie)" />
-		<setting id="auto_resume_movie" label="32181" type="enum" default="0" lvalues="32013|32015|32191" />
-		<setting label="32506" type="lsep" />
-		<setting id="autoscrape_next_episode" label="Autoscrape Next Episode (source select)" type="bool" default="false" />
-		<setting id="auto_play_episode" label="32175" type="bool" default="false" />
-		<setting id="autoplay_quality_episode" label="32834" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=autoplay_quality_episode)" />
-		<setting id="autoplay_next_episode" label="32178" type="bool" default="false" visible="eq(-2,true)" />
-			<setting id="autoplay_next_show_window" label="32002" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-1,true)" />
-			<setting id="autoplay_next_window_timer_method" label="32038" type="enum" default="0" lvalues="32041|32040" subsetting="true" visible="eq(-4,true)+eq(-2,true)+eq(-1,true)" />
-			<setting id="autoplay_next_window_time" label="32004" type="slider" default="20" option="int" range="10,1,120" subsetting="true" visible="eq(-5,true)+eq(-3,true)+eq(-2,true)+eq(-1,0)" />
-			<setting id="autoplay_next_window_percentage" label="32005" type="slider" default="95" option="int" range="75,1,99" subsetting="true" visible="eq(-6,true)+eq(-4,true)+eq(-3,true)+eq(-2,1)" />
-			<setting id="autoplay_next_check_threshold" label="32179" type="slider" default="3" option="int" range="0,1,10" subsetting="true" visible="eq(-7,true)+eq(-5,true)" />
-		<setting id="results_quality_episode" label="32176" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-8,false)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=results_quality_episode)" />
-		<setting id="auto_resume_episode" label="32181" type="enum" default="0" lvalues="32013|32015|32191" />
-		<!-- Playback Volume -->
-		<setting label="Playback" type="lsep" />
-		<setting id="load_action" label="Loading Progress" type="enum" default="1" values="Background|Full-Screen" />
-		<setting id="volumecheck.enabled" label="33064" type="bool" default="false" />
-			<setting id="volumecheck.percent" label="33065" type="number" default="50" subsetting="true" visible="eq(-1,true)" />
-		<!-- Subtitles -->
-		<setting label="32182" type="lsep" />
-		<setting id="subtitles.subs_action" label="32183" type="enum" default="2" lvalues="32192|32193|32027" />
-			<setting id="subtitles.language" label="32184" type="select" default="English" values="Afrikaans|Albanian|Arabic|Armenian|Basque|Bengali|Bosnian|Breton|Bulgarian|Burmese|Catalan|Chinese|Croatian|Czech|Danish|Dutch|English|Esperanto|Estonian|Finnish|French|Galician|Georgian|German|Greek|Hebrew|Hindi|Hungarian|Icelandic|Indonesian|Italian|Japanese|Kazakh|Khmer|Korean|Latvian|Lithuanian|Luxembourgish|Macedonian|Malay|Malayalam|Manipuri|Mongolian|Montenegrin|Norwegian|Occitan|Persian|Polish|Portuguese|Portuguese(Brazil)|Romanian|Russian|Serbian|Sinhalese|Slovak|Slovenian|Spanish|Swahili|Swedish|Syriac|Tagalog|Tamil|Telugu|Thai|Turkish|Ukrainian|Urdu|Vietnamese" subsetting="true" visible="!eq(-1,2)" />
-			<setting id="subtitles.auto_enable" label="32186" type="bool" default="true" subsetting="true" visible="!eq(-2,2)" />
-	</category>
-	<!-- Results -->
-	<category label="32139">
-		<!-- Display -->
-		<setting label="32140" type="lsep" />
-		<setting id="results.xml_style" label="$ADDON[plugin.video.pov 32139] $ADDON[plugin.video.pov 32140]" type="action" default="List Default" action="RunPlugin(plugin://plugin.video.pov/?mode=results_layout_choice)" />
-		<setting id="torrent.display.uncached" label="32160" type="bool" default="false" />
-		<setting id="search.enable.yearcheck" label="33006" type="bool" default="false" />
-		<setting id="ignore_results_filter" label="32050" type="bool" default="true" />
-		<setting id="search.finish.early" label="32120" type="bool" default="false" />
-		<setting id="scrapers.timeout.1" label="32141" type="number" default="10" />
-		<!-- Sorting and Filtering -->
-		<setting label="32150" type="lsep" />
-		<setting id="results.sort_order_display" label="32151" type="action" default="$ADDON[plugin.video.pov 32582]" action="RunPlugin(plugin://plugin.video.pov/?mode=results_sorting_choice)" />
-		<setting id="results.sort_size" label="Size Sort Order" type="enum" default="0" lvalues="32225|32224" />
-		<setting id="results.size_filter" label="32161" type="enum" default="0" values="Never|Download Speed|File Size" />
-			<setting id="results.size.speed" label="Download speed (Mbit/s)" type="number" default="20" subsetting="true" visible="eq(-1,1)" />
-			<setting id="results.size.file" label="File size maximum (MB)" type="number" default="10000" subsetting="true" visible="eq(-2,2)" />
-		<setting id="results.include.unknown.size" label="32162" type="bool" default="true" />
-		<setting id="include_prerelease_results" label="32155" type="bool" default="false" />
-		<setting id="include_3d_results" label="32156" type="bool" default="false" />
-		<setting id="filter_hevc" label="32177" type="enum" default="0" lvalues="32188|32189|32190" />
-		<setting id="filter_hdr" label="32158" type="enum" default="0" lvalues="32188|32189|32190" />
-		<setting id="filter_dv" label="32159" type="enum" default="0" lvalues="32188|32189|32190" />
-		<setting id="filter_av1" label="AV1 Files Filter" type="enum" default="0" lvalues="32188|32189|32190" />
-		<!-- Results Color Highlights -->
-		<setting label="32138" type="lsep" />
-		<setting id="highlight.type" label="32204" type="enum" default="2" lvalues="32240|32583|32241" />
-			<setting id="hoster.identify" label="32127" type="action" default="dodgerblue" subsetting="true" visible="eq(-1,0)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=hoster)" />
-			<setting id="torrent.identify" label="32128" type="action" default="fuchsia" subsetting="true" visible="eq(-2,0)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=torrent)" />
-			<setting id="provider.rd_colour" label="32206" type="action" default="seagreen" subsetting="true" visible="eq(-3,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=rd)" />
-			<setting id="provider.pm_colour" label="32207" type="action" default="orangered" subsetting="true" visible="eq(-4,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=pm)" />
-			<setting id="provider.ad_colour" label="32208" type="action" default="goldenrod" subsetting="true" visible="eq(-5,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=ad)" />
-			<setting id="provider.oc_colour" label="Offcloud Color" type="action" default="dodgerblue" subsetting="true" visible="eq(-6,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=oc)" />
-			<setting id="provider.tb_colour" label="TorBox Color" type="action" default="darkseagreen" subsetting="true" visible="eq(-7,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=tb)" />
-			<setting id="provider.ed_colour" label="EasyDebrid Color" type="action" default="cornflowerblue" subsetting="true" visible="eq(-8,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=ed)" />
-			<setting id="provider.easynews_colour" label="32236" type="action" default="darkturquoise" subsetting="true" visible="eq(-9,0)|eq(-9,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=easynews)" />
-			<setting id="provider.debrid_cloud_colour" label="32244" type="action" default="darkviolet" subsetting="true" visible="eq(-10,0)|eq(-10,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=debrid_cloud)" />
-			<setting id="provider.folders_colour" label="32519" type="action" default="darkgoldenrod" subsetting="true" visible="eq(-11,0)|eq(-11,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=folders)" />
-			<setting id="scraper_4k_highlight" label="32520" type="action" default="magenta" subsetting="true" visible="eq(-12,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_4k_highlight)" />
-			<setting id="scraper_1080p_highlight" label="32523" type="action" default="cyan" subsetting="true" visible="eq(-13,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_1080p_highlight)" />
-			<setting id="scraper_720p_highlight" label="32618" type="action" default="mediumorchid" subsetting="true" visible="eq(-14,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_720p_highlight)" />
-			<setting id="scraper_SD_highlight" label="32647" type="action" default="dodgerblue" subsetting="true" visible="eq(-15,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_SD_highlight)" />
-		<!-- Progress Color Highlights -->
-		<setting label="32209" type="lsep" />
-		<setting id="int_dialog_highlight" label="32167" type="action" default="magenta" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_dialog_color_choice&amp;setting=internal)" />
-		<setting id="ext_dialog_highlight" label="32168" type="action" default="cyan" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_dialog_color_choice&amp;setting=external)" />
-	</category>
-	<!-- Sources -->
-	<category label="32830">
-		<setting label="32118" type="lsep" />
-		<setting id="provider.external" label="Enable" type="bool" default="true" />
-		<setting id="filter.foreign.single.audio" label="Remove identified Foreign single audio sources" type="bool" default="true" />
-		<setting id="filter.undesirables" label="Remove Undesirables" type="bool" default="false" />
-			<setting label="Define User Undesirables" type="action" subsetting="true" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=undesirablesInput)" />
-			<setting label="Remove User Undesirables" type="action" subsetting="true" visible="eq(-2,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=undesirablesUserRemove)" />
-		<setting id="debug.enabled" label="Enable Debug" type="bool" default="false" />
-		<setting id="debug.location" label="Logging Location" type="enum" default="1" enable="eq(-1,true)" values="Kodi Log|Addon Log" visible="eq(-1,true)" />
-		<setting label="32830" type="lsep" />
-		<setting id="provider.knightcrawler" label="knightcrawler (torrentio/dmm)" type="bool" default="false" />
-		<setting id="provider.mediafusion" label="mediafusion" type="bool" default="false" />
-			<setting id="mediafusion.packs" label="Include Show Packs" type="bool" default="false" subsetting="true" visible="eq(-1,true)" />
-		<setting id="provider.zilean" label="zilean (dmm)" type="bool" default="false" />
-		<setting id="provider.nyaaio" label="nyaaio (nyaasi/tokyotosho/anidex)" type="bool" default="false" />
-		<setting id="provider.torrentio" label="torrentio (pack capable)" type="bool" default="true" />
-		<setting id="provider.animetosho" label="animetosho (pack capable)" type="bool" default="false" />
-		<setting id="provider.bitsearch" label="bitsearch (pack capable)" type="bool" default="false" />
-			<setting id="bitsearch.sort" label="results preference" type="enum" default="0" subsetting="true" values="random|largest" visible="eq(-1,true)" />
-		<setting id="provider.dmm" label="dmm" type="bool" default="false" visible="false" />
-		<setting id="provider.nyaa" label="nyaa" type="bool" default="false" />
-		<setting id="provider.piratebay" label="piratebay (pack capable)" type="bool" default="true" />
-		<setting id="provider.torrentdownload" label="torrentdownload (pack capable)" type="bool" default="false" />
-		<setting id="provider.torrentquest" label="torrentquest (pack capable)" type="bool" default="false" />
-		<setting id="provider.library" label="library" type="bool" default="false" visible="false" />
-		<!-- Folders 1-5 -->
-		<setting label="32108" type="lsep" />
-		<setting id="provider.folders" label="32055" type="bool" default="false" />
-		<setting id="folders.manage" label="32585" type="action" default="$ADDON[plugin.video.pov 32652]" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=folder_scraper_manager_choice)" />
-		<setting id="folders.title_filter" label="32172" type="bool" default="false" visible="eq(-2,true)" />
-		<setting id="check.folders" label="32104" type="bool" default="false" visible="eq(-3,true)" />
-		<setting id="results.sort_folders_first" label="32103" type="bool" default="true" visible="eq(-4,true)" />
-	</category>
-	<!-- Provider Accounts -->
-	<category label="32455">
-		<!-- Premiumize -->
-		<setting label="32061" type="lsep" />
-		<setting id="pm.token" label="pm token" type="text" default="" visible="false" />
-		<setting id="pm.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
-		<setting id="pm.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
-		<setting id="pm.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
-		<setting id="pm.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
-		<setting id="store_torrent.premiumize.me" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
-		<setting id="provider.pm_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32097]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
-			<setting id="pm_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
-			<setting id="check.pm_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
-			<setting id="results.sort_pmcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
-		<setting id="pm.priority" label="32011" type="slider" default="8" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
-		<setting id="pm.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-10,true)+!eq(-11,)" />
-		<setting label="Authorize" type="action" visible="eq(-12,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-13,)" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_revoke)" />
-		<!-- EasyDebrid -->
-		<setting label="EasyDebrid" type="lsep" />
-		<setting id="ed.token" label="key" type="text" default="" visible="false" />
-		<setting id="ed.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
-		<setting id="ed.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
-		<setting id="ed.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
-		<setting id="ed.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-3,true)+!eq(-4,)" />
-		<setting id="ed.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-4,true)+!eq(-5,)" />
-		<setting label="Authorize" type="action" visible="eq(-6,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-7,)" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_revoke)" />
-		<!-- Offcloud -->
-		<setting label="Offcloud" type="lsep" />
-		<setting id="oc.token" label="key" type="text" default="" visible="false" />
-		<setting id="oc.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
-		<setting id="oc.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
-		<setting id="oc.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
-		<setting id="provider.oc_cloud" label="$ADDON[plugin.video.pov 32450] OC Cloud" type="bool" default="false" visible="eq(-3,true)+!eq(-4,)" />
-			<setting id="oc_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-4,true)+!eq(-5,)" />
-			<setting id="check.oc_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-5,true)+!eq(-6,)" />
-			<setting id="results.sort_occloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-6,true)+!eq(-7,)" />
-		<setting id="oc.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-7,true)+!eq(-8,)" />
-		<setting label="Authorize" type="action" visible="eq(-9,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=offcloud.oc_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-10,)" action="RunPlugin(plugin://plugin.video.pov/?mode=offcloud.oc_revoke)" />
-		<!-- TorBox-->
-		<setting label="TorBox" type="lsep" />
-		<setting id="tb.token" label="key" type="text" default="" visible="false" />
-		<setting id="tb.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
-		<setting id="tb.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
-		<setting id="tb.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
-		<setting id="store_torrent.torbox" label="32060" type="bool" default="false" visible="eq(-3,true)+!eq(-4,)" />
-		<setting id="provider.tb_cloud" label="$ADDON[plugin.video.pov 32450] TB Cloud" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
-			<setting id="tb_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-5,true)+!eq(-6,)" />
-			<setting id="check.tb_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-6,true)+!eq(-7,)" />
-			<setting id="results.sort_tbcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-7,true)+!eq(-8,)" />
-		<setting id="tb.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-8,true)+!eq(-9,)" />
-		<setting id="tb.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-9,true)+!eq(-10,)" />
-		<setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_revoke)" />
-		<!-- Easynews -->
-		<setting label="32070" type="lsep" />
-		<setting id="provider.easynews" label="32055" type="bool" default="false" />
-		<setting id="easynews_user" label="32051" type="text" default="" enable="true" visible="eq(-1,true)" />
-		<setting id="easynews_password" label="32052" type="text" default="" enable="true" visible="eq(-2,true)" />
-		<setting id="easynews.title_filter" label="32172" type="bool" default="false" visible="eq(-3,true)+!eq(-1,)" />
-		<setting id="easynews.filter_lang" label="32835" type="bool" default="false" visible="eq(-4,true)+!eq(-2,)" />
-			<setting id="easynews.lang_filters" label="32836" type="action" default="eng" subsetting="true" visible="eq(-5,true)+!eq(-3,)+eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_language_filter_choice&amp;filter_setting=easynews.lang_filters)" />
-		<setting id="easynews_moderation" label="32102" type="bool" default="true" visible="eq(-6,true)+!eq(-4,)" />
-		<setting id="check.easynews" label="32104" type="bool" default="false" visible="eq(-7,true)+!eq(-5,)" />
-		<setting id="en.priority" label="32011" type="slider" default="7" option="int" range="1,1,10" visible="eq(-8,true)+!eq(-6,)" />
-		<!--setting id="easynews.api_version" label="33007" type="enum" default="0" lvalues="33008|33009" visible="!eq(-2,)" /-->
-	</category>
-	<category label="32455">
+    <!-- General -->
+    <category label="32001">
+        <!-- General -->
+        <setting label="32001" type="lsep" />
+        <setting id="fanart_image" label="Fanart Image" type="image"  default="fanart.png"/>
+        <setting id="auto_start_pov" label="32017" type="bool" default="false" />
+        <setting id="widget_hide_watched" label="32465" type="bool" default="false" />
+        <setting id="kodi_menu_cache" label="32539" type="bool" default="true" />
+        <setting id="pov.max_threads" label="Maximum threads" type="slider" default="100" range="20,10,100" option="int" />
+        <!-- Watched Indicators -->
+        <setting label="32034" type="lsep" />
+        <setting id="trakt_indicators_active" label="trakt_indicators_active" type="text" default="false" visible="false" />
+        <setting id="watched_indicators" label="32035" type="enum" default="0" lvalues="32036|32037" visible="eq(-1,true)" />
+        <setting id="amble.indicators" label="32039" type="text" enable="false" visible="eq(-2,false)" />
+        <setting id="sync_kodi_library_watchstatus" label="32042" type="bool" default="false" />
+        <!-- Downloads -->
+        <setting label="32107" type="lsep" />
+        <setting id="movie_download_directory" label="32116" type="folder" default="special://profile/addon_data/plugin.video.pov/Movies Downloads/" />
+        <setting id="tvshow_download_directory" label="32117" type="folder" default="special://profile/addon_data/plugin.video.pov/TV Show Downloads/" />
+        <setting id="premium_download_directory" label="32210" type="folder" default="special://profile/addon_data/plugin.video.pov/Premium Downloads/" />
+        <setting id="image_download_directory" label="33005" type="folder" default="special://profile/addon_data/plugin.video.pov/Image Downloads/" />
+        <!-- UTC Time Offset -->
+        <setting label="32101" type="lsep" />
+        <setting id="datetime.offset" label="32045" type="slider" default="0" option="int" range="-15,1,15" />
+        <!-- Hidden -->
+        <setting id="trakt.refresh" type="text" default="" visible="false" />
+        <setting id="trakt.expires" type="text" default="" visible="false" />
+        <setting id="rd.refresh" type="text" default="" visible="false" />
+        <setting id="rd.client_id" type="text" default="" visible="false" />
+        <setting id="rd.secret" type="text" default="" visible="false" />
+        <setting id="results.sort_order" type="text" default="1" visible="false" />
+        <setting id="database.maintenance.due" type="text" default="0" visible="false" />
+        <setting id="reuse_language_invoker" type="text" default="true" visible="false" />
+        <setting id="folder1.display_name" type="text" default="Folder 1" visible="false" />
+        <setting id="folder1.movies_directory" type="text" default="None" visible="false" />
+        <setting id="folder1.tv_shows_directory" type="text" default="None" visible="false" />
+        <setting id="folder2.display_name" type="text" default="Folder 2" visible="false" />
+        <setting id="folder2.movies_directory" type="text" default="None" visible="false" />
+        <setting id="folder2.tv_shows_directory" type="text" default="None" visible="false" />
+        <setting id="folder3.display_name" type="text" default="Folder 3" visible="false" />
+        <setting id="folder3.movies_directory" type="text" default="None" visible="false" />
+        <setting id="folder3.tv_shows_directory" type="text" default="None" visible="false" />
+        <setting id="folder4.display_name" type="text" default="Folder 4" visible="false" />
+        <setting id="folder4.movies_directory" type="text" default="None" visible="false" />
+        <setting id="folder4.tv_shows_directory" type="text" default="None" visible="false" />
+        <setting id="folder5.display_name" type="text" default="Folder 5" visible="false" />
+        <setting id="folder5.movies_directory" type="text" default="None" visible="false" />
+        <setting id="folder5.tv_shows_directory" type="text" default="None" visible="false" />
+        <setting id="extras.enabled_menus" type="text" default="2050,2051,2052,2053,2054,2055,2056,2057,2058,2059,2060,2061,2062" visible="false" />
+    </category>
+    <!-- Next Episodes -->
+    <category label="Features">
+        <!-- Content and Sorting -->
+        <setting label="32071" type="lsep" />
+        <setting id="nextep.sort_type" label="32066" type="enum" default="0" lvalues="32226|32227|32228" />
+        <setting id="nextep.sort_order" label="32067" type="enum" default="0" lvalues="32225|32224" />
+        <setting id="nextep.sort_airing_today_to_top" label="32819" type="bool" default="false" />
+        <setting id="nextep.include_airdate" label="32076" type="bool" default="true" />
+        <setting id="nextep.include_unaired" label="32073" type="bool" default="true" />
+        <setting id="nextep.include_unwatched" label="32074" type="bool" default="false" />
+        <!-- Extras -->
+        <setting label="33038" type="lsep" />
+        <setting id="extras.open_action" label="32026" type="enum" default="0" lvalues="32965|32028|32029|32030" />
+        <setting id="extras.manage" label="32046" type="action" default="$ADDON[plugin.video.pov 32652]" action="RunPlugin(plugin://plugin.video.pov/?mode=extras_lists_choice)" />
+        <setting id="extras.enable_scrollbars" label="32846" type="bool" default="false" />
+        <setting id="extras.exclude_non_acting_roles" label="33040" type="bool" default="true" />
+    </category>
+    <!-- Navigation -->
+    <category label="32492">
+        <!-- Content -->
+        <setting label="32693" type="lsep" />
+        <setting id="include_year_in_title" label="32811" type="enum" default="0" lvalues="32027|32028|32029|32030" />
+        <setting id="default_all_episodes" label="32009" type="enum" default="1" lvalues="32013|32032|32033" />
+        <setting id="single_ep_display" label="32194" type="enum" default="0" lvalues="32201|32202|32203" />
+        <setting id="single_ep_format" label="32077" type="enum" default="2" lvalues="32229|32230|32231" />
+        <setting id="paginate.lists" label="32019" type="bool" default="true" />
+            <setting id="page_limit" label="32020" type="number" default="100" subsetting="true" visible="eq(-1,true)" />
+            <setting id="nav_jump" label="32021" type="enum" default="0" lvalues="32024|32022|32023" subsetting="true" visible="eq(-2,true)" />
+        <setting id="show_specials" label="32008" type="bool" default="false" />
+        <setting id="use_season_title" label="32010" type="bool" default="false" />
+        <setting id="show_unaired_watchlist" label="Include Unaired Items in Trakt Watchlists" type="bool" default="true" />
+        <setting id="show_unaired" label="32073" type="bool" default="true" />
+        <setting id="thumb_fanart" label="32088" type="bool" default="false" />
+        <!-- Sorting -->
+        <setting label="32694" type="lsep" />
+        <setting id="sort.progress" label="$ADDON[plugin.video.pov 32476] $ADDON[plugin.video.pov 32066]" type="enum" default="0" lvalues="32228|32226" />
+        <setting id="sort.watched" label="$ADDON[plugin.video.pov 32475] $ADDON[plugin.video.pov 32066]" type="enum" default="0" lvalues="32228|32226" />
+        <setting id="sort.collection" label="$ADDON[plugin.video.pov 32499] $ADDON[plugin.video.pov 32066]" type="enum" default="0" lvalues="32228|32223|32221" />
+        <setting id="sort.watchlist" label="$ADDON[plugin.video.pov 32500] $ADDON[plugin.video.pov 32066]" type="enum" default="0" lvalues="32228|32223|32221" />
+        <setting id="sort.mdblist" label="MDBList $ADDON[plugin.video.pov 32066]" type="enum" default="0" lvalues="32228|32223|32221" />
+        <setting id="ignore_articles" label="32025" type="bool" default="true" />
+    </category>
+    <!-- Playback -->
+    <category label="32174">
+        <!-- Playback -->
+        <setting label="32028" type="lsep" />
+        <setting id="auto_play_movie" label="32175" type="bool" default="false" />
+        <setting id="autoplay_quality_movie" label="32834" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=autoplay_quality_movie)" />
+        <setting id="results_quality_movie" label="32176" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-2,false)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=results_quality_movie)" />
+        <setting id="auto_resume_movie" label="32181" type="enum" default="0" lvalues="32013|32015|32191" />
+        <setting label="32506" type="lsep" />
+        <setting id="autoscrape_next_episode" label="Autoscrape Next Episode (source select)" type="bool" default="false" />
+        <setting id="auto_play_episode" label="32175" type="bool" default="false" />
+        <setting id="autoplay_quality_episode" label="32834" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=autoplay_quality_episode)" />
+        <setting id="autoplay_next_episode" label="32178" type="bool" default="false" visible="eq(-2,true)" />
+            <setting id="autoplay_next_show_window" label="32002" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-1,true)" />
+            <setting id="autoplay_next_window_timer_method" label="32038" type="enum" default="0" lvalues="32041|32040" subsetting="true" visible="eq(-4,true)+eq(-2,true)+eq(-1,true)" />
+            <setting id="autoplay_next_window_time" label="32004" type="slider" default="20" option="int" range="10,1,120" subsetting="true" visible="eq(-5,true)+eq(-3,true)+eq(-2,true)+eq(-1,0)" />
+            <setting id="autoplay_next_window_percentage" label="32005" type="slider" default="95" option="int" range="75,1,99" subsetting="true" visible="eq(-6,true)+eq(-4,true)+eq(-3,true)+eq(-2,1)" />
+            <setting id="autoplay_next_check_threshold" label="32179" type="slider" default="3" option="int" range="0,1,10" subsetting="true" visible="eq(-7,true)+eq(-5,true)" />
+        <setting id="results_quality_episode" label="32176" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-8,false)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=results_quality_episode)" />
+        <setting id="auto_resume_episode" label="32181" type="enum" default="0" lvalues="32013|32015|32191" />
+        <!-- Playback Volume -->
+        <setting label="Playback" type="lsep" />
+        <setting id="load_action" label="Loading Progress" type="enum" default="1" values="Background|Full-Screen" />
+        <setting id="volumecheck.enabled" label="33064" type="bool" default="false" />
+            <setting id="volumecheck.percent" label="33065" type="number" default="50" subsetting="true" visible="eq(-1,true)" />
+        <!-- Subtitles -->
+        <setting label="32182" type="lsep" />
+        <setting id="subtitles.subs_action" label="32183" type="enum" default="2" lvalues="32192|32193|32027" />
+            <setting id="subtitles.language" label="32184" type="select" default="English" values="Afrikaans|Albanian|Arabic|Armenian|Basque|Bengali|Bosnian|Breton|Bulgarian|Burmese|Catalan|Chinese|Croatian|Czech|Danish|Dutch|English|Esperanto|Estonian|Finnish|French|Galician|Georgian|German|Greek|Hebrew|Hindi|Hungarian|Icelandic|Indonesian|Italian|Japanese|Kazakh|Khmer|Korean|Latvian|Lithuanian|Luxembourgish|Macedonian|Malay|Malayalam|Manipuri|Mongolian|Montenegrin|Norwegian|Occitan|Persian|Polish|Portuguese|Portuguese(Brazil)|Romanian|Russian|Serbian|Sinhalese|Slovak|Slovenian|Spanish|Swahili|Swedish|Syriac|Tagalog|Tamil|Telugu|Thai|Turkish|Ukrainian|Urdu|Vietnamese" subsetting="true" visible="!eq(-1,2)" />
+            <setting id="subtitles.auto_enable" label="32186" type="bool" default="true" subsetting="true" visible="!eq(-2,2)" />
+    </category>
+    <!-- Results -->
+    <category label="32139">
+        <!-- Display -->
+        <setting label="32140" type="lsep" />
+        <setting id="results.xml_style" label="$ADDON[plugin.video.pov 32139] $ADDON[plugin.video.pov 32140]" type="action" default="List Default" action="RunPlugin(plugin://plugin.video.pov/?mode=results_layout_choice)" />
+        <setting id="torrent.display.uncached" label="32160" type="bool" default="false" />
+        <setting id="search.enable.yearcheck" label="33006" type="bool" default="false" />
+        <setting id="ignore_results_filter" label="32050" type="bool" default="true" />
+        <setting id="search.finish.early" label="32120" type="bool" default="false" />
+        <setting id="scrapers.timeout.1" label="32141" type="number" default="10" />
+        <!-- Sorting and Filtering -->
+        <setting label="32150" type="lsep" />
+        <setting id="results.sort_order_display" label="32151" type="action" default="$ADDON[plugin.video.pov 32582]" action="RunPlugin(plugin://plugin.video.pov/?mode=results_sorting_choice)" />
+        <setting id="results.sort_size" label="Size Sort Order" type="enum" default="0" lvalues="32225|32224" />
+        <setting id="results.size_filter" label="32161" type="enum" default="0" values="Never|Download Speed|File Size" />
+            <setting id="results.size.speed" label="Download speed (Mbit/s)" type="number" default="20" subsetting="true" visible="eq(-1,1)" />
+            <setting id="results.size.file" label="File size maximum (MB)" type="number" default="10000" subsetting="true" visible="eq(-2,2)" />
+        <setting id="results.include.unknown.size" label="32162" type="bool" default="true" />
+        <setting id="include_prerelease_results" label="32155" type="bool" default="false" />
+        <setting id="include_3d_results" label="32156" type="bool" default="false" />
+        <setting id="filter_hevc" label="32177" type="enum" default="0" lvalues="32188|32189|32190" />
+        <setting id="filter_hdr" label="32158" type="enum" default="0" lvalues="32188|32189|32190" />
+        <setting id="filter_dv" label="32159" type="enum" default="0" lvalues="32188|32189|32190" />
+        <setting id="filter_av1" label="AV1 Files Filter" type="enum" default="0" lvalues="32188|32189|32190" />
+        <!-- Results Color Highlights -->
+        <setting label="32138" type="lsep" />
+        <setting id="highlight.type" label="32204" type="enum" default="2" lvalues="32240|32583|32241" />
+            <setting id="hoster.identify" label="32127" type="action" default="dodgerblue" subsetting="true" visible="eq(-1,0)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=hoster)" />
+            <setting id="torrent.identify" label="32128" type="action" default="fuchsia" subsetting="true" visible="eq(-2,0)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=torrent)" />
+            <setting id="provider.rd_colour" label="32206" type="action" default="seagreen" subsetting="true" visible="eq(-3,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=rd)" />
+            <setting id="provider.pm_colour" label="32207" type="action" default="orangered" subsetting="true" visible="eq(-4,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=pm)" />
+            <setting id="provider.ad_colour" label="32208" type="action" default="goldenrod" subsetting="true" visible="eq(-5,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=ad)" />
+            <setting id="provider.oc_colour" label="Offcloud Color" type="action" default="dodgerblue" subsetting="true" visible="eq(-6,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=oc)" />
+            <setting id="provider.tb_colour" label="TorBox Color" type="action" default="darkseagreen" subsetting="true" visible="eq(-7,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=tb)" />
+            <setting id="provider.ed_colour" label="EasyDebrid Color" type="action" default="cornflowerblue" subsetting="true" visible="eq(-8,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=ed)" />
+            <setting id="provider.easynews_colour" label="32236" type="action" default="darkturquoise" subsetting="true" visible="eq(-9,0)|eq(-9,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=easynews)" />
+            <setting id="provider.debrid_cloud_colour" label="32244" type="action" default="darkviolet" subsetting="true" visible="eq(-10,0)|eq(-10,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=debrid_cloud)" />
+            <setting id="provider.folders_colour" label="32519" type="action" default="darkgoldenrod" subsetting="true" visible="eq(-11,0)|eq(-11,1)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_color_choice&amp;setting=folders)" />
+            <setting id="scraper_4k_highlight" label="32520" type="action" default="magenta" subsetting="true" visible="eq(-12,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_4k_highlight)" />
+            <setting id="scraper_1080p_highlight" label="32523" type="action" default="cyan" subsetting="true" visible="eq(-13,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_1080p_highlight)" />
+            <setting id="scraper_720p_highlight" label="32618" type="action" default="mediumorchid" subsetting="true" visible="eq(-14,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_720p_highlight)" />
+            <setting id="scraper_SD_highlight" label="32647" type="action" default="dodgerblue" subsetting="true" visible="eq(-15,2)" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_quality_color_choice&amp;setting=scraper_SD_highlight)" />
+        <!-- Progress Color Highlights -->
+        <setting label="32209" type="lsep" />
+        <setting id="int_dialog_highlight" label="32167" type="action" default="magenta" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_dialog_color_choice&amp;setting=internal)" />
+        <setting id="ext_dialog_highlight" label="32168" type="action" default="cyan" action="RunPlugin(plugin://plugin.video.pov/?mode=scraper_dialog_color_choice&amp;setting=external)" />
+    </category>
+    <!-- Sources -->
+    <category label="32830">
+        <setting label="32118" type="lsep" />
+        <setting id="provider.external" label="Enable" type="bool" default="true" />
+        <setting id="filter.foreign.single.audio" label="Remove identified Foreign single audio sources" type="bool" default="true" />
+        <setting id="filter.undesirables" label="Remove Undesirables" type="bool" default="false" />
+            <setting label="Define User Undesirables" type="action" subsetting="true" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=undesirablesInput)" />
+            <setting label="Remove User Undesirables" type="action" subsetting="true" visible="eq(-2,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=undesirablesUserRemove)" />
+        <setting id="debug.enabled" label="Enable Debug" type="bool" default="false" />
+        <setting id="debug.location" label="Logging Location" type="enum" default="1" enable="eq(-1,true)" values="Kodi Log|Addon Log" visible="eq(-1,true)" />
+        <setting label="32830" type="lsep" />
+        <setting id="provider.knightcrawler" label="knightcrawler (torrentio/dmm)" type="bool" default="false" />
+        <setting id="provider.mediafusion" label="mediafusion" type="bool" default="false" />
+            <setting id="mediafusion.packs" label="Include Show Packs" type="bool" default="false" subsetting="true" visible="eq(-1,true)" />
+        <setting id="provider.zilean" label="zilean (dmm)" type="bool" default="false" />
+        <setting id="provider.nyaaio" label="nyaaio (nyaasi/tokyotosho/anidex)" type="bool" default="false" />
+        <setting id="provider.torrentio" label="torrentio (pack capable)" type="bool" default="true" />
+        <setting id="provider.animetosho" label="animetosho (pack capable)" type="bool" default="false" />
+        <setting id="provider.bitsearch" label="bitsearch (pack capable)" type="bool" default="false" />
+            <setting id="bitsearch.sort" label="results preference" type="enum" default="0" subsetting="true" values="random|largest" visible="eq(-1,true)" />
+        <setting id="provider.dmm" label="dmm" type="bool" default="false" visible="false" />
+        <setting id="provider.nyaa" label="nyaa" type="bool" default="false" />
+        <setting id="provider.piratebay" label="piratebay (pack capable)" type="bool" default="true" />
+        <setting id="provider.torrentdownload" label="torrentdownload (pack capable)" type="bool" default="false" />
+        <setting id="provider.torrentquest" label="torrentquest (pack capable)" type="bool" default="false" />
+        <setting id="provider.library" label="library" type="bool" default="false" visible="false" />
+        <!-- Folders 1-5 -->
+        <setting label="32108" type="lsep" />
+        <setting id="provider.folders" label="32055" type="bool" default="false" />
+        <setting id="folders.manage" label="32585" type="action" default="$ADDON[plugin.video.pov 32652]" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=folder_scraper_manager_choice)" />
+        <setting id="folders.title_filter" label="32172" type="bool" default="false" visible="eq(-2,true)" />
+        <setting id="check.folders" label="32104" type="bool" default="false" visible="eq(-3,true)" />
+        <setting id="results.sort_folders_first" label="32103" type="bool" default="true" visible="eq(-4,true)" />
+    </category>
+    <!-- Provider Accounts -->
+    <category label="32455">
+        <!-- Premiumize -->
+        <setting label="32061" type="lsep" />
+        <setting id="pm.token" label="pm token" type="text" default="" visible="false" />
+        <setting id="pm.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+        <setting id="pm.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+        <setting id="pm.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+        <setting id="pm.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
+        <setting id="store_torrent.premiumize.me" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
+        <setting id="provider.pm_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32097]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
+            <setting id="pm_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
+            <setting id="check.pm_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
+            <setting id="results.sort_pmcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
+        <setting id="pm.priority" label="32011" type="slider" default="8" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
+        <setting id="pm.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-10,true)+!eq(-11,)" />
+        <setting label="Authorize" type="action" visible="eq(-12,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_auth)" />
+        <setting label="Revoke" type="action" visible="!eq(-13,)" action="RunPlugin(plugin://plugin.video.pov/?mode=premiumize.pm_revoke)" />
+        <!-- EasyDebrid -->
+        <setting label="EasyDebrid" type="lsep" />
+        <setting id="ed.token" label="key" type="text" default="" visible="false" />
+        <setting id="ed.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+        <setting id="ed.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+        <setting id="ed.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+        <setting id="ed.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-3,true)+!eq(-4,)" />
+        <setting id="ed.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-4,true)+!eq(-5,)" />
+        <setting label="Authorize" type="action" visible="eq(-6,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_auth)" />
+        <setting label="Revoke" type="action" visible="!eq(-7,)" action="RunPlugin(plugin://plugin.video.pov/?mode=easydebrid.ed_revoke)" />
+        <!-- Offcloud -->
+        <setting label="Offcloud" type="lsep" />
+        <setting id="oc.token" label="key" type="text" default="" visible="false" />
+        <setting id="oc.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+        <setting id="oc.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+        <setting id="oc.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+        <setting id="provider.oc_cloud" label="$ADDON[plugin.video.pov 32450] OC Cloud" type="bool" default="false" visible="eq(-3,true)+!eq(-4,)" />
+            <setting id="oc_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-4,true)+!eq(-5,)" />
+            <setting id="check.oc_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-5,true)+!eq(-6,)" />
+            <setting id="results.sort_occloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-6,true)+!eq(-7,)" />
+        <setting id="oc.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-7,true)+!eq(-8,)" />
+        <setting label="Authorize" type="action" visible="eq(-9,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=offcloud.oc_auth)" />
+        <setting label="Revoke" type="action" visible="!eq(-10,)" action="RunPlugin(plugin://plugin.video.pov/?mode=offcloud.oc_revoke)" />
+        <!-- TorBox-->
+        <setting label="TorBox" type="lsep" />
+        <setting id="tb.token" label="key" type="text" default="" visible="false" />
+        <setting id="tb.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+        <setting id="tb.account_id" label="32062" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+        <setting id="tb.torrent.enabled" label="Enable torrents" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+        <setting id="store_torrent.torbox" label="32060" type="bool" default="false" visible="eq(-3,true)+!eq(-4,)" />
+        <setting id="provider.tb_cloud" label="$ADDON[plugin.video.pov 32450] TB Cloud" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
+            <setting id="tb_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-5,true)+!eq(-6,)" />
+            <setting id="check.tb_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-6,true)+!eq(-7,)" />
+            <setting id="results.sort_tbcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-7,true)+!eq(-8,)" />
+        <setting id="tb.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-8,true)+!eq(-9,)" />
+        <setting id="tb.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-9,true)+!eq(-10,)" />
+        <setting label="Authorize" type="action" visible="eq(-11,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_auth)" />
+        <setting label="Revoke" type="action" visible="!eq(-12,)" action="RunPlugin(plugin://plugin.video.pov/?mode=torbox.tb_revoke)" />
+        <!-- Easynews -->
+        <setting label="32070" type="lsep" />
+        <setting id="provider.easynews" label="32055" type="bool" default="false" />
+        <setting id="easynews_user" label="32051" type="text" default="" enable="true" visible="eq(-1,true)" />
+        <setting id="easynews_password" label="32052" type="text" default="" enable="true" visible="eq(-2,true)" />
+        <setting id="easynews.title_filter" label="32172" type="bool" default="false" visible="eq(-3,true)+!eq(-1,)" />
+        <setting id="easynews.filter_lang" label="32835" type="bool" default="false" visible="eq(-4,true)+!eq(-2,)" />
+            <setting id="easynews.lang_filters" label="32836" type="action" default="eng" subsetting="true" visible="eq(-5,true)+!eq(-3,)+eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_language_filter_choice&amp;filter_setting=easynews.lang_filters)" />
+        <setting id="easynews_moderation" label="32102" type="bool" default="true" visible="eq(-6,true)+!eq(-4,)" />
+        <setting id="check.easynews" label="32104" type="bool" default="false" visible="eq(-7,true)+!eq(-5,)" />
+        <setting id="en.priority" label="32011" type="slider" default="7" option="int" range="1,1,10" visible="eq(-8,true)+!eq(-6,)" />
+        <!--setting id="easynews.api_version" label="33007" type="enum" default="0" lvalues="33008|33009" visible="!eq(-2,)" /-->
+    </category>
+    <category label="32455">
 		<setting label="32118" type="lsep" />
 		<setting id="provider.external" label="Enable" type="bool" default="true" />
 		<setting label="32830" type="lsep" />
@@ -284,93 +285,93 @@
 			<setting id="mfdebrid.url" label="Mediafusion url" type="text" default="" subsetting="true" enable="false" visible="eq(-3,true)" />
 			<setting id="mfdebrid.debrid" label="Debrid Provider" type="text" default="" subsetting="true" enable="false" visible="eq(-4,true)" />
 			<setting label="Configure" type="action" subsetting="true" visible="eq(-5,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=mfdebrid_configure)" />
-		<!-- Real Debrid -->
-		<setting label="32054" type="lsep" />
-		<setting id="rd.token" label="rd token" type="text" default="" visible="false" />
-		<setting id="rd.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
-		<setting id="rd.username" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
-		<setting id="rd.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
-		<setting id="rd.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
-		<setting id="store_torrent.real-debrid" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
-		<setting id="provider.rd_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32098]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
-			<setting id="rd_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
-			<setting id="check.rd_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
-			<setting id="results.sort_rdcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
-		<setting id="rd.priority" label="32011" type="slider" default="10" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
-		<setting id="rd.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-10,true)+!eq(-11,)" />
-		<setting label="Authorize" type="action" visible="eq(-12,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-13,)" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_revoke)" />
-		<!-- All Debrid -->
-		<setting label="32063" type="lsep" />
-		<setting id="ad.token" label="ad token" type="text" default="" visible="false" />
-		<setting id="ad.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
-		<setting id="ad.account_id" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
-		<setting id="ad.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
-		<setting id="ad.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
-		<setting id="store_torrent.alldebrid" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
-		<setting id="provider.ad_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32099]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
-			<setting id="ad_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
-			<setting id="check.ad_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
-			<setting id="results.sort_adcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
-		<setting id="ad.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
-		<setting id="ad.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-10,true)+!eq(-11,)" />
-		<setting label="Authorize" type="action" visible="eq(-12,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-13,)" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_revoke)" />
-	</category>
-	<!-- Trakt -->
-	<category label="32454">
-		<!-- Trakt -->
-		<setting label="32037" type="lsep" />
-		<setting id="trakt.token" type="text" default="" visible="false" />
-		<setting id="trakt_user" label="32056" type="text" default="" enable="false" visible="!eq(-1,)" />
-		<setting id="trakt_indicators_active" label="trakt_indicators_active" type="text" default="false" visible="false" />
-		<setting id="watched_indicators" label="32035" type="enum" default="0" lvalues="32036|32037" visible="eq(-1,true)" />
-		<setting label="Sync Trakt Activity (update now)" type="action" visible="!eq(-4,)" action="RunPlugin(plugin://plugin.video.pov/?mode=trakt.trakt_sync_activities&amp;force_update=True)" />
-		<setting label="Authorize" type="action" visible="eq(-5,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=trakt.trakt_auth)" />
-		<setting label="Revoke" type="action" visible="!eq(-6,)" action="RunPlugin(plugin://plugin.video.pov/?mode=trakt.trakt_revoke)" />
-		<!-- Trakt Calendar -->
-		<setting label="32081" type="lsep" />
-		<setting id="trakt.calendar_focus_today" label="32082" type="bool" default="true" />
-		<setting id="trakt.calendar_sort_order" label="32067" type="enum" default="0" lvalues="32225|32224" />
-		<setting id="trakt.calendar_previous_days" label="32083" type="number" default="7" />
-		<setting id="trakt.calendar_future_days" label="32084" type="number" default="7" />
-		<!-- Trakt Cache -->
-		<setting label="32087" type="lsep" />
-		<setting id="trakt.sync_interval" label="32047" type="slider" default="30" option="int" range="5,5,600" />
-		<setting id="trakt.sync_refresh_widgets" label="32048" type="bool" default="false" />
-		<!-- MDBList -->
-		<setting label="MDBList" type="lsep" />
-		<setting id="mdblist.token" label="API Key" type="text" default="" option="hidden" />
-		<!-- IMDb -->
-		<setting label="32064" type="lsep" />
-		<setting id="imdb_user" label="32065" type="text" default="" enable="true" />
-		<setting id="imdb_lists.sort_type" label="32066" type="enum" default="0" lvalues="32215|32216|32217|32218|32219|32220|32221|32222|32223" visible="!eq(-1,)" />
-		<setting id="imdb_lists.sort_direction" label="32067" type="enum" default="0" lvalues="32224|32225" visible="!eq(-2,)" />
-	</category>
-	<!-- Metadata -->
-	<category label="32146">
-		<!-- Language -->
-		<setting label="32658" type="lsep" />
-		<setting id="meta_language_display" label="32145" type="action" default="English" action="RunPlugin(plugin://plugin.video.pov/?mode=meta_language_choice)" />
-		<setting id="meta_language" label="meta_language" type="text" default="en" visible="false" />
-		<!-- Fanart -->
-		<setting label="32147" type="lsep" />
-		<setting id="get_fanart_data" label="32148" type="bool" default="false" />
-			<setting id="fanarttv.default" label="32012" type="bool" default="false" subsetting="true" visible="eq(-1,true)" />
-		<!-- Fanart.tv -->
-		<setting label="32173" type="lsep" />
-		<setting id="fanart_amble1" label="32180" type="text" enable="false" />
-		<setting id="fanart_client_key" label="32053" type="text" default="fe073550acf157bdb8a4217f215c0882" enable="true" option="hidden" />
-		<!-- TMDb -->
-		<setting label="32068" type="lsep" />
-		<setting id="image_resolutions" label="32149" type="enum" default="2" values="Low|Medium|High|Original" />
-		<setting id="tmdb_api" label="32053" type="text" default="d848316a33e79095beb945a2bd2d53b1" enable="true" option="hidden" />
-		<!-- Simkl -->
-		<setting label="SIMKL" type="lsep" />
-		<setting id="simkl_api" label="32053" type="text" default="" enable="true" option="hidden" />
-		<!-- Trakt -->
-		<setting id="trakt.client_id" type="text" default="6bc29124c3d9466e06a3ed19a7b5976fcb28311008401e1ce04cf08196f8b16a" visible="false" />
-		<setting id="trakt.client_secret" type="text" default="99478842b17d44d7accafef45c6c1bbba235792753c195069ae149595cd3a919" visible="false" />
-	</category>
+        <!-- Real Debrid -->
+        <setting label="32054" type="lsep" />
+        <setting id="rd.token" label="rd token" type="text" default="" visible="false" />
+        <setting id="rd.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+        <setting id="rd.username" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+        <setting id="rd.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+        <setting id="rd.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
+        <setting id="store_torrent.real-debrid" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
+        <setting id="provider.rd_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32098]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
+            <setting id="rd_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
+            <setting id="check.rd_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
+            <setting id="results.sort_rdcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
+        <setting id="rd.priority" label="32011" type="slider" default="10" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
+        <setting id="rd.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-10,true)+!eq(-11,)" />
+        <setting label="Authorize" type="action" visible="eq(-12,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_auth)" />
+        <setting label="Revoke" type="action" visible="!eq(-13,)" action="RunPlugin(plugin://plugin.video.pov/?mode=real_debrid.rd_revoke)" />
+        <!-- All Debrid -->
+        <setting label="32063" type="lsep" />
+        <setting id="ad.token" label="ad token" type="text" default="" visible="false" />
+        <setting id="ad.enabled" label="32055" type="bool" default="true" visible="!eq(-1,)" />
+        <setting id="ad.account_id" label="32056" type="text" default="" enable="false" visible="eq(-1,true)+!eq(-2,)" />
+        <setting id="ad.torrent.enabled" label="33015" type="bool" default="true" enable="true" visible="eq(-2,true)+!eq(-3,)" />
+        <setting id="ad.hoster.enabled" label="33016" type="bool" default="false" enable="false" visible="false" />
+        <setting id="store_torrent.alldebrid" label="32060" type="bool" default="false" visible="eq(-4,true)+!eq(-5,)" />
+        <setting id="provider.ad_cloud" label="$ADDON[plugin.video.pov 32450] $ADDON[plugin.video.pov 32099]" type="bool" default="false" visible="eq(-5,true)+!eq(-6,)" />
+            <setting id="ad_cloud.title_filter" label="32172" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-6,true)+!eq(-7,)" />
+            <setting id="check.ad_cloud" label="32104" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-7,true)+!eq(-8,)" />
+            <setting id="results.sort_adcloud_first" label="32103" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-8,true)+!eq(-9,)" />
+        <setting id="ad.priority" label="32011" type="slider" default="9" option="int" range="1,1,10" visible="eq(-9,true)+!eq(-10,)" />
+        <setting id="ad.expires" label="Premium Expires Notification (days)" type="slider" default="7" option="int" range="0,1,7" visible="eq(-10,true)+!eq(-11,)" />
+        <setting label="Authorize" type="action" visible="eq(-12,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_auth)" />
+        <setting label="Revoke" type="action" visible="!eq(-13,)" action="RunPlugin(plugin://plugin.video.pov/?mode=alldebrid.ad_revoke)" />
+    </category>
+    <!-- Trakt -->
+    <category label="32454">
+        <!-- Trakt -->
+        <setting label="32037" type="lsep" />
+        <setting id="trakt.token" type="text" default="" visible="false" />
+        <setting id="trakt_user" label="32056" type="text" default="" enable="false" visible="!eq(-1,)" />
+        <setting id="trakt_indicators_active" label="trakt_indicators_active" type="text" default="false" visible="false" />
+        <setting id="watched_indicators" label="32035" type="enum" default="0" lvalues="32036|32037" visible="eq(-1,true)" />
+        <setting label="Sync Trakt Activity (update now)" type="action" visible="!eq(-4,)" action="RunPlugin(plugin://plugin.video.pov/?mode=trakt.trakt_sync_activities&amp;force_update=True)" />
+        <setting label="Authorize" type="action" visible="eq(-5,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=trakt.trakt_auth)" />
+        <setting label="Revoke" type="action" visible="!eq(-6,)" action="RunPlugin(plugin://plugin.video.pov/?mode=trakt.trakt_revoke)" />
+        <!-- Trakt Calendar -->
+        <setting label="32081" type="lsep" />
+        <setting id="trakt.calendar_focus_today" label="32082" type="bool" default="true" />
+        <setting id="trakt.calendar_sort_order" label="32067" type="enum" default="0" lvalues="32225|32224" />
+        <setting id="trakt.calendar_previous_days" label="32083" type="number" default="7" />
+        <setting id="trakt.calendar_future_days" label="32084" type="number" default="7" />
+        <!-- Trakt Cache -->
+        <setting label="32087" type="lsep" />
+        <setting id="trakt.sync_interval" label="32047" type="slider" default="30" option="int" range="5,5,600" />
+        <setting id="trakt.sync_refresh_widgets" label="32048" type="bool" default="false" />
+        <!-- MDBList -->
+        <setting label="MDBList" type="lsep" />
+        <setting id="mdblist.token" label="API Key" type="text" default="" option="hidden" />
+        <!-- IMDb -->
+        <setting label="32064" type="lsep" />
+        <setting id="imdb_user" label="32065" type="text" default="" enable="true" />
+        <setting id="imdb_lists.sort_type" label="32066" type="enum" default="0" lvalues="32215|32216|32217|32218|32219|32220|32221|32222|32223" visible="!eq(-1,)" />
+        <setting id="imdb_lists.sort_direction" label="32067" type="enum" default="0" lvalues="32224|32225" visible="!eq(-2,)" />
+    </category>
+    <!-- Metadata -->
+    <category label="32146">
+        <!-- Language -->
+        <setting label="32658" type="lsep" />
+        <setting id="meta_language_display" label="32145" type="action" default="English" action="RunPlugin(plugin://plugin.video.pov/?mode=meta_language_choice)" />
+        <setting id="meta_language" label="meta_language" type="text" default="en" visible="false" />
+        <!-- Fanart -->
+        <setting label="32147" type="lsep" />
+        <setting id="get_fanart_data" label="32148" type="bool" default="false" />
+            <setting id="fanarttv.default" label="32012" type="bool" default="false" subsetting="true" visible="eq(-1,true)" />
+        <!-- Fanart.tv -->
+        <setting label="32173" type="lsep" />
+        <setting id="fanart_amble1" label="32180" type="text" enable="false" />
+        <setting id="fanart_client_key" label="32053" type="text" default="fe073550acf157bdb8a4217f215c0882" enable="true" option="hidden" />
+        <!-- TMDb -->
+        <setting label="32068" type="lsep" />
+        <setting id="image_resolutions" label="32149" type="enum" default="2" values="Low|Medium|High|Original" />
+        <setting id="tmdb_api" label="32053" type="text" default="d848316a33e79095beb945a2bd2d53b1" enable="true" option="hidden" />
+        <!-- Simkl -->
+        <setting label="SIMKL" type="lsep" />
+        <setting id="simkl_api" label="32053" type="text" default="" enable="true" option="hidden" />
+        <!-- Trakt -->
+        <setting id="trakt.client_id" type="text" default="6bc29124c3d9466e06a3ed19a7b5976fcb28311008401e1ce04cf08196f8b16a" visible="false" />
+        <setting id="trakt.client_secret" type="text" default="99478842b17d44d7accafef45c6c1bbba235792753c195069ae149595cd3a919" visible="false" />
+    </category>
 </settings>
 

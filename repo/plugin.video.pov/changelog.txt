@@ -9,6 +9,7 @@
 - nyaa in Sources/Torrents sourced from website results.
 
   [COLOR dodgerblue][B]Version 5.02[/B][/COLOR]
+- Added MDBList Sort Type to Settings/Navigation/Sorting, only affects user lists.
 - Added Ratings/Reviews to Extras window with valid MDBList API Key.
 - Added MDBList Manager to context menu.
 - Added MDBList to My Lists.  Insert API Key in Settings/My Lists.

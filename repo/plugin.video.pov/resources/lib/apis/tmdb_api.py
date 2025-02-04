@@ -1,8 +1,8 @@
 import requests
 from caches.main_cache import cache_object
 from caches.meta_cache import cache_function
+from modules import kodi_utils
 from modules.settings import tmdb_api_key, get_language
-# from modules.kodi_utils import logger
 
 EXPIRES_4_HOURS, EXPIRES_2_DAYS, EXPIRES_1_WEEK, EXPIRES_1_MONTH = 4, 48, 168, 672
 movies_append = 'external_ids,videos,credits,release_dates,alternative_titles,translations,images'
@@ -17,9 +17,8 @@ def get_tmdb(url):
 	try:
 		response = session.get(url, timeout=timeout)
 		response.raise_for_status()
-	except requests.exceptions.RequestException as e:
-		from modules.kodi_utils import logger
-		logger('tmdb error', f"{e}\n{e.request.url}\n{e.response.text}")
+	except requests.exceptions.RequestException as e: kodi_utils.logger('tmdb error',
+		f"{e}\n{e.response.text if response else e.request.url}")
 	response.encoding = 'utf-8'
 	return response
 

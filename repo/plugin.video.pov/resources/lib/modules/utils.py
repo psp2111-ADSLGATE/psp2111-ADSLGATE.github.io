@@ -19,7 +19,9 @@ class TaskPool:
 		self._queue = SimpleQueue()
 
 	def _thread_target(self, queue, target):
-		while not queue.empty(): target(*queue.get())
+		while not queue.empty():
+			try: target(*queue.get())
+			except: pass
 
 	def tasks(self, _target, _list, _thread):
 		maxsize = min(len(_list), self.maxsize)

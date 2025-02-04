@@ -7,10 +7,11 @@ from tmdbhelper.lib.addon.thread import ParallelThread
 from jurialmunkey.window import get_property
 from tmdbhelper.lib.addon.dialog import BusyDialog
 from jurialmunkey.parser import try_int
-from tmdbhelper.lib.addon.plugin import set_kwargattr, convert_trakt_type, get_localized, executebuiltin, get_infolabel
+from tmdbhelper.lib.addon.plugin import set_kwargattr, convert_trakt_type, get_localized, executebuiltin, get_infolabel, get_setting
 from tmdbhelper.lib.api.trakt.api import TraktAPI
 from tmdbhelper.lib.update.userlist import get_monitor_userlists
 from tmdbhelper.lib.update.library import add_to_library
+from tmdbhelper.lib.api.mdblist.api import MDbList
 
 
 def _menu_item_watchlist():
@@ -74,6 +75,10 @@ def _menu_item_userlist():
     return {'class': _UserList}
 
 
+def _menu_item_mdblist():
+    return {'class': _MDbListUser}
+
+
 def _menu_item_progress():
     return {'class': _ProgressItem}
 
@@ -99,12 +104,13 @@ def _menu_items():
         - do not include the menu item if it is a single episode
     """
     return [
-        _menu_item_watchlist(),
+        _menu_item_userlist(),
+        _menu_item_mdblist(),
         _menu_item_watched(),
         _menu_item_unwatched(),
         _menu_item_progress(),
         _menu_item_collection(),
-        _menu_item_userlist(),
+        _menu_item_watchlist(),
         _menu_item_favorites(),
         _menu_item_comments(),
         _menu_item_rating(),
@@ -313,6 +319,104 @@ class _UserList():
                 season=self._item.season, episode=self._item.episode, remove=self.remove)
         if self._sync and self._sync.status_code in [200, 201, 204] and self._item.id_type == 'tmdb':
             self._addlibrary(convert_trakt_type(self._item.trakt_type), self._item.unique_id, slug=slug)
+        return self._sync
+
+
+class _MDbListUser():
+    def __init__(self, item, **kwargs):
+        self._item, self._trakt = item, item._trakt
+        set_kwargattr(self, kwargs)
+
+    @property
+    def remove(self):
+        try:
+            return self._remove
+        except AttributeError:
+            if get_infolabel("ListItem.Property(param.info)") != 'mdblist_userlist':
+                self._remove = False
+                return self._remove
+            if get_infolabel("ListItem.Property(param.dynamic)"):
+                self._remove = False
+                return self._remove
+            self._remove = True
+            return self._remove
+
+    def _getself(self):
+        self.name = get_localized(32519) if self.remove else get_localized(32514)
+        return self
+
+    @property
+    def trakt_type(self):
+        if self._item.trakt_type in ['season', 'episode']:
+            return 'show'
+        return self._item.trakt_type
+
+    @property
+    def static_lists(self):
+        try:
+            return self._static_lists
+        except AttributeError:
+            if not get_setting('mdblist_apikey', 'str'):
+                return
+            response = MDbList().get_request('lists', 'user')
+            self._static_lists = [i for i in response if i and not i.get('dynamic')]
+            return self._static_lists
+
+    def _select_static_list(self):
+        if self.static_lists is None:  # No API credentials
+            Dialog().ok('MDbList', f'{get_localized(32516)}\n{get_localized(32517)}')
+            return -1
+
+        if not self.static_lists:  # No static lists
+            Dialog().ok('MDbList', get_localized(32518))
+            return -1
+
+        names = [i.get('name', '') for i in self.static_lists]
+        return Dialog().select(get_localized(32133), names)
+
+    def get_msg(self, response):
+        if not response or not response.status_code == 200:
+            return f'{get_localized(32138)}\nHTTP {response}'
+        response_json = response.json()
+        if response_json.get('added', {}).get(f'{self.trakt_type}s'):
+            return get_localized(32136)
+        if response_json.get('deleted', {}).get(f'{self.trakt_type}s'):
+            return get_localized(32135)
+        if response_json.get('existing', {}).get(f'{self.trakt_type}s'):
+            return f'{get_localized(32138)}\n{get_localized(32515)}'
+        if response_json.get('not_found', {}).get(f'{self.trakt_type}s'):
+            return f'{get_localized(32137)}\n{get_localized(32040)}'
+        return 'Unknown'
+
+    def get_list_id(self):
+        x = self._select_static_list()
+        if x == -1:
+            return
+        return self.static_lists[x]['id']
+
+    def _modify_static_list(self, action='add', list_id=None):
+        list_id = list_id or self.get_list_id()
+        if not list_id:
+            return
+        response = MDbList().modify_static_list(
+            list_id,
+            media_type=self.trakt_type,
+            media_id=self._item.unique_id,
+            media_provider=self._item.id_type,
+            action=action
+        )
+        Dialog().ok('MDbList', self.get_msg(response).format(self.trakt_type, self._item.unique_id, list_id))
+        executebuiltin('Container.Refresh')
+        get_property('Widgets.Reload', set_property=f'{set_timestamp(0, True)}')
+
+    def sync(self):
+        self._sync = -1
+
+        if self.remove:
+            self._modify_static_list(action='remove', list_id=get_infolabel("ListItem.Property(param.list_id)"))
+            return self._sync
+
+        self._modify_static_list(action='add')
         return self._sync
 
 

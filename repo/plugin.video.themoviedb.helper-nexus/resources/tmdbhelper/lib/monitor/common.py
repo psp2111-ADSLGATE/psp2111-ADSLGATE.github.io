@@ -161,7 +161,7 @@ class CommonMonitorDetails(CommonContainerAPIs):
     def get_mdblist_ratings(self, item, trakt_type, tmdb_id):
         if not self.mdblist_api:
             return item
-        ratings = self.mdblist_api.get_ratings(trakt_type, tmdb_id=tmdb_id) or {}
+        ratings = self.mdblist_api.get_ratings(trakt_type, tmdb_id) or {}
 
         # Pop some ratings we already retrieve from other services
         for i in ('trakt_rating', 'trakt_votes', 'tmdb_rating', 'tmdb_votes'):
