@@ -6,8 +6,7 @@ from tmdbhelper.lib.addon.plugin import get_condvisibility, get_localized, execu
 from tmdbhelper.lib.addon.dialog import BusyDialog
 from tmdbhelper.lib.api.tmdb.api import TMDb
 from tmdbhelper.lib.addon.logger import kodi_log
-from tmdbhelper.lib.items.router import Router
-from threading import Thread
+from tmdbhelper.lib.addon.thread import SafeThread
 
 
 PREFIX_PATH = 'Path.'
@@ -25,16 +24,44 @@ def _configure_path(path):
     path = path.replace('info=play', 'info=details')
     path = path.replace('info=seasons', 'info=details')
     path = path.replace('info=related', 'info=details')
-    # TODO: Check if we still need this "extended=True" param
-    if 'extended=True' not in path:
-        path = f'{path}&extended=True'
     return path
+
+
+SV_ROUTES = {
+    'get_dbitem_movieset_details': {
+        'module_name': 'jurialmunkey.jrpcid',
+        'import_attr': 'ListGetMovieSetDetails'},
+    'get_dbitem_movie_details': {
+        'module_name': 'jurialmunkey.jrpcid',
+        'import_attr': 'ListGetMovieDetails'},
+    'get_dbitem_tvshow_details': {
+        'module_name': 'jurialmunkey.jrpcid',
+        'import_attr': 'ListGetTVShowDetails'},
+    'get_dbitem_season_details': {
+        'module_name': 'jurialmunkey.jrpcid',
+        'import_attr': 'ListGetSeasonDetails'},
+    'get_dbitem_episode_details': {
+        'module_name': 'jurialmunkey.jrpcid',
+        'import_attr': 'ListGetEpisodeDetails'},
+}
 
 
 def get_listitem(path):
     try:
-        _path = path.replace('plugin://plugin.video.themoviedb.helper/?', '')  # _path = f"info=details&tmdb_type={tmdb_type}&tmdb_id={tmdb_id}"
-        return Router(-1, _path).get_directory(items_only=True)[0].get_listitem()
+
+        base, pstr = path.split('?')
+
+        if base == 'plugin://plugin.video.themoviedb.helper/':
+            from tmdbhelper.lib.items.router import Router
+            return Router(-1, pstr).get_directory(items_only=True)[0].get_listitem()
+
+        if base == 'plugin://script.skinvariables/':
+            from jurialmunkey.modimp import importmodule
+            from jurialmunkey.parser import parse_paramstring
+            pstr, *_ = pstr.split('&&')
+            prms = parse_paramstring(pstr)
+            return importmodule(** SV_ROUTES[prms['info']])(-1, pstr, **prms).get_items(**prms)[0][1]
+
     except (TypeError, IndexError, KeyError, AttributeError, NameError):
         return
 
@@ -44,7 +71,7 @@ def open_info(listitem, func=None, threaded=False):
     executebuiltin(f'Dialog.Close(pvrguideinfo,true)')
     func() if func else None
     if threaded:
-        t = Thread(target=Dialog().info, args=[listitem])
+        t = SafeThread(target=Dialog().info, args=[listitem])
         t.start()
         return t
     Dialog().info(listitem)
@@ -256,6 +283,15 @@ class WindowManager(_EventLoop):
         window.get_property(f'{PREFIX_PATH}{position}', set_property=path)
         window.get_property(PREFIX_POSITION, set_property=position)
 
+    def add_origin(self, tmdb_type, tmdb_id):
+        if not tmdb_type or not tmdb_id:
+            return
+        path = f'plugin://plugin.video.themoviedb.helper/?info=details&tmdb_type={tmdb_type}&tmdb_id={tmdb_id}'
+        path = _configure_path(path)
+        self.position += 1
+        self.set_properties(self.position, path)
+        self.params['return'] = True
+
     def call_auto(self):
         if window.get_property(PREFIX_INSTANCE):
             # Already instance running and has window open so let's exit
@@ -264,6 +300,9 @@ class WindowManager(_EventLoop):
             # Do some clean-up because we didn't exit cleanly last time
             window.get_property(PREFIX_INSTANCE, clear_property=True)
             self.reset_properties()
+
+        # Add a return origin if available
+        self.add_origin(self.params.get('origin_tmdb_type'), self.params.get('origin_tmdb_id'))
 
         # Start up our service to monitor the windows
         return self.event_loop()
@@ -279,7 +318,7 @@ class WindowManager(_EventLoop):
         window.wait_for_property(PREFIX_ADDPATH, path, True, poll=0.3)
         self.call_auto()
 
-    def add_query(self, query, tmdb_type, separator=' / '):
+    def make_query(self, query, tmdb_type, separator=' / '):
         if separator and separator in query:
             split_str = query.split(separator)
             x = Dialog().select(get_localized(32236), split_str)
@@ -291,7 +330,12 @@ class WindowManager(_EventLoop):
         if not tmdb_id:
             Dialog().notification('TMDbHelper', get_localized(32310).format(query))
             return
-        url = f'plugin://plugin.video.themoviedb.helper/?info=details&tmdb_type={tmdb_type}&tmdb_id={tmdb_id}'
+        return f'plugin://plugin.video.themoviedb.helper/?info=details&tmdb_type={tmdb_type}&tmdb_id={tmdb_id}'
+
+    def add_query(self, query, tmdb_type, separator=' / '):
+        url = self.make_query(query, tmdb_type, separator)
+        if not url:
+            return
         return self.add_path(url)
 
     def close_dialog(self):
@@ -301,9 +345,24 @@ class WindowManager(_EventLoop):
         self._on_exit()
         self.call_window()
 
+    def get_playmedia_builtin(self):
+        params = [f'\"{self.params["playmedia"]}\"', f'playlist_type_hint={self.params.get("playlist_type_hint") or "1"}']
+        for k in ('resume', 'noresume', 'isdir', ):
+            if not self.params.get(k):
+                continue
+            params.append(k)
+        for k in ('playoffset', ):
+            if not self.params.get(k):
+                continue
+            params.append(f'{k}={self.params[k]}')
+        params = ','.join(params)
+        return f'PlayMedia({params})'
+
     def call_window(self):
+        if self.params.get('executebuiltin'):
+            return executebuiltin(f'{self.params["executebuiltin"]}')
         if self.params.get('playmedia'):
-            return executebuiltin(f'PlayMedia(\"{self.params["playmedia"]}\",playlist_type_hint=1)')
+            return executebuiltin(self.get_playmedia_builtin())
         if self.params.get('call_id'):
             return executebuiltin(f'ActivateWindow({self.params["call_id"]})')
         if self.params.get('call_path'):

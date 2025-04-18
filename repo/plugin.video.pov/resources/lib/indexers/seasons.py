@@ -81,7 +81,7 @@ class Seasons:
 					playcount, overlay, watched, unwatched = get_watched_status_season(watched_info, string(tmdb_id), season_number, episode_count)
 					url_params = build_url({'mode': 'build_episode_list', 'tmdb_id': tmdb_id, 'season': season_number})
 					extras_params = build_url({'mode': 'extras_menu_choice', 'media_type': 'tvshow', 'tmdb_id': tmdb_id, 'is_widget': is_widget})
-					options_params = build_url({'mode': 'options_menu_choice', 'content': 'season', 'tmdb_id': tmdb_id})
+					options_params = build_url({'mode': 'options_menu_choice', 'content': 'season', 'tmdb_id': tmdb_id, 'is_widget': is_widget})
 					cm_append((options_str, run_plugin % options_params))
 					cm_append((extras_str, run_plugin % extras_params))
 					if not playcount:
@@ -96,12 +96,6 @@ class Seasons:
 					props['unwatchedepisodes'] = string(unwatched)
 					props['totalepisodes'] = string(episode_count)
 					props['pov_sort_order'] = string(params.get('sort', ''))
-					if is_widget: props.update({
-						'pov_widget': 'true',
-						'pov_playcount': string(playcount),
-						'pov_extras_menu_params': extras_params,
-						'pov_options_menu_params': options_params})
-					else: props['pov_widget'] = 'false'
 					listitem = make_listitem()
 					listitem.addContextMenuItems(cm)
 					listitem.setProperties(props)
@@ -167,7 +161,7 @@ class Seasons:
 					item.update({'trailer': trailer, 'tvshowtitle': show_title, 'premiered': premiered, 'genre': genre, 'duration': episode_run_time, 'mpaa': mpaa, 'studio': studio,
 								'playcount': playcount, 'overlay': overlay})
 					extras_params = build_url({'mode': 'extras_menu_choice', 'media_type': 'tvshow', 'tmdb_id': tmdb_id, 'is_widget': is_widget})
-					options_params = build_url({'mode': 'options_menu_choice', 'content': 'episode', 'tmdb_id': tmdb_id, 'season': season, 'episode': episode})
+					options_params = build_url({'mode': 'options_menu_choice', 'content': 'episode', 'tmdb_id': tmdb_id, 'season': season, 'episode': episode, 'is_widget': is_widget})
 					url_params = build_url({'mode': 'play_media', 'media_type': 'episode', 'tmdb_id': tmdb_id, 'season': season, 'episode': episode})
 					display = ep_name
 					unaired = False
@@ -187,7 +181,6 @@ class Seasons:
 							clearprog_params = build_url({'mode': 'watched_unwatched_erase_bookmark', 'media_type': 'episode', 'tmdb_id': tmdb_id,
 														'season': season, 'episode': episode, 'refresh': 'true'})
 							cm_append((clearprog_str, run_plugin % clearprog_params))
-							props['pov_in_progress'] = 'true'
 						if playcount:
 							if hide_watched: continue
 							unwatched_params = build_url({'mode': 'mark_as_watched_unwatched_episode', 'action': 'mark_as_unwatched', 'tmdb_id': tmdb_id,
@@ -197,15 +190,6 @@ class Seasons:
 							watched_params = build_url({'mode': 'mark_as_watched_unwatched_episode', 'action': 'mark_as_watched', 'tmdb_id': tmdb_id,
 														'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': show_title, 'year': show_year})
 							cm_append((watched_str % watched_title, run_plugin % watched_params))
-					if is_widget: props.update({
-						'pov_widget': 'true',
-						'pov_playcount': string(playcount),
-						'pov_options_menu_params': options_params,
-						'pov_extras_menu_params': extras_params,
-						'pov_unwatched_params': unwatched_params,
-						'pov_watched_params': watched_params,
-						'pov_clearprog_params': clearprog_params})
-					else: props['pov_widget'] = 'false'
 					listitem = make_listitem()
 					listitem.addContextMenuItems(cm)
 					listitem.setProperties(props)

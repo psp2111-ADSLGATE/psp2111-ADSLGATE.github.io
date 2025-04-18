@@ -8,12 +8,19 @@ from queue import SimpleQueue
 from html.parser import HTMLParser
 from importlib import import_module
 from datetime import datetime, timedelta, date
-from modules.kodi_utils import local_string as ls, get_setting
+from modules.kodi_utils import local_string as ls, get_setting, logger
 # from modules.kodi_utils import logger
 
 days_translate = {'Monday': 32971, 'Tuesday': 32972, 'Wednesday': 32973, 'Thursday': 32974, 'Friday': 32975, 'Saturday': 32976, 'Sunday': 32977}
 
 class TaskPool:
+	@staticmethod
+	def process(_threads):
+		for index, i in enumerate(_threads, 1):
+			try: i.start()
+			except Exception as e: logger('thread error', f"{index}: {e}")
+			else: yield i
+
 	def __init__(self, maxsize=None):
 		self.maxsize = maxsize or int(get_setting('pov.max_threads', '100'))
 		self._queue = SimpleQueue()
@@ -21,21 +28,19 @@ class TaskPool:
 	def _thread_target(self, queue, target):
 		while not queue.empty():
 			try: target(*queue.get())
-			except: pass
+			except Exception as e: logger('queue error', f"{e}")
 
 	def tasks(self, _target, _list, _thread):
 		maxsize = min(len(_list), self.maxsize)
 		[self._queue.put(tag) for tag in _list]
 		threads = [_thread(target=self._thread_target, args=(self._queue, _target)) for i in range(maxsize)]
-		[i.start() for i in threads]
-		return threads
+		return list(self.process(threads))
 
 	def tasks_enumerate(self, _target, _list, _thread):
 		maxsize = min(len(_list), self.maxsize)
 		[self._queue.put((p, tag)) for p, tag in enumerate(_list, 1)]
 		threads = [_thread(target=self._thread_target, args=(self._queue, _target)) for i in range(maxsize)]
-		[i.start() for i in threads]
-		return threads
+		return list(self.process(threads))
 
 def manual_function_import(location, function_name):
 	return getattr(import_module(location), function_name)
@@ -43,14 +48,14 @@ def manual_function_import(location, function_name):
 def make_thread_list(_target, _list, _thread):
 	for item in _list:
 		threaded_object = _thread(target=_target, args=(item,))
-		yield threaded_object
 		threaded_object.start()
+		yield threaded_object
 
 def make_thread_list_enumerate(_target, _list, _thread):
 	for item_position, item in enumerate(_list):
 		threaded_object = _thread(target=_target, args=(item_position, item))
-		yield threaded_object
 		threaded_object.start()
+		yield threaded_object
 
 def chunks(item_list, limit):
 	"""
@@ -302,3 +307,4 @@ def make_title_slug(name):
 	name = re.sub('[^a-z0-9_]', '-', name)
 	name = re.sub('--+', '-', name)
 	return name
+

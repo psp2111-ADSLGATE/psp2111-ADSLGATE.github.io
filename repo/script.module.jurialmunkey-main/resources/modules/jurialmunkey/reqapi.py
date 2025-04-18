@@ -217,11 +217,13 @@ class RequestAPI(object):
     def get_simple_api_request(self, request=None, postdata=None, headers=None, method=None):
         try:
             if method == 'delete':
-                return self.session.delete(request, headers=headers, timeout=self.timeout)
+                return self.session.delete(request, data=postdata, headers=headers, timeout=self.timeout)
             if method == 'put':
                 return self.session.put(request, data=postdata, headers=headers, timeout=self.timeout)
             if method == 'json':
                 return self.session.post(request, json=postdata, headers=headers, timeout=self.timeout)
+            if method == 'json_delete':
+                return self.session.delete(request, json=postdata, headers=headers, timeout=self.timeout)
             if postdata or method == 'post':  # If pass postdata assume we want to post
                 return self.session.post(request, data=postdata, headers=headers, timeout=self.timeout)
             return self.session.get(request, headers=headers, timeout=self.timeout)
@@ -275,6 +277,7 @@ class RequestAPI(object):
                     f'\nPostdata: {postdata}' if postdata else '',
                     f'\nHeaders: {headers}' if headers else '',
                     f'\nResponse: {response}' if response else ''], log_level)
+
                 return
             return
 

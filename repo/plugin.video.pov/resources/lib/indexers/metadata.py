@@ -397,3 +397,12 @@ def build_tvshow_meta(data, user_info, fanarttv_data=None):
 	else: meta_dict.update(default_fanarttv_data)
 	return meta_dict
 
+def rpdb_get(media_type, media_id, api_key):
+	if api_key and media_id:
+		if media_id.startswith('tt'): id_type = 'imdb'
+		else: id_type, media_id = 'tmdb', '%s-%s' % (media_type, media_id)
+		url = 'https://api.ratingposterdb.com/%s/%s/poster-default/%s.jpg'
+		rpdb_data = {'rpdb': url % (api_key, id_type, media_id), 'rpdb_added': True}
+	else: rpdb_data = {'rpdb': '', 'rpdb_added': False}
+	return rpdb_data
+

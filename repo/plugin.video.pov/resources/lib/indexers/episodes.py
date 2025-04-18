@@ -22,7 +22,7 @@ run_plugin, container_refresh, container_update = 'RunPlugin(%s)', 'Container.Re
 poster = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/box_office.png')
 fanart = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
 watched_str, unwatched_str, extras_str, options_str = ls(32642), ls(32643), ls(32645), ls(32646)
-clearprog_str, browse_str, browse_seas_str, nextep_manager_str = ls(32651), ls(32652), ls(32544), ls(32599)
+clearprog_str, browse_str, browse_seas_str, traktmanager_str = ls(32651), ls(32652), ls(32544), ls(32198)
 
 class Episodes:
 	def __init__(self, params):
@@ -159,7 +159,7 @@ class Episodes:
 			item.update({'trailer': trailer, 'tvshowtitle': title, 'premiered': premiered, 'genre': genre, 'duration': duration,
 						'mpaa': mpaa, 'studio': studio, 'playcount': playcount, 'overlay': overlay, 'title': display})
 			extras_params = build_url({'mode': 'extras_menu_choice', 'media_type': 'tvshow', 'tmdb_id': tmdb_id, 'is_widget': self.is_widget})
-			options_params = build_url({'mode': 'options_menu_choice', 'content': 'episode', 'tmdb_id': tmdb_id, 'season': season, 'episode': episode})
+			options_params = build_url({'mode': 'options_menu_choice', 'content': 'episode', 'tmdb_id': tmdb_id, 'season': season, 'episode': episode, 'is_widget': self.is_widget})
 			url_params = build_url({'mode': 'play_media', 'media_type': 'episode', 'tmdb_id': tmdb_id, 'season': season, 'episode': episode})
 			if self.show_all_episodes:
 				if self.all_episodes == 1 and meta_get('total_seasons') > 1: browse_params = build_url({'mode': 'build_season_list', 'tmdb_id': tmdb_id})
@@ -176,7 +176,6 @@ class Episodes:
 					clearprog_params = build_url({'mode': 'watched_unwatched_erase_bookmark', 'media_type': 'episode', 'tmdb_id': tmdb_id,
 												'season': season, 'episode': episode, 'refresh': 'true'})
 					cm_append((clearprog_str, run_plugin % clearprog_params))
-					props['pov_in_progress'] = 'true'
 				if playcount:
 					if self.hide_watched: return
 					unwatched_params = build_url({'mode': 'mark_as_watched_unwatched_episode', 'action': 'mark_as_unwatched', 'tmdb_id': tmdb_id,
@@ -187,20 +186,10 @@ class Episodes:
 												'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': title, 'year': year})
 					cm_append((watched_str % self.watched_title, run_plugin % watched_params))
 			if self.list_type == 'next_episode_trakt':
-				cm_append((nextep_manager_str, self.container_update % build_url({'mode': 'build_next_episode_manager'})))
+				trakt_manager_params = build_url({'mode': 'trakt_manager_choice', 'tmdb_id': tmdb_id, 'imdb_id': imdb_id, 'tvdb_id': tvdb_id, 'media_type': 'tvshow'})
+				cm_append((traktmanager_str, run_plugin % trakt_manager_params))
 			props['pov_name'] = '%s - %sx%s' % (title, str_season_zfill2, str_episode_zfill2)
 			props['pov_first_aired'] = premiered
-			if self.is_widget: props.update({
-				'pov_widget': 'true',
-				'pov_playcount': string(playcount),
-				'pov_browse_params': browse_params,
-				'pov_browse_seas_params': browse_seas_params,
-				'pov_options_menu_params': options_params,
-				'pov_extras_menu_params': extras_params,
-				'pov_unwatched_params': unwatched_params,
-				'pov_watched_params': watched_params,
-				'pov_clearprog_params': clearprog_params})
-			else: props['pov_widget'] = 'false'
 			listitem = kodi_utils.make_listitem()
 			listitem.addContextMenuItems(cm)
 			listitem.setProperties(props)
@@ -269,13 +258,13 @@ class Episodes:
 			self.nextep_include_airdate, self.nextep_include_unaired = nextep_disp_settings['include_airdate'], nextep_settings['include_unaired']
 			if self.watched_indicators == 1:
 				try:
-					hidden_data = trakt_get_hidden_items('progress_watched')
+					hidden_data = trakt_get_hidden_items('dropped')
 					self.list = [i for i in self.list if not i['media_ids']['tmdb'] in hidden_data]
 				except: pass
-				if nextep_settings['include_unwatched']:
-					try: unwatched = [{'media_ids': i['media_ids'], 'season': 1, 'episode': 0, 'unwatched': True} for i in trakt_fetch_collection_watchlist('watchlist', 'tvshow')]
-					except: unwatched = []
-					self.list += unwatched
+#				if nextep_settings['include_unwatched']:
+#					try: unwatched = [{'media_ids': i['media_ids'], 'season': 1, 'episode': 0, 'unwatched': True} for i in trakt_fetch_collection_watchlist('watchlist', 'tvshow')]
+#					except: unwatched = []
+#					self.list += unwatched
 				resformat, self.resinsert = '%Y-%m-%dT%H:%M:%S.%fZ', '2000-01-01T00:00:00.000Z'
 			else: resformat, self.resinsert = '%Y-%m-%d %H:%M:%S', '2000-01-01 00:00:00'
 #		threads = list(make_thread_list_enumerate(self.build_episode_content, self.list, Thread))

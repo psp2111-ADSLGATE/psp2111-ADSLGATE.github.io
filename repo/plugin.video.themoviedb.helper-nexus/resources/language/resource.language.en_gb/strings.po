@@ -2641,6 +2641,81 @@ msgctxt "#32519"
 msgid "Remove from MDbList list"
 msgstr ""
 
+#: /resources/settings.xml
+msgctxt "#32520"
+msgid "TMDb"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/addon/consts.py
+msgctxt "#32521"
+msgid "Rated"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32522"
+msgid "TMDb user options"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32523"
+msgid "Add/Remove from TMDb user list"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/api/tmdb/useritemmethods.py
+msgctxt "#32524"
+msgid "User lists"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32525"
+msgid "Add/Remove from TMDb favourites"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32526"
+msgid "Add/Remove from TMDb watchlist"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/api/tmdb/useritemmethods.py
+msgctxt "#32527"
+msgid "Remove from {}"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/api/tmdb/useritemmethods.py
+msgctxt "#32528"
+msgid "Add to {}"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32529"
+msgid "Scrobble items played via TMDbHelper"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32530"
+msgid "Remove rating"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/script/sync/item.py
+msgctxt "#32531"
+msgid "Method only available for VIP accounts."
+msgstr ""
+
+#: /resources/tmdbhelper/lib/script/sync/basic.py
+msgctxt "#32532"
+msgid "Force resync"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32533"
+msgid "Get episode types (slower)"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32534"
+msgid "Trakt sync progress notifications"
+msgstr ""
+
 msgctxt "#30030"
 msgid "Hindi (India)"
 msgstr ""

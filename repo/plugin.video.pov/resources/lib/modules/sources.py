@@ -1,5 +1,4 @@
-import json
-import time
+import json, re, time
 from threading import Thread
 from indexers import metadata
 from fenom import sources as fenom_sources
@@ -22,12 +21,12 @@ display_uncached_torrents, check_prescrape_sources = settings.display_uncached_t
 metadata_user_info, quality_filter, sort_to_top  = settings.metadata_user_info, settings.quality_filter, settings.sort_to_top
 results_xml_style, results_xml_window_number = settings.results_xml_style, settings.results_xml_window_number
 debrid_enabled, debrid_type_enabled, debrid_valid_hosts = debrid.debrid_enabled, debrid.debrid_type_enabled, debrid.debrid_valid_hosts
+debrid_list, import_debrid, main_line = debrid.debrid_list, debrid.import_debrid, debrid.main_line
 quality_ranks = {'4K': 1, '1080p': 2, '720p': 3, 'SD': 4, 'SCR': 5, 'CAM': 5, 'TELE': 5}
 cloud_scrapers, folder_scrapers = ('rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud'), ('folder1', 'folder2', 'folder3', 'folder4', 'folder5')
 default_internal_scrapers = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders')
 av1_filter_key, hevc_filter_key, hdr_filter_key, dolby_vision_filter_key = '[B]AV1[/B]', '[B]HEVC[/B]', '[B]HDR[/B]', '[B]D/VISION[/B]'
 dialog_format, remaining_format = '[COLOR %s][B]%s[/B][/COLOR] 4K: %s | 1080p: %s | 720p: %s | SD: %s | Total: %s', ls(32676)
-main_line = '%s[CR]%s[CR]%s'
 
 class Sources():
 	def __init__(self):
@@ -88,6 +87,8 @@ class Sources():
 		self.size_filter = int(get_setting('results.size_filter', '0'))
 		self.include_unknown_size = get_setting('results.include.unknown.size') == 'true'
 		self.include_3D_results = get_setting('include_3d_results') == 'true'
+		if get_setting('results.language_filter') == 'true': self.priority_language = get_setting('results.language')
+		else: self.priority_language = None
 		self._update_meta()
 		self._search_info()
 		set_property('pov_playback_meta', json.dumps(self.meta))
@@ -192,6 +193,7 @@ class Sources():
 			item['quality_rank'] = self._get_quality_rank(item.get('quality', 'SD'))
 		for item in results: _add_keys(item)
 		results.sort(key=self.sort_function)
+		if self.priority_language: results = self._sort_language_to_top(results)
 		if self.display_uncached_torrents: results = self._sort_uncached_torrents(results)
 		return results
 
@@ -277,15 +279,15 @@ class Sources():
 
 	def display_results(self, results):
 		window_style = results_xml_style()
-		try: action, chosen_item = open_window(('windows.sources', 'SourceResults'), 'sources_results.xml',
+		chosen_item = open_window(('windows.sources', 'SourceResults'), 'sources_results.xml',
 							window_style=window_style, window_id=results_xml_window_number(window_style), results=results,
 							meta=self.meta, scraper_settings=self.scraper_settings, prescrape=self.prescrape, filters_ignored=self.filters_ignored)
-		except TypeError: action, chosen_item = None, None
-		if not action: self._kill_progress_dialog()
-		elif action == 'play':
+		if not chosen_item: return self._kill_progress_dialog()
+		action, chosen_item = chosen_item
+		if action == 'play':
 			self._kill_progress_dialog()
 			return self.play_file(results, chosen_item)
-		elif self.prescrape and action == 'perform_full_search':
+		if action == 'perform_full_search' and self.prescrape:
 			self.prescrape, self.clear_properties = False, False
 			return self.playback_prep()
 
@@ -424,6 +426,18 @@ class Sources():
 		if provider == 'folders': return 0
 		else: return 1
 
+	def _sort_language_to_top(self, results):
+		from xbmc import convertLanguage as cl, ISO_639_1, ISO_639_2
+		try:
+			language = self.priority_language, cl(self.priority_language, ISO_639_2), cl(self.priority_language, ISO_639_1)
+			if self.priority_language == 'Spanish': language += 'latino', 'lat', 'esp'
+			pattern = r'\b(%s)\b' % '|'.join(i for i in language if i)
+			sort_first = [i for i in results if re.search(pattern, i.get('name_info', ''), re.I)]
+			sort_last = [i for i in results if not i in sort_first]
+			results = sort_first + sort_last
+		except: pass
+		return results
+
 	def _sort_uncached_torrents(self, results):
 		uncached = [i for i in results if 'Uncached' in i.get('cache_provider', '')]
 		cached = [i for i in results if not i in uncached]
@@ -464,15 +478,8 @@ class Sources():
 		for item in default_internal_scrapers: clear_property('%s.internal_results' % item)
 		for item in self.get_folderscraper_info(): clear_property('%s.internal_results' % item[0])
 
-	def _monitor(self):
-		kodi_utils.set_property('pov.progress_is_alive', 'true')
-		while kodi_utils.get_property('pov.progress_is_alive') == 'true': sleep(200)
-		try: self.progress_dialog.close()
-		except: pass
-
-	def _make_progress_dialog(self, monitor=False):
-		if monitor: Thread(target=self._monitor).start()
-		self.progress_dialog = create_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', meta=self.meta)
+	def _make_progress_dialog(self):
+		self.progress_dialog = create_window(('windows.sources', 'ProgressMedia'), 'progress_media.xml', meta=self.meta)
 		Thread(target=self.progress_dialog.run).start()
 
 	def _kill_progress_dialog(self):
@@ -484,21 +491,14 @@ class Sources():
 
 	def debridPacks(self, debrid_provider, name, magnet_url, info_hash, highlight=None, download=False):
 		show_busy_dialog()
-		debrid_function = self.import_debrid(debrid_provider)
+		debrid_function = import_debrid(debrid_provider)
 		try: debrid_files = debrid_function().display_magnet_pack(magnet_url, info_hash)
 		except: debrid_files = None
 		hide_busy_dialog()
 		if not debrid_files: return notification(32574)
 		debrid_files.sort(key=lambda k: k['filename'].lower())
 		if download: return debrid_files, debrid_function
-		icon = {
-			'Real-Debrid': 'realdebrid.png',
-			'Premiumize.me': 'premiumize.png',
-			'AllDebrid': 'alldebrid.png',
-			'Offcloud': 'offcloud.png',
-			'TorBox': 'torbox.png',
-			'EasyDebrid': 'easydebrid.png'
-		}.get(debrid_provider) or 'pov.png'
+		icon = next((i[2] for i in debrid_list if i[0] == debrid_provider), 'pov.png')
 		default_debrid_icon = translate_path('special://home/addons/plugin.video.pov/resources/media/%s' % icon)
 		list_items = [
 			{'line1': '%.2f GB | %s' % (float(item['size'])/1073741824, clean_file_name(item['filename']).upper()), 'icon': default_debrid_icon}
@@ -518,72 +518,46 @@ class Sources():
 		return POVPlayer().run(link, 'video')
 
 	def play_file(self, results, source={}, autoplay=False, background=False):
-		def _uncached_confirm(item):
-			if not confirm_dialog(text=ls(32831) % item['debrid'].upper()):
-				kodi_utils.clear_property('pov.progress_is_alive')
-				return None
-			self.caching_confirmed = True
-			return item
+		def _process():
+			for count, item in enumerate(items, 1):
+				if not background:
+					try:
+						if monitor.abortRequested(): break
+						elif self.progress_dialog and self.progress_dialog.iscanceled(): break
+						percent = int(((total_items := len(items))-count)/total_items*100)
+						name = item['name'].replace('.', ' ').replace('-', ' ').upper()
+						line1 = (item.get('scrape_provider'), item.get('cache_provider'), item.get('provider'))
+						line1 = ' | '.join(i for i in line1 if i and i != 'external').upper()
+						line2 = ' | '.join(i for i in (item.get('size_label', ''), item.get('extraInfo', '')) if i)
+						if self.progress_dialog: self.progress_dialog.update(main_line % (line1, line2, name), percent)
+						else: progressBG.update(percent, name)
+					except: pass
+				link = self.resolve_sources(item, self.meta)
+				if link: yield None if link == 'uncached' else link
 		try:
 			self._kill_progress_dialog()
 			if autoplay:
 				items = [i for i in results if not 'Uncached' in i.get('cache_provider', '')]
 				if self.filters_ignored: notification(32686)
 			else:
-				results = [i for i in results if not 'Uncached' in i.get('cache_provider', '') or i == source]
-				source_index = results.index(source)
-				leading_index = max(source_index-20, 0)
-				items_prev = results[leading_index:source_index]
-				trailing_index = 41 - len(items_prev)
-				items_next = results[source_index+1:source_index+trailing_index]
-				items = [source] + items_next + items_prev
-#			if not background: self._make_progress_dialog()
-			if not background:
+				source_index = results.index(source) if source in results else -1
+				items = [i for i in results[source_index + 1:] if not 'Uncached' in i.get('cache_provider', '')]
+				items = [source] + items[:40]
+			if not background: # self._make_progress_dialog()
 				if not self.load_action:
 					progressBG = kodi_utils.progressDialogBG
 					progressBG.create('POV', 'POV loading...')
-				else: self._make_progress_dialog(monitor=True)
-			self.url = None
-			total_items = len(items)
-			for count, item in enumerate(items, 1):
-				try:
-					self.caching_confirmed = False
-					if not background:
-						try:
-#							if self.progress_dialog.iscanceled(): break
-							if self.progress_dialog and self.progress_dialog.iscanceled(): break
-							elif monitor.abortRequested(): break
-							name = item['name'].replace('.', ' ').replace('-', ' ').upper()
-							if item.get('scrape_provider') == 'external':
-								line1 = ' | '.join((item.get('cache_provider', ''), item.get('provider', ''))).upper()
-							else: line1 = item.get('scrape_provider', '').upper()
-							line2 = ' | '.join((item.get('size_label', ''), item.get('extraInfo', '')))
-							percent = int((total_items-count)/total_items*100)
-#							self.progress_dialog.update(main_line % ('', name, ''), percent)
-							if self.progress_dialog: self.progress_dialog.update(main_line % (line1, line2, name), percent)
-							else: progressBG.update(percent, name)
-						except: pass
-					url = self.resolve_sources(item, self.meta)
-					if url == 'uncached':
-						url = _uncached_confirm(item)
-						if url is None: break #return
-					if url:
-						self.url = url
-						break
-				except: pass
-#			self._kill_progress_dialog()
-			if not background:
-#				if self.progress_dialog: self._kill_progress_dialog()
-				if self.progress_dialog: pass
-				else: progressBG.close()
-			if background: return self.url
-			if self.caching_confirmed:
-				kodi_utils.clear_property('pov.progress_is_alive')
-				return self.resolve_sources(self.url, self.meta, cache_item=True)
-			return POVPlayer().run(self.url)
+				else:
+					self._make_progress_dialog()
+					POVPlayer.kill_progress(self._kill_progress_dialog)
+			url = next(_process(), None)
+			if not background: # self._kill_progress_dialog()
+				if not url: self._kill_progress_dialog()
+				if not self.load_action: progressBG.close()
+			return url if background else POVPlayer().run(url)
 		except: pass
 
-	def resolve_sources(self, item, meta, cache_item=False):
+	def resolve_sources(self, item, meta):
 		try:
 			if 'cache_provider' in item:
 				cache_provider = item['cache_provider']
@@ -593,16 +567,10 @@ class Sources():
 					url = self.resolve_cached_torrents(cache_provider, item['url'], item['hash'], title, season, episode)
 					return url
 				if 'Uncached' in cache_provider:
-					if cache_item:
+					if confirm_dialog(text=ls(32831) % item['debrid'].upper()):
 						if not 'package' in item: title, season, episode  = None, None, None
 						url = self.resolve_uncached_torrents(item['debrid'], item['url'], item['hash'], title, season, episode)
-						if not url: return None
-						if url == 'cache_pack_success': return
-#						return POVPlayer().run(url)
-					else:
-						url = 'uncached'
-						return url
-					return None
+					return 'uncached'
 			if item.get('scrape_provider', None) in default_internal_scrapers:
 				url = self.resolve_internal_sources(item['scrape_provider'], item['id'], item['url_dl'], item.get('direct_debrid_link', False))
 				return url
@@ -612,38 +580,28 @@ class Sources():
 			else:
 				url = item['url']
 				return url
-		except: return
-
-	def import_debrid(self, debrid_provider):
-		if   debrid_provider == 'Real-Debrid': from apis.real_debrid_api import RealDebridAPI as debrid_function
-		elif debrid_provider == 'Premiumize.me': from apis.premiumize_api import PremiumizeAPI as debrid_function
-		elif debrid_provider == 'AllDebrid': from apis.alldebrid_api import AllDebridAPI as debrid_function
-		elif debrid_provider == 'Offcloud': from apis.offcloud_api import OffcloudAPI as debrid_function
-		elif debrid_provider == 'TorBox': from apis.torbox_api import TorBoxAPI as debrid_function
-		elif debrid_provider == 'EasyDebrid': from apis.easydebrid_api import EasyDebridAPI as debrid_function
-		return debrid_function
+		except: pass
 
 	def resolve_cached_torrents(self, debrid_provider, item_url, _hash, title, season, episode):
 		from modules.settings import store_resolved_torrent_to_cloud
 		url = None
-		debrid_function = self.import_debrid(debrid_provider)
+		debrid_function = import_debrid(debrid_provider)
 		store_to_cloud = store_resolved_torrent_to_cloud(debrid_provider)
 		try: url = debrid_function().resolve_magnet(item_url, _hash, store_to_cloud, title, season, episode)
 		except: pass
 		return url
 
 	def resolve_uncached_torrents(self, debrid_provider, item_url, _hash, title, season, episode):
-		debrid_function = self.import_debrid(debrid_provider)
+		debrid_function = import_debrid(debrid_provider)
 		if season: pack = True
 		else: pack = False
 		if debrid_function().add_uncached_torrent(item_url, pack):
-			if pack: return 'cache_pack_success'
-#			return self.resolve_cached_torrents(debrid_provider, item_url, _hash, title, season, episode)
-		else: return None
+			return 'cache_pack_success' if pack else 'cache_success'
+		return None
 
 	def resolve_debrid(self, debrid_provider, item_provider, item_url):
 		url = None
-		debrid_function = self.import_debrid(debrid_provider)
+		debrid_function = import_debrid(debrid_provider)
 		try: url = debrid_function().unrestrict_link(item_url)
 		except: pass
 		return url
@@ -670,8 +628,10 @@ class Sources():
 				url = url_dl
 			elif scrape_provider == 'tb_cloud':
 				from apis.torbox_api import TorBoxAPI
-				if   direct_debrid_link == 'usenet': url = TorBoxAPI().unrestrict_usenet(url_dl)
-				elif direct_debrid_link == 'webdl': url = TorBoxAPI().unrestrict_webdl(url_dl)
+				if direct_debrid_link == 'usenet':
+					url = TorBoxAPI().unrestrict_usenet(url_dl)
+				elif direct_debrid_link == 'webdl':
+					url = TorBoxAPI().unrestrict_webdl(url_dl)
 				else: url = TorBoxAPI().unrestrict_link(item_id)
 			elif scrape_provider == 'folders':
 				if url_dl.endswith('.strm'):

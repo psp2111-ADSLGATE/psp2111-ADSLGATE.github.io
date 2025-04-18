@@ -35,7 +35,7 @@ account_info_url = '%s/account/info' % BaseUrl
 cache_check_url = '%s/cache/check' % BaseUrl
 list_services_path_url = '%s/services/list' % BaseUrl
 pm_icon = control.joinPath(control.artPath(), 'premiumize.png')
-pm_qr = control.joinPath(control.artPath(), 'premiumizeqr.png')
+#pm_qr = control.joinPath(control.artPath(), 'premiumizeqr.png')
 addonFanart = control.addonFanart()
 invalid_extensions = ('.bmp', '.exe', '.gif', '.jpg', '.nfo', '.part', '.png', '.rar', '.sample.', '.srt', '.txt', '.zip', '.clpi', '.mpls', '.bdmv', '.xml', '.crt', 'crl', 'sig')
 
@@ -98,6 +98,8 @@ class Premiumize:
 		#progressDialog = control.progressDialog
 		#progressDialog.create(getLS(40054))
 		if control.setting('dialogs.useumbrelladialog') == 'true':
+			from resources.lib.modules import tools
+			pm_qr = tools.make_qr("https://www.premiumize.me/device")
 			self.progressDialog = control.getProgressWindow(getLS(40054), pm_qr, 1)
 			self.progressDialog.set_controls()
 		else:
@@ -118,7 +120,7 @@ class Premiumize:
 		self.progressDialog.close()
 		if success:
 			if fromSettings == 1:
-				control.openSettings('10.1', 'plugin.video.umbrella')
+				control.openSettings('9.1', 'plugin.video.umbrella')
 			control.notification(message=40052, icon=pm_icon)
 			log_utils.log('Premiumize.me Successfully Authorized', level=log_utils.LOGDEBUG)
 
@@ -129,7 +131,7 @@ class Premiumize:
 			if token['error'] == "access_denied":
 				control.okDialog(title='default', message=getLS(40020))
 				if fromSettings == 1:
-					control.openSettings('10.1', 'plugin.video.umbrella')
+					control.openSettings('9.1', 'plugin.video.umbrella')
 				return False, False
 			return True, False
 		self.token = token['access_token']
@@ -567,6 +569,6 @@ class Premiumize:
 			control.setSetting('premiumizeusername', '')
 			control.dialog.ok(control.lang(40057), control.lang(40009))
 			if fromSettings == 1:
-				control.openSettings('10.1', 'plugin.video.umbrella')
+				control.openSettings('9.1', 'plugin.video.umbrella')
 		except:
 			log_utils.error()

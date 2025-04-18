@@ -123,6 +123,7 @@ class XbmcContext(AbstractContext):
         'error.no_video_streams_found': 30549,
         'error.rtmpe_not_supported': 30542,
         'failed': 30576,
+        'feeds': 30518,
         'filtered': 30105,
         'go_to_channel': 30502,
         'history': 30509,
@@ -410,7 +411,7 @@ class XbmcContext(AbstractContext):
             return
 
         # first the path of the uri
-        self.set_path(urlsplit(uri).path, force=True)
+        self.set_path(urlsplit(uri).path, force=True, update_uri=False)
 
         # after that try to get the params
         self._params = {}
@@ -425,7 +426,7 @@ class XbmcContext(AbstractContext):
         if num_args > 3 and sys.argv[3].lower() == 'resume:true':
             self._params['resume'] = True
 
-        self._uri = self.create_uri(self._path, self._params)
+        self.update_uri()
 
     def get_region(self):
         pass  # implement from abstract
@@ -922,3 +923,18 @@ class XbmcContext(AbstractContext):
         if folder_name is None:
             folder_name = xbmc.getInfoLabel('Container.FolderName')
         return folder_name == self._plugin_name
+
+    def refresh_requested(self, force=False, on=False, off=False):
+        refresh = self.get_param('refresh', 0)
+        if not force:
+            return refresh > 0
+
+        if off:
+            if refresh > 0:
+                refresh = -refresh
+        elif on or refresh:
+            if refresh < 0:
+                refresh = -refresh
+            refresh += 1
+
+        return refresh

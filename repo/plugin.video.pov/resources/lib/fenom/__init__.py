@@ -7,7 +7,7 @@ from pkgutil import walk_packages
 from fenom.control import setting as getSetting
 
 debug = getSetting('debug.enabled') == 'true'
-sourceFolder = 'sourcesdir'
+sourceFolder = 'providers'
 
 
 def sources(specified_folders=None, ret_all=False):
@@ -43,4 +43,8 @@ def enabledCheck(module_name):
 		from fenom import log_utils
 		log_utils.error()
 		return True
+
+def dmm_cache():
+	from .providers.torrents.dmm import DMMCache
+	return DMMCache()
 

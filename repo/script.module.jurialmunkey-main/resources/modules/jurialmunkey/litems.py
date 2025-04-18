@@ -3,7 +3,48 @@
 # Author: jurialmunkey
 # License: GPL v.3 https://www.gnu.org/copyleft/gpl.html
 
-class Container():
+
+INFOLABEL_MAP = {
+    "title": "title",
+    "artist": "artist",
+    "albumartist": "albumartist",
+    "genre": "genre",
+    "year": "year",
+    "rating": "rating",
+    "album": "album",
+    "track": "tracknumber",
+    "duration": "duration",
+    "runtime": "duration",
+    "playcount": "playcount",
+    "director": "director",
+    "trailer": "trailer",
+    "tagline": "tagline",
+    "plot": "plot",
+    "plotoutline": "plotoutline",
+    "originaltitle": "originaltitle",
+    "lastplayed": "lastplayed",
+    "writer": "writer",
+    "studio": "studio",
+    "mpaa": "mpaa",
+    "country": "country",
+    "premiered": "premiered",
+    "set": "set",
+    "setid": "setid",
+    "top250": "top250",
+    "votes": "votes",
+    "firstaired": "aired",
+    "season": "season",
+    "episode": "episode",
+    "showtitle": "tvshowtitle",
+    "sorttitle": "sorttitle",
+    "episodeguide": "episodeguide",
+    "dateadded": "dateadded",
+    "id": "dbid",
+    "songvideourl": "songvideourl",
+}
+
+
+class ContainerDirectory():
     def __init__(self, handle, paramstring, **params):
         self.handle = handle
         self.paramstring = paramstring

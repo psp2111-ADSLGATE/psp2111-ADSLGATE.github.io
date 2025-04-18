@@ -1,15 +1,65 @@
 
   [COLOR dodgerblue][B]CREDITS[/B][/COLOR]
 - Fen, Venom, Mr-Kodi.
-- elfhosted.com for community instances.
 
-- torrentio debrid+ in My Services, sourced from torrentio "cached" results.
-- mediafusion debrid+ in My Services, sourced from mediafusion "cached" results.
-- nyaaio in Sources/Torrents, sourced from torrentio anime results with filters disabled.
-- nyaa in Sources/Torrents sourced from website results.
+
+  [COLOR dodgerblue][B]Version 5.04[/B][/COLOR]
+- Increased timeout for TMDB/Trakt non 'get' methods.
+- Added Toggle Dropped... to Trakt Lists Manager for tv shows.
+- Added Trakt Dropped TV Shows menu item to My Lists/Trakt Lists.
+- Watched/In Progress TV Shows and Next Episodes now respect Trakt Dropped TV Shows.
+- Removed Next Episode Manager.
+- Added Edit List Properties to TMDB Lists context menu.
+- Probable Fix for Real Debrid, requires reauthorization.
+- Changed MDBList.  "the call is coming from inside the house"
+- Fixed slow Export to TMDB for MDBList Public/Personal lists.
+- Changed Trakt Watchlist Export to TMDB, sent in ascending collected_at sequence.
+- Removed Include Trakt Watchlist from Next Episodes settings.
+- Added Export to TMDB to Trakt Watchlist menu.
+- Added Purge Watchlist on Trakt Refresh to Settings/My Lists/TMDB Lists.
+  With this enabled, POV will programmatically attempt to remove watched/in progress
+  movies and tv shows from the TMDB Watchlist.  This will occur on the same sync interval
+  as the Trakt Service (startup and Settings/My Lists/Trakt Cache interval Refresh Data...).
+- Added TMDB Watchlist, Favorites to TMDB Lists Manager context menu.
+- Added TMDB Watchlist, Favorites, Recommendations to My Lists.
+- TMDB Lists pagination now respects Settings/Navigation/Paginate Lists When Possible.
+- Removed Page Multiplier for List Items in Settings/My Lists/TMDB Lists.
+- Added Export to TMDB context menu item to MDBList Public/Personal lists.
+- Added Trakt Dropped Manager to any tv show Options... context menu.
+- Changed Next Episode Manager to Trakt Dropped Manager.
+  Utilizes Trakt "dropped" api to mimic website behavior.  Hidden shows can be transferred
+  to dropped from the Trakt website under Settings/Hidden Items/Watched Progress.
+- Final feature update.
+
+  [COLOR dodgerblue][B]Version 5.03[/B][/COLOR]
+- Added aiostreams.
+- Added Export to TMDB context menu item to Trakt Public/Personal lists.
+- Added Page Multiplier for List Items in Settings/My Lists/TMDB Lists.
+- Fixed TMDB Lists to allow for more than 20 lists.
+- Added TMDB Lists Manager to context menu.
+- Added TMDB Custom Lists to My Lists.  Authorize account in Settings/My Lists.
+- Probable Fix for Autoplay Next Episode/Continual Random Play only playing one episode.
+- Added Sort Priority Language at Top in Settings/Results/Sorting and Filtering.
+- Added Enable Reuse Language Invoker Fix setting in Settings/General.
+- Added TorBox Usenet Search Sort setting in Settings/My Services/TorBox.
+- Added TorBox Usenet Search to Options... context menu and My Services menu.
+- Added Clear MDBList Cache.
+- Updated Comet/Mediafusion.  Added Comet Debrid+ for RD/AD crowd sourced cached status.
 
   [COLOR dodgerblue][B]Version 5.02[/B][/COLOR]
-- Added MDBList Sort Type to Settings/Navigation/Sorting, only affects user lists.
+- Added Rating Poster Database api.  Insert API key in Settings/Metadata.
+- Added Scrape From Episode Group to "Options..." context menu for episodes.
+- Added MDBList Watchlist menu items/api endpoints.
+- Added Results/Results Display/WideList settings.
+- Added Navigation/Context Menu Sorting settings. (0 disables item)
+- Added Parental Guide to Extras window.
+- Added EasyDebrid endpoint to add uncached torrents.
+  Currently the only response is success/fail, no way to check status.
+- Added Clean List context menu item for MDBList lists.
+  This will attempt to remove watched Movies and in progress/watched TVShows.
+- Added support for MDBList private lists.
+- Added Navigation/MDBList Sort Types/List Default, Random settings.
+- Added Navigation/Sorting/MDBList Sort Type settings. (only affects user lists)
 - Added Ratings/Reviews to Extras window with valid MDBList API Key.
 - Added MDBList Manager to context menu.
 - Added MDBList to My Lists.  Insert API Key in Settings/My Lists.
@@ -43,7 +93,7 @@
   all others OR enable "display uncached" and manually add those to cloud to view from there.
 - Changed `nyaaio` scraper to include more of the foreign language sources from torrentio
   and disabled title check.
-- Added completed TorBox usenet to Torbox Cloud Storage.
+- Added completed TorBox usenet to TorBox Cloud Storage.
   Playback links from TorBox are still problematic.  Check the kodi.log before complaints
   the addon does not work.
 - Added TorBox "Add Resovled Torrents to Cloud".
@@ -55,12 +105,12 @@
 - EXPERIMENTAL: changed Full-Screen playback window, if errors occur change setting
   Playback/Loading Progress to Background.  One service in particular seems to cause
   kodi to "freeze", causing pause in the animation.
-- [COLOR chartreuse]Added EasyDebrid as a debrid provider.[/COLOR]
+- Added EasyDebrid as a debrid provider.
 - Added zilean.
 - Changed mediafusion to "Direct Torrent" only.
 
   [COLOR dodgerblue][B]Version 4.11[/B][/COLOR]
-- [COLOR chartreuse]Added TorBox as a debrid provider.[/COLOR]
+- Added TorBox as a debrid provider.
 - Added torbox cloud scraper and enabled context menu download options.
 - Added meta_language iso:pt-BR, name:Portuguese (Brazil).
 - Added meta_language iso:es-MX, name:Spanish (Mexico).
@@ -102,7 +152,7 @@
 - Added "Loading progress / Background Dialog or Background Image" setting to Playback.
 
   [COLOR dodgerblue][B]Version 4.04[/B][/COLOR]
-- [COLOR chartreuse]NOTICE: Trakt re-authorization required with 4.04.01 release.[/COLOR]
+- NOTICE: Trakt re-authorization required with 4.04.01 release.
   Trakt will not work without due to separating api keys for each addon in repo.
 - Added "Trending Recent" to Movies/TV Shows.  These lists include titles from this/last year.
   From Edit context menu, "Restore" menu or "Check" menu for new items.
@@ -141,7 +191,7 @@
 - Disabled playback for certain file types from Offcloud because their api is not friendly.
 
   [COLOR dodgerblue][B]Version 4.01[/B][/COLOR]
-- [COLOR chartreuse]Added Offcloud as a debrid provider.[/COLOR]
+- Added Offcloud as a debrid provider.
   Offcloud seems to yield most results when torrentio also enabled.
 - Added magnetdl,rutor to the torrentio search links.
 
@@ -155,8 +205,8 @@
 
   [COLOR dodgerblue][B]Version 3.08[/B][/COLOR]
 - Revert threading code as fix for previous update that broke in Android.
-- [COLOR chartreuse]Trakt lists now support mixed Movies/TVShows/Seasons/Episodes,
-  i.e. "The Essential X-Files Episodes" and "Star Wars Canon timeline."[/COLOR]
+- Trakt lists now support mixed Movies/TVShows/Seasons/Episodes,
+  i.e. "The Essential X-Files Episodes" and "Star Wars Canon timeline."
   Even if you do not choose to "Paginate Lists When Possible," enable this setting and
   change it to a reasonable amount for your device and then disable it. Even if disabled,
   POV will use this nominal value to limit the number of threads used when creating lists.
@@ -176,8 +226,8 @@
   empty results window from way back.
 
   [COLOR dodgerblue][B]Version 3.02[/B][/COLOR]
-- [COLOR chartreuse]Added back user defined undesirables through comma separated list. See "Sources" settings.
-  Example: define "8ch,7ch,atmos,hqcam" to filter out these terms.[/COLOR]
+- Added back user defined undesirables through comma separated list. See "Sources" settings.
+  Example: define "8ch,7ch,atmos,hqcam" to filter out these terms.
 - Added more Kodi 20 Nexus changes.
 
   [COLOR dodgerblue][B]Version 3.01[/B][/COLOR]
@@ -229,9 +279,9 @@
 - Other changes/fixes.
 
   [COLOR dodgerblue][B]Version 2.13.0[/B][/COLOR]
-- [COLOR chartreuse]Migrated scrapers to POV addon, see POV settings to enable/disable
-  individual sources.[/COLOR]
-- [COLOR chartreuse]Please uninstall separate FenomScrapers addon (Orphaned).[/COLOR]
+- Migrated scrapers to POV addon, see POV settings to enable/disable
+  individual sources.
+- Please uninstall separate FenomScrapers addon (Orphaned).
 - Context menu scraper navigation may not be complete, more testing needed.
 - Removed support for hosters, may bring back in future.
 - Other changes/fixes.
@@ -247,8 +297,8 @@
 - New media icons.
 
   [COLOR dodgerblue][B]Version 2.9.0[/B][/COLOR]
-- [COLOR chartreuse]Authorize/revoke accounts directly from POV addon, removed
-  dependency for separate accounts addon.[/COLOR]
+- Authorize/revoke accounts directly from POV addon, removed
+  dependency for separate accounts addon.
 - Trakt/Easynews/Furk functions are beta at this time.
 - Changed settings organization/defaults.
 

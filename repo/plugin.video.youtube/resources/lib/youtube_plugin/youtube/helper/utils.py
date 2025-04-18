@@ -185,6 +185,7 @@ def update_channel_items(provider, context, channel_id_dict,
     if subscription_id_dict is None:
         subscription_id_dict = {}
 
+    client = provider.get_client(context)
     logged_in = provider.is_logged_in()
 
     settings = context.get_settings()
@@ -206,19 +207,12 @@ def update_channel_items(provider, context, channel_id_dict,
         in_bookmarks_list = False
         in_subscription_list = False
 
-    filter_list = None
+    filters_set = None
     if in_bookmarks_list or in_subscription_list:
-        if settings.get_bool('youtube.folder.my_subscriptions_filtered.show',
-                             False):
-            filter_string = settings.get_string(
-                'youtube.filter.my_subscriptions_filtered.list', ''
-            ).replace(', ', ',')
-            custom_filters = []
-            filter_list = {
-                item.lower()
-                for item in filter_string.split(',')
-                if item and filter_split(item, custom_filters)
-            }
+        if settings.subscriptions_filter_enabled():
+            filter_string, filters_set, custom_filters = channel_filter_split(
+                settings.subscriptions_filter()
+            )
 
     thumb_size = settings.get_thumbnail_size()
 
@@ -321,12 +315,11 @@ def update_channel_items(provider, context, channel_id_dict,
             )
 
         # add/remove from filter list
-        if filter_list is not None:
-            channel = channel_name.lower().replace(',', '')
+        if filters_set is not None:
             context_menu.append(
                 menu_items.remove_my_subscriptions_filter(
                     context, channel_name
-                ) if channel in filter_list else
+                ) if client.channel_match(channel_id, filters_set) else
                 menu_items.add_my_subscriptions_filter(
                     context, channel_name
                 )
@@ -797,12 +790,12 @@ def update_video_items(provider, context, video_id_dict,
 
         # update and set the title
         localised_info = snippet.get('localized') or {}
-        title = media_item.get_title()
+        title = media_item.get_name()
         if not title or title == untitled:
             title = (localised_info.get('title')
                      or snippet.get('title')
                      or untitled)
-        media_item.set_title(ui.italic(title) if media_item.upcoming else title)
+        media_item.set_name(ui.italic(title) if media_item.upcoming else title)
 
         """
         This is experimental. We try to get the most information out of the title of a video.
@@ -875,7 +868,7 @@ def update_video_items(provider, context, video_id_dict,
         image = media_item.get_image()
         if not image or image.startswith('Default'):
             image = get_thumbnail(thumb_size, snippet.get('thumbnails'))
-        if image.endswith('_live.jpg'):
+        if image and image.endswith('_live.jpg'):
             image = ''.join((image, '?ct=', thumb_stamp))
         media_item.set_image(image)
 
@@ -1285,7 +1278,7 @@ def add_related_video_to_playlist(provider, context, client, v3, video_id):
                 add_item = next((
                     item for item in result_items
                     if not any((item.get_uri() == pitem.get('file') or
-                                item.get_title() == pitem.get('title'))
+                                item.get_name() == pitem.get('title'))
                                for pitem in playlist_items)),
                     None)
 
@@ -1301,6 +1294,7 @@ def add_related_video_to_playlist(provider, context, client, v3, video_id):
 
 
 def filter_videos(items,
+                  exclude=None,
                   shorts=True,
                   live=True,
                   upcoming_live=True,
@@ -1318,7 +1312,8 @@ def filter_videos(items,
             and (not callback or callback(item))
             and (not custom or filter_parse(item, custom))
             and (not item.playable
-                 or not ((not completed and item.completed)
+                 or not ((exclude and item.video_id in exclude)
+                         or (not completed and item.completed)
                          or (not live and item.live and not item.upcoming)
                          or (not upcoming and item.upcoming)
                          or (not premieres and item.upcoming and not item.live)
@@ -1344,7 +1339,8 @@ def filter_parse(item,
                      'endswith': str.endswith,
                      'startswith': str.startswith,
                      'search': re_search,
-                 }):
+                 },
+                 _none=lambda: None):
     replacement_criteria = []
     criteria_met = False
     for idx, criteria in enumerate(all_criteria):
@@ -1354,9 +1350,9 @@ def filter_parse(item,
         for input_1, op_str, input_2 in criteria:
             try:
                 if input_1.startswith('.'):
-                    input_1 = getattr(item, input_1[1:])
+                    input_1 = getattr(item, input_1[1:], None)
                 else:
-                    input_1 = getattr(item, 'get_{0}'.format(input_1))()
+                    input_1 = getattr(item, 'get_{0}'.format(input_1), _none)()
 
                 if input_2.startswith('"'):
                     input_2 = unquote(input_2[1:-1])
@@ -1402,29 +1398,39 @@ def filter_parse(item,
     return criteria_met
 
 
-def filter_split(item,
-                 _all_criteria,
-                 criteria_re=re_compile(
-                     r'{?{([^}]+)}{([^}]+)}{([^}]+)}}?'
-                 )):
-    criteria = criteria_re.findall(item)
+def channel_filter_split(filters_string):
+    custom_filters = []
+    channel_filters = {
+        filter_string
+        for filter_string in filters_string.split(',')
+        if filter_string and custom_filter_split(filter_string, custom_filters)
+    }
+    return filters_string, channel_filters, custom_filters
+
+
+def custom_filter_split(filter,
+                        custom_filters,
+                        criteria_re=re_compile(
+                            r'{?{([^}]+)}{([^}]+)}{([^}]+)}}?'
+                        )):
+    criteria = criteria_re.findall(filter)
     if not criteria:
         return True
-    _all_criteria.append(criteria)
+    custom_filters.append(criteria)
     return False
 
 
 def update_duplicate_items(item,
                            duplicates,
-                           skip_keys={
+                           skip_keys=frozenset((
                                '_bookmark_id',
                                '_bookmark_timestamp',
                                '_callback',
                                '_track_number',
-                           },
+                           )),
                            skip_vals=(None, '', -1)):
     item = item.__dict__
-    keys = set(item.keys()).difference(skip_keys)
+    keys = frozenset(item.keys()).difference(skip_keys)
     for duplicate in duplicates:
         duplicate = duplicate.__dict__
         for key in keys:

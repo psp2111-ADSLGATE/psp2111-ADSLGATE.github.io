@@ -1,6 +1,7 @@
 import sys
 from threading import Thread
-from indexers.metadata import tvshow_meta
+from apis.trakt_api import trakt_get_hidden_items
+from indexers.metadata import tvshow_meta, rpdb_get
 from caches.watched_cache import get_watched_info_tv, get_watched_status_tvshow
 from modules import kodi_utils, settings
 #from modules.utils import manual_function_import, get_datetime, make_thread_list_enumerate
@@ -15,16 +16,18 @@ build_url, remove_meta_keys, dict_removals = kodi_utils.build_url, kodi_utils.re
 run_plugin, container_refresh, container_update = 'RunPlugin(%s)', 'Container.Refresh(%s)', 'Container.Update(%s)'
 item_jump, item_next = tp('special://home/addons/plugin.video.pov/resources/media/item_jump.png'), tp('special://home/addons/plugin.video.pov/resources/media/item_next.png')
 poster_empty, fanart_empty = tp('special://home/addons/plugin.video.pov/resources/media/box_office.png'), tp('special://home/addons/plugin.video.pov/fanart.png')
-watched_str, unwatched_str, traktmanager_str, mdbmanager_str = ls(32642), ls(32643), ls(32198), '[B]MDBList Manager[/B]'
+watched_str, unwatched_str, traktmanager_str, tmdbmanager_str, mdbmanager_str = ls(32642), ls(32643), ls(32198), '[B]TMDB Lists Manager[/B]', ls(32200)
 favmanager_str, extras_str, options_str, recomm_str = ls(32197), ls(32645), ls(32646), '[B]%s...[/B]' % ls(32503)
 random_str, exit_str, browse_str = ls(32611), ls(32650), ls(32652)
 nextpage_str, switchjump_str, jumpto_str = ls(32799), ls(32784), ls(32964)
 
 class TVShows:
 	tmdb_main = ('tmdb_tv_popular', 'tmdb_tv_premieres', 'tmdb_tv_airing_today', 'tmdb_tv_on_the_air', 'tmdb_tv_upcoming')
+	tmdb_personal = ('tmdb_watchlist', 'tmdb_favorite', 'tmdb_recommendations')
 	tmdb_special_key_dict = {'tmdb_tv_languages': 'language', 'tmdb_tv_networks': 'network_id', 'tmdb_tv_year': 'year'}
 	trakt_main = ('trakt_tv_trending', 'trakt_tv_trending_recent', 'trakt_tv_most_watched', 'trakt_tv_most_favorited')
-	trakt_personal = ('trakt_collection', 'trakt_watchlist', 'trakt_collection_lists')
+	trakt_personal = ('trakt_collection', 'trakt_watchlist', 'trakt_collection_lists', 'trakt_droplist')
+	mdblist_personal = ('mdblist_watchlist',)
 	imdb_personal = ('imdb_watchlist', 'imdb_user_list_contents', 'imdb_keywords_list_contents')
 	simkl_main = ('simkl_tv_popular', 'simkl_tv_most_watched', 'simkl_tv_recent_release', 'simkl_onas_popular', 'simkl_onas_most_watched', 'simkl_onas_recent_release')
 	simkl_special_key_dict = {'simkl_tv_genres': 'genre_id', 'simkl_tv_year': 'year'}
@@ -66,10 +69,22 @@ class TVShows:
 				data = function(page_no)
 				self.list = [i['show']['ids'] for i in data]
 				self.new_page = {'new_page': string(page_no + 1)}
+			elif self.action in TVShows.tmdb_personal:
+				data, total_pages = function('tv', page_no, letter)
+				self.list = [i['id'] for i in data]
+				if total_pages > page_no: self.new_page = {'new_page': string(page_no + 1), 'new_letter': letter}
 			elif self.action in TVShows.trakt_personal:
 				self.id_type = 'trakt_dict'
 				data, total_pages = function('shows', page_no, letter)
 				self.list = [i['media_ids'] for i in data]
+				if total_pages > 2: self.total_pages = total_pages
+				try:
+					if total_pages > page_no: self.new_page = {'new_page': string(page_no + 1), 'new_letter': letter}
+				except: pass
+			elif self.action in TVShows.mdblist_personal:
+				self.id_type = 'trakt_dict'
+				data, total_pages = function('shows', page_no, letter)
+				self.list = [{'imdb': i['imdb_id'], 'tmdb': i['id']} for i in data]
 				if total_pages > 2: self.total_pages = total_pages
 				try:
 					if total_pages > page_no: self.new_page = {'new_page': string(page_no + 1), 'new_letter': letter}
@@ -169,6 +184,9 @@ class TVShows:
 			poster = meta_get(self.poster_main) or meta_get(self.poster_backup) or poster_empty
 			fanart = meta_get(self.fanart_main) or meta_get(self.fanart_backup) or fanart_empty
 			clearlogo = meta_get('clearlogo') or meta_get('tmdblogo') or ''
+			if self.rpdb_enabled:
+				rpdb_data = rpdb_get('series', imdb_id or str(tmdb_id), self.meta_user_info['rpdb_api_key'])
+				poster = rpdb_data.get('rpdb') or poster
 			if self.fanart_enabled: banner, clearart, landscape = meta_get('banner'), meta_get('clearart'), meta_get('landscape')
 			else: banner, clearart, landscape = '', '', ''
 			if self.all_episodes:
@@ -176,39 +194,35 @@ class TVShows:
 				else: url_params = build_url({'mode': 'build_episode_list', 'tmdb_id': tmdb_id, 'season': 'all'})
 			else: url_params = build_url({'mode': 'build_season_list', 'tmdb_id': tmdb_id})
 			extras_params = build_url({'mode': 'extras_menu_choice', 'tmdb_id': tmdb_id, 'media_type': 'tvshow', 'is_widget': self.is_widget})
-			options_params = build_url({'mode': 'options_menu_choice', 'content': 'tvshow', 'tmdb_id': tmdb_id})
+			options_params = build_url({'mode': 'options_menu_choice', 'content': 'tvshow', 'tmdb_id': tmdb_id, 'is_widget': self.is_widget})
 			recommended_params = build_url({'mode': 'build_tvshow_list', 'action': 'tmdb_tv_recommendations', 'tmdb_id': tmdb_id})
 			trakt_manager_params = build_url({'mode': 'trakt_manager_choice', 'tmdb_id': tmdb_id, 'imdb_id': imdb_id, 'tvdb_id': tvdb_id, 'media_type': 'tvshow'})
+			tmdb_manager_params = build_url({'mode': 'tmdb_manager_choice', 'tmdb_id': tmdb_id, 'imdb_id': imdb_id, 'tvdb_id': tvdb_id, 'media_type': 'tvshow'})
 			mdb_manager_params = build_url({'mode': 'mdb_manager_choice', 'tmdb_id': tmdb_id, 'imdb_id': imdb_id, 'tvdb_id': tvdb_id, 'media_type': 'tvshow'})
-			fav_manager_params = build_url({'mode': 'favorites_choice', 'media_type': 'tvshow', 'tmdb_id': tmdb_id, 'title': title})
-			cm_append((options_str, run_plugin % options_params))
+			fav_manager_params = build_url({'mode': 'favourites_choice', 'media_type': 'tvshow', 'tmdb_id': tmdb_id, 'title': title})
+			cm_append((self.cm_sort['options'], options_str, run_plugin % options_params))
 			if self.open_extras:
-				cm_append((browse_str, container_update % url_params))
+				cm_append((self.cm_sort['extras'], browse_str, container_update % url_params))
 				url_params = extras_params
 			else:
-				cm_append((extras_str, run_plugin % extras_params))
-			cm_append((traktmanager_str, run_plugin % trakt_manager_params))
-			cm_append((mdbmanager_str, run_plugin % mdb_manager_params))
-			cm_append((favmanager_str, run_plugin % fav_manager_params))
+				cm_append((self.cm_sort['extras'], extras_str, run_plugin % extras_params))
+			cm_append((self.cm_sort['trakt'], traktmanager_str, run_plugin % trakt_manager_params))
+			cm_append((self.cm_sort['tmdblist'], tmdbmanager_str, run_plugin % tmdb_manager_params))
+			cm_append((self.cm_sort['mdblist'], mdbmanager_str, run_plugin % mdb_manager_params))
+			cm_append((self.cm_sort['favourites'], favmanager_str, run_plugin % fav_manager_params))
 			if not playcount:
 				watched_params = build_url({'mode': 'mark_as_watched_unwatched_tvshow', 'action': 'mark_as_watched', 'title': title, 'year': year, 'tmdb_id': tmdb_id, 'imdb_id': imdb_id, 'tvdb_id': tvdb_id})
-				cm_append((watched_str % self.watched_title, run_plugin % watched_params))
+				cm_append((self.cm_sort['mark'], watched_str % self.watched_title, run_plugin % watched_params))
 			elif self.widget_hide_watched: return
 			if total_watched:
 				unwatched_params = build_url({'mode': 'mark_as_watched_unwatched_tvshow', 'action': 'mark_as_unwatched', 'title': title, 'year': year, 'tmdb_id': tmdb_id, 'imdb_id': imdb_id, 'tvdb_id': tvdb_id})
-				cm_append((unwatched_str % self.watched_title, run_plugin % unwatched_params))
-			cm_append((exit_str, container_refresh % self.exit_list_params))
+				cm_append((self.cm_sort['mark'], unwatched_str % self.watched_title, run_plugin % unwatched_params))
+			cm_append((self.cm_sort['exit'], exit_str, container_refresh % self.exit_list_params))
+			cm.sort(key=lambda k: k[0])
+			cm = [(i[1], i[2]) for i in cm if i[0]]
 			props['unwatchedepisodes'] = string(total_unwatched)
 			props['totalepisodes'] = string(total_aired_eps)
 			props['totalseasons'] = string(total_seasons)
-			if self.is_widget: props.update({
-				'pov_widget': 'true',
-				'pov_playcount': string(playcount),
-				'pov_extras_menu_params': extras_params,
-				'pov_options_menu_params': options_params,
-				'pov_trakt_manager_params': trakt_manager_params,
-				'pov_fav_manager_params': fav_manager_params})
-			else: props['pov_widget'] = 'false'
 			listitem = kodi_utils.make_listitem()
 			listitem.addContextMenuItems(cm)
 			listitem.setProperties(props)
@@ -258,7 +272,9 @@ class TVShows:
 		self.all_episodes = settings.default_all_episodes()
 		self.include_year_in_title = settings.include_year_in_title('tvshow')
 		self.open_extras = settings.extras_open_action('tvshow')
+		self.cm_sort = settings.context_menu_sort()
 		self.is_folder = False if self.open_extras else True
+		self.rpdb_enabled = self.meta_user_info['extra_rpdb_enabled_series']
 		self.fanart_enabled = self.meta_user_info['extra_fanart_enabled']
 		if self.is_widget == 'unchecked': self.is_widget = kodi_utils.external_browse()
 		self.widget_hide_watched = self.is_widget and self.meta_user_info['widget_hide_watched']
@@ -268,6 +284,12 @@ class TVShows:
 		self.append = self.items.append
 
 	def worker(self):
+		if self.action in TVShows.personal_dict:
+			if self.watched_indicators == 1:
+				try:
+					hidden_data = set(map(str, trakt_get_hidden_items('dropped')))
+					self.list = [i for i in self.list if not i in hidden_data]
+				except: pass
 #		threads = list(make_thread_list_enumerate(self.build_tvshow_content, self.list, Thread))
 		threads = TaskPool().tasks_enumerate(self.build_tvshow_content, self.list, Thread)
 		[i.join() for i in threads]

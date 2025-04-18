@@ -514,6 +514,45 @@ class Movies(TMDb):
 			log_utils.error()
 		return self.list
 
+	def get_all_movie_art(self, **kwargs):
+		tmdb = kwargs.get('tmdb', '')
+		if not tmdb:
+			return None
+
+		url = self.art_link % tmdb
+		tmdbart = self.all_artwork_movie(url=url)
+		if tmdbart is None:
+			return
+
+		artworkType = kwargs.get('artwork_type', '')
+		artworkList = []
+		tmdbart_items = []
+		if artworkType == 'poster':
+			tmdbart_items = [item for item in tmdbart.get('posters', []) if (item.get('iso_639_1') == self.lang or item.get('iso_639_1') == None)]
+		elif artworkType == 'fanart':
+			tmdbart_items = [item for item in tmdbart.get('backdrops', []) if (item.get('iso_639_1') == self.lang or item.get('iso_639_1') == None)]
+		elif artworkType == 'landscape':
+			tmdbart_items = [item for item in tmdbart.get('backdrops', []) if (item.get('iso_639_1') == self.lang or item.get('iso_639_1') == None)]
+		elif artworkType == 'clearlogo':
+			tmdbart_items = [item for item in tmdbart.get('logos', []) if (item.get('iso_639_1') == self.lang or item.get('iso_639_1') == None)]
+		else:
+			return artworkList
+
+		for index, item in enumerate(tmdbart_items, start=1):
+			filepath = item.get('file_path')
+			itemurl = '%s%s' % (self.profile_path, filepath) if filepath else ''
+			artworkList.append({'artworkType': artworkType, 'source': 'Tmdb %s' % index, 'url': itemurl})
+		
+		return artworkList
+
+	def all_artwork_movie(self, **kwargs):
+		try:
+			url = kwargs.get('url')
+			from resources.lib.database import cache
+			art = cache.get(self.get_request, 10000, url)
+			return art
+		except:
+			return None
 
 class TVshows(TMDb):
 	def __init__(self):
@@ -1160,6 +1199,46 @@ class TVshows(TMDb):
 			log_utils.error()
 		return self.list
 
+	def get_all_show_art(self, **kwargs):
+		tmdb = kwargs.get('tmdb', '')
+		if not tmdb:
+			return None
+
+		url = self.art_link % tmdb
+		tmdbart = self.all_artwork_show(url=url)
+		if tmdbart is None:
+			return
+
+		artworkType = kwargs.get('artwork_type', '')
+		artworkList = []
+		tmdbart_items = []
+		if artworkType == 'poster':
+			tmdbart_items = [item for item in tmdbart.get('posters', []) if (item.get('iso_639_1') == self.lang or item.get('iso_639_1') == None)]
+		elif artworkType == 'fanart':
+			tmdbart_items = [item for item in tmdbart.get('backdrops', []) if (item.get('iso_639_1') == self.lang or item.get('iso_639_1') == None)]
+		elif artworkType == 'landscape':
+			tmdbart_items = [item for item in tmdbart.get('backdrops', []) if (item.get('iso_639_1') == self.lang or item.get('iso_639_1') == None)]
+		elif artworkType == 'clearlogo':
+			tmdbart_items = [item for item in tmdbart.get('logos', []) if (item.get('iso_639_1') == self.lang or item.get('iso_639_1') == None)]
+		else:
+			return artworkList
+
+		for index, item in enumerate(tmdbart_items, start=1):
+			filepath = item.get('file_path')
+			itemurl = '%s%s' % (self.profile_path, filepath) if filepath else ''
+			artworkList.append({'artworkType': artworkType, 'source': 'Tmdb %s' % index, 'url': itemurl})
+		
+		return artworkList
+
+	def all_artwork_show(self, **kwargs):
+		try:
+			url = kwargs.get('url')
+			from resources.lib.database import cache
+			art = cache.get(self.get_request, 10000, url)
+			return art
+		except:
+			return None
+
 
 class Auth:
 	def __init__(self):
@@ -1172,7 +1251,7 @@ class Auth:
 			from resources.lib.modules.control import setSetting
 			if getSetting('tmdbusername') == '' or getSetting('tmdbpassword') == '':
 				if fromSettings == 1:
-						openSettings('9.1', 'plugin.video.umbrella')
+						openSettings('11.1', 'plugin.video.umbrella')
 				return notification(message='TMDb Account info missing', icon='ERROR')
 			url = self.auth_base_link + '/token/new?api_key=%s' % self.API_key
 			result = requests.get(url).json()
@@ -1195,14 +1274,14 @@ class Auth:
 						setSetting('tmdb.sessionid', session_id)
 						notification(message='TMDb Successfully Authorized')
 						if fromSettings == 1:
-							openSettings('9.1', 'plugin.video.umbrella')
+							openSettings('11.1', 'plugin.video.umbrella')
 					else: 
 						notification(message='TMDb Authorization Cancelled')
 						if fromSettings == 1:
-							openSettings('9.1', 'plugin.video.umbrella')
+							openSettings('11.1', 'plugin.video.umbrella')
 			else:
 				if fromSettings == 1:
-						openSettings('9.1', 'plugin.video.umbrella')
+						openSettings('11.1', 'plugin.video.umbrella')
 				return notification(message='Please check TMDB Account Info and Password.', icon='ERROR')
 		except:
 			from resources.lib.modules import log_utils
@@ -1219,7 +1298,7 @@ class Auth:
 				setSetting('tmdb.sessionid', '')
 				notification(message='TMDb session_id successfully deleted')
 				if fromSettings == 1:
-					openSettings('9.1', 'plugin.video.umbrella')
+					openSettings('11.1', 'plugin.video.umbrella')
 			else:
 				from resources.lib.modules import log_utils
 				log_utils.log('TMDb Revoke session_id FAILED: %s' % result.get('status_message', ''), __name__, log_utils.LOGWARNING)
@@ -1227,10 +1306,10 @@ class Auth:
 					setSetting('tmdb.sessionid', '')
 					notification(message=result.get('status_message', ''), icon='ERROR')
 					if fromSettings == 1:
-						openSettings('9.1', 'plugin.video.umbrella')
+						openSettings('11.1', 'plugin.video.umbrella')
 				else:
 					if fromSettings == 1:
-						openSettings('9.1', 'plugin.video.umbrella')
+						openSettings('11.1', 'plugin.video.umbrella')
 					notification(message='TMDb session_id deletion FAILED', icon='ERROR')
 		except:
 			from resources.lib.modules import log_utils

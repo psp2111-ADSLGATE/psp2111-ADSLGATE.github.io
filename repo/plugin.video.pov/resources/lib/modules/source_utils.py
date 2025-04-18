@@ -145,7 +145,7 @@ def scraper_names(folder):
 	providerList = []
 	append = providerList.append
 #	source_folder_location = 'special://home/addons/script.module.fenomscrapers/lib/fenomscrapers/sources_fenomscrapers/%s'
-	source_folder_location = 'special://home/addons/plugin.video.pov/resources/lib/fenom/sourcesdir/%s'
+	source_folder_location = 'special://home/addons/plugin.video.pov/resources/lib/fenom/providers/%s'
 	sourceSubFolders = ('hosters', 'torrents')
 	if folder != 'all': sourceSubFolders = [i for i in sourceSubFolders if i == folder]
 	for item in sourceSubFolders:

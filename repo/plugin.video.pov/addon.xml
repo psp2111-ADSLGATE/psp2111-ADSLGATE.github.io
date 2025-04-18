@@ -1,4 +1,4 @@
-<addon id="plugin.video.pov" version="5.02.01" name="POV" provider-name="kodifitzwell">
+<addon id="plugin.video.pov" version="5.04.18" name="POV" provider-name="kodifitzwell">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
@@ -15,50 +15,6 @@
         <description lang="en">This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</description>
         <news>INFO: For latest changes see Changelog within add-on.</news>
         <assets><icon>icon.png</icon><fanart>fanart.png</fanart></assets>
-    </extension>
-    <extension point="kodi.context.item">
-        <menu id="kodi.core.main">
-            <item library="resources/lib/contextmenu.py" args="refresh_widgets">
-                <label>40001</label>
-                <visible>String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_watched_params">
-                <label>40003</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)] + String.IsEqual(ListItem.Property(pov_widget),true) + String.IsEqual(ListItem.Property(pov_playcount),0)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_unwatched_params">
-                <label>40004</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)] + String.IsEqual(ListItem.Property(pov_widget),true) + String.IsEqual(ListItem.Property(pov_playcount),1)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_clearprog_params">
-                <label>40009</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)] + String.IsEqual(ListItem.Property(pov_widget),true) + String.IsEqual(ListItem.Property(pov_in_progress),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_browse_params">
-                <label>40002</label>
-                <visible>String.IsEqual(ListItem.dbtype,episode) + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_browse_seas_params">
-                <label>40011</label>
-                <visible>String.IsEqual(ListItem.dbtype,episode) + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_trakt_manager_params">
-                <label>40005</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow)] + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_fav_manager_params">
-                <label>40008</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow)] + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_options_menu_params">
-                <label>40007</label>
-                <visible>String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_extras_menu_params">
-                <label>40006</label>
-                <visible>String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-        </menu>
     </extension>
 </addon>
 

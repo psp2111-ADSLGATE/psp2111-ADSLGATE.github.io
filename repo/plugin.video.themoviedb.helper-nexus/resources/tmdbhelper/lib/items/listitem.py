@@ -303,7 +303,7 @@ class _Video(_ListItem):
         else:
             self.params['info'] = 'related'
         self.is_folder = False
-        self.context_menu.insert(5, (
+        self.context_menu.insert(0, (
             '$ADDON[plugin.video.themoviedb.helper 32322]',
             f'RunPlugin({self.get_url()}&ignore_default=true)',))
 

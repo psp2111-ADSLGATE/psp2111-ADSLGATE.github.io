@@ -15,11 +15,11 @@ import pickle
 import sqlite3
 import time
 from threading import Lock
-from traceback import format_stack
 
+from ..compatibility import to_str
 from ..logger import Logger
 from ..utils.datetime_parser import fromtimestamp, since_epoch
-from ..utils.methods import make_dirs
+from ..utils.methods import format_stack, make_dirs
 
 
 class Storage(object):
@@ -27,7 +27,7 @@ class Storage(object):
     ONE_HOUR = 60 * ONE_MINUTE
     ONE_DAY = 24 * ONE_HOUR
     ONE_WEEK = 7 * ONE_DAY
-    ONE_MONTH = 4 * ONE_WEEK
+    ONE_MONTH = 30 * ONE_DAY
 
     _base = None
     _table_name = 'storage_v2'
@@ -179,11 +179,11 @@ class Storage(object):
             self._base = self.__class__
 
         if migrate or not self._sql:
-            statements = {
-                name: sql.format(table=self._table_name,
-                                 order_col='time' if migrate else 'timestamp')
+            statements = [
+                (name, sql.format(table=self._table_name,
+                                  order_col='time' if migrate else 'timestamp'))
                 for name, sql in Storage._sql.items()
-            }
+            ]
             self._base._sql.update(statements)
         elif self._sql and '_partial' in self._sql:
             statements = {
@@ -191,12 +191,12 @@ class Storage(object):
                                  order_col='timestamp')
                 for name, sql in Storage._sql.items()
             }
-            partial_statements = {
-                name: sql.format(table=self._table_name,
-                                 order_col='timestamp')
+            partial_statements = [
+                (name, sql.format(table=self._table_name,
+                                  order_col='timestamp'))
                 for name, sql in self._base._sql.items()
                 if not name.startswith('_')
-            }
+            ]
             statements.update(partial_statements)
             self._base._sql = statements
 
@@ -236,7 +236,7 @@ class Storage(object):
                        '\n\tException: {exc!r}'
                        '\n\tStack trace (most recent call last):\n{stack}'
                        .format(exc=exc,
-                               stack=''.join(format_stack())))
+                               stack=format_stack()))
                 if isinstance(exc, sqlite3.OperationalError):
                     Logger.log_warning(msg)
                     time.sleep(0.1)
@@ -260,7 +260,7 @@ class Storage(object):
             'PRAGMA mmap_size = 4096000;',
             'PRAGMA page_size = 4096;',
             'PRAGMA cache_size = 1000;',
-            'PRAGMA journal_mode = WAL;',
+            'PRAGMA journal_mode = PERSIST;',
         ]
 
         if not self._table_updated:
@@ -315,7 +315,7 @@ class Storage(object):
                        '\n\tException: {exc!r}'
                        '\n\tStack trace (most recent call last):\n{stack}'
                        .format(exc=exc,
-                               stack=''.join(format_stack())))
+                               stack=format_stack()))
                 if isinstance(exc, sqlite3.OperationalError):
                     Logger.log_warning(msg)
                     time.sleep(0.1)
@@ -441,13 +441,13 @@ class Storage(object):
             size = int(memoryview(blob).itemsize) * len(blob)
         if key:
             if for_update:
-                return timestamp, blob, size, str(key)
-            return str(key), timestamp, blob, size
+                return timestamp, blob, size, to_str(key)
+            return to_str(key), timestamp, blob, size
         return timestamp, blob, size
 
     def _get(self, item_id, process=None, seconds=None, as_dict=False):
         with self as (db, cursor), db:
-            result = self._execute(cursor, self._sql['get'], [str(item_id)])
+            result = self._execute(cursor, self._sql['get'], [to_str(item_id)])
             item = result.fetchone() if result else None
             if not item:
                 return None

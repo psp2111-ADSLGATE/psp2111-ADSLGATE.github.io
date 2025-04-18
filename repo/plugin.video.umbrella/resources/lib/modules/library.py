@@ -296,7 +296,7 @@ class lib_tools:
 				selected = len(selected_items)
 				control.setSetting('library.autoimportlists.number', str(selected))
 			if fromSettings == True:
-				control.openSettings('13.2', 'plugin.video.umbrella')
+				control.openSettings('12.2', 'plugin.video.umbrella')
 			self.updateLists(selected_items, allTraktItems)
 				
 		except:
@@ -314,7 +314,7 @@ class lib_tools:
 			window.run()
 			del window
 			if fromSettings == True:
-				control.openSettings('13.2', 'plugin.video.umbrella')
+				control.openSettings('12.2', 'plugin.video.umbrella')
 				
 		except:
 			from resources.lib.modules import log_utils
@@ -329,7 +329,7 @@ class lib_tools:
 			control.setSetting('library.autoimportlists_last', str(last_service_setting))
 			lib_tools().updateSettings()
 			if fromSettings == True:
-				control.openSettings('13.2', 'plugin.video.umbrella')
+				control.openSettings('12.2', 'plugin.video.umbrella')
 				
 		except:
 			from resources.lib.modules import log_utils
@@ -786,8 +786,8 @@ class libmovies:
 				control.sleep(10000)
 				control.execute('UpdateLibrary(video)')
 			elif service_notification: control.notification(message=32103)
-		if self.movie_cache == 'true':
-			lib_tools().cacheLibraryforSimilar()
+		# if self.movie_cache == 'true':
+		# 	lib_tools().cacheLibraryforSimilar()
 
 	def checkListDB(self, items, url):
 		if not items: return
@@ -905,8 +905,8 @@ class libmovies:
 					control.sleep(10000)
 					control.execute('UpdateLibrary(video)')
 				elif general_notification: control.notification(title=name, message=32104)
-			if self.movie_cache == 'true':
-				lib_tools().cacheLibraryforSimilar()
+			# if self.movie_cache == 'true':
+			# 	lib_tools().cacheLibraryforSimilar()
 		except: pass
 
 	def silent(self, url):
@@ -931,8 +931,8 @@ class libmovies:
 				control.execute('UpdateLibrary(video)')
 			elif general_notification: control.notification(message=32103)
 		if service_notification: control.notification(message=32105)
-		if self.movie_cache == 'true':
-			lib_tools().cacheLibraryforSimilar()
+		# if self.movie_cache == 'true':
+		# 	lib_tools().cacheLibraryforSimilar()
 
 	def range(self, url, list_name, silent=None):
 		#control.hide()
@@ -1005,8 +1005,8 @@ class libmovies:
 				control.notification(message=32103)
 				control.notification(title='Import Complete', message='[B]%s[/B] items imported from [B]%s[/B] with some strm errors.' % (total_added, list_name))
 		#libuserlist().set_update_dateTime()
-		if self.movie_cache == 'true':
-			lib_tools().cacheLibraryforSimilar()
+		# if self.movie_cache == 'true':
+		# 	lib_tools().cacheLibraryforSimilar()
 
 	def strmFile(self, i):
 		try:

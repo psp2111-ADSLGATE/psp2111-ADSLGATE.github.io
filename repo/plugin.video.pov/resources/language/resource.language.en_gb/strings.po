@@ -486,19 +486,19 @@ msgctxt "#32120"
 msgid "Stop Search Early if Most Sources Finished"
 msgstr ""
 
-# msgctxt "32121"
+# msgctxt "#32121"
 
-# msgctxt "32122"
+# msgctxt "#32122"
 
 msgctxt "#32123"
 msgid "Internet Speed (Mbit/s)"
 msgstr ""
 
-# msgctxt "32124"
+# msgctxt "#32124"
 
-# msgctxt "32125"
+# msgctxt "#32125"
 
-# msgctxt "32126"
+# msgctxt "#32126"
 
 msgctxt "#32127"
 msgid "Hosters Color"
@@ -644,13 +644,13 @@ msgctxt "#32162"
 msgid "Include Results With Unknown Size"
 msgstr ""
 
-# msgctxt "32163"
+# msgctxt "#32163"
 
-# msgctxt "32164"
+# msgctxt "#32164"
 
-# msgctxt "32165"
+# msgctxt "#32165"
 
-# msgctxt "32166"
+# msgctxt "#32166"
 
 msgctxt "#32167"
 msgid "Internal Scrapers Color"
@@ -668,7 +668,9 @@ msgctxt "#32170"
 msgid "Resolution"
 msgstr ""
 
-# msgctxt "32171"
+msgctxt "#32171"
+msgid "Seconds"
+msgstr ""
 
 msgctxt "#32172"
 msgid "Filter Results by Name"
@@ -722,13 +724,13 @@ msgctxt "#32184"
 msgid "Subtitle Language"
 msgstr ""
 
-# msgctxt "32185"
+# msgctxt "#32185"
 
 msgctxt "#32186"
 msgid "Force Enable Local Subs"
 msgstr ""
 
-# msgctxt "32187"
+# msgctxt "#32187"
 
 msgctxt "#32188"
 msgid "Include"
@@ -778,7 +780,9 @@ msgctxt "#32199"
 msgid "Trakt List"
 msgstr ""
 
-# msgctxt "32200"
+msgctxt "#32200"
+msgid "[B]MDBList Manager[/B]"
+msgstr ""
 
 msgctxt "#32201"
 msgid "TITLE: SxE - EPISODE"
@@ -824,11 +828,11 @@ msgctxt "#32211"
 msgid "Notifications"
 msgstr ""
 
-# msgctxt "32212"
+# msgctxt "#32212"
 
-# msgctxt "32213"
+# msgctxt "#32213"
 
-# msgctxt "32214"
+# msgctxt "#32214"
 
 msgctxt "#32215"
 msgid "List Default"
@@ -962,409 +966,409 @@ msgctxt "#32247"
 msgid "Settings"
 msgstr ""
 
-# msgctxt "32248"
+# msgctxt "#32248"
 
-# msgctxt "32249"
+# msgctxt "#32249"
 
-# msgctxt "32250"
+# msgctxt "#32250"
 
-# msgctxt "32251"
+# msgctxt "#32251"
 
-# msgctxt "32252"
+# msgctxt "#32252"
 
-# msgctxt "32253"
+# msgctxt "#32253"
 
-# msgctxt "32254"
+# msgctxt "#32254"
 
-# msgctxt "32255"
+# msgctxt "#32255"
 
-# msgctxt "32256"
+# msgctxt "#32256"
 
-# msgctxt "32257"
+# msgctxt "#32257"
 
-# msgctxt "32258"
+# msgctxt "#32258"
 
-# msgctxt "32259"
+# msgctxt "#32259"
 
-# msgctxt "32260"
+# msgctxt "#32260"
 
-# msgctxt "32261"
+# msgctxt "#32261"
 
-# msgctxt "32262"
+# msgctxt "#32262"
 
-# msgctxt "32263"
+# msgctxt "#32263"
 
-# msgctxt "32264"
+# msgctxt "#32264"
 
-# msgctxt "32265"
+# msgctxt "#32265"
 
-# msgctxt "32266"
+# msgctxt "#32266"
 
-# msgctxt "32267"
+# msgctxt "#32267"
 
-# msgctxt "32268"
+# msgctxt "#32268"
 
-# msgctxt "32269"
+# msgctxt "#32269"
 
-# msgctxt "32270"
+# msgctxt "#32270"
 
-# msgctxt "32271"
+# msgctxt "#32271"
 
-# msgctxt "32272"
+# msgctxt "#32272"
 
-# msgctxt "32273"
+# msgctxt "#32273"
 
-# msgctxt "32274"
+# msgctxt "#32274"
 
-# msgctxt "32275"
+# msgctxt "#32275"
 
-# msgctxt "32276"
+# msgctxt "#32276"
 
-# msgctxt "32277"
+# msgctxt "#32277"
 
-# msgctxt "32278"
+# msgctxt "#32278"
 
-# msgctxt "32279"
+# msgctxt "#32279"
 
-# msgctxt "32280"
+# msgctxt "#32280"
 
-# msgctxt "32281"
+# msgctxt "#32281"
 
-# msgctxt "32282"
+# msgctxt "#32282"
 
-# msgctxt "32283"
+# msgctxt "#32283"
 
-# msgctxt "32284"
+# msgctxt "#32284"
 
-# msgctxt "32285"
+# msgctxt "#32285"
 
-# msgctxt "32286"
+# msgctxt "#32286"
 
-# msgctxt "32287"
+# msgctxt "#32287"
 
-# msgctxt "32288"
+# msgctxt "#32288"
 
-# msgctxt "32289"
+# msgctxt "#32289"
 
-# msgctxt "32290"
+# msgctxt "#32290"
 
-# msgctxt "32291"
+# msgctxt "#32291"
 
-# msgctxt "32292"
+# msgctxt "#32292"
 
-# msgctxt "32293"
+# msgctxt "#32293"
 
-# msgctxt "32294"
+# msgctxt "#32294"
 
-# msgctxt "32295"
+# msgctxt "#32295"
 
-# msgctxt "32296"
+# msgctxt "#32296"
 
-# msgctxt "32297"
+# msgctxt "#32297"
 
-# msgctxt "32298"
+# msgctxt "#32298"
 
-# msgctxt "32299"
+# msgctxt "#32299"
 
-# msgctxt "32300"
+# msgctxt "#32300"
 
-# msgctxt "32301"
+# msgctxt "#32301"
 
-# msgctxt "32302"
+# msgctxt "#32302"
 
-# msgctxt "32303"
+# msgctxt "#32303"
 
-# msgctxt "32304"
+# msgctxt "#32304"
 
-# msgctxt "32305"
+# msgctxt "#32305"
 
-# msgctxt "32306"
+# msgctxt "#32306"
 
-# msgctxt "32307"
+# msgctxt "#32307"
 
-# msgctxt "32308"
+# msgctxt "#32308"
 
-# msgctxt "32309"
+# msgctxt "#32309"
 
-# msgctxt "32310"
+# msgctxt "#32310"
 
-# msgctxt "32311"
+# msgctxt "#32311"
 
-# msgctxt "32312"
+# msgctxt "#32312"
 
-# msgctxt "32313"
+# msgctxt "#32313"
 
-# msgctxt "32314"
+# msgctxt "#32314"
 
-# msgctxt "32315"
+# msgctxt "#32315"
 
-# msgctxt "32316"
+# msgctxt "#32316"
 
-# msgctxt "32317"
+# msgctxt "#32317"
 
-# msgctxt "32318"
+# msgctxt "#32318"
 
-# msgctxt "32319"
+# msgctxt "#32319"
 
-# msgctxt "32320"
+# msgctxt "#32320"
 
-# msgctxt "32321"
+# msgctxt "#32321"
 
-# msgctxt "32322"
+# msgctxt "#32322"
 
-# msgctxt "32323"
+# msgctxt "#32323"
 
-# msgctxt "32324"
+# msgctxt "#32324"
 
-# msgctxt "32325"
+# msgctxt "#32325"
 
-# msgctxt "32326"
+# msgctxt "#32326"
 
-# msgctxt "32327"
+# msgctxt "#32327"
 
-# msgctxt "32328"
+# msgctxt "#32328"
 
-# msgctxt "32329"
+# msgctxt "#32329"
 
-# msgctxt "32330"
+# msgctxt "#32330"
 
-# msgctxt "32331"
+# msgctxt "#32331"
 
-# msgctxt "32332"
+# msgctxt "#32332"
 
-# msgctxt "32333"
+# msgctxt "#32333"
 
-# msgctxt "32334"
+# msgctxt "#32334"
 
-# msgctxt "32335"
+# msgctxt "#32335"
 
-# msgctxt "32336"
+# msgctxt "#32336"
 
-# msgctxt "32337"
+# msgctxt "#32337"
 
-# msgctxt "32338"
+# msgctxt "#32338"
 
-# msgctxt "32339"
+# msgctxt "#32339"
 
-# msgctxt "32340"
+# msgctxt "#32340"
 
-# msgctxt "32341"
+# msgctxt "#32341"
 
-# msgctxt "32342"
+# msgctxt "#32342"
 
-# msgctxt "32343"
+# msgctxt "#32343"
 
-# msgctxt "32344"
+# msgctxt "#32344"
 
-# msgctxt "32345"
+# msgctxt "#32345"
 
-# msgctxt "32346"
+# msgctxt "#32346"
 
-# msgctxt "32347"
+# msgctxt "#32347"
 
-# msgctxt "32348"
+# msgctxt "#32348"
 
-# msgctxt "32349"
+# msgctxt "#32349"
 
-# msgctxt "32350"
+# msgctxt "#32350"
 
-# msgctxt "32351"
+# msgctxt "#32351"
 
-# msgctxt "32352"
+# msgctxt "#32352"
 
-# msgctxt "32353"
+# msgctxt "#32353"
 
-# msgctxt "32354"
+# msgctxt "#32354"
 
-# msgctxt "32355"
+# msgctxt "#32355"
 
-# msgctxt "32356"
+# msgctxt "#32356"
 
-# msgctxt "32357"
+# msgctxt "#32357"
 
-# msgctxt "32358"
+# msgctxt "#32358"
 
-# msgctxt "32359"
+# msgctxt "#32359"
 
-# msgctxt "32360"
+# msgctxt "#32360"
 
-# msgctxt "32361"
+# msgctxt "#32361"
 
-# msgctxt "32362"
+# msgctxt "#32362"
 
-# msgctxt "32363"
+# msgctxt "#32363"
 
-# msgctxt "32364"
+# msgctxt "#32364"
 
-# msgctxt "32365"
+# msgctxt "#32365"
 
-# msgctxt "32366"
+# msgctxt "#32366"
 
-# msgctxt "32367"
+# msgctxt "#32367"
 
-# msgctxt "32368"
+# msgctxt "#32368"
 
-# msgctxt "32369"
+# msgctxt "#32369"
 
-# msgctxt "32370"
+# msgctxt "#32370"
 
-# msgctxt "32371"
+# msgctxt "#32371"
 
-# msgctxt "32372"
+# msgctxt "#32372"
 
-# msgctxt "32373"
+# msgctxt "#32373"
 
-# msgctxt "32374"
+# msgctxt "#32374"
 
-# msgctxt "32375"
+# msgctxt "#32375"
 
-# msgctxt "32376"
+# msgctxt "#32376"
 
-# msgctxt "32377"
+# msgctxt "#32377"
 
-# msgctxt "32378"
+# msgctxt "#32378"
 
-# msgctxt "32379"
+# msgctxt "#32379"
 
-# msgctxt "32380"
+# msgctxt "#32380"
 
-# msgctxt "32381"
+# msgctxt "#32381"
 
-# msgctxt "32382"
+# msgctxt "#32382"
 
-# msgctxt "32383"
+# msgctxt "#32383"
 
-# msgctxt "32384"
+# msgctxt "#32384"
 
-# msgctxt "32385"
+# msgctxt "#32385"
 
-# msgctxt "32386"
+# msgctxt "#32386"
 
-# msgctxt "32387"
+# msgctxt "#32387"
 
-# msgctxt "32388"
+# msgctxt "#32388"
 
-# msgctxt "32389"
+# msgctxt "#32389"
 
-# msgctxt "32390"
+# msgctxt "#32390"
 
-# msgctxt "32391"
+# msgctxt "#32391"
 
-# msgctxt "32392"
+# msgctxt "#32392"
 
-# msgctxt "32393"
+# msgctxt "#32393"
 
-# msgctxt "32394"
+# msgctxt "#32394"
 
-# msgctxt "32395"
+# msgctxt "#32395"
 
-# msgctxt "32396"
+# msgctxt "#32396"
 
-# msgctxt "32397"
+# msgctxt "#32397"
 
-# msgctxt "32398"
+# msgctxt "#32398"
 
-# msgctxt "32399"
+# msgctxt "#32399"
 
-# msgctxt "32400"
+# msgctxt "#32400"
 
-# msgctxt "32401"
+# msgctxt "#32401"
 
-# msgctxt "32402"
+# msgctxt "#32402"
 
-# msgctxt "32403"
+# msgctxt "#32403"
 
-# msgctxt "32404"
+# msgctxt "#32404"
 
-# msgctxt "32405"
+# msgctxt "#32405"
 
-# msgctxt "32406"
+# msgctxt "#32406"
 
-# msgctxt "32407"
+# msgctxt "#32407"
 
-# msgctxt "32408"
+# msgctxt "#32408"
 
-# msgctxt "32409"
+# msgctxt "#32409"
 
-# msgctxt "32410"
+# msgctxt "#32410"
 
-# msgctxt "32411"
+# msgctxt "#32411"
 
-# msgctxt "32412"
+# msgctxt "#32412"
 
-# msgctxt "32413"
+# msgctxt "#32413"
 
-# msgctxt "32414"
+# msgctxt "#32414"
 
-# msgctxt "32415"
+# msgctxt "#32415"
 
-# msgctxt "32416"
+# msgctxt "#32416"
 
-# msgctxt "32417"
+# msgctxt "#32417"
 
-# msgctxt "32418"
+# msgctxt "#32418"
 
-# msgctxt "32419"
+# msgctxt "#32419"
 
-# msgctxt "32420"
+# msgctxt "#32420"
 
-# msgctxt "32421"
+# msgctxt "#32421"
 
-# msgctxt "32422"
+# msgctxt "#32422"
 
-# msgctxt "32423"
+# msgctxt "#32423"
 
-# msgctxt "32424"
+# msgctxt "#32424"
 
-# msgctxt "32425"
+# msgctxt "#32425"
 
-# msgctxt "32426"
+# msgctxt "#32426"
 
-# msgctxt "32427"
+# msgctxt "#32427"
 
-# msgctxt "32428"
+# msgctxt "#32428"
 
-# msgctxt "32429"
+# msgctxt "#32429"
 
-# msgctxt "32430"
+# msgctxt "#32430"
 
-# msgctxt "32431"
+# msgctxt "#32431"
 
-# msgctxt "32432"
+# msgctxt "#32432"
 
-# msgctxt "32433"
+# msgctxt "#32433"
 
-# msgctxt "32434"
+# msgctxt "#32434"
 
-# msgctxt "32435"
+# msgctxt "#32435"
 
-# msgctxt "32436"
+# msgctxt "#32436"
 
-# msgctxt "32437"
+# msgctxt "#32437"
 
-# msgctxt "32438"
+# msgctxt "#32438"
 
-# msgctxt "32439"
+# msgctxt "#32439"
 
-# msgctxt "32440"
+# msgctxt "#32440"
 
-# msgctxt "32441"
+# msgctxt "#32441"
 
-# msgctxt "32442"
+# msgctxt "#32442"
 
-# msgctxt "32443"
+# msgctxt "#32443"
 
-# msgctxt "32444"
+# msgctxt "#32444"
 
-# msgctxt "32445"
+# msgctxt "#32445"
 
-# msgctxt "32446"
+# msgctxt "#32446"
 
-# msgctxt "32447"
+# msgctxt "#32447"
 
-# msgctxt "32448"
+# msgctxt "#32448"
 
-# msgctxt "32449"
+# msgctxt "#32449"
 
 msgctxt "#32450"
 msgid "Search"
@@ -1610,7 +1614,7 @@ msgctxt "#32510"
 msgid "Set Views"
 msgstr ""
 
-# msgctxt "32511"
+# msgctxt "#32511"
 
 msgctxt "#32512"
 msgid "Clean Settings Files and Clear Caches"
@@ -1628,7 +1632,7 @@ msgctxt "#32515"
 msgid "Sources Folders"
 msgstr ""
 
-# msgctxt "32516"
+# msgctxt "#32516"
 
 msgctxt "#32517"
 msgid "Authorize Debrid Services"
@@ -1646,7 +1650,7 @@ msgctxt "#32520"
 msgid "4K Results Color"
 msgstr ""
 
-# msgctxt "32521"
+# msgctxt "#32521"
 
 msgctxt "#32522"
 msgid "Fenomscrapers"
@@ -1676,13 +1680,13 @@ msgctxt "#32528"
 msgid "Bookmark Page Progress"
 msgstr ""
 
-# msgctxt "32529"
+# msgctxt "#32529"
 
-# msgctxt "32530"
+# msgctxt "#32530"
 
-# msgctxt "32531"
+# msgctxt "#32531"
 
-# msgctxt "32532"
+# msgctxt "#32532"
 
 msgctxt "#32533"
 msgid "Scrapers"
@@ -2332,9 +2336,9 @@ msgctxt "#32694"
 msgid "Sorting"
 msgstr ""
 
-# msgctxt "32695"
+# msgctxt "#32695"
 
-# msgctxt "32696"
+# msgctxt "#32696"
 
 msgctxt "#32697"
 msgid "Export List"
@@ -2364,7 +2368,7 @@ msgctxt "#32703"
 msgid "[B]Delete Shortcut Folder[/B]"
 msgstr ""
 
-# msgctxt "32704"
+# msgctxt "#32704"
 
 msgctxt "#32705"
 msgid "[B]Edit Menu[/B]"
@@ -2402,7 +2406,7 @@ msgctxt "#32713"
 msgid "Remove"
 msgstr ""
 
-# msgctxt "32714"
+# msgctxt "#32714"
 
 msgctxt "#32715"
 msgid "[B]MAKE NEW FOLDER[/B]"
@@ -2520,11 +2524,11 @@ msgctxt "#32743"
 msgid "file"
 msgstr ""
 
-# msgctxt "32744"
+# msgctxt "#32744"
 
-# msgctxt "32745"
+# msgctxt "#32745"
 
-# msgctxt "32746"
+# msgctxt "#32746"
 
 msgctxt "#32747"
 msgid "[B]Download File[/B]"
@@ -2690,7 +2694,7 @@ msgctxt "#32787"
 msgid "Kodi Library Sync Complete"
 msgstr ""
 
-# msgctxt "32788"
+# msgctxt "#32788"
 
 msgctxt "#32789"
 msgid "[B]Multiselect...[/B]"
@@ -2700,7 +2704,7 @@ msgctxt "#32790"
 msgid "Resume Point: [B]%s[/B]"
 msgstr ""
 
-# msgctxt "32791"
+# msgctxt "#32791"
 
 msgctxt "#32792"
 msgid "Downloaded Subtitles Found"
@@ -2763,7 +2767,7 @@ msgid "Select TV Show to Hide/Unhide from Trakt Progress:"
 msgstr ""
 
 msgctxt "#32807"
-msgid "Scrape With All Filters Ignored"
+msgid "Scrape with All Filters Ignored"
 msgstr ""
 
 msgctxt "#32808"
@@ -3414,7 +3418,7 @@ msgctxt "#32969"
 msgid "Syncing %s Watched Status"
 msgstr ""
 
-# msgctxt "32970"
+# msgctxt "#32970"
 
 msgctxt "#32971"
 msgid "MONDAY"
@@ -3444,13 +3448,13 @@ msgctxt "#32977"
 msgid "SUNDAY"
 msgstr ""
 
-# msgctxt "32978"
+# msgctxt "#32978"
 
-# msgctxt "32979"
+# msgctxt "#32979"
 
-# msgctxt "32980"
+# msgctxt "#32980"
 
-# msgctxt "32981"
+# msgctxt "#32981"
 
 msgctxt "#32982"
 msgid "[B]Download Archive[/B]"
@@ -3476,7 +3480,7 @@ msgctxt "#32987"
 msgid "Info"
 msgstr ""
 
-# msgctxt "32988"
+# msgctxt "#32988"
 
 msgctxt "#32989"
 msgid "Parental Guide"
@@ -3502,7 +3506,7 @@ msgctxt "#32994"
 msgid "Frightening & Intense Scenes"
 msgstr ""
 
-# msgctxt "32995"
+# msgctxt "#32995"
 
 msgctxt "#32996"
 msgid "Mild"
@@ -3516,15 +3520,15 @@ msgctxt "#32998"
 msgid "Severe"
 msgstr ""
 
-# msgctxt "32999"
+# msgctxt "#32999"
 
 msgctxt "#33000"
 msgid "Confirm"
 msgstr ""
 
-# msgctxt "33001"
+# msgctxt "#33001"
 
-# msgctxt "33002"
+# msgctxt "#33002"
 
 msgctxt "#33003"
 msgid "Enable Season/Show Pack Search"
@@ -3554,11 +3558,11 @@ msgctxt "#33009"
 msgid "Version 3"
 msgstr ""
 
-# msgctxt "33010"
+# msgctxt "#33010"
 
-# msgctxt "33011"
+# msgctxt "#33011"
 
-# msgctxt "33012"
+# msgctxt "#33012"
 
 msgctxt "#33013"
 msgid "Default"
@@ -3640,11 +3644,11 @@ msgctxt "#33032"
 msgid "Videos"
 msgstr ""
 
-# msgctxt "33033"
+# msgctxt "#33033"
 
-# msgctxt "33034"
+# msgctxt "#33034"
 
-# msgctxt "33035"
+# msgctxt "#33035"
 
 msgctxt "#33036"
 msgid "CLEAR %s:  [I]%s[/I]"
@@ -3658,7 +3662,7 @@ msgctxt "#33038"
 msgid "Extras"
 msgstr ""
 
-# msgctxt "33039"
+# msgctxt "#33039"
 
 msgctxt "#33040"
 msgid "Exclude Non Acting Roles in Person Results"
@@ -3668,11 +3672,11 @@ msgctxt "#33041"
 msgid "On Deck"
 msgstr ""
 
-# msgctxt "33042"
+# msgctxt "#33042"
 
-# msgctxt "33043"
+# msgctxt "#33043"
 
-# msgctxt "33044"
+# msgctxt "#33044"
 
 msgctxt "#33045"
 msgid "Tagged"
@@ -3682,7 +3686,7 @@ msgctxt "#33046"
 msgid "%s of %s Watched"
 msgstr ""
 
-# msgctxt "33047"
+# msgctxt "#33047"
 
 msgctxt "#33048"
 msgid "Watched Status"
@@ -3692,21 +3696,21 @@ msgctxt "#33049"
 msgid "Watched Progress"
 msgstr ""
 
-# msgctxt "33050"
+# msgctxt "#33050"
 
 msgctxt "#33051"
 msgid "Slideshow"
 msgstr ""
 
-# msgctxt "33052"
+# msgctxt "#33052"
 
-# msgctxt "33053"
+# msgctxt "#33053"
 
-# msgctxt "33054"
+# msgctxt "#33054"
 
-# msgctxt "33055"
+# msgctxt "#33055"
 
-# msgctxt "33056"
+# msgctxt "#33056"
 
 msgctxt "#33057"
 msgid "Sci-Fi & Fantasy"

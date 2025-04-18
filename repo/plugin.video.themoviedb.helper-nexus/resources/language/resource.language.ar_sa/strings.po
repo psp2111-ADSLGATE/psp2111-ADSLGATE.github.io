@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: XBMC-Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: 2014-10-26 17:05+0000\n"
-"PO-Revision-Date: 2023-08-13 22:39+0000\n"
+"PO-Revision-Date: 2025-04-18 15:25+0000\n"
 "Last-Translator: psp2111-ADSLGATE <>\n"
 "Language-Team: Arabic (Saudi Arabia)\n"
 "Language: ar-SA\n"
@@ -138,7 +138,7 @@ msgstr ""
 #: resources/settings.xml
 msgctxt "#32028"
 msgid "Use fanart.tv for widget artwork (slower)"
-msgstr "استخدم fanart.tv للعمل الفني الخاص بالودجيت (أبطأ)"
+msgstr "استخدم fanart.tv للعمل الفني الخاص بأقسام الودجيت (أبطأ)"
 
 #: resources/settings.xml
 msgctxt "#32029"
@@ -168,7 +168,7 @@ msgstr "المشغل الافتراضي"
 #: resources/settings.xml
 msgctxt "#32034"
 msgid "Get watched indicators and episode counts (slower)"
-msgstr "احصل على مؤشرات \"تمت المشاهدة\" و عدد الحلقات (أبطأ)"
+msgstr "الحصول على أيقونات \"تمت المشاهدة\" و \"عدد الحلقات\" (أبطأ)"
 
 #: resources/settings.xml
 msgctxt "#32035"
@@ -263,7 +263,7 @@ msgstr "إضافة إلى سجل تم مشاهدته لـTrakt"
 #: resources/lib/container.py
 msgctxt "#32053"
 msgid "Refresh Cache"
-msgstr "تحديث ذاكرة التخزين المؤقت"
+msgstr "تحديث ذاكرة التخزين المؤقتة"
 
 #: resources/lib/downloader.py
 msgctxt "#32054"
@@ -735,7 +735,7 @@ msgstr "إخفاء العناصر التي تمت مشاهدتها"
 #: resources/lib/context.py
 msgctxt "#32143"
 msgid "Cached details for {} successfully refreshed!"
-msgstr "تم تحديث تفاصيل ذاكرة التخزين المؤقت لـ {} بنجاح!"
+msgstr "تم تحديث تفاصيل ذاكرة التخزين المؤقتة لـ {} بنجاح!"
 
 #: resources/lib/context.py
 msgctxt "#32144"
@@ -1831,7 +1831,7 @@ msgstr ""
 #: resources/settings.xml
 msgctxt "#32352"
 msgid "Dummy video duration (seconds)"
-msgstr ""
+msgstr "مدة الفيديو الوهمي (بالثواني)"
 
 #: resources/lib/player/players.py
 msgctxt "#32353"
@@ -1897,12 +1897,12 @@ msgstr "هل تريد إضافة هذا العنصر إلى المكتبة ال�
 #: resources/settings.xml
 msgctxt "#32363"
 msgid "Delay after resolving (seconds)"
-msgstr ""
+msgstr "التأخير بعد عملية التحليل (بالثواني)"
 
 #: resources/settings.xml
 msgctxt "#32364"
 msgid "Reroute PlayMedia to xbmc.Player()"
-msgstr ""
+msgstr "إعادة توجيه PlayMedia إلى ()xbmc.Player"
 
 #: resources/lib/addon/plugin.py
 msgctxt "#32365"
@@ -1937,7 +1937,7 @@ msgstr ""
 #: resources/settings.xml
 msgctxt "#32371"
 msgid "Preferred artwork for thumbs"
-msgstr "العمل الفني المفضل للـthumbs"
+msgstr "العمل الفني المفضل للحلقات التالية"
 
 #: resources/settings.xml
 msgctxt "#32372"
@@ -1947,7 +1947,7 @@ msgstr ""
 #: resources/settings.xml
 msgctxt "#32373"
 msgid "Restrict to library strm"
-msgstr ""
+msgstr "التقييد بمكتبة strm"
 
 #: resources/lib/player/players.py
 msgctxt "#32374"
@@ -2012,12 +2012,12 @@ msgstr "إخفاء كل الأقسام"
 #: resources/settings.xml
 msgctxt "#32386"
 msgid "Delete cache"
-msgstr "حذف ذاكرة التخزين المؤقت"
+msgstr "حذف ذاكرة التخزين المؤقتة"
 
 #: resources/lib/script/router.py
 msgctxt "#32387"
 msgid "Delete {} Cache"
-msgstr "حذف ذاكرة التخزين المؤقت لـ{}"
+msgstr "حذف ذاكرة التخزين المؤقتة لـ{}"
 
 #: resources/lib/script/router.py
 msgctxt "#32388"
@@ -2081,7 +2081,7 @@ msgstr "احتسب عدد الحلقات الغير مُشاهدة فقط في �
 #: resources/settings.xml
 msgctxt "#32397"
 msgid "Original"
-msgstr "أصلية"
+msgstr "الأصلية"
 
 #: resources/settings.xml
 msgctxt "#32398"
@@ -2096,7 +2096,7 @@ msgstr "الرجوع إلى اللغة الإنجليزية عند عدم توف
 #: resources/settings.xml
 msgctxt "#32400"
 msgid "Play local Kodi library files"
-msgstr "قم بتشغيل ملفات مكتبة Kodi المحلية"
+msgstr "طريقة تشغيل ملفات مكتبة Kodi المحلية"
 
 #: resources/settings.xml
 msgctxt "#32401"
@@ -2141,12 +2141,12 @@ msgstr "استخرج العمل الفني من موقع TMDb أولاً إذا 
 #: resources/settings.xml
 msgctxt "#32409"
 msgid "Cache database location"
-msgstr "موقع قاعدة بيانات التخزين المؤقت"
+msgstr "تخصيص مسار التخزين المؤقت لقواعد البيانات"
 
 #: resources/settings.xml
 msgctxt "#32410"
 msgid "Max concurrent threads (0 is unlimited)"
-msgstr ""
+msgstr "الحد الأقصى للمسارات (0 = غير محدود)"
 
 #: resources/lib/items/basedir.py
 msgctxt "#32411"
@@ -2190,9 +2190,9 @@ msgid ""
 "'PG' rating is displayed as 'Rated PG'. Cached items will need to be "
 "refreshed."
 msgstr ""
-"أضف نصًا قبل بداية تصنيف MPAA. على سبيل المثال إذا تم كتابة \"Rated\" ، قبل "
-"\"PG\" سوف يعرض بمسمى \"Rated PG\". تغيير هذا الخيار يحتاج إلى إعادة تحميل "
-"العناصر المخزنة مؤقتًا."
+"أضف نصًا قبل بداية تقييم MPAA العمري. على سبيل المثال إذا تم كتابة \"Rated\" "
+"، قبل التقييم العمري \"PG\" سوف يعرض بمسمى \"Rated PG\". تغيير هذا الخيار "
+"يحتاج إلى إعادة تحميل العناصر المخزنة مؤقتًا."
 
 #: resources/settings.xml
 msgctxt "#32419"
@@ -2292,7 +2292,7 @@ msgstr "التفاصيل"
 #: resources/settings.xml
 msgctxt "#32437"
 msgid "Configure provider data allowlist"
-msgstr "تكوين قائمة السماح ببيانات الموفر"
+msgstr "تكوين قائمة السماح ببيانات خدمات البث"
 
 #: resources/lib/script/method.py
 msgctxt "#32438"
@@ -2307,7 +2307,7 @@ msgid ""
 "deleted in the expert settings section."
 msgstr ""
 "تم تحديث قائمة السماح للمزود. يرجى ملاحظة أن تحديث تفاصيل الموفر يتطلب تحديث "
-"ذاكرة التخزين المؤقت للعنصر. يمكن حذف ذاكرة التخزين المؤقت للعنصر في قسم "
+"ذاكرة التخزين المؤقتة للعنصر. يمكن حذف ذاكرة التخزين المؤقتة للعنصر في قسم "
 "إعدادات الخبير."
 
 #: resources/lib/player/configure.py
@@ -2353,7 +2353,7 @@ msgstr "الحلقة التالية فقط"
 #: resources/settings.xml
 msgctxt "#32448"
 msgid "Stop before attempting playback"
-msgstr ""
+msgstr "توقف قبل محاولة التشغيل"
 
 #: resources/settings.xml
 msgctxt "#32449"
@@ -2418,17 +2418,17 @@ msgstr "الجوائز"
 #: resources/lib/api/tvdb/lists.py
 msgctxt "#32461"
 msgid "Winner of"
-msgstr ""
+msgstr "فاز بـ"
 
 #: resources/lib/api/tvdb/lists.py
 msgctxt "#32462"
 msgid "Nominated for"
-msgstr ""
+msgstr "روشح لـ"
 
 #: resources/settings.xml
 msgctxt "#32463"
 msgid "Cache items in custom lists you own for 24 hours"
-msgstr "التخزين مؤقتاً لعناصر قائمتك المخصصة لمدة 24 ساعة"
+msgstr "التخزين المؤقت لعناصر قوائم Trakt الخاصة بك لمدة 24 ساعة"
 
 #: resources/settings.xml
 msgctxt "#32464"
@@ -2450,7 +2450,7 @@ msgstr "حفظ قراءات ذاكرة التخزين المؤقت على الـ
 #: resources/settings.xml
 msgctxt "#32466"
 msgid "Play automatically using available providers"
-msgstr "قم بالتشغيل تلقائياً باستخدام مقدمي الخدمة المتاحين"
+msgstr "التشغيل تلقائياً باستخدام خدمات البث المتوفرة"
 
 #: resources/settings.xml
 msgctxt "#32467"
@@ -2465,7 +2465,7 @@ msgstr "عرض تنبيهات المزامنة والمصادقة عند بدء 
 #: resources/settings.xml
 msgctxt "#32469"
 msgid "Ignore articles when sorting alphabetically"
-msgstr ""
+msgstr "تجاهل المقالات \"a, an, the\" عند الفرز الأبجدي"
 
 #: resources/settings.xml
 msgctxt "#32470"
@@ -2480,7 +2480,7 @@ msgstr "عرض تنبيهات انقطاع أو فقد الاتصال"
 #: resources/settings.xml
 msgctxt "#32472"
 msgid "Cache image location"
-msgstr "موقع التخزين المؤقت للصور"
+msgstr "تخصيص مسار التخزين المؤقت للصور"
 
 #: resources/lib/api/trakt/api.py
 msgctxt "#32473"
@@ -2524,17 +2524,22 @@ msgstr ""
 #: resources/settings.xml
 msgctxt "#32480"
 msgid "Readahead caching of service listitems"
-msgstr ""
+msgstr "قراءة التخزين المؤقت مسبقا لعناصر قائمة الخدمة"
 
 #: resources/settings.xml
 msgctxt "#32481"
-msgid "Increases the pool of recently watched items randomly selected from the seed to use for \"Because You Watched\" style recommendations."
+msgid ""
+"Increases the pool of recently watched items randomly selected from the seed "
+"to use for \"Because You Watched\" style recommendations."
 msgstr ""
+"يقوم بزيادة او تقليل أعداد المحتوى الذي شاهدته مؤخرا لاستخدامها كبذور "
+"عشوائية لأقسام التوصيات مثل قسم \"استنادا على ما تم مشاهدته\" أو \"لأنك "
+"شاهدت\""
 
 #: resources/settings.xml
 msgctxt "#32482"
 msgid "Random seed pool for recommendations"
-msgstr ""
+msgstr "عدد البذور العشوائية المستخدمة للتوصيات"
 
 #: resources/settings.xml
 msgctxt "#32483"
@@ -2585,7 +2590,7 @@ msgstr "إزالة من المفضلة"
 msgctxt "#32492"
 msgid ""
 "{} already exists in {}!\\nDo you wish to remove this item from the list?"
-msgstr "قسم {} بالفعل موجود في {}![CR]هل تريد إزالة هذا القسم؟"
+msgstr "العنصر {} بالفعل موجود في {}![CR]هل تريد إزالة هذا العنصر؟"
 
 #: resources/tmdbhelper/lib/script/method.py
 msgctxt "#32493"
@@ -2600,17 +2605,18 @@ msgstr "تم بنجاح إضافة {} الى الاختصار {}"
 #: resources/tmdbhelper/lib/script/method.py
 msgctxt "#32495"
 msgid "Create new node"
-msgstr "إدراج اختصار جديد"
+msgstr "إدراج قائمة اختصارات Node جديد"
 
 #: resources/tmdbhelper/lib/items/container.py
 msgctxt "#32496"
 msgid "Add/Remove as Custom Node"
-msgstr "إضافة/إزالة من الاختصارات"
+msgstr "إضافة/إزالة من اختصارات Node"
 
 #: resources/settings.xml
 msgctxt "#32497"
 msgid "Container content fallback for service listitems without mediatypes"
 msgstr ""
+"اجعل TMDbHelper يقوم ببناء التفاصيل الناقصة للوسائط الخاصة بالاضافات الاخرى"
 
 #: resources/settings.xml
 msgctxt "#32498"
@@ -2621,6 +2627,10 @@ msgid ""
 "mediatype is missing. Note this setting will likely result more frequent "
 "incorrect matches due to the end plugin having bad metadata."
 msgstr ""
+"بعض الإضافات ضعيفة من ناحية البيانات التعريفية والعمل الفني وتفشل في بناء "
+"جميع التفاصيل. هذا الاعداد يسمح بمراقب الخدمة في TMDbHelper ببناء هذه "
+"التفاصيل الناقصة. ملاحظة: هذا الاعداد ممكن ان يعطي نتائج غير صحيحة بسبب سوء "
+"البيانات التعريفية المقدمة من الاضافات الأخرى."
 
 #: resources/settings.xml
 msgctxt "#32499"
@@ -2646,6 +2656,162 @@ msgstr "قوائم مزامنة Trakt (عامل مضاعفة)"
 msgctxt "#32503"
 msgid "Page multiplier (Library windows)"
 msgstr "قوائم المكتبة (عامل مضاعفة)"
+
+#: /resources/tmdbhelper/lib/script/method.py
+msgctxt "#32504"
+msgid "Add {} to node"
+msgstr "إضافة {} إلى إختصار Node"
+
+#: /resources/settings.xml
+msgctxt "#32505"
+msgid "Genre icons folder (TMDb)"
+msgstr "إختيار مجلد أيقونات الأصناف (TMDb)"
+
+#: /resources/settings.xml
+msgctxt "#32506"
+msgid "Provider icons folder (TMDb)"
+msgstr "إختيار مجلد أيقونات خدمات البث (TMDb)"
+
+#: /resources/settings.xml
+msgctxt "#32507"
+msgid "Genre icon folder (Trakt)"
+msgstr "إختيار مجلد أيقونات الأصناف (Trakt)"
+
+#: /resources/settings.xml
+msgctxt "#32508"
+msgid "Recache Kodi Library details when building players"
+msgstr "إعادة تخزين تفاصيل مكتبة Kodi عن بناء المشغلات"
+
+#: /resources/settings.xml
+msgctxt "#32509"
+msgid "Use alternative TMDb API url"
+msgstr "إستخدام عنوان URL بديل لـTMDb API"
+
+#: /resources/settings.xml
+msgctxt "#32510"
+msgid "Items only"
+msgstr "العناصر فقط"
+
+#: /resources/settings.xml
+msgctxt "#32511"
+msgid "Items"
+msgstr "العناصر"
+
+#: /resources/settings.xml
+msgctxt "#32512"
+msgid "Cache disk reads to memory"
+msgstr "تخزين قراءات الذاكرة الداخلية إلى الرام"
+
+#: /resources/settings.xml
+msgctxt "#32513"
+msgid "MDbList options"
+msgstr "خيارات MDbList"
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32514"
+msgid "Add to MDbList list"
+msgstr "إضافة إلى قائمة MDbList"
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32515"
+msgid "Already exists in list."
+msgstr "هذا المحتوى تم إضافته سابقا في القائمة."
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32516"
+msgid "MDbList API credentials not found."
+msgstr "مفتاح MDbList API المدخل غير صحيح."
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32517"
+msgid "Add your personal MDbList API key in TMDbHelper settings."
+msgstr "الرجاء إدخال مفتاح MDbList API الخاص بك في إعدادات TMDbHelper."
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32518"
+msgid "No static lists found for current MDbList user."
+msgstr "لم يتم العثور على قوائم لمستخدم MDbList الحالي"
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32519"
+msgid "Remove from MDbList list"
+msgstr "إزالة من قائمة MDbList"
+
+#: /resources/settings.xml
+msgctxt "#32520"
+msgid "TMDb"
+msgstr ""
+
+#: /resources/tmdbhelper/lib/addon/consts.py
+msgctxt "#32521"
+msgid "Rated"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32522"
+msgid "TMDb user options"
+msgstr "مدير TMDb"
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32523"
+msgid "Add/Remove from TMDb user list"
+msgstr "إضافة\\إزالة من قائمة مستخدم TMDb"
+
+#: /resources/tmdbhelper/lib/api/tmdb/useritemmethods.py
+msgctxt "#32524"
+msgid "User lists"
+msgstr "قوائم المستخدم"
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32525"
+msgid "Add/Remove from TMDb favourites"
+msgstr "إضافة\\إزالة من مفضلات TMDb"
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32526"
+msgid "Add/Remove from TMDb watchlist"
+msgstr "إضافة\\إزالة من قائمة مشاهدة TMDb"
+
+#: /resources/tmdbhelper/lib/api/tmdb/useritemmethods.py
+msgctxt "#32527"
+msgid "Remove from {}"
+msgstr "إزالة من {}"
+
+#: /resources/tmdbhelper/lib/api/tmdb/useritemmethods.py
+msgctxt "#32528"
+msgid "Add to {}"
+msgstr "إضافة إلى {}"
+
+#: /resources/settings.xml
+msgctxt "#32529"
+msgid "Scrobble items played via TMDbHelper"
+msgstr "مزامنة المحتوى الذي يتم تشغيله عن طريق TMDbHelper"
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32530"
+msgid "Remove rating"
+msgstr "إزالة التقييم"
+
+#: /resources/tmdbhelper/lib/script/sync/item.py
+msgctxt "#32531"
+msgid "Method only available for VIP accounts."
+msgstr "فقط متوفرة لحسابات Trakt VIP"
+
+#: /resources/tmdbhelper/lib/script/sync/basic.py
+msgctxt "#32532"
+msgid "Force resync"
+msgstr "إجبار إعادة المزامنة"
+
+#: /resources/settings.xml
+msgctxt "#32533"
+msgid "Get episode types (slower)"
+msgstr ""
+"الحصول على حالات الحلقات مثل:\"موسم جديد\" او \"الحلقة الأولى\"...الخ (أبطأ)"
+
+#: /resources/settings.xml
+msgctxt "#32534"
+msgid "Trakt sync progress notifications"
+msgstr "عرض تنبيهات مزامنة التقدم لـTrakt"
 
 msgctxt "#30030"
 msgid "Hindi (India)"
@@ -2817,12 +2983,12 @@ msgstr ""
 #: resources/settings.xml
 msgctxt "#32003"
 msgid "Days to cache lists"
-msgstr "الأيام المتبقية لذاكرة التخزين المؤقت للقوائم"
+msgstr "الأيام المتبقية لذاكرة التخزين المؤقتة للقوائم"
 
 #: resources/settings.xml
 msgctxt "#32004"
 msgid "MPAA rating prefix"
-msgstr "بادئة تصنيف MPAA"
+msgstr "بادئة تقييم MPAA العمري"
 
 #: resources/settings.xml
 msgctxt "#32005"
@@ -2915,7 +3081,7 @@ msgstr "استخدم فقط إذا تم إلغاء تنشيط مفتاح api ا�
 #: resources/settings.xml
 msgctxt "#32021"
 msgid "Use fanart.tv for plugin artwork (slower)"
-msgstr "استخدم fanart.tv للعمل الفني الخاص بالمكون الإضافي (أبطأ)"
+msgstr "استخدم fanart.tv للعمل الفني الخاص بالإضافة (أبطأ)"
 
 #: resources/settings.xml
 msgctxt "#32022"

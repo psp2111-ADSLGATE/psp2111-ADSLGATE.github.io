@@ -48,8 +48,8 @@
 						<width>120</width>
 						<height>70</height>
 						<textoffsetx>0</textoffsetx>
-						<texturefocus colordiffuse="$INFO[Window().Property(umbrella.highlight.color)]">common/button5.png</texturefocus>
-						<texturenofocus>common/button5.png</texturenofocus>
+						<texturefocus colordiffuse="$INFO[Window().Property(umbrella.highlight.color)]">common/umbbutton5.png</texturefocus>
+						<texturenofocus>common/umbbutton5.png</texturenofocus>
 						<label>Back</label>
 						<font>font12</font>
 						<align>center</align>
@@ -177,13 +177,14 @@
 
 <!-- Sources List -->
 			<control type="list" id="2000">
+				<pagecontrol>5060</pagecontrol>
 				<description>Source Select List</description>
 				<viewtype>list</viewtype>
 				<left>0</left>
 				<top>150</top>
 				<width>1350</width>
 				<height>800</height>
-				<onright>2001</onright>
+				<onright>5060</onright>
 				<onleft>2000</onleft>
 				<onup>2000</onup>
 				<ondown>2000</ondown>
@@ -413,14 +414,14 @@
 						<top>0</top>
 						<width>1350</width>
 						<height>100</height>
-						<texture colordiffuse="$INFO[ListItem.Property(umbrella.providerhighlight)]">common/white.png</texture>
+						<texture colordiffuse="$INFO[ListItem.Property(umbrella.providerhighlight)]">common/umbwhite.png</texture>
 					</control>
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
 						<width>1350</width>
 						<height>100</height>
-						<texture colordiffuse="gainsboro">common/white.png</texture>
+						<texture colordiffuse="gainsboro">common/umbwhite.png</texture>
 						<visible>!Control.HasFocus(2000)</visible>
 					</control>
 					<control type="image">
@@ -633,13 +634,13 @@
 					<control type="button" id="2001">
 						<description>View Uncached Torrents button</description>
 						<onright>2000</onright>
-						<onleft>2000</onleft>
+						<onleft>5060</onleft>
 						<width>350</width>
 						<height>100</height>
 						<textoffsetx>0</textoffsetx>
-						<texturefocus colordiffuse="$INFO[Window().Property(umbrella.highlight.color)]">common/button5.png</texturefocus>
-						<!-- <texturenofocus colordiffuse="gainsboro">common/button2.png</texturenofocus> -->
-						<texturenofocus colordiffuse="gainsboro">common/button5.png</texturenofocus>
+						<texturefocus colordiffuse="$INFO[Window().Property(umbrella.highlight.color)]">common/umbbutton5.png</texturefocus>
+						<!-- <texturenofocus colordiffuse="gainsboro">common/umbbutton2.png</texturenofocus> -->
+						<texturenofocus colordiffuse="gainsboro">common/umbbutton5.png</texturenofocus>
 						<label>$ADDON[plugin.video.umbrella 32639]</label>
 						<font>font12</font>
 						<align>center</align>
@@ -1033,6 +1034,20 @@
 						<visible>String.Contains(Container(2000).ListItem.Property(umbrella.extra_info),8CH)</visible>
 					</control>
 			</control>
+			<control type="scrollbar" id="5060">
+                <top>150</top>
+                <left>1370</left>
+                <width>10</width>
+                <height>800</height>
+                <onleft>2000</onleft>
+                <onright>2001</onright>
+                <texturesliderbackground colordiffuse="FF1F2020">common/umbwhite.png</texturesliderbackground>
+                <texturesliderbar colordiffuse="FF555556">common/umbwhite.png</texturesliderbar>
+                <texturesliderbarfocus colordiffuse="FFCCCCCC">common/umbwhite.png</texturesliderbarfocus>
+                <showonepage>false</showonepage>
+                <orientation>vertical</orientation>
+                <visible>Control.IsVisible(2000)</visible>
+            </control>
 		</control>
 	</controls>
 </window>

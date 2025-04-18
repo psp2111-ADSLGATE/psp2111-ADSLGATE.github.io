@@ -16,11 +16,11 @@ def call_simkl(url):
 	params = {'client_id': API_KEY} if API_KEY else None
 	try:
 		response = session.get(url, params=params, timeout=timeout)
-		response.raise_for_status()
-	except requests.exceptions.RequestException as e: kodi_utils.logger('simkl error',
-		f"{e}\n{e.response.text if response else e.request.url}")
-	try: result = response.json()
-	except: result = []
+		if not response.ok: response.raise_for_status()
+		result = response.json()
+	except requests.exceptions.RequestException as e:
+		kodi_utils.logger('simkl error', str(e))
+		result = []
 	return result
 
 def simkl_list(url):

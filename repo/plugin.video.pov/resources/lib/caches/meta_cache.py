@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from caches.base_cache import BaseCache
+from caches import BaseCache
 from modules.kodi_utils import get_property, set_property, clear_property, metacache_db
 # from modules.kodi_utils import logger
 

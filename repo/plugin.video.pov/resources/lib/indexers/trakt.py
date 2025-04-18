@@ -7,7 +7,7 @@ from indexers.movies import Movies
 from indexers.tvshows import TVShows
 from indexers.seasons import Seasons
 from modules import kodi_utils
-from modules.utils import paginate_list, jsondate_to_datetime
+from modules.utils import paginate_list, jsondate_to_datetime, TaskPool
 from modules.settings import paginate, page_limit, nav_jump_use_alphabet
 # logger = kodi_utils.logger
 
@@ -16,8 +16,9 @@ build_url, make_listitem = kodi_utils.build_url, kodi_utils.make_listitem
 default_icon = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/trakt.png')
 fanart = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
 item_jump = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/item_jump.png')
-add2menu_str, add2folder_str, likelist_str, unlikelist_str = ls(32730), ls(32731), ls(32776), ls(32783)
+add2menu_str, add2folder_str, copy2str = ls(32730), ls(32731), '[B]Export to TMDB[/B]'
 newlist_str, deletelist_str, nextpage_str, jump2_str = ls(32780), ls(32781), ls(32799), ls(32964)
+likelist_str, unlikelist_str = ls(32776), ls(32783)
 
 def search_trakt_lists(params):
 	def _process():
@@ -38,6 +39,7 @@ def search_trakt_lists(params):
 				cm_append((add2folder_str, 'RunPlugin(%s)' % build_url({'mode': 'menu_editor.shortcut_folder_add_item', 'name': name, 'iconImage': 'trakt.png'})))
 				cm_append((likelist_str, 'RunPlugin(%s)' % build_url({'mode': 'trakt.trakt_like_a_list', 'user': user, 'list_slug': slug})))
 				cm_append((unlikelist_str, 'RunPlugin(%s)' % build_url({'mode': 'trakt.trakt_unlike_a_list', 'user': user, 'list_slug': slug})))
+				cm_append((copy2str, 'RunPlugin(%s)' % build_url({'mode': 'tmdb_manager_choice', 'trakt_list_id': list_id, 'trakt_list_name': name, 'user': user, 'list_slug': slug})))
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.setArt({'icon': default_icon, 'poster': default_icon, 'thumb': default_icon, 'fanart': fanart, 'banner': default_icon})
@@ -79,6 +81,7 @@ def get_trakt_lists(params):
 					cm_append((deletelist_str, 'RunPlugin(%s)' % build_url({'mode': 'trakt.delete_trakt_list', 'user': user, 'list_slug': slug})))
 				cm_append((add2menu_str, 'RunPlugin(%s)' % build_url({'mode': 'menu_editor.add_external', 'name': display, 'iconImage': 'trakt.png'})))
 				cm_append((add2folder_str, 'RunPlugin(%s)' % build_url({'mode': 'menu_editor.shortcut_folder_add_item', 'name': display, 'iconImage': 'trakt.png'})))
+				cm_append((copy2str, 'RunPlugin(%s)' % build_url({'mode': 'tmdb_manager_choice', 'trakt_list_id': list_id, 'trakt_list_name': name, 'user': user, 'list_slug': slug})))
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.setArt({'icon': default_icon, 'poster': default_icon, 'thumb': default_icon, 'fanart': fanart, 'banner': default_icon})
@@ -111,6 +114,7 @@ def get_trakt_trending_popular_lists(params):
 				cm_append((add2folder_str, 'RunPlugin(%s)' % build_url({'mode': 'menu_editor.shortcut_folder_add_item', 'name': name, 'iconImage': 'trakt.png'})))
 				cm_append((likelist_str, 'RunPlugin(%s)' % build_url({'mode': 'trakt.trakt_like_a_list', 'user': user, 'list_slug': slug})))
 				cm_append((unlikelist_str, 'RunPlugin(%s)' % build_url({'mode': 'trakt.trakt_unlike_a_list', 'user': user, 'list_slug': slug})))
+				cm_append((copy2str, 'RunPlugin(%s)' % build_url({'mode': 'tmdb_manager_choice', 'trakt_list_id': list_id, 'trakt_list_name': name, 'user': user, 'list_slug': slug})))
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.setArt({'icon': default_icon, 'poster': default_icon, 'thumb': default_icon, 'fanart': fanart, 'banner': default_icon})
@@ -133,11 +137,12 @@ def build_trakt_list(params):
 			try: target, *args = q.get() ; target(*args)
 			except: pass
 	__handle__, _queue, is_widget = int(sys.argv[1]), SimpleQueue(), kodi_utils.external_browse()
+	max_threads = int(kodi_utils.get_setting('pov.max_threads', '100'))
 	user, slug, name = params.get('user'), params.get('slug'), params.get('name')
 	list_type, list_id = params.get('list_type'), params.get('list_id')
 	letter, page = params.get('new_letter', 'None'), int(params.get('new_page', '1'))
 	results = trakt_api.get_trakt_list_contents(list_type, list_id, user, slug)
-	if paginate(): process_list, total_pages = paginate_list(results, page, letter, page_limit())
+	if paginate() and results: process_list, total_pages = paginate_list(results, page, letter, page_limit())
 	else: process_list, total_pages = results, 1
 	movies, tvshows = Movies({'id_type': 'trakt_dict'}), TVShows({'id_type': 'trakt_dict'})
 	episodes, seasons = Episodes({'id_type': 'trakt_dict'}), Seasons({'id_type': 'trakt_dict'})
@@ -153,9 +158,9 @@ def build_trakt_list(params):
 		elif mtype == 'season':
 			params = {'tmdb_id': tag['show']['ids']['tmdb'], 'season': tag['season']['number'], 'sort': idx}
 			_queue.put((seasons.build_season_list, params))
-	maxsize = min(_queue.qsize(), int(kodi_utils.get_setting('pov.max_threads', '100')))
-	threads = [Thread(target=_thread_target, args=(_queue,)) for i in range(maxsize)]
-	[i.start() for i in threads]
+	max_threads = min(_queue.qsize(), max_threads)
+	threads = (Thread(target=_thread_target, args=(_queue,)) for i in range(max_threads))
+	threads = list(TaskPool.process(threads))
 	[i.join() for i in threads]
 	items = movies.items + tvshows.items + episodes.items + seasons.items
 	items.sort(key=lambda k: int(k[1].getProperty('pov_sort_order')))

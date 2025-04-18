@@ -4,7 +4,7 @@ from urllib.parse import unquote
 from apis.tmdb_api import tmdb_people_info
 from windows import open_window
 from indexers.images import Images
-from modules.kodi_utils import translate_path, select_dialog, dialog
+from modules.kodi_utils import translate_path, select_dialog, dialog, notification
 # from modules.kodi_utils import logger
 
 icon_directory = 'special://home/addons/plugin.video.pov/resources/media/%s'
@@ -20,16 +20,9 @@ def person_data_dialog(params):
 
 def person_search(query=None):
 	try: actors = tmdb_people_info(query)
-	except: return
-	if len(actors) == 1:
-		actors = actors[0]
-		actor_id = actors['id']
-		actor_name = actors['name']
-		try: image_id = actors['profile_path']
-		except: image_id = None
-		if not image_id: actor_image = translate_path(icon_directory % 'people.png')
-		else: actor_image = tmdb_image_url % image_id
-	else:
+	except: actors = None
+	if not actors: return notification(32760)
+	if len(actors) > 1:
 		def _builder():
 			for item in actors:
 				known_for_list = [i.get('title', 'NA') for i in item['known_for']]
@@ -40,9 +33,10 @@ def person_search(query=None):
 		kwargs = {'items': json.dumps(list_items), 'heading': 'POV', 'enumerate': 'false', 'multi_choice': 'false', 'multi_line': 'false'}
 		selection = select_dialog(actors, **kwargs)
 		if selection is None: return None, None, None
-		actor_id = int(selection['id'])
-		actor_name = selection['name']
-		actor_image = tmdb_image_url % selection['profile_path'] if selection['profile_path'] else translate_path(icon_directory % 'people.png')
+	else: selection = actors[0]
+	actor_id = int(selection['id'])
+	actor_name = selection['name']
+	actor_image = tmdb_image_url % selection['profile_path'] if selection['profile_path'] else translate_path(icon_directory % 'people.png')
 	if not actor_name: return
 	return person_data_dialog({'actor_name': actor_name, 'actor_image': actor_image, 'actor_id': actor_id})
 

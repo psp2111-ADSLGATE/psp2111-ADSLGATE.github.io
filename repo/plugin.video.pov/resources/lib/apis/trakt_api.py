@@ -18,7 +18,7 @@ REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 base_url = 'https://api.trakt.tv/%s'
 timeout = 3.05
 session = requests.Session()
-retry = requests.adapters.Retry(total=None, status=1, status_forcelist=(429, 502, 503, 504), raise_on_status=False)
+retry = requests.adapters.Retry(total=None, status=1, status_forcelist=(429, 502, 503, 504))
 session.mount('https://api.trakt.tv', requests.adapters.HTTPAdapter(pool_maxsize=100, max_retries=retry))
 
 def call_trakt(path, params=None, data=None, with_auth=True, method=None, pagination=False, page=1):
@@ -33,32 +33,32 @@ def call_trakt(path, params=None, data=None, with_auth=True, method=None, pagina
 			params=None if data is not None else params,
 			data=json.dumps(data) if data else None,
 			headers=headers,
-			timeout=timeout
+			timeout=timeout ** 2 if not method in ('get', None) else timeout
 		)
-		response.raise_for_status()
-	except requests.exceptions.RequestException as e: logger('trakt error',
-		f"{e}\n{e.response.text if response else e.request.headers}")
-	response.encoding = 'utf-8'
-	try: result = response.json()
-	except: result = None
-	if 'X-Sort-By' in response.headers and 'X-Sort-How' in response.headers:
-		sort_by, sort_how = response.headers['X-Sort-By'], response.headers['X-Sort-How']
-		result = sort_list(sort_by, sort_how, result, settings.ignore_articles())
+		if not response.ok: response.raise_for_status()
+		result = response.json()
+		if 'X-Sort-By' in response.headers and 'X-Sort-How' in response.headers:
+			sort_by, sort_how = response.headers['X-Sort-By'], response.headers['X-Sort-How']
+			result = sort_list(sort_by, sort_how, result, settings.ignore_articles())
+	except requests.exceptions.RequestException as e:
+		logger('trakt error', str(e))
+		result = None
 	if pagination: return (result, response.headers.get('X-Pagination-Page-Count', page))
 	else: return result
 
 def trakt_refresh():
 	try:
-		data = {'refresh_token': get_setting('trakt.refresh'), 'client_id': V2_API_KEY, 'client_secret': CLIENT_SECRET,
-				'redirect_uri': REDIRECT_URI, 'grant_type': 'refresh_token'}
+		data = {'redirect_uri': REDIRECT_URI, 'client_secret': CLIENT_SECRET, 'client_id': V2_API_KEY}
+		data.update({'refresh_token': get_setting('trakt.refresh'), 'grant_type': 'refresh_token'})
 		response = call_trakt('oauth/token', data=data, with_auth=False)
-		token, refresh = response['access_token'], response['refresh_token']
 		expires = int(response['created_at']) + int(response['expires_in'])
+		refresh, token = response['refresh_token'], response['access_token']
 		set_setting('trakt.token', token)
 		set_setting('trakt.refresh', refresh)
 		set_setting('trakt.expires', str(expires))
 		return True
-	except: return False
+	except Exception as e: logger('error in trakt_refresh', str(e))
+	return False
 
 def trakt_movies_trending(page_no):
 	string = 'trakt_movies_trending_%s' % page_no
@@ -134,6 +134,10 @@ def trakt_get_hidden_items(list_type):
 	url = {'path': 'users/hidden/%s', 'path_insert': list_type, 'params': {'limit': 1000, 'type': 'show'}, 'with_auth': True, 'pagination': False}
 	return trakt_cache.cache_trakt_object(_process, string, url)
 
+def trakt_droplist(media_type, page_no, letter):
+	results = trakt_get_hidden_items('dropped')
+	return [{'media_ids': {'tmdb': i}} for i in results], 1
+
 def trakt_watched_unwatched(action, media, media_id, tvdb_id=0, season=None, episode=None, key='tmdb'):
 	if action == 'mark_as_watched': url, result_key = 'sync/history', 'added'
 	else: url, result_key = 'sync/history/remove', 'deleted'
@@ -208,12 +212,13 @@ def trakt_watchlist(media_type, page_no, letter):
 	return final_list, total_pages
 
 def trakt_fetch_collection_watchlist(list_type, media_type):
-	key, string_insert = ('movie', 'movie') if media_type in ('movie', 'movies') else ('show', 'tvshow')
+	if media_type in ('movie', 'movies'): key, string_insert, path_insert = ('movie', 'movie', 'movies')
+	else: key, string_insert, path_insert = ('show', 'tvshow', 'shows')
 	collected_at = 'listed_at' if list_type == 'watchlist' else 'collected_at' if media_type in ('movie', 'movies') else 'last_collected_at'
 	premiered = 'released' if key == 'movie' else 'first_aired'
 	string = 'trakt_%s_%s' % (list_type, string_insert)
 	path = 'sync/%s/' % list_type
-	url = {'path': path + '%s', 'path_insert': media_type, 'params': {'extended': 'full'}, 'with_auth': True, 'pagination': False}
+	url = {'path': path + '%s', 'path_insert': path_insert, 'params': {'extended': 'full'}, 'with_auth': True, 'pagination': False}
 	data = trakt_cache.cache_trakt_object(get_trakt, string, url)
 	if list_type == 'watchlist': data = [i for i in data if i['type'] == key]
 	result = [
@@ -268,6 +273,11 @@ def remove_from_collection(data):
 	return result
 
 def hide_unhide_trakt_items(action, media_type, media_id, list_type):
+	if not action in ('hide', 'unhide'):
+		try:
+			hidden_data = set(map(str, trakt_get_hidden_items('dropped')))
+			action = 'unhide' if action in hidden_data else 'hide'
+		except: return kodi_utils.notification(32574)
 	media_type = 'movies' if media_type in ['movie', 'movies'] else 'shows'
 	key = 'tmdb' if media_type == 'movies' else 'imdb'
 	url = 'users/hidden/%s' % list_type if action == 'hide' else 'users/hidden/%s/remove' % list_type
@@ -316,9 +326,10 @@ def get_trakt_list_selection(list_choice=None, highlight=None):
 								'slug': item['list']['ids']['slug']} for item in trakt_get_lists('liked_lists')]
 		liked_lists.sort(key=lambda k: (k['display']))
 		my_lists.extend(liked_lists)
-	else:
-		my_lists.insert(0, {'name': 'Collection', 'display': '[B][I]%s [/I][/B]' % ls(32499).upper(), 'user': 'Collection', 'slug': 'Collection'})
-		my_lists.insert(0, {'name': 'Watchlist', 'display': '[B][I]%s [/I][/B]' % ls(32500).upper(),  'user': 'Watchlist', 'slug': 'Watchlist'})
+#	else:
+#		my_lists.insert(0, {'name': 'Collection', 'display': '[B][I]%s [/I][/B]' % ls(32499).upper(), 'user': 'Collection', 'slug': 'Collection'})
+#		my_lists.insert(0, {'name': 'Watchlist', 'display': '[B][I]%s [/I][/B]' % ls(32500).upper(),  'user': 'Watchlist', 'slug': 'Watchlist'})
+	if not my_lists: return kodi_utils.notification(32760)
 	list_items = [{'line1': item['display'], 'icon': default_icon} for item in my_lists]
 	kwargs = {'items': json.dumps(list_items), 'heading': 'Select list', 'enumerate': 'false', 'multi_choice': 'false', 'multi_line': 'false'}
 	if highlight: kwargs['highlight'] = highlight
@@ -596,6 +607,16 @@ def trakt_get_activity():
 	url = {'path': 'sync/last_activities%s', 'with_auth': True, 'pagination': False}
 	return get_trakt(url)
 
+def trakt_expires(func):
+	def wrapper(*args, **kwargs):
+		if get_setting('trakt_user', ''):
+			expires = float(get_setting('trakt.expires', '0'))
+			refresh = (expires - time.time())//3600 < 8
+			if refresh and trakt_refresh(): kodi_utils.sleep(3000)
+		return func(*args, **kwargs)
+	return wrapper
+
+@trakt_expires
 def trakt_sync_activities(force_update=False):
 	def _get_timestamp(date_time):
 		return int(time.mktime(date_time.timetuple()))
@@ -609,7 +630,7 @@ def trakt_sync_activities(force_update=False):
 	if not get_setting('trakt_user', ''): return 'no account'
 	if force_update:
 		check_databases()
-		trakt_cache.clear_all_trakt_cache_data(silent=True, refresh=False)
+		trakt_cache.clear_all_trakt_cache_data(refresh=False)
 	res_format = '%Y-%m-%dT%H:%M:%S.%fZ'
 	trakt_cache.clear_trakt_calendar()
 	try: latest = trakt_get_activity()
@@ -628,7 +649,7 @@ def trakt_sync_activities(force_update=False):
 	if _compare(latest_episodes['collected_at'], cached_episodes['collected_at']): trakt_cache.clear_trakt_collection_watchlist_data('collection', 'tvshow')
 	if _compare(latest_movies['watchlisted_at'], cached_movies['watchlisted_at']): trakt_cache.clear_trakt_collection_watchlist_data('watchlist', 'movie')
 	if _compare(latest_shows['watchlisted_at'], cached_shows['watchlisted_at']): trakt_cache.clear_trakt_collection_watchlist_data('watchlist', 'tvshow')
-	if _compare(latest_shows['hidden_at'], cached_shows['hidden_at']): trakt_cache.clear_trakt_hidden_data('progress_watched')
+	if _compare(latest_shows['dropped_at'], cached_shows['dropped_at']): trakt_cache.clear_trakt_hidden_data('dropped')
 	if _compare(latest_movies['recommendations_at'], cached_movies['recommendations_at']): trakt_cache.clear_trakt_recommendations('movies')
 	if _compare(latest_shows['recommendations_at'], cached_shows['recommendations_at']): trakt_cache.clear_trakt_recommendations('shows')
 	if _compare(latest_movies['watched_at'], cached_movies['watched_at']): trakt_indicators_movies()
@@ -652,55 +673,42 @@ def trakt_sync_activities(force_update=False):
 	else: trakt_cache.clear_trakt_list_contents_data('liked_lists')
 	return 'success'
 
-def trakt_auth():
-	headers = {'Content-Type': 'application/json', 'trakt-api-version': '2', 'trakt-api-key': V2_API_KEY}
-	code = {'client_id': V2_API_KEY}
-	response = session.post(base_url % 'oauth/device/code', data=json.dumps(code), headers=headers, timeout=timeout).json()
-	device_code = response['device_code']
-	expires_in = int(response['expires_in'])
-	sleep_interval = int(response['interval'])
-	data = {'code': device_code, 'client_id': V2_API_KEY, 'client_secret': CLIENT_SECRET}
+def authorize():
+	data = {'client_id': V2_API_KEY, 'client_secret': CLIENT_SECRET, 'code': ''}
+	response = call_trakt('oauth/device/code', data=data, with_auth=False)
+	data['code'] = response['device_code']
 	try:
-		qr_url = '&color=f00&data=%s' % requests.utils.quote(response['verification_url'])
+		qr_url = '&color=f00&data=%s' % requests.utils.quote('%s/%s' % (response['verification_url'], response['user_code']))
 		qr_icon = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&qzone=1%s' % qr_url
-		kodi_utils.notification(response['verification_url'], icon=qr_icon, time=15000)
 	except: pass
-	verification_url = ls(32700) % response.get('verification_url')
-	user_code = ls(32701) % response.get('user_code')
-	dialog_text = '%s[CR]%s[CR]%s' % ('Authorize Trakt Service', verification_url, user_code)
-	progressDialog = kodi_utils.progressDialog
-	progressDialog.create('POV', dialog_text)
-	token = ''
-	time_passed = expires_in
-	while not token and not progressDialog.iscanceled() and time_passed:
-		progressDialog.update(int(time_passed / expires_in * 100))
-		kodi_utils.sleep(1000)
-		time_passed -= 1
-		if time_passed % sleep_interval: continue
-		response = session.post(base_url % 'oauth/device/token', data=json.dumps(data), headers=headers, timeout=timeout)
-		if response.status_code == 400: continue
-		try: token = response.json()
-		except: kodi_utils.ok_dialog(text=32574, top_space=True)
-	try: progressDialog.close()
-	except: pass
-	if token:
-		kodi_utils.sleep(1000)
-		expires = int(token['created_at']) + int(token['expires_in'])
-		headers['Authorization'] = 'Bearer %s' % token['access_token']
-		response = session.get(base_url % 'users/me', headers=headers, timeout=timeout).json()
-		set_setting('trakt_user', str(response['username']))
-		set_setting('trakt.token', token['access_token'])
-		set_setting('trakt.refresh', token['refresh_token'])
-		set_setting('trakt.expires', str(expires))
-		set_setting('trakt_indicators_active', 'true')
-		set_setting('watched_indicators', '1')
-		kodi_utils.notification('%s: Trakt Authorization' % ls(32576))
-		kodi_utils.sleep(500)
-		trakt_sync_activities(force_update=True)
-		return True
-	return False
+	line2 = '%s, %s' % (ls(32700) % response['verification_url'], ls(32701) % response['user_code'])
+	choices = [
+		('none', 'Use the QR Code to approve access at Trakt', 'Step 1: %s' % line2),
+		('approve', 'Access approved at Trakt', 'Step 2'), 
+		('cancel', 'Cancel', 'Cancel')
+	]
+	list_items = [{'line1': item[1], 'line2': item[2], 'icon': qr_icon} for item in choices]
+	kwargs = {'items': json.dumps(list_items), 'heading': 'Trakt', 'multi_line': 'true'}
+	choice = kodi_utils.select_dialog([i[0] for i in choices], **kwargs)
+	if choice != 'approve': return
+	response = call_trakt('oauth/device/token', data=data, with_auth=False)
+	expires = int(response['created_at']) + int(response['expires_in'])
+	refresh, token = response['refresh_token'], response['access_token']
+	kodi_utils.sleep(500)
+	session.headers['Authorization'] = 'Bearer %s' % token
+	username = call_trakt('users/me')['username']
+	set_setting('trakt_user', str(username))
+	set_setting('trakt.token', token)
+	set_setting('trakt.refresh', refresh)
+	set_setting('trakt.expires', str(expires))
+	set_setting('trakt_indicators_active', 'true')
+	set_setting('watched_indicators', '1')
+	kodi_utils.notification('%s: Trakt Authorization' % ls(32576))
+	kodi_utils.sleep(500)
+	trakt_sync_activities(force_update=True)
+	return True
 
-def trakt_revoke():
+def deauthorize():
 	if not kodi_utils.confirm_dialog(): return
 	data = {'token': get_setting('trakt.token'), 'client_id': V2_API_KEY, 'client_secret': CLIENT_SECRET}
 	response = call_trakt('oauth/revoke', data=data, with_auth=False)

@@ -6,7 +6,7 @@ def years():
 	return range(year, 1899, -1)
 
 oscar_winners = (
-	872585, 545611, 776503, 581734, 496243, 490132, 399055, 376867, 314365, 194662, 76203, 68734, 74643, 45269, 12162, 12405, 6977,
+	1064213, 872585, 545611, 776503, 581734, 496243, 490132, 399055, 376867, 314365, 194662, 76203, 68734, 74643, 45269, 12162, 12405, 6977,
 	1422, 1640, 70, 122, 1574, 453, 98, 14, 1934, 597, 409, 197, 13, 424, 33, 274, 581, 403, 380, 746,
 	792, 606, 279, 11050, 783, 9443, 16619, 12102, 11778, 703, 1366, 510, 240, 9277, 238, 1051, 11202, 3116, 17917, 10633,
 	874, 15121, 11113, 5769, 947, 1725, 284, 665, 17281, 826, 2897, 15919, 654, 11426, 27191, 2769, 705, 25430, 23383, 33667,
@@ -32,27 +32,27 @@ tvshow_certifications = (
 )
 
 languages = (
-	(ls(32861), 'ar'), (ls(32862), 'bs'),   (ls(32863), 'bg'),   (ls(32864), 'zh'),   (ls(32865), 'hr'),   (ls(32866), 'nl'),   (ls(32867), 'en'),
-	(ls(32868), 'fi'), (ls(32869), 'fr'),   (ls(32870), 'de'),   (ls(32871), 'el'),   (ls(32872), 'he'),   (ls(32873), 'hi'),   (ls(32874), 'hu'),
-	(ls(32875), 'is'), (ls(32876), 'it'),   (ls(32877), 'ja'),   (ls(32878), 'ko'),   (ls(32879), 'mk'),   (ls(32880), 'no'),   (ls(32881), 'fa'),
-	(ls(32882), 'pl'), (ls(32883), 'pt'),   (ls(32884), 'pa'),   (ls(32885), 'ro'),   (ls(32886), 'ru'),   (ls(32887), 'sr'),   (ls(32888), 'sl'),
-	(ls(32889), 'es'), (ls(32890), 'sv'),   (ls(32891), 'tr'),   (ls(32892), 'uk')
+	(ls(32861), 'ar'),   (ls(32862), 'bs'),   (ls(32863), 'bg'),   (ls(32864), 'zh'),   (ls(32865), 'hr'),   (ls(32866), 'nl'),   (ls(32867), 'en'),
+	(ls(32868), 'fi'),   (ls(32869), 'fr'),   (ls(32870), 'de'),   (ls(32871), 'el'),   (ls(32872), 'he'),   (ls(32873), 'hi'),   (ls(32874), 'hu'),
+	(ls(32875), 'is'),   (ls(32876), 'it'),   (ls(32877), 'ja'),   (ls(32878), 'ko'),   (ls(32879), 'mk'),   (ls(32880), 'no'),   (ls(32881), 'fa'),
+	(ls(32882), 'pl'),   (ls(32883), 'pt'),   (ls(32884), 'pa'),   (ls(32885), 'ro'),   (ls(32886), 'ru'),   (ls(32887), 'sr'),   (ls(32888), 'sl'),
+	(ls(32889), 'es'),   (ls(32890), 'sv'),   (ls(32891), 'tr'),   (ls(32892), 'uk')
 )
 
 meta_languages = (
-	{'iso': 'ar-SA', 'name': 'Arabic Saudi Arabia'},    {'iso': 'cs', 'name': 'Czech'},
-	{'iso': 'da', 'name': 'Danish'},                    {'iso': 'de', 'name': 'German'},
-	{'iso': 'el', 'name': 'Greek'},                     {'iso': 'en', 'name': 'English'},
-	{'iso': 'es', 'name': 'Spanish'},                   {'iso': 'es-MX', 'name': 'Spanish (Mexico)'},
-	{'iso': 'fi', 'name': 'Finnish'},                   {'iso': 'fr', 'name': 'French'},
-	{'iso': 'h', 'name': 'Hungarian'},                  {'iso': 'he', 'name': 'Hebrew'},
-	{'iso': 'hr', 'name': 'Croatian'},                  {'iso': 'it', 'name': 'Italian'},
-	{'iso': 'ja', 'name': 'Japanese'},                  {'iso': 'ko', 'name': 'Korean'},
-	{'iso': 'nl', 'name': 'Dutch'},                     {'iso': 'no', 'name': 'Norwegian'},
-	{'iso': 'pl', 'name': 'Polish'},                    {'iso': 'pt', 'name': 'Portuguese'},
-	{'iso': 'pt-BR', 'name': 'Portuguese (Brazil)'},    {'iso': 'ru', 'name': 'Russian'},
-	{'iso': 'sl', 'name': 'Slovenian'},                 {'iso': 'sv', 'name': 'Swedish'},
-	{'iso': 'tr', 'name': 'Turkish'},                   {'iso': 'zh', 'name': 'Chinese'}
+	{'name': 'Arabic Saudi Arabia', 'iso': 'ar-SA'},    {'name': 'Czech', 'iso': 'cs'},
+	{'name': 'Danish', 'iso': 'da'},                    {'name': 'German', 'iso': 'de'},
+	{'name': 'Greek', 'iso': 'el'},                     {'name': 'English', 'iso': 'en'},
+	{'name': 'Spanish', 'iso': 'es'},                   {'name': 'Spanish (Mexico)', 'iso': 'es-MX'},
+	{'name': 'Finnish', 'iso': 'fi'},                   {'name': 'French', 'iso': 'fr'},
+	{'name': 'Hebrew', 'iso': 'he'},                    {'name': 'Croatian', 'iso': 'hr'},
+	{'name': 'Hungarian', 'iso': 'hu'},                 {'name': 'Italian', 'iso': 'it'},
+	{'name': 'Japanese', 'iso': 'ja'},                  {'name': 'Korean', 'iso': 'ko'},
+	{'name': 'Dutch', 'iso': 'nl'},                     {'name': 'Norwegian', 'iso': 'no'},
+	{'name': 'Polish', 'iso': 'pl'},                    {'name': 'Portuguese', 'iso': 'pt'},
+	{'name': 'Portuguese (Brazil)', 'iso': 'pt-BR'},    {'name': 'Russian', 'iso': 'ru'},
+	{'name': 'Slovenian', 'iso': 'sl'},                 {'name': 'Swedish', 'iso': 'sv'},
+	{'name': 'Turkish', 'iso': 'tr'},                   {'name': 'Chinese', 'iso': 'zh'}
 )
 
 language_choices =  {

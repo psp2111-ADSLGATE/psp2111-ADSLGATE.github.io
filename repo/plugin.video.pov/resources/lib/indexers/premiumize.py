@@ -5,14 +5,12 @@ from modules.source_utils import supported_video_extensions
 from modules.utils import clean_file_name, normalize
 # from modules.kodi_utils import logger
 
-ls = kodi_utils.local_string
-make_listitem = kodi_utils.make_listitem
-build_url = kodi_utils.build_url
-default_pm_icon = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/premiumize.png')
-fanart = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
+ls, build_url, make_listitem = kodi_utils.local_string, kodi_utils.build_url, kodi_utils.make_listitem
 folder_str, file_str, down_str, archive_str, rename_str, delete_str = ls(32742).upper(), ls(32743).upper(), ls(32747), ls(32982), ls(32748), ls(32785)
-extensions = supported_video_extensions()
-Premiumize = PremiumizeAPI()
+fanart = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
+default_icon = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/premiumize.png')
+default_art = {'icon': default_icon, 'poster': default_icon, 'thumb': default_icon, 'fanart': fanart, 'banner': default_icon}
+Premiumize, extensions = PremiumizeAPI(), supported_video_extensions()
 
 def pm_torrent_cloud(folder_id=None, folder_name=None):
 	def _builder():
@@ -43,7 +41,7 @@ def pm_torrent_cloud(folder_id=None, folder_name=None):
 					display = '%02d | [B]%s[/B] | %.2f GB | [I]%s [/I]' % (count, file_str, display_size, name)
 					url_params = {'mode': 'media_play', 'url': url_link, 'media_type': 'video'}
 					down_file_params = {'mode': 'downloader', 'name': item['name'], 'url': url_link,
-										'action': 'cloud.premiumize', 'image': default_pm_icon}
+										'action': 'cloud.premiumize', 'image': default_icon}
 					cm_append((download_string, 'RunPlugin(%s)' % build_url(down_file_params)))
 				cm_append((rename_str % file_type.capitalize(), 'RunPlugin(%s)' % build_url(rename_params)))
 				cm_append(('[B]%s %s[/B]' % (delete_str, string.capitalize()), 'RunPlugin(%s)' % build_url(delete_params)))
@@ -51,14 +49,13 @@ def pm_torrent_cloud(folder_id=None, folder_name=None):
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
-				listitem.setArt({'icon': default_pm_icon, 'poster': default_pm_icon, 'thumb': default_pm_icon, 'fanart': fanart, 'banner': default_pm_icon})
+				listitem.setArt(default_art)
 				yield (url, listitem, is_folder)
 			except: pass
-	try:
-		cloud_files = [i for i in Premiumize.user_cloud(folder_id)['content'] if ('link' in i and i['link'].lower().endswith(tuple(extensions))) or i['type'] == 'folder']
-		cloud_files.sort(key=lambda k: k['name'])
-		cloud_files.sort(key=lambda k: k['type'], reverse=True)
+	try: cloud_files = [i for i in Premiumize.user_cloud(folder_id)['content'] if ('link' in i and i['link'].lower().endswith(tuple(extensions))) or i['type'] == 'folder']
 	except: cloud_files = []
+	cloud_files.sort(key=lambda k: k['name'])
+	cloud_files.sort(key=lambda k: k['type'], reverse=True)
 	__handle__ = int(argv[1])
 	kodi_utils.add_items(__handle__, list(_builder()))
 	kodi_utils.set_content(__handle__, 'files')
@@ -93,13 +90,13 @@ def pm_transfers():
 					display = '%02d | %s%% | [B]%s[/B] | %.2f GB | [I]%s [/I]' % (count, str(progress), file_str, display_size, name)
 					url_params = {'mode': 'media_play', 'url': url_link, 'media_type': 'video'}
 					down_file_params = {'mode': 'downloader', 'name': item['name'], 'url': url_link,
-										'media_type': 'cloud.premiumize', 'image': default_pm_icon}
+										'media_type': 'cloud.premiumize', 'image': default_icon}
 					cm.append((down_str,'RunPlugin(%s)' % build_url(down_file_params)))
 				url = build_url(url_params)
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
-				listitem.setArt({'icon': default_pm_icon, 'poster': default_pm_icon, 'thumb': default_pm_icon, 'fanart': fanart, 'banner': default_pm_icon})
+				listitem.setArt(default_art)
 				yield (url, listitem, is_folder)
 			except: pass
 	try: transfer_files = Premiumize.transfers_list()['transfers']

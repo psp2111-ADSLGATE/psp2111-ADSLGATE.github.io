@@ -19,9 +19,10 @@ from resources.lib.modules.source_utils import supported_video_extensions
 getLS = control.lang
 getSetting = control.setting
 base_url = 'https://api.alldebrid.com/v4/'
+base_url_2 = 'https://api.alldebrid.com/v4.1/'
 user_agent = 'Umbrella'
 ad_icon = control.joinPath(control.artPath(), 'alldebrid.png')
-ad_qr = control.joinPath(control.artPath(), 'alldebridqr.png')
+#ad_qr = control.joinPath(control.artPath(), 'alldebridqr.png')
 addonFanart = control.addonFanart()
 invalid_extensions = ('.bmp', '.exe', '.gif', '.jpg', '.nfo', '.part', '.png', '.rar', '.sample.', '.srt', '.txt', '.zip', '.clpi', '.mpls', '.bdmv', '.xml', '.crt', 'crl', 'sig')
 
@@ -100,8 +101,10 @@ class AllDebrid:
 
 	def auth_loop(self):
 		control.sleep(5000)
-		response = session.get(self.check_url, timeout=self.timeout).json()
-		response = response['data']
+		data = {'check': self.check, 'pin': self.pin}
+		url = base_url + 'pin/check'
+		response = session.post(url, data).json()
+		response = response.get('data')
 		if 'error' in response:
 			self.token = 'failed'
 			control.notification(message=40021, icon=ad_icon)
@@ -121,18 +124,21 @@ class AllDebrid:
 
 	def auth(self, fromSettings=0):
 		self.token = ''
-		url = base_url + 'pin/get?agent=%s' % user_agent
+		url = base_url_2 + 'pin/get?agent=%s' % user_agent
 		response = session.get(url, timeout=self.timeout).json()
 		response = response['data']
 		line = '%s\n%s'
 		if control.setting('dialogs.useumbrelladialog') == 'true':
+			from resources.lib.modules import tools
+			ad_qr = tools.make_qr(f"https://alldebrid.com/pin?pin={response['pin']}")
 			self.progressDialog = control.getProgressWindow(getLS(40056), ad_qr, 1)
 			self.progressDialog.set_controls()
 		else:
 			self.progressDialog = control.progressDialog
 			self.progressDialog.create(getLS(40056))
 		self.progressDialog.update(-1, line % (getLS(32513) % (self.highlight_color,'https://alldebrid.com/pin/'), getLS(32514) % (self.highlight_color,response['pin'])))
-		self.check_url = response.get('check_url')
+		self.check = response.get('check')
+		self.pin = response.get('pin')
 		control.sleep(2000)
 		while not self.token:
 			if self.progressDialog.iscanceled():
@@ -141,13 +147,13 @@ class AllDebrid:
 			self.auth_loop()
 		if self.token in (None, '', 'failed'):
 			if fromSettings == 1:
-				control.openSettings('10.0', 'plugin.video.umbrella')
+				control.openSettings('9.0', 'plugin.video.umbrella')
 			return
 		control.sleep(2000)
 		account_info = self._get('user')
 		control.setSetting('alldebridusername', str(account_info['user']['username']))
 		if fromSettings == 1:
-			control.openSettings('10.0', 'plugin.video.umbrella')
+			control.openSettings('9.0', 'plugin.video.umbrella')
 		control.notification(message=40010, icon=ad_icon)
 		log_utils.log(40010, __name__, log_utils.LOGWARNING)
 
@@ -156,7 +162,7 @@ class AllDebrid:
 			control.setSetting('alldebridtoken', '')
 			control.setSetting('alldebridusername', '')
 			if fromSettings == 1:
-				control.openSettings('10.0', 'plugin.video.umbrella')
+				control.openSettings('9.0', 'plugin.video.umbrella')
 			control.okDialog(title=40059, message=40009)
 		except: log_utils.error()
 

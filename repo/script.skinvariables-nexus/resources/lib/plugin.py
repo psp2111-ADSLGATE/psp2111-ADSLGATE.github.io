@@ -12,29 +12,35 @@ class Plugin():
             'module_name': 'resources.lib.lists.playerstreams',
             'import_attr': 'ListSetPlayerStreams'},
         'get_dbitem_movieset_details': {
-            'module_name': 'resources.lib.lists.rpcdetails',
+            'module_name': 'jurialmunkey.jrpcid',
             'import_attr': 'ListGetMovieSetDetails'},
         'get_dbitem_movie_details': {
-            'module_name': 'resources.lib.lists.rpcdetails',
+            'module_name': 'jurialmunkey.jrpcid',
             'import_attr': 'ListGetMovieDetails'},
         'get_dbitem_tvshow_details': {
-            'module_name': 'resources.lib.lists.rpcdetails',
+            'module_name': 'jurialmunkey.jrpcid',
             'import_attr': 'ListGetTVShowDetails'},
         'get_dbitem_season_details': {
-            'module_name': 'resources.lib.lists.rpcdetails',
+            'module_name': 'jurialmunkey.jrpcid',
             'import_attr': 'ListGetSeasonDetails'},
         'get_dbitem_episode_details': {
-            'module_name': 'resources.lib.lists.rpcdetails',
+            'module_name': 'jurialmunkey.jrpcid',
             'import_attr': 'ListGetEpisodeDetails'},
         'get_dbitem_addon_details': {
-            'module_name': 'resources.lib.lists.rpcdetails',
+            'module_name': 'jurialmunkey.jrpcid',
             'import_attr': 'ListGetAddonDetails'},
         'get_number_sum': {
             'module_name': 'resources.lib.lists.koditools',
             'import_attr': 'ListGetNumberSum'},
+        'get_refresh_counter': {
+            'module_name': 'resources.lib.lists.koditools',
+            'import_attr': 'ListGetRefreshCounter'},
         'get_split_string': {
             'module_name': 'resources.lib.lists.koditools',
             'import_attr': 'ListGetSplitString'},
+        'get_argb_colors': {
+            'module_name': 'resources.lib.lists.koditools',
+            'import_attr': 'ListGetARGBColors'},
         'get_jsonrpc': {
             'module_name': 'resources.lib.lists.koditools',
             'import_attr': 'ListGetJSONRPC'},
@@ -47,6 +53,9 @@ class Plugin():
         'get_selected_item': {
             'module_name': 'resources.lib.lists.koditools',
             'import_attr': 'ListGetSelectedItem'},
+        'get_dotted_properties': {
+            'module_name': 'resources.lib.lists.koditools',
+            'import_attr': 'ListGetDottedProperties'},
         'run_executebuiltin': {
             'module_name': 'resources.lib.lists.koditools',
             'import_attr': 'ListRunExecuteBuiltin'},

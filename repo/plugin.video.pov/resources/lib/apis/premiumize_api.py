@@ -1,3 +1,4 @@
+import json
 import re
 import requests
 from sys import exit as sysexit
@@ -110,7 +111,7 @@ class PremiumizeAPI:
 			if season:
 				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
 			else:
-				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
+				selected_files = [i for i in selected_files if not any(x in i['filename'].lower() for x in extras_filtering_list)]
 				selected_files.sort(key=lambda k: k['size'], reverse=True)
 			if not selected_files: return None
 			file_key = selected_files[0]['link']
@@ -255,46 +256,37 @@ class PremiumizeAPI:
 		except: pass
 		return hosts_dict
 
-	def auth(self):
+	def authorize(self):
 		data = {'client_id': self.client_id, 'response_type': 'device_code'}
 		url = 'https://www.premiumize.me/token'
-		response = session.post(url, data=data, timeout=timeout).json()
-		device_code = response['device_code']
-		expires_in = int(response['expires_in'])
-		sleep_interval = int(response['interval'])
-		data = {'client_id': self.client_id, 'code': device_code, 'grant_type': 'device_code'}
+		response = requests.post(url, data=data, timeout=timeout)
+		result = response.json()
+		data = {'client_id': self.client_id, 'code': result['device_code'], 'grant_type': 'device_code'}
 		try:
-			qr_url = '&data=%s' % requests.utils.quote(response['verification_uri'])
+			qr_url = '&data=%s' % requests.utils.quote(result['verification_uri'])
 			qr_icon = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&qzone=1%s' % qr_url
-			kodi_utils.notification(response['verification_uri'], icon=qr_icon, time=15000)
 		except: pass
-		line = '%s[CR]%s[CR]%s'
-		dialog_text = line % (ls(32517), ls(32700) % response.get('verification_uri'), ls(32701) % response.get('user_code'))
-		progressDialog = kodi_utils.progressDialog
-		progressDialog.create('POV', dialog_text)
-		self.token = ''
-		time_passed = expires_in
-		while not self.token and not progressDialog.iscanceled() and time_passed:
-			progressDialog.update(int(time_passed / expires_in * 100))
-			kodi_utils.sleep(1000)
-			time_passed -= 1
-			if time_passed % sleep_interval: continue
-			response = session.post(url, data=data, timeout=timeout).json()
-			if 'error' in response: continue
-			try: self.token = str(response['access_token'])
-			except: kodi_utils.ok_dialog(text=32574, top_space=True)
-		try: progressDialog.close()
-		except: pass
-		if self.token:
-			kodi_utils.sleep(1000)
-			account_info = self.account_info()
-			set_setting('pm.account_id', str(account_info['customer_id']))
-			set_setting('pm.token', self.token)
-			kodi_utils.notification('%s %s' % (ls(32576), ls(32061)))
-			return True
-		return False
+		line2 = '%s, %s' % (ls(32700) % result['verification_uri'], ls(32701) % result['user_code'])
+		choices = [
+			('none', 'Use the QR Code to approve access at Premiumize.me', 'Step 1: %s' % line2),
+			('approve', 'Access approved at Premiumize.me', 'Step 2'), 
+			('cancel', 'Cancel', 'Cancel')
+		]
+		list_items = [{'line1': item[1], 'line2': item[2], 'icon': qr_icon} for item in choices]
+		kwargs = {'items': json.dumps(list_items), 'heading': 'Premiumize.me', 'multi_line': 'true'}
+		choice = kodi_utils.select_dialog([i[0] for i in choices], **kwargs)
+		if choice != 'approve': return
+		response = session.post(url, data=data, timeout=timeout)
+		result = response.json()
+		self.token = str(result['access_token'])
+		kodi_utils.sleep(500)
+		username = str(self.account_info()['customer_id'])
+		set_setting('pm.account_id', username)
+		set_setting('pm.token', self.token)
+		kodi_utils.notification('%s %s' % (ls(32576), ls(32061)))
+		return True
 
-	def revoke_auth(self):
+	def deauthorize(self):
 		if not kodi_utils.confirm_dialog(): return
 		set_setting('pm.account_id', '')
 		set_setting('pm.token', '')

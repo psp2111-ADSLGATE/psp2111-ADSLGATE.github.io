@@ -89,7 +89,7 @@ class EasyDebridAPI:
 				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
 			else:
 				if self._m2ts_check(selected_files): raise Exception('_m2ts_check failed')
-				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
+				selected_files = [i for i in selected_files if not any(x in i['filename'].lower() for x in extras_filtering_list)]
 				selected_files.sort(key=lambda k: k['size'], reverse=True)
 			if not selected_files: return None
 			file_url = selected_files[0]['url']

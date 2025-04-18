@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC-Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: 2014-10-26 17:05+0000\n"
-"PO-Revision-Date: 2023-08-04 08:19+0000\n"
+"PO-Revision-Date: 2024-10-31 08:19+0000\n"
 "Last-Translator: Havokdan <havokdan@yahoo.com.br>\n"
 "Language-Team: Português do Brasil\n"
 "MIME-Version: 1.0\n"
@@ -550,7 +550,7 @@ msgstr "Adicionado"
 #: /resources/lib/container.py
 msgctxt "#32107"
 msgid "Set Match Method"
-msgstr "Definir método de correspondência"
+msgstr "Definir Método de Correspondência"
 
 #: /resources/lib/container.py
 msgctxt "#32108"
@@ -560,12 +560,12 @@ msgstr "Escolha o método de correspondência para parâmetros com vários valor
 #: /resources/lib/container.py
 msgctxt "#32109"
 msgid "Match ANY Value"
-msgstr "Correspondente a QUAISQUER valor"
+msgstr "Corresponder a QUAISQUER valor"
 
 #: /resources/lib/container.py
 msgctxt "#32110"
 msgid "Match ALL Values"
-msgstr "Correspondente a TODO valor"
+msgstr "Corresponder a TODOS os valores"
 
 #: /resources/lib/container.py
 msgctxt "#32111"
@@ -1223,7 +1223,7 @@ msgstr "Correspondência"
 #: /resources/lib/userdiscover.py
 msgctxt "#32240"
 msgid "Sorting"
-msgstr "Classificando"
+msgstr "Ordenando"
 
 #: /resources/lib/userdiscover.py
 msgctxt "#32241"
@@ -1428,7 +1428,7 @@ msgstr "Última Quinzena"
 #: /resources/lib/basedir.py
 msgctxt "#32281"
 msgid "Last Week"
-msgstr "Última Seman"
+msgstr "Última Semana"
 
 #: /resources/lib/basedir.py
 msgctxt "#32282"
@@ -1967,7 +1967,7 @@ msgstr "Número de Reproduções"
 #: /resources/settings.xml
 msgctxt "#32378"
 msgid "Show All"
-msgstr "Mostrar Todos"
+msgstr "Mostrar Tudo"
 
 #: /resources/settings.xml
 msgctxt "#32379"
@@ -2139,7 +2139,7 @@ msgstr "Localização do banco de dados de cache"
 #: /resources/settings.xml
 msgctxt "#32410"
 msgid "Max concurrent threads (0 is unlimited)"
-msgstr "Máximo de threads simultâneos (0 é ilimitado)"
+msgstr "Máximo de processos simultâneos (0 é ilimitado)"
 
 #: /resources/lib/items/basedir.py
 msgctxt "#32411"
@@ -2239,7 +2239,7 @@ msgstr "Navegue pela URL de pesquisa do SERIADO"
 #: /resources/lib/player/configure.py
 msgctxt "#32430"
 msgid "Enter a name for this player"
-msgstr "Digite um nome para este reprodutor"
+msgstr "Digite um nome para este player"
 
 #: /resources/lib/player/configure.py
 msgctxt "#32431"
@@ -2314,7 +2314,7 @@ msgstr "Selecionar regra ou chave listitem"
 #: /resources/lib/player/configure.py
 msgctxt "#32445"
 msgid "Edit Rules for Step {}"
-msgstr "Editar regras para o passo {}"
+msgstr "Editar Regras para o Passo {}"
 
 #: /resources/lib/player/configure.py
 msgctxt "#32446"
@@ -2339,7 +2339,7 @@ msgstr "Ignorar filtro de liberação de região"
 #: /resources/settings.xml
 msgctxt "#32450"
 msgid "Install context menu add-on"
-msgstr "Instalar complemento do menu de contexto"
+msgstr "Instalar addon do menu de contexto"
 
 #: /resources/lib/api/trakt/api.py
 msgctxt "#32451"
@@ -2434,7 +2434,7 @@ msgstr "Notificações de autorização e sincronização na inicialização"
 #: /resources/settings.xml
 msgctxt "#32469"
 msgid "Ignore articles when sorting alphabetically"
-msgstr "Ignorar artigos ao classificar alfabeticamente"
+msgstr "Ignorar artigos ao ordenar alfabeticamente"
 
 #: /resources/settings.xml
 msgctxt "#32470"
@@ -2449,7 +2449,7 @@ msgstr "Notificações de erro de conexão"
 #: /resources/settings.xml
 msgctxt "#32472"
 msgid "Cache image location"
-msgstr "Localização Imagem de cache"
+msgstr "Localização imagem de cache"
 
 #: /resources/lib/api/trakt/api.py
 msgctxt "#32473"
@@ -2459,12 +2459,12 @@ msgstr "Coletado"
 #: /resources/lib/script/method.py
 msgctxt "#32474"
 msgid "Successfully added {} as default player for {}"
-msgstr "Adicionado com sucesso {} como reprodutor padrão para {}"
+msgstr "Adicionado com sucesso {} como player padrão para {}"
 
 #: /resources/lib/script/method.py
 msgctxt "#32475"
 msgid "Successfully cleared default player for {}"
-msgstr "Reprodutor padrão limpo com sucesso para {}"
+msgstr "Player padrão limpo com sucesso para {}"
 
 #: /resources/lib/items/listitem.py
 msgctxt "#32476"
@@ -2489,7 +2489,7 @@ msgstr "Algumas plataformas apresentam travamentos ao atualizar itens de lista d
 #: /resources/settings.xml
 msgctxt "#32480"
 msgid "Readahead caching of service listitems"
-msgstr "Cache readahead de itens de lista de serviço"
+msgstr "Cache de leitura antecipada de itens de lista de serviço"
 
 #: /resources/settings.xml
 msgctxt "#32481"
@@ -2534,7 +2534,7 @@ msgstr "Certificação ( > ou = )"
 #: /resources/tmdbhelper/lib/script/sync.py
 msgctxt "#32489"
 msgid "Change rating"
-msgstr "Alterar classificação"
+msgstr "Alterar avaliação"
 
 #: /resources/tmdbhelper/lib/script/sync.py
 msgctxt "#32490"
@@ -2564,7 +2564,7 @@ msgstr "Adicionado com sucesso {} a {}"
 #: /resources/tmdbhelper/lib/script/method.py
 msgctxt "#32495"
 msgid "Create new node"
-msgstr "Criar novo node"
+msgstr "Criar novo nó"
 
 #: /resources/tmdbhelper/lib/items/container.py
 msgctxt "#32496"
@@ -2609,7 +2609,7 @@ msgstr "Multiplicador de páginas (janelas de biblioteca)"
 #: /resources/tmdbhelper/lib/script/method.py
 msgctxt "#32504"
 msgid "Add {} to node"
-msgstr "Adicionar {} ao node"
+msgstr "Adicionar {} ao nó"
 
 #: /resources/settings.xml
 msgctxt "#32505"
@@ -2629,7 +2629,107 @@ msgstr "Pasta de ícones de gênero (Trakt)"
 #: /resources/settings.xml
 msgctxt "#32508"
 msgid "Recache Kodi Library details when building players"
-msgstr "Recache os detalhes da biblioteca Kodi ao construir players"
+msgstr "Rearmazenar os detalhes da Biblioteca do Kodi ao criar os players"
+
+#: /resources/settings.xml
+msgctxt "#32509"
+msgid "Use alternative TMDb API url"
+msgstr "Usar url alternativa para API do TMDb"
+
+#: /resources/settings.xml
+msgctxt "#32510"
+msgid "Items only"
+msgstr "Apenas itens"
+
+#: /resources/settings.xml
+msgctxt "#32511"
+msgid "Items"
+msgstr "Itens"
+
+#: /resources/settings.xml
+msgctxt "#32512"
+msgid "Cache disk reads to memory"
+msgstr "Leituras de disco de cache na memória"
+
+#: /resources/settings.xml
+msgctxt "#32513"
+msgid "MDbList options"
+msgstr "Opções mdblist"
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32514"
+msgid "Add to MDbList list"
+msgstr "Adicionar à lista MDBlist"
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32515"
+msgid "Already exists in list."
+msgstr "Já existe na lista."
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32516"
+msgid "MDbList API credentials not found."
+msgstr "Credenciais da API do MDBLIST não encontradas."
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32517"
+msgid "Add your personal MDbList API key in TMDbHelper settings."
+msgstr "Adicionar sua chave API MDBLIST pessoal nas configurações do TMDBHelper."
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32518"
+msgid "No static lists found for current MDbList user."
+msgstr "Nenhuma lista estática encontrada para o usuário atual do MDBLIST."
+
+#: /resources/tmdbhelper/lib/script/sync.py
+msgctxt "#32519"
+msgid "Remove from MDbList list"
+msgstr "Remover da lista MDBlist"
+
+#: /resources/settings.xml
+msgctxt "#32520"
+msgid "TMDb"
+msgstr "TMDb"
+
+#: /resources/tmdbhelper/lib/addon/consts.py
+msgctxt "#32521"
+msgid "Rated"
+msgstr "Avaliado"
+
+#: /resources/settings.xml
+msgctxt "#32522"
+msgid "TMDb user options"
+msgstr "Opções do usuário do TMDB"
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32523"
+msgid "Add/Remove from TMDb user list"
+msgstr "Adicionar/Remover da lista de usuários do TMDB"
+
+#: /resources/tmdbhelper/lib/api/tmdb/useritemmethods.py
+msgctxt "#32524"
+msgid "User lists"
+msgstr "Listas de usuários"
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32525"
+msgid "Add/Remove from TMDb favourites"
+msgstr "Adicionar/Remover dos favoritos do TMDB"
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32526"
+msgid "Add/Remove from TMDb watchlist"
+msgstr "Adicionar/Remover da lista de observação do TMDB"
+
+#: /resources/tmdbhelper/lib/api/tmdb/useritemmethods.py
+msgctxt "#32527"
+msgid "Remove from {}"
+msgstr "Remover de {}"
+
+#: /resources/tmdbhelper/lib/api/tmdb/useritemmethods.py
+msgctxt "#32528"
+msgid "Add to {}"
+msgstr "Adicionar a {}"
 
 msgctxt "#30030"
 msgid "Hindi (India)"
@@ -2786,22 +2886,22 @@ msgstr "Zulu (África do Sul)"
 #: /resources/settings.xml
 msgctxt "#32000"
 msgid "TMDb API key"
-msgstr "Chave TMDb API"
+msgstr "Chave API do TMDb"
 
 #: /resources/settings.xml
 msgctxt "#32001"
 msgid "OMDb API key"
-msgstr "Chave OMDb API"
+msgstr "Chave API do OMDb"
 
 #: /resources/settings.xml
 msgctxt "#32002"
 msgid "Days to cache details"
-msgstr "Dias para armazenar detalhes em cache"
+msgstr "Dias para armazenar detalhes"
 
 #: /resources/settings.xml
 msgctxt "#32003"
 msgid "Days to cache lists"
-msgstr "Dias para listas de cache"
+msgstr "Dias para armazenar listas"
 
 #: /resources/settings.xml
 msgctxt "#32004"
@@ -2916,9 +3016,9 @@ msgstr "Player padrão para episódios"
 #: /resources/settings.xml
 msgctxt "#32026"
 msgid "Choose default players"
-msgstr "Escolher players padrão"
+msgstr "Escolher players padrões"
 
 #: /resources/settings.xml
 msgctxt "#32027"
 msgid "Clear default players"
-msgstr "Limpar players padrão"
+msgstr "Limpar players padrões"

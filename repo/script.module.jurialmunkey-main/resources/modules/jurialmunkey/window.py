@@ -184,18 +184,6 @@ class WindowChecker():
         return self.window_xml_dict[key] or tuple()
 
     @property
-    def xbmcgui_home_window(self):
-        try:
-            return self._xbmcgui_home_window
-        except AttributeError:
-            try:
-                window = xbmcgui.Window(10000)
-            except RuntimeError:
-                return
-            self._xbmcgui_home_window = window
-            return self._xbmcgui_home_window
-
-    @property
     def previous_window(self):
         try:
             return self._previous_window
@@ -222,7 +210,7 @@ class WindowChecker():
 
     def get_window_property(self, key, is_type=None, is_home=False):
         try:
-            window = self.xbmcgui_home_window if is_home else xbmcgui.Window(self.current_window)
+            window = xbmcgui.Window(10000) if is_home else xbmcgui.Window(self.current_window)
         except RuntimeError:
             return
         if not window:
@@ -259,6 +247,27 @@ def set_to_windowprop(text, x, window_prop, window_id=None):
     if x == 0:
         xbmc.executebuiltin(f'SetProperty({window_prop},{text}{f",{window_id}" if window_id else ""})')
     xbmc.executebuiltin(f'SetProperty({window_prop}.{x},{text}{f",{window_id}" if window_id else ""})')
+
+
+def clear_windowprops(window_prop, window_id=None, keys_prop=None, keys=None):
+    if not window_prop:
+        return
+
+    # Default properties
+    xbmc.executebuiltin(f'ClearProperty({window_prop}{f",{window_id}" if window_id else ""})')
+    xbmc.executebuiltin(f'ClearProperty({window_prop}.0{f",{window_id}" if window_id else ""})')
+
+    # Special property with list of keys for the properties that were set
+    if keys_prop is not None:
+        keys = xbmc.getInfoLabel(f'Window({window_id if window_id else ""}).Property({window_prop}.{keys_prop})') or ''
+        keys = keys.split('||')
+        xbmc.executebuiltin(f'ClearProperty({window_prop}.{keys_prop}{f",{window_id}" if window_id else ""})')
+
+    if not keys:
+        return
+
+    for key in keys:
+        xbmc.executebuiltin(f'ClearProperty({window_prop}.{key}{f",{window_id}" if window_id else ""})')
 
 
 def _property_is_value(name, value):
@@ -354,17 +363,40 @@ class WindowProperty():
     def __init__(self, *args, prefix='TMDbHelper'):
         """ ContextManager for setting a WindowProperty over duration """
         self.property_pairs = args
+        self.window_property_setter = WindowPropertySetter()
         self.prefix = prefix
-        self.window = xbmcgui.Window(10000)
 
         for k, v in self.property_pairs:
             if not k or not v:
                 continue
-            self.window.setProperty(f'{self.prefix}.{k}', f'{v}')
+            self.window_property_setter.get_property(f'{k}', set_property=f'{v}', prefix=self.prefix)
 
     def __enter__(self):
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         for k, v in self.property_pairs:
-            self.window.clearProperty(f'{self.prefix}.{k}')
+            self.window_property_setter.get_property(f'{k}', clear_property=True, prefix=self.prefix)
+
+
+class WindowPropertySetter():
+    window_id = 10000
+
+    def get_window(self):
+        try:
+            return xbmcgui.Window(self.window_id)
+        except RuntimeError:
+            return
+
+    def get_property(self, name, set_property=None, clear_property=False, is_type=None, prefix='TMDbHelper'):
+        _win = self.get_window()
+        try:
+            name = f'{prefix}.{name}'
+            ret_property = set_property or _win.getProperty(name)
+            if clear_property:
+                _win.clearProperty(name)
+            if set_property is not None:
+                _win.setProperty(name, f'{set_property}')
+        except AttributeError:  # In case no window returned
+            pass
+        return try_type(ret_property, is_type or str)

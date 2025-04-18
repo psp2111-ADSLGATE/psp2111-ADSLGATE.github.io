@@ -2,13 +2,13 @@ import xbmc
 from timeit import default_timer as timer
 
 
-def kodi_try_except_internal_traceback(log_msg, exception_type=Exception):
+def kodi_try_except_internal_traceback(log_msg):
     """ Decorator to catch exceptions and notify error for uninterruptable services """
     def decorator(func):
         def wrapper(self, *args, **kwargs):
             try:
                 return func(self, *args, **kwargs)
-            except exception_type as exc:
+            except Exception as exc:
                 self.kodi_traceback(exc, log_msg)
         return wrapper
     return decorator
@@ -33,7 +33,10 @@ class Logger():
             if isinstance(value, bytes):
                 value = value.decode('utf-8')
             logvalue = f'{self._addon_logname}{value}'
-            if level == 2 and self._debug_logging:
+            if level == 3 and self._debug_logging:
+                import traceback
+                xbmc.log(f'{logvalue}\n{traceback.print_stack()}', level=xbmc.LOGINFO)
+            elif level == 2 and self._debug_logging:
                 xbmc.log(logvalue, level=xbmc.LOGINFO)
             elif level == 1:
                 xbmc.log(logvalue, level=xbmc.LOGINFO)
@@ -42,26 +45,26 @@ class Logger():
         except Exception as exc:
             xbmc.log(f'Logging Error: {exc}', level=xbmc.LOGINFO)
 
-    def kodi_traceback(self, exception, log_msg=None, log_level=1, notification=True):
-        """ Method for logging caught exceptions and notifying user """
+    def kodi_traceback(self, exception_object, log_msg=None, log_level=1, notification=True):
+        """ Method for logging caught exception_objects and notifying user """
         if notification:
             from xbmcgui import Dialog
             Dialog().notification(self._notification_head, self._notification_text)
-        msg = f'Error Type: {type(exception).__name__}\nError Contents: {exception.args!r}'
+        msg = f'Error Type: {type(exception_object).__name__}\nError Contents: {exception_object.args!r}'
         msg = [log_msg, '\n', msg, '\n'] if log_msg else [msg, '\n']
         try:
             import traceback
-            self.kodi_log(msg + traceback.format_tb(exception.__traceback__), log_level)
+            self.kodi_log(msg + traceback.format_tb(exception_object.__traceback__), log_level)
         except Exception as exc:
             self.kodi_log(f'ERROR WITH TRACEBACK!\n{exc}\n{msg}', log_level)
 
-    def kodi_try_except(self, log_msg, exception_type=Exception):
+    def kodi_try_except(self, log_msg):
         """ Decorator to catch exceptions and notify error for uninterruptable services """
         def decorator(func):
             def wrapper(*args, **kwargs):
                 try:
                     return func(*args, **kwargs)
-                except exception_type as exc:
+                except Exception as exc:
                     self.kodi_traceback(exc, log_msg)
             return wrapper
         return decorator
@@ -91,25 +94,6 @@ class Logger():
             if v and k in _threaded:
                 timer_log.append(f'\n{k}:\n{" ".join([f"{i:.3f} " for i in v])}\n')
         self.kodi_log(timer_log, 1)
-
-
-class TryExceptLog():
-    def __init__(self, exc_types=[Exception], log_msg=None, log_level=1, kodi_log=None):
-        """ ContextManager to allow exception passing and log """
-        self.log_msg = log_msg
-        self.exc_types = exc_types
-        self.log_level = log_level
-        self.kodi_log = kodi_log or Logger().kodi_log
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_value, exc_traceback):
-        if exc_type and exc_type not in self.exc_types:
-            return
-        if self.log_level:
-            self.kodi_log(f'{self.log_msg or "ERROR PASSED"}: {exc_type}', self.log_level)
-        return True
 
 
 class TimerList():

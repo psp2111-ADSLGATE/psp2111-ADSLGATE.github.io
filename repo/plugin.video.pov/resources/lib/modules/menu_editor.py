@@ -178,10 +178,11 @@ class MenuEditor:
 			for item in choice_items:
 				item_get = item.get
 				line1 = ls(item_get('name', '')).replace('[B]', '').replace('[/B]', '')
-				line2 = pos_str % (menu_name.replace('[B]', '').replace('[/B]', ''), line1 or ls(item_get('list_name')) if position_list else '')
+				line2 = pos_str % (menu_name, line1 or ls(item_get('list_name')) if position_list else '')
 				try: icon = item_get('iconImage', 'discover.png') if item_get('network_id', None) else tp(icon_directory % item_get('iconImage'))
 				except: icon = tp(icon_directory % 'discover.png')
 				yield {'line1': line1, 'line2': line2, 'icon':icon}
+		menu_name = menu_name.replace('[B]', '').replace('[/B]', '')
 		list_items = list(_builder())
 		if position_list: list_items.insert(0, {'line1': top_str, 'line2': top_pos_str % menu_name, 'icon': tp(icon_directory % 'top.png')})
 		index_list = [list_items.index(i) for i in list_items]

@@ -1,10 +1,6 @@
 import sys
-from urllib.parse import parse_qsl
-#from xbmc import getInfoLabel
-from modules.router import routing
+from modules.router import Router
 
 if __name__ == '__main__':
-	params = dict(parse_qsl(sys.argv[2][1:]))
-	routing(params)
-#	if 'pov' not in getInfoLabel('Container.PluginName'): sys.exit(1)
+	with Router() as r: r.routing(sys)
 

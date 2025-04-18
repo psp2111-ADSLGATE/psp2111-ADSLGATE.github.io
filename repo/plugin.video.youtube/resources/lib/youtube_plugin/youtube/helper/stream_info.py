@@ -10,11 +10,11 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
+from base64 import urlsafe_b64encode
 from json import dumps as json_dumps, loads as json_loads
 from os import path as os_path
 from random import choice as random_choice
 from re import compile as re_compile
-from traceback import format_stack
 
 from .ratebypass import ratebypass
 from .signature.cipher import Cipher
@@ -36,7 +36,12 @@ from ...kodion.compatibility import (
 )
 from ...kodion.constants import PATHS, TEMP_PATH
 from ...kodion.network import get_connect_address
-from ...kodion.utils import make_dirs, merge_dicts, redact_ip
+from ...kodion.utils import (
+    format_stack,
+    make_dirs,
+    merge_dicts,
+    redact_ip_in_uri,
+)
 from ...kodion.utils.datetime_parser import fromtimestamp
 
 
@@ -811,8 +816,8 @@ class StreamInfo(YouTubeRequestClient):
             # Some restricted videos require additional requests for subtitles
             # Limited audio stream availability with some clients
             'mpd': (
-                'android_youtube_tv',
                 'android_vr',
+                'android_youtube_tv',
             ),
             # Progressive streams
             # Limited video and audio stream availability
@@ -1223,7 +1228,7 @@ class StreamInfo(YouTubeRequestClient):
                     playback_stats=playback_stats,
                 )
                 if yt_format is None:
-                    stream_info = redact_ip(match.group(1))
+                    stream_info = redact_ip_in_uri(match.group(1))
                     log_debug('Unknown itag - {itag}'
                               '\n\t{stream}'
                               .format(itag=itag, stream=stream_info))
@@ -1312,11 +1317,11 @@ class StreamInfo(YouTubeRequestClient):
                 )
                 if yt_format is None:
                     if url:
-                        stream_map['url'] = redact_ip(url)
+                        stream_map['url'] = redact_ip_in_uri(url)
                     if conn:
-                        stream_map['conn'] = redact_ip(conn)
+                        stream_map['conn'] = redact_ip_in_uri(conn)
                     if stream:
-                        stream_map['stream'] = redact_ip(stream)
+                        stream_map['stream'] = redact_ip_in_uri(stream)
                     log_debug('Unknown itag - {itag}'
                               '\n\t{stream}'
                               .format(itag=itag, stream=stream_map))
@@ -1382,7 +1387,7 @@ class StreamInfo(YouTubeRequestClient):
                        '\n\tStack trace (most recent call last):\n{stack}'
                        .format(exc=exc,
                                sig=encrypted_signature,
-                               stack=''.join(format_stack())))
+                               stack=format_stack()))
                 self._context.log_error(msg)
                 self._cipher = False
                 return None
@@ -1432,16 +1437,18 @@ class StreamInfo(YouTubeRequestClient):
 
         if mpd:
             new_params['__id'] = self.video_id
-            new_params['__netloc'] = [parts.netloc]
+            new_params['__host'] = [parts.hostname]
             new_params['__path'] = parts.path
-            new_params['__headers'] = json_dumps(headers or {})
+            new_params['__headers'] = urlsafe_b64encode(
+                json_dumps(headers or {}).encode('utf-8')
+            )
 
             if 'mn' in params and 'fvip' in params:
                 fvip = params['fvip'][0]
                 primary, _, secondary = params['mn'][0].partition(',')
-                prefix, separator, server = parts.netloc.partition('---')
+                prefix, separator, server = parts.hostname.partition('---')
                 if primary and secondary:
-                    new_params['__netloc'].append(separator.join((
+                    new_params['__host'].append(separator.join((
                         digits_re.sub(fvip, prefix),
                         server.replace(primary, secondary),
                     )))
@@ -1489,16 +1496,19 @@ class StreamInfo(YouTubeRequestClient):
                 return default_lang, subs_data
 
         video_id = self.video_id
-        client_data = {'json': {'videoId': video_id}}
-        video_info_url = 'https://www.youtube.com/youtubei/v1/player'
+        client_data = {
+            'json': {
+                'videoId': video_id,
+            },
+            'url': 'https://www.youtube.com/youtubei/v1/player',
+            'method': 'POST',
+        }
 
         for client_name in ('smart_tv_embedded', 'web'):
             client = self.build_client(client_name, client_data)
             if not client:
                 continue
             result = self.request(
-                video_info_url,
-                'POST',
                 response_hook=self._response_hook_json,
                 error_title='Caption player request failed',
                 error_hook=self._error_hook,
@@ -1510,10 +1520,11 @@ class StreamInfo(YouTubeRequestClient):
                 **client
             )
 
-            captions = result and result.get('captions')
-            caption_headers = client['headers']
+            if result is None:
+                continue
+            captions = result.get('captions')
             if captions:
-                subtitles.load(captions, caption_headers)
+                subtitles.load(captions, client['headers'])
                 default_lang = subtitles.get_lang_details()
                 subs_data = subtitles.get_subtitles()
                 if subs_data or subs_data is False:
@@ -1566,9 +1577,11 @@ class StreamInfo(YouTubeRequestClient):
         use_mpd = self._use_mpd
         use_remote_history = settings.use_remote_history()
 
-        client_name = None
+        _client_name = None
         _client = None
+        _has_auth = None
         _result = None
+        _visitor_data = None
         _video_details = None
         _microformat = None
         _streaming_data = None
@@ -1580,8 +1593,6 @@ class StreamInfo(YouTubeRequestClient):
         microformat = {}
         responses = {}
         stream_list = {}
-
-        video_info_url = 'https://www.youtube.com/youtubei/v1/player'
 
         log_debug = context.log_debug
         log_warning = context.log_warning
@@ -1610,10 +1621,13 @@ class StreamInfo(YouTubeRequestClient):
             'json': {
                 'videoId': video_id,
             },
+            'url': 'https://www.youtube.com/youtubei/v1/player',
+            'method': 'POST',
             '_auth_required': False,
             '_auth_requested': 'personal' if use_remote_history else False,
             '_access_token': self._access_token,
             '_access_token_tv': self._access_token_tv,
+            '_visitor_data': None,
         }
 
         for name, clients in self._client_groups.items():
@@ -1626,9 +1640,14 @@ class StreamInfo(YouTubeRequestClient):
 
             restart = None
             while 1:
-                for client_name in clients:
-                    _client = self.build_client(client_name, client_data)
-                    if not _client:
+                for _client_name in clients:
+                    _client = self.build_client(_client_name, client_data)
+                    if _client:
+                        _has_auth = _client.get('_has_auth', False)
+                        if _has_auth:
+                            restart = False
+                    else:
+                        _has_auth = None
                         _result = None
                         _video_details = None
                         _microformat = None
@@ -1639,19 +1658,23 @@ class StreamInfo(YouTubeRequestClient):
                         continue
 
                     _result = self.request(
-                        video_info_url,
-                        'POST',
                         response_hook=self._response_hook_json,
                         error_title='Player request failed',
                         error_hook=self._error_hook,
                         error_hook_kwargs={
                             'video_id': video_id,
-                            'client': client_name,
-                            'auth': _client.get('_has_auth', False),
+                            'client': _client_name,
+                            'auth': _has_auth,
                         },
                         **_client
                     ) or {}
 
+                    if not _visitor_data:
+                        _visitor_data = (_result
+                                         .get('responseContext', {})
+                                         .get('visitorData'))
+                        if _visitor_data:
+                            client_data['_visitor_data'] = _visitor_data
                     _video_details = _result.get('videoDetails', {})
                     _microformat = (_result
                                     .get('microformat', {})
@@ -1695,8 +1718,8 @@ class StreamInfo(YouTubeRequestClient):
                                 status=_status,
                                 reason=_reason or 'UNKNOWN',
                                 video_id=video_id,
-                                client=_client['_name'],
-                                auth=_client.get('_has_auth', False),
+                                client=_client_name,
+                                auth=_has_auth,
                             )
                         )
                         compare_reason = _reason.lower()
@@ -1738,8 +1761,8 @@ class StreamInfo(YouTubeRequestClient):
                     '\n\tAuth:     |{auth}|'
                     .format(
                         video_id=video_id,
-                        client=client_name,
-                        auth=_client.get('_has_auth', False),
+                        client=_client_name,
+                        auth=_has_auth,
                     )
                 )
 
@@ -1755,13 +1778,13 @@ class StreamInfo(YouTubeRequestClient):
                     compare_str=True,
                 )
 
-                if not self._auth_client and _client.get('_has_auth'):
+                if not self._auth_client and _has_auth:
                     self._auth_client = {
                         'client': _client.copy(),
                         'result': _result,
                     }
 
-                responses[client_name] = {
+                responses[_client_name] = {
                     'client': _client,
                     'progressive_fmts': _streaming_data.get('formats'),
                     'adaptive_fmts': _streaming_data.get('adaptiveFormats'),
@@ -1905,7 +1928,6 @@ class StreamInfo(YouTubeRequestClient):
                 meta_info=meta_info,
                 playback_stats=playback_stats,
             )
-
             video_data, audio_data = self._process_adaptive_streams(
                 responses=responses,
                 default_lang_code=(default_lang['default']

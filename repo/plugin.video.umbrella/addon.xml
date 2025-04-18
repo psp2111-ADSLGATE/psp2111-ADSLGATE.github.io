@@ -1,8 +1,8 @@
-<addon id="plugin.video.umbrella" name="Umbrella" provider-name="Umbrella" version="6.7.36">
+<addon id="plugin.video.umbrella" name="Umbrella" provider-name="Umbrella" version="6.7.45">
 	<requires>
-		<import addon="xbmc.python" version="3.0.0"/>
-		<import addon="script.module.requests"/>
-		<import addon="plugin.video.youtube" optional="true"/>
+		<import addon="xbmc.python" version="3.0.0" />
+		<import addon="script.module.requests" />
+		<import addon="plugin.video.youtube" optional="true" />
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="umbrella.py">
 		<provides>video</provides>
@@ -25,6 +25,15 @@
 					String.StartsWith(ListItem.path,plugin://plugin.video.umbrella/) +
 					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
 					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]
+				</visible>
+			</item>
+			<item library="resources\lib\context\artworkCustomize.py">
+				<label>$INFO[Window(home).Property(context.umbrella.showUmbrella)]Customize Artwork</label>
+				<visible>
+					!String.IsEmpty(Window(home).Property(context.umbrella.artworkCustomize)) +
+					String.StartsWith(ListItem.path,plugin://plugin.video.umbrella/) +
+					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
+					[String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,season)]
 				</visible>
 			</item>
 			<item library="resources\lib\context\playTrailer.py">
@@ -52,6 +61,15 @@
 					String.StartsWith(ListItem.path,plugin://plugin.video.umbrella/) +
 					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
 					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,movie)]
+				</visible>
+			</item>
+			<item library="resources\lib\context\mdblistManager.py">
+				<label>$INFO[Window(home).Property(context.umbrella.showUmbrella)]MDBList Manager</label>
+				<visible>
+					!String.IsEmpty(Window(home).Property(context.umbrella.mdblistManager)) +
+					String.StartsWith(ListItem.path,plugin://plugin.video.umbrella/) +
+					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
+					[String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]
 				</visible>
 			</item>
 			<item library="resources\lib\context\clearProviders.py">
@@ -83,6 +101,14 @@
 					String.StartsWith(ListItem.FolderPath,plugin://plugin.video.umbrella/?action=play) +
 					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
 					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,movie)]]
+				</visible>
+			</item>
+			<item library="resources\lib\context\libMdblistManager.py">
+				<label>$INFO[Window(home).Property(context.umbrella.showUmbrella)]MDBList Watchlist Lib</label>
+				<visible>
+					[String.Contains(Container.FolderPath,videodb://) | String.Contains(Container.ListItem.FolderPath,videodb://)] +
+					[String.Contains(Container.ListItem.Path,Window(home).Property(umbrella.movieLib.path)) | String.Contains(Container.ListItem.Path,Window(home).Property(umbrella.tvLib.path))] +
+					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,movie)]
 				</visible>
 			</item>
 			<item library="resources\lib\context\addLibtoFavourite.py">
@@ -159,15 +185,15 @@
 			</item>
 		</menu>
 	</extension>
-	<extension point="xbmc.service" library="service.py" start="startup"/>
-	<extension point="xbmc.python.module" library="resources/lib/"/>
+	<extension point="xbmc.service" library="service.py" start="startup" />
+	<extension point="xbmc.python.module" library="resources/lib/" />
 	<extension point="xbmc.addon.metadata">
 		<reuselanguageinvoker>true</reuselanguageinvoker>
 		<summary lang="en">[B]Umbrella[/B] - We do not host any of the contents streamed</summary>
 		<description lang="en">[B]Umbrella[/B][CR] This addon does not form part of the Kodi Media Centre. Please do not seek assistance with this addon from any of the Official Kodi Support Channels.[CR]The author does not host any of the content in this addon and takes no responsibility for content found. We do not know anything about a lab under Raccoon City. Umbrella is not actually an umbrella and will not shield you from rain.</description>
 		<platform>all</platform>
 		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
-		<forum/>
+		<forum />
 		<website>https://umbrellaplug.github.io</website>
 		<source>https://raw.githubusercontent.com/umbrellaplug/umbrellaplug.github.io/</source>
 		<disclaimer lang="en">The author of this addon does not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
@@ -179,9 +205,12 @@
 			<screenshot>resources/screenshots/screenshot003.jpg</screenshot>
 		</assets>
 		<news>
-[B]Update - v6.7.36 - Jan 24th, 2025[/B]
---[Fix] Increased number of results available from real-debrid for cloud scraping.
---[Fix] Changed criteria for TorBox links.
+[B]Update - v6.7.45 - April 7th, 2025[/B]
+--[Fix] Fixed issue with mdblists and tv shows.
+--[Change] Added support for adding/ removing from MDBList Static Lists.
+--[Change] Changed qr generation on rd codes to use direct verification url.
+--[Change] Added dynamic qr_code creation for all prompts.
+--[Change] Renamed all artwork in common folder to use custom names to avoid conflicts with skins.
 		</news>
 	</extension>
 

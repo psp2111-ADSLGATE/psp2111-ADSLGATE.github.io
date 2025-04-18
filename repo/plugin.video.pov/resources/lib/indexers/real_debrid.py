@@ -1,18 +1,16 @@
-import sys
+from sys import argv
 from apis.real_debrid_api import RealDebridAPI
 from modules import kodi_utils
 from modules.source_utils import supported_video_extensions
 from modules.utils import clean_file_name, clean_title, normalize, jsondate_to_datetime
 # from modules.kodi_utils import logger
 
-ls = kodi_utils.local_string
-make_listitem = kodi_utils.make_listitem
-build_url = kodi_utils.build_url
-default_rd_icon = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/realdebrid.png')
-fanart = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
+ls, build_url, make_listitem = kodi_utils.local_string, kodi_utils.build_url, kodi_utils.make_listitem
 folder_str, file_str, delete_str, down_str = ls(32742).upper(), ls(32743).upper(), ls(32785), ls(32747)
-extensions = supported_video_extensions()
-RealDebrid = RealDebridAPI()
+fanart = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
+default_icon = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/realdebrid.png')
+default_art = {'icon': default_icon, 'poster': default_icon, 'thumb': default_icon, 'fanart': fanart, 'banner': default_icon}
+RealDebrid, extensions = RealDebridAPI(), supported_video_extensions()
 
 def rd_torrent_cloud():
 	def _builder():
@@ -28,13 +26,12 @@ def rd_torrent_cloud():
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
-				listitem.setArt({'icon': default_rd_icon, 'poster': default_rd_icon, 'thumb': default_rd_icon, 'fanart': fanart, 'banner': default_rd_icon})
+				listitem.setArt(default_art)
 				yield (url, listitem, True)
 			except: pass
-#	try: my_cloud_files = [i for i in RealDebrid.user_cloud() if i['status'] == 'downloaded']
 	try: my_cloud_files = [i for i in RealDebrid.user_cloud() if i.get('ended')]
 	except: my_cloud_files = []
-	__handle__ = int(sys.argv[1])
+	__handle__ = int(argv[1])
 	kodi_utils.add_items(__handle__, list(_builder()))
 	kodi_utils.set_content(__handle__, 'files')
 	kodi_utils.end_directory(__handle__)
@@ -54,7 +51,7 @@ def rd_downloads():
 				url_link = item['download']
 				url_params = {'mode': 'media_play', 'url': url_link, 'media_type': 'video'}
 				down_file_params = {'mode': 'downloader', 'name': name, 'url': url_link,
-									'action': 'cloud.realdebrid_direct', 'image': default_rd_icon}
+									'action': 'cloud.realdebrid_direct', 'image': default_icon}
 				delete_params = {'mode': 'real_debrid.delete', 'id': item['id'], 'cache_type': 'download'}
 				cm_append((down_str, 'RunPlugin(%s)' % build_url(down_file_params)))
 				cm_append(('[B]%s %s[/B]' % (delete_str, file_str.capitalize()), 'RunPlugin(%s)' % build_url(delete_params)))
@@ -62,12 +59,12 @@ def rd_downloads():
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
-				listitem.setArt({'icon': default_rd_icon, 'poster': default_rd_icon, 'thumb': default_rd_icon, 'fanart': fanart, 'banner': default_rd_icon})
+				listitem.setArt(default_art)
 				yield (url, listitem, False)
 			except: pass
 	try: my_downloads = [i for i in RealDebrid.downloads() if i['download'].lower().endswith(tuple(extensions))]
 	except: my_downloads = []
-	__handle__ = int(sys.argv[1])
+	__handle__ = int(argv[1])
 	kodi_utils.add_items(__handle__, list(_builder()))
 	kodi_utils.set_content(__handle__, 'files')
 	kodi_utils.end_directory(__handle__)
@@ -75,11 +72,10 @@ def rd_downloads():
 
 def browse_rd_cloud(folder_id):
 	def _builder():
-		for count, item in enumerate(pack_info, 1):
+		for count, item in enumerate(files, 1):
 			try:
 				cm = []
-				name = item['path']
-				if name.startswith('/'): name = name.split('/')[-1]
+				name = item['path'].lstrip('/')
 				name = clean_file_name(name).upper()
 				url_link = item['url_link']
 				if url_link.startswith('/'): url_link = 'http' + url_link
@@ -88,23 +84,20 @@ def browse_rd_cloud(folder_id):
 				url_params = {'mode': 'real_debrid.resolve_rd', 'url': url_link, 'play': 'true'}
 				url = build_url(url_params)
 				down_file_params = {'mode': 'downloader', 'name': name, 'url': url_link,
-									'action': 'cloud.realdebrid', 'image': default_rd_icon}
+									'action': 'cloud.realdebrid', 'image': default_icon}
 				cm.append((down_str,'RunPlugin(%s)' % build_url(down_file_params)))
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
-				listitem.setArt({'icon': default_rd_icon, 'poster': default_rd_icon, 'thumb': default_rd_icon, 'fanart': fanart, 'banner': default_rd_icon})
+				listitem.setArt(default_art)
 				listitem.setInfo('video', {})
 				yield (url, listitem, False)
 			except: pass
-	torrent_files = RealDebrid.user_cloud_info(folder_id)
-	file_info = [i for i in torrent_files['files'] if i['path'].lower().endswith(tuple(extensions)) and i['selected']]
-	file_urls = torrent_files['links']
-	for c, i in enumerate(file_info):
-		try: i['url_link'] = file_urls[c]
-		except: pass
-	pack_info = sorted(file_info, key=lambda k: k['path'])
-	__handle__ = int(sys.argv[1])
+	try: torrent_files = RealDebrid.user_cloud_info(folder_id)
+	except: torrent_files = []
+	files = [i for i in torrent_files['files'] if i['selected']]
+	files = [{**i, 'url_link': link} for i, link in zip(files, torrent_files['links'])]
+	__handle__ = int(argv[1])
 	kodi_utils.add_items(__handle__, list(_builder()))
 	kodi_utils.set_content(__handle__, 'files')
 	kodi_utils.end_directory(__handle__)

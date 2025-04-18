@@ -12,14 +12,14 @@ from __future__ import absolute_import, division, unicode_literals
 
 import json
 import random
-from traceback import format_stack
 
 from ..helper import utils, v3
 from ..youtube_exceptions import YouTubeException
-from ...kodion.compatibility import string_type, urlencode, urlunsplit
+from ...kodion.compatibility import string_type, urlencode, urlunsplit, xbmc
 from ...kodion.constants import (
     BUSY_FLAG,
     CONTENT,
+    FORCE_PLAY_PARAMS,
     PATHS,
     PLAYBACK_INIT,
     PLAYER_DATA,
@@ -27,15 +27,18 @@ from ...kodion.constants import (
     PLAYLIST_POSITION,
     PLAY_FORCE_AUDIO,
     PLAY_PROMPT_QUALITY,
-    PLAY_PROMPT_SUBTITLES,
     PLAY_STRM,
-    PLAY_TIMESHIFT,
     PLAY_WITH,
     SERVER_WAKEUP,
 )
 from ...kodion.items import AudioItem, UriItem, VideoItem
 from ...kodion.network import get_connect_address
-from ...kodion.utils import datetime_parser, find_video_id, select_stream
+from ...kodion.utils import (
+    datetime_parser,
+    find_video_id,
+    format_stack,
+    select_stream,
+)
 
 
 def _play_stream(provider, context):
@@ -86,7 +89,7 @@ def _play_stream(provider, context):
                    '\n\tException: {exc!r}'
                    '\n\tStack trace (most recent call last):\n{stack}'
                    .format(exc=exc,
-                           stack=''.join(format_stack())))
+                           stack=format_stack()))
             context.log_error(msg)
             ui.show_notification(message=exc.get_message())
             return False
@@ -238,9 +241,9 @@ def _play_playlist(provider, context):
         return (
             process_items_for_playlist(context, video_items, action=action),
             {
-                provider.RESULT_CACHE_TO_DISC: action == 'list',
-                provider.RESULT_FORCE_RESOLVE: action != 'list',
-                provider.RESULT_UPDATE_LISTING: action != 'list',
+                provider.CACHE_TO_DISC: action == 'list',
+                provider.FORCE_RESOLVE: action != 'list',
+                provider.UPDATE_LISTING: action != 'list',
             },
         )
 
@@ -271,9 +274,9 @@ def _play_channel_live(provider, context):
             play_from=context.get_param('live', 1),
         ),
         {
-            provider.RESULT_CACHE_TO_DISC: False,
-            provider.RESULT_FORCE_RESOLVE: True,
-            provider.RESULT_UPDATE_LISTING: True,
+            provider.CACHE_TO_DISC: False,
+            provider.FORCE_RESOLVE: True,
+            provider.UPDATE_LISTING: True,
         },
     )
 
@@ -311,7 +314,7 @@ def process(provider, context, **_kwargs):
         if context.is_plugin_path(listitem_path, PATHS.PLAY):
             video_id = find_video_id(listitem_path)
             if video_id:
-                context.set_param('video_id', video_id)
+                context.set_params(video_id=video_id)
                 params['video_id'] = video_id
             else:
                 return False
@@ -322,13 +325,7 @@ def process(provider, context, **_kwargs):
     video_ids = params.get('video_ids')
     playlist_id = params.get('playlist_id')
 
-    force_play_params = {
-        PLAY_FORCE_AUDIO,
-        PLAY_TIMESHIFT,
-        PLAY_PROMPT_QUALITY,
-        PLAY_PROMPT_SUBTITLES,
-        PLAY_WITH,
-    }.intersection(param_keys)
+    force_play_params = FORCE_PLAY_PARAMS.intersection(param_keys)
 
     if video_id and not playlist_id and not video_ids:
         for param in force_play_params:
@@ -345,7 +342,10 @@ def process(provider, context, **_kwargs):
                 context.create_uri(
                     (PATHS.PLAY,),
                     params,
-                    play=True,
+                    play=(xbmc.PLAYLIST_MUSIC
+                          if (ui.get_property(PLAY_FORCE_AUDIO)
+                              or context.get_settings().audio_only()) else
+                          xbmc.PLAYLIST_VIDEO),
                 )
             ))
 

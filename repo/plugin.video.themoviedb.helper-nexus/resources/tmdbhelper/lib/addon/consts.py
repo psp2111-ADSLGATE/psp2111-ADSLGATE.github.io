@@ -69,6 +69,8 @@ REMOVE_EPISODE_COUNT = ['stars_in_tvshows', 'stars_in_both', 'crew_in_tvshows', 
 PARAM_WIDGETS_RELOAD = 'reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]'
 PARAM_WIDGETS_RELOAD_FORCED = 'reload=$INFO[System.Time(hh:mm:ss)]'
 
+LASTACTIVITIES_DATA = 'TraktNewSyncLastActivities'
+
 UPNEXT_EPISODE_ART = {
     'thumb': lambda li: li.art.get('thumb') or '',
     'tvshow.clearart': lambda li: li.art.get('tvshow.clearart') or '',
@@ -202,6 +204,9 @@ TMDB_COMBO_LISTS_ROUTE = {
 TMDB_BASIC_LISTS_ROUTE = {
     'module_name': 'tmdbhelper.lib.api.tmdb.lists',
     'import_attr': 'ListBasic'}
+TMDB_LISTS_LISTS_ROUTE = {
+    'module_name': 'tmdbhelper.lib.api.tmdb.lists',
+    'import_attr': 'ListLists'}
 TMDB_BASIC_LISTS = {
     'popular': {
         'path': '{tmdb_type}/popular',
@@ -529,7 +534,55 @@ TMDB_BASIC_LISTS = {
         'route': TMDB_BASIC_LISTS_ROUTE,
         'plugin_category': '{localized} {plural}',
         'localized': 535
-    }
+    },
+    'tmdb_v4_recommendations': {
+        'path': 'account/{{account_id}}/{tmdb_type}/recommendations',
+        'key': 'results',
+        'route': TMDB_BASIC_LISTS_ROUTE,
+        'plugin_category': '{localized} {plural}',
+        'localized': 32223,
+        'tmdb_v4_user_list': True
+    },
+    'tmdb_v4_favorites': {
+        'path': 'account/{{account_id}}/{tmdb_type}/favorites',
+        'key': 'results',
+        'route': TMDB_BASIC_LISTS_ROUTE,
+        'plugin_category': '{localized} {plural}',
+        'localized': 1036,
+        'tmdb_v4_user_list': True
+    },
+    'tmdb_v4_watchlist': {
+        'path': 'account/{{account_id}}/{tmdb_type}/watchlist',
+        'key': 'results',
+        'route': TMDB_BASIC_LISTS_ROUTE,
+        'plugin_category': '{localized} {plural}',
+        'localized': 32193,
+        'tmdb_v4_user_list': True
+    },
+    'tmdb_v4_rated': {
+        'path': 'account/{{account_id}}/{tmdb_type}/rated',
+        'key': 'results',
+        'route': TMDB_BASIC_LISTS_ROUTE,
+        'plugin_category': '{localized} {plural}',
+        'localized': 32521,
+        'tmdb_v4_user_list': True
+    },
+    'tmdb_v4_lists': {
+        'path': 'account/{{account_id}}/lists',
+        'key': 'results',
+        'route': TMDB_LISTS_LISTS_ROUTE,
+        'plugin_category': '{localized} {plural}',
+        'localized': 32211,
+        'tmdb_v4_user_list': True
+    },
+    'tmdb_v4_list': {
+        'path': 'list/{list_id}',
+        'key': 'results',
+        'route': TMDB_BASIC_LISTS_ROUTE,
+        'plugin_category': '{localized} {plural}',
+        'localized': 32211,
+        'tmdb_v4_user_list': True
+    },
 }
 
 
@@ -605,7 +658,6 @@ TRAKT_SYNC_LISTS = {
     },
     'trakt_watchlist': {
         'sync_type': 'watchlist',
-        'use_show_activity': True,
         'sort_by': 'unsorted',
         'route': TRAKT_SYNC_LISTS_ROUTE,
         'plugin_category': '{plural} {localized}',
@@ -613,7 +665,6 @@ TRAKT_SYNC_LISTS = {
     },
     'trakt_watchlist_released': {
         'sync_type': 'watchlist',
-        'use_show_activity': True,
         'sort_by': 'released',
         'sort_how': 'desc',
         'extended': 'full',
@@ -632,7 +683,6 @@ TRAKT_SYNC_LISTS = {
     },
     'trakt_watchlist_anticipated': {
         'sync_type': 'watchlist',
-        'use_show_activity': True,
         'sort_by': 'released',
         'sort_how': 'asc',
         'extended': 'full',
@@ -779,6 +829,9 @@ ROUTE_NOID = {
     'trakt_ondeck': {'route': {
         'module_name': 'tmdbhelper.lib.api.trakt.lists',
         'import_attr': 'ListOnDeck'}},
+    'trakt_ondeck_unwatched': {'route': {
+        'module_name': 'tmdbhelper.lib.api.trakt.lists',
+        'import_attr': 'ListOnDeckUnWatched'}},
     'trakt_nextepisodes': {'route': {
         'module_name': 'tmdbhelper.lib.api.trakt.lists',
         'import_attr': 'ListNextEpisodes'}},

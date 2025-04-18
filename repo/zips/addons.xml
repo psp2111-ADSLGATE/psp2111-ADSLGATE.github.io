@@ -295,7 +295,7 @@
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.pov" version="5.02.02" name="POV" provider-name="kodifitzwell">
+</addon><addon id="plugin.video.pov" version="5.04.18" name="POV" provider-name="kodifitzwell">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
@@ -312,50 +312,6 @@
         <description lang="en">This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</description>
         <news>INFO: For latest changes see Changelog within add-on.</news>
         <assets><icon>icon.png</icon><fanart>fanart.png</fanart></assets>
-    </extension>
-    <extension point="kodi.context.item">
-        <menu id="kodi.core.main">
-            <item library="resources/lib/contextmenu.py" args="refresh_widgets">
-                <label>40001</label>
-                <visible>String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_watched_params">
-                <label>40003</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)] + String.IsEqual(ListItem.Property(pov_widget),true) + String.IsEqual(ListItem.Property(pov_playcount),0)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_unwatched_params">
-                <label>40004</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)] + String.IsEqual(ListItem.Property(pov_widget),true) + String.IsEqual(ListItem.Property(pov_playcount),1)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_clearprog_params">
-                <label>40009</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)] + String.IsEqual(ListItem.Property(pov_widget),true) + String.IsEqual(ListItem.Property(pov_in_progress),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_browse_params">
-                <label>40002</label>
-                <visible>String.IsEqual(ListItem.dbtype,episode) + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_browse_seas_params">
-                <label>40011</label>
-                <visible>String.IsEqual(ListItem.dbtype,episode) + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_trakt_manager_params">
-                <label>40005</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow)] + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_fav_manager_params">
-                <label>40008</label>
-                <visible>[String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow)] + String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_options_menu_params">
-                <label>40007</label>
-                <visible>String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-            <item library="resources/lib/contextmenu.py" args="pov_extras_menu_params">
-                <label>40006</label>
-                <visible>String.IsEqual(ListItem.Property(pov_widget),true)</visible>
-            </item>
-        </menu>
     </extension>
 </addon><addon id="plugin.video.seren" version="3.0.62.1" name="Seren" provider-name="Nixgates">
     <requires>
@@ -904,13 +860,13 @@
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.4.21" name="TMDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="6.0.9" name="TMDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
   <import addon="script.module.pil" version="1.1.7" />
   <import addon="script.module.addon.signals" version="0.0.6" />
-  <import addon="script.module.jurialmunkey" version="0.2.4" />
+  <import addon="script.module.jurialmunkey" version="0.2.27" />
   <import addon="script.module.infotagger" version="0.0.5" />
   <import addon="script.module.beautifulsoup4" version="4.9.3" />
 </requires>
@@ -935,7 +891,7 @@
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="plugin.video.umbrella" name="Umbrella" provider-name="Umbrella" version="6.7.36">
+</addon><addon id="plugin.video.umbrella" name="Umbrella" provider-name="Umbrella" version="6.7.45">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" />
@@ -964,6 +920,15 @@
 					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]
 				</visible>
 			</item>
+			<item library="resources\lib\context\artworkCustomize.py">
+				<label>$INFO[Window(home).Property(context.umbrella.showUmbrella)]Customize Artwork</label>
+				<visible>
+					!String.IsEmpty(Window(home).Property(context.umbrella.artworkCustomize)) +
+					String.StartsWith(ListItem.path,plugin://plugin.video.umbrella/) +
+					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
+					[String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,season)]
+				</visible>
+			</item>
 			<item library="resources\lib\context\playTrailer.py">
 				<label>$INFO[Window(home).Property(context.umbrella.showUmbrella)]Play Trailer</label>
 				<visible>
@@ -989,6 +954,15 @@
 					String.StartsWith(ListItem.path,plugin://plugin.video.umbrella/) +
 					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
 					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,movie)]
+				</visible>
+			</item>
+			<item library="resources\lib\context\mdblistManager.py">
+				<label>$INFO[Window(home).Property(context.umbrella.showUmbrella)]MDBList Manager</label>
+				<visible>
+					!String.IsEmpty(Window(home).Property(context.umbrella.mdblistManager)) +
+					String.StartsWith(ListItem.path,plugin://plugin.video.umbrella/) +
+					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
+					[String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]
 				</visible>
 			</item>
 			<item library="resources\lib\context\clearProviders.py">
@@ -1020,6 +994,14 @@
 					String.StartsWith(ListItem.FolderPath,plugin://plugin.video.umbrella/?action=play) +
 					String.IsEqual(ListItem.Property(isUmbrella_widget),true) +
 					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,movie)]]
+				</visible>
+			</item>
+			<item library="resources\lib\context\libMdblistManager.py">
+				<label>$INFO[Window(home).Property(context.umbrella.showUmbrella)]MDBList Watchlist Lib</label>
+				<visible>
+					[String.Contains(Container.FolderPath,videodb://) | String.Contains(Container.ListItem.FolderPath,videodb://)] +
+					[String.Contains(Container.ListItem.Path,Window(home).Property(umbrella.movieLib.path)) | String.Contains(Container.ListItem.Path,Window(home).Property(umbrella.tvLib.path))] +
+					[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,movie)]
 				</visible>
 			</item>
 			<item library="resources\lib\context\addLibtoFavourite.py">
@@ -1116,13 +1098,16 @@
 			<screenshot>resources/screenshots/screenshot003.jpg</screenshot>
 		</assets>
 		<news>
-[B]Update - v6.7.36 - Jan 24th, 2025[/B]
---[Fix] Increased number of results available from real-debrid for cloud scraping.
---[Fix] Changed criteria for TorBox links.
+[B]Update - v6.7.45 - April 7th, 2025[/B]
+--[Fix] Fixed issue with mdblists and tv shows.
+--[Change] Added support for adding/ removing from MDBList Static Lists.
+--[Change] Changed qr generation on rd codes to use direct verification url.
+--[Change] Added dynamic qr_code creation for all prompts.
+--[Change] Renamed all artwork in common folder to use custom names to avoid conflicts with skins.
 		</news>
 	</extension>
 
-</addon><addon id="plugin.video.youtube" name="YouTube" version="7.2.0+beta.4.unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
+</addon><addon id="plugin.video.youtube" name="YouTube" version="7.2.0+beta.8.unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.27.1" />
@@ -1174,7 +1159,7 @@
         <summary lang="ro_RO">Modul pentru YouTube</summary>
         <summary lang="ru_RU">Видеодополнение YouTube</summary>
         <summary lang="sk_SK">Doplnok pre YouTube</summary>
-        <summary lang="sv_SE">Plugin för YouTube</summary>
+        <summary lang="sv_SE">Insticksmodul för YouTube</summary>
         <summary lang="tr_TR">YouTube için eklenti</summary>
         <summary lang="uk_UA">Додаток для YouTube</summary>
         <summary lang="vi_VN">Plugin dành cho YouTube</summary>
@@ -1203,7 +1188,7 @@
         <description lang="ro_RO">YouTube este unul dintre cele mai mari saituri de distribuire de videoclipuri din lume.</description>
         <description lang="ru_RU">YouTube - популярнейший видеохостинговый сайт, предоставляющий пользователям услуги хранения, доставки и показа видео.</description>
         <description lang="sk_SK">YouTube je jednou z najväčších stránok na zdieľanie videa na svete.</description>
-        <description lang="sv_SE">YouTube är en av de största videodelningssajterna i världen.</description>
+        <description lang="sv_SE">YouTube är en av världens största webbplatser för videodelning.</description>
         <description lang="tr_TR">YouTube, dünya üzerindeki en büyük video paylaşma platformlarından birisidir.</description>
         <description lang="uk_UA">YouTube є одним з найбільших відеохостингів в світі.</description>
         <description lang="vi_VN">YouTube là một trong những trang web chia sẻ video lớn nhất trên thế giới.</description>
@@ -1229,28 +1214,16 @@
         <disclaimer lang="ro_RO">Acest modul nu este susținut de Google</disclaimer>
         <disclaimer lang="ru_RU">Плагин не поддерживается Google</disclaimer>
         <disclaimer lang="sk_SK">Tento doplnok nie je schválený spoločnosťou Google</disclaimer>
-        <disclaimer lang="sv_SE">Detta plugin är inte godkänt av Google</disclaimer>
+        <disclaimer lang="sv_SE">Denna insticksmodul är inte godkänd av Google</disclaimer>
         <disclaimer lang="tr_TR">Bu eklenti Google tarafından üretilmemiştir</disclaimer>
         <disclaimer lang="uk_UA">Цей плагін не має відношення до компанії Google</disclaimer>
         <disclaimer lang="vi_VN">Plugin này không được xác nhận bởi Google</disclaimer>
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
-    <news>## v7.2.0+beta.4
+    <news>## v7.2.0+beta.8
 ### Fixed
-- Fix repeated subtitle queries/prompts
-- Fix always using video playlist even for audio items
-- Improve error handling and http server shutdown/restart
-
-### Changed
-- Disable http server idle shutdown on Linux systems
-- Fetch last updated subscription feeds first and fetch playlists feeds in My Subscriptions
-- Hide empty/unavailable standard playlists in channels
-- Store date added to playlist for playlist items
-- Add indication to Next page item if listing has been filtered
-
-### New
-- Add "Play recently added" context menu item to playlists
-  - Will play all videos added to the playlist in the last day</news></extension>
+- Fix regression in opening playlists of logged in user
+- Fix regressions in checking channel filters</news></extension>
 </addon><addon id="repository.psp2111" name="psp2111 Repository" version="0.0.3" provider-name="psp2111-ADSLGATE">
     <extension point="xbmc.addon.repository" name="psp2111 Repository">
         <dir>
@@ -1287,7 +1260,7 @@
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="resource.images.studios.coloured" name="Studio Icons - Coloured" version="0.0.25" provider-name="Team Kodi - lynxstrike">
+</addon><addon id="resource.images.studios.coloured" name="Studio Icons - Coloured" version="0.0.26" provider-name="Team Kodi - lynxstrike">
 	<extension point="kodi.resource.images" compile="true" type="studios" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
@@ -1463,10 +1436,11 @@
         <reuselanguageinvoker>false</reuselanguageinvoker>
         <source>https://</source>
     </extension>
-</addon><addon id="script.module.jurialmunkey" name="jurialmunkey common" provider-name="jurialmunkey" version="0.2.7">
+</addon><addon id="script.module.jurialmunkey" name="jurialmunkey common" provider-name="jurialmunkey" version="0.2.27">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.requests" version="2.9.1" />
+    <import addon="script.module.infotagger" version="0.0.5" />
   </requires>
   <extension point="xbmc.python.module" library="resources/modules" />
   <extension point="xbmc.addon.metadata">
@@ -1529,10 +1503,10 @@
         <description lang="zh_CN">皮肤加载项，提供简单的用户快捷方式管理和列表（需要皮肤支持）</description>
         <description lang="zh_TW">插件为皮肤提供了简单的管理和用户连接方式列表 (需要皮肤支持)</description>
     </extension>
-</addon><addon id="script.skinvariables" version="2.1.22" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariables" version="2.1.32" name="Skin Variables" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
-  <import addon="script.module.jurialmunkey" version="0.1.17" />
+  <import addon="script.module.jurialmunkey" version="0.2.27" />
   <import addon="script.module.infotagger" version="0.0.5" />
 </requires>
 <extension point="xbmc.python.script" library="script.py" />

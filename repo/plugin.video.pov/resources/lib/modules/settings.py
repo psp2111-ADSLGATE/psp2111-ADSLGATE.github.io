@@ -14,7 +14,7 @@ def results_xml_style():
 
 def results_xml_window_number(window_style=None):
 	if not window_style: window_style = results_xml_style()
-	return {'list': 2000, 'infolist': 2001, 'columns': 2002}[window_style.split(' ')[0]]
+	return {'list': 2000, 'infolist': 2001, 'widelist': 2002}[window_style.split(' ')[0]]
 
 def store_resolved_torrent_to_cloud(debrid_service):
 	return get_setting('store_torrent.%s' % debrid_service.lower()) == 'true'
@@ -226,7 +226,7 @@ def auto_resume(media_type):
 
 def nav_jump_use_alphabet():
 #	return get_setting('nav_jump') == '1'
-	return int(get_setting('nav_jump'))
+	return int(get_setting('nav_jump', '0'))
 
 def use_season_title():
 	return get_setting('use_season_title') == 'true'
@@ -256,10 +256,10 @@ def nextep_content_settings():
 	sort_direction = sort_order == 0
 	sort_key = 'pov_last_played' if sort_type == 0 else 'pov_first_aired' if sort_type == 1 else 'pov_name'
 	include_unaired = get_setting('nextep.include_unaired') == 'true'
-	include_unwatched = get_setting('nextep.include_unwatched') == 'true'
+#	include_unwatched = get_setting('nextep.include_unwatched') == 'true'
 	sort_airing_today_to_top = get_setting('nextep.sort_airing_today_to_top', 'false') == 'true'
 	return {'sort_key': sort_key, 'sort_direction': sort_direction, 'sort_type': sort_type, 'sort_order':sort_order,
-			'include_unaired': include_unaired, 'include_unwatched': include_unwatched, 'sort_airing_today_to_top': sort_airing_today_to_top}
+			'include_unaired': include_unaired, 'include_unwatched': False, 'sort_airing_today_to_top': sort_airing_today_to_top}
 
 def scraping_settings():
 	def provider_color(provider, fallback):
@@ -292,6 +292,12 @@ def scraping_settings():
 			'real-debrid': rd_highlight, 'premiumize': pm_highlight, 'alldebrid': ad_highlight, 'offcloud': oc_highlight, 'torbox': tb_highlight, 'easydebrid': ed_highlight,
 			'rd_cloud': debrid_cloud_highlight, 'pm_cloud': debrid_cloud_highlight, 'ad_cloud': debrid_cloud_highlight, 'oc_cloud': debrid_cloud_highlight, 'tb_cloud': debrid_cloud_highlight,
 			'easynews': easynews_highlight, '4k': highlight_4K, '1080p': highlight_1080P, '720p': highlight_720P, 'sd': highlight_SD, 'cam': highlight_SD, 'tele': highlight_SD, 'scr': highlight_SD}
+
+def get_rpdb_data():
+	return get_setting('get_rpdb_data') == 'true', get_setting('get_rpdb_data_series') == 'true'
+
+def rpdb_api_key():
+	return get_setting('rpdb_api_key')
 
 def get_fanart_data():
 	return get_setting('get_fanart_data') == 'true'
@@ -327,10 +333,26 @@ def metadata_user_info():
 	hide_watched = widget_hide_watched()
 	if extra_fanart_enabled: fanart_client_key = fanarttv_client_key()
 	else: fanart_client_key = ''
+	extra_rpdb_enabled, extra_rpdb_enabled_series = get_rpdb_data()
+	if extra_rpdb_enabled or extra_rpdb_enabled_series: rpdb_api = rpdb_api_key()
+	else: rpdb_api = ''
 	return {'extra_fanart_enabled': extra_fanart_enabled, 'image_resolution': image_resolution , 'language': meta_language,
-			'fanart_client_key': fanart_client_key, 'tmdb_api': tmdb_api, 'widget_hide_watched': hide_watched}
+			'fanart_client_key': fanart_client_key, 'tmdb_api': tmdb_api, 'widget_hide_watched': hide_watched,
+			'rpdb_api_key': rpdb_api, 'extra_rpdb_enabled': extra_rpdb_enabled, 'extra_rpdb_enabled_series': extra_rpdb_enabled_series}
 
 def make_global_list():
 	global global_list
 	global_list = []
+
+def context_menu_sort():
+	return {
+		'options': int(get_setting('context.options', 1)),
+		'extras': int(get_setting('context.extras', 2)),
+		'trakt': int(get_setting('context.trakt', 3)),
+		'tmdblist': int(get_setting('context.tmdblist', 4)),
+		'mdblist': int(get_setting('context.mdblist', 4)),
+		'favourites': int(get_setting('context.favourites', 5)),
+		'mark': int(get_setting('context.mark', 6)),
+		'exit': int(get_setting('context.exit', 7))
+	}
 

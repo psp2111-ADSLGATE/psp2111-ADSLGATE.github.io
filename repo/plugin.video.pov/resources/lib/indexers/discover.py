@@ -706,3 +706,4 @@ POV Discover is a feature that allows you to browse and/or export lists that you
 - Select "[B]Browse Results[/B]" to immediately see the results or "[B]Export List[/B]" to export the
   list to POV Root Menu or POV Movies Menu etc"'''
 )
+

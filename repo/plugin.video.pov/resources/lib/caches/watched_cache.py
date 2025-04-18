@@ -158,7 +158,7 @@ def get_in_progress_movies(dummy_arg, page_no, letter):
 	else: final_list, total_pages = original_list, 1
 	return final_list, total_pages
 
-def get_in_progress_tvshows(dummy_arg, page_no, letter):
+def get_in_progress_tvshows(dummy_arg, page_no, letter, paginate=None):
 	def _process(item):
 		tmdb_id = item['media_id']
 		meta = metadata.tvshow_meta('tmdb_id', tmdb_id, meta_user_info, get_datetime())
@@ -169,7 +169,7 @@ def get_in_progress_tvshows(dummy_arg, page_no, letter):
 	data = []
 	data_append = data.append
 	watched_indicators = settings.watched_indicators()
-	paginate = settings.paginate()
+	paginate = settings.paginate() if paginate is None else paginate
 	limit = settings.page_limit()
 	meta_user_info = settings.metadata_user_info()
 	watched_info = get_watched_info_tv(watched_indicators)
@@ -194,8 +194,8 @@ def get_in_progress_episodes():
 	episode_list = [{'media_ids': {'tmdb': i[0]}, 'season': int(i[1]), 'episode': int(i[2]), 'resume_point': float(i[3])} for i in data]
 	return episode_list
 
-def get_watched_items(media_type, page_no, letter):
-	paginate = settings.paginate()
+def get_watched_items(media_type, page_no, letter, paginate=None):
+	paginate = settings.paginate() if paginate is None else paginate
 	limit = settings.page_limit()
 	watched_indicators = settings.watched_indicators()
 	if media_type == 'tvshow':

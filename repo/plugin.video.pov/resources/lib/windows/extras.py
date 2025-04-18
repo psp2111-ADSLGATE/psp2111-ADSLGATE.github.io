@@ -38,9 +38,11 @@ class Extras(BaseDialog):
 		self.set_properties()
 
 	def onInit(self):
-		tasks = (self.set_poster, self.make_cast, self.make_recommended, self.make_reviews, self.make_trivia, self.make_blunders,
-				self.make_parentsguide, self.make_videos, self.make_year, self.make_genres, self.make_network)
-		[Thread(target=i).start() for i in tasks]
+		for i in (
+			self.set_poster, self.make_cast, self.make_recommended, self.make_reviews,
+			self.make_trivia, self.make_blunders, self.make_parentsguide,
+			self.make_videos, self.make_year, self.make_genres, self.make_network
+		): Thread(target=i).start()
 		for i in ('posters', 'backdrops'): Thread(target=self.make_artwork, args=(i,)).start()
 		if self.media_type == 'movie': Thread(target=self.make_collection).start()
 		else: self.setProperty('tikiskins.extras.make.collection', 'false')
@@ -193,11 +195,11 @@ class Extras(BaseDialog):
 					updated_at = item['updated_at'] or 'NA'
 					rating = item['rating'] or 'NA'
 					if 'spoiler' in item and item['spoiler']: content = (
-						'[B][COLOR red][%s][/COLOR][CR]%02d. [I]%s - %s - %s[/I][/B]\n\n%s'
+						'[B][COLOR red][%s][/COLOR][CR][I]%02d. %s - %s - %s[/I][/B]\n\n%s'
 						% (spoiler, count, provider, rating, updated_at, item['content'])
 					)
 					else: content = (
-						'[B]%02d. [I]%s - %s - %s[/I][/B]\n\n%s'
+						'[B][I]%02d. %s - %s - %s[/I][/B]\n\n%s'
 						% (count, provider, rating, updated_at, item['content'])
 					)
 					listitem.setProperty('tikiskins.extras.text', content)
@@ -272,7 +274,7 @@ class Extras(BaseDialog):
 					yield listitem
 				except: pass
 		try:
-			data = imdb_api.imdb_parentsguide(self.imdb_id)
+			data = mdblist_api.mdb_parentsguide(self.imdb_id, self.media_type)
 			item_list = list(builder())
 			self.setProperty('tikiskins.extras.imdb_parentsguide.number', '(x%02d)' % len(item_list))
 			self.item_action_dict[parentsguide_id] = 'tikiskins.extras.listings'

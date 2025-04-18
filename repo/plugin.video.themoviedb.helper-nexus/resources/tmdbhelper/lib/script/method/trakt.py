@@ -8,17 +8,15 @@ from tmdbhelper.lib.script.method.decorators import is_in_kwargs, get_tmdb_id
 @get_tmdb_id
 def sync_trakt(tmdb_type=None, tmdb_id=None, season=None, episode=None, sync_type=None, **kwargs):
     """ Open sync trakt menu for item """
-    from tmdbhelper.lib.script.sync import sync_trakt_item
-    from tmdbhelper.lib.addon.plugin import convert_type
-    trakt_type = convert_type(tmdb_type, 'trakt', season=season, episode=episode)
-    sync_trakt_item(trakt_type=trakt_type, unique_id=tmdb_id, season=season, episode=episode, id_type='tmdb', sync_type=sync_type)
+    from tmdbhelper.lib.script.sync.menu import sync_trakt_item
+    sync_trakt_item(tmdb_type=tmdb_type, tmdb_id=tmdb_id, season=season, episode=episode, sync_type=sync_type)
 
 
 @is_in_kwargs({'like_list': True})
 def like_list(like_list=None, user_slug=None, delete=False, **kwargs):
     from tmdbhelper.lib.api.trakt.api import TraktAPI
     user_slug = user_slug or 'me'
-    TraktAPI().like_userlist(user_slug=user_slug, list_slug=like_list, confirmation=True, delete=delete)
+    TraktAPI().trakt_syncdata.like_userlist(user_slug=user_slug, list_slug=like_list, confirmation=True, delete=delete)
     if not delete:
         return
     from tmdbhelper.lib.script.method.kodi_utils import container_refresh
@@ -61,6 +59,35 @@ def sort_list(**kwargs):
     for k, v in sort_methods[x]['params'].items():
         kwargs[k] = v
     executebuiltin(format_folderpath(encode_url(**kwargs)))
+
+
+def refresh_trakt_sync(**kwargs):
+    from xbmcgui import Dialog
+    from tmdbhelper.lib.addon.plugin import get_localized, executebuiltin
+    from jurialmunkey.window import get_property
+    from tmdbhelper.lib.addon.tmdate import set_timestamp
+    from tmdbhelper.lib.api.trakt.api import TraktAPI
+    from tmdbhelper.lib.api.trakt.sync.datasync import SyncData
+
+    choices = (
+        (get_localized(19022), 'hidden_at', ('movie', 'show', )),
+        (get_localized(16102), 'last_watched_at', ('movie', 'show', 'episode', )),
+        (get_localized(14086), 'playback_paused_at', ('movie', 'episode', )),
+        (get_localized(563), 'rated_at', ('movie', 'show', 'season', 'episode', )),
+        (get_localized(1036), 'favorites_listed_at', ('movie', 'show', )),
+        (get_localized(32193), 'watchlist_listed_at', ('movie', 'show', 'season', 'episode', )),
+        (get_localized(32192), 'collection_last_collected_at', ('movie', 'show', )),
+    )
+    x = Dialog().select(get_localized(32532), [i[0] for i in choices])
+    if x == -1:
+        return
+
+    keys = (choices[x][1], )
+    trakt_api = TraktAPI()
+    for item_type in choices[x][2]:
+        SyncData(trakt_api).sync(item_type, keys, forced=True)
+    executebuiltin('Container.Refresh')
+    get_property('Widgets.Reload', set_property=f'{set_timestamp(0, True)}')
 
 
 def get_stats(**kwargs):

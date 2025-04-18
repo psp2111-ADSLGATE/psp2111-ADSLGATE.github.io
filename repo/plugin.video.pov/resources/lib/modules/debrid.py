@@ -1,12 +1,7 @@
 import time
 from threading import Thread
 from caches.debrid_cache import DebridCache
-from apis.real_debrid_api import RealDebridAPI
-from apis.premiumize_api import PremiumizeAPI
-from apis.alldebrid_api import AllDebridAPI
-from apis.offcloud_api import OffcloudAPI
-from apis.torbox_api import TorBoxAPI
-from apis.easydebrid_api import EasyDebridAPI
+from apis import real_debrid_api, premiumize_api, alldebrid_api, offcloud_api, torbox_api, easydebrid_api
 from modules.utils import make_thread_list, chunks
 from modules.settings import display_sleep_time, enabled_debrids_check
 from modules import kodi_utils
@@ -14,17 +9,22 @@ from modules import kodi_utils
 
 get_setting, sleep, monitor, ls = kodi_utils.get_setting, kodi_utils.sleep, kodi_utils.monitor, kodi_utils.local_string
 show_busy_dialog, hide_busy_dialog, notification = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification
-RealDebrid, Premiumize, AllDebrid = RealDebridAPI(), PremiumizeAPI(), AllDebridAPI()
-Offcloud, TorBox, EasyDebrid = OffcloudAPI(), TorBoxAPI(), EasyDebridAPI()
-debrid_list = [
-	('Real-Debrid'  , 'rd', RealDebrid),
-	('Premiumize.me', 'pm', Premiumize),
-	('AllDebrid'    , 'ad', AllDebrid),
-	('Offcloud'     , 'oc', Offcloud),
-	('TorBox'       , 'tb', TorBox),
-	('EasyDebrid'   , 'ed', EasyDebrid)
-]
-format_line, plswait_str, checking_debrid_str, remaining_debrid_str = '%s[CR]%s[CR]%s', ls(32577), ls(32578), ls(32579)
+ok_dialog, progressDialogBG = kodi_utils.ok_dialog, kodi_utils.progressDialogBG
+plswait_str, checking_debrid_str, remaining_debrid_str = ls(32577), ls(32578), ls(32579)
+main_line = '%s[CR]%s[CR]%s'
+
+debrid_list = (
+	('Real-Debrid', 'rd','realdebrid.png'), ('Premiumize.me', 'pm', 'premiumize.png'),
+	('AllDebrid', 'ad', 'alldebrid.png'), ('EasyDebrid', 'ed', 'easydebrid.png'),
+	('TorBox', 'tb','torbox.png'), ('Offcloud', 'oc', 'offcloud.png')
+)
+
+def import_debrid(debrid_provider):
+	return {
+		'Real-Debrid': real_debrid_api.RealDebridAPI, 'Premiumize.me': premiumize_api.PremiumizeAPI,
+		'AllDebrid': alldebrid_api.AllDebridAPI, 'EasyDebrid': easydebrid_api.EasyDebridAPI,
+		'TorBox': torbox_api.TorBoxAPI, 'Offcloud': offcloud_api.OffcloudAPI
+	}.get(debrid_provider)
 
 def debrid_enabled():
 	return [i[0] for i in debrid_list if enabled_debrids_check(i[1])]
@@ -34,22 +34,31 @@ def debrid_type_enabled(debrid_type, enabled_debrids):
 
 def debrid_valid_hosts(enabled_debrids):
 	def _get_hosts(function):
-		debrid_hosts_append(function.get_hosts())
+		debrid_hosts_append(function().get_hosts())
+	if not enabled_debrids: return []
 	debrid_hosts = []
 	debrid_hosts_append = debrid_hosts.append
-	if enabled_debrids:
-		threads = list(make_thread_list(_get_hosts, [i[2] for i in debrid_list if i[0] in enabled_debrids], Thread))
-		[i.join() for i in threads]
+	threads = list(make_thread_list(_get_hosts, [import_debrid(i[0]) for i in debrid_list if i[0] in enabled_debrids], Thread))
+	[i.join() for i in threads]
 	return debrid_hosts
 
 def manual_add_magnet_to_cloud(params):
 	show_busy_dialog()
-	function = [i[2] for i in debrid_list if i[0] == params['provider']][0]
-	result = function.create_transfer(params['magnet_url'])
-	function.clear_cache()
+	function = import_debrid(params['provider'])
+	result = function().create_transfer(params['magnet_url'])
+	function().clear_cache()
 	hide_busy_dialog()
 	if result: notification(32576)
 	else: notification(32575)
+
+def manual_add_nzb_to_cloud(params):
+	show_busy_dialog()
+	function = import_debrid(params['provider'])
+	result = function().create_transfer(params['url'], params['name'])
+	function().clear_cache()
+	hide_busy_dialog()
+	text = '%s...[CR][CR]%s' % (params['name'][:40], ls(32576) if result else ls(32575))
+	ok_dialog(heading=32733, text=text, top_space=True)
 
 class DebridCheck:
 	def __init__(self, hash_list, background, debrid_enabled, meta, progress_dialog):
@@ -85,7 +94,7 @@ class DebridCheck:
 					remaining_debrids = [x.name for x in threads if x.is_alive()]
 					current_time = time.monotonic()
 					insert_line = remaining_debrid_str % ', '.join(remaining_debrids).upper()
-					line = format_line % (plswait_str, checking_debrid_str, insert_line)
+					line = main_line % (plswait_str, checking_debrid_str, insert_line)
 					progress = int((len_threads-len(remaining_debrids))/len_threads*100)
 					if self.progress_dialog: self.progress_dialog.update(line, progress)
 					else: progressBG.update(progress, insert_line)
@@ -98,17 +107,14 @@ class DebridCheck:
 		threads = []
 		threads_append = threads.append
 		if not self.background:
-			if not self.progress_dialog: progressBG = kodi_utils.progressDialogBG
+			if not self.progress_dialog: progressBG = progressDialogBG
 			dialog = Thread(target=_foreground)
 		else: dialog = Thread(target=_background)
 		dialog.start()
 		debrid_runners = {
-			'Real-Debrid': self.RD_check,
-			'Premiumize.me': self.PM_check,
-			'AllDebrid': self.AD_check,
-			'Offcloud': self.OC_check,
-			'TorBox': self.TB_check,
-			'EasyDebrid': self.ED_check
+			'Real-Debrid': self.RD_check, 'Premiumize.me': self.PM_check,
+			'AllDebrid': self.AD_check, 'EasyDebrid': self.ED_check,
+			'TorBox': self.TB_check, 'Offcloud': self.OC_check
 		}
 		for item in self.debrid_enabled:
 			thread = Thread(target=debrid_runners[item], name=item)
@@ -117,12 +123,9 @@ class DebridCheck:
 		dialog.join(self.timeout)
 		[debrid_cache.set_many(i[0], i[1]) for i in self.hashes_to_cache]
 		return {
-			'Real-Debrid': self.rd_cached_hashes,
-			'Premiumize.me': self.pm_cached_hashes,
-			'AllDebrid': self.ad_cached_hashes,
-			'Offcloud': self.oc_cached_hashes,
-			'TorBox': self.tb_cached_hashes,
-			'EasyDebrid': self.ed_cached_hashes
+			'Real-Debrid': self.rd_cached_hashes, 'Premiumize.me': self.pm_cached_hashes,
+			'AllDebrid': self.ad_cached_hashes, 'EasyDebrid': self.ed_cached_hashes,
+			'TorBox': self.tb_cached_hashes, 'Offcloud': self.oc_cached_hashes
 		}
 
 	def cached_check(self, debrid):
@@ -134,7 +137,8 @@ class DebridCheck:
 	def RD_check(self):
 		self.rd_cached_hashes, unchecked_hashes = self.cached_check('rd')
 		if not unchecked_hashes: return
-		rd_cache = None # RealDebrid.check_cache(unchecked_hashes)
+		# RealDebrid = import_debrid('Real-Debrid')
+		rd_cache = None # RealDebrid().check_cache(unchecked_hashes)
 		if not rd_cache: return
 		cached_append = self.rd_cached_hashes.append
 		process_list = []
@@ -155,7 +159,8 @@ class DebridCheck:
 	def PM_check(self):
 		self.pm_cached_hashes, unchecked_hashes = self.cached_check('pm')
 		if not unchecked_hashes: return
-		pm_cache = Premiumize.check_cache(unchecked_hashes)
+		Premiumize = import_debrid('Premiumize.me')
+		pm_cache = Premiumize().check_cache(unchecked_hashes)
 		if not pm_cache: return
 		cached_append = self.pm_cached_hashes.append
 		process_list = []
@@ -175,7 +180,8 @@ class DebridCheck:
 	def AD_check(self):
 		self.ad_cached_hashes, unchecked_hashes = self.cached_check('ad')
 		if not unchecked_hashes: return
-		ad_cache = None # AllDebrid.check_cache(unchecked_hashes)
+		# AllDebrid = import_debrid('AllDebrid')
+		ad_cache = None # AllDebrid().check_cache(unchecked_hashes)
 		if not ad_cache: return
 		cached_append = self.ad_cached_hashes.append
 		process_list = []
@@ -192,30 +198,32 @@ class DebridCheck:
 			for i in unchecked_hashes: process_append((i, 'False'))
 		self.hashes_to_cache_append((process_list, 'ad'))
 
-	def OC_check(self):
-		self.oc_cached_hashes, unchecked_hashes = self.cached_check('oc')
+	def ED_check(self):
+		self.ed_cached_hashes, unchecked_hashes = self.cached_check('ed')
 		if not unchecked_hashes: return
-		oc_cache = Offcloud.check_cache(unchecked_hashes)
-		if not oc_cache: return
-		cached_append = self.oc_cached_hashes.append
+		EasyDebrid = import_debrid('EasyDebrid')
+		ed_cache = EasyDebrid().check_cache(unchecked_hashes)
+		if not ed_cache: return
+		cached_append = self.ed_cached_hashes.append
 		process_list = []
 		process_append = process_list.append
 		try:
-			oc_cache = oc_cache['cachedItems']
-			for h in unchecked_hashes:
+			ed_cache = ed_cache['cached']
+			for h, is_cached in zip(unchecked_hashes, ed_cache):
 				cached = 'False'
-				if h in oc_cache:
+				if is_cached:
 					cached_append(h)
 					cached = 'True'
 				process_append((h, cached))
 		except:
 			for i in unchecked_hashes: process_append((i, 'False'))
-		self.hashes_to_cache_append((process_list, 'oc'))
+		self.hashes_to_cache_append((process_list, 'ed'))
 
 	def TB_check(self):
 		self.tb_cached_hashes, unchecked_hashes = self.cached_check('tb')
 		if not unchecked_hashes: return
-		tb_cache = TorBox.check_cache(unchecked_hashes)
+		TorBox = import_debrid('TorBox')
+		tb_cache = TorBox().check_cache(unchecked_hashes)
 		if not tb_cache: return
 		cached_append = self.tb_cached_hashes.append
 		process_list = []
@@ -232,23 +240,24 @@ class DebridCheck:
 			for i in unchecked_hashes: process_append((i, 'False'))
 		self.hashes_to_cache_append((process_list, 'tb'))
 
-	def ED_check(self):
-		self.ed_cached_hashes, unchecked_hashes = self.cached_check('ed')
+	def OC_check(self):
+		self.oc_cached_hashes, unchecked_hashes = self.cached_check('oc')
 		if not unchecked_hashes: return
-		ed_cache = EasyDebrid.check_cache(unchecked_hashes)
-		if not ed_cache: return
-		cached_append = self.ed_cached_hashes.append
+		Offcloud = import_debrid('Offcloud')
+		oc_cache = Offcloud().check_cache(unchecked_hashes)
+		if not oc_cache: return
+		cached_append = self.oc_cached_hashes.append
 		process_list = []
 		process_append = process_list.append
 		try:
-			ed_cache = ed_cache['cached']
-			for h, is_cached in zip(unchecked_hashes, ed_cache):
+			oc_cache = oc_cache['cachedItems']
+			for h in unchecked_hashes:
 				cached = 'False'
-				if is_cached:
+				if h in oc_cache:
 					cached_append(h)
 					cached = 'True'
 				process_append((h, cached))
 		except:
 			for i in unchecked_hashes: process_append((i, 'False'))
-		self.hashes_to_cache_append((process_list, 'ed'))
+		self.hashes_to_cache_append((process_list, 'oc'))
 

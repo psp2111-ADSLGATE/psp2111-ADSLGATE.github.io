@@ -1,5 +1,4 @@
 import json, time
-from collections import deque
 #from random import shuffle
 from threading import Thread
 from windows import create_window
@@ -17,6 +16,7 @@ pack_display, format_line, total_format = '%s (%s)', '%s[CR]%s[CR]%s', '[COLOR %
 int_format, ext_format = '[COLOR %s][B]Int: [/B][/COLOR]%s', '[COLOR %s][B]Ext: [/B][/COLOR]%s'
 ext_scr_format, unfinshed_import_format = '[COLOR %s][B]%s[/B][/COLOR]', '[COLOR red]+%s[/COLOR]'
 diag_format = '4K: %s | 1080p: %s | 720p: %s | SD: %s | %s: %s'
+cached_debrids = {'Real-Debrid', 'AllDebrid', 'tidebrid', 'mfdebrid', 'cmdebrid'}
 season_display, show_display = ls(32537), ls(32089)
 pack_check = (season_display, show_display)
 
@@ -30,8 +30,8 @@ class source:
 		self.disabled_ignored, self.progress_dialog = disabled_ignored, progress_dialog
 		self.internal_activated, self.internal_prescraped = len(self.internal_scrapers) > 0, len(self.prescrape_sources) > 0
 		self.processed_prescrape, self.threads_completed = False, False
-#		self.sources, self.final_sources, self.processed_internal_scrapers = [], [], []
-		self.sources, self.final_sources, self.processed_internal_scrapers = deque(), deque(), []
+		self.sources, self.cached_sources = [], []
+		self.processed_internal_scrapers, self.final_sources = [], []
 		self.processed_internal_scrapers_append = self.processed_internal_scrapers.append
 		self.sleep_time = display_sleep_time()
 		self.int_dialog_highlight, self.ext_dialog_highlight = get_setting('int_dialog_highlight', 'darkgoldenrod'), get_setting('ext_dialog_highlight', 'dodgerblue')
@@ -147,9 +147,7 @@ class source:
 				thread.start()
 		self.threads_completed = True
 		dialog.join(self.timeout)
-		self.final_sources.extend(self.sources)
-		self.process_duplicates()
-		self.process_filters()
+		self.process_filters(self.sources, self.cached_sources)
 		if not self.background:
 			if self.progress_dialog: self._kill_progress_dialog()
 			else: progressBG.close()
@@ -165,7 +163,8 @@ class source:
 			_cache.set(provider, self.media_type, self.tmdb_id, self.title, self.year, '', '', sources, self.single_expiry)
 		if sources:
 			self.process_quality_count(sources)
-			self.sources.extend(sources)
+			if provider in cached_debrids: self.cached_sources.extend(sources)
+			else: self.sources.extend(sources)
 
 	def get_episode_source(self, provider, module, pack):
 		_cache = ExternalProvidersCache()
@@ -191,24 +190,14 @@ class source:
 			if pack == season_display: sources = [i for i in sources if not 'episode_start' in i or i['episode_start'] <= self.episode <= i['episode_end']]
 			elif pack == show_display: sources = [i for i in sources if i['last_season'] >= self.season]
 			self.process_quality_count(sources)
-			self.sources.extend(sources)
+			if provider in cached_debrids: self.cached_sources.extend(sources)
+			else: self.sources.extend(sources)
 
-	def process_duplicates(self):
-		def _process(sources):
+	def process_filters(self, sources, cached_sources):
+		def _process_duplicates(_sources):
 			uniqueURLs, uniqueHashes = set(), set()
-			cachedURLs, cachedHashes = set(), set()
-			for provider in sources:
+			for provider in _sources:
 				try:
-					if provider['provider'] in ('tidebrid', 'mfdebrid'):
-						url = provider['url'].lower()
-						if url not in cachedURLs:
-							cachedURLs.add(url)
-							if 'hash' in provider:
-								if provider['hash'] not in cachedHashes:
-									cachedHashes.add(provider['hash'])
-									yield provider
-							else: yield provider
-						continue
 					url = provider['url'].lower()
 					if url not in uniqueURLs:
 						uniqueURLs.add(url)
@@ -218,25 +207,31 @@ class source:
 								yield provider
 						else: yield provider
 				except: yield provider
-#		if len(self.final_sources) > 0: self.final_sources = list(_process(self.final_sources))
-		if self.final_sources: self.final_sources = deque(_process(self.final_sources))
-
-	def process_filters(self):
 		def _process_torrents(item):
-			self.filter += [{**i, 'debrid': item} for i in torrent_sources if item == i.get('cache_provider')]
-			self.filter += [{**i, 'debrid': item} for i in torrent_sources if 'Uncached' in i.get('cache_provider') and item in i.get('cache_provider')] if self.display_uncached_torrents else []
+			hashes = cached_hashes[item]
+			if item in cached_debrids:
+				filter.extend([{**i, 'cache_provider': item, 'debrid': item} for i in cached_sources])
+			else:
+				filter.extend([{**i, 'cache_provider': item, 'debrid': item} for i in torrent_sources if i['hash'] in hashes])
+			if self.display_uncached_torrents: filter.extend(
+				[{**i, 'cache_provider': 'Uncached %s' % item, 'debrid': item} for i in torrent_sources if not i['hash'] in hashes]
+			)
 		def _process_hosters(item):
 			for k, v in item.items():
 				valid_hosters = [i for i in result_hosters if i in v]
-				self.filter += [{**i, 'debrid': k} for i in hoster_sources if i['source'] in valid_hosters]
-#		self.filter = []
-		self.filter = deque()
-		torrent_sources = self.process_torrents([i for i in self.final_sources if 'hash' in i])
-		hoster_sources = [i for i in self.final_sources if not 'hash' in i]
-		result_hosters = list(set([i['source'].lower() for i in hoster_sources]))
-		if self.debrid_torrents and torrent_sources: [_process_torrents(i) for i in self.debrid_torrents]
-		if self.debrid_hosters and hoster_sources: [_process_hosters(i) for i in self.debrid_hosters]
-		self.final_sources = self.filter
+				filter.extend([{**i, 'debrid': k} for i in hoster_sources if i['source'] in valid_hosters])
+		filter = []
+		try:
+			sources, cached_sources = list(_process_duplicates(sources)), list(_process_duplicates(cached_sources))
+			torrent_sources = [i for i in sources if 'hash' in i]
+			hash_list = list({i['hash'] for i in torrent_sources})
+			cached_hashes = DebridCheck(hash_list, self.background, self.debrid_torrents, self.meta, self.progress_dialog).run()
+			if self.debrid_torrents and (torrent_sources or cached_sources): [_process_torrents(i) for i in self.debrid_torrents]
+			hoster_sources = [i for i in sources if not 'hash' in i]
+			result_hosters = list({i['source'].lower() for i in hoster_sources})
+			if self.debrid_hosters and hoster_sources: [_process_hosters(i) for i in self.debrid_hosters]
+		except: notification(32574)
+		self.final_sources = filter
 
 	def process_sources(self, provider, sources):
 		try:
@@ -254,7 +249,7 @@ class source:
 					try:
 						size = i_get('size')
 #						if 'package' in i and provider != 'torrentio':
-						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'nyaaio', 'mediafusion', 'tidebrid', 'mfdebrid'):
+						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'mediafusion', 'tidebrid', 'mfdebrid'):
 							if i_get('package') == 'season': divider = self.season_divider
 							else: divider = self.show_divider
 							size = float(size) / divider
@@ -275,27 +270,6 @@ class source:
 			elif quality == '720p': self.sources_720p += 1
 			else: self.sources_sd += 1
 			self.sources_total += 1
-
-	def process_torrents(self, torrent_sources):
-		if not torrent_sources or not self.debrid_torrents: return []
-		torrent_results = []
-		try:
-			_debrids = ('tidebrid', 'mfdebrid')
-			hash_list = list(set([i['hash'] for i in torrent_sources if i['provider'] not in _debrids]))
-			cached_hashes = DebridCheck(hash_list, self.background, self.debrid_torrents, self.meta, self.progress_dialog).run()
-			for item in self.debrid_torrents:
-				_hashes = cached_hashes[item]
-				if item in ('Real-Debrid', 'AllDebrid'): torrent_results += [
-					{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] in _debrids
-				]
-				else: torrent_results += [
-					{**i, 'cache_provider': item} for i in torrent_sources if i['provider'] not in _debrids and i['hash'] in _hashes
-				]
-				if self.display_uncached_torrents: torrent_results += [
-					{**i, 'cache_provider': 'Uncached %s' % item} for i in torrent_sources if i['provider'] not in _debrids and not i['hash'] in _hashes
-				]
-		except: notification(32574)
-		return torrent_results
 
 	def process_internal_results(self):
 		def _process_quality_count(sources):
@@ -328,7 +302,7 @@ class source:
 
 	def _make_progress_dialog(self):
 		if self.progress_dialog: return
-		self.progress_dialog = create_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml', meta=self.meta)
+		self.progress_dialog = create_window(('windows.sources', 'ProgressMedia'), 'progress_media.xml', meta=self.meta)
 		Thread(target=self.progress_dialog.run).start()
 
 	def _kill_progress_dialog(self):

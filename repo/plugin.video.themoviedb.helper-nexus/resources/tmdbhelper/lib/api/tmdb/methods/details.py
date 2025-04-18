@@ -46,9 +46,8 @@ def get_tmdb_multisearch_request(self, query=None, validfy=True, media_type=None
 
 def get_tmdb_multisearch(self, query=None, validfy=True, media_type=None, **kwargs):
     kwargs['cache_days'] = CACHE_SHORT
-    kwargs['cache_name'] = 'TMDb.get_tmdb_multisearch.v1'
     kwargs['cache_combine_name'] = True
-    return self._cache.use_cache(
+    return self.get_special_cache('TMDbMultiSearch.db').use_cache(
         self.get_tmdb_multisearch_request,
         query=query, validfy=validfy, media_type=media_type, **kwargs
     )
@@ -58,9 +57,8 @@ def get_tmdb_id(self, tmdb_type=None, imdb_id=None, tvdb_id=None, query=None, ye
     if not tmdb_type:
         return
     kwargs['cache_days'] = CACHE_MEDIUM
-    kwargs['cache_name'] = 'TMDb.get_tmdb_id.v4'
     kwargs['cache_combine_name'] = True
-    return self._cache.use_cache(
+    return self.get_special_cache('TMDbID.db').use_cache(
         self.get_tmdb_id_request,
         tmdb_type=tmdb_type, imdb_id=imdb_id, tvdb_id=tvdb_id, query=query, year=year,
         episode_year=episode_year, raw_data=raw_data, **kwargs
@@ -150,35 +148,44 @@ def get_tmdb_id_list(self, items, tmdb_type=None, separator=None):
 def get_tvshow_nextaired(self, tmdb_id):
     """ Get updated next aired data for tvshows using 24hr cache """
     from tmdbhelper.lib.addon.tmdate import format_date
-    from tmdbhelper.lib.api.tmdb.mapping import get_episode_to_air
     from tmdbhelper.lib.addon.plugin import get_infolabel
+    from tmdbhelper.lib.api.tmdb.mapping import ItemMapperMethods
 
-    def _get_nextaired():
-        response = self.get_response_json('tv', tmdb_id, language=self.req_language)
-        if not response:
-            return {}
-        infoproperties = {}
-        infoproperties.update(get_episode_to_air(response.get('next_episode_to_air'), 'next_aired'))
-        infoproperties.update(get_episode_to_air(response.get('last_episode_to_air'), 'last_aired'))
-        infoproperties['status'] = response.get('status')
-        return infoproperties
+    item_mapper_methods = ItemMapperMethods()
 
-    def _get_formatted():
+    def _get_nextaired_ip(response):
+        ip = {}
+        ip.update(item_mapper_methods.get_episode_to_air(response.get('next_episode_to_air'), 'next_aired'))
+        ip.update(item_mapper_methods.get_episode_to_air(response.get('last_episode_to_air'), 'last_aired'))
+        ip['status'] = response.get('status')
+        return ip
+
+    def _get_formatted(ip):
         df = get_infolabel('Skin.String(TMDbHelper.Date.Format)') or '%d %b %Y'
         for i in ['next_aired', 'last_aired']:
             try:
-                air_date = infoproperties[f'{i}.original']
+                air_date = ip[f'{i}.original']
             except KeyError:
                 continue
-            infoproperties[f'{i}.custom'] = format_date(air_date, df)
-        return infoproperties
+            ip[f'{i}.custom'] = format_date(air_date, df)
+        return ip
 
     if not tmdb_id:
         return {}
 
-    cache_name = f'TMDb.get_tv_nextaired.v2.{tmdb_id}'
-    infoproperties = self._cache.use_cache(_get_nextaired, cache_name=cache_name, cache_days=CACHE_SHORT)
-    return _get_formatted() if infoproperties else infoproperties
+    request = self.get_response_json('tv', tmdb_id, language=self.req_language)
+
+    if not request:
+        return {}
+
+    infoproperties = self.get_special_cache('TMDbNextAired_v2.db').use_cache(
+        _get_nextaired_ip, request,
+        cache_name=f'TV.{tmdb_id}', cache_days=CACHE_SHORT)
+
+    if not infoproperties:
+        return {}
+
+    return _get_formatted(infoproperties)
 
 
 def get_details_request(self, tmdb_type, tmdb_id, season=None, episode=None, cache_refresh=False):

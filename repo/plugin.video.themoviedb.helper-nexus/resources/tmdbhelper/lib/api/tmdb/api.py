@@ -6,15 +6,16 @@ from tmdbhelper.lib.api.tmdb.content import TMDbMethods
 from tmdbhelper.lib.api.api_keys.tmdb import API_KEY
 
 
-ARTWORK_QUALITY = get_setting('artwork_quality', 'int')
-ARTLANG_FALLBACK = True if get_setting('fanarttv_enfallback') and not get_setting('fanarttv_secondpref') else False
 API_URL = 'https://api.themoviedb.org/3' if not get_setting('use_alternate_api_url') else 'https://api.tmdb.org/3'
-APPEND_TO_RESPONSE = 'credits,images,release_dates,content_ratings,external_ids,movie_credits,tv_credits,keywords,reviews,videos,watch/providers'
 
 
-class TMDb(RequestAPI, TMDbMethods):
+class TMDbAPI(RequestAPI):
 
     api_key = API_KEY
+    api_url = API_URL
+    append_to_response = ''
+    artlang_fallback = False
+    api_name = 'TMDbAPI'
 
     def __init__(
             self,
@@ -23,14 +24,15 @@ class TMDb(RequestAPI, TMDbMethods):
             mpaa_prefix=get_mpaa_prefix(),
             page_length=1):
         api_key = api_key or self.api_key
+        api_url = self.api_url
+        api_name = self.api_name
 
-        super(TMDb, self).__init__(
-            req_api_name='TMDb',
-            req_api_url=API_URL,
+        super(TMDbAPI, self).__init__(
+            req_api_name=api_name,
+            req_api_url=api_url,
             req_api_key=f'api_key={api_key}')
         self.language = language
         self.mpaa_prefix = mpaa_prefix
-        self.append_to_response = APPEND_TO_RESPONSE
         self.page_length = max(get_setting('pagemulti_tmdb', 'int'), page_length)
         TMDb.api_key = api_key
 
@@ -38,7 +40,7 @@ class TMDb(RequestAPI, TMDbMethods):
     def req_strip(self):
         req_strip_add = [
             (self.append_to_response, ''),
-            (self.req_language, f'{self.iso_language}{"_en" if ARTLANG_FALLBACK else ""}')
+            (self.req_language, f'{self.iso_language}{"_en" if self.artlang_fallback else ""}')
         ]
         try:
             return self._req_strip + req_strip_add
@@ -57,7 +59,7 @@ class TMDb(RequestAPI, TMDbMethods):
 
     @property
     def req_language(self):
-        return f'{self.iso_language}-{self.iso_country}&include_image_language={self.iso_language},null{",en" if ARTLANG_FALLBACK else ""}&include_video_language={self.iso_language},null,en'
+        return f'{self.iso_language}-{self.iso_country}'
 
     @property
     def iso_language(self):
@@ -68,25 +70,8 @@ class TMDb(RequestAPI, TMDbMethods):
         return self.language[-2:]
 
     @property
-    def iso_region(self):
-        return None if self.setting_ignore_regionreleasefilter else self.iso_country
-
-    @property
-    def setting_ignore_regionreleasefilter(self):
-        try:
-            return self._setting_ignore_regionreleasefilter
-        except AttributeError:
-            self._setting_ignore_regionreleasefilter = get_setting('ignore_regionreleasefilter')
-            return self._setting_ignore_regionreleasefilter
-
-    @property
     def genres(self):
-        try:
-            return self._genres
-        except AttributeError:
-            cache_name = f'TMDb.GenreLookup.v2.{self.language}'
-            self._genres = self._cache.use_cache(self.get_genres, cache_name=cache_name)
-            return self._genres
+        return
 
     @property
     def mapper(self):
@@ -119,21 +104,81 @@ class TMDb(RequestAPI, TMDbMethods):
             return paginated_items.items + paginated_items.next_page
         return items
 
-    def get_response_json(self, *args, **kwargs):
-        kwargs['region'] = self.iso_region
+    @property
+    def special_cache(self):
+        try:
+            return self._special_cache
+        except AttributeError:
+            self._special_cache = {}
+            return self._special_cache
+
+    def get_special_cache(self, filename):
+        try:
+            return self.special_cache[filename]
+        except KeyError:
+            from tmdbhelper.lib.files.bcache import BasicCache
+            self.special_cache[filename] = BasicCache(filename=filename)
+            return self.special_cache[filename]
+
+    def configure_request_kwargs(self, kwargs):
         kwargs['language'] = self.req_language
-        return self.get_api_request_json(self.get_request_url(*args, **kwargs))
+        return kwargs
+
+    def get_response_json(self, *args, postdata=None, headers=None, method=None, **kwargs):
+        kwargs = self.configure_request_kwargs(kwargs)
+        return self.get_api_request_json(self.get_request_url(*args, **kwargs), postdata=postdata, headers=headers, method=method)
 
     def get_request_sc(self, *args, **kwargs):
         """ Get API request using the short cache """
+        kwargs = self.configure_request_kwargs(kwargs)
         kwargs['cache_days'] = CACHE_SHORT
-        kwargs['region'] = self.iso_region
-        kwargs['language'] = self.req_language
         return self.get_request(*args, **kwargs)
 
     def get_request_lc(self, *args, **kwargs):
         """ Get API request using the long cache """
+        kwargs = self.configure_request_kwargs(kwargs)
         kwargs['cache_days'] = CACHE_MEDIUM
+        return self.get_request(*args, **kwargs)
+
+
+class TMDb(TMDbAPI, TMDbMethods):
+    append_to_response = 'credits,images,release_dates,content_ratings,external_ids,movie_credits,tv_credits,keywords,reviews,videos,watch/providers'
+    artlang_fallback = True if get_setting('fanarttv_enfallback') and not get_setting('fanarttv_secondpref') else False
+    api_name = 'TMDb'
+
+    @property
+    def genres(self):
+        try:
+            return self._genres
+        except AttributeError:
+            cache_name = f'GenreLookup.{self.language}'
+            self._genres = self.get_special_cache('TMDbGenres.db').use_cache(self.get_genres, cache_name=cache_name)
+            return self._genres
+
+    @property
+    def iso_region(self):
+        if not self.setting_ignore_regionreleasefilter:
+            return self.iso_country
+
+    @property
+    def setting_ignore_regionreleasefilter(self):
+        try:
+            return self._setting_ignore_regionreleasefilter
+        except AttributeError:
+            self._setting_ignore_regionreleasefilter = get_setting('ignore_regionreleasefilter')
+            return self._setting_ignore_regionreleasefilter
+
+    @property
+    def include_image_language(self):
+        return f'{self.iso_language},null{",en" if self.artlang_fallback else ""}'
+
+    @property
+    def include_video_language(self):
+        return f'{self.iso_language},null,en'
+
+    def configure_request_kwargs(self, kwargs):
         kwargs['region'] = self.iso_region
         kwargs['language'] = self.req_language
-        return self.get_request(*args, **kwargs)
+        kwargs['include_image_language'] = self.include_image_language
+        kwargs['include_video_language'] = self.include_video_language
+        return kwargs

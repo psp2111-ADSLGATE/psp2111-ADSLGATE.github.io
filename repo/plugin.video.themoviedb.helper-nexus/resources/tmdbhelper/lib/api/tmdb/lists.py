@@ -1,18 +1,37 @@
 from tmdbhelper.lib.addon.consts import TMDB_BASIC_LISTS, TMDB_SORT_TYPES
 from tmdbhelper.lib.addon.plugin import convert_type, get_plugin_category, get_setting, get_localized
-from tmdbhelper.lib.items.container import Container
+from tmdbhelper.lib.items.container import ContainerDirectory
 
 
-class ListBasic(Container):
+class ListLists(ContainerDirectory):
+    def get_items(self, info, page=None, limit=None, **kwargs):
+        from tmdbhelper.lib.api.tmdb.users import TMDbUser
+
+        items = TMDbUser().get_list_of_lists()
+
+        self.library = 'video'
+        self.plugin_category = ''
+
+        return items
+
+
+class ListBasic(ContainerDirectory):
     def get_items(self, info, tmdb_type, tmdb_id=None, page=None, limit=None, sort_key=None, sort_key_order=None, length=None, **kwargs):
         info_model = TMDB_BASIC_LISTS.get(info)
         info_tmdb_type = info_model.get('tmdb_type') or tmdb_type
-        self.tmdb_api.mapper.imagepath_quality = info_model.get('imagepath_quality', 'IMAGEPATH_ORIGINAL')
-        items = self.tmdb_api.get_basic_list(
+
+        tmdb_api = self.tmdb_api
+        if info_model.get('tmdb_v4_user_list'):
+            from tmdbhelper.lib.api.tmdb.users import TMDbUser
+            tmdb_api = TMDbUser()
+
+        tmdb_api.mapper.imagepath_quality = info_model.get('imagepath_quality', 'IMAGEPATH_ORIGINAL')
+
+        items = tmdb_api.get_basic_list(
             path=info_model.get('path', '').format(
                 tmdb_type=tmdb_type,
                 tmdb_id=tmdb_id,
-                iso_country=self.tmdb_api.iso_country,
+                iso_country=tmdb_api.iso_country,
                 **kwargs),
             sort_key=sort_key or info_model.get('sort_key'),
             sort_key_order=sort_key_order or info_model.get('sort_key_order'),
@@ -26,8 +45,10 @@ class ListBasic(Container):
             limit=limit or info_model.get('limit'),
             length=length or info_model.get('length'),
             page=page)
+
         if 'tmdb_cache_only' in info_model:
             self.tmdb_cache_only = info_model['tmdb_cache_only']
+
         self.kodi_db = self.get_kodi_database(info_tmdb_type)
         self.sort_by_dbid = True if self.kodi_db and info_model.get('dbid_sorting') else False
         self.library = convert_type(info_tmdb_type, 'library')
@@ -36,7 +57,7 @@ class ListBasic(Container):
         return items
 
 
-class ListCombo(Container):
+class ListCombo(ContainerDirectory):
     def get_items(self, info, tmdb_id=None, limit=None, sort_key=None, sort_type=None, **kwargs):
         info_model = TMDB_BASIC_LISTS.get(info)
         info_tmdb_type = info_model.get('tmdb_type')
@@ -80,7 +101,7 @@ class ListCombo(Container):
         return items
 
 
-class ListSeasons(Container):
+class ListSeasons(ContainerDirectory):
     def get_items(self, tmdb_id, **kwargs):
         self.ib.cache_only = self.tmdb_cache_only = False
         self.precache_parent(tmdb_id)
@@ -89,7 +110,7 @@ class ListSeasons(Container):
         return items
 
 
-class ListEpisodes(Container):
+class ListEpisodes(ContainerDirectory):
     def get_items(self, tmdb_id, season, **kwargs):
         self.ib.cache_only = self.tmdb_cache_only = False
         self.precache_parent(tmdb_id, season)
@@ -101,7 +122,7 @@ class ListEpisodes(Container):
         return items
 
 
-class ListEpisodeGroups(Container):
+class ListEpisodeGroups(ContainerDirectory):
     def get_items(self, tmdb_id, **kwargs):
         items = self.tmdb_api.get_episode_groups_list(tmdb_id)
         self.ib.cache_only = self.tmdb_cache_only = False
@@ -110,7 +131,7 @@ class ListEpisodeGroups(Container):
         return items
 
 
-class ListEpisodeGroupSeasons(Container):
+class ListEpisodeGroupSeasons(ContainerDirectory):
     def get_items(self, tmdb_id, group_id, **kwargs):
         items = self.tmdb_api.get_episode_group_seasons_list(tmdb_id, group_id)
         self.ib.cache_only = self.tmdb_cache_only = False
@@ -120,7 +141,7 @@ class ListEpisodeGroupSeasons(Container):
         return items
 
 
-class ListEpisodeGroupEpisodes(Container):
+class ListEpisodeGroupEpisodes(ContainerDirectory):
     def get_items(self, tmdb_id, group_id, position, **kwargs):
         items = self.tmdb_api.get_episode_group_episodes_list(tmdb_id, group_id, position)
         self.ib.cache_only = self.tmdb_cache_only = False
@@ -129,7 +150,7 @@ class ListEpisodeGroupEpisodes(Container):
         return items
 
 
-class ListNextRecommendation(Container):
+class ListNextRecommendation(ContainerDirectory):
     def get_items(self, tmdb_id, tmdb_type, season=None, episode=None, **kwargs):
         if tmdb_type not in ['movie', 'tv']:
             return []
@@ -178,7 +199,7 @@ class ListNextRecommendation(Container):
         return [next_item]
 
 
-class ListAll(Container):
+class ListAll(ContainerDirectory):
     def get_items(self, tmdb_type, page=None, **kwargs):
         items = self.tmdb_api.get_all_items_list(tmdb_type, page=page)
         self.tmdb_cache_only = False
@@ -188,7 +209,7 @@ class ListAll(Container):
         return items
 
 
-class ListCast(Container):
+class ListCast(ContainerDirectory):
     def get_items(self, tmdb_id, tmdb_type, season=None, episode=None, aggregate=False, **kwargs):
         items = self.tmdb_api.get_cast_list(tmdb_id, tmdb_type, season=season, episode=episode, aggregate=aggregate, **kwargs)
         self.tmdb_cache_only = True
@@ -196,7 +217,7 @@ class ListCast(Container):
         return items
 
 
-class ListCrew(Container):
+class ListCrew(ContainerDirectory):
     def get_items(self, tmdb_id, tmdb_type, season=None, episode=None, aggregate=False, **kwargs):
         items = self.tmdb_api.get_cast_list(tmdb_id, tmdb_type, season=season, episode=episode, keys=['crew'], aggregate=aggregate, **kwargs)
         self.tmdb_cache_only = True
@@ -204,7 +225,7 @@ class ListCrew(Container):
         return items
 
 
-class ListFlatSeasons(Container):
+class ListFlatSeasons(ContainerDirectory):
     def get_items(self, tmdb_id, **kwargs):
         items = self.tmdb_api.get_flatseasons_list(tmdb_id)
         items = list(items) if items else []
@@ -214,7 +235,7 @@ class ListFlatSeasons(Container):
         return items
 
 
-class ListVideos(Container):
+class ListVideos(ContainerDirectory):
     def get_items(self, tmdb_id, tmdb_type, season=None, episode=None, **kwargs):
         items = self.tmdb_api.get_videos_list(tmdb_id, tmdb_type, season, episode)
         self.tmdb_cache_only = True

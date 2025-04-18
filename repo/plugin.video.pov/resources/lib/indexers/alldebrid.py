@@ -1,19 +1,17 @@
-from sys import argv
 import json
+from sys import argv
 from apis.alldebrid_api import AllDebridAPI
 from modules import kodi_utils
 from modules.source_utils import supported_video_extensions
 from modules.utils import clean_file_name, normalize
 # from modules.kodi_utils import logger
 
-ls = kodi_utils.local_string
-build_url = kodi_utils.build_url
-make_listitem = kodi_utils.make_listitem
-default_ad_icon = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/alldebrid.png')
-fanart = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
+ls, build_url, make_listitem = kodi_utils.local_string, kodi_utils.build_url, make_listitem
 folder_str, file_str, archive_str, down_str = ls(32742).upper(), ls(32743).upper(), ls(32982), ls(32747)
-extensions = supported_video_extensions()
-AllDebrid = AllDebridAPI()
+fanart = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
+default_icon = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/alldebrid.png')
+default_art = {'icon': default_icon, 'poster': default_icon, 'thumb': default_icon, 'fanart': fanart, 'banner': default_icon}
+AllDebrid, extensions = AllDebridAPI(), supported_video_extensions()
 
 def ad_torrent_cloud(folder_id=None):
 	def _builder():
@@ -25,7 +23,7 @@ def ad_torrent_cloud(folder_id=None):
 				url = build_url(url_params)
 				listitem = make_listitem()
 				listitem.setLabel(display)
-				listitem.setArt({'icon': default_ad_icon, 'poster': default_ad_icon, 'thumb': default_ad_icon, 'fanart': fanart, 'banner': default_ad_icon})
+				listitem.setArt(default_art)
 				yield (url, listitem, True)
 			except: pass
 	try: cloud_dict = [i for i in AllDebrid.user_cloud()['magnets'] if i['statusCode'] == 4]
@@ -49,12 +47,12 @@ def browse_ad_cloud(folder):
 				url_params = {'mode': 'alldebrid.resolve_ad', 'url': url_link, 'play': 'true'}
 				url = build_url(url_params)
 				down_file_params = {'mode': 'downloader', 'name': name, 'url': url_link,
-									'action': 'cloud.alldebrid', 'image': default_ad_icon}
+									'action': 'cloud.alldebrid', 'image': default_icon}
 				cm.append((down_str,'RunPlugin(%s)' % build_url(down_file_params)))
 				listitem = make_listitem()
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
-				listitem.setArt({'icon': default_ad_icon, 'poster': default_ad_icon, 'thumb': default_ad_icon, 'fanart': fanart, 'banner': default_ad_icon})
+				listitem.setArt(default_art)
 				listitem.setInfo('video', {})
 				yield (url, listitem, False)
 			except: pass

@@ -362,7 +362,7 @@ class Downloader:
 		choice = True
 		if self.action not in ('image', 'meta.pack'):
 			text = '%s[CR]%s' % (ls(32688) % self.mb, ls(32689))
-			if self.action == 'meta.single': choice = open_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml',
+			if self.action == 'meta.single': choice = open_window(('windows.sources', 'ProgressMedia'), 'progress_media.xml',
 																	meta=self.meta, text=text, enable_buttons=True, true_button=ls(32824), false_button=ls(32828), focus_button=10)
 			else: choice = kodi_utils.confirm_dialog(text=text)
 		return choice

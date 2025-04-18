@@ -1,107 +1,17 @@
 import json
-from sys import argv
 from datetime import date
 from random import choice
 from threading import Thread
 import _strptime  # fix bug in python import
 from windows import open_window
-from apis.trakt_api import trakt_get_hidden_items
 from indexers.metadata import tvshow_meta, season_episodes_meta, all_episodes_meta
-from caches.watched_cache import get_next_episodes, get_watched_status_tvshow, get_watched_info_tv
 from modules import kodi_utils, settings
 from modules.sources import Sources
 from modules.player import POVPlayer
-from modules.utils import get_datetime, make_thread_list, title_key, adjust_premiered_date
+from modules.utils import get_datetime, adjust_premiered_date
 # from modules.kodi_utils import logger
 
-KODI_VERSION, make_cast_list = kodi_utils.get_kodi_version(), kodi_utils.make_cast_list
-ls, make_listitem, build_url = kodi_utils.local_string, kodi_utils.make_listitem, kodi_utils.build_url
-dict_removals, remove_meta_keys = kodi_utils.tvshow_dict_removals, kodi_utils.remove_meta_keys
-settings_icon= kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/settings.png')
-poster_empty = kodi_utils.translate_path('special://home/addons/plugin.video.pov/resources/media/box_office.png')
-fanart_empty = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
-string, amble_label = str, '[COLOR dimgray][I]%s[/I][/COLOR]'
-included_str, excluded_str = ls(32804).upper(), ls(32805).upper()
-extras_str, browse_str, heading = ls(32645), ls(32652), ls(32806).upper()
-
-def build_next_episode_manager():
-	def build_content(item):
-		try:
-			cm = []
-			cm_append = cm.append
-			meta = tvshow_meta('trakt_dict', item['media_ids'], meta_user_info, current_date)
-			meta_get = meta.get
-			tmdb_id, tvdb_id, imdb_id = meta_get('tmdb_id'), meta_get('tvdb_id'), meta_get('imdb_id')
-			total_aired_eps, total_seasons = meta_get('total_aired_eps'), meta_get('total_seasons')
-			title = meta_get('title')
-			poster = meta_get(poster_main) or meta_get(poster_backup) or poster_empty
-			fanart = meta_get(fanart_main) or meta_get(fanart_backup) or fanart_empty
-			clearlogo = meta_get('clearlogo') or meta_get('tmdblogo') or ''
-			if fanart_enabled: banner, clearart, landscape = meta_get('banner'), meta_get('clearart'), meta_get('landscape')
-			else: banner, clearart, landscape = '', '', ''
-			playcount, overlay, total_watched, total_unwatched = get_watched_status_tvshow(watched_info, string(tmdb_id), total_aired_eps)
-			meta.update({'playcount': playcount, 'overlay': overlay})
-			if tmdb_id in exclude_list: color, action, status, sort_value = 'red', 'unhide', excluded_str, 1
-			else: color, action, status, sort_value = 'green', 'hide', included_str, 0
-			display = '[COLOR %s][%s][/COLOR] %s' % (color, status, title)
-			extras_params = {'mode': 'extras_menu_choice', 'tmdb_id': tmdb_id, 'media_type': 'tvshow', 'is_widget': 'False'}
-			url_params = {'mode': 'trakt.hide_unhide_trakt_items', 'action': action, 'media_type': 'shows', 'media_id': imdb_id, 'section': 'progress_watched'}
-			url = build_url(url_params)
-			if show_all_episodes:
-				if all_episodes == 1 and total_seasons > 1: browse_params = {'mode': 'build_season_list', 'tmdb_id': tmdb_id}
-				else: browse_params = {'mode': 'build_episode_list', 'tmdb_id': tmdb_id, 'season': 'all'}
-			else: browse_params = {'mode': 'build_season_list', 'tmdb_id': tmdb_id}
-			cm_append((extras_str, 'RunPlugin(%s)' % build_url(extras_params)))
-			cm_append((browse_str, 'Container.Update(%s)' % build_url(browse_params)))
-			props = {
-				'sort_value': sort_value,
-				'sort_title': title,
-				'watchedepisodes': str(total_watched),
-				'unwatchedepisodes': str(total_unwatched),
-				'totalepisodes': str(total_aired_eps),
-				'totalseasons': str(total_seasons)}
-			listitem = make_listitem()
-			listitem.addContextMenuItems(cm)
-			listitem.setProperties(props)
-			listitem.setLabel(display)
-			listitem.setArt({'poster': poster, 'fanart': fanart, 'icon': poster, 'banner': banner, 'clearart': clearart, 'clearlogo': clearlogo, 'landscape': landscape,
-							'tvshow.clearart': clearart, 'tvshow.clearlogo': clearlogo, 'tvshow.landscape': landscape, 'tvshow.banner': banner})
-			if KODI_VERSION < 20:
-				listitem.setCast(meta_get('cast', []))
-				listitem.setUniqueIDs({'imdb': imdb_id, 'tmdb': string(tmdb_id), 'tvdb': string(tvdb_id)})
-				listitem.setInfo('video', remove_meta_keys(meta, dict_removals))
-			else:
-				videoinfo = listitem.getVideoInfoTag(offscreen=True)
-				videoinfo.setCast(make_cast_list(meta_get('cast', [])))
-				videoinfo.setUniqueIDs({'imdb': imdb_id, 'tmdb': string(tmdb_id), 'tvdb': string(tvdb_id)})
-				kodi_utils.infoTagger(videoinfo, meta)
-			append((url, listitem, False))
-		except: pass
-	__handle__ = int(argv[1])
-	list_items = []
-	append = list_items.append
-	meta_user_info = settings.metadata_user_info()
-	watched_indicators = settings.watched_indicators()
-	watched_info = get_watched_info_tv(watched_indicators)
-	fanart_enabled = meta_user_info['extra_fanart_enabled']
-	current_date = get_datetime()
-	include_year_in_title = settings.include_year_in_title('tvshow')
-	open_extras = settings.extras_open_action('tvshow')
-	all_episodes = settings.default_all_episodes()
-	show_all_episodes = True if all_episodes in (1, 2) else False
-	poster_main, poster_backup, fanart_main, fanart_backup = settings.get_art_provider()
-	try: exclude_list = trakt_get_hidden_items('progress_watched')
-	except: exclude_list = []
-	show_list = get_next_episodes(watched_info)
-	threads = list(make_thread_list(build_content, show_list, Thread))
-	[i.join() for i in threads]
-	list_items.sort(key=lambda k: (k[1].getProperty('sort_value'), title_key(k[1].getProperty('sort_title'), settings.ignore_articles())))
-	kodi_utils.add_dir(__handle__, {'mode': 'amble'}, amble_label % heading, iconImage=settings_icon, isFolder=False)
-	kodi_utils.add_items(__handle__, list_items)
-	kodi_utils.set_content(__handle__, 'tvshows')
-	kodi_utils.end_directory(__handle__, cacheToDisc=False)
-	kodi_utils.set_view_mode('view.main', 'tvshows')
-	kodi_utils.focus_index(1)
+ls, build_url = kodi_utils.local_string, kodi_utils.build_url
 
 def nextep_playback_info(meta):
 	def _build_next_episode_play():

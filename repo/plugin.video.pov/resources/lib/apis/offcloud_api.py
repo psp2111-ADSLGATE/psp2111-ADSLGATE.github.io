@@ -114,7 +114,7 @@ class OffcloudAPI:
 				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
 			else:
 				if self._m2ts_check(selected_files): raise Exception('_m2ts_check failed')
-				selected_files = [i for i in selected_files if not any(x in i['filename'] for x in extras_filtering_list)]
+				selected_files = [i for i in selected_files if not any(x in i['filename'].lower() for x in extras_filtering_list)]
 			if not selected_files: return None
 			file_key = selected_files[0]['link']
 			file_url = self.requote_uri(file_key) # requote, oc why give us a list of urls that may have spaces in name
@@ -195,15 +195,16 @@ class OffcloudAPI:
 		len_files = len(files)
 		progressBG = kodi_utils.progressDialogBG
 		progressBG.create('Offcloud', 'Clearing cloud files')
-		for count, req in enumerate(files, 1):
+		threads = (
+			Thread(target=self.delete_torrent, args=(i['requestId'],), name=i['fileName'])
+			for i in files
+		)
+		for count, req in enumerate(threads, 1):
 			try:
-				i = Thread(target=self.delete_torrent, args=(req['requestId'],))
-				append(i)
-				i.start()
-				progressBG.update(int(count / len_files * 100), 'Deleting %s...' % req['fileName'])
-				kodi_utils.sleep(200)
+				req.start()
+				progressBG.update(int(count / len_files * 100), '%s: %s...' % (ls(32785), req.name))
+				req.join(1)
 			except: pass
-		[i.join() for i in threads]
 		try: progressBG.close()
 		except: pass
 		self.clear_cache()

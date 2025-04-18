@@ -1,7 +1,7 @@
-from caches.base_cache import BaseCache
+from caches import BaseCache
 from modules import settings
 from modules.utils import sort_for_article, paginate_list
-from modules.kodi_utils import container_refresh, favorites_db
+from modules.kodi_utils import container_refresh, favourites_db
 # from modules.kodi_utils import logger
 
 INSERT_FAV = 'INSERT INTO favourites VALUES (?, ?, ?)'
@@ -10,7 +10,7 @@ SELECT_FAV = 'SELECT tmdb_id, title FROM favourites WHERE db_type = ?'
 CLEAR_FAV = 'DELETE FROM favourites WHERE db_type = ?'
 
 class Favourites(BaseCache):
-	db_file = favorites_db
+	db_file = favourites_db
 
 	def add_to_favourites(self, media_type, tmdb_id, title):
 		try:

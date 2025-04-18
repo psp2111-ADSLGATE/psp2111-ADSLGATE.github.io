@@ -2,9 +2,9 @@ from tmdbhelper.lib.addon.consts import CACHE_LONG
 
 
 def get_details(self, trakt_type, trakt_id, season=None, episode=None, extended='full'):
-    if not season or not episode:
-        return self.get_request_lc(trakt_type + 's', trakt_id, extended=extended)
-    return self.get_request_lc(trakt_type + 's', trakt_id, 'seasons', season, 'episodes', episode, extended=extended)
+    if season is None or episode is None:
+        return self.get_request_lc(f'{trakt_type}s', trakt_id, extended=extended)
+    return self.get_request_lc(f'{trakt_type}s', trakt_id, 'seasons', season, 'episodes', episode, extended=extended)
 
 
 def get_id(self, unique_id, id_type, trakt_type, output_type=None, output_trakt_type=None, season_episode_check=None):
@@ -75,14 +75,6 @@ def get_showitem_details(self, i):
     return {'show': show, 'episode': self.get_details('show', slug, season=snum, episode=enum) or i_ep}
 
 
-def get_episode_type(self, trakt_id=None, season=None, episode=None):
-    if not trakt_id or not episode or not season:
-        return
-    from contextlib import suppress
-    with suppress(KeyError, TypeError):
-        return self.get_details('show', trakt_id, season=season, episode=episode)['episode_type']
-
-
 def get_ratings(self, trakt_type, trakt_id, season=None, episode=None):
     from contextlib import suppress
 
@@ -92,6 +84,10 @@ def get_ratings(self, trakt_type, trakt_id, season=None, episode=None):
         if season:
             return f'shows/{trakt_id}/seasons/{season}/ratings'
         return f'{trakt_type}s/{trakt_id}/ratings'
+
+    # Trakt Ratings now require Auth !!!
+    if not self.authorization:
+        return (None, None)
 
     response = self.get_request_sc(_get_url())
 

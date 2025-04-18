@@ -1,6 +1,5 @@
-import re
-import os
 import json
+import os, re
 from sys import argv
 from threading import Thread
 from apis.opensubtitles_api import OpenSubtitlesAPI
@@ -17,6 +16,13 @@ poster_empty = kodi_utils.translate_path('special://home/addons/plugin.video.pov
 fanart_empty = kodi_utils.translate_path('special://home/addons/plugin.video.pov/fanart.png')
 
 class POVPlayer(kodi_utils.xbmc_player):
+	progress_is_alive = []
+
+	@classmethod
+	def kill_progress(cls, function):
+		if not callable(function): return
+		cls.progress_is_alive.append(function)
+
 	def __init__ (self):
 		kodi_utils.xbmc_player.__init__(self)
 		self.set_resume, self.set_watched, self.playback_event = 5, 90, None
@@ -100,12 +106,12 @@ class POVPlayer(kodi_utils.xbmc_player):
 					kodi_utils.set_property('script.trakt.ids', json.dumps(trakt_ids))
 				except: pass
 			except: pass
+			self.playback_event = False
 			if library_item and not background:
 				listitem.setProperty('IsPlayable', 'true')
 				kodi_utils.set_resolvedurl(int(argv[1]), listitem)
 			else: self.play(url, listitem)
-			while not self.playback_event: kodi_utils.sleep(100)
-			if self.isPlayingVideo(): self.monitor()
+			self.monitor()
 		except: return
 
 	def bookmarkPOV(self):
@@ -136,19 +142,20 @@ class POVPlayer(kodi_utils.xbmc_player):
 
 	def getResumeStatus(self, _time, percent, bookmark):
 		if settings.auto_resume(self.media_type): return percent
-		choice = open_window(('windows.yes_no_progress_media', 'YesNoProgressMedia'), 'yes_no_progress_media.xml',
+		choice = open_window(('windows.sources', 'ProgressMedia'), 'progress_media.xml',
 								meta=self.meta, text=ls(32790) % _time, enable_buttons=True, true_button=ls(32832), false_button=ls(32833), focus_button=10, percent=percent)
 		return percent if choice is True else bookmark if choice is False else 'cancel'
 
 	def monitor(self):
-		kodi_utils.close_all_dialog()
 		if self.media_type == 'episode':
 			self.play_random_continual = 'random_continual' in self.meta
 			if not self.play_random_continual and self.autoscrape_nextep: self.autoscrape_next_episode = 'random' not in self.meta
 			if not self.play_random_continual and self.autoplay_nextep: self.autoplay_next_episode = 'random' not in self.meta
 			if self.autoplay_nextep and self.autoscrape_nextep: self.autoscrape_next_episode = False
+		while not self.playback_event: kodi_utils.sleep(100)
+		while self.progress_is_alive: self.progress_is_alive.pop()()
+		kodi_utils.close_all_dialog()
 		if self.volume_check: kodi_utils.volume_checker(get_setting('volumecheck.percent', '100'))
-		if not self.subs_searched: self.run_subtitles()
 		kodi_utils.sleep(1000)
 		while self.isPlayingVideo():
 			try:
@@ -172,6 +179,7 @@ class POVPlayer(kodi_utils.xbmc_player):
 						if not self.nextep_started and self.autoscrape_nextep:
 							self.run_scrape_next_ep()
 			except: pass
+			if not self.subs_searched: self.run_subtitles()
 		if not self.media_marked: self.media_watched_marker()
 		ws.clear_local_bookmarks()
 
@@ -249,17 +257,13 @@ class POVPlayer(kodi_utils.xbmc_player):
 		except: pass
 
 	def onAVStarted(self):
-		kodi_utils.clear_property('pov.progress_is_alive')
 		self.playback_event = True
-		try: kodi_utils.close_all_dialog()
-		except: pass
 
 	def onPlayBackStarted(self):
 		try: kodi_utils.hide_busy_dialog()
 		except: pass
 
 	def onPlayBackStopped(self):
-		kodi_utils.clear_property('pov.progress_is_alive')
 		self.playback_event = 'stop'
 
 class Subtitles(kodi_utils.xbmc_player):

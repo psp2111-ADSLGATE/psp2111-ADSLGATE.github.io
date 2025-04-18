@@ -4,6 +4,8 @@ from modules.kodi_utils import translate_path, hide_busy_dialog, dialog, select_
 from modules.settings import get_art_provider, provider_sort_ranks, get_fanart_data
 # from modules.kodi_utils import logger
 
+backup_poster = translate_path('special://home/addons/plugin.video.pov/resources/media/box_office.png')
+backup_fanart = translate_path('special://home/addons/plugin.video.pov/fanart.png')
 media_folder = 'special://home/addons/plugin.video.pov/resources/skins/Default/media/%s'
 info_icons_dict = {
 					'easynews': translate_path(media_folder % 'providers/easynews.png'),
@@ -18,27 +20,26 @@ info_icons_dict = {
 					'pm_cloud': translate_path(media_folder % 'providers/premiumize.png'),
 					'oc_cloud': translate_path(media_folder % 'providers/offcloud.png'),
 					'tb_cloud': translate_path(media_folder % 'providers/torbox.png')}
-info_quality_dict = {'4k': translate_path(media_folder % 'flags/4k.png'),
+info_quality_dict = {
+					'4k': translate_path(media_folder % 'flags/4k.png'),
 					'1080p': translate_path(media_folder % 'flags/1080p.png'),
 					'720p': translate_path(media_folder % 'flags/720p.png'),
 					'sd': translate_path(media_folder % 'flags/sd.png'),
 					'cam': translate_path(media_folder % 'flags/sd.png'),
 					'tele': translate_path(media_folder % 'flags/sd.png'),
 					'scr': translate_path(media_folder % 'flags/sd.png')}
-extra_info_choices = (('PACK', '[B]PACK[/B]'), ('DOLBY VISION', '[B]D/VISION[/B]'), ('HIGH DYNAMIC RANGE (HDR)', '[B]HDR[/B]'), ('HYBRID', '[B]HYBRID[/B]'), ('AV1', '[B]AV1[/B]'),
+extra_info_choices = (
+					('PACK', '[B]PACK[/B]'), ('DOLBY VISION', '[B]D/VISION[/B]'), ('HIGH DYNAMIC RANGE (HDR)', '[B]HDR[/B]'), ('HYBRID', '[B]HYBRID[/B]'), ('AV1', '[B]AV1[/B]'),
 					('HEVC (X265)', '[B]HEVC[/B]'), ('REMUX', 'REMUX'), ('BLURAY', 'BLURAY'), ('SDR', 'SDR'), ('3D', '3D'), ('DOLBY ATMOS', 'ATMOS'), ('DOLBY TRUEHD', 'TRUEHD'),
 					('DOLBY DIGITAL EX', 'DD-EX'), ('DOLBY DIGITAL PLUS', 'DD+'), ('DOLBY DIGITAL', 'DD'), ('DTS-HD MASTER AUDIO', 'DTS-HD MA'), ('DTS-X', 'DTS-X'),
 					('DTS-HD', 'DTS-HD'), ('DTS', 'DTS'), ('ADVANCED AUDIO CODING (AAC)', 'AAC'), ('MP3', 'MP3'), ('8 CHANNEL AUDIO', '8CH'), ('7 CHANNEL AUDIO', '7CH'),
 					('6 CHANNEL AUDIO', '6CH'), ('2 CHANNEL AUDIO', '2CH'), ('DVD SOURCE', 'DVD'), ('WEB SOURCE', 'WEB'), ('MULTIPLE LANGUAGES', 'MULTI-LANG'), ('SUBTITLES', 'SUBS'))
 quality_choices = ('4K', '1080P', '720P', 'SD', 'TELE', 'CAM', 'SCR')
-filter_str, clr_filter_str, extra_info_str, down_file_str, browse_pack_str = ls(32152), ls(32153), ls(32605), ls(32747), ls(33004)
-down_pack_str, cloud_str = ls(32007), ls(32016)
-filters_ignored, start_full_scrape = ls(32686), ls(33023)
+extra_info_str, down_file_str, browse_pack_str, down_pack_str, cloud_str = ls(32605), ls(32747), ls(33004), ls(32007), ls(32016)
+filter_str, clr_filter_str, filters_ignored, start_full_scrape = ls(32152), ls(32153), ls(32686), ls(33023)
 filter_quality, filter_provider, filter_title, filter_extraInfo = ls(32154), ls(32157), ls(32679), ls(32169)
 run_plugin_str = 'RunPlugin(%s)'
 pack_check = ('true', 'show', 'season')
-backup_poster = translate_path('special://home/addons/plugin.video.pov/resources/media/box_office.png')
-backup_fanart = translate_path('special://home/addons/plugin.video.pov/fanart.png')
 string = str
 upper = string.upper
 lower = string.lower
@@ -141,7 +142,7 @@ class SourceResults(BaseDialog):
 								if highlight_type == 0: key = 'torrent_highlight'
 								elif highlight_type == 1: key = provider_lower
 								else: key = basic_quality
-								status = 'UNCHECKED' if get('cache') in ('TI', 'MF') else 'CACHED'
+								status = 'UNCHECKED' if get('cache') in ('TI', 'MF', 'CM') else 'CACHED'
 								set_property('tikiskins.source_type',
 									'%s [B]%s[/B]' % (status, upper(get('package')))
 									if pack else
@@ -183,7 +184,6 @@ class SourceResults(BaseDialog):
 				prescrape_listitem.setProperty('tikiskins.perform_full_search', 'true')
 				prescrape_listitem.setProperty('tikiskins.start_full_scrape', '[B]***%s***[/B]' % upper(start_full_scrape))
 			self.total_results = string(len(self.item_list))
-			self.scrape_time = ls(32675) % '[B]%.2f[/B]' % self.meta.get('scrape_time', '0')
 			if self.prescrape: self.item_list.append(prescrape_listitem)
 		except: pass
 
@@ -197,7 +197,7 @@ class SourceResults(BaseDialog):
 		self.setProperty('tikiskins.plot', self.meta['plot'])
 		self.setProperty('tikiskins.total_results', self.total_results)
 		self.setProperty('tikiskins.filters_ignored', self.filters_ignored)
-		self.setProperty('tikiskins.scrape_time', self.scrape_time)
+		self.setProperty('tikiskins.scrape_time', '%.2f' % self.meta['scrape_time'])
 
 	def original_poster(self):
 		poster = self.meta.get(self.poster_main) or self.meta.get(self.poster_backup) or backup_poster
@@ -397,4 +397,68 @@ class SourceResultsChooser(BaseDialog):
 			listitem.setProperty('tikiskins.window.name', item[0])
 			listitem.setProperty('tikiskins.window.image', item[1])
 			append(listitem)
+
+class ProgressMedia(BaseDialog):
+	def __init__(self, *args, **kwargs):
+		BaseDialog.__init__(self, args)
+		self.is_canceled = False
+		self.selected = None
+		self.meta = kwargs['meta']
+		self.text = kwargs.get('text', '')
+		self.enable_buttons = kwargs.get('enable_buttons', False)
+		self.true_button = kwargs.get('true_button', '')
+		self.false_button = kwargs.get('false_button', '')
+		self.focus_button = kwargs.get('focus_button', 10)
+		self.percent = float(kwargs.get('percent', 0))
+		self.make_items()
+		self.set_properties()
+
+	def onInit(self):
+		if self.enable_buttons: self.allow_buttons()
+
+	def run(self):
+		self.doModal()
+		self.clearProperties()
+		return self.selected
+
+	def iscanceled(self):
+		if self.enable_buttons: return self.selected
+		else: return self.is_canceled
+
+	def onAction(self, action):
+		if action in self.closing_actions:
+			self.is_canceled = True
+			self.close()
+
+	def onClick(self, controlID):
+		self.selected = controlID == 10
+		self.close()
+
+	def allow_buttons(self):
+		self.setProperty('tikiskins.source_progress.buttons', 'true')
+		self.setProperty('tikiskins.source_progress.true_button', self.true_button)
+		self.setProperty('tikiskins.source_progress.false_button', self.false_button)
+		self.update(self.text, self.percent)
+		self.setFocusId(self.focus_button)
+
+	def make_items(self):
+		self.poster_main, self.poster_backup, self.fanart_main, self.fanart_backup = get_art_provider()
+		self.title = self.meta['title']
+		self.year = str(self.meta['year'])
+		self.poster = self.meta.get(self.poster_main) or self.meta.get(self.poster_backup) or translate_path('special://home/addons/plugin.video.pov/resources/media/box_office.png')
+		self.fanart = self.meta.get(self.fanart_main) or self.meta.get(self.fanart_backup) or ''
+		self.clearlogo = self.meta['clearlogo'] if get_fanart_data() else self.meta['tmdblogo'] or ''
+
+	def set_properties(self):
+		self.setProperty('tikiskins.source_progress.title', self.title)
+		self.setProperty('tikiskins.source_progress.year', self.year)
+		self.setProperty('tikiskins.source_progress.poster', self.poster)
+		self.setProperty('tikiskins.source_progress.fanart', self.fanart)
+		self.setProperty('tikiskins.source_progress.clearlogo', self.clearlogo)
+
+	def update(self, content='', percent=0):
+		try:
+			self.getControl(2000).setText(content)
+			self.getControl(5000).setPercent(percent)
+		except: pass
 

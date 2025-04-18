@@ -505,15 +505,38 @@
                     <enable>false</enable>
                 </setting>
             </group>
+            <group id="5" label="32520">
+                <visible>false</visible>
+                <setting id="tmdb_user_token" type="string" label="32011" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <dependencies>
+                        <dependency type="visible">
+                            <condition on="property" name="InfoBool">False</condition>
+                        </dependency>
+                    </dependencies>
+                    <control type="edit" format="string">
+                        <heading>32011</heading>
+                    </control>
+                </setting>
+                <setting id="tmdb_user_token_access" type="boolean" label="32483" help="" parent="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <visible>false</visible>
+                    <enable>false</enable>
+                </setting>
+            </group>
         </category>
         <category id="accounts" label="32470" help="">
             <group id="1" label="32031">
                 <setting id="trakt_token" type="string" label="32011" help="">
                     <level>0</level>
                     <default/>
-                    <constraints>
-                        <allowempty>true</allowempty>
-                    </constraints>
+                    <constraints><allowempty>true</allowempty></constraints>
                     <dependencies>
                         <dependency type="visible">
                             <condition on="property" name="InfoBool">False</condition>
@@ -567,19 +590,24 @@
                         <popup>false</popup>
                     </control>
                 </setting>
+                <setting id="trakt_scrobbling" type="boolean" label="32529" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="trakt_episodetypes" type="boolean" label="32533" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
                 <setting id="trakt_watchedindicators" type="boolean" label="32034" help="">
                     <level>0</level>
                     <default>false</default>
                     <control type="toggle"/>
                 </setting>
-                <setting id="trakt_watchedinprogress" type="boolean" label="32396" help="">
+                <setting id="trakt_playprogress" type="boolean" label="32407" help="">
                     <level>0</level>
-                    <default>true</default>
-                    <dependencies>
-                        <dependency type="enable">
-                            <condition operator="is" setting="trakt_watchedindicators">True</condition>
-                        </dependency>
-                    </dependencies>
+                    <default>false</default>
                     <control type="toggle"/>
                 </setting>
                 <setting id="trakt_sortignorearticle" type="boolean" label="32469" help="">
@@ -590,11 +618,6 @@
                 <setting id="trakt_cacheownlists" type="boolean" label="32463" help="">
                     <level>0</level>
                     <default>true</default>
-                    <control type="toggle"/>
-                </setting>
-                <setting id="trakt_playprogress" type="boolean" label="32407" help="">
-                    <level>0</level>
-                    <default>false</default>
                     <control type="toggle"/>
                 </setting>
             </group>
@@ -758,6 +781,11 @@
                     <default>true</default>
                     <control type="toggle"/>
                 </setting>
+                <setting id="contextmenu_sync_tmdb" type="boolean" label="32522" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
                 <setting id="contextmenu_manage_artwork" type="boolean" label="32222" help="">
                     <level>0</level>
                     <default>true</default>
@@ -826,6 +854,11 @@
                     <default>True</default>
                     <control type="toggle"/>
                 </setting>
+                <setting id="sync_notifications" type="boolean" label="32534" help="">
+                    <level>0</level>
+                    <default>True</default>
+                    <control type="toggle"/>
+                </setting>
                 <setting id="connection_notifications" type="boolean" label="32471" help="">
                     <level>0</level>
                     <default>True</default>
@@ -886,11 +919,6 @@
                     <default>True</default>
                     <control type="toggle"/>
                 </setting>
-                <setting id="trakt_localhack" type="boolean" label="32346" help="">
-                    <level>0</level>
-                    <default>false</default>
-                    <control type="toggle"/>
-                </setting>
                 <setting id="force_recache_kodidb" type="boolean" label="32508" help="">
                     <level>0</level>
                     <default>false</default>
@@ -940,18 +968,6 @@
                     <control type="button" format="path">
                         <heading>32472</heading>
                     </control>
-                </setting>
-                <setting id="mem_cache_level" type="integer" label="32512" help="32464">
-                    <level>0</level>
-                    <default>0</default>
-                    <constraints>
-                        <options>
-                            <option label="13170">0</option>
-                            <option label="32511">1</option>
-                            <option label="20422">2</option>
-                        </options>
-                    </constraints>
-                    <control type="spinner" format="integer"/>
                 </setting>
                 <setting id="delete_cache" type="action" label="32386" help="">
                     <level>0</level>

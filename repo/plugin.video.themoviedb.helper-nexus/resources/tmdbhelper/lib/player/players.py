@@ -10,7 +10,7 @@ from tmdbhelper.lib.items.listitem import ListItem
 from tmdbhelper.lib.api.kodi.rpc import get_directory, KodiLibrary
 from tmdbhelper.lib.player.inputter import KeyboardInputter
 from tmdbhelper.lib.addon.logger import kodi_log
-from threading import Thread
+from tmdbhelper.lib.addon.thread import SafeThread
 
 
 class PlayerHacks():
@@ -110,21 +110,6 @@ class PlayerHacks():
         kodi_log([f'lib.player - playing path with PlayMedia():\n', listitem.getPath()], 1)
         action = f'"{action}"' if ',' in action else action
         executebuiltin(f'PlayMedia({action},playlist_type_hint=1)')
-
-    @staticmethod
-    def playmedia_resendtrakt_hack(listitem):
-        """
-        Re-send local files to player due to "bug" (or maybe "feature") of setResolvedUrl
-        Because setResolvedURL doesn't set id/type (sets None, "unknown" instead) to player for plugins
-        If id/type not set to Player.GetItem things like Trakt don't work correctly.
-        Looking for better solution than this hack.
-        """
-        if not get_setting('trakt_localhack'):
-            return
-        if not listitem.getProperty('is_local') == 'true':
-            return
-        kodi_log(['lib.player - trakt_localhack enabled'], 1)
-        PlayerHacks.playmedia_rerouteplay_hack(listitem.getPath(), listitem)
 
 
 class PlayerMethods():
@@ -430,7 +415,7 @@ class PlayerProperties():
         try:
             return self._thread_external_ids
         except AttributeError:
-            self._thread_external_ids = Thread(target=self.get_external_ids)
+            self._thread_external_ids = SafeThread(target=self.get_external_ids)
             return self._thread_external_ids
 
     @property
@@ -909,7 +894,6 @@ class Players(PlayerProperties, PlayerDetails, PlayerMethods, PlayerHacks):
     def playmedia(self, handle, action, listitem):
         if not action:  # Resolvable file so resolve
             self.playmedia_resolve(handle, listitem)
-            self.playmedia_resendtrakt_hack(listitem)
             return
         if self.is_strm or not get_setting('only_resolve_strm'):  # If we're calling external or using a .strm then we need to resolve to dummy
             self.resolve_to_dummy_hack(handle, self.dummy_duration if get_setting('dummy_waitresolve') else 0, self.dummy_delay)
